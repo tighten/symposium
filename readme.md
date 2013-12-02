@@ -1,2 +1,2 @@
-## Markstyle 
-Tracking & managing Marked styles
+## Markedstyle 
+Tracking & managing custom styles for Marked App
