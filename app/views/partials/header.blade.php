@@ -2,12 +2,11 @@
 			<div class="container">
 				<div class="primary-header__title">
 					<button type="button" class="primary-header__toggle" data-toggle="collapse" data-target=".primary-header__collapse">
-						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a href="/" class="navbar-brand"><h1>Markedstyle</h1></a>
+					<a href="/" class="logo"><h1>Markedstyle</h1></a>
 				</div>
 				<div class="primary-header__collapse">
 					<nav>

@@ -25,6 +25,7 @@ Route::post('/login', function()
 {
     if (Auth::attempt( array('email' => Input::get('email'), 'password' => Input::get('password')) ))
     {
+    	Session::flash('message', 'Successfully logged in.');
     	return Redirect::intended('/');
     }
 
@@ -34,6 +35,7 @@ Route::post('/login', function()
 
 Route::get('/logout', function()
 {
+	Session::flash('message', 'Successfully logged out.');
 	Auth::logout();
 
 	return Redirect::to('/');

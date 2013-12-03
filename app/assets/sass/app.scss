@@ -1,14 +1,23 @@
 @import "bootstrap.min";
 
+
+/* Build our stylesheet, which currently merely extends bootstrap styles. */
 body {
-	padding-top: 9em;
-	padding-bottom: 1.5em;
+}
+
+.logo {
+	@extend .navbar-brand;
+}
+
+.container {
+	@extend .container;
+	position: relative;
 }
 
 .primary-header {
 	@extend .navbar;
 	@extend .navbar-inverse;
-	@extend .navbar-fixed-top;
+	@extend .navbar-static-top;
 }
 	.primary-header__title {
 		@extend .navbar-header;
@@ -25,4 +34,66 @@ body {
 		@extend .navbar-nav;
 		@extend .navbar-right;
 		margin-top: 2em;
+	}
+
+.icon-bar {
+	@extend .icon-bar;
+}
+
+%notice {
+	@extend .alert;
+	margin-top: -1em;
+	position: absolute;
+	width: 100%;
+	z-index: 200;
+}
+	.notice-success {
+		@extend %notice;
+		@extend .alert-success;
+	}
+	.notice-error {
+		@extend %notice;
+		@extend .alert-danger;
+	}
+	.notice-info {
+		@extend %notice;
+		@extend .alert-info;
+	}
+
+.hero {
+	@extend .jumbotron;
+}
+
+.button {
+	@extend .btn;
+}
+	.button--large {
+		@extend .btn-lg;
+	}
+	.button--primary {
+		@extend .btn-primary;
+	}
+	.button--default {
+		@extend .btn-default;
+	}
+
+.row {
+	@extend .row; // INCEPTION UP IN THIS PIECE
+}
+	.col-third {
+		@extend .col-md-4;
+	}
+
+.login-form {
+	@extend .form-horizontal;
+}
+
+.control-group {
+	@extend .control-group;
+}
+	.control-label {
+		@extend .control-label;
+	}
+	.controls {
+		@extend .controls;
 	}
