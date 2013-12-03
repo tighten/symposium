@@ -16,33 +16,9 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('/login', function()
-{
-    return View::make('user.login');
-});
+Route::get('login', 'AuthController@getLogin');
+Route::post('login', 'AuthController@postLogin');
+Route::get('logout', 'AuthController@logout');
+Route::get('account', 'AuthController@account');
 
-Route::post('/login', function()
-{
-    if (Auth::attempt( array('email' => Input::get('email'), 'password' => Input::get('password')) ))
-    {
-    	Session::flash('message', 'Successfully logged in.');
-    	return Redirect::intended('/');
-    }
-
-	Session::flash('error-message', 'Invalid login credentials.');
-	return Redirect::to('/login');
-});
-
-Route::get('/logout', function()
-{
-	Session::flash('message', 'Successfully logged out.');
-	Auth::logout();
-
-	return Redirect::to('/');
-});
-
-Route::get('/account', array('before' => 'auth', function()
-{
-	return View::make('user.account');
-}));
-
+Route::resource('style', 'StylesController');
