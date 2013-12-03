@@ -24,6 +24,7 @@ body {
 	}
 	.primary-header__toggle {
 		@extend .navbar-toggle;
+		margin-top: 2.5em;
 	}
 	.primary-header__collapse {
 		@extend .navbar-collapse;

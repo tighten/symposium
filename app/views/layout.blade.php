@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		{{ stylesheet('app.css') }}
+		{{ stylesheet() }}
 		<title>Markedstyle</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!--[if lt IE 9]>
