@@ -1,0 +1,28 @@
+@import "bootstrap.min";
+
+body {
+	padding-top: 9em;
+	padding-bottom: 1.5em;
+}
+
+.primary-header {
+	@extend .navbar;
+	@extend .navbar-inverse;
+	@extend .navbar-fixed-top;
+}
+	.primary-header__title {
+		@extend .navbar-header;
+	}
+	.primary-header__toggle {
+		@extend .navbar-toggle;
+	}
+	.primary-header__collapse {
+		@extend .navbar-collapse;
+		@extend .collapse;
+	}
+	.primary-header__meta-nav {
+		@extend .nav;
+		@extend .navbar-nav;
+		@extend .navbar-right;
+		margin-top: 2em;
+	}

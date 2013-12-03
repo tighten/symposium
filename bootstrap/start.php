@@ -26,11 +26,14 @@ $app->redirectIfTrailingSlash();
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('your-machine-name'),
-
-));
+$env = $app->detectEnvironment(function()
+{
+	if (isset($_SERVER['MARKEDSTYLE_ENV'])) {
+	    return $_SERVER['MARKEDSTYLE_ENV'];
+	} else {
+		return 'local';
+	}
+});
 
 /*
 |--------------------------------------------------------------------------

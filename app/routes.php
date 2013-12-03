@@ -13,5 +13,34 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('home');
 });
+
+Route::get('/login', function()
+{
+    return View::make('user.login');
+});
+
+Route::post('/login', function()
+{
+    if (Auth::attempt( array('email' => Input::get('email'), 'password' => Input::get('password')) ))
+    {
+    	return Redirect::intended('/');
+    }
+
+	Session::flash('error-message', 'Invalid login credentials.');
+	return Redirect::to('/login');
+});
+
+Route::get('/logout', function()
+{
+	Auth::logout();
+
+	return Redirect::to('/');
+});
+
+Route::get('/account', array('before' => 'auth', function()
+{
+	return View::make('user.account');
+}));
+
