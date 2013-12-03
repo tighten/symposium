@@ -1,10 +1,14 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "mattstauffer/markedstyle",
+	"description": "Marked Style",
+	"keywords": ["markdown", "marked", "markedapp", "themes"],
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*"
+	},
+	"require-dev": {
+		"way/guard-laravel": "*",
+		"way/generators": "1.*"
 	},
 	"autoload": {
 		"classmap": [
