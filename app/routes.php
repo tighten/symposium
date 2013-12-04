@@ -21,4 +21,7 @@ Route::post('login', 'AuthController@postLogin');
 Route::get('logout', 'AuthController@logout');
 Route::get('account', 'AuthController@account');
 
-Route::resource('style', 'StylesController');
+Route::resource('styles', 'StylesController');
+Route::resource('authors', 'AuthorsController');
+
+Route::get('styles/preview/{id}', 'StylesController@preview');

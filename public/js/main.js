@@ -13,4 +13,13 @@ $(function() {
 			$dismiss_target.slideToggle()
 		}, timeout_len);
 	});
+	$('[data-tab-toggle]').on('click', function() {
+		var target = $(this).attr('data-tab-toggle');
+
+		$('.tab').removeClass('active');
+		$(target).addClass('active');
+
+		$(this).closest('ul').find('li').removeClass('active');
+		$(this).closest('li').addClass('active');
+	});
 });

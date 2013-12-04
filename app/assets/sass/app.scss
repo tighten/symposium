@@ -98,3 +98,31 @@ body {
 	.controls {
 		@extend .controls;
 	}
+
+.css-source, .tab-preview iframe {
+	border: 1px solid #aaa;
+	height: 40rem;
+	width: 100%;
+}
+
+.css-source {
+	font-family: console, sans-serif;
+	font-size: 0.9em;
+	height: 40rem;
+	padding: 1em;
+}
+
+.tab-source, .tab-preview {
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}
+	.tab-preview iframe {
+	}
+
+.tab-nav {
+	@extend .nav;
+	@extend .nav-tabs;
+}

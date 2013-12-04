@@ -1,22 +1,37 @@
 <?php
 
+use dflydev\markdown\MarkdownExtraParser;
+
 class StylesController extends BaseController
 {
 	public function __construct()
 	{
-		$this->beforeFilter('auth', array(
-			'only' => array('create', 'create', 'edit', 'update', 'destroy')
-		));
+		$this->beforeFilter(
+			'auth',
+			array(
+				'only' => array(
+					'create',
+					'store',
+					'edit',
+					'update',
+					'destroy'
+				)
+			)
+		);
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display all styles
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-        return View::make('styles.index');
+		// @todo: Limit this to just the needed attributes
+		$styles = Style::all();
+
+		return View::make('styles.index')
+			->with('styles', $styles);
 	}
 
 	/**
@@ -26,7 +41,7 @@ class StylesController extends BaseController
 	 */
 	public function create()
 	{
-        return View::make('styles.create');
+		return View::make('styles.create');
 	}
 
 	/**
@@ -47,7 +62,11 @@ class StylesController extends BaseController
 	 */
 	public function show($id)
 	{
-        return View::make('styles.show');
+		$style = Style::find($id);
+
+        return View::make('styles.show')
+        	->with('style', $style)
+        	->with('author', $style->author);
 	}
 
 	/**
@@ -58,7 +77,7 @@ class StylesController extends BaseController
 	 */
 	public function edit($id)
 	{
-        return View::make('styles.edit');
+		return View::make('styles.edit');
 	}
 
 	/**
@@ -83,4 +102,26 @@ class StylesController extends BaseController
 		//
 	}
 
+	/**
+	 * Preview style
+	 * 
+	 * @param  int $id Style #
+	 */
+	public function preview($id)
+	{
+		$style = Style::find($id);
+
+		// Dflydev/markdown couldn't handle some of the more complex md code
+		// $preview_content = File::get('../app/views/styles/preview.md');
+
+		// $markdownParser = new MarkdownExtraParser();
+
+		// $preview = $markdownParser->transformMarkdown($preview_content);
+		
+		$preview = File::get('../app/views/styles/preview.html');
+
+		return View::make('styles.preview')
+			->with('style', $style)
+			->with('preview', $preview);
+	}
 }

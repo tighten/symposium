@@ -56,4 +56,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	/**
+	 * Get this author's styles
+	 */
+	public function styles()
+	{
+		return $this->hasMany('Style', 'author_id');
+	}
+
 }
