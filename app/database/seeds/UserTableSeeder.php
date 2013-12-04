@@ -31,6 +31,12 @@ class UserTableSeeder extends Seeder {
 				'first_name' => 'Brett',
 				'last_name' => 'Terpstra'
 			),
+			array(
+				'email' => 'jonathan@candlerblog.com', // No idea
+				'password' => Hash::make('magical password for non-real user that no one will ever guess'),
+				'first_name' => 'Jonathan',
+				'last_name' => 'Poritsky'
+			),
 		));
 	}
 }
