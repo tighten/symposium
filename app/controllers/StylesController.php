@@ -31,7 +31,11 @@ class StylesController extends BaseController
 		$styles = Style::all();
 
 		return View::make('styles.index')
-			->with('styles', $styles);
+			->with('styles', $styles->sortBy(function($style)
+				{
+					return $style->title;
+				})
+			);
 	}
 
 	/**

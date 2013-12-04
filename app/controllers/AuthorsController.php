@@ -44,7 +44,11 @@ class AuthorsController extends BaseController
 
 		return View::make('authors.show')
 			->with('author', $author)
-			->with('styles', $author->styles);
+			->with('styles', $author->styles->sortBy(function($style)
+				{
+					return $style->title;
+				})
+			);
 	}
 
 	/**
