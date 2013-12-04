@@ -4,7 +4,8 @@
 	"keywords": ["markdown", "marked", "markedapp", "themes"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*"
+		"laravel/framework": "4.0.*",
+		"juy/profiler": "dev-master"
 	},
 	"require-dev": {
 		"way/guard-laravel": "*",

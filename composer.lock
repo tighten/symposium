@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "39c7e9bde9b5ee96f4e8c9e25e0f9075",
+    "hash": "068a782a229912f8e8808a3b907abe87",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -51,65 +51,6 @@
                 "preload"
             ],
             "time": "2013-06-24 22:58:34"
-        },
-        {
-            "name": "dflydev/markdown",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dflydev/dflydev-markdown.git",
-                "reference": "6baed9b50f29c980795b6656d43722aadb126f7e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dflydev/dflydev-markdown/zipball/6baed9b50f29c980795b6656d43722aadb126f7e",
-                "reference": "6baed9b50f29c980795b6656d43722aadb126f7e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "dflydev\\markdown": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Dragonfly Development Inc.",
-                    "email": "info@dflydev.com",
-                    "homepage": "http://dflydev.com"
-                },
-                {
-                    "name": "Beau Simensen",
-                    "email": "beau@dflydev.com",
-                    "homepage": "http://beausimensen.com"
-                },
-                {
-                    "name": "Michel Fortin",
-                    "homepage": "http://michelf.com"
-                },
-                {
-                    "name": "John Gruber",
-                    "homepage": "http://daringfireball.net"
-                }
-            ],
-            "description": "PHP Markdown & Extra",
-            "homepage": "http://github.com/dflydev/dflydev-markdown",
-            "keywords": [
-                "markdown"
-            ],
-            "time": "2013-09-23 12:00:18"
         },
         {
             "name": "doctrine/annotations",
@@ -729,6 +670,52 @@
                 "tokenizer"
             ],
             "time": "2013-10-09 04:20:00"
+        },
+        {
+            "name": "juy/profiler",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/juy/profiler.git",
+                "reference": "2fc6f0998eadb25994d839c0d18335214ee6f2fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/juy/profiler/zipball/2fc6f0998eadb25994d839c0d18335214ee6f2fb",
+                "reference": "2fc6f0998eadb25994d839c0d18335214ee6f2fb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Juy\\Profiler": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sevdin Filiz",
+                    "email": "angelside@users.sourceforge.net",
+                    "homepage": "http://juysoft.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A profiler for Laravel 4.",
+            "homepage": "http://github.com/juy/profiler",
+            "keywords": [
+                "anbu",
+                "debug bar",
+                "laravel",
+                "profiler"
+            ],
+            "time": "2013-09-29 20:11:48"
         },
         {
             "name": "laravel/framework",
@@ -2080,9 +2067,9 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "juy/profiler": 20
+    },
     "platform": [
 
     ],
