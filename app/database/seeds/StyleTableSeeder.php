@@ -1216,6 +1216,36 @@ Download @font-face kits from <http://www.fontsquirrel.com/fontface>. Woff versi
 				'format' => 'css',
 				'author_id' => '5'
 			),
+			array(
+				'title' => 'Manuscript',
+				'slug' => 'manuscript',
+				'description' => 'Courier, Double-spaced, paragraph indent. Use `###### #` to create "#" centered dividers',
+				'source' => File::get('app/assets/default-styles/manuscript.css'),
+				'format' => 'css',
+				'author_id' => '4'
+			),
+			array(
+				'title' => 'Swiss',
+				'slug' => 'swiss',
+				'description' => 'Clean, Swiss typography with no frills.',
+				'source' => File::get('app/assets/default-styles/swiss.css'),
+				'format' => 'css',
+				'author_id' => '4'
+			),
+			array(
+				'title' => 'Upstanding Citizen',
+				'slug' => 'upstanding-citizen',
+				'description' => 'A modern layout with bold headlines
+Non-standard fonts used:
+	* OSPDIN
+	* League Gothic
+	* Fjord
+	* Inconsolata
+Download @font-face kits from <http://www.fontsquirrel.com/fontface>. Woff versions included as data uris.',
+				'source' => File::get('app/assets/default-styles/UpstandingCitizen.css'),
+				'format' => 'css',
+				'author_id' => '4'
+			),
 /* Sample
 			array(
 				'title' => '',
