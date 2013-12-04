@@ -10,6 +10,11 @@
 
 	<br><br>
 
-	Styles
+	Styles<br>
+	<ul>
+	@foreach($author->styles as $style)
+		<li><a href="/styles/{{ $style->id }}">{{ $style->title }}</a></li>
+	@endforeach
+	</ul>
 </div>
 @stop

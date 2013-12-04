@@ -43,7 +43,8 @@ class AuthorsController extends BaseController
 		$author = User::find($id);
 
 		return View::make('authors.show')
-			->with('author', $author);
+			->with('author', $author)
+			->with('styles', $author->styles);
 	}
 
 	/**
