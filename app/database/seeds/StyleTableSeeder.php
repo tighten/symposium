@@ -1179,8 +1179,43 @@ code {
 }',
 				'format' => 'css',
 				'author_id' => '4'
-			)
-
+			),
+			array(
+				'title' => 'Amblin',
+				'slug' => 'amblin',
+				'description' => 'A clean theme with bold headlines and carefully crafted typography.
+Non-standard fonts used:
+	* Rockwell (Installed by Microsoft Office)
+	* Rokkit (Fallback, available at <http://www.fontsquirrel.com/fontface>)
+Download @font-face kits from <http://www.fontsquirrel.com/fontface>. Woff versions included as data uris.',
+				'source' => File::get('app/assets/default-styles/amblin.css'),
+				'format' => 'css',
+				'author_id' => '5'
+			),
+			array(
+				'title' => 'Antique',
+				'slug' => 'antique',
+				'description' => 'An "antiqued" theme with off-white background and serif typography',
+				'source' => File::get('app/assets/default-styles/antique.css'),
+				'format' => 'css',
+				'author_id' => '4'
+			),
+			array(
+				'title' => 'Github',
+				'slug' => 'github',
+				'description' => 'Github README style. Includes theme for Pygmentized code blocks.',
+				'source' => File::get('app/assets/default-styles/github.css'),
+				'format' => 'css',
+				'author_id' => '4'
+			),
+			array(
+				'title' => 'Lopash',
+				'slug' => 'lopash',
+				'description' => 'Clean, bouyant fonts and highly readable text',
+				'source' => File::get('app/assets/default-styles/Lopash.css'),
+				'format' => 'css',
+				'author_id' => '5'
+			),
 /* Sample
 			array(
 				'title' => '',

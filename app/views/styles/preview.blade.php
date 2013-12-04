@@ -13,6 +13,8 @@
 		</style>
 	</head>
 	<body>
-		{{ $preview }}
+		<div id="wrapper">
+			{{ $preview }}
+		</div>
 	</body>
 </html>
