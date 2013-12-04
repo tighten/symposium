@@ -26,6 +26,8 @@ class CreateStylesTable extends Migration
 				// ->on('users');
 			$table->timestamps();
 		});
+
+		DB::statement('ALTER TABLE `styles` MODIFY `source` LONGTEXT;');
 	}
 
 
