@@ -9,25 +9,6 @@ class StyleTableSeeder extends Seeder
 
 		$styles = array(
 			array(
-				'title' => 'My Amazing Style',
-				'slug' => 'my-amazing-style',
-				'description' => 'The most amazing style *ever*.',
-				'source' => '/*
-   This document has been created with Marked.app <http://marked2app.com>
-   Please leave this notice in place, along with any additional credits below.
-   ---------------------------------------------------------------
-   Title: My Amazing Style
-   Author: Matt Stauffer <http://markedstyle.com>
-   Description: The most amazing style ever
-*/
-
-   body {
-   	background: red;
-   }',
-	   			'format' => 'css',
-	   			'author_id' => '1'
-			),
-			array(
 				'title' => 'Avenue',
 				'slug' => 'avenue',
 				'description' => 'modern retro',
