@@ -66,7 +66,7 @@ class StylesController extends BaseController
 	 */
 	public function show($id)
 	{
-		$style = Style::find($id);
+		$style = Style::where('slug', $id)->firstOrFail();
 
         return View::make('styles.show')
         	->with('style', $style)
