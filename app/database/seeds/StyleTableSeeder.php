@@ -1159,7 +1159,7 @@ code {
 	background: rgb(224,232,228);
 }',
 				'format' => 'css',
-				'author_id' => '4'
+				'author_id' => '5'
 			),
 			array(
 				'title' => 'Amblin',
@@ -1171,7 +1171,7 @@ Non-standard fonts used:
 Download @font-face kits from <http://www.fontsquirrel.com/fontface>. Woff versions included as data uris.',
 				'source' => File::get('app/assets/default-styles/amblin.css'),
 				'format' => 'css',
-				'author_id' => '5'
+				'author_id' => '6'
 			),
 			array(
 				'title' => 'Antique',
@@ -1195,7 +1195,7 @@ Download @font-face kits from <http://www.fontsquirrel.com/fontface>. Woff versi
 				'description' => 'Clean, bouyant fonts and highly readable text',
 				'source' => File::get('app/assets/default-styles/Lopash.css'),
 				'format' => 'css',
-				'author_id' => '5'
+				'author_id' => '6'
 			),
 			array(
 				'title' => 'Manuscript',

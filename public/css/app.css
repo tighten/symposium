@@ -5080,8 +5080,8 @@ th.hidden-lg, td.hidden-lg {
   width: 100%; }
 
 .css-source {
-  font-family: console, sans-serif;
-  font-size: 0.9em;
+  font-family: "Consolas", "Courier New", "Courier", sans-serif;
+  font-size: 0.8em;
   height: 40rem;
   padding: 1em; }
 
