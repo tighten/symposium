@@ -4,3 +4,4 @@ composer.phar
 .DS_Store
 Thumbs.db
 .sass-cache/
+/app/config/production/database.php
