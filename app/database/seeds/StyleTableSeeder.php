@@ -1239,6 +1239,11 @@ Download @font-face kits from <http://www.fontsquirrel.com/fontface>. Woff versi
 */
 		);
 
+    foreach ($styles as &$style) {
+      $style['created_at'] = new DateTime;
+      $style['updated_at'] = new DateTime;
+    }
+
 		DB::table('styles')
 			->insert($styles);
 	}

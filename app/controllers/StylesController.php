@@ -28,14 +28,14 @@ class StylesController extends BaseController
 	public function index()
 	{
 		// @todo: Limit this to just the needed attributes
-		$styles = Style::all();
+		if (Input::get('sort') && Input::get('sort') == 'date') {
+			$styles = Style::orderBy('created_at', 'DESC')->get();
+		} else {
+			$styles = Style::orderBy('title', 'ASC')->get();
+		}
 
 		return View::make('styles.index')
-			->with('styles', $styles->sortBy(function($style)
-				{
-					return $style->title;
-				})
-			);
+			->with('styles', $styles);
 	}
 
 	/**

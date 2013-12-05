@@ -3,13 +3,15 @@
 @section('content')
 
 <div class="container">
+	<a href="/styles">&lt;&lt; All styles</a>
 
 	<h1>{{ $style->title }}</h1>
 
 	<p><b>Author:</b> 
 	<a href="/authors/{{ $author->id }}">{{ $author->first_name }} {{ $author->last_name }}</a></p>
 
-
+	<p><b>Date uploaded:</b>
+	{{ $style->created_at->toFormattedDateString() }}</p>
 
 	<ul class="tab-nav">
 		<li class="active"><a href="#" data-tab-toggle="#tab-preview">Preview</a></li>
