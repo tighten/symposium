@@ -152,3 +152,18 @@ a {
 		font-size: .9em;
 	}
 }
+
+.actions-box {
+	@media only screen and (min-width: 768px) {
+		float: right;
+		width: 20%;
+	}
+}
+
+.footer {
+	margin-top: 4em;
+}
+
+.errors {
+	color: red;
+}

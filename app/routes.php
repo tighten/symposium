@@ -22,10 +22,15 @@ Route::get('how-do-i', function() {
 
 Route::get('log-in', 'AuthController@getLogin');
 Route::post('log-in', 'AuthController@postLogin');
-Route::get('logout', 'AuthController@logout');
-Route::get('account', 'AuthController@account');
+Route::get('log-out', 'AuthController@logout');
+
+Route::get('account', 'AccountController@show');
+Route::get('account/edit', 'AccountController@edit');
+Route::post('account/edit', 'AccountController@update');
+Route::get('account/delete', 'AccountController@delete');
+Route::post('account/delete', 'AccountController@destroy');
+
+Route::get('styles/preview/{id}', 'StylesController@preview');
 
 Route::resource('styles', 'StylesController');
 Route::resource('authors', 'AuthorsController');
-
-Route::get('styles/preview/{id}', 'StylesController@preview');

@@ -102,6 +102,17 @@ class StylesController extends BaseController
 	}
 
 	/**
+	 * Show the confirmation for deleting the specified resource
+	 * 
+	 * @param  int  $id
+	 * @return Resource
+	 */
+	public function delete($id)
+	{
+
+	}
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id

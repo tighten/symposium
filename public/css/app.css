@@ -5106,3 +5106,14 @@ a {
 .list-styles .style-meta {
   color: #666;
   font-size: .9em; }
+
+@media only screen and (min-width: 768px) {
+  .actions-box {
+    float: right;
+    width: 20%; } }
+
+.footer {
+  margin-top: 4em; }
+
+.errors {
+  color: red; }

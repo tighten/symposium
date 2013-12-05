@@ -7,6 +7,7 @@ An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), b
 Wishlist:  
 
   * User creation & login
+  * <strike>User editing & deletion</strike>
   * Allow pre-created users to create passwords
   * Allow users to add new styles
   * Allow users to edit old styles, with version history
@@ -19,3 +20,5 @@ Wishlist:
   * More beautiful listing page
   * Drop reliance on Bootstrap
   * Audit for Laravel best practices (for learning's sake)
+  * Prettify account view/edit
+  * 

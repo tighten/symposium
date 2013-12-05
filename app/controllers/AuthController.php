@@ -31,9 +31,4 @@ class AuthController extends BaseController
 
 		return Redirect::to('/');
 	}
-
-	public function account()
-	{
-		return View::make('user.account');
-	}
 }
