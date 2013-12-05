@@ -28,8 +28,8 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(function()
 {
-	if (isset($_SERVER['MARKEDSTYLE_ENV'])) {
-	    return $_SERVER['MARKEDSTYLE_ENV'];
+	if (getenv('MARKEDSTYLE_ENV')) {
+	    return getenv('MARKEDSTYLE_ENV');
 	} else {
 		// Would like for it to default to local but don't want to fight ENV right now
 		return 'production';
