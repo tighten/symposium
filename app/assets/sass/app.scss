@@ -1,8 +1,20 @@
 @import "bootstrap.min";
 
+$link_color: #428bca;
+
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
 body {
+}
+
+a {
+	color: $link_color;
+	text-decoration: none;
+
+	&:hover {
+		color: darken($link_color, 15%);
+		text-decoration: underline;
+	}
 }
 
 .logo {
@@ -90,13 +102,11 @@ body {
 }
 
 .control-group {
-	@extend .control-group;
 }
 	.control-label {
 		@extend .control-label;
 	}
 	.controls {
-		@extend .controls;
 	}
 
 .css-source, .tab-preview iframe {
@@ -125,4 +135,20 @@ body {
 .tab-nav {
 	@extend .nav;
 	@extend .nav-tabs;
+}
+
+.list-styles {
+	li {
+		margin-bottom: .25em;
+	}
+	h3 {
+		font-size: 1.5em;
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	.style-meta {
+		color: #666;
+		font-size: .9em;
+	}
 }
