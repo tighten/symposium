@@ -5059,6 +5059,13 @@ th.hidden-lg, td.hidden-lg {
   .hidden-print, tr.hidden-print, th.hidden-print, td.hidden-print {
     display: none !important; } }
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
+a {
+  color: #428bca;
+  text-decoration: none; }
+  a:hover {
+    color: #2a6496;
+    text-decoration: underline; }
+
 .container {
   position: relative; }
 
@@ -5089,3 +5096,13 @@ th.hidden-lg, td.hidden-lg {
   display: none; }
   .tab-source.active, .tab-preview.active {
     display: block; }
+
+.list-styles li {
+  margin-bottom: .25em; }
+.list-styles h3 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+  margin-top: 0; }
+.list-styles .style-meta {
+  color: #666;
+  font-size: .9em; }
