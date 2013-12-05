@@ -27,15 +27,21 @@ class StylesController extends BaseController
 	 */
 	public function index()
 	{
+		$sorting_date_style = $sorting_alpha_style = '';
+
 		// @todo: Limit this to just the needed attributes
 		if (Input::get('sort') && Input::get('sort') == 'date') {
 			$styles = Style::orderBy('created_at', 'DESC')->get();
+			$sorting_date_style = 'style="font-weight: bold;"';
 		} else {
 			$styles = Style::orderBy('title', 'ASC')->get();
+			$sorting_alpha_style = 'style="font-weight: bold;"';
 		}
 
 		return View::make('styles.index')
-			->with('styles', $styles);
+			->with('styles', $styles)
+			->with('sorting_date_style', $sorting_date_style)
+			->with('sorting_alpha_style', $sorting_alpha_style);
 	}
 
 	/**

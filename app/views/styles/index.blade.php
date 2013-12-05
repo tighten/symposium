@@ -5,7 +5,7 @@
 <div class="container">
 
 	<h2>All Styles</h2>
-	<p><a href="/styles?sort=date">Sort by Date</a> | <a href="/styles?sort=alpha">Sort Alphabetically</a></p>
+	<p><a href="/styles?sort=date"{{ $sorting_date_style }}>Sort by Date</a> | <a href="/styles?sort=alpha"{{ $sorting_alpha_style }}>Sort Alphabetically</a></p>
 	<ul class="list-styles">
 		@foreach($styles as $style)
 		<li><h3><a href="/styles/{{ $style->slug }}">{{ $style->title }}</a></h3>

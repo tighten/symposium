@@ -2,7 +2,6 @@
 
 class StyleTableSeeder extends Seeder
 {
-	// SAVE ME THIS FILE IS SO UGLY
 	public function run()
 	{
 		DB::table('styles')->truncate();
