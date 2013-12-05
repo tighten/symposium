@@ -7,11 +7,9 @@ $(function() {
 		$(target).toggle();
 	});
 
-	$('[data-dismiss=timeout]').each( function( e ) {
+	$('[data-dismiss=timeout]').each( function() {
 		var timeout_len = 2000,
 			$dismiss_target = $(this);
-		
-		e.preventDefault();
 
 		setTimeout(function()
 		{

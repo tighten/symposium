@@ -7,7 +7,8 @@
 		<li><a href="/logout">Log out</a></li>
 		@else
 		<li><a href="/how-do-i">How do I...</a></li>
-		{{-- <li><a href="/login">Log in</a></li> --}}
+		<li><a href="/log-in">Log in</a></li>
+		<li><a href="/sign-up">Sign up</a></li>
 		@endif
 	</ul>
 </nav>

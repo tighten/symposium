@@ -9,7 +9,7 @@ class AuthController extends BaseController
 
 	public function getLogin()
 	{
-		return View::make('user.login');
+		return View::make('user.log-in');
 	}
 
 	public function postLogin()
@@ -21,7 +21,7 @@ class AuthController extends BaseController
 		}
 
 		Session::flash('error-message', 'Invalid login credentials.');
-		return Redirect::to('/login');
+		return Redirect::to('log-in');
 	}
 
 	public function logout()

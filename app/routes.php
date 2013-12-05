@@ -20,8 +20,8 @@ Route::get('how-do-i', function() {
 	return View::make('how-do-i');
 });
 
-Route::get('login', 'AuthController@getLogin');
-Route::post('login', 'AuthController@postLogin');
+Route::get('log-in', 'AuthController@getLogin');
+Route::post('log-in', 'AuthController@postLogin');
 Route::get('logout', 'AuthController@logout');
 Route::get('account', 'AuthController@account');
 
