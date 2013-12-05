@@ -16,6 +16,10 @@ Route::get('/', function()
 	return View::make('home');
 });
 
+Route::get('how-do-i', function() {
+	return View::make('how-do-i');
+});
+
 Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
 Route::get('logout', 'AuthController@logout');

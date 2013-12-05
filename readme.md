@@ -12,6 +12,7 @@ Wishlist:
   * Allow users to edit old styles, with version history
   * Frontend style version history
   * Allow voting
+  * Allow for upload of raw SCSS/Sass
   * Password reset
   * "Copy source" button
   * More beautiful landing page

@@ -6,6 +6,7 @@
 		<li><a href="/account">Account</a></li>
 		<li><a href="/logout">Log out</a></li>
 		@else
+		<li><a href="/how-do-i">How do I...</a></li>
 		{{-- <li><a href="/login">Log in</a></li> --}}
 		@endif
 	</ul>
