@@ -6,6 +6,7 @@ $(function() {
 
 		$(target).toggle();
 	});
+
 	$('[data-dismiss=timeout]').each( function( e ) {
 		var timeout_len = 2000,
 			$dismiss_target = $(this);
@@ -17,6 +18,7 @@ $(function() {
 			$dismiss_target.slideToggle()
 		}, timeout_len);
 	});
+	
 	$('[data-tab-toggle]').on('click', function( e ) {
 		var target = $(this).attr('data-tab-toggle');
 
