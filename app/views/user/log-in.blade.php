@@ -2,22 +2,23 @@
 
 @section('content')
 <div class="container">
-	<form class="login-form" method="post" action="/log-in">
+	{{ Form::open(array('url' => 'log-in')) }} 
 		<h2>Log in</h2>
-		<div class="control-group">
-			<label class="control-label" for="email">Email:</label>
-			<div class="controls">
-				<input type="text" id="email" name="email" placeholder="Email address" value="">
+		<div>
+			{{ Form::label('email') }}
+			<div>
+				{{ Form::text('email')}}
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="password">Password:</label>
-			<div class="controls">
-				<input type="password" id="password" name="password" placeholder="Password" value="">
+		<div>
+			{{ Form::label('password') }}
+			<div>
+				{{ Form::password('password')}}
 			</div>
 		</div>
 		<br>
-		<button class="button button--primary" type="submit">Sign in</button>
-	</form>
+
+		{{ Form::submit('Sign in', array('class' => 'button button--primary')) }}
+	{{ Form::close() }}
 </div>
 @stop

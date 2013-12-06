@@ -1569,34 +1569,34 @@ textarea.input-lg {
   .form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"] {
     float: none;
     margin-left: 0; } }
-.form-horizontal .control-label, .login-form .control-label, .form-horizontal .radio, .login-form .radio, .form-horizontal .checkbox, .login-form .checkbox, .form-horizontal .radio-inline, .login-form .radio-inline, .form-horizontal .checkbox-inline, .login-form .checkbox-inline {
+.form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0; }
 
-.form-horizontal .form-group, .login-form .form-group {
+.form-horizontal .form-group {
   margin-right: -15px;
   margin-left: -15px; }
 
-.form-horizontal .form-group:before, .login-form .form-group:before, .form-horizontal .form-group:after, .login-form .form-group:after {
+.form-horizontal .form-group:before, .form-horizontal .form-group:after {
   display: table;
   content: " "; }
 
-.form-horizontal .form-group:after, .login-form .form-group:after {
+.form-horizontal .form-group:after {
   clear: both; }
 
-.form-horizontal .form-group:before, .login-form .form-group:before, .form-horizontal .form-group:after, .login-form .form-group:after {
+.form-horizontal .form-group:before, .form-horizontal .form-group:after {
   display: table;
   content: " "; }
 
-.form-horizontal .form-group:after, .login-form .form-group:after {
+.form-horizontal .form-group:after {
   clear: both; }
 
-.form-horizontal .form-control-static, .login-form .form-control-static {
+.form-horizontal .form-control-static {
   padding-top: 7px; }
 
 @media (min-width: 768px) {
-  .form-horizontal .control-label, .login-form .control-label {
+  .form-horizontal .control-label {
     text-align: right; } }
 .btn, .button {
   display: inline-block;

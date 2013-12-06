@@ -12,11 +12,11 @@
 	</div>
 
 	<h3>User</h3>
-	First Name: {{ $user->first_name }}<br>
-	Last name: {{ $user->last_name }}<br>
-	Email: {{ $user->email }}<br>
-	Twitter: {{ $user->twitter }}<br>
-	URL: {{ $user->url }}<br>
+	<b>First Name:</b> {{ $user->first_name }}<br>
+	<b>Last name:</b> {{ $user->last_name }}<br>
+	<b>Email:</b> {{ $user->email }}<br>
+	<b>Twitter:</b> {{ $user->twitter }}<br>
+	<b>URL:</b> {{ $user->url }}<br>
 
 	<h3>Styles</h3>
 	<ul>
