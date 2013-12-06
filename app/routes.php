@@ -24,6 +24,9 @@ Route::get('log-in', 'AuthController@getLogin');
 Route::post('log-in', 'AuthController@postLogin');
 Route::get('log-out', 'AuthController@logout');
 
+Route::get('sign-up', 'AccountController@create');
+Route::post('sign-up', 'AccountController@store');
+
 Route::get('account', 'AccountController@show');
 Route::get('account/edit', 'AccountController@edit');
 Route::post('account/edit', 'AccountController@update');

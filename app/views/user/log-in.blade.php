@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	{{ Form::open(array('url' => 'log-in')) }} 
+	{{ Form::open(array('action' => 'AuthController@postLogin')) }} 
 		<h2>Log in</h2>
 		<div>
 			{{ Form::label('email') }}

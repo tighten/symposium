@@ -6,7 +6,7 @@ An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), b
 ### Tasks
 Wishlist:  
 
-  * User creation & login
+  * <strike>User creation & login</strike>
   * <strike>User editing & deletion</strike>
   * Allow pre-created users to create passwords
   * Allow users to add new styles

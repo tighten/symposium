@@ -12,9 +12,9 @@
 	</div>
 
 	<h3>User</h3>
+	<b>Email:</b> {{ $user->email }}<br>
 	<b>First Name:</b> {{ $user->first_name }}<br>
 	<b>Last name:</b> {{ $user->last_name }}<br>
-	<b>Email:</b> {{ $user->email }}<br>
 	<b>Twitter:</b> {{ $user->twitter }}<br>
 	<b>URL:</b> {{ $user->url }}<br>
 

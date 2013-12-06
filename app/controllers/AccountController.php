@@ -2,10 +2,68 @@
 
 class AccountController extends BaseController
 {
+	protected $account_rules = array(
+		'first_name' => 'required_without:last_name',
+		'last_name' => 'required_without:first_name',
+		'email' => 'email|required|unique:users,email',
+		'twitter' => 'alpha_dash',
+		'url' => 'url'
+	);
+
 	public function __construct()
 	{
-		$this->beforeFilter('auth');
+		$this->beforeFilter('auth', array('except' => array('create', 'store')));
 		$this->beforeFilter('csrf', array('only' => array('update')));
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return View::make('account.create');
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$data = Input::all();
+
+		$rules = $this->account_rules;
+
+		// Update rules to add password
+		$rules['password'] = 'required';
+
+		// Make validator
+		$validator = Validator::make($data, $rules);
+
+		if ($validator->passes()) {
+			// Save
+			$user = new User;
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+			$user->email = Input::get('email');
+			$user->twitter = Input::get('twitter');
+			$user->url = Input::get('url');
+			$user->password = Hash::make(Input::get('password'));
+			$user->save();
+
+			Auth::loginUsingId($user->id);
+
+			Session::flash('message', 'Successfully created account.');
+
+			return Redirect::to('/account');
+		}
+
+		return Redirect::to('sign-up')
+			->withErrors($validator)
+			->withInput();
 	}
 
 	/**
@@ -44,17 +102,8 @@ class AccountController extends BaseController
 	{
 		$data = Input::all();
 
-		// Set validation rules
-		$rules = array(
-			'first_name' => 'required_without:last_name',
-			'last_name' => 'required_without:first_name',
-			'email' => 'email|required',
-			'twitter' => 'alpha_dash',
-			'url' => 'url'
-		);
-
 		// Make validator
-		$validator = Validator::make($data, $rules);
+		$validator = Validator::make($data, $this->account_rules);
 
 		if ($validator->passes()) {
 			// Save
@@ -64,6 +113,9 @@ class AccountController extends BaseController
 			$user->email = Input::get('email');
 			$user->twitter = Input::get('twitter');
 			$user->url = Input::get('url');
+			if (Input::get('password')) {
+				$user->password = Hash::make(Input::get('password'));
+			}
 			$user->save();
 
 			Session::flash('message', 'Successfully edited account.');
@@ -71,7 +123,9 @@ class AccountController extends BaseController
 			return Redirect::to('account');
 		}
 
-		return Redirect::to('account/edit')->withErrors($validator);
+		return Redirect::to('account/edit')
+			->withInput()
+			->withErrors($validator);
 	}
 
 	/**

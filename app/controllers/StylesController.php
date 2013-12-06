@@ -61,6 +61,7 @@ class StylesController extends BaseController
 	 */
 	public function store()
 	{
+		exit('Whoops, not programmed yet.');
 		//
 	}
 
