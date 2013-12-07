@@ -5117,3 +5117,9 @@ a {
 
 .errors {
   color: red; }
+
+.edit-style-form textarea, .new-style-form textarea {
+  height: 15em;
+  width: 100%; }
+  .edit-style-form textarea[name=source], .new-style-form textarea[name=source] {
+    height: 40em; }
