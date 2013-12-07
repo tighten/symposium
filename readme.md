@@ -9,8 +9,9 @@ Wishlist:
   * ~~User creation & login~~
   * ~~User editing & deletion~~
   * Allow pre-created users to create passwords
-  * Allow users to add new styles
-  * Allow users to edit old styles, with version history
+  * ~~Allow users to add new styles~~
+  * ~~Allow users to edit old styles~~
+  * Add version history to user editing
   * Frontend style version history
   * Allow voting
   * Allow for upload of raw SCSS/Sass
