@@ -16,9 +16,12 @@
 	<ul class="tab-nav">
 		<li class="active"><a href="#" data-tab-toggle="#tab-preview">Preview</a></li>
 		<li><a href="#" data-tab-toggle="#tab-source">Source</a></li>
+		@if ($style->author->id == Auth::user()->id)
+		<li><a href="/styles/{{ $style->slug }}/edit/">Edit</a></li>
+		@endif
 	</ul>
 	<div id="tab-preview" class="tab tab-preview active">
-		<iframe src="/styles/preview/{{ $style->id }}">
+		<iframe src="/styles/{{ $style->slug }}/preview/">
 
 		</iframe>
 	</div>

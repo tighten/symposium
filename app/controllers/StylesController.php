@@ -5,7 +5,7 @@ use dflydev\markdown\MarkdownExtraParser;
 class StylesController extends BaseController
 {
 	protected $account_rules = array(
-		'title' => 'required|alpha_dash',
+		'title' => 'required',
 		'description' => 'required',
 		'source' => 'required',
 		'format' => 'required'
@@ -122,23 +122,74 @@ class StylesController extends BaseController
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  str  $slug
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($slug)
 	{
-		return View::make('styles.edit');
+		try {
+			$style = Style::where('slug', $slug)->firstOrFail();
+		} catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
+			Log::error($e);
+			return Redirect::to('/');
+		}
+
+		if ($style->author->id != Auth::user()->id) {
+			Session::flash('error-message', 'Sorry, but you don\'t own that style.');
+			Log::error('User ' . Auth::user()->id . ' tried to edit a style they don\'t own.');
+			return Redirect::to('/');
+		}
+
+		return View::make('styles.edit')
+			->with('style', $style);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  str  $slug
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($slug)
 	{
-		//
+		$data = Input::all();
+
+		$rules = $this->account_rules;
+
+		// Make validator
+		$validator = Validator::make($data, $rules);
+
+		if ($validator->passes()) {
+			// Pull
+			$style = Style::where('slug', $slug)->firstOrFail();
+
+			// Validate ownership
+			if ($style->author->id != Auth::user()->id) {
+				Session::flash('error-message', 'Sorry, but you don\'t own that style.');
+				Log::error('User ' . Auth::user()->id . ' tried to edit a style they don\'t own.');
+				return Redirect::to('/');
+			}
+
+			// Save
+			$style->title = Input::get('title');
+			$style->slug = Str::slug(Input::get('title'));
+			$style->description = Input::get('description');
+			$style->source = Input::get('source');
+			// $style->format = Input::get('format');
+			$style->format = 'css'; // For now...
+			$style->author_id = Auth::user()->id;
+			// Add author
+			$style->save();
+
+			Session::flash('message', 'Successfully edited style.');
+
+			return Redirect::to('/styles/' . $style->slug);
+		}
+
+		return Redirect::to('styles/' . $slug . '/edit')
+			->withErrors($validator)
+			->withInput();
 	}
 
 	/**
@@ -166,11 +217,15 @@ class StylesController extends BaseController
 	/**
 	 * Preview style
 	 * 
-	 * @param  int $id Style #
+	 * @param  string $slug Style slug
 	 */
-	public function preview($id)
+	public function preview($slug)
 	{
-		$style = Style::find($id);
+		try {
+			$style = Style::where('slug', $slug)->firstOrFail();
+		} catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return '';
+		}
 
 		// Dflydev/markdown couldn't handle some of the more complex md code
 		// $preview_content = File::get('../app/views/styles/preview.md');

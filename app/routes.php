@@ -33,7 +33,9 @@ Route::post('account/edit', 'AccountController@update');
 Route::get('account/delete', 'AccountController@delete');
 Route::post('account/delete', 'AccountController@destroy');
 
-Route::get('styles/preview/{id}', 'StylesController@preview');
+Route::get('styles/{slug}/preview', 'StylesController@preview');
+Route::get('styles/{slug}/edit', 'StylesController@edit');
+Route::post('styles/{slug}/edit', 'StylesController@update');
 
 Route::resource('styles', 'StylesController');
 Route::resource('authors', 'AuthorsController');
