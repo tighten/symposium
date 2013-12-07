@@ -5,6 +5,12 @@
 <div class="container">
 	<h1>Create Style</h1>
 
+	<ul class="errors">
+	@foreach($errors->all() as $message)
+		<li>{{ $message }}</li>
+	@endforeach
+	</ul>
+
 	{{ Form::open(array('action' => 'StylesController@store', 'class' => 'new-style-form')) }}
 
 	{{ Form::label('title', 'Title') }}<br>

@@ -5119,7 +5119,9 @@ a {
   color: red; }
 
 .edit-style-form textarea, .new-style-form textarea {
-  height: 15em;
+  height: 10em;
   width: 100%; }
+  .edit-style-form textarea[name=description], .new-style-form textarea[name=description] {
+    max-width: 40em; }
   .edit-style-form textarea[name=source], .new-style-form textarea[name=source] {
     height: 40em; }

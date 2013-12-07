@@ -4,6 +4,13 @@ use dflydev\markdown\MarkdownExtraParser;
 
 class StylesController extends BaseController
 {
+	protected $account_rules = array(
+		'title' => 'required|alpha_dash',
+		'description' => 'required',
+		'source' => 'required',
+		'format' => 'required'
+	);
+
 	public function __construct()
 	{
 		$this->beforeFilter(
@@ -61,8 +68,34 @@ class StylesController extends BaseController
 	 */
 	public function store()
 	{
-		exit('Whoops, not programmed yet.');
-		//
+		$data = Input::all();
+
+		$rules = $this->account_rules;
+
+		// Make validator
+		$validator = Validator::make($data, $rules);
+
+		if ($validator->passes()) {
+			// Save
+			$style = new Style;
+			$style->title = Input::get('title');
+			$style->slug = Str::slug(Input::get('title'));
+			$style->description = Input::get('description');
+			$style->source = Input::get('source');
+			// $style->format = Input::get('format');
+			$style->format = 'css'; // For now...
+			$style->author_id = Auth::user()->id;
+			// Add author
+			$style->save();
+
+			Session::flash('message', 'Successfully created new style.');
+
+			return Redirect::to('/styles/' . $style->slug);
+		}
+
+		return Redirect::to('styles/create')
+			->withErrors($validator)
+			->withInput();
 	}
 
 	/**
@@ -73,7 +106,13 @@ class StylesController extends BaseController
 	 */
 	public function show($id)
 	{
-		$style = Style::where('slug', $id)->firstOrFail();
+		try {
+			$style = Style::where('slug', $id)->firstOrFail();
+		} catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
+			Log::error($e);
+			return Redirect::to('/');
+		}
 
         return View::make('styles.show')
         	->with('style', $style)

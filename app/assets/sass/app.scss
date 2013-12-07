@@ -168,8 +168,12 @@ a {
 
 .edit-style-form, .new-style-form {
 	textarea {
-		height: 15em;
+		height: 10em;
 		width: 100%;
+
+		&[name=description] {
+			max-width: 40em;
+		}
 
 		&[name=source] {
 			height: 40em;
