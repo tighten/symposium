@@ -723,12 +723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1973197d53c9daaf65c54c4c872669e787a408d3"
+                "reference": "426c9e0e39915eedd2861b147ba6701443136e3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1973197d53c9daaf65c54c4c872669e787a408d3",
-                "reference": "1973197d53c9daaf65c54c4c872669e787a408d3",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/426c9e0e39915eedd2861b147ba6701443136e3d",
+                "reference": "426c9e0e39915eedd2861b147ba6701443136e3d",
                 "shasum": ""
             },
             "require": {
@@ -828,7 +828,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2013-12-03 02:09:00"
+            "time": "2013-12-06 01:42:26"
         },
         {
             "name": "monolog/monolog",
@@ -899,16 +899,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "b0450b539d1567b2acee6467b6b323a8547b5559"
+                "reference": "03ede52a1f360441b5826cb8a798e0d0a919731f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b0450b539d1567b2acee6467b6b323a8547b5559",
-                "reference": "b0450b539d1567b2acee6467b6b323a8547b5559",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/03ede52a1f360441b5826cb8a798e0d0a919731f",
+                "reference": "03ede52a1f360441b5826cb8a798e0d0a919731f",
                 "shasum": ""
             },
             "require": {
@@ -941,7 +941,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2013-11-23 15:22:05"
+            "time": "2013-12-05 04:13:29"
         },
         {
             "name": "nikic/php-parser",
@@ -1092,12 +1092,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "134145e8d08ddcb9bb8f49a2feb9aa1f2393650c"
+                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/134145e8d08ddcb9bb8f49a2feb9aa1f2393650c",
-                "reference": "134145e8d08ddcb9bb8f49a2feb9aa1f2393650c",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/5144da9525d24346bf009ff28f10cbaa1f0f166e",
+                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e",
                 "shasum": ""
             },
             "type": "library",
@@ -1127,7 +1127,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2013-11-19 10:21:35"
+            "time": "2013-12-05 15:25:07"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1651,12 +1651,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "147e648e587a76256fc753a4b8feaa6f0be60536"
+                "reference": "36578f3ad3dac980c841bf7921b2a1df6b156f8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/147e648e587a76256fc753a4b8feaa6f0be60536",
-                "reference": "147e648e587a76256fc753a4b8feaa6f0be60536",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/36578f3ad3dac980c841bf7921b2a1df6b156f8e",
+                "reference": "36578f3ad3dac980c841bf7921b2a1df6b156f8e",
                 "shasum": ""
             },
             "require": {
@@ -1713,7 +1713,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-12-03 14:51:26"
+            "time": "2013-12-05 07:46:04"
         },
         {
             "name": "symfony/process",
