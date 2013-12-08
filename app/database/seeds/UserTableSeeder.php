@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder {
 				'first_name' => 'Matt',
 				'last_name' => 'Stauffer',
 				'twitter' => 'stauffermatt',
-				'url' => 'mattstauffer.co'
+				'url' => 'http://mattstauffer.co/'
 			),
 			array(
 				'email' => 'info@atelierbramdehaan.nl',
