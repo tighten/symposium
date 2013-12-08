@@ -5,7 +5,7 @@ class AccountController extends BaseController
 	protected $account_rules = array(
 		'first_name' => 'required_without:last_name',
 		'last_name' => 'required_without:first_name',
-		'email' => 'email|required|unique:users,email',
+		'email' => 'email|required',
 		'twitter' => 'alpha_dash',
 		'url' => 'url'
 	);
@@ -39,6 +39,7 @@ class AccountController extends BaseController
 
 		// Update rules to add password
 		$rules['password'] = 'required';
+		$rules['email'] = 'email|required|unique:users,email',
 
 		// Make validator
 		$validator = Validator::make($data, $rules);
