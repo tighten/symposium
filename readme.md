@@ -8,6 +8,7 @@ Wishlist:
 
   * ~~User creation & login~~
   * ~~User editing & deletion~~
+  * *important*: Track failed logins and verify emails on signup, allow for marking style as spam, and require first style to be verified by admin
   * Allow pre-created users to create passwords
   * ~~Allow users to add new styles~~
   * ~~Allow users to edit old styles~~
