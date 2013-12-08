@@ -11,7 +11,9 @@ Wishlist:
   * Allow pre-created users to create passwords
   * ~~Allow users to add new styles~~
   * ~~Allow users to edit old styles~~
-  * Track # of clicks and sort by click
+  * ~~Track # of visits~~ 
+  * Sort by # visits
+  * Pull visit tracking off style row (performance)
   * Add version history to user editing
   * Frontend style version history
   * Allow voting

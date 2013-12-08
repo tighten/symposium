@@ -114,6 +114,9 @@ class StylesController extends BaseController
 			return Redirect::to('/');
 		}
 
+		// @todo: Move the visits counter off of the row--separate table? external?
+		$style->increment('visits');
+
         return View::make('styles.show')
         	->with('style', $style)
         	->with('author', $style->author);
