@@ -11,6 +11,7 @@ Wishlist:
   * Allow pre-created users to create passwords
   * ~~Allow users to add new styles~~
   * ~~Allow users to edit old styles~~
+  * Track # of clicks and sort by click
   * Add version history to user editing
   * Frontend style version history
   * Allow voting
@@ -22,4 +23,4 @@ Wishlist:
   * Drop reliance on Bootstrap
   * Audit for Laravel best practices (for learning's sake)
   * Prettify account view/edit
-  * 
+  * Add caching, if it seems necessary
