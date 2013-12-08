@@ -40,7 +40,13 @@ class AuthorsController extends BaseController
 	 */
 	public function show($id)
 	{
-		$author = User::find($id);
+		try {
+			$author = User::findOrFail($id);
+		} catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
+			Log::error($e);
+			return Redirect::to('/');
+		}
 
 		return View::make('authors.show')
 			->with('author', $author)
