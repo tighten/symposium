@@ -16,7 +16,7 @@ Wishlist:
   * ~~Allow users to edit old styles~~
   * ~~Track # of visits~~ 
   * Sort by # visits
-  * Install logviewer
+  * ~~Install logviewer~~
   * Pull visit tracking off style row (performance)
   * Add version history to user editing
   * Frontend style version history
