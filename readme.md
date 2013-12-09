@@ -11,18 +11,19 @@ Wishlist:
   * ~~User creation & login~~
   * ~~User editing & deletion~~
   * *important*: Track failed logins and verify emails on signup, allow for marking style as spam, and require first style to be verified by admin
-  * Allow pre-created users to create passwords
+  * Password reset
   * ~~Allow users to add new styles~~
   * ~~Allow users to edit old styles~~
   * ~~Track # of visits~~ 
   * Sort by # visits
   * ~~Install logviewer~~
+  * Allow voting  
   * Pull visit tracking off style row (performance)
   * Add version history to user editing
   * Frontend style version history
-  * Allow voting
+  * Add active style preview (for writing styles in-browser and previewing live)
   * Allow for upload of raw SCSS/Sass
-  * Password reset
+  * Allow for writing 
   * "Copy source" button
   * More beautiful landing page
   * More beautiful listing page
