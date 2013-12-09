@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
-		"juy/profiler": "dev-master"
+		"juy/profiler": "dev-master",
+		"kmd/logviewer": "1.1.*"
 	},
 	"require-dev": {
 		"way/guard-laravel": "*",

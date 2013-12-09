@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "068a782a229912f8e8808a3b907abe87",
+    "hash": "32b4f47b1a78d9a1856cbc9219b23e4e",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -718,6 +718,59 @@
             "time": "2013-09-29 20:11:48"
         },
         {
+            "name": "kmd/logviewer",
+            "version": "1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mikemand/logviewer.git",
+                "reference": "3e7cf122c172182806c36b006a76eb52595ed8a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mikemand/logviewer/zipball/3e7cf122c172182806c36b006a76eb52595ed8a1",
+                "reference": "3e7cf122c172182806c36b006a76eb52595ed8a1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "~4",
+                "illuminate/support": "~4",
+                "php": ">=5.3.7",
+                "psr/log": "~1.0",
+                "symfony/finder": ">=2.3,<=2.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.8.0",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+
+                ],
+                "psr-0": {
+                    "Kmd\\Logviewer": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Micheal Mand - KMDWebDesigns",
+                    "email": "micheal@kmdwebdesigns.com"
+                }
+            ],
+            "description": "Laravel 4 log file viewer.",
+            "keywords": [
+                "laravel",
+                "log",
+                "log viewer",
+                "logviewer"
+            ],
+            "time": "2013-12-07 20:34:54"
+        },
+        {
             "name": "laravel/framework",
             "version": "4.0.x-dev",
             "source": {
@@ -990,16 +1043,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.15",
+            "version": "v1.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "2b13126f572501ce9806846349344f1c6b20b545"
+                "reference": "bc719e850b57791c1024d06f9fe7d474348e7ba6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/2b13126f572501ce9806846349344f1c6b20b545",
-                "reference": "2b13126f572501ce9806846349344f1c6b20b545",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/bc719e850b57791c1024d06f9fe7d474348e7ba6",
+                "reference": "bc719e850b57791c1024d06f9fe7d474348e7ba6",
                 "shasum": ""
             },
             "require": {
@@ -1037,7 +1090,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2013-11-23 12:47:40"
+            "time": "2013-12-07 12:20:20"
         },
         {
             "name": "predis/predis",
@@ -1045,12 +1098,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "381023ad8f019eb4859550538e4affdb5bb9a68b"
+                "reference": "73780da52dc36ac8c24b720e2bfa334d266b80a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/381023ad8f019eb4859550538e4affdb5bb9a68b",
-                "reference": "381023ad8f019eb4859550538e4affdb5bb9a68b",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/73780da52dc36ac8c24b720e2bfa334d266b80a6",
+                "reference": "73780da52dc36ac8c24b720e2bfa334d266b80a6",
                 "shasum": ""
             },
             "require": {
@@ -1084,7 +1137,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-12-02 10:44:40"
+            "time": "2013-12-08 14:57:15"
         },
         {
             "name": "psr/log",

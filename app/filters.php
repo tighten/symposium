@@ -38,6 +38,16 @@ Route::filter('auth', function()
 	if (Auth::guest()) return Redirect::to('log-in');
 });
 
+Route::filter('admin-auth', function()
+{
+	if (Auth::guest()) return Redirect::to('log-in');
+	// Guess we should have roles... @todo
+	if (Auth::user()->email != 'matt@markedstyle.com') {
+		Log::error('Non-admin user tried to access admin-only section.');
+		return Redirect::to('log-in');
+	}
+});
+
 
 Route::filter('auth.basic', function()
 {

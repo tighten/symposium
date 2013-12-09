@@ -116,6 +116,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Way\Console\GuardLaravelServiceProvider',
 		'Juy\Profiler\Providers\ProfilerServiceProvider',
+	    'Kmd\Logviewer\LogviewerServiceProvider',
 	),
 
 	/*
