@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"juy/profiler": "dev-master",
-		"kmd/logviewer": "1.1.*"
+		"kmd/logviewer": "1.1.*",
+		"rtablada/package-installer": "dev-master"
 	},
 	"require-dev": {
 		"way/guard-laravel": "*",

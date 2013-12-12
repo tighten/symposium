@@ -110,6 +110,7 @@ return array(
 		'Way\Console\GuardLaravelServiceProvider',
 		'Juy\Profiler\Providers\ProfilerServiceProvider',
 	    'Kmd\Logviewer\LogviewerServiceProvider',
+		'Rtablada\PackageInstaller\PackageInstallerServiceProvider',
 	),
 
 	/*
