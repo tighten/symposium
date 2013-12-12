@@ -13,8 +13,6 @@
 
 $app = new Illuminate\Foundation\Application;
 
-$app->redirectIfTrailingSlash();
-
 /*
 |--------------------------------------------------------------------------
 | Detect The Application Environment
@@ -28,12 +26,8 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(function()
 {
-	if (getenv('MARKEDSTYLE_ENV')) {
-	    return getenv('MARKEDSTYLE_ENV');
-	} else {
-		// Would like for it to default to local but don't want to fight ENV right now
-		return 'production';
-	}
+	// Would like for it to default to local but don't want to fight ENV right now
+	return getenv('MARKEDSTYLE_ENV') ?: 'production';
 });
 
 /*
