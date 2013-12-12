@@ -21,6 +21,7 @@ Wishlist:
   * Add real code editor for style css
   * Pull visit tracking off style row (performance)
   * Add version history to user editing
+  * Move API keys (bugsnag, etc.) to env vars
   * Frontend style version history
   * Add active style preview (for writing styles in-browser and previewing live)
   * Allow for upload of raw SCSS/Sass

@@ -3,8 +3,104 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a68ca0307913cff770d1750cc19d15a5",
+    "hash": "665e0a620f6c2a31bba9049f9fe3b43d",
     "packages": [
+        {
+            "name": "bugsnag/bugsnag",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bugsnag/bugsnag-php.git",
+                "reference": "16e77973cd3f23b55b670df6410166c6055c6192"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-php/zipball/16e77973cd3f23b55b670df6410166c6055c6192",
+                "reference": "16e77973cd3f23b55b670df6410166c6055c6192",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bugsnag_": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Smith",
+                    "email": "notifiers@bugsnag.com",
+                    "homepage": "https://bugsnag.com"
+                }
+            ],
+            "description": "Official Bugsnag notifier for PHP applications.",
+            "homepage": "https://github.com/bugsnag/bugsnag-php",
+            "keywords": [
+                "bugsnag",
+                "errors",
+                "exceptions",
+                "logging",
+                "tracking"
+            ],
+            "time": "2013-12-11 01:10:56"
+        },
+        {
+            "name": "bugsnag/bugsnag-laravel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bugsnag/bugsnag-laravel.git",
+                "reference": "6e7f842425aaefacf1e1944af31ede44d6a4ce47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/6e7f842425aaefacf1e1944af31ede44d6a4ce47",
+                "reference": "6e7f842425aaefacf1e1944af31ede44d6a4ce47",
+                "shasum": ""
+            },
+            "require": {
+                "bugsnag/bugsnag": ">=2.0.3",
+                "illuminate/support": "~4.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bugsnag\\BugsnagLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Smith",
+                    "email": "notifiers@bugsnag.com",
+                    "homepage": "https://bugsnag.com"
+                }
+            ],
+            "description": "Official Bugsnag notifier for Laravel applications.",
+            "homepage": "https://github.com/bugsnag/bugsnag-laravel",
+            "keywords": [
+                "bugsnag",
+                "errors",
+                "exceptions",
+                "laravel",
+                "logging",
+                "tracking"
+            ],
+            "time": "2013-12-11 23:44:05"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "1.0.1",
@@ -2132,7 +2228,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "juy/profiler": 20,
-        "rtablada/package-installer": 20
+        "rtablada/package-installer": 20,
+        "bugsnag/bugsnag-laravel": 20
     },
     "platform": [
 
