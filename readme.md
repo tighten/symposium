@@ -18,6 +18,7 @@ Wishlist:
   * Sort by # visits
   * ~~Install logviewer~~
   * Allow voting  
+  * Add real code editor for style css
   * Pull visit tracking off style row (performance)
   * Add version history to user editing
   * Frontend style version history
