@@ -1,4 +1,7 @@
 ## Markedstyle 
+
+[![Build Status](https://secure.travis-ci.org/mattstauffer/markedstyle.png?branch=master)](http://travis-ci.org/mattstauffer/markedstyle)
+
 A webapp repository of custom CSS styles for [Marked App](http://marked2app.com/)
 
 An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), by [Matt Stauffer](http://mattstauffer.co/) of [Good Food Productions](http://goodfoodpro.com/).
