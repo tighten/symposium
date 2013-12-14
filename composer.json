@@ -8,7 +8,8 @@
 		"juy/profiler": "dev-master",
 		"kmd/logviewer": "1.1.*",
 		"rtablada/package-installer": "dev-master",
-		"bugsnag/bugsnag-laravel": "dev-master"
+		"bugsnag/bugsnag-laravel": "dev-master",
+        "league/phpunit-coverage-listener": "~1.1"
 	},
 	"require-dev": {
 		"way/guard-laravel": "*",

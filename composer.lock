@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "665e0a620f6c2a31bba9049f9fe3b43d",
+    "hash": "fe47251ed298ac45952e858e2df6001c",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bugsnag/bugsnag-php.git",
-                "reference": "16e77973cd3f23b55b670df6410166c6055c6192"
+                "reference": "f853167d2a5c125b4e66be53e466b7bc18b5f01e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-php/zipball/16e77973cd3f23b55b670df6410166c6055c6192",
-                "reference": "16e77973cd3f23b55b670df6410166c6055c6192",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-php/zipball/f853167d2a5c125b4e66be53e466b7bc18b5f01e",
+                "reference": "f853167d2a5c125b4e66be53e466b7bc18b5f01e",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "logging",
                 "tracking"
             ],
-            "time": "2013-12-11 01:10:56"
+            "time": "2013-12-14 01:30:10"
         },
         {
             "name": "bugsnag/bugsnag-laravel",
@@ -745,12 +745,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5bb5cede49d17aaf4f5e45fbe24719c1a42a909a"
+                "reference": "4c7dd3c0eddc471b20bf57f7ea7789c2ecab248e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5bb5cede49d17aaf4f5e45fbe24719c1a42a909a",
-                "reference": "5bb5cede49d17aaf4f5e45fbe24719c1a42a909a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4c7dd3c0eddc471b20bf57f7ea7789c2ecab248e",
+                "reference": "4c7dd3c0eddc471b20bf57f7ea7789c2ecab248e",
                 "shasum": ""
             },
             "require": {
@@ -776,6 +776,7 @@
                 "symfony/http-foundation": "2.4.*",
                 "symfony/http-kernel": "2.4.*",
                 "symfony/process": "2.4.*",
+                "symfony/routing": "2.4.*",
                 "symfony/translation": "2.4.*"
             },
             "replace": {
@@ -853,7 +854,54 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2013-12-12 16:50:30"
+            "time": "2013-12-13 18:42:36"
+        },
+        {
+            "name": "league/phpunit-coverage-listener",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-loep/phpunit-coverage-listener.git",
+                "reference": "dedb0a4de71908de3e6793ecc424925cd3e54dc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-loep/phpunit-coverage-listener/zipball/dedb0a4de71908de3e6793ecc424925cd3e54dc2",
+                "reference": "dedb0a4de71908de3e6793ecc424925cd3e54dc2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "League\\PHPUnitCoverageListener": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taufan Aditya",
+                    "email": "toopay@taufanaditya.com",
+                    "homepage": "http://taufanaditya.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "Utility library that allow you to process the PHPUnit code-coverage information and send it into some remote location via cURL",
+            "homepage": "https://github.com/php-loep/phpunit-coverage-listener",
+            "keywords": [
+                "coverage",
+                "coveralls",
+                "phpunit"
+            ],
+            "time": "2013-10-07 14:31:28"
         },
         {
             "name": "monolog/monolog",
@@ -861,12 +909,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "5ad421d6a1d5d7066a45b617e5164d309c4e2852"
+                "reference": "c9db00f8821b2cc7238732529f8d4007296a630c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5ad421d6a1d5d7066a45b617e5164d309c4e2852",
-                "reference": "5ad421d6a1d5d7066a45b617e5164d309c4e2852",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c9db00f8821b2cc7238732529f8d4007296a630c",
+                "reference": "c9db00f8821b2cc7238732529f8d4007296a630c",
                 "shasum": ""
             },
             "require": {
@@ -920,7 +968,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-12-02 09:38:32"
+            "time": "2013-12-14 13:52:08"
         },
         {
             "name": "nesbot/carbon",
@@ -1164,12 +1212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "09cb6677e241feecb165f417e1b3ea9709e1b173"
+                "reference": "ea9809d4e859746f7369c564bc8af92a47cc0c53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/09cb6677e241feecb165f417e1b3ea9709e1b173",
-                "reference": "09cb6677e241feecb165f417e1b3ea9709e1b173",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/ea9809d4e859746f7369c564bc8af92a47cc0c53",
+                "reference": "ea9809d4e859746f7369c564bc8af92a47cc0c53",
                 "shasum": ""
             },
             "require": {
@@ -1203,7 +1251,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-12-11 12:10:05"
+            "time": "2013-12-14 13:21:47"
         },
         {
             "name": "psr/log",
@@ -1980,6 +2028,72 @@
             "time": "2013-11-26 16:40:27"
         },
         {
+            "name": "symfony/routing",
+            "version": "2.4.x-dev",
+            "target-dir": "Symfony/Component/Routing",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Routing.git",
+                "reference": "a7a665e2a0e3a203ca9a690c021066e76295bf6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/a7a665e2a0e3a203ca9a690c021066e76295bf6a",
+                "reference": "a7a665e2a0e3a203ca9a690c021066e76295bf6a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0",
+                "psr/log": "~1.0",
+                "symfony/config": "~2.2",
+                "symfony/expression-language": "~2.4",
+                "symfony/yaml": "~2.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "For using the annotation loader",
+                "symfony/config": "For using the all-in-one router or any loader",
+                "symfony/expression-language": "For using expression matching",
+                "symfony/yaml": "For using the YAML loader"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Routing\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Routing Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "router",
+                "routing",
+                "uri",
+                "url"
+            ],
+            "time": "2013-11-22 17:42:00"
+        },
+        {
             "name": "symfony/translation",
             "version": "2.4.x-dev",
             "target-dir": "Symfony/Component/Translation",
@@ -2038,7 +2152,7 @@
     "packages-dev": [
         {
             "name": "mustache/mustache",
-            "version": "dev-master",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/mustache.php.git",
@@ -2083,28 +2197,27 @@
         },
         {
             "name": "way/generators",
-            "version": "dev-master",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JeffreyWay/Laravel-4-Generators.git",
-                "reference": "bdcc57b1219bed3ad17d69fa20f55d98484f15f6"
+                "reference": "8390ef9d7d8c228caa95bd124b76cf1dd9dd8721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/bdcc57b1219bed3ad17d69fa20f55d98484f15f6",
-                "reference": "bdcc57b1219bed3ad17d69fa20f55d98484f15f6",
+                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/8390ef9d7d8c228caa95bd124b76cf1dd9dd8721",
+                "reference": "8390ef9d7d8c228caa95bd124b76cf1dd9dd8721",
                 "shasum": ""
             },
             "require": {
-                "mustache/mustache": "dev-master",
-                "php": ">=5.3.0",
-                "way/laravel-test-helpers": "dev-master"
+                "mustache/mustache": "2.4.*",
+                "php": ">=5.3.0"
             },
             "require-dev": {
                 "illuminate/console": "~4",
                 "illuminate/filesystem": "~4",
                 "illuminate/support": "~4",
-                "mockery/mockery": "dev-master"
+                "mockery/mockery": "0.8.*"
             },
             "type": "library",
             "extra": {
@@ -2135,7 +2248,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2013-09-18 23:38:54"
+            "time": "2013-12-14 04:48:56"
         },
         {
             "name": "way/guard-laravel",
@@ -2181,45 +2294,6 @@
             ],
             "description": "Easy asset management in Laravel.",
             "time": "2013-08-31 21:50:40"
-        },
-        {
-            "name": "way/laravel-test-helpers",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JeffreyWay/Laravel-Test-Helpers.git",
-                "reference": "7fcec7999d02c457cfc82c8d6dfa894470129c11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JeffreyWay/Laravel-Test-Helpers/zipball/7fcec7999d02c457cfc82c8d6dfa894470129c11",
-                "reference": "7fcec7999d02c457cfc82c8d6dfa894470129c11",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "illuminate/support": "4.0.x",
-                "mockery/mockery": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Way\\Tests": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Jeffrey Way",
-                    "email": "jeffrey@jeffrey-way.com",
-                    "homepage": "http://jeffrye-way.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Easier testing in Laravel.",
-            "time": "2013-09-13 16:53:25"
         }
     ],
     "aliases": [
