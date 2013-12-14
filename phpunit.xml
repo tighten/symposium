@@ -8,11 +8,36 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
->
+         syntaxCheck="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
+        <testsuite name="Markedstyle Test Suite">
             <directory>./app/tests/</directory>
         </testsuite>
     </testsuites>
+    <logging>
+        <log type="coverage-clover" target="/tmp/coverage.xml"/>
+    </logging>
+    <listeners>
+        <listener class="League\PHPUnitCoverageListener\Listener">
+            <arguments>
+                <array>
+                    <element key="printer">
+                      <object class="League\PHPUnitCoverageListener\Printer\StdOut"/>
+                    </element>
+                    <element key="hook">
+                      <object class="League\PHPUnitCoverageListener\Hook\Travis"/>
+                    </element>
+                    <element key="repo_token">
+                        <string>c10UgtcfuBVQ2gwrikvQoXeg0c9SXiKoF</string>
+                    </element>
+                    <element key="target_url">
+                        <string>https://coveralls.io/api/v1/jobs</string>
+                    </element>
+                    <element key="coverage_dir">
+                        <string>/tmp</string>
+                    </element>
+                </array>
+            </arguments>
+        </listener>
+    </listeners>
 </phpunit>
