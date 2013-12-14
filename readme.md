@@ -1,6 +1,7 @@
 ## Markedstyle 
 
 [![Build Status](https://secure.travis-ci.org/mattstauffer/markedstyle.png?branch=master)](http://travis-ci.org/mattstauffer/markedstyle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mattstauffer/markedstyle/badges/quality-score.png?s=b9a3c0fc2f49d82e96da44168de80109eaf4c00b)](https://scrutinizer-ci.com/g/mattstauffer/markedstyle/)
 
 A webapp repository of custom CSS styles for [Marked App](http://marked2app.com/)
 
