@@ -1,6 +1,38 @@
-before_commands:
-    - 'composer install --dev --prefer-source'
 
+filter:
+    excluded_paths:
+        - 'vendor/*'
+        - 'app/*'
+        - 'web/*'
+    paths: {  }
 tools:
+    php_cpd:
+        enabled: true
+        command: phpcpd
+        excluded_dirs: {  }
+        names:
+            - '*.php'
+        min_lines: 5
+        min_tokens: 70
+        filter:
+            excluded_paths:
+                - 'vendor/*'
+                - 'app/*'
+                - 'web/*'
+            paths: {  }
+    php_pdepend:
+        excluded_dirs:
+            - vendor
+        enabled: true
+        command: pdepend
+        configuration_file: null
+        suffixes:
+            - php
     external_code_coverage:
         timeout: 600 # Timeout in seconds.
+changetracking:
+    bug_patterns:
+        - '\bfix(?:es|ed)?\b'
+    feature_patterns:
+        - '\badd(?:s|ed)?\b'
+        - '\bimplement(?:s|ed)?\b'
