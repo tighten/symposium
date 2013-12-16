@@ -34,21 +34,47 @@ class StylesController extends BaseController
 	 */
 	public function index()
 	{
-		$sorting_date_style = $sorting_alpha_style = '';
+		$bold_style = 'style="font-weight: bold;"';
+
+		$sorting_style = array(
+			'date' => '',
+			'alpha' => '',
+			'popularity' => ''
+		);
 
 		// @todo: Limit this to just the needed attributes
-		if (Input::get('sort') && Input::get('sort') == 'date') {
-			$styles = Style::orderBy('created_at', 'DESC')->get();
-			$sorting_date_style = 'style="font-weight: bold;"';
+		if (Input::get('sort')) {
+			switch (Input::get('sort')) {
+				case 'date':
+					$sorting_style['date'] = $bold_style;
+					$styles = Style::orderBy('created_at', 'DESC')->get();
+					break;
+				case 'popularity':
+					$sorting_style['popularity'] = $bold_style;
+					$styles = Style::orderBy('visits', 'DESC')->get();
+					break;
+				case 'alpha':
+					// Pass through
+				default:
+					$sorting_style['alpha'] = $bold_style;
+					$styles = Style::orderBy('title', 'ASC')->get();
+					break;
+			}
 		} else {
+			$sorting_style['alpha'] = $bold_style;
 			$styles = Style::orderBy('title', 'ASC')->get();
-			$sorting_alpha_style = 'style="font-weight: bold;"';
+		}
+
+		// Sum visits
+		$total_visits = 0;
+		foreach ($styles as $style) {
+			$total_visits += $style->visits;
 		}
 
 		return View::make('styles.index')
 			->with('styles', $styles)
-			->with('sorting_date_style', $sorting_date_style)
-			->with('sorting_alpha_style', $sorting_alpha_style);
+			->with('sorting_style', $sorting_style)
+			->with('total_visits', $total_visits);
 	}
 
 	/**
