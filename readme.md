@@ -19,7 +19,7 @@ Wishlist:
   * ~~Allow users to add new styles~~
   * ~~Allow users to edit old styles~~
   * ~~Track # of visits~~ 
-  * Sort by # visits
+  * ~~Sort by # visits~~
   * ~~Install logviewer~~
   * Allow voting  
   * Add real code editor for style css
