@@ -10,22 +10,22 @@
 	</div>
 </div>
 	
-<div class="container" style="display: none;">
+<div class="container">
 	<div class="row">
 		<div class="col-third">
-			<h2>Heading</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-			<p><a class="button button--default" href="#" role="button">View details &raquo;</a></p>
+			<h2>What is Markedstyle?</h2>
+			<p>Markedstyle is a collection of CSS files for styling content in Marked.</p>
+			<p><a class="button button--default" href="/styles" role="button">View styles &raquo;</a></p>
 		</div>
 		<div class="col-third">
-			<h2>Heading</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-			<p><a class="button button--default" href="#" role="button">View details &raquo;</a></p>
+			<h2>What is Marked?</h2>
+			<p>Marked is a Mac app for live previewing Markdown as you write it.</p>
+			<p><a class="button button--default" href="http://markedapp.com/" role="button">Try Marked &raquo;</a></p>
 		</div>
 		<div class="col-third">
-			<h2>Heading</h2>
-			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-			<p><a class="button button--default" href="#" role="button">View details &raquo;</a></p>
+			<h2>What is Markdown?</h2>
+			<p>Markdown is a simple plaintext syntax for writing rich text documents.</p>
+			<p><a class="button button--default" href="http://daringfireball.net/projects/markdown/" role="button">Learn more &raquo;</a></p>
 		</div>
 	</div>
 </div>
