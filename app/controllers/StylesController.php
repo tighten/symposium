@@ -11,6 +11,12 @@ class StylesController extends BaseController
 		'format' => 'required'
 	);
 
+	protected $sorting_styles = array(
+			'date' => '',
+			'alpha' => '',
+			'popularity' => ''
+		);
+
 	public function __construct()
 	{
 		$this->beforeFilter(
@@ -36,33 +42,24 @@ class StylesController extends BaseController
 	{
 		$bold_style = 'style="font-weight: bold;"';
 
-		$sorting_style = array(
-			'date' => '',
-			'alpha' => '',
-			'popularity' => ''
-		);
+		$sorting_style = $this->sorting_styles;
 
 		// @todo: Limit this to just the needed attributes
-		if (Input::get('sort')) {
-			switch (Input::get('sort')) {
-				case 'date':
-					$sorting_style['date'] = $bold_style;
-					$styles = Style::orderBy('created_at', 'DESC')->get();
-					break;
-				case 'popularity':
-					$sorting_style['popularity'] = $bold_style;
-					$styles = Style::orderBy('visits', 'DESC')->get();
-					break;
-				case 'alpha':
-					// Pass through
-				default:
-					$sorting_style['alpha'] = $bold_style;
-					$styles = Style::orderBy('title', 'ASC')->get();
-					break;
-			}
-		} else {
-			$sorting_style['alpha'] = $bold_style;
-			$styles = Style::orderBy('title', 'ASC')->get();
+		switch (Input::get('sort')) {
+			case 'date':
+				$sorting_style['date'] = $bold_style;
+				$styles = Style::orderBy('created_at', 'DESC')->get();
+				break;
+			case 'popularity':
+				$sorting_style['popularity'] = $bold_style;
+				$styles = Style::orderBy('visits', 'DESC')->get();
+				break;
+			case 'alpha':
+				// Pass through
+			default:
+				$sorting_style['alpha'] = $bold_style;
+				$styles = Style::orderBy('title', 'ASC')->get();
+				break;
 		}
 
 		// Sum visits
