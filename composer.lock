@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fe47251ed298ac45952e858e2df6001c",
+    "hash": "a7f33820d5d6e1628e8645fce465c834",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -857,53 +857,6 @@
             "time": "2013-12-13 18:42:36"
         },
         {
-            "name": "league/phpunit-coverage-listener",
-            "version": "v1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-loep/phpunit-coverage-listener.git",
-                "reference": "dedb0a4de71908de3e6793ecc424925cd3e54dc2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-loep/phpunit-coverage-listener/zipball/dedb0a4de71908de3e6793ecc424925cd3e54dc2",
-                "reference": "dedb0a4de71908de3e6793ecc424925cd3e54dc2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~3.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "League\\PHPUnitCoverageListener": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taufan Aditya",
-                    "email": "toopay@taufanaditya.com",
-                    "homepage": "http://taufanaditya.com",
-                    "role": "lead"
-                }
-            ],
-            "description": "Utility library that allow you to process the PHPUnit code-coverage information and send it into some remote location via cURL",
-            "homepage": "https://github.com/php-loep/phpunit-coverage-listener",
-            "keywords": [
-                "coverage",
-                "coveralls",
-                "phpunit"
-            ],
-            "time": "2013-10-07 14:31:28"
-        },
-        {
             "name": "monolog/monolog",
             "version": "dev-master",
             "source": {
@@ -1212,12 +1165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "ea9809d4e859746f7369c564bc8af92a47cc0c53"
+                "reference": "aa4d0a05ac36f1c2f6ceeaa96d31a05d19de297b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/ea9809d4e859746f7369c564bc8af92a47cc0c53",
-                "reference": "ea9809d4e859746f7369c564bc8af92a47cc0c53",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/aa4d0a05ac36f1c2f6ceeaa96d31a05d19de297b",
+                "reference": "aa4d0a05ac36f1c2f6ceeaa96d31a05d19de297b",
                 "shasum": ""
             },
             "require": {
@@ -1251,7 +1204,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-12-14 13:21:47"
+            "time": "2013-12-16 16:05:22"
         },
         {
             "name": "psr/log",
