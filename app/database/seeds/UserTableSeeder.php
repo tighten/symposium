@@ -9,7 +9,7 @@ class UserTableSeeder extends Seeder {
 		DB::table('users')->insert(array(
 			array(
 				'email' => 'matt@markedstyle.com',
-				'password' => Hash::make('password'),
+				'password' => Hash::make(Str::random()),
 				'first_name' => 'Matt',
 				'last_name' => 'Stauffer',
 				'twitter' => 'stauffermatt',
@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder {
 			),
 			array(
 				'email' => 'info@atelierbramdehaan.nl',
-				'password' => Hash::make('magical password for non-real user that no one will ever guess'),
+				'password' => Hash::make(Str::random()),
 				'first_name' => 'Bram',
 				'last_name' => 'de Haan',
 				'twitter' => '',
@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder {
 			),
 			array(
 				'email' => 'support@opengastro.com', // not quite
-				'password' => Hash::make('magical password for non-real user that no one will ever guess'),
+				'password' => Hash::make(Str::random()),
 				'first_name' => 'Peter',
 				'last_name' => 'Sziebig',
 				'twitter' => 'bigpe',
@@ -33,7 +33,7 @@ class UserTableSeeder extends Seeder {
 			),
 			array(
 				'email' => 'brett@brettterpstra.com', // No idea
-				'password' => Hash::make('magical password for non-real user that no one will ever guess'),
+				'password' => Hash::make(Str::random()),
 				'first_name' => 'Brett',
 				'last_name' => 'Terpstra',
 				'url' => 'http://brettterpstra.com/',
@@ -41,7 +41,7 @@ class UserTableSeeder extends Seeder {
 			),
 			array(
 				'email' => 'jonathan@candlerblog.com', // No idea
-				'password' => Hash::make('magical password for non-real user that no one will ever guess'),
+				'password' => Hash::make(Str::random()),
 				'first_name' => 'Jonathan',
 				'last_name' => 'Poritsky',
 				'url' => 'http://candlerblog.com',
@@ -49,7 +49,7 @@ class UserTableSeeder extends Seeder {
 			),
 			array(
 				'email' => 'erik@sagan.com', // No idea
-				'password' => Hash::make('magical password for non-real user that no one will ever guess'),
+				'password' => Hash::make(Str::random()),
 				'first_name' => 'Erik',
 				'last_name' => 'Sagen',
 				'url' => '',
