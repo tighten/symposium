@@ -3,6 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/mattstauffer/markedstyle.png?branch=master)](http://travis-ci.org/mattstauffer/markedstyle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mattstauffer/markedstyle/badges/quality-score.png?s=b9a3c0fc2f49d82e96da44168de80109eaf4c00b)](https://scrutinizer-ci.com/g/mattstauffer/markedstyle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/mattstauffer/markedstyle/badges/coverage.png?s=e71cbdd4e06d37f74b6eb10b914315637cc22087)](https://scrutinizer-ci.com/g/mattstauffer/markedstyle/)
+ [![SensioLabsInsight](https://insight.sensiolabs.com/projects/99864f0d-b2bc-492b-b9f4-b1cbfc1ee66b/mini.png)](https://insight.sensiolabs.com/projects/99864f0d-b2bc-492b-b9f4-b1cbfc1ee66b)
 
 A webapp repository of custom CSS styles for [Marked App](http://marked2app.com/)
 
