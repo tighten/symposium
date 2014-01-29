@@ -1,6 +1,6 @@
 <?php
 
-use dflydev\markdown\MarkdownExtraParser;
+// use dflydev\markdown\MarkdownExtraParser;
 
 class StylesController extends BaseController
 {
@@ -44,7 +44,6 @@ class StylesController extends BaseController
 
 		$sorting_style = $this->sorting_styles;
 
-		// @todo: Limit this to just the needed attributes
 		switch (Input::get('sort')) {
 			case 'date':
 				$sorting_style['date'] = $bold_style;
@@ -137,7 +136,6 @@ class StylesController extends BaseController
 			return Redirect::to('/');
 		}
 
-		// @todo: Move the visits counter off of the row--separate table? external?
 		$style->increment('visits');
 
         return View::make('styles.show')

@@ -1,7 +1,5 @@
 <?php namespace Markedstyle\CSS;
 
-use \Exception;
-
 class Inliner {
 	protected $css;
 	protected $output_css;
@@ -22,7 +20,6 @@ class Inliner {
 		$this->output_css = $this->css;
 
 		foreach ($this->processes as $process) {
-			// @todo: Test if eixsts
 			$this->$process();
 		}
 
@@ -32,7 +29,6 @@ class Inliner {
 	/**
 	 * Capture any calls to body and replace with wrapper
 	 *
-	 * @todo Make this smart enough that something else with the phrase 'body' in it won't break
 	 * @return $this
 	 */
 	protected function captureBody()
