@@ -1,7 +1,5 @@
 <?php
 
-// use dflydev\markdown\MarkdownExtraParser;
-
 class StylesController extends BaseController
 {
 	protected $account_rules = array(
@@ -104,7 +102,6 @@ class StylesController extends BaseController
 			$style->slug = Str::slug(Input::get('title'));
 			$style->description = Input::get('description');
 			$style->source = Input::get('source');
-			// $style->format = Input::get('format');
 			$style->format = 'css'; // For now...
 			$style->author_id = Auth::user()->id;
 			// Add author
@@ -200,7 +197,6 @@ class StylesController extends BaseController
 			$style->slug = Str::slug(Input::get('title'));
 			$style->description = Input::get('description');
 			$style->source = Input::get('source');
-			// $style->format = Input::get('format');
 			$style->format = 'css'; // For now...
 			$style->author_id = Auth::user()->id;
 			// Add author
@@ -251,13 +247,6 @@ class StylesController extends BaseController
 			return '';
 		}
 
-		// Dflydev/markdown couldn't handle some of the more complex md code
-		// $preview_content = File::get('../app/views/styles/preview.md');
-
-		// $markdownParser = new MarkdownExtraParser();
-
-		// $preview = $markdownParser->transformMarkdown($preview_content);
-		
 		$preview = File::get('../app/views/styles/preview.html');
 
 		return View::make('styles.preview')
