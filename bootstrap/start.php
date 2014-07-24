@@ -24,12 +24,10 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(function()
-{
-	// Would like for it to default to local but don't want to fight ENV right now
-	return getenv('MARKEDSTYLE_ENV') ?: 'production';
-});
-
+	$env = $app->detectEnvironment(array(
+		'staging' => array('unwavering-chasm'),
+		'local' => array('homestead', '.local'),
+	));
 /*
 |--------------------------------------------------------------------------
 | Bind Paths
