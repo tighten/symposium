@@ -2,4 +2,3 @@
 /vendor
 composer.phar
 .sass-cache/
-/app/config/production/database.php
