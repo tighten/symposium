@@ -25,7 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 	$env = $app->detectEnvironment(array(
-		'staging' => array('unwavering-chasm'),
+		'production' => array('unwavering-chasm'),
 		'local' => array('homestead', '.local'),
 	));
 /*
