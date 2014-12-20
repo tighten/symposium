@@ -3,5 +3,5 @@
      * Set your Bugsnag API Key.
      * You can find your API Key on your Bugsnag dashboard.
      */
-    'api_key' => 'b5a50ea1b4d4b5990a67a270c65420f5'
+	'api_key' => 'e064c41b63dcdc3e5005dab44005ea2c'
 );
