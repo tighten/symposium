@@ -1,4 +1,4 @@
-@import "bootstrap.min";
+@import "bootstrap";
 
 $link_color: #428bca;
 
@@ -135,7 +135,7 @@ a {
 	@extend .nav-tabs;
 }
 
-.list-styles {
+.list-talks {
 	li {
 		margin-bottom: .25em;
 	}
@@ -145,7 +145,7 @@ a {
 		margin-top: 0;
 	}
 
-	.style-meta {
+	.talk-meta {
 		color: #666;
 		font-size: .9em;
 	}
@@ -166,7 +166,7 @@ a {
 	color: red;
 }
 
-.edit-style-form, .new-style-form {
+.edit-talk-form, .new-talk-form {
 	textarea {
 		height: 10em;
 		width: 100%;

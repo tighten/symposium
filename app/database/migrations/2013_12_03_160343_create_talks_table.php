@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateStylesTable extends Migration
+class CreateTalksTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -12,22 +12,18 @@ class CreateStylesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('styles', function (Blueprint $table) {
+		Schema::create('talks', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('title')->unique();
 			$table->string('slug')->unique();
 			$table->text('description');
-			$table->text('source');
-			$table->enum('format', array('css', 'sass', 'scss'));
+			$table->text('body');
 			$table->integer('author_id')->unsigned();
-			// Not going to do InnoDB so we can use EngineHosting/ArcusTech
-			// $table->foreign('author')
-				// ->references('id')
-				// ->on('users');
+			$table->foreign('author')
+				->references('id')
+				->on('users');
 			$table->timestamps();
 		});
-
-		DB::statement('ALTER TABLE `styles` MODIFY `source` LONGTEXT;');
 	}
 
 
@@ -38,6 +34,6 @@ class CreateStylesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('styles');
+		Schema::drop('talks');
 	}
 }
