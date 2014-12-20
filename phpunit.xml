@@ -10,7 +10,7 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
-        <testsuite name="Markedstyle Test Suite">
+        <testsuite name="SaveMyProposals Test Suite">
             <directory>./app/tests/</directory>
         </testsuite>
     </testsuites>

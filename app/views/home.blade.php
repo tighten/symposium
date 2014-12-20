@@ -4,13 +4,12 @@
 
 <div class="hero">
 	<div class="container">
-		<h1>Style your markdown!</h1>
-		<p>Markedstyle is a collection of CSS files for styling the <a href="http://marked2app.com/">Marked</a> markdown preview app.</p>
-		<p><a href="/styles" class="button button--primary button--large" role="button">Browse Styles &raquo;</a></p>
+		<h1>Save your proposals!</h1>
+		<p>Save your conference talk proposals in between conferences.</p>
 	</div>
 </div>
 	
-<div class="container">
+<!--div class="container">
 	<div class="row">
 		<div class="col-third">
 			<h2>What is Markedstyle?</h2>
@@ -28,5 +27,5 @@
 			<p><a class="button button--default" href="http://daringfireball.net/projects/markdown/" role="button">Learn more &raquo;</a></p>
 		</div>
 	</div>
-</div>
+</div-->
 @stop

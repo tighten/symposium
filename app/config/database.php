@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => getenv('server_ip'),
-			'database'  => 'markedstyle',
+			'database'  => 'savemyproposals',
 			'username'  => 'forge',
 			'password'  => getenv('db_password'),
 			'charset'   => 'utf8',

@@ -1,7 +1,7 @@
 {
-	"name": "mattstauffer/markedstyle",
-	"description": "Marked Style",
-	"keywords": ["markdown", "marked", "markedapp", "themes"],
+	"name": "mattstauffer/savemyproposals",
+	"description": "Save My Proposals",
+	"keywords": ["proposals", "conference", "cfp"],
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
@@ -24,7 +24,7 @@
 			"app/tests/TestCase.php"
 		],
 		"psr-0": {
-			"Markedstyle": "app/"
+			"SaveMyProposals": "app/"
 		}
 	},
 	"scripts": {

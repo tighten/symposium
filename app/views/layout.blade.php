@@ -2,7 +2,7 @@
 <html>
 	<head>
 		{{ stylesheet() }}
-		<title>Markedstyle</title>
+		<title>SaveMyProposals</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -23,8 +23,9 @@
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		  ga('create', 'UA-40114814-2', 'markedstyle.com');
+		  ga('create', 'UA-40114814-6', 'auto');
 		  ga('send', 'pageview');
+
 		</script>
 	</body>
 </html>
