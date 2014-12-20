@@ -5,7 +5,7 @@
 	<h2>Edit Account</h2>
 
 	<ul class="errors">
-	@foreach($errors->all() as $message)
+	@foreach ($errors->all() as $message)
 		<li>{{ $message }}</li>
 	@endforeach
 	</ul>
