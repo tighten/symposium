@@ -9,4 +9,4 @@
 
 A webapp to save proposals to speak at conferences.
 
-An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), by [Matt Stauffer](http://mattstauffer.co/) of [Good Food Productions](http://tighten.co/).
+An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), by [Matt Stauffer](http://mattstauffer.co/) of [Tighten Co.](http://tighten.co/).
