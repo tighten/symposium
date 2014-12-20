@@ -19,7 +19,7 @@ class CreateTalksTable extends Migration
 			$table->text('description');
 			$table->text('body');
 			$table->integer('author_id')->unsigned();
-			$table->foreign('author')
+			$table->foreign('author_id')
 				->references('id')
 				->on('users');
 			$table->timestamps();
