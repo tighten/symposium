@@ -28,15 +28,19 @@ Route::get('log-out', 'AuthController@logout');
 Route::get('sign-up', 'AccountController@create');
 Route::post('sign-up', 'AccountController@store');
 
-Route::get('account', 'AccountController@show');
-Route::get('account/edit', 'AccountController@edit');
-Route::post('account/edit', 'AccountController@update');
-Route::get('account/delete', 'AccountController@delete');
-Route::post('account/delete', 'AccountController@destroy');
+Route::group(array('before' => 'auth'), function()
+{
+	Route::get('account', 'AccountController@show');
+	Route::get('account/edit', 'AccountController@edit');
+	Route::post('account/edit', 'AccountController@update');
+	Route::get('account/delete', 'AccountController@delete');
+	Route::post('account/delete', 'AccountController@destroy');
 
-// @todo update talk item to use slug so we don't have to manually do it
-Route::get('talks/{slug}/edit', 'TalksController@edit');
-Route::post('talks/{slug}/edit', 'TalksController@update');
+	// @todo update talk item to use slug so we don't have to manually do it
+	Route::get('talks/{slug}/edit', 'TalksController@edit');
+	Route::post('talks/{slug}/edit', 'TalksController@update');
 
-Route::resource('talks', 'TalksController');
-Route::resource('authors', 'AuthorsController');
+	Route::resource('talks', 'TalksController');
+	// Route::resource('authors', 'AuthorsController');
+});
+

@@ -1,6 +1,7 @@
 <nav>
 	<ul class="primary-header__meta-nav">
 		@if (Auth::check())
+		<li><a href="/talks">Talks</a></li>
 		<li><a href="/account">Account</a></li>
 		<li><a href="/log-out">Log out</a></li>
 		@else

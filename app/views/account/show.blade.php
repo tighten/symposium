@@ -15,13 +15,5 @@
 	<b>Email:</b> {{ $user->email }}<br>
 	<b>First Name:</b> {{ $user->first_name }}<br>
 	<b>Last name:</b> {{ $user->last_name }}<br>
-
-	<h3>Talks</h3>
-	<ul>
-	@foreach ($user->talks as $talk)
-		<li><a href="/talks/{{ $talk->slug }}">{{ $talk->title }}</a></li>
-	@endforeach
-	</ul>
-
 </div>
 @stop

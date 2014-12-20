@@ -14,4 +14,11 @@ class Talk extends Eloquent
     {
         return $this->belongsTo('User', 'author_id');
     }
+
+    public function scopeCurrentUserOnly($query)
+	{
+		$user = \Auth::user();
+
+		return $query->where('author_id', Auth::user()->id);
+	}
 }

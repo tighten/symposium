@@ -107,33 +107,6 @@ a {
 	.controls {
 	}
 
-.css-source, .tab-preview iframe {
-	border: 1px solid #aaa;
-	height: 40rem;
-	width: 100%;
-}
-
-.css-source {
-	font-family: "Consolas", "Courier New", "Courier", sans-serif;
-	font-size: 0.8em;
-	height: 40rem;
-	padding: 1em;
-}
-
-.tab-source, .tab-preview {
-	display: none;
-
-	&.active {
-		display: block;
-	}
-}
-	.tab-preview iframe {
-	}
-
-.tab-nav {
-	@extend .nav;
-	@extend .nav-tabs;
-}
 
 .list-talks {
 	li {
@@ -179,5 +152,10 @@ a {
 			height: 40em;
 		}
 	}
+}
 
+.talk-body {
+	border: 1px solid #bbb;
+	max-width: 55em;
+	padding: 1em;
 }

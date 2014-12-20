@@ -30,7 +30,7 @@ class TalksController extends BaseController
 	}
 
 	/**
-	 * Display all talks
+	 * Display all of the current user's talks
 	 *
 	 * @return Response
 	 */
@@ -43,13 +43,13 @@ class TalksController extends BaseController
 		switch (Input::get('sort')) {
 			case 'date':
 				$sorting_talk['date'] = $bold_style;
-				$talks = Talk::orderBy('created_at', 'DESC')->get();
+				$talks = Talk::orderBy('created_at', 'DESC')->currentUserOnly()->get();
 				break;
 			case 'alpha':
 				// Pass through
 			default:
 				$sorting_talk['alpha'] = $bold_style;
-				$talks = Talk::orderBy('title', 'ASC')->get();
+				$talks = Talk::orderBy('title', 'ASC')->currentUserOnly()->get();
 				break;
 		}
 
