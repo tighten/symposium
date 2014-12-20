@@ -53,16 +53,9 @@ class TalksController extends BaseController
 				break;
 		}
 
-		// Sum visits
-		$total_visits = 0;
-		foreach ($talks as $talk) {
-			$total_visits += $talk->visits;
-		}
-
 		return View::make('talks.index')
 			->with('talks', $talks)
-			->with('sorting_talk', $sorting_talk)
-			->with('total_visits', $total_visits);
+			->with('sorting_talk', $sorting_talk);
 	}
 
 	/**
@@ -125,8 +118,6 @@ class TalksController extends BaseController
 			Log::error($e);
 			return Redirect::to('/');
 		}
-
-		$talk->increment('visits');
 
         return View::make('talks.show')
         	->with('talk', $talk)
