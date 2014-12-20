@@ -4,14 +4,10 @@
 	"keywords": ["proposals", "conference", "cfp"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
-		"juy/profiler": "1.0.*",
-		"kmd/logviewer": "1.1.*",
-		"rtablada/package-installer": "0.1.*",
-		"bugsnag/bugsnag-laravel": "1.0.*"
+		"laravel/framework": "4.2.*",
+		"bugsnag/bugsnag-laravel": "1.*"
 	},
 	"require-dev": {
-		"way/guard-laravel": "*",
 		"way/generators": "1.*"
 	},
 	"autoload": {

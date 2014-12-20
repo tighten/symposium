@@ -107,12 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-		'Way\Console\GuardLaravelServiceProvider',
-		'Juy\Profiler\Providers\ProfilerServiceProvider',
-		'Kmd\Logviewer\LogviewerServiceProvider',
-		'Rtablada\PackageInstaller\PackageInstallerServiceProvider',
 		'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
-
 	),
 
 	/*
@@ -178,9 +173,7 @@ return array(
 		'URL' => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View' => 'Illuminate\Support\Facades\View',
-		'Profiler' => 'Juy\Profiler\Facades\Profiler',
 		'Bugsnag' => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-
 	),
 
 );

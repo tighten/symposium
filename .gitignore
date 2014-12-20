@@ -2,3 +2,4 @@
 /vendor
 composer.phar
 .sass-cache/
+.env.php
