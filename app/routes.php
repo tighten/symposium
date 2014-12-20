@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
 Route::get('/', function()
 {
 	return View::make('home');
@@ -28,7 +17,7 @@ Route::get('log-out', 'AuthController@logout');
 Route::get('sign-up', 'AccountController@create');
 Route::post('sign-up', 'AccountController@store');
 
-Route::group(array('before' => 'auth'), function()
+Route::group(['before' => 'auth'], function()
 {
 	Route::get('account', 'AccountController@show');
 	Route::get('account/edit', 'AccountController@edit');
@@ -36,11 +25,12 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('account/delete', 'AccountController@delete');
 	Route::post('account/delete', 'AccountController@destroy');
 
-	// @todo update talk item to use slug so we don't have to manually do it
-	Route::get('talks/{slug}/edit', 'TalksController@edit');
-	Route::post('talks/{slug}/edit', 'TalksController@update');
+	// Necessary for GET-friendly delete because lazy
+	Route::get('talks/{id}/delete', 'TalksController@destroy');
 
+	// Necessary because IDK and please let's fix this @todo
+	Route::post('talks/{id}', 'TalksController@update');
+	
 	Route::resource('talks', 'TalksController');
-	// Route::resource('authors', 'AuthorsController');
 });
 

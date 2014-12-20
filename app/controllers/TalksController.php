@@ -86,7 +86,6 @@ class TalksController extends BaseController
 			// Save
 			$talk = new Talk;
 			$talk->title = Input::get('title');
-			$talk->slug = Str::slug(Input::get('title'));
 			$talk->description = Input::get('description');
 			$talk->body = Input::get('body');
 			$talk->author_id = Auth::user()->id;
@@ -95,7 +94,7 @@ class TalksController extends BaseController
 
 			Session::flash('message', 'Successfully created new talk.');
 
-			return Redirect::to('/talks/' . $talk->slug);
+			return Redirect::to('/talks/' . $talk->id);
 		}
 
 		return Redirect::to('talks/create')
@@ -112,7 +111,7 @@ class TalksController extends BaseController
 	public function show($id)
 	{
 		try {
-			$talk = Talk::where('slug', $id)->firstOrFail();
+			$talk = Talk::where('id', $id)->firstOrFail();
 		} catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
 			Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
 			Log::error($e);
@@ -127,13 +126,13 @@ class TalksController extends BaseController
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  str  $slug
+	 * @param  str  $id
 	 * @return Response
 	 */
-	public function edit($slug)
+	public function edit($id)
 	{
 		try {
-			$talk = Talk::where('slug', $slug)->firstOrFail();
+			$talk = Talk::where('id', $id)->firstOrFail();
 		} catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
 			Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
 			Log::error($e);
@@ -153,10 +152,10 @@ class TalksController extends BaseController
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  str  $slug
+	 * @param  str  $id
 	 * @return Response
 	 */
-	public function update($slug)
+	public function update($id)
 	{
 		$data = Input::all();
 
@@ -167,7 +166,7 @@ class TalksController extends BaseController
 
 		if ($validator->passes()) {
 			// Pull
-			$talk = Talk::where('slug', $slug)->firstOrFail();
+			$talk = Talk::where('id', $id)->firstOrFail();
 
 			// Validate ownership
 			if ($talk->author->id != Auth::user()->id) {
@@ -178,7 +177,6 @@ class TalksController extends BaseController
 
 			// Save
 			$talk->title = Input::get('title');
-			$talk->slug = Str::slug(Input::get('title'));
 			$talk->description = Input::get('description');
 			$talk->body = Input::get('body');
 			$talk->author_id = Auth::user()->id;
@@ -187,10 +185,10 @@ class TalksController extends BaseController
 
 			Session::flash('message', 'Successfully edited talk.');
 
-			return Redirect::to('/talks/' . $talk->slug);
+			return Redirect::to('talks/' . $talk->id);
 		}
 
-		return Redirect::to('talks/' . $slug . '/edit')
+		return Redirect::to('talks/' . $id . '/edit')
 			->withErrors($validator)
 			->withInput();
 	}
@@ -203,7 +201,7 @@ class TalksController extends BaseController
 	 */
 	public function delete($id)
 	{
-
+		dd('t');
 	}
 
 	/**
@@ -214,6 +212,17 @@ class TalksController extends BaseController
 	 */
 	public function destroy($id)
 	{
-		//
+		$talk = Talk::where('id', $id)->firstOrFail();
+
+		// Validate ownership
+		if ($talk->author->id != Auth::user()->id) {
+			Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
+			Log::error('User ' . Auth::user()->id . ' tried to delete a talk they don\'t own.');
+			return Redirect::to('/');
+		}
+
+		$talk->delete();
+
+		return Redirect::to('talks');
 	}
 }

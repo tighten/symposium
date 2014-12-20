@@ -7,8 +7,7 @@
 
 	<h1>{{ $talk->title }}</h1>
 
-	<p><b>Author:</b> 
-	<a href="/authors/{{ $author->id }}">{{ $author->first_name }} {{ $author->last_name }}</a></p>
+	<p class="pull-right"><a href="/talks/{{ $talk->id }}/edit">Edit</a> | <a href="/talks/{{ $talk->id }}/delete">Delete</a></p>
 
 	<p><b>Date uploaded:</b>
 	{{ $talk->created_at->toFormattedDateString() }}</p>

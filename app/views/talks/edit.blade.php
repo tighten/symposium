@@ -11,7 +11,7 @@
 	@endforeach
 	</ul>
 
-	{{ Form::open(array('action' => array('TalksController@update', $talk->slug), 'class' => 'edit-talk-form')) }}
+	{{ Form::open(array('action' => array('TalksController@update', $talk->id), 'class' => 'edit-talk-form')) }}
 
 	{{ Form::label('title', 'Title') }}<br>
 	{{ Form::text('title', $talk->title) }}<br><br>
