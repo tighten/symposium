@@ -3,3 +3,4 @@
 composer.phar
 .sass-cache/
 .env.php
+.env.*.php

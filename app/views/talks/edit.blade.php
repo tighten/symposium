@@ -20,7 +20,7 @@
 	{{ Form::textarea('description', $talk->description) }}<br><br>
 
 	{{ Form::label('body', 'Body') }}<br>
-	{{ Form::textarea('source', $talk->source) }}<br><br>
+	{{ Form::textarea('body', $talk->body) }}<br><br>
 
 	{{ Form::submit('Update') }}<br><br>
 

@@ -25,12 +25,6 @@
 	{{ Form::label('last_name', 'Last Name') }}<br>
 	{{ Form::text('last_name') }}<br><br>
 	
-	{{ Form::label('twitter', 'Twitter Handle') }}<br>
-	{{ '@' . Form::text('twitter') }}<br><br>
-
-	{{ Form::label('url', 'URL') }}<br>
-	{{ Form::text('url') }}<br><br>
-
 	{{ Form::submit('Save', array('class' => 'button button--primary')) }}
 
 	{{ Form::close() }}

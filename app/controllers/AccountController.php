@@ -6,8 +6,6 @@ class AccountController extends BaseController
 		'first_name' => 'required_without:last_name',
 		'last_name' => 'required_without:first_name',
 		'email' => 'email|required',
-		'twitter' => 'alpha_dash',
-		'url' => 'url'
 	);
 
 	public function __construct()
@@ -50,8 +48,6 @@ class AccountController extends BaseController
 			$user->first_name = Input::get('first_name');
 			$user->last_name = Input::get('last_name');
 			$user->email = Input::get('email');
-			$user->twitter = Input::get('twitter');
-			$user->url = Input::get('url');
 			$user->password = Hash::make(Input::get('password'));
 			$user->save();
 
@@ -112,8 +108,6 @@ class AccountController extends BaseController
 			$user->first_name = Input::get('first_name');
 			$user->last_name = Input::get('last_name');
 			$user->email = Input::get('email');
-			$user->twitter = Input::get('twitter');
-			$user->url = Input::get('url');
 			if (Input::get('password')) {
 				$user->password = Hash::make(Input::get('password'));
 			}

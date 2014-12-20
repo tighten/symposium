@@ -12,8 +12,6 @@ class UserTableSeeder extends Seeder {
 				'password' => Hash::make(Str::random()),
 				'first_name' => 'Matt',
 				'last_name' => 'Stauffer',
-				'twitter' => 'stauffermatt',
-				'url' => 'http://mattstauffer.co/'
 			)
 		));
 	}

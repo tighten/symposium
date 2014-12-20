@@ -15,8 +15,6 @@
 	<b>Email:</b> {{ $user->email }}<br>
 	<b>First Name:</b> {{ $user->first_name }}<br>
 	<b>Last name:</b> {{ $user->last_name }}<br>
-	<b>Twitter:</b> {{ $user->twitter }}<br>
-	<b>URL:</b> {{ $user->url }}<br>
 
 	<h3>Talks</h3>
 	<ul>

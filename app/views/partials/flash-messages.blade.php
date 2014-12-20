@@ -1,4 +1,4 @@
-@if(Session::has('success-message') || Session::has('error-message') || Session::has('message'))
+@if (Session::has('success-message') || Session::has('error-message') || Session::has('message'))
 	<div class="container">
 		@if(Session::has('success-message'))
 			<div class="notice-success" data-dismiss="timeout">

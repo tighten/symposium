@@ -20,9 +20,9 @@ class AuthorsController extends BaseController
 
 		return View::make('authors.show')
 			->with('author', $author)
-			->with('styles', $author->styles->sortBy(function($style)
+			->with('talks', $author->talks->sortBy(function($talk)
 				{
-					return $style->title;
+					return $talk->title;
 				})
 			);
 	}

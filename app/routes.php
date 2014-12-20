@@ -16,9 +16,9 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('how-do-i', function()
+Route::get('what-is-this', function()
 {
-	return View::make('how-do-i');
+	return View::make('what-is-this');
 });
 
 Route::get('log-in', 'AuthController@getLogin');
@@ -38,5 +38,5 @@ Route::post('account/delete', 'AccountController@destroy');
 Route::get('talks/{slug}/edit', 'TalksController@edit');
 Route::post('talks/{slug}/edit', 'TalksController@update');
 
-Route::resource('talks', 'StylesController');
+Route::resource('talks', 'TalksController');
 Route::resource('authors', 'AuthorsController');

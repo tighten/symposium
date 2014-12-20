@@ -4,7 +4,7 @@
 		<li><a href="/account">Account</a></li>
 		<li><a href="/log-out">Log out</a></li>
 		@else
-		<li><a href="/how-do-i">How do I...</a></li>
+		<li><a href="/what-is-this">What is this?</a></li>
 		<li><a href="/log-in">Log in</a></li>
 		<li><a href="/sign-up">Sign up</a></li>
 		@endif

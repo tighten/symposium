@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'qPzkYeY7B0VBHHXPMRASsFFKgc6455Ra',
+	'key' => getenv('encryption_key'),
 	'cipher' => MCRYPT_RIJNDAEL_256,
 
 	/*
