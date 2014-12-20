@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"bugsnag/bugsnag-laravel": "1.*"
+		"bugsnag/bugsnag-laravel": "1.*",
+		"rhumsaa/uuid": "2.*"
 	},
 	"require-dev": {
 		"way/generators": "1.*"

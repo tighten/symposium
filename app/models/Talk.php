@@ -1,6 +1,6 @@
 <?php
 
-class Talk extends Eloquent
+class Talk extends UuidBase
 {
 	protected $table = 'talks';
 
