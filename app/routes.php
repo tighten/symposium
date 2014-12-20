@@ -34,9 +34,9 @@ Route::post('account/edit', 'AccountController@update');
 Route::get('account/delete', 'AccountController@delete');
 Route::post('account/delete', 'AccountController@destroy');
 
-Route::get('styles/{slug}/preview', 'StylesController@preview');
-Route::get('styles/{slug}/edit', 'StylesController@edit');
-Route::post('styles/{slug}/edit', 'StylesController@update');
+// @todo update talk item to use slug so we don't have to manually do it
+Route::get('talks/{slug}/edit', 'TalksController@edit');
+Route::post('talks/{slug}/edit', 'TalksController@update');
 
-Route::resource('styles', 'StylesController');
+Route::resource('talks', 'StylesController');
 Route::resource('authors', 'AuthorsController');
