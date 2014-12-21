@@ -22,6 +22,9 @@ Route::group(['before' => 'auth'], function () {
     Route::get('account/delete', 'AccountController@delete');
     Route::post('account/delete', 'AccountController@destroy');
 
+    Route::get('conferences/joindin-temp', 'ConferencesController@joindintemp');
+
+
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', 'TalksController@destroy');
     Route::get('conferences/{id}/delete', 'ConferencesController@destroy');

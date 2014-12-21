@@ -91,6 +91,7 @@ class ConferencesController extends BaseController
             $conference->ends_at= Input::get('ends_at');
             $conference->cfp_starts_at = Input::get('cfp_starts_at');
             $conference->cfp_ends_at = Input::get('cfp_ends_at');
+            $conference->joindin_id = Input::get('joindin_id');
             $conference->author_id = Auth::user()->id;
 
             $conference->save();
@@ -186,6 +187,7 @@ class ConferencesController extends BaseController
             $conference->ends_at= Input::get('ends_at');
             $conference->cfp_starts_at = Input::get('cfp_starts_at');
             $conference->cfp_ends_at = Input::get('cfp_ends_at');
+            $conference->joindin_id = Input::get('joindin_id');
             $conference->author_id = Auth::user()->id;
             // Add author
             $conference->save();
@@ -231,5 +233,12 @@ class ConferencesController extends BaseController
         $conference->delete();
 
         return Redirect::to('conferences');
+    }
+
+    public function joindintemp()
+    {
+        $client = JoindIn\Client::factory();
+        $cfps = $client->getEvents(['filter' => 'cfp']);
+        dd($cfps);
     }
 }
