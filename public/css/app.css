@@ -6383,6 +6383,12 @@ a {
     color: #2a6496;
     text-decoration: underline; }
 
+.logo h1 {
+  font-size: 32px; }
+  @media only screen and (min-width: 400px) {
+    .logo h1 {
+      font-size: 36px; } }
+
 .container {
   position: relative; }
 

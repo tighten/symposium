@@ -19,6 +19,14 @@ a {
 
 .logo {
 	@extend .navbar-brand;
+
+	h1 {
+		font-size: 32px;
+
+		@media only screen and (min-width: 400px) {
+			font-size: 36px;
+		}
+	}
 }
 
 .container {
