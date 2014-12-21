@@ -10,5 +10,4 @@ class UuidBase extends Eloquent
      * @var bool
      */
     public $incrementing = false;
-
 }

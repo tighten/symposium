@@ -2,13 +2,13 @@
 
 class Talk extends UuidBase
 {
-	protected $table = 'talks';
+    protected $table = 'talks';
 
-	protected $guarded = array(
-		'id'
-	);
+    protected $guarded = array(
+        'id'
+    );
 
-	public static $rules = array();
+    public static $rules = array();
 
     public function author()
     {
@@ -16,9 +16,9 @@ class Talk extends UuidBase
     }
 
     public function scopeCurrentUserOnly($query)
-	{
-		$user = \Auth::user();
+    {
+        $user = \Auth::user();
 
-		return $query->where('author_id', Auth::user()->id);
-	}
+        return $query->where('author_id', Auth::user()->id);
+    }
 }

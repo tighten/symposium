@@ -2,13 +2,13 @@
 
 class Conference extends UuidBase
 {
-	protected $table = 'conferences';
+    protected $table = 'conferences';
 
-	protected $guarded = array(
-		'id'
-	);
+    protected $guarded = array(
+        'id'
+    );
 
-	public static $rules = array();
+    public static $rules = array();
 
     public function author()
     {
