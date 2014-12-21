@@ -7,9 +7,11 @@
 
         <h1>{{ $conference->title }}</h1>
 
+        @if ($conference->author_id == Auth::user()->id)
         <p class="pull-right"><a href="/conferences/{{ $conference->id }}/edit">Edit</a> | <a
                     href="/conferences/{{ $conference->id }}/delete">Delete</a>
         </p>
+        @endif
 
         <p><b>Date created:</b>
             {{ $conference->created_at->toFormattedDateString() }}</p>
