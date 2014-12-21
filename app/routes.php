@@ -23,7 +23,7 @@ Route::group(['before' => 'auth'], function () {
     Route::post('account/delete', 'AccountController@destroy');
 
     Route::get('conferences/joindin-temp', 'ConferencesController@joindintemp');
-
+    Route::get('conferences/joindin-import/{eventId}', 'ConferencesController@joindinImport');
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', 'TalksController@destroy');

@@ -235,10 +235,25 @@ class ConferencesController extends BaseController
         return Redirect::to('conferences');
     }
 
+    /**
+     * Temporarily show a list of all CFPs for grabbing an event ID
+     */
     public function joindintemp()
     {
         $client = JoindIn\Client::factory();
         $cfps = $client->getEvents(['filter' => 'cfp']);
         dd($cfps);
+    }
+
+    /**
+     * Temporarily allow for manual import of events from JoindIn
+     *
+     * @param $eventId
+     */
+    public function joindinImport($eventId)
+    {
+        /** @var SaveMyProposals\JoindIn\ConferenceImporter $importer */
+        $importer = App::make('SaveMyProposals\JoindIn\ConferenceImporter');
+        $importer->import($eventId);
     }
 }
