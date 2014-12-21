@@ -18,15 +18,34 @@ a {
 
 .logo {
     @extend .navbar-brand;
+}
 
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 400px) {
     h1 {
-        font-size: 26px;
+        font-size: 3.5rem;
+    }
 
-        @media only screen and (min-width: 400px) {
-            font-size: 36px;
-        }
+    h2 {
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 2.5rem;
     }
 }
+
 
 .container {
     @extend .container;

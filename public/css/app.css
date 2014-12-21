@@ -6463,12 +6463,24 @@ a {
     color: #2a6496;
     text-decoration: underline; }
 
-.logo h1 {
-  font-size: 26px; }
-  @media only screen and (min-width: 400px) {
-    .logo h1 {
-      font-size: 36px; } }
+h1 {
+  font-size: 2.5rem; }
 
+h2 {
+  font-size: 2rem; }
+
+h3 {
+  font-size: 1.5rem; }
+
+@media only screen and (min-width: 400px) {
+  h1 {
+    font-size: 3.5rem; }
+
+  h2 {
+    font-size: 3rem; }
+
+  h3 {
+    font-size: 2.5rem; } }
 .container {
   position: relative; }
 

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <a href="/conferences">&lt;&lt; My Conferences</a>
+        <a href="/conferences">&lt;&lt; All Conferences</a>
 
         <h1>{{ $conference->title }}</h1>
 
