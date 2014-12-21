@@ -178,3 +178,9 @@ a {
     max-width: 55em;
     padding: 1em;
 }
+
+.create-button {
+    @extend .pull-right;
+    @extend .btn;
+    @extend .btn-primary;
+}

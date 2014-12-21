@@ -7,8 +7,7 @@
         <div class="actions-box">
             <h3>Actions</h3>
             <a href="/account/edit">Edit account</a><br>
-            <a href="/account/delete">Delete account</a><br><br>
-            <a href="/talks/create">Add new talk</a><br>
+            <a href="/account/delete">Delete account</a><br>
         </div>
 
         <h3>User</h3>

@@ -15,7 +15,21 @@
             {{ $conference->created_at->toFormattedDateString() }}</p>
 
         <p><b>URL:</b>
-            {{ $conference->url }}</p>
+            <a href="{{ $conference->url }}">{{ $conference->url }}</a></p>
+
+        <hr>
+
+        <p><b>Date conference starts:</b>
+            {{ $conference->starts_at->toFormattedDateString() }}</p>
+
+        <p><b>Date conference ends:</b>
+            {{ $conference->ends_at->toFormattedDateString() }}</p>
+
+        <p><b>Date CFP opens:</b>
+            {{ $conference->cfp_starts_at->toFormattedDateString() }}</p>
+
+        <p><b>Date CFP closes:</b>
+            {{ $conference->cfp_ends_at->toFormattedDateString() }}</p>
 
     </div>
 @stop

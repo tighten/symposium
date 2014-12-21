@@ -24,13 +24,12 @@ Route::group(['before' => 'auth'], function () {
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', 'TalksController@destroy');
+    Route::get('conferences/{id}/delete', 'ConferencesController@destroy');
 
     // Necessary because IDK and please let's fix this @todo
     Route::post('talks/{id}', 'TalksController@update');
+    Route::post('conferences/{id}', 'ConferencesController@update');
 
     Route::resource('talks', 'TalksController');
-
-    // Necessary for GET-friendly delete because lazy
-    Route::get('conferences/{id}/delete', 'ConferencesController@destroy');
     Route::resource('conferences', 'ConferencesController');
 });

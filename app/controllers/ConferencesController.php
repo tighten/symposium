@@ -2,30 +2,30 @@
 
 class ConferencesController extends BaseController
 {
-    protected $account_rules = array(
+    protected $account_rules = [
         'title' => 'required',
         'description' => 'required',
         'url' => 'required',
-    );
+    ];
 
-    protected $sorting_conferences = array(
+    protected $sorting_conferences = [
         'date' => '',
         'alpha' => '',
-    );
+    ];
 
     public function __construct()
     {
         $this->beforeFilter(
             'auth',
-            array(
-                'only' => array(
+            [
+                'only' => [
                     'create',
                     'store',
                     'edit',
                     'update',
                     'destroy'
-                )
-            )
+                ]
+            ]
         );
     }
 
@@ -83,13 +83,16 @@ class ConferencesController extends BaseController
         $validator = Validator::make($data, $rules);
 
         if ($validator->passes()) {
-            // Save
             $conference = new Conference;
             $conference->title = Input::get('title');
             $conference->description = Input::get('description');
             $conference->url = Input::get('url');
+            $conference->starts_at = Input::get('starts_at');
+            $conference->ends_at= Input::get('ends_at');
+            $conference->cfp_starts_at = Input::get('cfp_starts_at');
+            $conference->cfp_ends_at = Input::get('cfp_ends_at');
             $conference->author_id = Auth::user()->id;
-            // Add author
+
             $conference->save();
 
             Session::flash('message', 'Successfully created new conference.');
@@ -179,6 +182,10 @@ class ConferencesController extends BaseController
             $conference->title = Input::get('title');
             $conference->description = Input::get('description');
             $conference->url = Input::get('url');
+            $conference->starts_at = Input::get('starts_at');
+            $conference->ends_at= Input::get('ends_at');
+            $conference->cfp_starts_at = Input::get('cfp_starts_at');
+            $conference->cfp_ends_at = Input::get('cfp_ends_at');
             $conference->author_id = Auth::user()->id;
             // Add author
             $conference->save();

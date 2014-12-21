@@ -8,7 +8,14 @@ class Conference extends UuidBase
         'id'
     );
 
-    public static $rules = array();
+    protected $dates = [
+        'starts_at',
+        'ends_at',
+        'cfp_starts_at',
+        'cfp_ends_at'
+    ];
+
+    public static $rules = [];
 
     public function author()
     {
