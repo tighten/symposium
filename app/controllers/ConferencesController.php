@@ -1,5 +1,7 @@
 <?php
 
+use JoindIn\Client;
+
 class ConferencesController extends BaseController
 {
     protected $account_rules = [
@@ -246,6 +248,37 @@ class ConferencesController extends BaseController
     }
 
     /**
+     * Temporarily allow for viewing a list of joindin conferences to import
+     *
+     * @todo fix everything.
+     */
+    public function joindinImportList()
+    {
+        $client = Client::factory();
+        $conferences = $client->getEvents();
+
+        $alreadyConferences = Conference::all();
+        $joindinIds = $alreadyConferences->map(function($conference) {
+           return (int)$conference->joindin_id;
+        });
+        $joindinIdsArray = $joindinIds->toArray();
+
+        echo 'Add conference to SaveMyProposals:<br><br>';
+
+        foreach ($conferences as $conference) {
+            /** @var array $conference */
+            if ($joindinIds->has((int)$conference['id'])) {
+                // why is this not working? @todo
+                echo $conference['name'] . ' - already added<br>';
+            } elseif (in_array($conference['id'], $joindinIdsArray)) {
+                echo '<i>' . $conference['name'] . ' - already added</i><br>';
+            } else {
+                echo '<a href="/conferences/joindin/import/' . $conference['id'] . '">' . $conference['name'] . '</a> <br>';
+            }
+        }
+    }
+
+    /**
      * Temporarily allow for manual import of events from JoindIn
      *
      * @param $eventId
@@ -255,5 +288,9 @@ class ConferencesController extends BaseController
         /** @var SaveMyProposals\JoindIn\ConferenceImporter $importer */
         $importer = App::make('SaveMyProposals\JoindIn\ConferenceImporter');
         $importer->import($eventId);
+
+        // @todo: Flash message
+
+        return Redirect::to('conferences');
     }
 }
