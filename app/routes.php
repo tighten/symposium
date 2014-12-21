@@ -29,4 +29,8 @@ Route::group(['before' => 'auth'], function () {
     Route::post('talks/{id}', 'TalksController@update');
 
     Route::resource('talks', 'TalksController');
+
+    // Necessary for GET-friendly delete because lazy
+    Route::get('conferences/{id}/delete', 'ConferencesController@destroy');
+    Route::resource('conferences', 'ConferencesController');
 });

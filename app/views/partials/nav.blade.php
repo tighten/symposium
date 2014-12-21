@@ -1,6 +1,6 @@
 <nav>
     <ul class="primary-header__meta-nav">
-        <li><a href="/conferences"></a> |</li>
+        <li><a href="/conferences">Conferences</a> |</li>
         @if (Auth::check())
             <li><a href="/talks">Talks</a></li>
             <li><a href="/account">Account</a></li>
