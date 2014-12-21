@@ -46,8 +46,12 @@ class ConferenceImporter
         return $conference;
     }
 
-    private function carbonFromIso($string)
+    private function carbonFromIso($dateFromApi)
     {
-        return Carbon::createFromFormat(\DateTime::ISO8601, $string);
+        if ($dateFromApi == null) {
+            return Carbon::create(null);
+        }
+
+        return Carbon::createFromFormat(\DateTime::ISO8601, $dateFromApi);
     }
 }
