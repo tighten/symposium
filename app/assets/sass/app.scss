@@ -1,4 +1,6 @@
-@import "bootstrap";
+// Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
+@import "variables", "bootstrap", "bootswatch";
+
 
 $link_color: #428bca;
 
@@ -54,7 +56,7 @@ h3 {
 
 .primary-header {
     @extend .navbar;
-    @extend .navbar-inverse;
+    @extend .navbar-default;
     @extend .navbar-static-top;
 }
 
