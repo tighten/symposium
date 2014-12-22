@@ -28,4 +28,12 @@ class Conference extends UuidBase
     {
         return Carbon::today()->between($this->getAttribute('cfp_starts_at'), $this->getAttribute('cfp_ends_at'));
     }
+
+    /**
+     * Get all users who favorited this conference
+     */
+    public function usersFavorited()
+    {
+        return $this->belongstoMany('User', 'favorites');
+    }
 }

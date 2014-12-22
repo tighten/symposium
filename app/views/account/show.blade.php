@@ -13,6 +13,13 @@
         <h3>User</h3>
         <b>Email:</b> {{ $user->email }}<br>
         <b>First Name:</b> {{ $user->first_name }}<br>
-        <b>Last name:</b> {{ $user->last_name }}<br>
+        <b>Last name:</b> {{ $user->last_name }}<br><br>
+
+        <h4>Favorited Conferences</h4>
+        <ul>
+        @foreach ($user->favoritedConferences as $conference)
+            <li><a href="/conferences/{{ $conference->id }}">{{  $conference->title }}</a></li>
+        @endforeach
+        </ul>
     </div>
 @stop
