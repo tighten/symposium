@@ -6,16 +6,12 @@
         <h2>Log in</h2>
 
         <div>
-            {{ Form::label('email') }}
-            <div>
-                {{ Form::text('email')}}
-            </div>
+            {{ Form::label('email') }}<br>
+            {{ Form::text('email', null, ['autofocus' => 'autofocus']) }}
         </div>
         <div>
-            {{ Form::label('password') }}
-            <div>
-                {{ Form::password('password')}}
-            </div>
+            {{ Form::label('password') }}<br>
+            {{ Form::password('password') }}
         </div>
         <br>
 
