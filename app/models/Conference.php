@@ -34,6 +34,11 @@ class Conference extends UuidBase
      */
     public function usersFavorited()
     {
-        return $this->belongstoMany('User', 'favorites');
+        return $this->belongstoMany('User', 'favorites')->withTimestamps();
+    }
+
+    public function isFavorited()
+    {
+        return \Auth::user()->favoritedConferences->contains($this->id);
     }
 }

@@ -235,4 +235,22 @@ class ConferencesController extends BaseController
 
         return Redirect::to('conferences');
     }
+
+    public function favorite($conferenceId)
+    {
+        $user = Auth::user();
+
+        $user->favoritedConferences()->attach($conferenceId);
+
+        return Redirect::back();
+    }
+
+    public function unfavorite($conferenceId)
+    {
+        $user = Auth::user();
+
+        $user->favoritedConferences()->detach($conferenceId);
+
+        return Redirect::back();
+    }
 }
