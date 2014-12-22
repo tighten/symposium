@@ -34,8 +34,10 @@
         {{ Form::label('cfp_ends_at', 'CFP Close Date') }}<br>
         {{ Form::input('date', 'cfp_ends_at', $conference->cfp_ends_at->format('Y-m-d')) }}<br><br>
 
-        {{ Form::label('joindin_id', 'JoindIn ID (optional)') }} - <a href="/conferences/joindin-temp" target="_blank">List of CFPs from JoindIn</a><br>
-        {{ Form::input('text', 'joindin_id', $conference->joindin_id) }}<br><br>
+        @if ($conference->joindin_id)
+        {{ Form::label('joindin_id', 'JoindIn ID') }}<br>
+        {{ $conference->joindin_id }}<br><br>
+        @endif
 
         {{ Form::submit('Update') }}<br><br>
 

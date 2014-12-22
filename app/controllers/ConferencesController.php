@@ -93,7 +93,6 @@ class ConferencesController extends BaseController
             $conference->ends_at= Input::get('ends_at');
             $conference->cfp_starts_at = Input::get('cfp_starts_at');
             $conference->cfp_ends_at = Input::get('cfp_ends_at');
-            $conference->joindin_id = Input::get('joindin_id');
             $conference->author_id = Auth::user()->id;
 
             $conference->save();
@@ -189,7 +188,6 @@ class ConferencesController extends BaseController
             $conference->ends_at= Input::get('ends_at');
             $conference->cfp_starts_at = Input::get('cfp_starts_at');
             $conference->cfp_ends_at = Input::get('cfp_ends_at');
-            $conference->joindin_id = Input::get('joindin_id');
             $conference->author_id = Auth::user()->id;
             // Add author
             $conference->save();
@@ -232,73 +230,9 @@ class ConferencesController extends BaseController
             return Redirect::to('/');
         }
 
+        Session::flash('success-message', 'Conference successfully deleted.');
         $conference->delete();
 
         return Redirect::to('conferences');
-    }
-
-    /**
-     * Temporarily show a list of all CFPs for grabbing an event ID
-     */
-    public function joindintemp()
-    {
-        $client = JoindIn\Client::factory();
-        $cfps = $client->getEvents(['filter' => 'cfp']);
-        dd($cfps);
-    }
-
-    /**
-     * Temporarily allow for viewing a list of joindin conferences to import
-     *
-     * @todo fix everything.
-     */
-    public function joindinImportList()
-    {
-        $client = Client::factory();
-        $conferences = $client->getEvents();
-
-        $alreadyConferences = Conference::all();
-        $joindinIds = $alreadyConferences->map(function($conference) {
-           return (int)$conference->joindin_id;
-        });
-        $joindinIdsArray = $joindinIds->toArray();
-
-        echo 'Add conference to SaveMyProposals:<br><br>';
-
-        foreach ($conferences as $conference) {
-            /** @var array $conference */
-            if ($joindinIds->has((int)$conference['id'])) {
-                // why is this not working? @todo
-                echo $conference['name'] . ' - already added<br>';
-            } elseif (in_array($conference['id'], $joindinIdsArray)) {
-                echo '<i>' . $conference['name'] . ' - already added</i><br>';
-            } else {
-                echo '<a href="/conferences/joindin/import/' . $conference['id'] . '">' . $conference['name'] . '</a> <br>';
-            }
-        }
-    }
-
-    /**
-     * Temporarily allow for manual import of events from JoindIn
-     *
-     * @param $eventId
-     */
-    public function joindinImport($eventId)
-    {
-        /** @var SaveMyProposals\JoindIn\ConferenceImporter $importer */
-        $importer = App::make('SaveMyProposals\JoindIn\ConferenceImporter');
-        $importer->import($eventId);
-
-        // @todo: Flash message
-
-        return Redirect::to('conferences');
-    }
-
-    /**
-     * Temporary hacky crap
-     */
-    public function joindinImportAll()
-    {
-        \Artisan::call('joindin:sync');
     }
 }

@@ -19,6 +19,14 @@
         <p><b>URL:</b>
             <a href="{{ $conference->url }}">{{ $conference->url }}</a></p>
 
+        <p><b>Description:</b>
+            {{ $conference->description }}</p>
+
+        @if ($conference->joindin_id)
+            <p><b>JoindIn ID:</b>
+                <a href="http://joind.in/event/view/{{ $conference->joindin_id }}">{{ $conference->joindin_id }}</a></p> </p>
+        @endif
+
         <hr>
 
         <p><b>Date conference starts:</b>

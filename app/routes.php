@@ -26,7 +26,6 @@ Route::group(['before' => 'auth'], function () {
     Route::get('conferences/joindin/import/{eventId}', 'ConferencesController@joindinImport');
     Route::get('conferences/joindin/import', 'ConferencesController@joindinImportList');
     Route::get('conferences/joindin/all', 'ConferencesController@joindinImportAll');
-    Route::get('conferences/joindin-temp', 'ConferencesController@joindintemp');
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', 'TalksController@destroy');
