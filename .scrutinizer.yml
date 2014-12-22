@@ -1,9 +1,6 @@
-
 filter:
     excluded_paths:
         - 'vendor/*'
-        - 'app/*'
-        - 'web/*'
     paths: {  }
 tools:
     php_cpd:
@@ -17,8 +14,6 @@ tools:
         filter:
             excluded_paths:
                 - 'vendor/*'
-                - 'app/*'
-                - 'web/*'
             paths: {  }
     php_pdepend:
         excluded_dirs:
