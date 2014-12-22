@@ -293,4 +293,12 @@ class ConferencesController extends BaseController
 
         return Redirect::to('conferences');
     }
+
+    /**
+     * Temporary hacky crap
+     */
+    public function joindinImportAll()
+    {
+        \Artisan::call('joindin:sync');
+    }
 }

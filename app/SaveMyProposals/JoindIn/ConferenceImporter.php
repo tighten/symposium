@@ -11,10 +11,16 @@ class ConferenceImporter
      * @var Client
      */
     private $client;
+    /**
+     * @var integer
+     */
+    private $authorId;
 
-    public function __construct()
+    public function __construct($authorId = null)
     {
         $this->client = Client::factory();
+
+        $this->authorId = $authorId ?: \Auth::user()->id;
     }
 
     public function import($eventId)
@@ -40,7 +46,7 @@ class ConferenceImporter
         $conference->ends_at = $this->carbonFromIso($event['end_date']);
         $conference->cfp_starts_at = $this->carbonFromIso($event['cfp_start_date']);
         $conference->cfp_ends_at = $this->carbonFromIso($event['cfp_end_date']);
-        $conference->author_id = \Auth::user()->id;
+        $conference->author_id = $this->authorId;
 //        $conference->cfp_url = $event['cfp_url'];
 
         return $conference;
