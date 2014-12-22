@@ -38,10 +38,10 @@ class ConferenceImporter
     private function mapEventToConference($eventId, array $event)
     {
         $conference = new Conference;
-        $conference->title = $event['name'];
-        $conference->description = $event['description'];
+        $conference->title = trim($event['name']);
+        $conference->description = trim($event['description']);
         $conference->joindin_id = $eventId;
-        $conference->url = $event['website_uri'];
+        $conference->url = trim($event['website_uri']);
         $conference->starts_at = $this->carbonFromIso($event['start_date']);
         $conference->ends_at = $this->carbonFromIso($event['end_date']);
         $conference->cfp_starts_at = $this->carbonFromIso($event['cfp_start_date']);
