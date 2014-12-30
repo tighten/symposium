@@ -118,6 +118,9 @@ class TalksController extends BaseController
             return Redirect::to('/');
         }
 
+        $v = $talk->versions->first();
+        dd($v->current());
+
         return View::make('talks.show')
             ->with('talk', $talk)
             ->with('author', $talk->author);

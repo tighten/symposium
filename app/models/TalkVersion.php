@@ -1,24 +1,22 @@
 <?php
 
-class Talk extends UuidBase
+class TalkVersion extends UuidBase
 {
-    protected $table = 'talks';
+    protected $table = 'talk_versions';
 
-    protected $guarded = array(
+    protected $guarded = [
         'id'
-    );
+    ];
 
     public static $rules = array();
 
-    public function author()
+    public function current()
     {
-        return $this->belongsTo('User', 'author_id');
+        return $this->revisions()->orderBy('created_at', 'DESC')->first();
     }
 
-    public function scopeCurrentUserOnly($query)
+    public function revisions()
     {
-        $user = \Auth::user();
-
-        return $query->where('author_id', Auth::user()->id);
+        return $this->hasMany('TalkVersionRevision');
     }
 }
