@@ -13,7 +13,7 @@
         {{ Form::open(array('action' => array('AccountController@store'))) }}
 
         {{ Form::label('email', '*Email Address') }}<br>
-        {{ Form::email('email') }}<br><br>
+        {{ Form::email('email', null, ['autofocus' => 'autofocus']) }}<br><br>
 
         {{ Form::label('password', '*Password') }}<br>
         {{ Form::password('password') }}<br><br>
