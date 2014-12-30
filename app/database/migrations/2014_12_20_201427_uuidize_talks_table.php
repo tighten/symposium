@@ -30,6 +30,7 @@ class UuidizeTalksTable extends Migration
     public function down()
     {
         Schema::table('talks', function (Blueprint $table) {
+            $table->dropUnique('talks_id_unique');
             $table->dropColumn('id');
         });
 
