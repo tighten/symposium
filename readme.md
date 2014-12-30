@@ -7,4 +7,6 @@
 
 A webapp to save proposals to speak at conferences.
 
+Very much in progress. Forked from [Markedstyle](http://markedstyle.com/).
+
 An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), by [Matt Stauffer](http://mattstauffer.co/) of [Tighten Co.](http://tighten.co/).
