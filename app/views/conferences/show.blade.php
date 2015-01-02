@@ -3,7 +3,11 @@
 @section('content')
 
     <div class="container">
-        <a href="/conferences">&lt;&lt; All Conferences</a>
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/conferences/">Conferences</a></li>
+            <li class="active"><a href="/conferences/{{ $conference->id }}">Conference: {{ $conference->title }}</a></li>
+        </ol>
 
         <h1>{{ $conference->title }}</h1>
 

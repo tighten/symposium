@@ -5704,6 +5704,20 @@ h3 {
 
   h3 {
     font-size: 2.5rem; } }
+fieldset {
+  border: 1px solid #aaa;
+  border-width: 1px 0 0 0;
+  margin-bottom: 2em;
+  padding: 1em 0 0 0; }
+
+legend {
+  color: #444b52;
+  margin-bottom: 0;
+  margin-left: 0.5em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  width: inherit; }
+
 .container {
   position: relative; }
 
@@ -5739,14 +5753,6 @@ h3 {
 
 .errors {
   color: red; }
-
-.edit-talk-form textarea, .new-talk-form textarea {
-  height: 10em;
-  width: 100%; }
-  .edit-talk-form textarea[name=description], .new-talk-form textarea[name=description] {
-    max-width: 40em; }
-  .edit-talk-form textarea[name=source], .new-talk-form textarea[name=source] {
-    height: 40em; }
 
 .talk-body {
   border: 1px solid #bbb;

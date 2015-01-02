@@ -10,6 +10,11 @@ class TalkVersion extends UuidBase
 
     public static $rules = array();
 
+    public function talk()
+    {
+        return $this->belongsTo('Talk');
+    }
+
     public function current()
     {
         return $this->revisions()->orderBy('created_at', 'DESC')->first();
@@ -18,5 +23,10 @@ class TalkVersion extends UuidBase
     public function revisions()
     {
         return $this->hasMany('TalkVersionRevision');
+    }
+
+    public function getRevisionsAttribute()
+    {
+        return $this->revisions()->getQuery()->orderBy('created_at', 'desc')->get();
     }
 }

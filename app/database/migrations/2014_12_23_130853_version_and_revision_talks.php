@@ -16,7 +16,6 @@ class VersionAndRevisionTalks extends Migration {
         {
             $table->string('id', 36)->unique();
             $table->string('nickname', 150);
-            $table->string('type', 50);
 
             $table->timestamps();
 
@@ -29,7 +28,6 @@ class VersionAndRevisionTalks extends Migration {
             /*
              * - uuid
              * - nickname (?)
-             * - type (keynote, talk, tutorial, lightning)
              * - FK talk_id
              */
         });
@@ -37,10 +35,14 @@ class VersionAndRevisionTalks extends Migration {
         Schema::create('talk_version_revisions', function(Blueprint $table)
         {
             $table->string('id', 36)->unique();
+
             $table->string('title', 255);
-            $table->text('description');
+
+            $table->string('type', 50); // lightning, seminar, keynote, workshop, etc.
+            $table->integer('length'); // minutes
             $table->enum('level', ['beginner', 'intermediate', 'advanced']);
-            $table->integer('length');
+
+            $table->text('description');
             $table->text('outline');
             $table->text('organizer_notes');
 
@@ -56,6 +58,7 @@ class VersionAndRevisionTalks extends Migration {
                 - title
                 - description
                 - level (beginner, intermediate, advanced)
+                - type (keynote, talk, tutorial, lightning)
                 - Length
                 - outline
                 - organizer notes
@@ -79,9 +82,9 @@ class VersionAndRevisionTalks extends Migration {
      */
     public function down()
     {
-        Schema::drop('talk_versions');
-
         Schema::drop('talk_version_revisions');
+
+        Schema::drop('talk_versions');
 
         Schema::table('talks', function(Blueprint $table) {
             $table->text('body');

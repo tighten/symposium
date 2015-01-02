@@ -30,9 +30,17 @@ Route::group(['before' => 'auth'], function () {
     Route::get('conferences/{id}/favorite', 'ConferencesController@favorite');
     Route::get('conferences/{id}/unfavorite', 'ConferencesController@unfavorite');
 
+    Route::get('talks/{talkId}/versions/{versionId}', 'TalkVersionsController@show');
+    Route::get('talks/{talkId}/versions/{versionId}/delete', 'TalkVersionsController@destroy');
+    Route::get('talks/{talkId}/versions/{versionId}/edit', 'TalkVersionsController@edit');
+    Route::post('talks/{talkId}/versions/{versionId}/update', 'TalkVersionsController@update');
+
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', 'TalksController@destroy');
     Route::get('conferences/{id}/delete', 'ConferencesController@destroy');
+
+    Route::get('talks/{id}/createVersion', 'TalkVersionsController@create');
+    Route::post('talks/{id}/storeVersion', 'TalkVersionsController@store');
 
     // Necessary because IDK and please let's fix this @todo
     Route::post('talks/{id}', 'TalksController@update');
