@@ -13,16 +13,14 @@
 
         {{ Form::open(array('action' => 'TalksController@store', 'class' => 'new-talk-form')) }}
 
-        {{ Form::label('title', 'Title') }}<br>
-        {{ Form::text('title') }}<br><br>
+        <div class="form-group">
+            {{ Form::label('title', 'Title', ['class' => 'control-label']) }}
+            {{ Form::text('title', null, ['class' => 'form-control']) }}
 
-        {{ Form::label('description', 'Description') }}<br>
-        {{ Form::textarea('description') }}<br><br>
+            <span class="help-block">This is the name of the talk as you'd like to refer to it internally. For example, if you're considering several names for your talk, use one here that will help <em>you</em> remember and recognize this talk.</span>
+        </div>
 
-        {{ Form::label('body', 'Body') }}<br>
-        {{ Form::textarea('body') }}<br><br>
-
-        {{ Form::submit('Create') }}<br><br>
+        {{ Form::submit('Create', ['class' => 'btn btn-default']) }}<br><br>
 
         {{ Form::close() }}
 

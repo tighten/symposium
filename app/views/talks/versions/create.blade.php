@@ -22,12 +22,9 @@
 
         {{ Form::open(array('action' => array('TalkVersionsController@store', $talk->id), 'class' => 'new-talk-form')) }}
 
-        <div class="form-group">
-            {{ Form::label('nickname', 'Nickname', ['class' => 'control-label']) }}
-            {{ Form::text('nickname', null, ['class' => 'form-control']) }}
-        </div>
+        @include('partials.talkversionform')
 
-        {{ Form::submit('Create') }}<br><br>
+        {{ Form::submit('Create', ['class' => 'btn btn-default']) }}<br><br>
 
         {{ Form::close() }}
 

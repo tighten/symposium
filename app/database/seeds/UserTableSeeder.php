@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert(array(
             array(
                 'email' => 'matt@savemyproposals.com',
-                'password' => Hash::make(Str::random()),
+                'password' => Hash::make('password'),
                 'first_name' => 'Matt',
                 'last_name' => 'Stauffer',
             )

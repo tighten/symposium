@@ -2,10 +2,14 @@
 
 class TalksController extends BaseController
 {
-    protected $sorting_talks = array(
+    protected $rules = [
+        'title' => 'required'
+    ];
+
+    protected $sorting_talks = [
             'date' => '',
             'alpha' => '',
-        );
+    ];
 
     public function __construct()
     {
@@ -69,23 +73,13 @@ class TalksController extends BaseController
      */
     public function store()
     {
-        dd('not programmed with the new world');
-
-        $data = Input::all();
-
-        $rules = $this->account_rules;
-
-        // Make validator
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
             // Save
             $talk = new Talk;
             $talk->title = Input::get('title');
-            $talk->description = Input::get('description');
-            $talk->body = Input::get('body');
             $talk->author_id = Auth::user()->id;
-            // Add author
             $talk->save();
 
             Session::flash('message', 'Successfully created new talk.');

@@ -13,13 +13,13 @@
         <p><strong>{{ $version->talk->title }} - {{ $version->nickname }}</strong></p>
 
         <p class="pull-right">
-            <a href="/talks/{{ $version->talk->id }}/versions/{{ $version->id }}/edit">Edit</a> |
-            <a href="/talks/{{ $version->talk->id }}/versions/{{ $version->id }}/delete">Delete</a>
+            <a href="/talks/{{ $version->talk->id }}/versions/{{ $version->id }}/edit" class="btn btn-default">Edit</a>
+            <a href="/talks/{{ $version->talk->id }}/versions/{{ $version->id }}/delete" class="btn btn-danger">Delete</a>
         </p>
 
         @if ($current === null)
-            {{--This is a weird situation. How do we have a version with no revisions?--}}
-            <p>No revisions yet. @todo handle how to create the details when first making a version</p>
+            {{-- Shouldn't happen. --}}
+            <p>No revisions yet. @todo Throw exception etc.</p>
         @else
 
             <h1>{{ $current->title }}</h1>
