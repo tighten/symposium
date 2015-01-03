@@ -2,16 +2,14 @@
 
 class TalksController extends BaseController
 {
-    protected $account_rules = array(
-        'title' => 'required',
-        'description' => 'required',
-        'body' => 'required',
-    );
+    protected $rules = [
+        'title' => 'required'
+    ];
 
-    protected $sorting_talks = array(
+    protected $sorting_talks = [
             'date' => '',
             'alpha' => '',
-        );
+    ];
 
     public function __construct()
     {
@@ -75,21 +73,13 @@ class TalksController extends BaseController
      */
     public function store()
     {
-        $data = Input::all();
-
-        $rules = $this->account_rules;
-
-        // Make validator
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
             // Save
             $talk = new Talk;
             $talk->title = Input::get('title');
-            $talk->description = Input::get('description');
-            $talk->body = Input::get('body');
             $talk->author_id = Auth::user()->id;
-            // Add author
             $talk->save();
 
             Session::flash('message', 'Successfully created new talk.');
@@ -105,7 +95,7 @@ class TalksController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string $id
      * @return Response
      */
     public function show($id)
@@ -123,75 +113,7 @@ class TalksController extends BaseController
             ->with('author', $talk->author);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  str  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        try {
-            $talk = Talk::where('id', $id)->firstOrFail();
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-            return Redirect::to('/');
-        }
 
-        if ($talk->author->id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
-            Log::error('User ' . Auth::user()->id . ' tried to edit a talk they don\'t own.');
-            return Redirect::to('/');
-        }
-
-        return View::make('talks.edit')
-            ->with('talk', $talk);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  str  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        $data = Input::all();
-
-        $rules = $this->account_rules;
-
-        // Make validator
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->passes()) {
-            // Pull
-            $talk = Talk::where('id', $id)->firstOrFail();
-
-            // Validate ownership
-            if ($talk->author->id != Auth::user()->id) {
-                Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
-                Log::error('User ' . Auth::user()->id . ' tried to edit a talk they don\'t own.');
-                return Redirect::to('/');
-            }
-
-            // Save
-            $talk->title = Input::get('title');
-            $talk->description = Input::get('description');
-            $talk->body = Input::get('body');
-            $talk->author_id = Auth::user()->id;
-            // Add author
-            $talk->save();
-
-            Session::flash('message', 'Successfully edited talk.');
-
-            return Redirect::to('talks/' . $talk->id);
-        }
-
-        return Redirect::to('talks/' . $id . '/edit')
-            ->withErrors($validator)
-            ->withInput();
-    }
 
     /**
      * Show the confirmation for deleting the specified resource
@@ -222,6 +144,8 @@ class TalksController extends BaseController
         }
 
         $talk->delete();
+
+        Session::flash('message', 'Successfully deleted talk.');
 
         return Redirect::to('talks');
     }

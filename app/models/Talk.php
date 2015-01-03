@@ -15,6 +15,11 @@ class Talk extends UuidBase
         return $this->belongsTo('User', 'author_id');
     }
 
+    public function versions()
+    {
+        return $this->hasMany('TalkVersion');
+    }
+
     public function scopeCurrentUserOnly($query)
     {
         $user = \Auth::user();

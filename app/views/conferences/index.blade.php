@@ -3,6 +3,10 @@
 @section('content')
 
     <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active"><a href="/conferences/">Conferences</a></li>
+        </ol>
 
         <h2>All Conferences</h2>
         <a href="/conferences/create" class="create-button">Create Conference</a>

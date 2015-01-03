@@ -3,9 +3,15 @@
 @section('content')
 
     <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active"><a href="/talks/">Talks</a></li>
+        </ol>
 
         <h2>My Talks</h2>
-        <a href="/talks/create" class="create-button">Create Talk</a>
+        <p class="pull-right">
+            <a href="/talks/create" class="btn btn-primary">Create Talk</a>
+        </p>
 
         <p>Sort by: <a href="/talks?sort=alpha"{{ $sorting_talk['alpha'] }}>Title</a> | <a
                     href="/talks?sort=date"{{ $sorting_talk['date'] }}>Date</a></p>

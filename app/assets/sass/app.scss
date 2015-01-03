@@ -1,7 +1,6 @@
 // Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
 @import "variables", "bootstrap", "bootswatch";
 
-
 $link_color: #428bca;
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
@@ -46,6 +45,22 @@ h3 {
     h3 {
         font-size: 2.5rem;
     }
+}
+
+fieldset {
+    border: 1px solid #aaa;
+    border-width: 1px 0 0 0;
+    margin-bottom: 2em;
+    padding: 1em 0 0 0;
+}
+
+legend {
+    color: lighten(desaturate(rgb(44, 62, 80), 20%), 5%);
+    margin-bottom: 0;
+    margin-left: 0.5em;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    width: inherit;
 }
 
 
@@ -180,18 +195,10 @@ h3 {
 }
 
 .edit-talk-form, .new-talk-form {
-    textarea {
-        height: 10em;
-        width: 100%;
-
-        &[name=description] {
-            max-width: 40em;
-        }
-
-        &[name=source] {
-            height: 40em;
-        }
-    }
+//    textarea {
+//        height: 10em;
+//        width: 100%;
+//    }
 }
 
 .talk-body {
