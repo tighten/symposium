@@ -5,7 +5,7 @@ class AccountController extends BaseController
     protected $account_rules = array(
         'first_name' => 'required_without:last_name',
         'last_name' => 'required_without:first_name',
-        'email' => 'email|required',
+        'email' => 'email|required|unique:users',
     );
 
     public function __construct()

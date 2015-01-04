@@ -13,17 +13,25 @@
         <h3>User</h3>
         {{ Form::model($user, array('url' => array('account/edit'))) }}
 
-        {{ Form::label('email', 'Email Address') }}<br>
-        {{ Form::email('email') }}<br><br>
+        <div class="form-group">
+            {{ Form::label('email', 'Email Address', ['class' => 'control-label']) }}
+            {{ Form::email('email', null, ['class' => 'form-control']) }}
+        </div>
 
-        {{ Form::label('password', 'Password (leave empty to keep the same)') }}<br>
-        {{ Form::password('password') }}<br><br>
+        <div class="form-group">
+            {{ Form::label('password', 'Password (leave empty to keep the same)', ['class' => 'control-label']) }}
+            {{ Form::password('password', ['class' => 'form-control']) }}
+        </div>
 
-        {{ Form::label('first_name', 'First Name') }}<br>
-        {{ Form::text('first_name') }}<br><br>
+        <div class="form-group">
+            {{ Form::label('first_name', 'First Name', ['class' => 'control-label']) }}
+            {{ Form::text('first_name', null, ['class' => 'form-control']) }}
+        </div>
 
-        {{ Form::label('last_name', 'Last Name') }}<br>
-        {{ Form::text('last_name') }}<br><br>
+        <div class="form-group">
+            {{ Form::label('last_name', 'Last Name', ['class' => 'control-label']) }}
+            {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+        </div>
 
         {{ Form::submit('Save', array('class' => 'button button--primary')) }}
 
