@@ -53,6 +53,14 @@ class AccountController extends BaseController
 
             Auth::loginUsingId($user->id);
 
+            Mail::send('emails.newsignup', array('email' => Input::get('email')), function($message)
+            {
+                $message
+                    ->from('matt@savemyproposals.com', 'Matt Stauffer at Save My Proposals')
+                    ->to(getenv('admin_email'), 'Admin')
+                    ->subject('New user signup on save my proposals');
+            });
+
             Session::flash('message', 'Successfully created account.');
 
             return Redirect::to('/account');

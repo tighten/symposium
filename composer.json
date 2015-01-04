@@ -17,7 +17,8 @@
         "laravel/framework": "4.2.*",
         "bugsnag/bugsnag-laravel": "1.*",
         "rhumsaa/uuid": "2.*",
-        "rexxars/joindin-client": "dev-master"
+        "rexxars/joindin-client": "dev-master",
+        "guzzlehttp/guzzle": "~5.0@dev"
     },
     "require-dev": {
         "way/generators": "1.*"
