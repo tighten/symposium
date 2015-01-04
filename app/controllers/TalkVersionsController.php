@@ -7,7 +7,7 @@ class TalkVersionsController extends BaseController
         'title' => 'required',
         'type' => 'required',
         'level' => 'required',
-        'length' => 'required|integer',
+        'length' => 'required|integer|min:0',
         'description' => 'required',
     ];
 
