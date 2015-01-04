@@ -13,31 +13,9 @@
 
         {{ Form::open(array('action' => 'ConferencesController@store', 'class' => 'new-conference-form')) }}
 
-        {{ Form::label('title', 'Title') }}<br>
-        {{ Form::text('title') }}<br><br>
+        @include('partials.conferenceform')
 
-        {{ Form::label('description', 'Description') }}<br>
-        {{ Form::textarea('description') }}<br><br>
-
-        {{ Form::label('url', 'Url') }}<br>
-        {{ Form::text('url') }}<br><br>
-
-        {{ Form::label('starts_at', 'Conference Start Date') }}<br>
-        {{ Form::input('date', 'starts_at') }}<br><br>
-
-        {{ Form::label('ends_at', 'Conference End Date') }}<br>
-        {{ Form::input('date', 'ends_at') }}<br><br>
-
-        {{ Form::label('cfp_starts_at', 'CFP Open Date') }}<br>
-        {{ Form::input('date', 'cfp_starts_at') }}<br><br>
-
-        {{ Form::label('cfp_ends_at', 'CFP Close Date') }}<br>
-        {{ Form::input('date', 'cfp_ends_at') }}<br><br>
-
-        {{ Form::label('joindin_id', 'JoindIn ID (optional)') }} - <a href="/conferences/joindin-temp" target="_blank">List of CFPs from JoindIn</a><br>
-        {{ Form::input('text', 'joindin_id') }}<br><br>
-
-        {{ Form::submit('Create') }}<br><br>
+        {{ Form::submit('Create', ['class' => 'btn btn-primary']) }}<br><br>
 
         {{ Form::close() }}
 

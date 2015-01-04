@@ -67,7 +67,8 @@ class ConferencesController extends BaseController
      */
     public function create()
     {
-        return View::make('conferences.create');
+        return View::make('conferences.create')
+            ->with('conference', new Conference());
     }
 
     /**
@@ -85,14 +86,25 @@ class ConferencesController extends BaseController
         $validator = Validator::make($data, $rules);
 
         if ($validator->passes()) {
+            // Temporary hack for the 'mm/dd/yyyy' thing until we have a datepicker
+            $data = Input::all();
+            foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $key) {
+                if ($data[$key] == 'mm/dd/yyyy') {
+                    $data[$key] = '';
+                }
+            }
+            // End hack
+
             $conference = new Conference;
             $conference->title = Input::get('title');
             $conference->description = Input::get('description');
             $conference->url = Input::get('url');
-            $conference->starts_at = Input::get('starts_at');
-            $conference->ends_at= Input::get('ends_at');
-            $conference->cfp_starts_at = Input::get('cfp_starts_at');
-            $conference->cfp_ends_at = Input::get('cfp_ends_at');
+
+            $conference->starts_at = $data['starts_at'];
+            $conference->ends_at= $data['ends_at'];
+            $conference->cfp_starts_at = $data['cfp_starts_at'];
+            $conference->cfp_ends_at = $data['cfp_ends_at'];
+
             $conference->author_id = Auth::user()->id;
 
             $conference->save();
