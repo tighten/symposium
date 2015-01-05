@@ -5,6 +5,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface
 {
+    const ADMIN_ROLE = 1;
+
     /**
      * The database table used by the model.
      *
@@ -69,6 +71,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    /**
+     * Returns whether user has admin role
+     *
+     * Hacky role system for now
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->role == self::ADMIN_ROLE;
     }
 
     /**

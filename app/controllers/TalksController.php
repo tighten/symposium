@@ -108,11 +108,17 @@ class TalksController extends BaseController
             return Redirect::to('/');
         }
 
+        // Validate ownership
+        if ($talk->author->id != Auth::user()->id && ! Auth::user()->isAdmin()) {
+            Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
+            Log::error('User ' . Auth::user()->id . ' tried to show a talk they don\'t own.');
+            return Redirect::to('/');
+        }
+
         return View::make('talks.show')
             ->with('talk', $talk)
             ->with('author', $talk->author);
     }
-
 
 
     /**
