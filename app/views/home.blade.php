@@ -4,9 +4,9 @@
 
     <div class="hero">
         <div class="container">
-            <h1>Save your proposals!</h1>
+            <h1>Stay on top of conferences & talks.</h1>
 
-            <p>Save your conference talk proposals in between conferences.</p>
+            <p>SaveMyProposals is a single place for you to manage your talk proposals, bios, photos, and conference applications and responses.</p>
         </div>
     </div>
 
