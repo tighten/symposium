@@ -13,6 +13,7 @@
 
         <p class="pull-right">
             <a href="/talks/{{ $talk->id }}/createVersion" class="btn btn-primary">Create new version</a>
+            <a href="/talks/{{ $talk->id }}/edit" class="btn btn-default">Edit talk nickname</a>
             <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger">Delete</a>
         </p>
 

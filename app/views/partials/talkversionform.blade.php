@@ -1,14 +1,16 @@
+@if (! isset($hideVersion) || ! $hideVersion)
 <div class="form-group">
     {{ Form::label('nickname', 'Nickname for this talk version', ['class' => 'control-label']) }}
     {{ Form::text('nickname', $version->nickname, ['class' => 'form-control']) }}
 
     <span class="help-block">Each version of each talk has a nickname to distinguish it from the other versions. Something like "Extended Workshop" or "Business Owners version".</span>
 </div>
+@endif
 
 <hr>
 
 <div class="form-group">
-    {{ Form::label('title', 'Title', ['class' => 'control-label']) }}
+    {{ Form::label('title', '*Talk Title', ['class' => 'control-label']) }}
     {{ Form::text('title', $current->title, ['class' => 'form-control']) }}
 </div>
 
@@ -42,7 +44,7 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('length', 'Length', ['class' => 'control-label']) }}
+    {{ Form::label('length', '*Length', ['class' => 'control-label']) }}
     <div class="input-group">
         {{ Form::text('length', $current->length, ['class' => 'form-control']) }}
         <div class="input-group-addon">mins</div>

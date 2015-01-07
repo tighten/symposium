@@ -8,7 +8,6 @@ class TalkVersionsController extends BaseController
         'type' => 'required',
         'level' => 'required',
         'length' => 'required|integer|min:0',
-        'description' => 'required',
     ];
 
     /**
@@ -193,7 +192,7 @@ class TalkVersionsController extends BaseController
             return Redirect::to('talks/' . $version->talk->id . '/versions/' . $version->id);
         }
 
-        return Redirect::to('talks/' . $id . '/edit')
+        return Redirect::to('talks/' . $talkId . '/versions/' . $versionId . '/edit')
             ->withErrors($validator)
             ->withInput();
     }

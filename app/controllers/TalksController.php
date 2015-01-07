@@ -2,8 +2,12 @@
 
 class TalksController extends BaseController
 {
+    // @todo: DRY against TalkVersionsController@$rules (but this doesn't need nickname)
     protected $rules = [
-        'title' => 'required'
+        'title' => 'required',
+        'type' => 'required',
+        'level' => 'required',
+        'length' => 'required|integer|min:0',
     ];
 
     protected $sorting_talks = [
@@ -14,16 +18,7 @@ class TalksController extends BaseController
     public function __construct()
     {
         $this->beforeFilter(
-            'auth',
-            array(
-                'only' => array(
-                    'create',
-                    'store',
-                    'edit',
-                    'update',
-                    'destroy'
-                )
-            )
+            'auth'
         );
     }
 
@@ -63,7 +58,9 @@ class TalksController extends BaseController
      */
     public function create()
     {
-        return View::make('talks.create');
+        return View::make('talks.create')
+            ->with('version', new TalkVersion)
+            ->with('current', new TalkVersionRevision);
     }
 
     /**
@@ -76,11 +73,29 @@ class TalksController extends BaseController
         $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
+            // @todo: DRY with TalkVersionsController@store, prob using commands
+
             // Save
             $talk = new Talk;
             $talk->title = Input::get('title');
             $talk->author_id = Auth::user()->id;
             $talk->save();
+
+            $version = new TalkVersion;
+            $version->nickname = 'Initial';
+            $version->talk_id = $talk->id;
+            $version->save();
+
+            $revision = new TalkVersionRevision;
+            $revision->title = Input::get('title');
+            $revision->type = Input::get('type');
+            $revision->length = Input::get('length');
+            $revision->level = Input::get('level');
+            $revision->description = Input::get('description');
+            $revision->outline = Input::get('outline');
+            $revision->organizer_notes = Input::get('organizer_notes');
+            $revision->talk_version_id = $version->id;
+            $revision->save();
 
             Session::flash('message', 'Successfully created new talk.');
 
@@ -88,6 +103,67 @@ class TalksController extends BaseController
         }
 
         return Redirect::to('talks/create')
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  str  $talkId
+     * @return Response
+     */
+    public function edit($talkId)
+    {
+        try {
+            $talk = Talk::where('id', $talkId)->firstOrFail();
+        } catch (Exception $e) {
+            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
+            Log::error($e);
+            return Redirect::to('/');
+        }
+
+        if ($talk->author->id != Auth::user()->id) {
+            Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
+            Log::error('User ' . Auth::user()->id . ' tried to edit a talk they don\'t own.');
+            return Redirect::to('/');
+        }
+
+        return View::make('talks.edit')
+            ->with('talk', $talk);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  str  $talkId
+     * @return Response
+     */
+    public function update($talkId)
+    {
+        $validator = Validator::make(Input::all(), [
+            'title' => 'required'
+        ]);
+
+        if ($validator->passes()) {
+            $talk = Talk::where('id', $talkId)->firstOrFail();
+
+            // Validate ownership
+            if ($talk->author->id != Auth::user()->id) {
+                Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
+                Log::error('User ' . Auth::user()->id . ' tried to edit a talk they don\'t own.');
+                return Redirect::to('/');
+            }
+
+            $talk->title = Input::get('title');
+            $talk->save();
+
+            Session::flash('message', 'Successfully edited talk.');
+
+            return Redirect::to('talks/' . $talk->id);
+        }
+
+        return Redirect::to('talks/' . $talkId . '/edit')
             ->withErrors($validator)
             ->withInput();
     }
