@@ -5,13 +5,13 @@
         {{ Form::open(array('action' => 'AuthController@postLogin')) }}
         <h2>Log in</h2>
 
-        <div>
-            {{ Form::label('email') }}<br>
-            {{ Form::text('email', null, ['autofocus' => 'autofocus']) }}
+        <div class="form-group">
+            {{ Form::label('email', 'Email', ['class' => 'control-label']) }}<br>
+            {{ Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control']) }}
         </div>
-        <div>
-            {{ Form::label('password') }}<br>
-            {{ Form::password('password') }}
+        <div class="form-group">
+            {{ Form::label('password', 'Password', ['class' => 'control-label']) }}<br>
+            {{ Form::password('password', ['class' => 'form-control']) }}
         </div>
         <br>
 
