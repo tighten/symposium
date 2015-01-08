@@ -22,7 +22,10 @@
                         <span class="label label-info">CFP OPEN</span>
                     @endif
 
-                    <p class="talk-meta"><i>{{ $conference->starts_at->toFormattedDateString()  }} to {{ $conference->ends_at->toFormattedDateString()  }} | CFP open {{ $conference->cfp_starts_at->toFormattedDateString()  }} to {{ $conference->cfp_ends_at->toFormattedDateString()  }}</i></p>
+                    <p class="talk-meta">
+                        <i>Dates: {{ $conference->startsAtDisplay()  }} to {{ $conference->endsAtDisplay()  }}
+                            | CFP open dates: {{ $conference->cfpStartsAtDisplay()  }} to {{ $conference->cfpEndsAtDisplay()  }}
+                        </i></p>
                     @if ($conference->isFavorited())
                     <a href="/conferences/{{ $conference->id  }}/unfavorite">Un-Favorite</a>
                     @else

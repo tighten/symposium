@@ -35,16 +35,16 @@
         <hr>
 
         <p><b>Date conference starts:</b>
-            {{ $conference->starts_at->toFormattedDateString() }}</p>
+            {{ $conference->startsAtDisplay() }}</p>
 
         <p><b>Date conference ends:</b>
-            {{ $conference->ends_at->toFormattedDateString() }}</p>
+            {{ $conference->endsAtDisplay() }}</p>
 
         <p><b>Date CFP opens:</b>
-            {{ $conference->cfp_starts_at->toFormattedDateString() }}</p>
+            {{ $conference->cfpStartsAtDisplay() }}</p>
 
         <p><b>Date CFP closes:</b>
-            {{ $conference->cfp_ends_at->toFormattedDateString() }}</p>
+            {{ $conference->cfpEndsAtDisplay() }}</p>
 
     </div>
 @stop

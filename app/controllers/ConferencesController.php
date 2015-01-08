@@ -86,10 +86,10 @@ class ConferencesController extends BaseController
         $validator = Validator::make($data, $rules);
 
         if ($validator->passes()) {
-            // Temporary hack for the 'mm/dd/yyyy' thing until we have a datepicker
+            // Temporary hack for the 'yyyy-mm-dd' thing until we have a datepicker
             $data = Input::all();
             foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $key) {
-                if ($data[$key] == 'mm/dd/yyyy') {
+                if ($data[$key] == 'yyyy-mm-dd') {
                     $data[$key] = '';
                 }
             }
