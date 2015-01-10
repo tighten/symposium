@@ -4,6 +4,8 @@
     <title>SaveMyProposals</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/js/vendor/pickadate/default.css" rel="stylesheet">
+    <link href="/js/vendor/pickadate/default.date.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -16,6 +18,8 @@
 
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="/js/vendor/pickadate/picker.js"></script>
+    <script src="/js/vendor/pickadate/picker.date.js"></script>
     <script src="/js/main.js"></script>
 
     @if (! App::isLocal())

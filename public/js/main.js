@@ -16,16 +16,8 @@ $(function() {
 			$dismiss_target.slideToggle()
 		}, timeout_len);
 	});
-	
-	$('[data-tab-toggle]').on('click', function( e ) {
-		var target = $(this).attr('data-tab-toggle');
 
-		e.preventDefault();
-
-		$('.tab').removeClass('active');
-		$(target).addClass('active');
-
-		$(this).closest('ul').find('li').removeClass('active');
-		$(this).closest('li').addClass('active');
+	$('input[type=date]').pickadate({
+		format: 'yyyy-mm-dd'
 	});
 });
