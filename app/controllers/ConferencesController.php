@@ -13,6 +13,7 @@ class ConferencesController extends BaseController
     protected $sorting_conferences = [
         'date' => '',
         'alpha' => '',
+        'cfp_is_open' => ''
     ];
 
     public function __construct()
@@ -46,6 +47,13 @@ class ConferencesController extends BaseController
             case 'date':
                 $sorting_conference['date'] = $bold_style;
                 $conferences = Conference::orderBy('created_at', 'DESC')->get();
+                break;
+            case 'cfp_is_open':
+                $sorting_conference['cfp_is_open'] = $bold_style;
+                $conferences = Conference::orderBy('title', 'DESC')->get();
+                $conferences->sortBy(function(Conference $model) {
+                    return ! $model->cfpIsOpen();
+                });
                 break;
             case 'alpha':
                 // Pass through
