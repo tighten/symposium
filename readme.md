@@ -1,10 +1,10 @@
-[![Stories in Ready](https://badge.waffle.io/mattstauffer/savemyproposals.png?label=ready&title=Ready)](https://waffle.io/mattstauffer/savemyproposals)
 ## SaveMyProposals
 
 [![Build Status](https://travis-ci.org/mattstauffer/savemyproposals.png?branch=master)](http://travis-ci.org/mattstauffer/savemyproposals)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mattstauffer/savemyproposals/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mattstauffer/savemyproposals/)
 [![Code Coverage](https://scrutinizer-ci.com/g/mattstauffer/savemyproposals/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mattstauffer/savemyproposals/)
- [![SensioLabsInsight](https://insight.sensiolabs.com/projects/e0d5d507-de6a-4644-bf74-e5fed3b7c228/mini.png)](https://insight.sensiolabs.com/projects/e0d5d507-de6a-4644-bf74-e5fed3b7c228)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e0d5d507-de6a-4644-bf74-e5fed3b7c228/mini.png)](https://insight.sensiolabs.com/projects/e0d5d507-de6a-4644-bf74-e5fed3b7c228)
+[![Stories in Ready](https://badge.waffle.io/mattstauffer/savemyproposals.png?label=ready&title=Ready)](https://waffle.io/mattstauffer/savemyproposals)
 
 A webapp to save proposals to speak at conferences.
 
