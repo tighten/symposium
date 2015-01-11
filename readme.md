@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/mattstauffer/savemyproposals.png?label=ready&title=Ready)](https://waffle.io/mattstauffer/savemyproposals)
 ## SaveMyProposals
 
 [![Build Status](https://travis-ci.org/mattstauffer/savemyproposals.png?branch=master)](http://travis-ci.org/mattstauffer/savemyproposals)
