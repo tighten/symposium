@@ -3,21 +3,24 @@
 @section('content')
 
     <div class="container">
-        <h1>Create Conference</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Create Conference</h1>
 
-        <ul class="errors">
-            @foreach ($errors->all() as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
+                <ul class="errors">
+                    @foreach ($errors->all() as $message)
+                        <li>{{ $message }}</li>
+                    @endforeach
+                </ul>
 
-        {{ Form::open(array('action' => 'ConferencesController@store', 'class' => 'new-conference-form')) }}
+                {{ Form::open(array('action' => 'ConferencesController@store', 'class' => 'new-conference-form')) }}
 
-        @include('partials.conferenceform')
+                @include('partials.conferenceform')
 
-        {{ Form::submit('Create', ['class' => 'btn btn-primary']) }}<br><br>
+                {{ Form::submit('Create', ['class' => 'btn btn-primary']) }}<br><br>
 
-        {{ Form::close() }}
-
+                {{ Form::close() }}
+            </div>
+        </div>
     </div>
 @stop

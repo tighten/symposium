@@ -19,14 +19,16 @@
                 <li>{{ $message }}</li>
             @endforeach
         </ul>
+        <div class="row">
+            <div class="col-lg-6 col-md-8">
+                {{ Form::open(array('action' => array('TalkVersionsController@update', $version->talk->id, $version->id), 'class' => 'edit-talk-form')) }}
 
-        {{ Form::open(array('action' => array('TalkVersionsController@update', $version->talk->id, $version->id), 'class' => 'edit-talk-form')) }}
+                @include('partials.talkversionform')
 
-        @include('partials.talkversionform')
+                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
 
-        {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
-
-        {{ Form::close() }}
-
+                {{ Form::close() }}
+            </div>
+        </div>
     </div>
 @stop

@@ -21,5 +21,8 @@
         <p>Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFP's open and close.</p>
         <p>Track which conferences have accepted or rejected your talk submissions.</p>
 
+        <h1>What's coming next?</h1>
+        <p>Check out the <a href="https://waffle.io/mattstauffer/savemyproposals">Waffle.io</a> board to see the roadmap.</p>
+
     </div>
 @stop
