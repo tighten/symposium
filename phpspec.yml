@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: SaveMyProposals
+        psr4_prefix: SaveMyProposals
+        src_path: app
