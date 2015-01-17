@@ -1,0 +1,216 @@
+// Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
+@import "variables", "bootstrap", "bootswatch";
+
+$link_color: #428bca;
+
+/* Build our stylesheet, which currently merely extends bootstrap styles. */
+body {
+}
+
+a {
+    color: $link_color;
+    text-decoration: none;
+
+    &:hover {
+        color: darken($link_color, 15%);
+        text-decoration: underline;
+    }
+}
+
+.logo {
+    @extend .navbar-brand;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 400px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 2.5rem;
+    }
+}
+
+fieldset {
+    border: 1px solid #aaa;
+    border-width: 1px 0 0 0;
+    margin-bottom: 2em;
+    padding: 1em 0 0 0;
+}
+
+legend {
+    color: lighten(desaturate(rgb(44, 62, 80), 20%), 5%);
+    margin-bottom: 0;
+    margin-left: 0.5em;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    width: inherit;
+}
+
+
+.container {
+    @extend .container;
+    position: relative;
+}
+
+.primary-header {
+    @extend .navbar;
+    @extend .navbar-default;
+    @extend .navbar-static-top;
+}
+
+.primary-header__title {
+    @extend .navbar-header;
+}
+
+.primary-header__toggle {
+    @extend .navbar-toggle;
+    margin-top: 2.5em;
+}
+
+.primary-header__collapse {
+    @extend .navbar-collapse;
+    @extend .collapse;
+}
+
+.primary-header__meta-nav {
+    @extend .nav;
+    @extend .navbar-nav;
+    @extend .navbar-right;
+    margin-top: 2em;
+}
+
+.icon-bar {
+    @extend .icon-bar;
+}
+
+%notice {
+    @extend .alert;
+    margin-top: -1em;
+    position: absolute;
+    width: 100%;
+    z-index: 200;
+}
+
+.notice-success {
+    @extend %notice;
+    @extend .alert-success;
+}
+
+.notice-error {
+    @extend %notice;
+    @extend .alert-danger;
+}
+
+.notice-info {
+    @extend %notice;
+    @extend .alert-info;
+}
+
+.hero {
+    @extend .jumbotron;
+}
+
+.button {
+    @extend .btn;
+}
+
+.button--large {
+    @extend .btn-lg;
+}
+
+.button--primary {
+    @extend .btn-primary;
+}
+
+.button--default {
+    @extend .btn-default;
+}
+
+.row {
+    @extend .row; // INCEPTION UP IN THIS PIECE
+}
+
+.col-third {
+    @extend .col-md-4;
+}
+
+.login-form {
+}
+
+.control-group {
+}
+
+.control-label {
+}
+
+.controls {
+}
+
+.list-talks {
+    li {
+        margin-bottom: .25em;
+    }
+    h3 {
+        font-size: 1.5em;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    .talk-meta {
+        color: #666;
+        font-size: .9em;
+    }
+}
+
+.actions-box {
+    @media only screen and (min-width: 768px) {
+        float: right;
+        width: 20%;
+    }
+}
+
+.footer {
+    margin-top: 4em;
+}
+
+.errors {
+    color: red;
+}
+
+.edit-talk-form, .new-talk-form {
+//    textarea {
+//        height: 10em;
+//        width: 100%;
+//    }
+}
+
+.talk-body {
+    border: 1px solid #bbb;
+    max-width: 55em;
+    padding: 1em;
+}
+
+.create-button {
+    @extend .pull-right;
+    @extend .btn;
+    @extend .btn-primary;
+
+    margin-left: 1em;
+}
