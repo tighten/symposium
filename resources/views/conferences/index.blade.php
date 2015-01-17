@@ -14,6 +14,7 @@
         <p>Sort by: <a href="/conferences?sort=alpha"{{ $sorting_conference['alpha'] }}>Title</a>
             | <a href="/conferences?sort=date"{{ $sorting_conference['date'] }}>Date</a>
             | <a href="/conferences?sort=cfp_is_open"{{ $sorting_conference['cfp_is_open'] }}>CFP is Open</a>
+            | <a href="/conferences?sort=closing_next"{{ $sorting_conference['closing_next'] }}>Closing Next</a>
         </p>
         <ul class="list-conferences">
             @foreach ($conferences as $conference)
