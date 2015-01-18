@@ -13,10 +13,10 @@ class FleshOutConferences extends Migration {
 	public function up()
 	{
 		Schema::table('conferences', function(Blueprint $table) {
-			$table->dateTime('starts_at');
-			$table->dateTime('ends_at');
-			$table->dateTime('cfp_starts_at');
-			$table->dateTime('cfp_ends_at');
+			$table->dateTime('starts_at')->default('0000-00-00');
+			$table->dateTime('ends_at')->default('0000-00-00');
+			$table->dateTime('cfp_starts_at')->default('0000-00-00');
+			$table->dateTime('cfp_ends_at')->default('0000-00-00');
 		});
 	}
 
