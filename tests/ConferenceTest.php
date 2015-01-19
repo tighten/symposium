@@ -21,4 +21,22 @@ class ConferenceTest extends TestCase
 
         $this->assertTrue($conference->isCurrentlyAcceptingProposals());
     }
+
+    /** @test */
+    public function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
+    {
+        $conference = Factory::create('conference', [
+            'cfp_starts_at' => Carbon::tomorrow(),
+            'cfp_ends_at' => Carbon::tomorrow()->addDay(),
+        ]);
+
+        $this->assertFalse($conference->isCurrentlyAcceptingProposals());
+
+        $conference = Factory::create('conference', [
+            'cfp_starts_at' => Carbon::yesterday()->subDay(),
+            'cfp_ends_at' => Carbon::yesterday(),
+        ]);
+
+        $this->assertFalse($conference->isCurrentlyAcceptingProposals());
+    }
 }
