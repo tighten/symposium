@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3cfff603170f2c17b25b14dae1259e06",
+    "hash": "4a848d5f672d055c55f1a150cd31084f",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -521,12 +521,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "06e64e2722b892105582bb629ef2057df2111112"
+                "reference": "170817a88eadd8640c619f0c9fa6c462f35b5b9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/06e64e2722b892105582bb629ef2057df2111112",
-                "reference": "06e64e2722b892105582bb629ef2057df2111112",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/170817a88eadd8640c619f0c9fa6c462f35b5b9e",
+                "reference": "170817a88eadd8640c619f0c9fa6c462f35b5b9e",
                 "shasum": ""
             },
             "require": {
@@ -584,7 +584,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-01-12 15:57:00"
+            "time": "2015-01-18 22:26:30"
         },
         {
             "name": "doctrine/inflector",
@@ -2657,12 +2657,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/TestDummy.git",
-                "reference": "a3cb5605fbdac17f0a8973ece0e41b1221ccc990"
+                "reference": "6830ada54e6f71e763c72e75914c70be9e0990a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/TestDummy/zipball/a3cb5605fbdac17f0a8973ece0e41b1221ccc990",
-                "reference": "a3cb5605fbdac17f0a8973ece0e41b1221ccc990",
+                "url": "https://api.github.com/repos/laracasts/TestDummy/zipball/6830ada54e6f71e763c72e75914c70be9e0990a9",
+                "reference": "6830ada54e6f71e763c72e75914c70be9e0990a9",
                 "shasum": ""
             },
             "require": {
@@ -2696,7 +2696,7 @@
                 "stubs",
                 "testing"
             ],
-            "time": "2015-01-07 19:32:02"
+            "time": "2015-01-18 22:34:19"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -3656,11 +3656,11 @@
     "stability-flags": {
         "rexxars/joindin-client": 20,
         "guzzlehttp/guzzle": 20,
-        "illuminate/html": 20,
         "doctrine/dbal": 20,
         "laracasts/testdummy": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }
