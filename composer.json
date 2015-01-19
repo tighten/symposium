@@ -1,57 +1,59 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
-	"license": "MIT",
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
     "repositories": [
         {
             "type": "git",
             "url": "git@github.com:mattstauffer/joindin-client.git"
         }
     ],
-	"type": "project",
-	"require": {
-		"laravel/framework": "~5.0",
+    "type": "project",
+    "require": {
+        "laravel/framework": "~5.0",
         "bugsnag/bugsnag-laravel": "1.*",
         "rhumsaa/uuid": "2.*",
         "rexxars/joindin-client": "dev-master",
         "guzzlehttp/guzzle": "~5.0@dev",
-        "illuminate/html": "dev-master"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1"
-	},
-	"autoload": {
-		"classmap": [
-			"database",
-			"app/models",
-			"app/Http/Controllers/"
-		],
-		"psr-4": {
-			"SaveMyProposals\\": "app/"
-		}
-	},
-	"autoload-dev": {
-		"classmap": [
-			"tests/TestCase.php"
-		]
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php artisan key:generate"
-		]
-	},
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "dev"
+        "illuminate/html": "~5.0",
+        "doctrine/dbal": "~2.6@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4.0",
+        "phpspec/phpspec": "~2.1",
+        "laracasts/testdummy": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "database",
+            "app/models",
+            "app/Http/Controllers/"
+        ],
+        "psr-4": {
+            "SaveMyProposals\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan clear-compiled",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "php artisan clear-compiled",
+            "php artisan optimize"
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev"
 }

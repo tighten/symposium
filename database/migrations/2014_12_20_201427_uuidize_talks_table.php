@@ -18,7 +18,7 @@ class UuidizeTalksTable extends Migration
         });
 
         Schema::table('talks', function (Blueprint $table) {
-            $table->string('id', 36)->after('title')->unique();
+            $table->string('id', 36)->after('title')->unique()->default(0);
         });
     }
 
