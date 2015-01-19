@@ -47,7 +47,14 @@ class Conference extends UuidBase
 
     public function cfpIsOpen()
     {
-        if ($this->cfp_starts_at == null || $this->cfp_ends_at == null) return false;
+        return $this->isCurrentlyAcceptingProposals();
+    }
+
+    public function isCurrentlyAcceptingProposals()
+    {
+        if ($this->cfp_starts_at == null || $this->cfp_ends_at == null) {
+            return false;
+        }
 
         return Carbon::today()->between($this->getAttribute('cfp_starts_at'), $this->getAttribute('cfp_ends_at'));
     }
