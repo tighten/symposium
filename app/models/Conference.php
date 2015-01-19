@@ -52,11 +52,16 @@ class Conference extends UuidBase
 
     public function isCurrentlyAcceptingProposals()
     {
-        if ($this->cfp_starts_at == null || $this->cfp_ends_at == null) {
+        if (! $this->hasAnnouncedCallForPapers()) {
             return false;
         }
 
         return Carbon::today()->between($this->getAttribute('cfp_starts_at'), $this->getAttribute('cfp_ends_at'));
+    }
+
+    private function hasAnnouncedCallForPapers()
+    {
+        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 
     /**
