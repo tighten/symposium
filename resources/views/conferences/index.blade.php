@@ -11,9 +11,13 @@
         <h2>All Conferences</h2>
         <a href="/conferences/create" class="create-button">Create Conference</a>
 
-        <p>Sort by: <a href="/conferences?sort=alpha"{{ $sorting_conference['alpha'] }}>Title</a>
-            | <a href="/conferences?sort=date"{{ $sorting_conference['date'] }}>Date</a>
-            | <a href="/conferences?sort=cfp_is_open"{{ $sorting_conference['cfp_is_open'] }}>CFP is Open</a>
+        <p>
+            Sort by:
+            {{ HTML::activeLinkRoute('conferences.index', 'Title', ['sort' => 'alpha'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute('conferences.index', 'Date', ['sort' => 'date'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute('conferences.index', 'CFP is Open', ['sort' => 'cfp_is_open'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute('conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => 'filter-link']) }}
+
         </p>
         <ul class="list-conferences">
             @foreach ($conferences as $conference)

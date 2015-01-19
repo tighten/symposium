@@ -5762,4 +5762,7 @@ legend {
 .create-button {
   margin-left: 1em; }
 
+.filter-link.is-active {
+  font-weight: bold; }
+
 /*# sourceMappingURL=app.css.map */

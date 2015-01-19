@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider {
 		\Blade::setContentTags('{{{', '}}}');
 
 		require app_path() . '/modelEvents.php';
+		require app_path() . '/macros.php';
 	}
 
 	/**

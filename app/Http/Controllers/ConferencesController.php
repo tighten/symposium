@@ -18,12 +18,6 @@ class ConferencesController extends BaseController
         'url' => 'required',
     ];
 
-    protected $sorting_conferences = [
-        'date' => '',
-        'alpha' => '',
-        'cfp_is_open' => ''
-    ];
-
     public function __construct()
     {
         $this->beforeFilter(
@@ -47,33 +41,28 @@ class ConferencesController extends BaseController
      */
     public function index()
     {
-        $bold_style = 'style="font-weight: bold;"';
-
-        $sorting_conference = $this->sorting_conferences;
-
         switch (Input::get('sort')) {
             case 'date':
-                $sorting_conference['date'] = $bold_style;
                 $conferences = Conference::orderBy('created_at', 'DESC')->get();
                 break;
             case 'cfp_is_open':
-                $sorting_conference['cfp_is_open'] = $bold_style;
                 $conferences = Conference::orderBy('title', 'DESC')->get();
                 $conferences->sortBy(function(Conference $model) {
                     return ! $model->cfpIsOpen();
                 });
                 break;
+            case 'closing_next':
+                $conferences = Conference::closingSoonest();
+                break;
             case 'alpha':
                 // Pass through
             default:
-                $sorting_conference['alpha'] = $bold_style;
                 $conferences = Conference::orderBy('title', 'ASC')->get();
                 break;
         }
 
         return View::make('conferences.index')
-            ->with('conferences', $conferences)
-            ->with('sorting_conference', $sorting_conference);
+            ->with('conferences', $conferences);
     }
 
     /**

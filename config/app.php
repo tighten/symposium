@@ -145,7 +145,7 @@ return [
 		'SaveMyProposals\Providers\EventServiceProvider',
 		'SaveMyProposals\Providers\RouteServiceProvider',
 		// 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
-		 
+
 		'Illuminate\Html\HtmlServiceProvider',
 	],
 
@@ -194,6 +194,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		// 'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 		'Form'      => 'Illuminate\Html\FormFacade',
+		'HTML'      => 'Illuminate\Html\HtmlFacade',
 	],
 
 ];
