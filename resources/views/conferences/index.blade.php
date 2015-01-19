@@ -15,7 +15,9 @@
             Sort by:
             {{ HTML::activeLinkRoute('conferences.index', 'Title', ['sort' => 'alpha'], ['class' => 'filter-link']) }} |
             {{ HTML::activeLinkRoute('conferences.index', 'Date', ['sort' => 'date'], ['class' => 'filter-link']) }} |
-            {{ HTML::activeLinkRoute('conferences.index', 'CFP is Open', ['sort' => 'cfp_is_open'], ['class' => 'filter-link']) }}
+            {{ HTML::activeLinkRoute('conferences.index', 'CFP is Open', ['sort' => 'cfp_is_open'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute('conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => 'filter-link']) }}
+
         </p>
         <ul class="list-conferences">
             @foreach ($conferences as $conference)

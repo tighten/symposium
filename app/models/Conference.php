@@ -24,6 +24,27 @@ class Conference extends UuidBase
         return $this->belongsTo('User', 'author_id');
     }
 
+    public static function closingSoonest()
+    {
+        $hasCfp = self::where('cfp_ends_at', '!=', '00000-00-00 00:00')
+            ->orderBy('cfp_ends_at', 'ASC')
+            ->get();
+        $hasNoCfp = self::where('cfp_ends_at', '00000-00-00 00:00')
+            ->where('starts_at', '!=', '0000-00-00 00:00:00')
+            ->orderBy('starts_at' ,'ASC')
+            ->get();
+        $hasNoCfpOrConf = self::where('cfp_ends_at', '00000-00-00 00:00')
+            ->where('starts_at', '0000-00-00 00:00:00')
+            ->orderBy('title')
+            ->get();
+
+        $return = $hasCfp
+            ->merge($hasNoCfp)
+            ->merge($hasNoCfpOrConf);
+
+        return $return;
+    }
+
     public function cfpIsOpen()
     {
         if ($this->cfp_starts_at == null || $this->cfp_ends_at == null) return false;

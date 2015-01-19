@@ -51,6 +51,9 @@ class ConferencesController extends BaseController
                     return ! $model->cfpIsOpen();
                 });
                 break;
+            case 'closing_next':
+                $conferences = Conference::closingSoonest();
+                break;
             case 'alpha':
                 // Pass through
             default:
