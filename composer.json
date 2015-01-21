@@ -22,7 +22,8 @@
     "require-dev": {
         "phpunit/phpunit": "~4.4.0",
         "phpspec/phpspec": "~2.1",
-        "laracasts/testdummy": "dev-master"
+        "laracasts/testdummy": "dev-master",
+        "mockery/mockery": "0.9.*@dev"
     },
     "autoload": {
         "classmap": [
@@ -36,7 +37,8 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/TestCase.php",
+            "tests/IntegrationTestCase.php"
         ]
     },
     "scripts": {
