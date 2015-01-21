@@ -39,4 +39,15 @@ class ConferenceTest extends TestCase
 
         $this->assertFalse($conference->isCurrentlyAcceptingProposals());
     }
+
+    /** @test */
+    public function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
+    {
+        $conference = Factory::create('conference', [
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+        ]);
+
+        $this->assertFalse($conference->isCurrentlyAcceptingProposals());
+    }
 }
