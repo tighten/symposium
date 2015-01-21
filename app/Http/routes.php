@@ -15,7 +15,7 @@ Route::get('log-out', 'AuthController@logout');
 Route::get('sign-up', 'AccountController@create');
 Route::post('sign-up', 'AccountController@store');
 
-Route::group(['before' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('account', 'AccountController@show');
     Route::get('account/edit', 'AccountController@edit');
     Route::post('account/edit', 'AccountController@update');
@@ -34,6 +34,7 @@ Route::group(['before' => 'auth'], function () {
     Route::get('talks/{talkId}/versions/{versionId}/delete', 'TalkVersionsController@destroy');
     Route::get('talks/{talkId}/versions/{versionId}/edit', 'TalkVersionsController@edit');
     Route::post('talks/{talkId}/versions/{versionId}/update', 'TalkVersionsController@update');
+    Route::get('talks/{talkId}/versions/{versionId}/{revisionId}', 'TalkVersionsController@showRevision');
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', 'TalksController@destroy');

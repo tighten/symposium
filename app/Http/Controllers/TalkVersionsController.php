@@ -54,6 +54,11 @@ class TalkVersionsController extends BaseController
             ->with('author', $version->talk->author);
     }
 
+    public function showRevision($talkId, $versionId, $revisionId)
+    {
+        dd('not programmed yet :/');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
