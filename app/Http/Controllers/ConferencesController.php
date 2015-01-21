@@ -90,16 +90,21 @@ class ConferencesController extends BaseController
         // Make validator
         $validator = Validator::make(Input::all(), $rules);
 
+        // Default to null
+        foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
+            $nullableDates[$col] = Input::get($col) ?: null;
+        }
+
         if ($validator->passes()) {
             $conference = new Conference;
             $conference->title = Input::get('title');
             $conference->description = Input::get('description');
             $conference->url = Input::get('url');
 
-            $conference->starts_at = Input::get('starts_at');
-            $conference->ends_at= Input::get('ends_at');
-            $conference->cfp_starts_at = Input::get('cfp_starts_at');
-            $conference->cfp_ends_at = Input::get('cfp_ends_at');
+            $conference->starts_at = $nullableDates['starts_at'];
+            $conference->ends_at= $nullableDates['ends_at'];
+            $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];
+            $conference->cfp_ends_at = $nullableDates['cfp_ends_at'];
 
             $conference->author_id = Auth::user()->id;
 
@@ -188,15 +193,21 @@ class ConferencesController extends BaseController
                 return Redirect::to('/');
             }
 
+            // Default to null
+            foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
+                $nullableDates[$col] = Input::get($col) ?: null;
+            }
+
             // Save
             $conference->title = Input::get('title');
             $conference->description = Input::get('description');
             $conference->url = Input::get('url');
-            $conference->starts_at = Input::get('starts_at');
-            $conference->ends_at= Input::get('ends_at');
-            $conference->cfp_starts_at = Input::get('cfp_starts_at');
-            $conference->cfp_ends_at = Input::get('cfp_ends_at');
+            $conference->starts_at = $nullableDates['starts_at'];
+            $conference->ends_at= $nullableDates['ends_at'];
+            $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];
+            $conference->cfp_ends_at = $nullableDates['cfp_ends_at'];
             $conference->author_id = Auth::user()->id;
+
             // Add author
             $conference->save();
 

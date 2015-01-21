@@ -26,21 +26,27 @@ class Conference extends UuidBase
 
     public static function closingSoonest()
     {
-        $hasCfp = self::where('cfp_ends_at', '!=', '00000-00-00 00:00')
+        $hasOpenCfp = self::whereNotNull('cfp_ends_at')
+            ->where('cfp_ends_at', '>', Carbon::now())
             ->orderBy('cfp_ends_at', 'ASC')
             ->get();
-        $hasNoCfp = self::where('cfp_ends_at', '00000-00-00 00:00')
-            ->where('starts_at', '!=', '0000-00-00 00:00:00')
+        $hasNoCfp = self::whereNull('cfp_ends_at')
+            ->whereNotNull('starts_at')
             ->orderBy('starts_at' ,'ASC')
             ->get();
-        $hasNoCfpOrConf = self::where('cfp_ends_at', '00000-00-00 00:00')
-            ->where('starts_at', '0000-00-00 00:00:00')
+        $hasNoCfpOrConf = self::whereNull('cfp_ends_at')
+            ->whereNull('starts_at')
             ->orderBy('title')
             ->get();
+        $hasExpiredCfp = self::whereNotNull('cfp_ends_at')
+            ->where('cfp_ends_at', '<=', Carbon::now())
+            ->orderBy('cfp_ends_at', 'ASC')
+            ->get();
 
-        $return = $hasCfp
+        $return = $hasOpenCfp
             ->merge($hasNoCfp)
-            ->merge($hasNoCfpOrConf);
+            ->merge($hasNoCfpOrConf)
+            ->merge($hasExpiredCfp);
 
         return $return;
     }
@@ -102,21 +108,21 @@ class Conference extends UuidBase
 
     public function startsAtSet()
     {
-        return $this->starts_at && $this->starts_at->format('Y') != '-0001';
+        return $this->starts_at;
     }
 
     public function endsAtSet()
     {
-        return $this->ends_at && $this->ends_at->format('Y') != '-0001';
+        return $this->ends_at;
     }
 
     public function cfpStartsAtSet()
     {
-        return $this->cfp_starts_at && $this->cfp_starts_at->format('Y') != '-0001';
+        return $this->cfp_starts_at;
     }
 
     public function cfpEndsAtSet()
     {
-        return $this->cfp_ends_at && $this->cfp_ends_at->format('Y') != '-0001';
+        return $this->cfp_ends_at;
     }
 }
