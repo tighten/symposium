@@ -10,6 +10,9 @@ use Session;
 use Validator;
 use View;
 
+use SaveMyProposals\Exceptions\ValidationException;
+use SaveMyProposals\Services\CreateConferenceForm;
+
 class ConferencesController extends BaseController
 {
     protected $account_rules = [
@@ -83,41 +86,19 @@ class ConferencesController extends BaseController
      */
     public function store()
     {
-        $data = Input::all();
+        $form = CreateConferenceForm::fillOut(Input::all(), Auth::user());
 
-        $rules = $this->account_rules;
-
-        // Make validator
-        $validator = Validator::make(Input::all(), $rules);
-
-        // Default to null
-        foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
-            $nullableDates[$col] = Input::get($col) ?: null;
+        try {
+            $conference = $form->complete();
+        } catch (ValidationException $e) {
+            return Redirect::to('conferences/create')
+                ->withErrors($e->errors())
+                ->withInput();
         }
 
-        if ($validator->passes()) {
-            $conference = new Conference;
-            $conference->title = Input::get('title');
-            $conference->description = Input::get('description');
-            $conference->url = Input::get('url');
+        Session::flash('message', 'Successfully created new conference.');
 
-            $conference->starts_at = $nullableDates['starts_at'];
-            $conference->ends_at= $nullableDates['ends_at'];
-            $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];
-            $conference->cfp_ends_at = $nullableDates['cfp_ends_at'];
-
-            $conference->author_id = Auth::user()->id;
-
-            $conference->save();
-
-            Session::flash('message', 'Successfully created new conference.');
-
-            return Redirect::to('/conferences/' . $conference->id);
-        }
-
-        return Redirect::to('conferences/create')
-            ->withErrors($validator)
-            ->withInput();
+        return Redirect::to('/conferences/' . $conference->id);
     }
 
     /**

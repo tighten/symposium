@@ -11,3 +11,10 @@ $factory('Conference', 'conference', [
     'cfp_starts_at' => new DateTime,
     'cfp_ends_at' => new DateTime,
 ]);
+
+$factory('User', 'user', [
+    'email' => 'example@example.com',
+    'password' => Hash::make('password'),
+    'first_name' => 'Jane',
+    'last_name' => 'Doe',
+]);

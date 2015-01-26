@@ -10,14 +10,23 @@ class Conference extends UuidBase
         'id'
     );
 
+    protected $fillable = [
+        'author_id',
+        'title',
+        'description',
+        'url',
+        'starts_at',
+        'ends_at',
+        'cfp_starts_at',
+        'cfp_ends_at',
+    ];
+
     protected $dates = [
         'starts_at',
         'ends_at',
         'cfp_starts_at',
         'cfp_ends_at'
     ];
-
-    public static $rules = [];
 
     public function author()
     {

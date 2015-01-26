@@ -3,14 +3,8 @@
 use Laracasts\TestDummy\Factory;
 use Carbon\Carbon;
 
-class ConferenceTest extends TestCase
+class ConferenceTest extends IntegrationTestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-        Artisan::call('migrate');
-    }
-
     /** @test */
     public function conferences_accept_proposals_during_the_call_for_papers()
     {
