@@ -133,6 +133,11 @@ class Conference extends UuidBase
         });
     }
 
+    public function appliedTo()
+    {
+        return $this->myTalks()->count() > 0;
+    }
+
     public function startsAtDisplay()
     {
         return $this->startsAtSet() ? $this->starts_at->toFormattedDateString() : '[Date not set]';

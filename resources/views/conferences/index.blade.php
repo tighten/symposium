@@ -38,6 +38,9 @@
                     @else
                         <a href="/conferences/{{ $conference->id  }}/favorite">Favorite</a>
                     @endif
+                    @if ($conference->appliedTo())
+                        | Already Sent Proposal
+                    @endif
                 </li>
             @endforeach
         </ul>
