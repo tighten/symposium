@@ -14,4 +14,14 @@ class TalkVersionRevision extends UuidBase
     {
         return $this->belongsTo('TalkVersion');
     }
+
+    public function getTalkAttribute()
+    {
+        return $this->talkVersion->talk;
+    }
+
+    public function getUrl()
+    {
+        return '/talks/' . $this->getAttribute('talk')->id . '/versions/' . $this->talkVersion->id . '/' . $this->id;
+    }
 }

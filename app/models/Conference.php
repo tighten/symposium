@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class Conference extends UuidBase
 {
@@ -33,6 +34,16 @@ class Conference extends UuidBase
         return $this->belongsTo('User', 'author_id');
     }
 
+    public function submissions()
+    {
+        return $this->belongsToMany('TalkVersionRevision', 'submissions');
+    }
+
+//    public function submitters()
+//    {
+//        return $this->hasManyThrough('Talk', 'User');
+//    }
+
     public static function closingSoonest()
     {
         $hasOpenCfp = self::whereNotNull('cfp_ends_at')
@@ -60,11 +71,22 @@ class Conference extends UuidBase
         return $return;
     }
 
+    /**
+     * Whether CFP is currently open
+     *
+     * @deprecated
+     * @return bool
+     */
     public function cfpIsOpen()
     {
         return $this->isCurrentlyAcceptingProposals();
     }
 
+    /**
+     * Whether conference is currently accepted talk proposals
+     *
+     * @return bool
+     */
     public function isCurrentlyAcceptingProposals()
     {
         if (! $this->hasAnnouncedCallForProposals()) {
@@ -74,6 +96,11 @@ class Conference extends UuidBase
         return Carbon::today()->between($this->getAttribute('cfp_starts_at'), $this->getAttribute('cfp_ends_at'));
     }
 
+    /**
+     * Whether conference has announced a call for proposals
+     *
+     * @return bool
+     */
     private function hasAnnouncedCallForProposals()
     {
         return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
@@ -89,9 +116,22 @@ class Conference extends UuidBase
 
     public function isFavorited()
     {
-        return \Auth::user()->favoritedConferences->contains($this->id);
+        return Auth::user()->favoritedConferences->contains($this->id);
     }
 
+    /**
+     * Return all talks from this user that were submitted to this conference
+     *
+     * @return Collection
+     */
+    public function myTalks()
+    {
+        $talks = Auth::user()->talks;
+
+        return $this->submissions->filter(function($talkVersionRevision) use($talks) {
+            return $talks->contains($talkVersionRevision->talk);
+        });
+    }
 
     public function startsAtDisplay()
     {
