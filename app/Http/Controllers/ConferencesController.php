@@ -2,6 +2,7 @@
 
 use Auth;
 use Conference;
+use Illuminate\Support\Collection;
 use Input;
 use JoindIn\Client;
 use Log;
@@ -117,9 +118,14 @@ class ConferencesController extends BaseController
             return Redirect::to('/');
         }
 
+        $talksAtConference = $conference->myTalks();
+        $myTalks = Auth::user()->talks;
+
         return View::make('conferences.show')
             ->with('conference', $conference)
-            ->with('author', $conference->author);
+            ->with('author', $conference->author)
+            ->with('talksAtConference', $talksAtConference)
+            ->with('talks', $myTalks);
     }
 
     /**

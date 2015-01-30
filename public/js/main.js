@@ -20,4 +20,36 @@ $(function() {
 	$('input[type=date]').pickadate({
 		format: 'yyyy-mm-dd'
 	});
+
+	$('[data-post]').on('click', function(e) {
+		e.preventDefault();
+		var $that = $(this);
+
+		$.ajax({
+			url: "/submissions",
+			type: "POST",
+			data: $.parseJSON($(this).attr('data-post')),
+			success: function() {
+				// @todo flash message
+				// @todo: Change binding
+				$that.text('Submitted').removeClass('btn-primary').addClass('btn-default');
+			}
+		});
+	});
+
+	$('[data-delete]').on('click', function(e) {
+		e.preventDefault();
+		var $that = $(this);
+
+		$.ajax({
+			url: "/submissions",
+			type: "DELETE",
+			data: $.parseJSON($(this).attr('data-delete')),
+			success: function() {
+				// @todo flash message
+				// @todo: Change binding
+				$that.text('Un-submitted').removeClass('btn-default').addClass('btn-primary');
+			}
+		});
+	});
 });

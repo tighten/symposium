@@ -20,6 +20,11 @@ class Talk extends UuidBase
         return $this->hasMany('TalkVersion');
     }
 
+//    public function submissions()
+//    {
+//        return $this->belongsToMany('Conference');
+//    }
+
     public function scopeCurrentUserOnly($query)
     {
         $user = \Auth::user();
