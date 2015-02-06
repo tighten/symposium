@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Http\Controllers;
+<?php namespace Symposium\Http\Controllers;
 
 use Auth;
 use Input;

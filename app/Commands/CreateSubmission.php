@@ -1,7 +1,7 @@
-<?php namespace SaveMyProposals\Commands;
+<?php namespace Symposium\Commands;
 
 use Conference;
-use SaveMyProposals\Commands\Command;
+use Symposium\Commands\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
 use TalkVersionRevision;
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SaveMyProposals</title>
+    <title>Symposium for Speakers & Conferences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/js/vendor/pickadate/default.css" rel="stylesheet">

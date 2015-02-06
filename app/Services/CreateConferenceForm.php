@@ -1,7 +1,7 @@
-<?php namespace SaveMyProposals\Services;
+<?php namespace Symposium\Services;
 
 use Conference;
-use SaveMyProposals\Exceptions\ValidationException;
+use Symposium\Exceptions\ValidationException;
 use Validator;
 
 class CreateConferenceForm

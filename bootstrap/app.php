@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
 	'Illuminate\Contracts\Http\Kernel',
-	'SaveMyProposals\Http\Kernel'
+	'Symposium\Http\Kernel'
 );
 
 $app->singleton(
 	'Illuminate\Contracts\Console\Kernel',
-	'SaveMyProposals\Console\Kernel'
+	'Symposium\Console\Kernel'
 );
 
 $app->singleton(
 	'Illuminate\Contracts\Debug\ExceptionHandler',
-	'SaveMyProposals\Exceptions\Handler'
+	'Symposium\Exceptions\Handler'
 );
 
 /*

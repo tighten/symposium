@@ -1,14 +1,14 @@
 <?php
 
 use Laracasts\TestDummy\Factory;
-use SaveMyProposals\Exceptions\ValidationException;
-use SaveMyProposals\Services\CreateConferenceForm;
+use Symposium\Exceptions\ValidationException;
+use Symposium\Services\CreateConferenceForm;
 
 class CreateConferenceFormTest extends IntegrationTestCase
 {
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_title_is_required()
     {
@@ -23,7 +23,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_description_is_required()
     {
@@ -38,7 +38,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_url_is_required()
     {
@@ -53,7 +53,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_start_date_must_be_a_valid_date()
     {
@@ -70,7 +70,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_end_date_must_be_a_valid_date()
     {
@@ -87,7 +87,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_cfp_start_date_must_be_a_valid_date()
     {
@@ -104,7 +104,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException SaveMyProposals\Exceptions\ValidationException
+     * @expectedException Symposium\Exceptions\ValidationException
      */
     public function conference_cfp_end_date_must_be_a_valid_date()
     {

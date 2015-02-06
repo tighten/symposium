@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Console\Commands;
+<?php namespace Symposium\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

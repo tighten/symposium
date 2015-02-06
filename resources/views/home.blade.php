@@ -4,9 +4,17 @@
 
     <div class="hero">
         <div class="container">
-            <h1>Stay on top of conferences &amp; talks.</h1>
+            <h1>Connecting Speakers &amp; Conferences</h1>
 
-            <p>SaveMyProposals is a single place for you to manage your talk proposals, bios, photos, and conference applications and responses.</p>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos,
+                        and conference applications and responses.</p>
+
+                    <p>Symposium is a single place for <strong>conference organizers</strong> to open CFPs, review
+                        speakers submissions, and manage the entire CFP process.</p>
+                </div>
+            </div>
         </div>
     </div>
 

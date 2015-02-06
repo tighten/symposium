@@ -32,7 +32,7 @@
             "app/Http/Controllers/"
         ],
         "psr-4": {
-            "SaveMyProposals\\": "app/"
+            "Symposium\\": "app/"
         }
     },
     "autoload-dev": {

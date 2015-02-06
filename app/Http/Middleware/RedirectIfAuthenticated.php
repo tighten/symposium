@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Http\Middleware;
+<?php namespace Symposium\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

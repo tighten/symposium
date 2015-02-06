@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Providers;
+<?php namespace Symposium\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'SaveMyProposals\Http\Controllers';
+	protected $namespace = 'Symposium\Http\Controllers';
 
 	/**
 	 * Define your route model bindings, pattern filters, etc.
@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider {
 			}
 			
 			// Guess we should have roles... @todo
-			if (\Auth::user()->email != 'matt@jibberjabber.com') {
+			if (\Auth::user()->email != getenv('admin_email')) {
 				\Log::error('Non-admin user tried to access admin-only section.');
 				return \Redirect::to('log-in');
 			}

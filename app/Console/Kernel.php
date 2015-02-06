@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Console;
+<?php namespace Symposium\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -11,8 +11,8 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		'SaveMyProposals\Console\Commands\Inspire',
-		'SaveMyProposals\Console\Commands\syncJoindInEvents'
+		'Symposium\Console\Commands\Inspire',
+		'Symposium\Console\Commands\syncJoindInEvents'
 	];
 
 	/**

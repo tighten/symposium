@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Exceptions;
+<?php namespace Symposium\Exceptions;
 
 use RuntimeException;
 

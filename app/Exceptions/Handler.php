@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Exceptions;
+<?php namespace Symposium\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

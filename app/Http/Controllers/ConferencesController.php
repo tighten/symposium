@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Http\Controllers;
+<?php namespace Symposium\Http\Controllers;
 
 use Auth;
 use Conference;
@@ -11,8 +11,8 @@ use Session;
 use Validator;
 use View;
 
-use SaveMyProposals\Exceptions\ValidationException;
-use SaveMyProposals\Services\CreateConferenceForm;
+use Symposium\Exceptions\ValidationException;
+use Symposium\Services\CreateConferenceForm;
 
 class ConferencesController extends BaseController
 {

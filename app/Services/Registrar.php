@@ -1,6 +1,6 @@
-<?php namespace SaveMyProposals\Services;
+<?php namespace Symposium\Services;
 
-use SaveMyProposals\User;
+use Symposium\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

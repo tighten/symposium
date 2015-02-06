@@ -1,6 +1,6 @@
-<?php namespace SaveMyProposals\Http\Controllers;
+<?php namespace Symposium\Http\Controllers;
 
-use SaveMyProposals\Http\Controllers\Controller;
+use Symposium\Http\Controllers\Controller;
 use View;
 
 class BaseController extends Controller
