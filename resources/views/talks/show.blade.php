@@ -14,7 +14,7 @@
         <p class="pull-right">
             <a href="/talks/{{ $talk->id }}/createVersion" class="btn btn-primary">Create new version</a>
             <a href="/talks/{{ $talk->id }}/edit" class="btn btn-default">Edit talk nickname</a>
-            <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger">Delete</a>
+            <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger" data-confirm="confirm">Delete</a>
         </p>
 
         <p><b>Created:</b>
@@ -28,7 +28,7 @@
             @else
                 @foreach ($talk->versions as $version)
                     <li>
-                        <a href="/talks/{{ $talk->id }}/versions/{{ $version->id }}/delete"><button type="button" class="btn btn-xs btn-danger">Delete</button></a>
+                        <a href="/talks/{{ $talk->id }}/versions/{{ $version->id }}/delete" data-confirm="confirm"><button type="button" class="btn btn-xs btn-danger">Delete</button></a>
                         <a href="/talks/{{ $talk->id }}/versions/{{ $version->id }}/edit"><button type="button" class="btn btn-xs btn-default">Edit</button></a> -
                         <a href="/talks/{{ $talk->id }}/versions/{{ $version->id }}">{{ $version->nickname }}</a>
                         @if ($version->current())
