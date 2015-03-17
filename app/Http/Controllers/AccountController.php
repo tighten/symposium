@@ -62,8 +62,7 @@ class AccountController extends BaseController
 
             Auth::loginUsingId($user->id);
 
-            Mail::send('emails.newsignup', array('email' => Input::get('email')), function($message)
-            {
+            Mail::send('emails.newsignup', array('email' => Input::get('email')), function ($message) {
                 $message
                     ->from('matt@savemyproposals.com', 'Matt Stauffer at Save My Proposals')
                     ->to(getenv('admin_email'), 'Admin')
@@ -83,7 +82,6 @@ class AccountController extends BaseController
     /**
      * Display account
      *
-     * @param  int  $id
      * @return Response
      */
     public function show()
@@ -171,5 +169,27 @@ class AccountController extends BaseController
         Session::flash('message', 'Successfully deleted account.');
 
         return Redirect::to('/');
+    }
+
+    /**
+     * @param \Illuminate\Contracts\Filesystem\Factory $storage
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function export(\Illuminate\Contracts\Filesystem\Factory $storage)
+    {
+        $user = Auth::user();
+
+        $user->load('talks.versions.revisions');
+
+        $headers = array('Content-type' => 'application/json');
+        $tempName = $user->id . '_export.json';
+        $exportName = 'export_' . date('Y_m_d') . '.json';
+
+        $storage->disk('local')->put($user->id . '_export.json', $user->talks->toJson());
+
+        $path = storage_path() . '/app/';
+
+        return response()->download($path . $tempName, $exportName, $headers)->deleteFileAfterSend(true);
     }
 }
