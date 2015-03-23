@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('account/edit', 'AccountController@update');
     Route::get('account/delete', 'AccountController@delete');
     Route::post('account/delete', 'AccountController@destroy');
+    Route::get('account/export', 'AccountController@export');
 
     Route::post('submissions', 'SubmissionsController@store');
     Route::delete('submissions', 'SubmissionsController@destroy');

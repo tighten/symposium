@@ -8,6 +8,7 @@
             <h3>Actions</h3>
             <a href="/account/edit">Edit account</a><br>
             <a href="/account/delete">Delete account</a><br>
+            <a href="/account/export">Export data</a><br>
         </div>
 
         <h3>User</h3>
