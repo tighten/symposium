@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Providers;
+<?php namespace Symposium\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -10,9 +10,6 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-		'event.name' => [
-			'EventListener',
-		],
 	];
 
 }

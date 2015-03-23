@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Providers;
+<?php namespace Symposium\Providers;
 
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ class BusServiceProvider extends ServiceProvider {
 		$dispatcher->mapUsing(function($command)
 		{
 			return Dispatcher::simpleMapping(
-				$command, 'SaveMyProposals\Commands', 'SaveMyProposals\Handlers\Commands'
+				$command, 'Symposium\Commands', 'Symposium\Handlers\Commands'
 			);
 		});
 	}

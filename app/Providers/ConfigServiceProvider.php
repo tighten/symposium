@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Providers;
+<?php namespace Symposium\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

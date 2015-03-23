@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Providers;
+<?php namespace Symposium\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider {
 	{
 		$this->app->bind(
 			'Illuminate\Contracts\Auth\Registrar',
-			'SaveMyProposals\Services\Registrar'
+			'Symposium\Services\Registrar'
 		);
 
 		$this->app->bind('form', function () {

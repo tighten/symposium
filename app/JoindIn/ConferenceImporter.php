@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\JoindIn;
+<?php namespace Symposium\JoindIn;
 
 use Carbon\Carbon;
 use Conference;

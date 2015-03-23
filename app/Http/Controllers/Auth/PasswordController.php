@@ -1,6 +1,6 @@
-<?php namespace SaveMyProposals\Http\Controllers\Auth;
+<?php namespace Symposium\Http\Controllers\Auth;
 
-use SaveMyProposals\Http\Controllers\Controller;
+use Symposium\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller {

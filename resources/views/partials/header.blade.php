@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="logo"><h1>SaveMyProposals</h1></a>
+            <a href="/" class="logo"><h1>Symposium</h1></a>
         </div>
         <div class="primary-header__collapse">
             @include('partials.nav')

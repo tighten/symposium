@@ -1,10 +1,10 @@
-<?php namespace SaveMyProposals\Http\Controllers;
+<?php namespace Symposium\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use SaveMyProposals\Commands\CreateSubmission;
-use SaveMyProposals\Commands\DestroySubmission;
-use SaveMyProposals\Http\Requests;
+use Symposium\Commands\CreateSubmission;
+use Symposium\Commands\DestroySubmission;
+use Symposium\Http\Requests;
 
 use Illuminate\Http\Request;
 

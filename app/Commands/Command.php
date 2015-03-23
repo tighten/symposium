@@ -1,4 +1,4 @@
-<?php namespace SaveMyProposals\Commands;
+<?php namespace Symposium\Commands;
 
 abstract class Command {
 

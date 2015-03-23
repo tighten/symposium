@@ -139,11 +139,11 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'SaveMyProposals\Providers\AppServiceProvider',
-		'SaveMyProposals\Providers\BusServiceProvider',
-		'SaveMyProposals\Providers\ConfigServiceProvider',
-		'SaveMyProposals\Providers\EventServiceProvider',
-		'SaveMyProposals\Providers\RouteServiceProvider',
+		'Symposium\Providers\AppServiceProvider',
+		'Symposium\Providers\BusServiceProvider',
+		'Symposium\Providers\ConfigServiceProvider',
+		'Symposium\Providers\EventServiceProvider',
+		'Symposium\Providers\RouteServiceProvider',
 		// 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
 		'Illuminate\Html\HtmlServiceProvider',

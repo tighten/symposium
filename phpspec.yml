@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: SaveMyProposals
-        psr4_prefix: SaveMyProposals
+        namespace: Symposium
+        psr4_prefix: Symposium
         src_path: app
