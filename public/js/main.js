@@ -1,4 +1,11 @@
 $(function() {
+	$('[data-confirm]').on('click', function( e ) {
+		if (!confirm("Are you sure you want to delete this record?")) {
+			e.preventDefault();
+			e.cancelBubble = true;
+		}
+	});
+
 	$('[data-toggle=collapse]').on('click', function( e ) {
 		var target = $(this).attr('data-target');
 
