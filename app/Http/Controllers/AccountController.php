@@ -179,17 +179,25 @@ class AccountController extends BaseController
     public function export(\Illuminate\Contracts\Filesystem\Factory $storage)
     {
         $user = Auth::user();
-
         $user->load('talks.versions.revisions');
 
-        $headers = array('Content-type' => 'application/json');
-        $tempName = $user->id . '_export.json';
-        $exportName = 'export_' . date('Y_m_d') . '.json';
+        $headers = ['Content-type' => 'application/json'];
 
-        $storage->disk('local')->put($user->id . '_export.json', $user->talks->toJson());
+        $tempName = sprintf('%d_export.json', $user->id);
+        $exportName = sprintf('export_%s.json', date('Y_m_d'));
+
+        $export = [
+            'talks' => $user->talks->toArray()
+        ];
+
+        $storage
+            ->disk('local')
+            ->put($tempName, json_encode($export));
 
         $path = storage_path() . '/app/';
 
-        return response()->download($path . $tempName, $exportName, $headers)->deleteFileAfterSend(true);
+        return response()
+            ->download($path . $tempName, $exportName, $headers)
+            ->deleteFileAfterSend(true);
     }
 }
