@@ -29,4 +29,9 @@ class TalkVersion extends UuidBase
     {
         return $this->revisions()->getQuery()->orderBy('created_at', 'desc')->get();
     }
+
+    public function getPublicIdAttribute()
+    {
+        return md5($this->id . getenv('url_salt') . $this->talk->id);
+    }
 }
