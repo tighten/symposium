@@ -27,9 +27,9 @@
 
         <h2>Conference Organizers</h2>
         <p>Symposium helps conference organizers receive submissions (by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium--right now we're working toward an OpenCFP integration).</p>
-{{--
+<!--
         <p>Conference organizers can also sign up to use Symposium for hosting the entire CFP process.</p>
---}}
+-->
 
     </div>
 @stop
