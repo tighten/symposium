@@ -6,7 +6,7 @@
 
         <h1>What is this site?</h1>
 
-        <p>Symposium is a site for conference speakers and conference organizers. </p>
+        <p>Symposium is an <strong>under-development</strong> site for conference speakers and conference organizers. </p>
 
         <h2>Conference Speakers</h2>
         <p>Symposium helps conference speakers plan and manage talk abstracts, CFP submissions, bios, photos, and speaking schedule.</p>
@@ -26,9 +26,10 @@
         <p>Track which conferences have accepted or rejected your talk submissions.</p>
 
         <h2>Conference Organizers</h2>
-        <p>Symposium helps conference organizers receive submissions (by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Sympoism--right now we're working on an OpenCFP integration).</p>
-
+        <p>Symposium helps conference organizers receive submissions (by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium--right now we're working toward an OpenCFP integration).</p>
+{{--
         <p>Conference organizers can also sign up to use Symposium for hosting the entire CFP process.</p>
+--}}
 
     </div>
 @stop
