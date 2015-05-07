@@ -70,7 +70,7 @@ class syncJoindInEvents extends Command
 
         $conferences = $this->client->getEvents();
 
-        $alreadyConferences = Conference::all();
+        $alreadyConferences = \Conference::all();
         $joindinIds = $alreadyConferences->map(function($conference) {
             return (int)$conference->joindin_id;
         });
