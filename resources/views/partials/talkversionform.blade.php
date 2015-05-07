@@ -17,29 +17,29 @@
 <div class="form-group">
     {{ Form::label('type', 'Type of Talk', ['class' => 'control-label']) }}<br>
     <label class="radio-inline">
-        {{ Form::radio('type', 'lightning', true); }} Lightning
+        {{ Form::radio('type', 'lightning', $current->type == 'lightning'); }} Lightning
     </label>
     <label class="radio-inline">
-        {{ Form::radio('type', 'seminar', false); }} Seminar
+        {{ Form::radio('type', 'seminar', $current->type == 'seminar'); }} Seminar
     </label>
     <label class="radio-inline">
-        {{ Form::radio('type', 'keynote', false); }} Keynote
+        {{ Form::radio('type', 'keynote', $current->type == 'keynote'); }} Keynote
     </label>
     <label class="radio-inline">
-        {{ Form::radio('type', 'workshop', false); }} Workshop
+        {{ Form::radio('type', 'workshop', $current->type == 'workshop'); }} Workshop
     </label>
 </div>
 
 <div class="form-group">
     {{ Form::label('level', 'Difficulty Level', ['class' => 'control-label']) }}<br>
     <label class="radio-inline">
-        {{ Form::radio('level', 'beginner', true); }} Beginner
+        {{ Form::radio('level', 'beginner', $current->level == 'beginner'); }} Beginner
     </label>
     <label class="radio-inline">
-        {{ Form::radio('level', 'intermediate', false); }} Intermediate
+        {{ Form::radio('level', 'intermediate', $current->level == 'intermediate'); }} Intermediate
     </label>
     <label class="radio-inline">
-        {{ Form::radio('level', 'advanced', false); }} Advanced
+        {{ Form::radio('level', 'advanced', $current->level == 'advanced'); }} Advanced
     </label>
 </div>
 
