@@ -15,6 +15,8 @@ Route::get('log-out', 'AuthController@logout');
 Route::get('sign-up', 'AccountController@create');
 Route::post('sign-up', 'AccountController@store');
 
+Route::get('s/{shareId}', 'TalkVersionsController@showPublic');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', 'AccountController@show');
     Route::get('account/edit', 'AccountController@edit');
