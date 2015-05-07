@@ -7,6 +7,10 @@ $link_color: #428bca;
 body {
 }
 
+img {
+    max-width: 100%;
+}
+
 a {
     color: $link_color;
     text-decoration: none;

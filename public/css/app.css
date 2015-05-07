@@ -5679,6 +5679,9 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   color: #2C3E50; }
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
+img {
+  max-width: 100%; }
+
 a {
   color: #428bca;
   text-decoration: none; }

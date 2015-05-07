@@ -10,11 +10,20 @@
                 <div class="col-md-8">
                     <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos,
                         and conference applications and responses.</p>
+                </div>
+            </div>
 
-                    <p>Symposium is a single place for <strong>conference organizers</strong> to open CFPs, review
+            <p>
+                <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot">
+            </p>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review
                         speakers submissions, and manage the entire CFP process.</p>
                 </div>
             </div>
+
         </div>
     </div>
 
