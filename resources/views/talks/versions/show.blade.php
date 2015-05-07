@@ -33,13 +33,13 @@
                 </p>
 
                 <h3>Description/Proposal</h3>
-                {{ $current->description ?: '<i>(empty)</i>' }}
+                {{ $current->getHtmledDescription() }}
 
                 <h3>Outline</h3>
-                {{ $current->outline ?: '<i>(empty)</i>' }}
+                {{ $current->getHtmledOutline() }}
 
                 <h3>Organizer Notes</h3>
-                {{ $current->organizer_notes?: '<i>(empty)</i>' }}
+                {{ $current->getHtmledOrganizerNotes() }}
 
                 <hr>
 
