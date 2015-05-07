@@ -140,12 +140,12 @@ class Conference extends UuidBase
 
     public function startsAtDisplay()
     {
-        return $this->startsAtSet() ? $this->starts_at->toFormattedDateString() : '[Date not set]';
+        return $this->startsAtSet() ? $this->starts_at->format('D M j, Y') : '[Date not set]';
     }
 
     public function endsAtDisplay()
     {
-        return $this->endsAtSet() ? $this->ends_at->toFormattedDateString() : '[Date not set]';
+        return $this->endsAtSet() ? $this->ends_at->format('D M j, Y') : '[Date not set]';
     }
 
     public function cfpStartsAtDisplay()

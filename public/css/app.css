@@ -5743,6 +5743,34 @@ legend {
   color: #666;
   font-size: .9em; }
 
+.list-conferences {
+  border-top: 1px solid #ddd;
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 3rem; }
+  .list-conferences li {
+    border-bottom: 1px solid #ddd; }
+  .list-conferences .conference-meta {
+    font-size: .8em;
+    margin-top: 0.25em; }
+  .list-conferences h3 {
+    margin-bottom: 0; }
+  .list-conferences .fav-button {
+    background: #ddd;
+    border: 1px solid #aaa;
+    color: #999;
+    float: left;
+    font-size: 8px;
+    height: 2rem;
+    margin-left: -3rem;
+    margin-top: 0.4rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    width: 2rem; }
+    .list-conferences .fav-button--faved {
+      background: yellow;
+      color: #666; }
+
 @media only screen and (min-width: 768px) {
   .actions-box {
     float: right;

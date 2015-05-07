@@ -64,7 +64,7 @@ class AccountController extends BaseController
 
             Mail::send('emails.newsignup', array('email' => Input::get('email')), function ($message) {
                 $message
-                    ->from('matt@savemyproposals.com', 'Matt Stauffer at Symposium')
+                    ->from('matt@symposiumapp.com', 'Matt Stauffer at Symposium')
                     ->to(getenv('admin_email'), 'Admin')
                     ->subject('New user signup on save my proposals');
             });
