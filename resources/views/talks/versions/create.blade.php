@@ -10,8 +10,6 @@
             <li class="active">Create version</li>
         </ol>
 
-        <p><strong>{{ $talk->title }}</strong></p>
-
         <h1>Create Talk Version</h1>
 
         <ul class="errors">
@@ -19,10 +17,17 @@
                 <li>{{ $message }}</li>
             @endforeach
         </ul>
-        <div class="row">
-            <div class="col-lg-6 col-md-8">
-                {{ Form::open(array('action' => array('TalkVersionsController@store', $talk->id), 'class' => 'new-talk-form')) }}
 
+        <div class="row">
+            {{ Form::open(array('action' => array('TalkVersionsController@store', $talk->id), 'class' => 'new-talk-form')) }}
+
+            <div class="col-lg-5 pull-right">
+                <h3>Meta data</h3>
+                <p><strong>Talk nickname:</strong> {{ $talk->title }}</p>
+
+                @include('partials.talkversionformheader')
+            </div>
+            <div class="col-lg-6 col-md-8">
                 @include('partials.talkversionform')
 
                 {{ Form::submit('Create', ['class' => 'btn btn-default']) }}<br><br>

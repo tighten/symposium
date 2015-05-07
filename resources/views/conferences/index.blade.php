@@ -11,7 +11,7 @@
         <h2>All Conferences</h2>
         <a href="/conferences/create" class="create-button">Create Conference</a>
 
-        <p>
+        <p class="list-sort">
             Sort:
             {{ HTML::activeLinkRoute('conferences.index', 'Title', ['sort' => 'alpha'], ['class' => 'filter-link']) }} |
             {{ HTML::activeLinkRoute('conferences.index', 'Date', ['sort' => 'date'], ['class' => 'filter-link']) }} |
@@ -32,6 +32,11 @@
                     @if ($conference->cfpIsOpen())
                         <span class="label label-info">CFP OPEN</span>
                     @endif
+                    @if ($conference->joindin_id)
+                        <a href="http://joind.in/event/view/{{ $conference->joindin_id }}">
+                        <span class="label-joindin"><img src="/img/joindin-button.png"></span>
+                        </a>
+                    @endif
 
                     <p class="conference-meta">
                         <i>Dates: <b>{{ $conference->startsAtDisplay() }}</b> to <b>{{ $conference->endsAtDisplay() }}</b>
@@ -40,7 +45,7 @@
                             </span>
                         </i></p>
                     @if ($conference->appliedTo())
-                        | Already Sent Proposal
+                        <b>Already Sent Proposal</b>
                     @endif
 
                     <?php /* TODO: cleaner substr */ ?>

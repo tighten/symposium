@@ -1,23 +1,12 @@
-@if (! isset($hideVersion) || ! $hideVersion)
-<div class="form-group">
-    {{ Form::label('nickname', 'Nickname for this talk version', ['class' => 'control-label']) }}
-    {{ Form::text('nickname', $version->nickname, ['class' => 'form-control']) }}
-
-    <span class="help-block">Each version of each talk has a nickname to distinguish it from the other versions. Something like "Extended Workshop" or "Business Owners version".</span>
-</div>
-@endif
-
-<hr>
-
 <div class="form-group">
     {{ Form::label('title', '*Talk Title', ['class' => 'control-label']) }}
     {{ Form::text('title', $current->title, ['class' => 'form-control']) }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('type', 'Type of Talk', ['class' => 'control-label']) }}<br>
+    {{ Form::label('type', '*Type of Talk', ['class' => 'control-label']) }}<br>
     <label class="radio-inline">
-        {{ Form::radio('type', 'lightning', $current->type == 'lightning'); }} Lightning
+        {{ Form::radio('type', 'lightning', $current->type ? $current->type == 'lightning' : true); }} Lightning
     </label>
     <label class="radio-inline">
         {{ Form::radio('type', 'seminar', $current->type == 'seminar'); }} Seminar
@@ -31,9 +20,9 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('level', 'Difficulty Level', ['class' => 'control-label']) }}<br>
+    {{ Form::label('level', '*Difficulty Level', ['class' => 'control-label']) }}<br>
     <label class="radio-inline">
-        {{ Form::radio('level', 'beginner', $current->level == 'beginner'); }} Beginner
+        {{ Form::radio('level', 'beginner', $current->level ? $current->level == 'beginner' : true); }} Beginner
     </label>
     <label class="radio-inline">
         {{ Form::radio('level', 'intermediate', $current->level == 'intermediate'); }} Intermediate

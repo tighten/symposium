@@ -24,8 +24,9 @@
         <p><b>URL:</b>
             <a href="{{ $conference->url }}">{{ $conference->url }}</a></p>
 
-        <p><b>Description:</b>
-            {{ $conference->description }}</p>
+        <p><b>Description:</b><br>
+            <!-- TODO: Figure out how we will be handling HTML/etc. -->
+            {{ str_replace("\n", "<br>", $conference->description) }}</p>
 
         @if ($conference->joindin_id)
             <p><b>JoindIn ID:</b>
@@ -50,7 +51,7 @@
             </div>
             <div class="col-md-6">
                 <h3>My Talks</h3>
-                <p><i>Note: "Apply" just means "mark as applied." At the moment this isn't actually sending anything to the conference organizers.</i></p>
+                <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
                 <strong>Applied to speak at this conference</strong>
                 <ul>
                     @if ($talksAtConference->isEmpty())

@@ -12,9 +12,11 @@
         </div>
 
         <h3>User</h3>
-        <b>Email:</b> {{ $user->email }}<br>
-        <b>First Name:</b> {{ $user->first_name }}<br>
-        <b>Last name:</b> {{ $user->last_name }}<br><br>
+        <p><b>Email:</b><br>{{ $user->email }}</p>
+        <p><b>First Name:</b><br>{{ $user->first_name }}</p>
+        <p><b>Last name:</b><br>{{ $user->last_name }}</p>
+
+        <br><br>
 
         <h4>Favorited Conferences</h4>
         <ul>
