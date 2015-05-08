@@ -10,9 +10,9 @@
         </ol>
 
         <p class="pull-right">
-            <a href="/talks/{{ $talk->id }}/createVersion" class="btn btn-primary">Create new version</a>
-            <a href="/talks/{{ $talk->id }}/edit" class="btn btn-default">Edit talk nickname</a>
-            <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger" data-confirm="confirm">Delete</a>
+            <a href="/talks/{{ $talk->id }}/createVersion" class="btn btn-primary">Create new version &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a href="/talks/{{ $talk->id }}/edit" class="btn btn-default">Edit talk nickname  &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger" data-confirm="confirm">Delete  &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
         </p>
 
         <h1>{{ $talk->title }}</h1>

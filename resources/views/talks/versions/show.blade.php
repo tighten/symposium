@@ -11,7 +11,9 @@
         </ol>
 
         <p class="pull-right">
+        <!--
             <a href="/s/{{ $version->publicId }}" class="btn btn-default">Share &nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+            -->
             <a href="/talks/{{ $version->talk->id }}/versions/{{ $version->id }}/edit" class="btn btn-primary">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
             <a href="/talks/{{ $version->talk->id }}/versions/{{ $version->id }}/delete" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
         </p>
