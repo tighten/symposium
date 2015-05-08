@@ -9,7 +9,7 @@
         </ol>
 
         <p class="pull-right">
-            <a href="/talks/create" class="btn btn-primary">Create Talk</a>
+            <a href="/talks/create" class="btn btn-primary">Create Talk &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
         </p>
 
         <h2>My Talks</h2>

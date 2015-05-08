@@ -54,6 +54,31 @@ class TalkVersionsController extends BaseController
             ->with('author', $version->talk->author);
     }
 
+    public function showPublic($shareId)
+    {
+        try {
+            // @todo: look it up using md5($version id . getenv('url_salt') . somethign else here) by probably caching a lookup table or something?
+            // $version = TalkVersion::where('share_id', $shareId)->firstOrFail();
+            $all = TalkVersion::all();
+
+            $version = $all->filter(function($item) use($shareId) {
+                return $item->public_id == $shareId;
+            })->first();
+
+            if (! $version) {
+                throw new \Exception('test');
+            }
+        } catch (Exception $e) {
+            \Log::error('Invalid share id visited: ' . $shareId);
+            dd('Sorry, that share ID is invalid.');
+        }
+
+        return View::make('talks.versions.public-show')
+            ->with('version', $version)
+            ->with('current', $version->current())
+            ->with('author', $version->talk->author);
+    }
+
     public function showRevision($talkId, $versionId, $revisionId)
     {
         dd('not programmed yet :/');
