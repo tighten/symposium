@@ -52,7 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Necessary because IDK and please let's fix this @todo
     Route::post('talks/{id}', 'TalksController@update');
     Route::post('conferences/{id}', 'ConferencesController@update');
+    Route::post('bios/{id}', 'BiosController@update');
 
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController');
+    Route::resource('bios', 'BiosController');
 });
