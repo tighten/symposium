@@ -6,13 +6,9 @@ class TalksSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-
         DB::table('talk_version_revisions')->truncate();
         DB::table('talk_versions')->truncate();
         DB::table('talks')->truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         $talks = [
             [
