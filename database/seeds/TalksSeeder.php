@@ -60,8 +60,8 @@ class TalksSeeder extends Seeder
             ->insert($versions);
 
 
-        $revisions = array(
-            array(
+        $revisions = [
+            [
                 'id' => '03f2ae25-6a15-40da-b571-e982570247fa',
                 'title' => 'My great talk',
                 'description' => 'Description of the talk',
@@ -70,8 +70,8 @@ class TalksSeeder extends Seeder
                 'length' => '45',
                 'talk_version_id' => '03f22222-6a15-40da-b571-e982570247f',
                 'created_at' => '2013-11-29 15:54:41'
-            ),
-            array(
+            ],
+            [
                 'id' => '03f2ae25-6a15-40da-b571-e982570247fd',
                 'title' => 'My awesome talk',
                 'description' => 'Description of the talk',
@@ -80,8 +80,8 @@ class TalksSeeder extends Seeder
                 'length' => '45',
                 'talk_version_id' => '03f22222-6a15-40da-b571-e982570247f',
                 'created_at' => '2013-11-27 15:54:41'
-            ),
-            array(
+            ],
+            [
                 'id' => '03f2ae25-6a15-40da-b571-e982570247f5',
                 'title' => 'My awesome talk',
                 'description' => 'Description of the talk',
@@ -90,8 +90,8 @@ class TalksSeeder extends Seeder
                 'length' => '45',
                 'talk_version_id' => '03f22222-6a15-40da-b571-e9825702471',
                 'created_at' => '2013-11-28 15:54:41'
-            ),
-        );
+            ],
+        ];
 
         foreach ($revisions as &$revision) {
             $revision['updated_at'] = new DateTime;
