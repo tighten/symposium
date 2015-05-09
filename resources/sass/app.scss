@@ -225,22 +225,19 @@ legend {
     }
 
     .fav-button {
-        // just temp til we get a real icon
-        background: #ddd;
-        border: 1px solid #aaa;
-        color: #999;
+        color: #ee9900;
         float: left;
-        font-size: 8px;
         height: 2rem;
         margin-left: -3rem;
         margin-top: 0.4rem;
-        padding-top: 0.5rem;
         text-align: center;
         width: 2rem;
 
         &--faved {
-            background: yellow;
-            color: #666;
+        }
+
+        &:hover {
+            color: #ff5500;
         }
     }
 }

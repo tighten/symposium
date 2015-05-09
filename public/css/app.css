@@ -5771,20 +5771,15 @@ legend {
     font-size: .8em;
     margin-top: 0.25em; }
   .list-conferences .fav-button {
-    background: #ddd;
-    border: 1px solid #aaa;
-    color: #999;
+    color: #ee9900;
     float: left;
-    font-size: 8px;
     height: 2rem;
     margin-left: -3rem;
     margin-top: 0.4rem;
-    padding-top: 0.5rem;
     text-align: center;
     width: 2rem; }
-    .list-conferences .fav-button--faved {
-      background: yellow;
-      color: #666; }
+    .list-conferences .fav-button:hover {
+      color: #ff5500; }
 
 @media only screen and (min-width: 768px) {
   .actions-box {

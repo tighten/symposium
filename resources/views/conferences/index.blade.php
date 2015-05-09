@@ -22,13 +22,11 @@
             @foreach ($conferences as $conference)
                 <li>
                     @if ($conference->isFavorited())
-                        <a href="/conferences/{{ $conference->id  }}/unfavorite" class="fav-button fav-button--faved">FAV</a>
+                        <a href="/conferences/{{ $conference->id  }}/unfavorite" class="fav-button fav-button--faved"><span class="glyphicon glyphicon-star"></a>
                     @else
-                        <a href="/conferences/{{ $conference->id  }}/favorite" class="fav-button">FAV</a>
+                        <a href="/conferences/{{ $conference->id  }}/favorite" class="fav-button"><span class="glyphicon glyphicon-star-empty"></a>
                     @endif
-                    <h3 @if ($conference->isFavorited())
-                        style="font-weight: bold;"
-                            @endif ><a href="/conferences/{{ $conference->id }}">{{ $conference->title }}</a></h3>
+                    <h3><a href="/conferences/{{ $conference->id }}">{{ $conference->title }}</a></h3>
                     @if ($conference->cfpIsOpen())
                         <span class="label label-info">CFP OPEN</span>
                     @endif
