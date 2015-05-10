@@ -6,19 +6,13 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        User::truncate();
 
-        DB::table('users')->truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
-        DB::table('users')->insert(array(
-            array(
-                'email' => 'matt@savemyproposals.com',
-                'password' => Hash::make('password'),
-                'first_name' => 'Matt',
-                'last_name' => 'Stauffer',
-            )
-        ));
+        User::create([
+            'email' => 'matt@savemyproposals.com',
+            'password' => Hash::make('password'),
+            'first_name' => 'Matt',
+            'last_name' => 'Stauffer',
+        ]);
     }
 }

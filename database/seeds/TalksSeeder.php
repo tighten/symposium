@@ -6,98 +6,51 @@ class TalksSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        TalkVersionRevision::truncate();
+        TalkVersion::truncate();
+        Talk::truncate();
 
-        DB::table('talk_version_revisions')->truncate();
-        DB::table('talk_versions')->truncate();
-        DB::table('talks')->truncate();
+        $author = User::first();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        $greatTalk = $author->talks()->create(['title' => 'My Great Talk', 'description' => 'Description of the talk']);
+        $terribleTalk = $author->talks()->create(['title' => 'My Terrible Talk', 'description' => 'Description of the talk']);
 
-        $talks = [
-            [
-                'id' => '03f22222-8888-40da-b571-e982570247f',
-                'title' => 'My Great Talk',
-                'author_id' => 1,
-                'created_at' => '2013-11-27 15:54:41'
-            ],
-            [
-                'id' => '03f22222-8888-40da-b571-e982570247d',
-                'title' => 'My Terrible Talk',
-                'author_id' => 1,
-                'created_at' => '2013-10-27 15:54:41'
-            ]
-        ];
+        $author->talks()->saveMany([$greatTalk, $terribleTalk]);
 
-        foreach ($talks as &$talk) {
-            $talk['updated_at'] = new DateTime;
-        }
+        $greatTalkVersion1 = $greatTalk->versions()->create(['nickname' => 'php conf version', 'created_at' => '2013-11-27 15:54:41']);
+        $greatTalkVersion2 = $greatTalk->versions()->create(['nickname' => 'frontend conf version', 'created_at' => '2013-11-28 15:54:41']);
 
-        DB::table('talks')
-            ->insert($talks);
+        $greatTalkVersion1->revisions()->create([
+            'title' => 'My great talk',
+            'description' => 'Description of the talk',
+            'type' => 'seminar',
+            'level' => 'intermediate',
+            'length' => '45',
+            'outline' => 'Talk outline',
+            'organizer_notes' => 'Organizer notes',
+            'created_at' => '2013-11-29 15:54:41'
+        ]);
 
+        $greatTalkVersion1->revisions()->create([
+            'title' => 'My awesome talk',
+            'description' => 'Description of the talk',
+            'type' => 'seminar',
+            'level' => 'intermediate',
+            'length' => '45',
+            'outline' => 'Talk outline',
+            'organizer_notes' => 'Organizer notes',
+            'created_at' => '2013-11-27 15:54:41'
+        ]);
 
-        $versions = [
-            [
-                'id' => '03f22222-6a15-40da-b571-e982570247f',
-                'nickname' => 'php conf version',
-                'talk_id' => '03f22222-8888-40da-b571-e982570247f',
-                'created_at' => '2013-11-27 15:54:41'
-            ],
-            [
-                'id' => '03f22222-6a15-40da-b571-e9825702471',
-                'nickname' => 'frontend conf version',
-                'talk_id' => '03f22222-8888-40da-b571-e982570247f',
-                'created_at' => '2013-11-28 15:54:41'
-            ]
-        ];
-
-        foreach ($versions as &$version) {
-            $version['updated_at'] = new DateTime;
-        }
-
-        DB::table('talk_versions')
-            ->insert($versions);
-
-
-        $revisions = array(
-            array(
-                'id' => '03f2ae25-6a15-40da-b571-e982570247fa',
-                'title' => 'My great talk',
-                'description' => 'Description of the talk',
-                'type' => 'seminar',
-                'level' => 'intermediate',
-                'length' => '45',
-                'talk_version_id' => '03f22222-6a15-40da-b571-e982570247f',
-                'created_at' => '2013-11-29 15:54:41'
-            ),
-            array(
-                'id' => '03f2ae25-6a15-40da-b571-e982570247fd',
-                'title' => 'My awesome talk',
-                'description' => 'Description of the talk',
-                'type' => 'seminar',
-                'level' => 'intermediate',
-                'length' => '45',
-                'talk_version_id' => '03f22222-6a15-40da-b571-e982570247f',
-                'created_at' => '2013-11-27 15:54:41'
-            ),
-            array(
-                'id' => '03f2ae25-6a15-40da-b571-e982570247f5',
-                'title' => 'My awesome talk',
-                'description' => 'Description of the talk',
-                'type' => 'seminar',
-                'level' => 'intermediate',
-                'length' => '45',
-                'talk_version_id' => '03f22222-6a15-40da-b571-e9825702471',
-                'created_at' => '2013-11-28 15:54:41'
-            ),
-        );
-
-        foreach ($revisions as &$revision) {
-            $revision['updated_at'] = new DateTime;
-        }
-
-        DB::table('talk_version_revisions')
-            ->insert($revisions);
+        $greatTalkVersion2->revisions()->create([
+            'title' => 'My awesome talk',
+            'description' => 'Description of the talk',
+            'type' => 'seminar',
+            'level' => 'intermediate',
+            'length' => '45',
+            'outline' => 'Talk outline',
+            'organizer_notes' => 'Organizer notes',
+            'created_at' => '2013-11-28 15:54:41'
+        ]);
     }
 }
