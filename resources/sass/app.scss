@@ -25,6 +25,14 @@ a {
     @extend .navbar-brand;
 }
 
+.gravatar {
+    border-radius: 1.5em;
+    height: 3em;
+    margin-right: 0.5em;
+    margin-top: -0.5em;
+    width: 3em;
+}
+
 h1 {
     font-size: 2.5rem;
 }

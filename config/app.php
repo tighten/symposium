@@ -147,6 +147,7 @@ return [
 		// 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
 		'Illuminate\Html\HtmlServiceProvider',
+		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider'
 	],
 
 	/*
@@ -195,6 +196,7 @@ return [
 		// 'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
+	    'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar'
 	],
 
 ];

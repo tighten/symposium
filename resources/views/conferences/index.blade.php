@@ -9,7 +9,7 @@
         </ol>
 
         <h2>All Conferences</h2>
-        <a href="/conferences/create" class="create-button">Create Conference</a>
+        <a href="/conferences/create" class="create-button">Create Conference &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 
         <p class="list-sort">
             Sort:
