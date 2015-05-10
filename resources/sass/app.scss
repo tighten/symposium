@@ -210,7 +210,7 @@ legend {
     }
 }
 
-.talk-meta {
+.talk-meta, .bio-meta {
     color: #666;
     font-size: .9em;
 }
@@ -247,6 +247,14 @@ legend {
         &:hover {
             color: #ff5500;
         }
+    }
+}
+
+.list-bios {
+    @extend %index-list;
+
+    h3 {
+        font-size: 2rem;
     }
 }
 
