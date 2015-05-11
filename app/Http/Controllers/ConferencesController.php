@@ -128,6 +128,15 @@ class ConferencesController extends BaseController
             ->with('talks', $myTalks);
     }
 
+    // @todo: Redirect to non-public conference view if logged in
+    public function showPublic($id)
+    {
+        $conference = Conference::findOrFail($id);
+
+        return View::make('conferences.showPublic')
+            ->with('conference', $conference);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

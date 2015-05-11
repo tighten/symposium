@@ -58,3 +58,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('conferences', 'ConferencesController');
     Route::resource('bios', 'BiosController');
 });
+
+Route::get('conferences/{id}/public', ['as' => 'conferences.public', 'uses' => 'ConferencesController@showPublic']);

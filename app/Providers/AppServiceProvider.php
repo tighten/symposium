@@ -42,6 +42,8 @@ class AppServiceProvider extends ServiceProvider {
             );
         });
 
+        $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
+
         \Blade::setRawTags('{{', '}}');
 		\Blade::setContentTags('{{{', '}}}');
 		\Blade::setEscapedContentTags('{{{', '}}}');

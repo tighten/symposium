@@ -106,6 +106,11 @@ class Conference extends UuidBase
         return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 
+    public function getPublicUrlAttribute()
+    {
+        return route('conferences.public', $this->id);
+    }
+
     /**
      * Get all users who favorited this conference
      */
