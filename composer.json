@@ -8,10 +8,10 @@
             "type": "git",
             "url": "git@github.com:mattstauffer/joindin-client.git"
         },
-		{
-			"type": "git",
-			"url": "git@github.com:mattstauffer/laravel-gravatar.git"
-		}
+        {
+            "type": "git",
+            "url": "git@github.com:mattstauffer/laravel-gravatar.git"
+        }
     ],
     "type": "project",
     "require": {
@@ -22,7 +22,7 @@
         "guzzlehttp/guzzle": "~5.0@dev",
         "illuminate/html": "~5.0",
         "doctrine/dbal": "~2.6@dev",
-		"thomaswelton/laravel-gravatar": "dev-laravel5-support"
+        "thomaswelton/laravel-gravatar": "dev-laravel5-support"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4.0",

@@ -1,17 +1,17 @@
 <?php namespace Symposium\Http\Controllers;
 
-use Symposium\Services\CreateBioForm;
 use Auth;
 use Bio;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Input;
 use Log;
 use Redirect;
 use Session;
+use Symposium\Exceptions\ValidationException;
+use Symposium\Services\CreateBioForm;
 use Validator;
 use View;
-
-use Symposium\Exceptions\ValidationException;
 
 class BiosController extends BaseController
 {
@@ -21,9 +21,7 @@ class BiosController extends BaseController
 
     public function index()
     {
-        $bios = Bio::where('user_id', Auth::user()->id)
-            ->orderBy('nickname')
-            ->get();
+        $bios = Auth::user()->bios;
 
         return View::make('bios.index')
             ->with('bios', $bios);
@@ -54,19 +52,7 @@ class BiosController extends BaseController
 
     public function show($id)
     {
-        try {
-            $bio = Bio::where('id', $id)->firstOrFail();
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-            return Redirect::to('/');
-        }
-
-        if ($bio->user_id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that bio.');
-            Log::error('User ' . Auth::user()->id . ' tried to view a bio they don\'t own.');
-            return Redirect::to('/');
-        }
+        $bio = Auth::user()->bios()->findOrFail($id);
 
         return View::make('bios.show')
             ->with('bio', $bio);
@@ -74,19 +60,7 @@ class BiosController extends BaseController
 
     public function edit($id)
     {
-        try {
-            $bio = Bio::where('id', $id)->firstOrFail();
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-            return Redirect::to('/');
-        }
-
-        if ($bio->user_id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that bio.');
-            Log::error('User ' . Auth::user()->id . ' tried to edit a bio they don\'t own.');
-            return Redirect::to('/');
-        }
+        $bio = Auth::user()->bios()->findOrFail($id);
 
         return View::make('bios.edit')
             ->with('bio', $bio);
@@ -94,25 +68,12 @@ class BiosController extends BaseController
 
     public function update($id)
     {
-        $data = Input::all();
-
-        // Make validator
-        $validator = Validator::make($data, $this->validation);
+        $validator = Validator::make(Input::all(), $this->validation);
 
         if ($validator->passes()) {
-            // Pull
-            $bio = Bio::where('id', $id)->firstOrFail();
+            $bio = Auth::user()->bios()->findOrFail($id);
 
-            // Validate ownership
-            if ($bio->user_id != Auth::user()->id) {
-                Session::flash('error-message', 'Sorry, but you don\'t own that bio.');
-                Log::error('User ' . Auth::user()->id . ' tried to edit a bio they don\'t own.');
-                return Redirect::to('/');
-            }
-
-            // Save
             $bio->body = Input::get('body');
-            $bio->user_id = Auth::user()->id;
             $bio->save();
 
             Session::flash('message', 'Successfully edited bio.');
@@ -127,17 +88,11 @@ class BiosController extends BaseController
 
     public function destroy($id)
     {
-        $bio = Bio::where('id', $id)->firstOrFail();
+        $bio = Auth::user()->bios()->findOrFail($id);
 
-        // Validate ownership
-        if ($bio->user_id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that bio.');
-            Log::error('User ' . Auth::user()->id . ' tried to delete a bio they don\'t own.');
-            return Redirect::to('/');
-        }
+        $bio->delete();
 
         Session::flash('success-message', 'Bio successfully deleted.');
-        $bio->delete();
 
         return Redirect::to('bios');
     }

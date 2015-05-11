@@ -6,7 +6,7 @@
             <li><a href="/talks">Talks</a></li>
             <li class="dropdown" role="presentation">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    <img src="{{ Gravatar::src(\Auth::user()->email) }}" class="gravatar"> Me <span class="caret"></span>
+                    <img src="{{ Gravatar::src(Auth::user()->email) }}" class="gravatar"> Me <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="/account">Account</a></li>

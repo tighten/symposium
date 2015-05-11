@@ -13,14 +13,10 @@
         <h2>All Bios</h2>
 
         <ul class="list-bios">
-            @if ($bios->count() == 0)
-                <li>No bios yet.</li>
-            @endif
-            @foreach ($bios as $bio)
+            @forelse ($bios as $bio)
                 <li>
                     <h3><a href="/bios/{{ $bio->id }}">{{ $bio->nickname }}</a></h3>
-                    <?php /* TODO: cleaner substr */ ?>
-                    <p>{{ substr($bio->body, 0, 100) }}...</p>
+                    <p>{{ $bio->preview }}</p>
 
                     <div class="modal fade bio-modal" id="modal-{{ $bio->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -45,7 +41,9 @@
                     <a href="#" data-toggle="modal" data-target="#modal-{{ $bio->id }}"><button type="button" class="btn btn-xs btn-default">Copy</button></a>
                     </p>
                 </li>
-            @endforeach
+            @empty
+                <li>No bios yet.</li>
+            @endforelse
         </ul>
     </div>
 @stop

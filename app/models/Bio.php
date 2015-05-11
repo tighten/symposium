@@ -7,10 +7,6 @@ class Bio extends UuidBase
 {
     protected $table = 'bios';
 
-    protected $guarded = array(
-        'id'
-    );
-
     protected $fillable = [
         'user_id',
         'nickname',
@@ -20,5 +16,10 @@ class Bio extends UuidBase
     public function user()
     {
         return $this->belongsTo('User');
+    }
+
+    public function getPreviewAttribute()
+    {
+        return substr($this->getAttribute('body'), 0, 100) . '...';
     }
 }
