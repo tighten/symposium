@@ -71,6 +71,20 @@ class Conference extends UuidBase
         return $return;
     }
 
+    public function scopeCfpOpeningToday($query)
+    {
+        return $query
+            ->where('cfp_starts_at', '>=', Carbon::now()->startOfDay())
+            ->where('cfp_starts_at', '<=', Carbon::now()->endOfDay());
+    }
+
+    public function scopeCfpClosingTomorrow($query)
+    {
+        return $query
+            ->where('cfp_ends_at', '>=', Carbon::now()->addDay()->startOfDay())
+            ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
+    }
+
     /**
      * Whether CFP is currently open
      *

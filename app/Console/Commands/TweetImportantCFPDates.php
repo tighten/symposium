@@ -1,6 +1,5 @@
 <?php namespace Symposium\Console\Commands;
 
-use Carbon\Carbon;
 use Conference;
 use Exception;
 use Illuminate\Console\Command;
@@ -9,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Thujohn\Twitter\Twitter;
 
-// @todo: Move the scopes into the conference model so we can re-use and test
 class TweetImportantCFPDates extends Command
 {
     protected $name = 'tweet:cfpDates';
@@ -31,9 +29,7 @@ class TweetImportantCFPDates extends Command
 
     private function tweetCfpsOpeningToday()
     {
-        $conferences = Conference::where('cfp_starts_at', '>=', Carbon::now()->startOfDay())
-            ->where('cfp_starts_at', '<=', Carbon::now()->endOfDay())
-            ->get();
+        $conferences = Conference::cfpOpeningToday()->get();
 
         $conferences->each(function($conference) {
             $this->tweet($this->cfpOpensTodayMessage($conference));
@@ -42,9 +38,7 @@ class TweetImportantCFPDates extends Command
 
     private function tweetCfpsClosingTomorrow()
     {
-        $conferences = Conference::where('cfp_ends_at', '>=', Carbon::now()->addDay()->startOfDay())
-            ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay())
-            ->get();
+        $conferences = Conference::cfpClosingTomorrow()->get();
 
         $conferences->each(function($conference) {
             $this->tweet($this->cfpClosesTomorrowMessage($conference));
@@ -106,6 +100,6 @@ class TweetImportantCFPDates extends Command
             Log::error($e->getMessage());
         }
 
-        sleep(30); // OH SNAPP
+        sleep(30);
     }
 }
