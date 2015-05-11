@@ -13,8 +13,8 @@
 
         @if ($conference->author_id == Auth::user()->id)
             <p class="pull-right">
-                <a href="/conferences/{{ $conference->id }}/edit" class="btn btn-default">Edit</a>
-                <a href="/conferences/{{ $conference->id }}/delete" class="btn btn-danger">Delete</a>
+                <a href="/conferences/{{ $conference->id }}/edit" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                <a href="/conferences/{{ $conference->id }}/delete" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             </p>
         @endif
 

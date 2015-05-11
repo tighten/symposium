@@ -1,7 +1,7 @@
 <?php
 
 // UUID-based models
-$models = ['Talk', 'Conference', 'TalkVersion', 'TalkVersionRevision'];
+$models = ['Talk', 'Conference', 'TalkVersion', 'TalkVersionRevision', 'Bio'];
 
 foreach ($models as $model) {
     $model::creating(function ($model) {

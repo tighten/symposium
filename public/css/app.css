@@ -5689,6 +5689,13 @@ a {
     color: #2a6496;
     text-decoration: underline; }
 
+.gravatar {
+  border-radius: 1.5em;
+  height: 3em;
+  margin-right: 0.5em;
+  margin-top: -0.5em;
+  width: 3em; }
+
 h1 {
   font-size: 2.5rem; }
 
@@ -5745,20 +5752,20 @@ legend {
   .list-sort a {
     color: #6aa3d5; }
 
-.list-talks, .list-versions, .list-conferences {
+.list-talks, .list-versions, .list-conferences, .list-bios {
   border-top: 1px solid #ddd;
   list-style-type: none;
   margin-left: 0;
   padding-left: 0; }
-  .list-talks li, .list-versions li, .list-conferences li {
+  .list-talks li, .list-versions li, .list-conferences li, .list-bios li {
     border-bottom: 1px solid #ddd; }
-  .list-talks h3, .list-versions h3, .list-conferences h3 {
+  .list-talks h3, .list-versions h3, .list-conferences h3, .list-bios h3 {
     margin-bottom: 0; }
 
 .list-talks h3 {
   font-size: 1.5em; }
 
-.talk-meta {
+.talk-meta, .bio-meta {
   color: #666;
   font-size: .9em; }
 
@@ -5780,6 +5787,9 @@ legend {
     width: 2rem; }
     .list-conferences .fav-button:hover {
       color: #ff5500; }
+
+.list-bios h3 {
+  font-size: 2rem; }
 
 @media only screen and (min-width: 768px) {
   .actions-box {
