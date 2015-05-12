@@ -8,15 +8,26 @@
             <li class="active"><a href="/conferences/">Conferences</a></li>
         </ol>
 
-        <h2>All Conferences</h2>
         <a href="/conferences/create" class="create-button">Create Conference &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+
+        <h2>All Conferences</h2>
+
+        <?php $linkRouteKeys = ['filter' => 'future', 'sort' => 'alpha']; ?>
+
+        <p class="list-sort">
+            Filter:
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'Future', ['filter' => 'future'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'CFP is Open', ['filter' => 'cfp_is_open'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'Future CFP', ['filter' => 'future_cfp'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'All time', ['filter' => 'all'], ['class' => 'filter-link']) }}
+        </p>
 
         <p class="list-sort">
             Sort:
-            {{ HTML::activeLinkRoute('conferences.index', 'Title', ['sort' => 'alpha'], ['class' => 'filter-link']) }} |
-            {{ HTML::activeLinkRoute('conferences.index', 'Date', ['sort' => 'date'], ['class' => 'filter-link']) }} |
-            {{ HTML::activeLinkRoute('conferences.index', 'CFP is Open', ['sort' => 'cfp_is_open'], ['class' => 'filter-link']) }} |
-            {{ HTML::activeLinkRoute('conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => 'filter-link']) }}
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'Title', ['sort' => 'alpha'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'Date', ['sort' => 'date'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'CFP is Open', ['sort' => 'cfp_is_open'], ['class' => 'filter-link']) }} |
+            {{ HTML::activeLinkRoute($linkRouteKeys, 'conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => 'filter-link']) }}
         </p>
         <ul class="list-conferences">
             @foreach ($conferences as $conference)
