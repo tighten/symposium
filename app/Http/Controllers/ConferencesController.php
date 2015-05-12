@@ -46,6 +46,9 @@ class ConferencesController extends BaseController
     public function index()
     {
         switch (Input::get('filter')) {
+            case 'favorites':
+                $conferences = Auth::user()->favoritedConferences()->get();
+                break;
             case 'cfp_is_open':
                 $conferences = Conference::openCfp()->get();
                 break;
