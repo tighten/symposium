@@ -33,6 +33,7 @@ class TweetImportantCFPDates extends Command
 
         $conferences->each(function($conference) {
             $this->tweet($this->cfpOpensTodayMessage($conference));
+            sleep(30);
         });
     }
 
@@ -42,6 +43,7 @@ class TweetImportantCFPDates extends Command
 
         $conferences->each(function($conference) {
             $this->tweet($this->cfpClosesTomorrowMessage($conference));
+            sleep(30);
         });
     }
 
@@ -60,7 +62,7 @@ class TweetImportantCFPDates extends Command
         return sprintf(
             $message,
             $title,
-            $conference->publicUrl
+            $conference->url
         );
     }
 
@@ -79,7 +81,7 @@ class TweetImportantCFPDates extends Command
         return sprintf(
             $message,
             $title,
-            $conference->publicUrl
+            $conference->url
         );
     }
 
@@ -99,7 +101,5 @@ class TweetImportantCFPDates extends Command
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
-
-        sleep(30);
     }
 }
