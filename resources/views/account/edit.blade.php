@@ -11,7 +11,7 @@
         </ul>
 
         <h3>User</h3>
-        {{ Form::model($user, array('url' => array('account/edit'))) }}
+        {{ Form::model($user, array('url' => array('account/edit'), 'method' => 'put')) }}
 
         <div class="form-group">
             {{ Form::label('email', 'Email Address', ['class' => 'control-label']) }}

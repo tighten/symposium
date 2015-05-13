@@ -13,7 +13,7 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form')) }}
+                {{ Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) }}
 
                 @include('partials.conferenceform')
 
