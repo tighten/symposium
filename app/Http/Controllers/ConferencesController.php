@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 use Input;
 use JoindIn\Client;
 use Log;
-use Maknz\Slack\Facades\Slack;
 use Redirect;
 use Session;
 use Symposium\Exceptions\ValidationException;
@@ -122,8 +121,6 @@ class ConferencesController extends BaseController
                 ->withErrors($e->errors())
                 ->withInput();
         }
-
-        Slack::send("*New conference created:*\n$conference->title\n$conference->link");
 
         Session::flash('message', 'Successfully created new conference.');
 

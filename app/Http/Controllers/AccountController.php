@@ -1,10 +1,10 @@
 <?php namespace Symposium\Http\Controllers;
 
 use Auth;
+use Event;
 use Hash;
 use Input;
 use Mail;
-use Maknz\Slack\Facades\Slack;
 use Redirect;
 use Session;
 use User;
@@ -61,9 +61,8 @@ class AccountController extends BaseController
             $user->password = Hash::make(Input::get('password'));
             $user->save();
 
+            Event::fire('new-signup', [$user]);
             Auth::loginUsingId($user->id);
-
-            Slack::send("*New user signup:*\n$user->first_name $user->last_name\n$user->email");
 
             Session::flash('message', 'Successfully created account.');
 
