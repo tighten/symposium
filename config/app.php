@@ -149,6 +149,7 @@ return [
         'Illuminate\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
+        'Maknz\Slack\SlackServiceProvider',
     ],
 
     /*
@@ -199,6 +200,7 @@ return [
         'HTML'      => 'Illuminate\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
+        'Slack'     => 'Maknz\Slack\Facades\Slack',
     ],
 
 ];

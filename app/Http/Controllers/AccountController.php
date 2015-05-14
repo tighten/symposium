@@ -4,6 +4,7 @@ use Auth;
 use Hash;
 use Input;
 use Mail;
+use Maknz\Slack\Facades\Slack;
 use Redirect;
 use Session;
 use User;
@@ -62,12 +63,7 @@ class AccountController extends BaseController
 
             Auth::loginUsingId($user->id);
 
-            Mail::send('emails.newsignup', array('email' => Input::get('email')), function ($message) {
-                $message
-                    ->from('matt@symposiumapp.com', 'Matt Stauffer at Symposium')
-                    ->to(getenv('admin_email'), 'Admin')
-                    ->subject('New user signup on save my proposals');
-            });
+            Slack::send("*New user signup:*\n$user->first_name $user->last_name\n$user->email");
 
             Session::flash('message', 'Successfully created account.');
 
