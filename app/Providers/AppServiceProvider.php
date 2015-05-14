@@ -16,7 +16,11 @@ class AppServiceProvider extends ServiceProvider
         \Blade::setRawTags('{{', '}}');
         \Blade::setContentTags('{{{', '}}}');
 
-        Event::subscribe(SlackSubscriber::class);
+        // @todo: Sort of gross, probably can figure out
+        // a better solution.
+        if (App::environment() !== 'testing') {
+            Event::subscribe(SlackSubscriber::class);
+        }
 
         require app_path() . '/modelEvents.php';
         require app_path() . '/macros.php';
