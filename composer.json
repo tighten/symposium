@@ -22,7 +22,8 @@
         "guzzlehttp/guzzle": "~5.0@dev",
         "illuminate/html": "~5.0",
         "doctrine/dbal": "~2.6@dev",
-        "thomaswelton/laravel-gravatar": "dev-laravel5-support"
+        "thomaswelton/laravel-gravatar": "dev-laravel5-support",
+        "thujohn/twitter": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4.0",

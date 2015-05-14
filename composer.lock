@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f8eaec1fe2a753533cfc6422d7612266",
+    "hash": "88ea80f75fb0f588b1ba57e65905810e",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -2643,6 +2643,48 @@
             "time": "2015-05-01 14:14:24"
         },
         {
+            "name": "themattharris/tmhoauth",
+            "version": "0.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/themattharris/tmhOAuth.git",
+                "reference": "455552d6c57549632644b6c9ac9204766be2b5ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/themattharris/tmhOAuth/zipball/455552d6c57549632644b6c9ac9204766be2b5ee",
+                "reference": "455552d6c57549632644b6c9ac9204766be2b5ee",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "tmhOAuth": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "themattharris",
+                    "email": "matt@themattharris.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An OAuth library written in PHP by @themattharris",
+            "keywords": [
+                "oauth",
+                "twitter"
+            ],
+            "time": "2014-08-06 22:29:35"
+        },
+        {
             "name": "thomaswelton/gravatarlib",
             "version": "0.1.0",
             "target-dir": "thomaswelton/GravatarLib",
@@ -2739,6 +2781,50 @@
                 "laravel5"
             ],
             "time": "2015-04-06 13:54:35"
+        },
+        {
+            "name": "thujohn/twitter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thujohn/twitter.git",
+                "reference": "4bafe2239672778881588123130b35289e9d9e30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thujohn/twitter/zipball/4bafe2239672778881588123130b35289e9d9e30",
+                "reference": "4bafe2239672778881588123130b35289e9d9e30",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.*|5.*",
+                "php": ">=5.4.0",
+                "themattharris/tmhoauth": "0.8.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Thujohn\\Twitter": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thujohn",
+                    "email": "jonathan.thuau@gmail.com"
+                }
+            ],
+            "description": "Twitter API for Laravel",
+            "keywords": [
+                "laravel",
+                "laravel4",
+                "laravel5",
+                "twitter"
+            ],
+            "time": "2015-05-08 14:34:06"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4082,6 +4168,7 @@
         "guzzlehttp/guzzle": 20,
         "doctrine/dbal": 20,
         "thomaswelton/laravel-gravatar": 20,
+        "thujohn/twitter": 20,
         "laracasts/testdummy": 20,
         "mockery/mockery": 20
     },

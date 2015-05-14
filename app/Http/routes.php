@@ -17,6 +17,8 @@ Route::post('sign-up', 'AccountController@store');
 
 // Route::get('s/{shareId}', 'TalkVersionsController@showPublic');
 
+Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', 'AccountController@show');
     Route::get('account/edit', 'AccountController@edit');
@@ -53,3 +55,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('conferences', 'ConferencesController');
     Route::resource('bios', 'BiosController');
 });
+

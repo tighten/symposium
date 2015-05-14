@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Detroit',
 
     /*
     |--------------------------------------------------------------------------
@@ -147,7 +147,8 @@ return [
         // 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
         'Illuminate\Html\HtmlServiceProvider',
-        'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider'
+        'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
+        'Thujohn\Twitter\TwitterServiceProvider',
     ],
 
     /*
@@ -196,7 +197,8 @@ return [
         // 'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
-        'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar'
+        'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
+        'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
     ],
 
 ];

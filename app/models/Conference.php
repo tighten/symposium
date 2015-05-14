@@ -72,6 +72,20 @@ class Conference extends UuidBase
         return $return;
     }
 
+    public function scopeCfpOpeningToday($query)
+    {
+        return $query
+            ->where('cfp_starts_at', '>=', Carbon::now()->startOfDay())
+            ->where('cfp_starts_at', '<=', Carbon::now()->endOfDay());
+    }
+
+    public function scopeCfpClosingTomorrow($query)
+    {
+        return $query
+            ->where('cfp_ends_at', '>=', Carbon::now()->addDay()->startOfDay())
+            ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
+	}
+
     public function scopeUnclosedCfp($query)
     {
         return $query
@@ -124,6 +138,11 @@ class Conference extends UuidBase
     private function hasAnnouncedCallForProposals()
     {
         return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('conferences.show', $this->id);
     }
 
     /**

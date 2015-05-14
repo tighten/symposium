@@ -135,6 +135,10 @@ class ConferencesController extends BaseController
      */
     public function show($id)
     {
+        if (Auth::guest()) {
+            return $this->showPublic($id);
+        }
+
         try {
             $conference = Conference::where('id', $id)->firstOrFail();
         } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -151,6 +155,14 @@ class ConferencesController extends BaseController
             ->with('author', $conference->author)
             ->with('talksAtConference', $talksAtConference)
             ->with('talks', $myTalks);
+    }
+
+    private function showPublic($id)
+    {
+        $conference = Conference::findOrFail($id);
+
+        return View::make('conferences.showPublic')
+            ->with('conference', $conference);
     }
 
     /**
