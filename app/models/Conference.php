@@ -140,7 +140,7 @@ class Conference extends UuidBase
         return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 
-    public function getUrlAttribute()
+    public function getLinkAttribute()
     {
         return route('conferences.show', $this->id);
     }
