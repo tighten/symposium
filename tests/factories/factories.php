@@ -2,7 +2,6 @@
 
 $factory('Conference', 'conference', [
     'author_id' => 1,
-    'joindin_id' => 1,
     'title' => 'Dummy Conference',
     'description' => 'A conference for dummies.',
     'url' => 'http://example.com',
