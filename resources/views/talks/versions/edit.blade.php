@@ -18,7 +18,7 @@
             @endforeach
         </ul>
         <div class="row">
-            {{ Form::open(array('action' => array('TalkVersionsController@update', $version->talk->id, $version->id), 'class' => 'edit-talk-form')) }}
+            {{ Form::open(array('action' => array('TalkVersionsController@update', $version->talk->id, $version->id), 'class' => 'edit-talk-form', 'method' => 'put')) }}
             <div class="col-lg-5 pull-right">
                 <h3>Meta data</h3>
                 <p><strong>Talk nickname:</strong> {{ $version->talk->title }}<br>

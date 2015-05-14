@@ -22,7 +22,7 @@ Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'Confere
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', 'AccountController@show');
     Route::get('account/edit', 'AccountController@edit');
-    Route::post('account/edit', 'AccountController@update');
+    Route::put('account/edit', 'AccountController@update');
     Route::get('account/delete', 'AccountController@delete');
     Route::post('account/delete', 'AccountController@destroy');
     Route::get('account/export', 'AccountController@export');
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('talks/{talkId}/versions/{versionId}', 'TalkVersionsController@show');
     Route::get('talks/{talkId}/versions/{versionId}/delete', 'TalkVersionsController@destroy');
     Route::get('talks/{talkId}/versions/{versionId}/edit', 'TalkVersionsController@edit');
-    Route::post('talks/{talkId}/versions/{versionId}/update', 'TalkVersionsController@update');
+    Route::put('talks/{talkId}/versions/{versionId}/update', 'TalkVersionsController@update');
     Route::get('talks/{talkId}/versions/{versionId}/{revisionId}', 'TalkVersionsController@showRevision');
 
     // Necessary for GET-friendly delete because lazy
@@ -50,11 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('talks/{id}/createVersion', 'TalkVersionsController@create');
     Route::post('talks/{id}/storeVersion', 'TalkVersionsController@store');
-
-    // Necessary because IDK and please let's fix this @todo
-    Route::post('talks/{id}', 'TalksController@update');
-    Route::post('conferences/{id}', 'ConferencesController@update');
-    Route::post('bios/{id}', 'BiosController@update');
 
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController');

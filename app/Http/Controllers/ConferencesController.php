@@ -1,6 +1,7 @@
 <?php namespace Symposium\Http\Controllers;
 
 use Auth;
+use Carbon\Carbon;
 use Conference;
 use Illuminate\Support\Collection;
 use Input;
@@ -8,11 +9,10 @@ use JoindIn\Client;
 use Log;
 use Redirect;
 use Session;
-use Validator;
-use View;
-
 use Symposium\Exceptions\ValidationException;
 use Symposium\Services\CreateConferenceForm;
+use Validator;
+use View;
 
 class ConferencesController extends BaseController
 {
@@ -45,23 +45,48 @@ class ConferencesController extends BaseController
      */
     public function index()
     {
-        switch (Input::get('sort')) {
-            case 'date':
-                $conferences = Conference::orderBy('created_at', 'DESC')->get();
+        switch (Input::get('filter')) {
+            case 'favorites':
+                $conferences = Auth::user()->favoritedConferences()->get();
                 break;
             case 'cfp_is_open':
-                $conferences = Conference::orderBy('title', 'DESC')->get();
+                $conferences = Conference::openCfp()->get();
+                break;
+            case 'unclosed_cfp':
+                $conferences = Conference::unclosedCfp()->get();
+                break;
+            case 'all':
+                $conferences = Conference::all();
+                break;
+            case 'future':
+                // Pass through
+            default:
+                $conferences = Conference::future()->get();
+        }
+
+        switch (Input::get('sort')) {
+            case 'date':
                 $conferences->sortBy(function(Conference $model) {
-                    return ! $model->cfpIsOpen();
+                    return $model->starts_at;
                 });
                 break;
             case 'closing_next':
-                $conferences = Conference::closingSoonest();
+                // Forces closed CFPs to the end. I feel dirty.
+                $conferences
+                    ->sortBy(function(Conference $model) {
+                        if ($model->cfp_ends_at > Carbon::now()) {
+                            return $model->cfp_ends_at;
+                        } else {
+                            return $model->cfp_ends_at->addYear(1000);
+                        }
+                    });
                 break;
             case 'alpha':
                 // Pass through
             default:
-                $conferences = Conference::orderBy('title', 'ASC')->get();
+                $conferences->sortBy(function(Conference $model) {
+                    return strtolower($model->title);
+                });
                 break;
         }
 

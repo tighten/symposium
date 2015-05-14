@@ -19,7 +19,7 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-8">
-                {{ Form::open(array('action' => array('TalksController@update', $talk->id), 'class' => 'edit-talk-form')) }}
+                {{ Form::open(array('action' => array('TalksController@update', $talk->id), 'class' => 'edit-talk-form', 'method' => 'put')) }}
 
                 <div class="form-group">
                     {{ Form::label('title', '*Talk Nickname', ['class' => 'control-label']) }}
