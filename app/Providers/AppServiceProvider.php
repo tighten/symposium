@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
         // @todo: Sort of gross, probably can figure out
         // a better solution.
-        if (App::environment() !== 'testing') {
+        if ($this->app->environment() !== 'testing') {
             Event::subscribe(SlackSubscriber::class);
         }
 
