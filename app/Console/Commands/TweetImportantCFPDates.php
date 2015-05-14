@@ -62,7 +62,7 @@ class TweetImportantCFPDates extends Command
         return sprintf(
             $message,
             $title,
-            $conference->url
+            $conference->link
         );
     }
 
@@ -81,7 +81,7 @@ class TweetImportantCFPDates extends Command
         return sprintf(
             $message,
             $title,
-            $conference->url
+            $conference->link
         );
     }
 
