@@ -44,6 +44,7 @@ class Conference extends UuidBase
 //        return $this->hasManyThrough('Talk', 'User');
 //    }
 
+    // @todo: Deprecate?
     public static function closingSoonest()
     {
         $hasOpenCfp = self::whereNotNull('cfp_ends_at')
@@ -69,6 +70,25 @@ class Conference extends UuidBase
             ->merge($hasExpiredCfp);
 
         return $return;
+    }
+
+    public function scopeUnclosedCfp($query)
+    {
+        return $query
+            ->where('cfp_ends_at', '>', Carbon::now());
+    }
+
+    public function scopeFuture($query)
+    {
+        return $query
+            ->where('starts_at', '>', Carbon::now());
+    }
+
+    public function scopeOpenCfp($query)
+    {
+        return $query
+            ->where('cfp_starts_at', '<=', Carbon::now())
+            ->where('cfp_ends_at', '>', Carbon::now());
     }
 
     /**
