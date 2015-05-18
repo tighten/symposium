@@ -17,7 +17,7 @@
                     </ul>
                     @endif
 
-                    {{ Form::open(array('action' => array('AccountController@store'))) }}
+                    {{ Form::open(['action' => ['AccountController@store']]) }}
                     <div class="form-group">
                         {{ Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}
                     </div>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    {{ Form::submit('Sign up', array('class' => 'button button--primary')) }}
+                    {{ Form::submit('Sign up', ['class' => 'button button--primary']) }}
 
                     {{ Form::close() }}
                 </div>

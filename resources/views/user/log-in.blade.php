@@ -9,7 +9,7 @@
                         <h2 class="panel-title">Log in</h2>
                     </div>
                     <div class="panel-body">
-                        {{ Form::open(array('action' => 'AuthController@postLogin')) }}
+                        {{ Form::open(['action' => 'AuthController@postLogin']) }}
                         <div class="form-group">
                             {{ Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}
                         </div>
@@ -17,7 +17,7 @@
                             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
                         </div>
 
-                        {{ Form::submit('Sign in', array('class' => 'button button--primary')) }}
+                        {{ Form::submit('Sign in', ['class' => 'button button--primary']) }}
                         {{ Form::close() }}
                     </div>
                 </div>
