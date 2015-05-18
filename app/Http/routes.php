@@ -17,6 +17,9 @@ Route::post('sign-up', 'AccountController@store');
 
 // Route::get('s/{shareId}', 'TalkVersionsController@showPublic');
 
+// temp fix
+Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create', 'middleware' => 'auth']);
+
 Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
 
 Route::group(['middleware' => 'auth'], function () {

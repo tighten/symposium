@@ -1,6 +1,8 @@
 <?php namespace Symposium\Providers;
 
+use Event;
 use Illuminate\Support\ServiceProvider;
+use Symposium\Handlers\Events\SlackSubscriber;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,12 @@ class AppServiceProvider extends ServiceProvider
     {
         \Blade::setRawTags('{{', '}}');
         \Blade::setContentTags('{{{', '}}}');
+
+        // @todo: Sort of gross, probably can figure out
+        // a better solution.
+        if ($this->app->environment() !== 'testing') {
+            Event::subscribe(SlackSubscriber::class);
+        }
 
         require app_path() . '/modelEvents.php';
         require app_path() . '/macros.php';

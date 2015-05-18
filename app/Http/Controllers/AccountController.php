@@ -1,6 +1,7 @@
 <?php namespace Symposium\Http\Controllers;
 
 use Auth;
+use Event;
 use Hash;
 use Input;
 use Mail;
@@ -60,14 +61,8 @@ class AccountController extends BaseController
             $user->password = Hash::make(Input::get('password'));
             $user->save();
 
+            Event::fire('new-signup', [$user]);
             Auth::loginUsingId($user->id);
-
-            Mail::send('emails.newsignup', array('email' => Input::get('email')), function ($message) {
-                $message
-                    ->from('matt@symposiumapp.com', 'Matt Stauffer at Symposium')
-                    ->to(getenv('admin_email'), 'Admin')
-                    ->subject('New user signup on save my proposals');
-            });
 
             Session::flash('message', 'Successfully created account.');
 

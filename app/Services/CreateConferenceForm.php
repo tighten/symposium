@@ -1,6 +1,7 @@
 <?php namespace Symposium\Services;
 
 use Conference;
+use Event;
 use Symposium\Exceptions\ValidationException;
 use Validator;
 
@@ -43,8 +44,10 @@ class CreateConferenceForm
             throw new ValidationException('Invalid input provided, see errors', $validation->errors());
         }
 
-        return Conference::create(array_merge($this->input, [
+        $conference = Conference::create(array_merge($this->input, [
             'author_id' => $this->user->id,
         ]));
+        Event::fire('new-conference', [$conference]);
+        return $conference;
     }
 }
