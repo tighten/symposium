@@ -27,8 +27,6 @@ tools:
         configuration_file: null
         suffixes:
             - php
-    external_code_coverage:
-        timeout: 600 # Timeout in seconds.
 changetracking:
     bug_patterns:
         - '\bfix(?:es|ed)?\b'
