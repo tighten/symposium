@@ -50,3 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('bios', 'BiosController');
 });
 
+Route::group(['prefix' => 'api'], function () {
+    Route::get('talks/{talkId}', 'Api\TalksController@show');
+    Route::get('user/{userId}/talks', 'Api\UsersController@talks');
+});

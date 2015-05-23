@@ -14,12 +14,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Eloquent::unguard();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        if (! app()->environment('testing')) {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        }
 
         $this->call('UsersSeeder');
         $this->call('TalksSeeder');
         $this->call('ConferencesSeeder');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        if (! app()->environment('testing')) {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        }
     }
 }
