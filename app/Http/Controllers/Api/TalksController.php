@@ -13,9 +13,7 @@ class TalksController extends BaseController
      */
     public function show($id)
     {
-        $talk = Talk::where('id', $id)
-                ->where('author_id', Auth::user()->id)
-                ->firstOrFail();
+        $talk = Auth::user()->talks()->findOrFail($id);
 
         return $this->quickJsonApiReturn($talk, 'talks');
     }
