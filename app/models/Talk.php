@@ -27,7 +27,7 @@ class Talk extends UuidBase
 
     public function revisions()
     {
-        return $this->hasMany('TalkVersionRevision');
+        return $this->hasMany('TalkRevision');
     }
 
     public function getRevisionsAttribute()

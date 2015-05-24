@@ -3,7 +3,7 @@
 use Conference;
 use Symposium\Commands\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
-use TalkVersionRevision;
+use TalkRevision;
 
 class CreateSubmission extends Command implements SelfHandling {
 	/**
@@ -13,15 +13,15 @@ class CreateSubmission extends Command implements SelfHandling {
 	/**
 	 * @var string
 	 */
-	private $talkVersionRevisionId;
+	private $talkRevisionId;
 
 	/**
 	 * Create a new command instance.
 	 */
-	public function __construct($conferenceId, $talkVersionRevisionId)
+	public function __construct($conferenceId, $talkRevisionId)
 	{
 		$this->conferenceId = $conferenceId;
-		$this->talkVersionRevisionId = $talkVersionRevisionId;
+		$this->talkRevisionId = $talkRevisionId;
 	}
 
 	/**
@@ -32,8 +32,8 @@ class CreateSubmission extends Command implements SelfHandling {
 	public function handle()
 	{
 		$conference = Conference::findOrFail($this->conferenceId);
-		$talkVersionRevision = TalkVersionRevision::findOrFail($this->talkVersionRevisionId);
-		$conference->submissions()->save($talkVersionRevision);
+		$$talkRevision = TalkRevision::findOrFail($this->talkRevisionId);
+		$conference->submissions()->save($$talkRevision);
 	}
 
 }

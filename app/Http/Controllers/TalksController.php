@@ -6,8 +6,7 @@ use Log;
 use Redirect;
 use Session;
 use Talk;
-use TalkVersion;
-use TalkVersionRevision;
+use TalkRevision;
 use Validator;
 use View;
 
@@ -52,7 +51,7 @@ class TalksController extends BaseController
                 // Pass through
             default:
                 $sorting_talk['alpha'] = $bold_style;
-                $talks = Auth::user()->talks->Talk::orderBy('title', 'ASC')->get();
+                $talks = Auth::user()->talks->orderBy('title', 'ASC')->get();
                 break;
         }
 
@@ -69,7 +68,7 @@ class TalksController extends BaseController
     public function create()
     {
         return View::make('talks.create')
-            ->with('current', new TalkVersionRevision);
+            ->with('current', new TalkRevision);
     }
 
     /**
@@ -96,7 +95,7 @@ class TalksController extends BaseController
             $revision->description = Input::get('description');
             $revision->outline = Input::get('outline');
             $revision->organizer_notes = Input::get('organizer_notes');
-            $revision->talk_version_id = $version->id;
+            $revision->talk_id = $talk->id;
             $revision->save();
 
             Session::flash('message', 'Successfully created new talk.');

@@ -57,9 +57,9 @@
                     @if ($talksAtConference->isEmpty())
                         <li>None</li>
                     @endif
-                    @foreach ($talksAtConference as $talkVersionRevision)
-                        <li><a href="#" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkVersionRevisionId' => $talkVersionRevision->id]) }}'>Un-Submit</a>
-                            <a href="{{ $talkVersionRevision->getUrl() }}">{{ $talkVersionRevision->title }}</a>
+                    @foreach ($talksAtConference as $talkRevision)
+                        <li><a href="#" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talkRevision->id]) }}'>Un-Submit</a>
+                            <a href="{{ $talkRevision->getUrl() }}">{{ $talkRevision->title }}</a>
                             |  <a href="#" onclick="alert('Not programmed yet');">Change status [accepted, rejected, submitted]</a></li>
                     @endforeach
                 </ul>
@@ -71,18 +71,11 @@
                     @endif
                     @foreach ($talks as $talk)
                         <li>{{ $talk->title }}
-                            <ul>
-                                @foreach ($talk->versions as $version)
-                                <li>
-                                    @if (! $talksAtConference->contains($version->current()))
-                                        <a href="#" class="btn btn-xs btn-primary" data-post='{{ json_encode(['conferenceId' => $conference->id, 'talkVersionRevisionId' => $version->current()->id]) }}'>Submit</a>
-                                    @else
-                                        <span class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkVersionRevisionId' => $version->current()->id]) }}'>Un-Submit</span>
-                                    @endif
-
-                                    {{ $version->nickname }}</li>
-                                @endforeach
-                            </ul>
+                            @if (! $talksAtConference->contains($talk->current()))
+                                <a href="#" class="btn btn-xs btn-primary" data-post='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talk->current()->id]) }}'>Submit</a>
+                            @else
+                                <span class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talk->current()->id]) }}'>Un-Submit</span>
+                            @endif
                         </li>
                     @endforeach
                 </ul>

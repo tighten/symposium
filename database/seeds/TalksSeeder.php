@@ -6,8 +6,7 @@ class TalksSeeder extends Seeder
 {
     public function run()
     {
-        TalkVersionRevision::truncate();
-        TalkVersion::truncate();
+        TalkRevision::truncate();
         Talk::truncate();
 
         $author = User::first();
@@ -17,10 +16,7 @@ class TalksSeeder extends Seeder
 
         $author->talks()->saveMany([$greatTalk, $terribleTalk]);
 
-        $greatTalkVersion1 = $greatTalk->versions()->create(['nickname' => 'php conf version', 'created_at' => '2013-11-27 15:54:41']);
-        $greatTalkVersion2 = $greatTalk->versions()->create(['nickname' => 'frontend conf version', 'created_at' => '2013-11-28 15:54:41']);
-
-        $greatTalkVersion1->revisions()->create([
+        $greatTalk->revisions()->create([
             'title' => 'My great talk',
             'description' => 'Description of the talk',
             'type' => 'seminar',
@@ -31,7 +27,7 @@ class TalksSeeder extends Seeder
             'created_at' => '2013-11-29 15:54:41'
         ]);
 
-        $greatTalkVersion1->revisions()->create([
+        $greatTalk->revisions()->create([
             'title' => 'My awesome talk',
             'description' => 'Description of the talk',
             'type' => 'seminar',
@@ -42,7 +38,7 @@ class TalksSeeder extends Seeder
             'created_at' => '2013-11-27 15:54:41'
         ]);
 
-        $greatTalkVersion2->revisions()->create([
+        $terribleTalk->revisions()->create([
             'title' => 'My awesome talk',
             'description' => 'Description of the talk',
             'type' => 'seminar',
