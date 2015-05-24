@@ -1,6 +1,6 @@
 <?php
 
-class TalkVersionRevision extends UuidBase
+class TalkRevision extends UuidBase
 {
     protected $title;
     protected $type;
@@ -10,7 +10,7 @@ class TalkVersionRevision extends UuidBase
     protected $outline;
     protected $organizer_notes;
 
-    protected $table = 'talk_version_revisions';
+    protected $table = 'talk_revisions';
 
     protected $guarded = [
         'id'
@@ -18,19 +18,14 @@ class TalkVersionRevision extends UuidBase
 
     public static $rules = array();
 
-    public function talkVersion()
+    public function talk()
     {
-        return $this->belongsTo('TalkVersion');
-    }
-
-    public function getTalkAttribute()
-    {
-        return $this->talkVersion->talk;
+        return $this->belongsTo('Talk');
     }
 
     public function getUrl()
     {
-        return '/talks/' . $this->getAttribute('talk')->id . '/versions/' . $this->talkVersion->id . '/' . $this->id;
+        return '/talks/' . $this->talk->id . '/' . $this->id;
     }
 
     public function getHtmledDescription()

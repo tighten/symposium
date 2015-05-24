@@ -13,7 +13,6 @@ use View;
 
 class TalksController extends BaseController
 {
-    // @todo: DRY against TalkVersionsController@$rules (but this doesn't need nickname)
     protected $rules = [
         'title' => 'required',
         'type' => 'required',
@@ -47,13 +46,13 @@ class TalksController extends BaseController
         switch (Input::get('sort')) {
             case 'date':
                 $sorting_talk['date'] = $bold_style;
-                $talks = Talk::orderBy('created_at', 'DESC')->currentUserOnly()->get();
+                $talks = Auth::user()->talks->orderBy('created_at', 'DESC')->get();
                 break;
             case 'alpha':
                 // Pass through
             default:
                 $sorting_talk['alpha'] = $bold_style;
-                $talks = Talk::orderBy('title', 'ASC')->currentUserOnly()->get();
+                $talks = Auth::user()->talks->Talk::orderBy('title', 'ASC')->get();
                 break;
         }
 
@@ -70,7 +69,6 @@ class TalksController extends BaseController
     public function create()
     {
         return View::make('talks.create')
-            ->with('version', new TalkVersion)
             ->with('current', new TalkVersionRevision);
     }
 
@@ -84,20 +82,13 @@ class TalksController extends BaseController
         $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
-            // @todo: DRY with TalkVersionsController@store, prob using commands
-
             // Save
             $talk = new Talk;
             $talk->title = Input::get('title');
             $talk->author_id = Auth::user()->id;
             $talk->save();
 
-            $version = new TalkVersion;
-            $version->nickname = 'Initial';
-            $version->talk_id = $talk->id;
-            $version->save();
-
-            $revision = new TalkVersionRevision;
+            $revision = new TalkRevision;
             $revision->title = Input::get('title');
             $revision->type = Input::get('type');
             $revision->length = Input::get('length');
@@ -127,21 +118,16 @@ class TalksController extends BaseController
     public function edit($talkId)
     {
         try {
-            $talk = Talk::where('id', $talkId)->firstOrFail();
+            $talk = Auth::user()->talks->find($id);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
             return Redirect::to('/');
         }
 
-        if ($talk->author->id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
-            Log::error('User ' . Auth::user()->id . ' tried to edit a talk they don\'t own.');
-            return Redirect::to('/');
-        }
-
         return View::make('talks.edit')
-            ->with('talk', $talk);
+            ->with('talk', $talk)
+            ->with('current', $talk->current());
     }
 
     /**
@@ -152,22 +138,21 @@ class TalksController extends BaseController
      */
     public function update($talkId)
     {
-        $validator = Validator::make(Input::all(), [
-            'title' => 'required'
-        ]);
+        $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
-            $talk = Talk::where('id', $talkId)->firstOrFail();
+            $talk = Auth::user()->talks->find($id);
 
-            // Validate ownership
-            if ($talk->author->id != Auth::user()->id) {
-                Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
-                Log::error('User ' . Auth::user()->id . ' tried to edit a talk they don\'t own.');
-                return Redirect::to('/');
-            }
-
-            $talk->title = Input::get('title');
-            $talk->save();
+            $revision = new TalkRevision;
+            $revision->title = Input::get('title');
+            $revision->type = Input::get('type');
+            $revision->length = Input::get('length');
+            $revision->level = Input::get('level');
+            $revision->description = Input::get('description');
+            $revision->outline = Input::get('outline');
+            $revision->organizer_notes = Input::get('organizer_notes');
+            $revision->talk_id = $talk->id;
+            $revision->save();
 
             Session::flash('message', 'Successfully edited talk.');
 
@@ -188,25 +173,18 @@ class TalksController extends BaseController
     public function show($id)
     {
         try {
-            $talk = Talk::where('id', $id)->firstOrFail();
+            $talk = Auth::user()->talks->find($id);
         } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
             return Redirect::to('/');
         }
 
-        // Validate ownership
-        if ($talk->author->id != Auth::user()->id && ! Auth::user()->isAdmin()) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
-            Log::error('User ' . Auth::user()->id . ' tried to show a talk they don\'t own.');
-            return Redirect::to('/');
-        }
-
         return View::make('talks.show')
             ->with('talk', $talk)
+            ->with('current', $talk->current())
             ->with('author', $talk->author);
     }
-
 
     /**
      * Show the confirmation for deleting the specified resource
@@ -227,14 +205,7 @@ class TalksController extends BaseController
      */
     public function destroy($id)
     {
-        $talk = Talk::where('id', $id)->firstOrFail();
-
-        // Validate ownership
-        if ($talk->author->id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that talk.');
-            Log::error('User ' . Auth::user()->id . ' tried to delete a talk they don\'t own.');
-            return Redirect::to('/');
-        }
+        $talk = Auth::user()->talks->find($id);
 
         $talk->delete();
 

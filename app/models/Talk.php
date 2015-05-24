@@ -15,20 +15,23 @@ class Talk extends UuidBase
         return $this->belongsTo('User', 'author_id');
     }
 
-    public function versions()
-    {
-        return $this->hasMany('TalkVersion');
-    }
-
 //    public function submissions()
 //    {
 //        return $this->belongsToMany('Conference');
 //    }
 
-    public function scopeCurrentUserOnly($query)
+    public function current()
     {
-        $user = \Auth::user();
+        return $this->revisions()->orderBy('created_at', 'DESC')->first();
+    }
 
-        return $query->where('author_id', Auth::user()->id);
+    public function revisions()
+    {
+        return $this->hasMany('TalkVersionRevision');
+    }
+
+    public function getRevisionsAttribute()
+    {
+        return $this->revisions()->getQuery()->orderBy('created_at', 'desc')->get();
     }
 }
