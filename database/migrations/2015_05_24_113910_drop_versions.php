@@ -14,15 +14,19 @@ class DropVersions extends Migration
     {
         $this->splitVersionsToTalks();
 
+        // title & description removal Separate because https://github.com/laravel/framework/issues/2979
         Schema::table('talks', function (Blueprint $table) {
             $table->dropColumn('title');
+        });
+
+        Schema::table('talks', function (Blueprint $table) {
             $table->dropColumn('description');
         });
 
         Schema::rename('talk_version_revisions', 'talk_revisions');
 
         Schema::table('talk_revisions', function (Blueprint $table) {
-            $table->string('talk_id', 36);
+            $table->string('talk_id', 36)->default('');
             $table->dropForeign('talk_version_revisions_talk_version_id_foreign');
         });
 
