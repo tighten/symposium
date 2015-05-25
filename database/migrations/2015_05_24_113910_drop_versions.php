@@ -33,11 +33,13 @@ class DropVersions extends Migration
                 ->references('id')
                 ->on('talks')
                 ->onDelete('cascade');
+
+            $table->dropColumn('talk_version_id');
         });
 
+        Schema::drop('talk_versions');
 
-        Schema::table('submissions', function($table) {
-            // @todo: Drop foreign that references this or that this is a part of
+        Schema::table('submissions', function (Blueprint $table) {
             $table->dropForeign('submissions_talk_version_revision_id_foreign');
 
             $table->renameColumn('talk_version_revision_id', 'talk_revision_id');
@@ -48,7 +50,7 @@ class DropVersions extends Migration
                 ->onDelete('cascade');
         });
 
-        // Schema::drop('talk_versions'); // later?
+
     }
 
     /**
@@ -58,19 +60,53 @@ class DropVersions extends Migration
      */
     public function down()
     {
-        // @todo: Flesh this whole thing out
         // No data preservation on the "down" side of this one.
-        Schema::table('users', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        foreach (['favorites', 'conferences', 'submissions', 'talk_revisions', 'talks'] as $table) {
+            DB::table($table)->truncate();
+        }
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
+        Schema::table('talks', function (Blueprint $table) {
             $table->string('title')->unique();
             $table->text('description');
         });
 
+        Schema::create('talk_versions', function(Blueprint $table)
+        {
+            $table->string('id', 36)->unique();
+            $table->string('nickname', 150);
+
+            $table->timestamps();
+
+            $table->string('talk_id', 36);
+            $table->foreign('talk_id')
+                ->references('id')
+                ->on('talks')
+                ->onDelete('cascade');
+        });
+
         Schema::rename('talk_revisions', 'talk_version_revisions');
 
-        // @todo: Delete foreign key and talk_id column on talk_version_revisions
-        // @todo: bring back dropped index aboe
-        //
-        // @todo: Adjust talk version revisions columns
+        Schema::table('talk_version_revisions', function (Blueprint $table) {
+            $table->dropForeign('talk_revisions_talk_id_foreign');
+            $table->dropColumn('talk_id');
+
+            $table->string('talk_version_id', 36);
+            $table->foreign('talk_version_id')
+                ->references('id')
+                ->on('talk_versions')
+                ->onDelete('cascade');
+        });
+
+        Schema::table('submissions', function (Blueprint $table) {
+            $table->dropForeign('submissions_talk_revision_id_foreign');
+            $table->renameColumn('talk_revision_id', 'talk_version_revision_id');
+            $table->foreign('talk_version_revision_id')
+                ->references('id')
+                ->on('talk_version_revisions')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -121,6 +157,7 @@ class DropVersions extends Migration
     {
         $revisions = DB::table('talk_revisions')->get();
 
+        // Add a talk_id foreign key to each revision (since we're dropping version_id)
         foreach ($revisions as $revision) {
             $oldVersionId = $revision->talk_version_id;
             $version = DB::table('talk_versions')->where('id', $oldVersionId)->first();

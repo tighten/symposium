@@ -11,8 +11,8 @@ class TalksSeeder extends Seeder
 
         $author = User::first();
 
-        $greatTalk = $author->talks()->create(['title' => 'My Great Talk', 'description' => 'Description of the talk']);
-        $terribleTalk = $author->talks()->create(['title' => 'My Terrible Talk', 'description' => 'Description of the talk']);
+        $greatTalk = $author->talks()->create();
+        $terribleTalk = $author->talks()->create();
 
         $author->talks()->saveMany([$greatTalk, $terribleTalk]);
 
