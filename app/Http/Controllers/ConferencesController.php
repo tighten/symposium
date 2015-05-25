@@ -71,11 +71,13 @@ class ConferencesController extends BaseController
                 });
                 break;
             case 'closing_next':
-                // Forces closed CFPs to the end. I feel dirty.
+                // Forces closed CFPs to the end. I feel dirty. Even dirtier with the 500 thing.
                 $conferences
                     ->sortBy(function(Conference $model) {
                         if ($model->cfp_ends_at > Carbon::now()) {
                             return $model->cfp_ends_at;
+                        } elseif ($model->cfp_ends_at === null) {
+                            return Carbon::now()->addYear(500);
                         } else {
                             return $model->cfp_ends_at->addYear(1000);
                         }

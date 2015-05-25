@@ -23,19 +23,32 @@ class DropVersions extends Migration
 
         Schema::table('talk_revisions', function (Blueprint $table) {
             $table->string('talk_id', 36);
+            $table->dropForeign('talk_version_revisions_talk_version_id_foreign');
+        });
+
+        $this->addTalkIdsToTalks();
+
+        Schema::table('talk_revisions', function (Blueprint $table) {
             $table->foreign('talk_id')
                 ->references('id')
                 ->on('talks')
                 ->onDelete('cascade');
         });
 
-        $this->addTalkIdsToTalks();
 
-        // @todo: link to the talk through the version somehow (data migration)
+        Schema::table('submissions', function($table) {
+            // @todo: Drop foreign that references this or that this is a part of
+            $table->dropForeign('submissions_talk_version_revision_id_foreign');
 
-        // @todo: Adjust talk revisions columns
+            $table->renameColumn('talk_version_revision_id', 'talk_revision_id');
 
-        // Schema::drop('talk_versions'); // later
+            $table->foreign('talk_revision_id')
+                ->references('id')
+                ->on('talk_revisions')
+                ->onDelete('cascade');
+        });
+
+        // Schema::drop('talk_versions'); // later?
     }
 
     /**
@@ -45,6 +58,7 @@ class DropVersions extends Migration
      */
     public function down()
     {
+        // @todo: Flesh this whole thing out
         // No data preservation on the "down" side of this one.
         Schema::table('users', function (Blueprint $table) {
             $table->string('title')->unique();
@@ -54,6 +68,7 @@ class DropVersions extends Migration
         Schema::rename('talk_revisions', 'talk_version_revisions');
 
         // @todo: Delete foreign key and talk_id column on talk_version_revisions
+        // @todo: bring back dropped index aboe
         //
         // @todo: Adjust talk version revisions columns
     }
@@ -77,14 +92,22 @@ class DropVersions extends Migration
                         continue;
                     }
 
-                    // @todo: This would be the Eloquent syntax, but let's re-write to non-Eloquent so it actually works...
-                    $newTalk = new Talk;
-                    $newTalk->fill((array) $talk);
-                    $newTalk->id = null;
-                    $newTalk->save();
+                    // Duplicate the talk
+                    $newTalkId = (string)\Rhumsaa\Uuid\Uuid::uuid4();
+                    DB::table('talks')->insert([
+                        'id' => $newTalkId,
+                        'title' => $talk->title,
+                        'author_id' => $talk->author_id,
+                        'created_at' => $talk->created_at,
+                        'updated_at' => $talk->updated_at,
+                    ]);
 
-                    $version->talk_id = $newTalk->id;
-                    $version->save();
+                    // Assign the version to the new talk
+                    DB::table('talk_versions')
+                        ->where('id', $version->id)
+                        ->update([
+                            'talk_id' => $newTalkId
+                        ]);
                 }
             }
         }
@@ -96,14 +119,17 @@ class DropVersions extends Migration
      */
     private function addTalkIdsToTalks()
     {
-        $revisions = DB::table('talk_revisions');
+        $revisions = DB::table('talk_revisions')->get();
 
         foreach ($revisions as $revision) {
-            $oldVersionId = $revision->version_id;
-            $version = DB::table('talk_versions')->where('id', $oldVersionId);
-dd($version);
-            $revision->talk_id = $version->talk_id;
-            $revision->save(); // @todo: How to save in non-Eloquent?
+            $oldVersionId = $revision->talk_version_id;
+            $version = DB::table('talk_versions')->where('id', $oldVersionId)->first();
+
+            DB::table('talk_revisions')
+                ->where('id', $revision->id)
+                ->update([
+                    'talk_id' => $version->talk_id
+                ]);
         }
     }
 }

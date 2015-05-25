@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li><a href="/talks/">Talks</a></li>
-            <li><a href="/talks/{{ $talk->id }}">Talk: {{ $talk->title }}</a></li>
+            <li><a href="/talks/{{ $talk->id }}">Talk: {{ $current->title }}</a></li>
         </ol>
 
         <p class="pull-right">

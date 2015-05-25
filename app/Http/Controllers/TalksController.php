@@ -45,13 +45,15 @@ class TalksController extends BaseController
         switch (Input::get('sort')) {
             case 'date':
                 $sorting_talk['date'] = $bold_style;
-                $talks = Auth::user()->talks->orderBy('created_at', 'DESC')->get();
+                $talks = Auth::user()->talks->sortByDesc('created_at');
                 break;
             case 'alpha':
                 // Pass through
             default:
                 $sorting_talk['alpha'] = $bold_style;
-                $talks = Auth::user()->talks->orderBy('title', 'ASC')->get();
+                $talks = Auth::user()->talks->sortBy(function ($talk) {
+                    return strtolower($talk->current()->title);
+                });
                 break;
         }
 
@@ -83,7 +85,6 @@ class TalksController extends BaseController
         if ($validator->passes()) {
             // Save
             $talk = new Talk;
-            $talk->title = Input::get('title');
             $talk->author_id = Auth::user()->id;
             $talk->save();
 
@@ -117,7 +118,7 @@ class TalksController extends BaseController
     public function edit($talkId)
     {
         try {
-            $talk = Auth::user()->talks->find($id);
+            $talk = Auth::user()->talks->find($talkId);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
@@ -140,7 +141,7 @@ class TalksController extends BaseController
         $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
-            $talk = Auth::user()->talks->find($id);
+            $talk = Auth::user()->talks->find($talkId);
 
             $revision = new TalkRevision;
             $revision->title = Input::get('title');

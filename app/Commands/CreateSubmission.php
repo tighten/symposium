@@ -32,8 +32,8 @@ class CreateSubmission extends Command implements SelfHandling {
 	public function handle()
 	{
 		$conference = Conference::findOrFail($this->conferenceId);
-		$$talkRevision = TalkRevision::findOrFail($this->talkRevisionId);
-		$conference->submissions()->save($$talkRevision);
+		$talkRevision = TalkRevision::findOrFail($this->talkRevisionId);
+		$conference->submissions()->save($talkRevision);
 	}
 
 }
