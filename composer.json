@@ -24,7 +24,8 @@
         "doctrine/dbal": "~2.5",
         "thomaswelton/laravel-gravatar": "dev-laravel5-support",
         "thujohn/twitter": "dev-master",
-        "maknz/slack": "~1.5"
+        "maknz/slack": "~1.5",
+		"lucadegasperi/oauth2-server-laravel": "4.0.x@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4.0",
