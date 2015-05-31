@@ -8,7 +8,7 @@ class TalksController extends BaseController
     {
         $talk = Auth::user()->talks()->findOrFail($id);
 
-        $current = $talk->versions()->first()->current();
+        $current = $talk->current();
 
         foreach ($current->toArray() as $key => $value) {
             if ($key == 'id') continue;

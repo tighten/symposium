@@ -20,7 +20,7 @@ class UserTalksController extends BaseController
         $talks = User::find($userId)->talks;
 
         foreach ($talks as &$talk) {
-            $current = $talk->versions()->first()->current();
+            $current = $talk->current();
 
             foreach ($current->toArray() as $key => $value) {
                 if ($key == 'id') continue;
