@@ -39,11 +39,12 @@ class BaseController extends ParentBaseController
             'attributes' => $object->toArray()
         ];
 
-        // Just to get our tests working.
+        // Just to get our tests working. Clearly not going to live on.
         unset($return['attributes']['id']);
         unset($return['attributes']['user_id']);
         unset($return['attributes']['author_id']);
         unset($return['attributes']['talk_version_id']);
+        unset($return['attributes']['role']);
 
         return $return;
     }
