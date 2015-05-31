@@ -38,11 +38,13 @@
 
                 <h3>Revisions</h3>
                 <ul>
-                    @foreach ($talk->revisions as $index => $revision)
-                        <li
-                        @if ($index === 0)
-                            style="font-weight: bold;"
-                            @endif}}><a href="/talks/{{ $talk->id }}/{{ $revision->id }}">{{ $revision->created_at }}</a></li>
+                    <li style="font-weight: bold;">
+                        <a href="/talks/{{ $talk->id }}/{{ $talk->current()->id }}">{{ $talk->current()->created_at }}</a>
+                    </li>
+                    @foreach ($talk->revisions->slice(1) as $revision)
+                        <li>
+                            <a href="/talks/{{ $talk->id }}/{{ $revision->id }}">{{ $revision->created_at }}</a>
+                        </li>
                     @endforeach
                 </ul>
             </div>

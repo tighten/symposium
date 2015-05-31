@@ -140,7 +140,7 @@ class TalksController extends BaseController
         $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->passes()) {
-            $talk = Auth::user()->talks->find($talkId);
+            $talk = Auth::user()->talks()->findOrFail($talkId);
 
             $revision = new TalkRevision;
             $revision->title = Input::get('title');
@@ -181,8 +181,7 @@ class TalksController extends BaseController
 
         return View::make('talks.show')
             ->with('talk', $talk)
-            ->with('current', $talk->current())
-            ->with('author', $talk->author);
+            ->with('current', $talk->current());
     }
 
     /**
@@ -204,9 +203,7 @@ class TalksController extends BaseController
      */
     public function destroy($id)
     {
-        $talk = Auth::user()->talks->find($id);
-
-        $talk->delete();
+        Auth::user()->talks()->findOrFail($id)->delete();
 
         Session::flash('message', 'Successfully deleted talk.');
 

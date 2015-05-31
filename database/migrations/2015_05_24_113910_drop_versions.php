@@ -39,9 +39,9 @@ class DropVersions extends Migration
                 ->onDelete('cascade');
 
             $table->dropColumn('talk_version_id');
-        });
 
-        Schema::drop('talk_versions');
+            $table->string('talk_id', 36)->change();
+        });
 
         Schema::table('submissions', function (Blueprint $table) {
             $table->dropForeign('submissions_talk_version_revision_id_foreign');
@@ -54,7 +54,7 @@ class DropVersions extends Migration
                 ->onDelete('cascade');
         });
 
-
+        Schema::drop('talk_versions');
     }
 
     /**
