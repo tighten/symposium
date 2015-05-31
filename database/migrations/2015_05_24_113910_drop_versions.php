@@ -39,8 +39,6 @@ class DropVersions extends Migration
                 ->onDelete('cascade');
 
             $table->dropColumn('talk_version_id');
-
-            $table->string('talk_id', 36)->change();
         });
 
         Schema::table('submissions', function (Blueprint $table) {
