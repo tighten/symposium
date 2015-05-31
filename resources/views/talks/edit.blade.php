@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li><a href="/talks/">Talks</a></li>
-            <li><a href="/talks/{{ $talk->id }}">Talk: {{ $talk->title }}</a></li>
+            <li><a href="/talks/{{ $current->talk_id }}">Talk: {{ $current->title }}</a></li>
         </ol>
 
         <h1>Edit Talk Nickname</h1>
@@ -19,7 +19,7 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-8">
-                {{ Form::open(array('action' => array('TalksController@update', $talk->id), 'class' => 'edit-talk-form', 'method' => 'put')) }}
+                {{ Form::open(array('action' => array('TalksController@update', $current->talk_id), 'class' => 'edit-talk-form', 'method' => 'put')) }}
 
                 @include('partials.talkversionform')
 
