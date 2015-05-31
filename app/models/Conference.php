@@ -36,7 +36,7 @@ class Conference extends UuidBase
 
     public function submissions()
     {
-        return $this->belongsToMany('TalkVersionRevision', 'submissions');
+        return $this->belongsToMany('TalkRevision', 'submissions');
     }
 
 //    public function submitters()
@@ -167,8 +167,8 @@ class Conference extends UuidBase
     {
         $talks = Auth::user()->talks;
 
-        return $this->submissions->filter(function($talkVersionRevision) use($talks) {
-            return $talks->contains($talkVersionRevision->talk);
+        return $this->submissions->filter(function($talkRevision) use ($talks) {
+            return $talks->contains($talkRevision->talk);
         });
     }
 

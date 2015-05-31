@@ -13,9 +13,9 @@ class SubmissionsController extends Controller
     public function store()
     {
         $conferenceId = Input::get('conferenceId');
-        $talkVersionRevisionId = Input::get('talkVersionRevisionId');
+        $talkRevisionId = Input::get('talkRevisionId');
 
-        $this->dispatch(new CreateSubmission($conferenceId, $talkVersionRevisionId));
+        $this->dispatch(new CreateSubmission($conferenceId, $talkRevisionId));
 
         return Response::json(['status' => 'success', 'message' => 'Talk Submitted']);
     }
@@ -23,9 +23,9 @@ class SubmissionsController extends Controller
     public function destroy()
     {
         $conferenceId = Input::get('conferenceId');
-        $talkVersionRevisionId = Input::get('talkVersionRevisionId');
+        $talkRevisionId = Input::get('talkRevisionId');
 
-        $this->dispatch(new DestroySubmission($conferenceId, $talkVersionRevisionId));
+        $this->dispatch(new DestroySubmission($conferenceId, $talkRevisionId));
 
         return Response::json(['status' => 'success', 'message' => 'Talk Un-Submitted']);
     }

@@ -18,16 +18,10 @@
                     href="/talks?sort=date"{{ $sorting_talk['date'] }}>Date</a></p>
         <ul class="list-talks">
             @foreach ($talks as $talk)
-                <li><h3><a href="/talks/{{ $talk->id }}">{{ $talk->title }}</a></h3>
-
-                    <p class="talk-meta"><i>{{ $talk->created_at->toFormattedDateString()  }}</i></p>
-
-                    <p><b>Versions</b>
-                    @foreach ($talk->versions as $version)
-                    | <a href="/talks/{{ $talk->id }}/versions/{{ $version->id }}">{{ $version->nickname }}</a>
-                    @endforeach
-                    </p>
-                    </li>
+                <li>
+                    <h3><a href="/talks/{{ $talk->id }}">{{ $talk->current()->title }}</a></h3>
+                    <p class="talk-meta"><i>{{ $talk->created_at->toFormattedDateString()  }}</i> | {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}</p>
+                </li>
             @endforeach
         </ul>
     </div>
