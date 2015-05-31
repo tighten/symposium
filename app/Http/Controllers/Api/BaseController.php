@@ -17,16 +17,34 @@ class BaseController extends ParentBaseController
 
     protected function quickJsonApiReturn($json, $type)
     {
+        $response = [];
         if (is_array($json) || is_a($json, Collection::class)) {
-            foreach ($json as &$item) {
-                $item['type'] = $type;
+            foreach ($json as $item) {
+                $response[] = $this->jsonApiIfyObject($item, $type);
             }
         } else {
-            $json['type'] = $type;
+            $response = $this->jsonApiIfyObject($json, $type);
         }
 
         return response()->jsonApi([
-            'data' => $json
+            'data' => $response
         ]);
+    }
+
+    private function jsonApiIfyObject($object, $type)
+    {
+        $return = [
+            'type' => $type,
+            'id' => $object->id,
+            'attributes' => $object->toArray()
+        ];
+
+        // Just to get our tests working.
+        unset($return['attributes']['id']);
+        unset($return['attributes']['user_id']);
+        unset($return['attributes']['author_id']);
+        unset($return['attributes']['talk_version_id']);
+
+        return $return;
     }
 }

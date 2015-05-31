@@ -13,7 +13,7 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId !== Auth::user()->id) {
+        if ($userId != Auth::user()->id) {
             App::abort(404);
         }
 

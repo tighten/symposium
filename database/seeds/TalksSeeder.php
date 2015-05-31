@@ -49,6 +49,19 @@ class TalksSeeder extends Seeder
             'created_at' => '2013-11-28 15:54:41'
         ]);
 
+        $terribleTalkVersion = $terribleTalk->versions()->create(['nickname' => 'frontend conf version', 'created_at' => '2013-11-28 15:54:41']);
+
+        $terribleTalkVersion->revisions()->create([
+            'title' => 'My terrible talk',
+            'description' => 'Description of the talk',
+            'type' => 'seminar',
+            'level' => 'intermediate',
+            'length' => '45',
+            'outline' => 'Talk outline',
+            'organizer_notes' => 'Organizer notes',
+            'created_at' => '2013-11-29 15:54:41'
+        ]);
+
         // Add a talk for user 2 for testing purposes
         $author = User::find(2);
 

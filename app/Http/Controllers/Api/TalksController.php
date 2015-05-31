@@ -8,6 +8,12 @@ class TalksController extends BaseController
     {
         $talk = Auth::user()->talks()->findOrFail($id);
 
+        $current = $talk->versions()->first()->current();
+
+        foreach ($current->toArray() as $key => $value) {
+            $talk->$key = $value;
+        }
+
         return $this->quickJsonApiReturn($talk, 'talks');
     }
 }
