@@ -35,15 +35,8 @@ class TalkApiTest extends ApiTestCase
 
         // @todo: This doesn't feel right. Originally I wanted 403, then 404
         // (so we're not exposing that the given talk ID exists), but the
-        // default is 500 which just feels wrong
+        // default is 500 which just feels wrong.
         $this->assertEquals(500, $response->getStatusCode());
-    }
-
-    public function testUsesCorrectJsonApiHeader()
-    {
-        $response = $this->call('GET', '/api/user/1/talks');
-
-        $this->assertEquals('application/vnd.api+json', $response->headers->get('content-type'));
     }
 
     // public function testMustBeAuthenticated()
