@@ -11,7 +11,7 @@ class TalksController extends BaseController
         $current = $talk->versions()->first()->current();
 
         foreach ($current->toArray() as $key => $value) {
-            if ($key = 'id') continue;
+            if ($key == 'id') continue;
             $talk->$key = $value;
         }
 
