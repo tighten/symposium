@@ -1,4 +1,4 @@
-<?php namespace Symposium\ApiEntities;
+<?php namespace Symposium\ApiResources;
 
 use User;
 

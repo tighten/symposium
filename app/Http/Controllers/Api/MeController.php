@@ -7,7 +7,7 @@ class MeController extends BaseController
 {
     public function index()
     {
-        $me = App::make('Symposium\ApiEntities\Me', [Auth::user()]);
+        $me = App::make('Symposium\ApiResources\Me', [Auth::user()]);
 
         return response()->jsonApi([
             'data' => [
