@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
 
         require app_path() . '/modelEvents.php';
         require app_path() . '/macros.php';
+
+
     }
 
     /**

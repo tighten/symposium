@@ -39,6 +39,13 @@ class TalkApiTest extends ApiTestCase
         $this->assertEquals(500, $response->getStatusCode());
     }
 
+    public function testUsesCorrectJsonApiHeader()
+    {
+        $response = $this->call('GET', '/api/user/1/talks');
+
+        $this->assertEquals('application/vnd.api+json', $response->headers->get('content-type'));
+    }
+
     // public function testMustBeAuthenticated()
     // {
     //     // @todo: Why is this not bailing out on the auth beforeFilter?
