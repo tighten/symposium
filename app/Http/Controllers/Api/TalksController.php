@@ -1,16 +1,9 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
-use Auth;
-use Talk;
+use Illuminate\Support\Facades\Auth;
 
 class TalksController extends BaseController
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param  string $id
-     * @return Response
-     */
     public function show($id)
     {
         $talk = Auth::user()->talks()->findOrFail($id);

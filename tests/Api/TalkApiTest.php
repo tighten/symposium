@@ -47,14 +47,4 @@ class TalkApiTest extends ApiTestCase
 
     //     $this->assertEquals('Invalid credentials.', $response->getContent());
     // }
-
-    protected function parseJson($response)
-    {
-        return json_decode($response->getContent());
-    }
-
-    protected function assertIsJson($data)
-    {
-        $this->assertEquals(0, json_last_error(), 'Return is not JSON');
-    }
 }

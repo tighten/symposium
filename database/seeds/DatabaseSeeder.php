@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('UsersSeeder');
         $this->call('TalksSeeder');
+        $this->call('BiosSeeder');
         $this->call('ConferencesSeeder');
 
         if (! app()->environment('testing')) {
