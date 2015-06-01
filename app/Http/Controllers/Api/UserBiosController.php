@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Symposium\ApiResources\Bio;
 use User;
 
 class UserBiosController extends BaseController
@@ -19,6 +20,20 @@ class UserBiosController extends BaseController
 
         $bios = User::find($userId)->bios;
 
-        return $this->quickJsonApiReturn($bios, 'bios');
+        $return = [];
+
+        foreach ($bios as $bio) {
+            $resource = new Bio($bio);
+
+            $return[] = [
+                'id' => $resource->getId(),
+                'type' => $resource->getType(),
+                'attributes' => $resource->attributes()
+            ];
+        }
+
+        return response()->jsonApi([
+            'data' => $return
+        ]);
     }
 }

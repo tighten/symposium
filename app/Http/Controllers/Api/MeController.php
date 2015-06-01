@@ -2,17 +2,18 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Symposium\ApiResources\Me;
 
 class MeController extends BaseController
 {
     public function index()
     {
-        $me = App::make('Symposium\ApiResources\Me', [Auth::user()]);
+        $me = new Me(Auth::user());
 
         return response()->jsonApi([
             'data' => [
-                'id' => $me->id,
-                'type' => $me->type,
+                'id' => $me->getId(),
+                'type' => $me->getType(),
                 'attributes' => $me->attributes()
             ]
         ]);

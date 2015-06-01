@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Symposium\ApiResources\Talk;
 use User;
 
 class UserTalksController extends BaseController
@@ -19,15 +20,20 @@ class UserTalksController extends BaseController
 
         $talks = User::find($userId)->talks;
 
-        foreach ($talks as &$talk) {
-            $current = $talk->current();
+        $return = [];
 
-            foreach ($current->toArray() as $key => $value) {
-                if ($key == 'id') continue;
-                $talk->$key = $value;
-            }
+        foreach ($talks as $talk) {
+            $resource = new Talk($talk);
+
+            $return[] = [
+                'id' => $resource->getId(),
+                'type' => $resource->getType(),
+                'attributes' => $resource->attributes()
+            ];
         }
 
-        return $this->quickJsonApiReturn($talks, 'talks');
+        return response()->jsonApi([
+            'data' => $return
+        ]);
     }
 }

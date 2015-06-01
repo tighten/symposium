@@ -1,6 +1,7 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Auth;
+use Symposium\ApiResources\Talk;
 
 class TalksController extends BaseController
 {
@@ -8,13 +9,14 @@ class TalksController extends BaseController
     {
         $talk = Auth::user()->talks()->findOrFail($id);
 
-        $current = $talk->current();
+        $talk = new Talk($talk);
 
-        foreach ($current->toArray() as $key => $value) {
-            if ($key == 'id') continue;
-            $talk->$key = $value;
-        }
-
-        return $this->quickJsonApiReturn($talk, 'talks');
+        return response()->jsonApi([
+            'data' => [
+                'id' => $talk->getId(),
+                'type' => $talk->getType(),
+                'attributes' => $talk->attributes()
+            ]
+        ]);
     }
 }

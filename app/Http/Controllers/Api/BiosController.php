@@ -1,6 +1,7 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Auth;
+use Symposium\ApiResources\Bio;
 
 class BiosController extends BaseController
 {
@@ -8,6 +9,14 @@ class BiosController extends BaseController
     {
         $bio = Auth::user()->bios()->findOrFail($id);
 
-        return $this->quickJsonApiReturn($bio, 'bios');
+        $bio = new Bio($bio);
+
+        return response()->jsonApi([
+            'data' => [
+                'id' => $bio->getId(),
+                'type' => $bio->getType(),
+                'attributes' => $bio->attributes()
+            ]
+        ]);
     }
 }
