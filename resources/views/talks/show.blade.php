@@ -17,6 +17,11 @@
         @if ($current === null)
             <p>No revisions yet. @todo Throw exception etc.</p>
         @else
+
+        @if ($talk->current()->id != $current->id)
+            REVISION: {{ $current-> created_at }} | <a href="/talks/{{ $talk->id }}">Return to current revision</a>
+        @endif
+
         <h1>{{ $current->title }}</h1>
 
         <div class="row" style="clear: both;">
@@ -38,12 +43,9 @@
 
                 <h3>Revisions</h3>
                 <ul>
-                    <li style="font-weight: bold;">
-                        <a href="/talks/{{ $talk->id }}/{{ $talk->current()->id }}">{{ $talk->current()->created_at }}</a>
-                    </li>
-                    @foreach ($talk->revisions->slice(1) as $revision)
-                        <li>
-                            <a href="/talks/{{ $talk->id }}/{{ $revision->id }}">{{ $revision->created_at }}</a>
+                    @foreach ($talk->revisions as $revision)
+                        <li {{ $revision->id == $current->id ? 'style="font-weight: bold;"' : '' }}>
+                            <a href="/talks/{{ $talk->id }}/revisions/{{ $revision->id }}">{{ $revision->created_at }}</a> {{ $talk->current()->id == $revision->id ? '<i>(current)</i>' : '' }}
                         </li>
                     @endforeach
                 </ul>
