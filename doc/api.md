@@ -4,9 +4,9 @@
 
 Type                              | Resource                                                                    | Description
 ----------------------------------|-----------------------------------------------------------------------------|------------
-[User Talks](#talk)               | [GET /api/user/:id/talk](#talks)                                            | Talks for authenticated user
+[User Talks](#talk)               | [GET /api/users/:id/talk](#talks)                                           | Talks for authenticated user
 [Talk](#talk)                     | [GET /api/talk/:id](#talk)                                                  | Talk information
-[User Bios](#bios)                | [GET /api/user/:id/bios](#bios)                                             | Bios for authenticated user
+[User Bios](#bios)                | [GET /api/users/:id/bios](#bios)                                            | Bios for authenticated user
 [Bio](#bio)                       | [GET /api/bios/:id](#bio)                                                   | Bio information
 [Me](#me)                         | [GET /api/me](#me)                                                          | Information about authenticated user
 
@@ -37,7 +37,7 @@ A listing of all talks for the authenticated user.
 ##### REQUEST
 
 ```
-GET /api/user/:id/talks
+GET /api/users/:id/talks
 ```
 
 ##### RESPONSE
@@ -118,7 +118,7 @@ A listing of all bios for the authenticated user.
 ##### REQUEST
 
 ```
-GET /api/user/:id/bios
+GET /api/users/:id/bios
 ```
 
 ##### RESPONSE
