@@ -21,7 +21,7 @@
         @else
 
         @if ($talk->current()->id != $current->id)
-            REVISION: {{ $current-> created_at }} | <a href="/talks/{{ $talk->id }}">Return to current revision</a>
+            REVISION: {{ $current->created_at }} | <a href="/talks/{{ $talk->id }}">Return to current revision</a>
         @endif
 
         <h1>{{ $current->title }}</h1>
