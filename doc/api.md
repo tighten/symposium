@@ -42,7 +42,7 @@ GET /api/user/:id/talks
 
 ##### RESPONSE
 
-```
+```json
 {
   "data": [
     {
@@ -91,7 +91,7 @@ GET /api/talks/:id
 
 ##### RESPONSE
 
-```
+```json
 {
   "data": {
     "type": "talks",
@@ -123,7 +123,7 @@ GET /api/user/:id/bios
 
 ##### RESPONSE
 
-```
+```json
 {
   "data": [
     {
@@ -162,7 +162,7 @@ GET /api/bios/:id
 
 ##### RESPONSE
 
-```
+```json
 {
   "data": {
     "type": "bios",
@@ -188,7 +188,7 @@ GET /api/me
 
 ##### RESPONSE
 
-```
+```json
 {
   "data": {
     "type": "users",
