@@ -9,10 +9,12 @@
             <li><a href="/talks/{{ $talk->id }}">Talk: {{ $current->title }}</a></li>
         </ol>
 
+        @if ($talk->current()->id == $current->id)
         <p class="pull-right">
             <a href="/talks/{{ $talk->id }}/edit" class="btn btn-primary">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
             <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
         </p>
+        @endif
 
         @if ($current === null)
             <p>No revisions yet. @todo Throw exception etc.</p>
