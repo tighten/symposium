@@ -50,20 +50,33 @@ GET /api/conferences
 {
   "data": [
     {
-      "type": "conferences",
-      "id": "d426e5f8-cf65-42bc-bb00-9da9b5606a2d",
-      "attributes": {
-        "todo": "@todo"
-      }
+      "id": "07098561-6df3-4368-b88a-aad1a7531a50",
+      "title": "ActiveRecordCon 2015",
+      "description": "Culpa labore in sed molestias quos.",
+      "url": "http://example.com",
+      "author_id": 3,
+      "created_at": "2015-06-06 09:16:04",
+      "updated_at": "2015-06-06 09:16:04",
+      "starts_at": "2015-07-20 22:40:21",
+      "ends_at": "2015-07-22 22:40:21",
+      "cfp_starts_at": "2015-06-26 05:54:10",
+      "cfp_ends_at": "2015-07-22 05:54:10",
+      "joindin_id": null
     },
     {
-      "type": "conferences",
-      "id": "d8db8693-7948-4476-b098-d22e003d8c54",
-      "attributes": {
-        "todo": "@todo"
-      }
+      "id": "0747de8f-ad9e-4cc5-b33d-922be66bef12",
+      "title": "UltraMegaCon 2016",
+      "description": "Eum aspernatur voluptate quia ut error omnis sit.",
+      "url": "http://example.com",
+      "author_id": 11,
+      "created_at": "2015-06-06 09:16:04",
+      "updated_at": "2015-06-06 09:16:04",
+      "starts_at": "2016-09-15 17:50:49",
+      "ends_at": "2016-09-17 17:50:49",
+      "cfp_starts_at": "2015-07-22 04:14:10",
+      "cfp_ends_at": "2015-08-14 04:14:10",
+      "joindin_id": null
     }
-  ]
 }
 ```
 
@@ -82,11 +95,18 @@ GET /api/conferences/:id
 ```json
 {
   "data": {
-    "type": "conferences",
-    "id": "d426e5f8-cf65-42bc-bb00-9da9b5606a2d",
-    "attributes": {
-      "todo": "@todo"
-    }
+    "id": "07098561-6df3-4368-b88a-aad1a7531a50",
+    "title": "ActiveRecordCon 2015",
+    "description": "Culpa labore in sed molestias quos.",
+    "url": "http://example.com",
+    "author_id": 3,
+    "created_at": "2015-06-06 09:16:04",
+    "updated_at": "2015-06-06 09:16:04",
+    "starts_at": "2015-07-20 22:40:21",
+    "ends_at": "2015-07-22 22:40:21",
+    "cfp_starts_at": "2015-06-26 05:54:10",
+    "cfp_ends_at": "2015-07-22 05:54:10",
+    "joindin_id": null
   }
 }
 ```
