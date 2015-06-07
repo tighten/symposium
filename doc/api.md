@@ -4,7 +4,9 @@
 
 Type                              | Resource                                                                    | Description
 ----------------------------------|-----------------------------------------------------------------------------|------------
-[User Talks](#talk)               | [GET /api/users/:id/talk](#talks)                                           | Talks for authenticated user
+[Conferences](#conferences)       | [GET /api/conferences](#conferences)                                        | Conferences
+[Conference](#conference)         | [GET /api/conference](#conference)                                          | Conference
+[User Talks](#talks)              | [GET /api/users/:id/talk](#talks)                                           | Talks for authenticated user
 [Talk](#talk)                     | [GET /api/talk/:id](#talk)                                                  | Talk information
 [User Bios](#bios)                | [GET /api/users/:id/bios](#bios)                                            | Bios for authenticated user
 [Bio](#bio)                       | [GET /api/bios/:id](#bio)                                                   | Bio information
@@ -29,6 +31,65 @@ API will be sent in (? @todo);
 
 ## ERROR
 @todo
+
+## CONFERENCES
+
+A listing of all conferences (not yet implemented)
+
+@todo: What is our default sort and filter? How are we taking params?
+
+##### REQUEST
+
+```
+GET /api/conferences
+```
+
+##### RESPONSE
+
+```json
+{
+  "data": [
+    {
+      "type": "conferences",
+      "id": "d426e5f8-cf65-42bc-bb00-9da9b5606a2d",
+      "attributes": {
+        "todo": "@todo"
+      }
+    },
+    {
+      "type": "conferences",
+      "id": "d8db8693-7948-4476-b098-d22e003d8c54",
+      "attributes": {
+        "todo": "@todo"
+      }
+    }
+  ]
+}
+```
+
+## CONFERENCE
+
+Information about a conference
+
+##### REQUEST
+
+```
+GET /api/conferences/:id
+```
+
+##### RESPONSE
+
+```json
+{
+  "data": {
+    "type": "conferences",
+    "id": "d426e5f8-cf65-42bc-bb00-9da9b5606a2d",
+    "attributes": {
+      "todo": "@todo"
+    }
+  }
+}
+```
 
 ## TALKS
 
@@ -79,7 +140,7 @@ GET /api/users/:id/talks
 }
 ```
 
-### TALK
+## TALK
 
 Information about a talk.
 
@@ -115,7 +176,7 @@ GET /api/talks/:id
 
 A listing of all bios for the authenticated user.
 
-##### REQUEST
+#### REQUEST
 
 ```
 GET /api/users/:id/bios

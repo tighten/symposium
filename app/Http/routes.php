@@ -56,4 +56,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::get('user/{userId}/bios', 'UserBiosController@index');
     Route::get('talks/{talkId}', 'TalksController@show');
     Route::get('user/{userId}/talks', 'UserTalksController@index');
+    Route::get('conferences/{id}', 'ConferencesController@show');
+    Route::get('conferences', 'ConferencesController@index');
 });
