@@ -44,6 +44,14 @@ A listing of all conferences (not yet implemented)
 GET /api/conferences
 ```
 
+Optionally takes a sort and filter parameters.
+
+@todo clean this up
+
+Sort takes alpha, date, and closing_next (default).
+Sort allows prefacing with `-` per JSON-API (e.g. ?sort=-date)
+Filter takes futur, unclosed_cfp (default), all, and cfp_is_open
+
 ##### RESPONSE
 
 ```json
