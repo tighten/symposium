@@ -26,7 +26,7 @@
                             <h4 class="modal-title" id="myModalLabel">Copy bio</h4>
                           </div>
                           <div class="modal-body">
-                            <textarea class="select-me" style="width: 100%; height: 10em;">{{ str_replace("\n", "<br>", $bio->body) }}</textarea>
+                            <textarea class="select-me" style="width: 100%; height: 10em;">{{ $bio->body }}</textarea>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
