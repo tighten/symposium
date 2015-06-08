@@ -171,17 +171,13 @@ class TalksController extends BaseController
      */
     public function show($id)
     {
-        try {
-            $talk = Auth::user()->talks()->findOrFail($id);
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-            return Redirect::to('/');
-        }
+        $talk = Auth::user()->talks()->findOrFail($id);
+        $current = Input::has('revision') ? $talk->revisions()->findOrFail(Input::get('revision')) : $talk->current();
 
         return View::make('talks.show')
             ->with('talk', $talk)
-            ->with('current', $talk->current());
+            ->with('showingRevision', Input::has('revision'))
+            ->with('current', $current);
     }
 
     /**
