@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade as Authorizer;
 use Symposium\ApiResources\Bio;
 use User;
 
@@ -14,7 +15,7 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Auth::user()->id) {
+        if ($userId != Authorizer::getResourceOwnerId()) {
             App::abort(404);
         }
 
