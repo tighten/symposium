@@ -73,6 +73,7 @@ class BiosController extends BaseController
         if ($validator->passes()) {
             $bio = Auth::user()->bios()->findOrFail($id);
 
+            $bio->nickname = Input::get('nickname');
             $bio->body = Input::get('body');
             $bio->save();
 
