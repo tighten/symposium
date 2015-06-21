@@ -1,9 +1,8 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade as Authorizer;
 use Symposium\ApiResources\Talk;
+use Symposium\oAuthGuard\Facades\oAuthGuard;
 use User;
 
 class UserTalksController extends BaseController
@@ -15,23 +14,19 @@ class UserTalksController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Authorizer::getResourceOwnerId()) {
+        if ($userId != oAuthGuard::user()->id) {
             App::abort(404);
         }
 
-        $talks = User::find($userId)->talks;
-
-        $return = [];
-
-        foreach ($talks as $talk) {
+        $return = oAuthGuard::user()->talks->map(function ($talk) {
             $resource = new Talk($talk);
 
-            $return[] = [
+            return [
                 'id' => $resource->getId(),
                 'type' => $resource->getType(),
                 'attributes' => $resource->attributes()
             ];
-        }
+        });
 
         return response()->jsonApi([
             'data' => $return

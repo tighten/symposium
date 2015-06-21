@@ -1,9 +1,8 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade as Authorizer;
 use Symposium\ApiResources\Bio;
+use Symposium\oAuthGuard\Facades\oAuthGuard;
 use User;
 
 class UserBiosController extends BaseController
@@ -15,7 +14,7 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Authorizer::getResourceOwnerId()) {
+        if ($userId != oAuthGuard::user()->id) {
             App::abort(404);
         }
 

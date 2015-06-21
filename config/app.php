@@ -153,6 +153,8 @@ return [
         'Maknz\Slack\SlackServiceProvider',
         'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
+
+        'Symposium\Providers\oAuthGuardServiceProvider',
     ],
 
     /*
