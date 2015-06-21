@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+
 class BioApiTest extends ApiTestCase
 {
+    use WithoutMiddleware;
+
     public function testFetchesAllBiosForUser()
     {
         $response = $this->call('GET', 'api/user/1/bios');

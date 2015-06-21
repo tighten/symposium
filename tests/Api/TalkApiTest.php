@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+
 class TalkApiTest extends ApiTestCase
 {
+    use WithoutMiddleware;
+
     public function testFetchesAllTalksForUser()
     {
         $response = $this->call('GET', 'api/user/1/talks');
