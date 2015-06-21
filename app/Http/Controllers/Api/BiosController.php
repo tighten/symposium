@@ -14,11 +14,7 @@ class BiosController extends BaseController
         $bio = new Bio($bio);
 
         return response()->jsonApi([
-            'data' => [
-                'id' => $bio->getId(),
-                'type' => $bio->getType(),
-                'attributes' => $bio->attributes()
-            ]
+            'data' => $bio->toArray()
         ]);
     }
 }

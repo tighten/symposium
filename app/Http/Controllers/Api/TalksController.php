@@ -12,11 +12,7 @@ class TalksController extends BaseController
         $talk = new Talk($talk);
 
         return response()->jsonApi([
-            'data' => [
-                'id' => $talk->getId(),
-                'type' => $talk->getType(),
-                'attributes' => $talk->attributes()
-            ]
+            'data' => $talk->toArray()
         ]);
     }
 }

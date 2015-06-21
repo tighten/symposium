@@ -1,8 +1,9 @@
 <?php namespace Symposium\ApiResources;
 
 use Bio as EloquentBio;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Bio
+class Bio implements Arrayable
 {
     private $bio;
 
@@ -28,6 +29,15 @@ class Bio
             'body' => $this->bio->body,
             'created_at' => (string)$this->bio->created_at,
             'updated_at' => (string)$this->bio->updated_at,
+        ];
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'type' => $this->getType(),
+            'attributes' => $this->attributes()
         ];
     }
 }

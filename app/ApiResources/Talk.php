@@ -1,8 +1,9 @@
 <?php namespace Symposium\ApiResources;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Talk as EloquentTalk;
 
-class Talk
+class Talk implements Arrayable
 {
     private $talk;
 
@@ -33,6 +34,15 @@ class Talk
             'organizer_notes' => $this->talk->current()->organizer_notes,
             'created_at' => (string)$this->talk->current()->created_at,
             'updated_at' => (string)$this->talk->current()->updated_at,
+        ];
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'type' => $this->getType(),
+            'attributes' => $this->attributes()
         ];
     }
 }

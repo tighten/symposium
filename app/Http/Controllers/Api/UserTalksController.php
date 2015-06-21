@@ -19,13 +19,7 @@ class UserTalksController extends BaseController
         }
 
         $return = oAuthGuard::user()->talks->map(function ($talk) {
-            $resource = new Talk($talk);
-
-            return [
-                'id' => $resource->getId(),
-                'type' => $resource->getType(),
-                'attributes' => $resource->attributes()
-            ];
+            return new Talk($talk);
         });
 
         return response()->jsonApi([

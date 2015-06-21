@@ -18,19 +18,9 @@ class UserBiosController extends BaseController
             App::abort(404);
         }
 
-        $bios = User::find($userId)->bios;
-
-        $return = [];
-
-        foreach ($bios as $bio) {
-            $resource = new Bio($bio);
-
-            $return[] = [
-                'id' => $resource->getId(),
-                'type' => $resource->getType(),
-                'attributes' => $resource->attributes()
-            ];
-        }
+        $return = oAuthGuard::user()->bios->map(function ($bio) {
+            return new Bio($bio);
+        });
 
         return response()->jsonApi([
             'data' => $return

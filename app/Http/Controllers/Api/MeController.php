@@ -10,11 +10,7 @@ class MeController extends BaseController
         $me = new Me(oAuthGuard::user());
 
         return response()->jsonApi([
-            'data' => [
-                'id' => $me->getId(),
-                'type' => $me->getType(),
-                'attributes' => $me->attributes()
-            ]
+            'data' => $me->toArray()
         ]);
     }
 }
