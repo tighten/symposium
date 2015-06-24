@@ -34,7 +34,7 @@ return [
     'grant_types' => [
         'authorization_code' => [
             'class' => '\League\OAuth2\Server\Grant\AuthCodeGrant',
-            'access_token_ttl' => 172800, // 48 hrs
+            'access_token_ttl' => 31536000, // 1 year because YOLO
             'auth_token_ttl' => 60
         ]
     ],
