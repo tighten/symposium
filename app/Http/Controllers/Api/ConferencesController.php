@@ -1,10 +1,11 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
 use Carbon\Carbon;
-use Conference;
+use Conference as EloquentConference;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Symposium\ApiResources\Conference;
 use User;
 
 class ConferencesController extends BaseController
@@ -13,17 +14,17 @@ class ConferencesController extends BaseController
     {
         switch (Input::get('filter')) {
             case 'all':
-                $conferences = Conference::all();
+                $conferences = EloquentConference::all();
                 break;
             case 'cfp_is_open':
-                $conferences = Conference::openCfp()->get();
+                $conferences = EloquentConference::openCfp()->get();
             case 'future':
-                $conferences = Conference::future()->get();
+                $conferences = EloquentConference::future()->get();
                 break;
             case 'unclosed_cfp':
                 // Pass through
             default:
-                $conferences = Conference::unclosedCfp()->get();
+                $conferences = EloquentConference::unclosedCfp()->get();
                 break;
         }
 
@@ -41,12 +42,12 @@ class ConferencesController extends BaseController
 
         switch ($sort) {
             case 'alpha':
-                $conferences->sortBy(function (Conference $model) {
+                $conferences->sortBy(function (EloquentConference $model) {
                     return strtolower($model->title);
                 });
                 break;
             case 'date':
-                $conferences->sortBy(function (Conference $model) {
+                $conferences->sortBy(function (EloquentConference $model) {
                     return $model->starts_at;
                 });
                 break;
@@ -55,7 +56,7 @@ class ConferencesController extends BaseController
             default:
                 // Forces closed CFPs to the end. I feel dirty. Even dirtier with the 500 thing.
                 $conferences
-                    ->sortBy(function (Conference $model) {
+                    ->sortBy(function (EloquentConference $model) {
                         if ($model->cfp_ends_at > Carbon::now()) {
                             return $model->cfp_ends_at;
                         } elseif ($model->cfp_ends_at === null) {
@@ -78,10 +79,11 @@ class ConferencesController extends BaseController
 
     public function show($id)
     {
-        $conference = Conference::findOrFail($id);
+        $conference = EloquentConference::findOrFail($id);
+        $conference = new Conference($conference);
 
         return response()->jsonApi([
-            'data' => $conference
+            'data' => $conference->toArray()
         ]);
     }
 }

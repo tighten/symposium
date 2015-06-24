@@ -7,7 +7,7 @@ class Conference implements Arrayable
 {
     private $conference;
 
-    public function __construct(EloquentBio $conference)
+    public function __construct(EloquentConference $conference)
     {
         $this->conference = $conference;
     }

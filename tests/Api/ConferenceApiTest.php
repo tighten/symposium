@@ -17,8 +17,8 @@ class ConferenceApiTest extends ApiTestCase
 
     public function testFetchesOneConference()
     {
-        $bioId = Conference::first()->id;
-        $response = $this->call('GET', 'api/conferences/' . $bioId);
+        $conferenceId = Conference::first()->id;
+        $response = $this->call('GET', 'api/conferences/' . $conferenceId);
         $data = $this->parseJson($response);
 
         $this->assertIsJson($data);
