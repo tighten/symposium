@@ -49,7 +49,7 @@ class ConferencesController extends BaseController
             case 'favorites':
                 $conferences = Auth::user()->favoritedConferences()->get();
                 break;
-            case 'cfp_is_open':
+            case 'open_cfp':
                 $conferences = Conference::openCfp()->get();
                 break;
             case 'unclosed_cfp':

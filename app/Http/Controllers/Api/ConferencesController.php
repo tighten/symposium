@@ -16,10 +16,11 @@ class ConferencesController extends BaseController
             case 'all':
                 $conferences = EloquentConference::all();
                 break;
-            case 'cfp_is_open':
-                $conferences = EloquentConference::openCfp()->get();
             case 'future':
                 $conferences = EloquentConference::future()->get();
+                break;
+            case 'open_cfp':
+                $conferences = EloquentConference::openCfp()->get();
                 break;
             case 'unclosed_cfp':
                 // Pass through

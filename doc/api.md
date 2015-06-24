@@ -50,7 +50,7 @@ Optionally takes a sort and filter parameters.
 
 Sort takes alpha, date, and closing_next (default).
 Sort allows prefacing with `-` per JSON-API (e.g. ?sort=-date)
-Filter takes futur, unclosed_cfp (default), all, and cfp_is_open
+Filter takes future, unclosed_cfp (default), all, and open_cfp
 
 ##### RESPONSE
 
