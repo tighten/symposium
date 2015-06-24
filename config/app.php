@@ -135,6 +135,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
+        'Illuminate\Broadcasting\BroadcastServiceProvider',
 
         /*
          * Application Service Providers...
@@ -150,6 +151,10 @@ return [
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
         'Maknz\Slack\SlackServiceProvider',
+        'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
+        'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
+
+        'Symposium\Providers\OAuthGuardServiceProvider',
     ],
 
     /*
@@ -201,6 +206,7 @@ return [
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
         'Slack'     => 'Maknz\Slack\Facades\Slack',
+        'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
     ],
 
 ];

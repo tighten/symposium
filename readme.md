@@ -8,4 +8,6 @@ A webapp to save proposals to speak at conferences.
 
 Very much in progress. Forked from [Markedstyle](http://markedstyle.com/).
 
+[Api documentation](doc/api.md)
+
 An experiment in quickly prototyping webapps in [Laravel](http://laravel.com), by some lovely folks at [Tighten Co.](http://tighten.co/).

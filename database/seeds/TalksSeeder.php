@@ -48,5 +48,35 @@ class TalksSeeder extends Seeder
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-28 15:54:41'
         ]);
+
+        // Add a talk for user 2 for testing purposes
+        $author = User::find(2);
+
+        $superTalk = $author->talks()->create([]);
+        $spiffyTalk = $author->talks()->create([]);
+
+        $author->talks()->saveMany([$superTalk, $spiffyTalk]);
+
+        $superTalk->revisions()->create([
+            'title' => 'My Super talk',
+            'description' => 'Description of the talk',
+            'type' => 'seminar',
+            'level' => 'intermediate',
+            'length' => '45',
+            'outline' => 'Talk outline',
+            'organizer_notes' => 'Organizer notes',
+            'created_at' => '2013-11-27 15:54:41'
+        ]);
+
+        $spiffyTalk->revisions()->create([
+            'title' => 'My Spiffy talk',
+            'description' => 'Description of the talk',
+            'type' => 'seminar',
+            'level' => 'intermediate',
+            'length' => '45',
+            'outline' => 'Talk outline',
+            'organizer_notes' => 'Organizer notes',
+            'created_at' => '2013-11-28 15:54:41'
+        ]);
     }
 }

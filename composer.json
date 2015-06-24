@@ -15,7 +15,7 @@
     ],
     "type": "project",
     "require": {
-        "laravel/framework": "5.0.*",
+        "laravel/framework": "5.1.*",
         "bugsnag/bugsnag-laravel": "1.*",
         "ramsey/uuid": "~2.8",
         "rexxars/joindin-client": "dev-master",
@@ -24,7 +24,8 @@
         "doctrine/dbal": "~2.5",
         "thomaswelton/laravel-gravatar": "dev-laravel5-support",
         "thujohn/twitter": "dev-master",
-        "maknz/slack": "~1.5"
+        "maknz/slack": "~1.5",
+		"lucadegasperi/oauth2-server-laravel": "4.0.x@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4.0",
@@ -45,7 +46,8 @@
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php",
-            "tests/IntegrationTestCase.php"
+            "tests/IntegrationTestCase.php",
+            "tests/Api/ApiTestCase.php"
         ]
     },
     "scripts": {

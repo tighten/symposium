@@ -25,3 +25,10 @@ HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = nul
 
     return HTML::linkRoute($route, $title, $outputParameters, $attributes);
 });
+
+Response::macro('jsonApi', function ($value)
+{
+    $response = Response::json($value);
+    $response->headers->set('Content-Type', 'application/vnd.api+json');
+    return $response;
+});

@@ -50,3 +50,31 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('bios', 'BiosController');
 });
 
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], function () {
+    Route::get('me', 'MeController@index');
+    Route::get('bios/{bioId}', 'BiosController@show');
+    Route::get('user/{userId}/bios', 'UserBiosController@index');
+    Route::get('talks/{talkId}', 'TalksController@show');
+    Route::get('user/{userId}/talks', 'UserTalksController@index');
+    Route::get('conferences/{id}', 'ConferencesController@show');
+    Route::get('conferences', 'ConferencesController@index');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('oauth/authorize', [
+        'before' => 'check-authorization-params|auth',
+        'as' => 'get-oauth-authorize',
+        'uses' => 'OAuthController@getAuthorize'
+    ]);
+
+    Route::post('oauth/authorize', [
+        'before' => 'csrf|check-authorization-params|auth',
+        'as' => 'post-oauth-authorize',
+        'uses' => 'OAuthController@postAuthorize'
+    ]);
+});
+
+Route::post('oauth/access-token', [
+    'as' => 'oauth-access-token',
+    'uses' => 'OAuthController@postAccessToken'
+]);

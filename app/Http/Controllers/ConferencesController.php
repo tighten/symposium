@@ -49,7 +49,7 @@ class ConferencesController extends BaseController
             case 'favorites':
                 $conferences = Auth::user()->favoritedConferences()->get();
                 break;
-            case 'cfp_is_open':
+            case 'open_cfp':
                 $conferences = Conference::openCfp()->get();
                 break;
             case 'unclosed_cfp':
@@ -66,14 +66,14 @@ class ConferencesController extends BaseController
 
         switch (Input::get('sort')) {
             case 'date':
-                $conferences->sortBy(function(Conference $model) {
+                $conferences->sortBy(function (Conference $model) {
                     return $model->starts_at;
                 });
                 break;
             case 'closing_next':
                 // Forces closed CFPs to the end. I feel dirty. Even dirtier with the 500 thing.
                 $conferences
-                    ->sortBy(function(Conference $model) {
+                    ->sortBy(function (Conference $model) {
                         if ($model->cfp_ends_at > Carbon::now()) {
                             return $model->cfp_ends_at;
                         } elseif ($model->cfp_ends_at === null) {
@@ -86,7 +86,7 @@ class ConferencesController extends BaseController
             case 'alpha':
                 // Pass through
             default:
-                $conferences->sortBy(function(Conference $model) {
+                $conferences->sortBy(function (Conference $model) {
                     return strtolower($model->title);
                 });
                 break;
