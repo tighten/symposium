@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Symposium\ApiResources\Talk;
-use Symposium\oAuthGuard\Facades\oAuthGuard;
+use Symposium\OAuthGuard\Facades\OAuthGuard;
 use User;
 
 class UserTalksController extends BaseController
@@ -14,11 +14,11 @@ class UserTalksController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != oAuthGuard::user()->id) {
+        if ($userId != OAuthGuard::user()->id) {
             App::abort(404);
         }
 
-        $return = oAuthGuard::user()->talks->map(function ($talk) {
+        $return = OAuthGuard::user()->talks->map(function ($talk) {
             return new Talk($talk);
         });
 

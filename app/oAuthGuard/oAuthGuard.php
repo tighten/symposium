@@ -1,9 +1,9 @@
-<?php namespace Symposium\oAuthGuard;
+<?php namespace Symposium\OAuthGuard;
 
 use LucaDegasperi\OAuth2Server\Authorizer;
 use User;
 
-class oAuthGuard
+class OAuthGuard
 {
     private $authorizer;
 

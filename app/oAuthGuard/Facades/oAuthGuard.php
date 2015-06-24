@@ -1,10 +1,10 @@
-<?php namespace Symposium\oAuthGuard\Facades;
+<?php namespace Symposium\OAuthGuard\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class oAuthGuard extends Facade
+class OAuthGuard extends Facade
 {
     protected static function getFacadeAccessor() {
-        return 'oAuthGuard';
+        return 'OAuthGuard';
     }
 }

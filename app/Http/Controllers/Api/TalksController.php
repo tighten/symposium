@@ -3,14 +3,14 @@
 use App;
 use Exception;
 use Symposium\ApiResources\Talk;
-use Symposium\oAuthGuard\Facades\oAuthGuard;
+use Symposium\OAuthGuard\Facades\OAuthGuard;
 
 class TalksController extends BaseController
 {
     public function show($id)
     {
         try {
-            $talk = oAuthGuard::user()->talks()->findOrFail($id);
+            $talk = OAuthGuard::user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             App::abort(404);
         }

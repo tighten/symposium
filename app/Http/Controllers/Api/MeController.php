@@ -1,13 +1,13 @@
 <?php namespace Symposium\Http\Controllers\Api;
 
 use Symposium\ApiResources\Me;
-use Symposium\oAuthGuard\Facades\oAuthGuard;
+use Symposium\OAuthGuard\Facades\OAuthGuard;
 
 class MeController extends BaseController
 {
     public function index()
     {
-        $me = new Me(oAuthGuard::user());
+        $me = new Me(OAuthGuard::user());
 
         return response()->jsonApi([
             'data' => $me->toArray()

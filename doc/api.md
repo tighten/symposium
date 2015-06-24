@@ -24,7 +24,7 @@ Unless specified otherwise, all Dates and DateTime strings sent to and from the
 API will be sent in (? @todo);
 
 ### Authentication / Signing
-See [oAuth](#oAuth).
+See [OAuth](#OAuth).
 
 ### Pagination
 @todo
@@ -302,8 +302,8 @@ GET /api/me
 }
 ```
 
-## oAuth
-Symposium uses the oAuth2 Authorization Code grant.
+## OAuth
+Symposium uses the OAuth2 Authorization Code grant.
 
 Routes:
 Authorization form: `https://symposiumapp.com/oauth/authorize?client_id=:id&redirect_url=:redirect_url&response_type=code`

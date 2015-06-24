@@ -4,7 +4,7 @@ use App;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Symposium\ApiResources\Bio;
-use Symposium\oAuthGuard\Facades\oAuthGuard;
+use Symposium\OAuthGuard\Facades\OAuthGuard;
 use User;
 
 class BiosController extends BaseController
@@ -12,7 +12,7 @@ class BiosController extends BaseController
     public function show($id)
     {
         try {
-            $bio = oAuthGuard::user()->bios()->findOrFail($id);
+            $bio = OAuthGuard::user()->bios()->findOrFail($id);
         } catch (Exception $e) {
             App::abort(404);
         }

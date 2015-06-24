@@ -3,19 +3,19 @@
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use LucaDegasperi\OAuth2Server\Authorizer;
-use Symposium\oAuthGuard\oAuthGuard;
+use Symposium\OAuthGuard\OAuthGuard;
 
-class oAuthGuardServiceProvider extends ServiceProvider
+class OAuthGuardServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app['oAuthGuard'] = $this->app->share(function ($app) {
-            return new oAuthGuard($app->make(Authorizer::class));
+        $this->app['OAuthGuard'] = $this->app->share(function ($app) {
+            return new OAuthGuard($app->make(Authorizer::class));
         });
 
         $this->app->booting(function () {
             $loader = AliasLoader::getInstance();
-            $loader->alias('oAuthGuard', 'Symposium\oAuthGuard\Facades\oAuthGuard');
+            $loader->alias('OAuthGuard', 'Symposium\OAuthGuard\Facades\OAuthGuard');
         });
     }
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Symposium\ApiResources\Bio;
-use Symposium\oAuthGuard\Facades\oAuthGuard;
+use Symposium\OAuthGuard\Facades\OAuthGuard;
 use User;
 
 class UserBiosController extends BaseController
@@ -14,11 +14,11 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != oAuthGuard::user()->id) {
+        if ($userId != OAuthGuard::user()->id) {
             App::abort(404);
         }
 
-        $return = oAuthGuard::user()->bios->map(function ($bio) {
+        $return = OAuthGuard::user()->bios->map(function ($bio) {
             return new Bio($bio);
         });
 
