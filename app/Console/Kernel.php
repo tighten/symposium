@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'Symposium\Console\Commands\syncJoindInEvents',
-        'Symposium\Console\Commands\TweetImportantCFPDates'
+        'Symposium\Console\Commands\TweetImportantCFPDates',
+        'Symposium\Console\Commands\GenerateOAuthClient',
     ];
 
     /**
