@@ -24,7 +24,7 @@ Unless specified otherwise, all Dates and DateTime strings sent to and from the
 API will be sent in (? @todo);
 
 ### Authentication / Signing
-@todo
+See [oAuth](#oAuth).
 
 ### Pagination
 @todo
@@ -34,9 +34,9 @@ API will be sent in (? @todo);
 
 ## CONFERENCES
 
-A listing of all conferences (not yet implemented)
+A listing of all conferences.
 
-@todo: What is our default sort and filter? How are we taking params?
+Default sort is "CFP closing next"; default filter is "unclosed CFP".
 
 ##### REQUEST
 
@@ -44,13 +44,12 @@ A listing of all conferences (not yet implemented)
 GET /api/conferences
 ```
 
-Optionally takes a sort and filter parameters.
+Optionally takes `sort` and `filter` parameters.
 
-@todo clean this up
+Sort takes `alpha`, `date`, and `closing_next` (default).
+Sort allows prefacing with `-` per JSON-API (e.g. `?sort=-date`)
 
-Sort takes alpha, date, and closing_next (default).
-Sort allows prefacing with `-` per JSON-API (e.g. ?sort=-date)
-Filter takes future, unclosed_cfp (default), all, and open_cfp
+Filter takes `all`, `future`, `open_cfp`, and `unclosed_cfp` (default).
 
 ##### RESPONSE
 
@@ -97,7 +96,7 @@ Filter takes future, unclosed_cfp (default), all, and open_cfp
 
 ## CONFERENCE
 
-Information about a conference
+Information about a conference.
 
 ##### REQUEST
 
@@ -304,7 +303,7 @@ GET /api/me
 ```
 
 ## oAuth
-Symposium uses the Authorization Code grant.
+Symposium uses the oAuth2 Authorization Code grant.
 
 Routes:
 Authorization form: `https://symposiumapp.com/oauth/authorize?client_id=:id&redirect_url=:redirect_url&response_type=code`
