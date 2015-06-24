@@ -12,10 +12,6 @@ class ApiTestCase extends TestCase
         Artisan::call('migrate');
         Artisan::call('db:seed');
 
-        // Auth::loginUsingId(1);
-        // OR:
-        // $this->be(User::find(1));
-
         $userId = 1;
 
         $this->authenticateAs($userId);
@@ -44,7 +40,6 @@ class ApiTestCase extends TestCase
         });
     }
 }
-
 
 class DummyAuthorizer extends Authorizer
 {

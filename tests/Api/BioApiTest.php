@@ -37,10 +37,7 @@ class BioApiTest extends ApiTestCase
 
         $response = $this->call('GET', 'api/bios/' . $bioId);
 
-        // @todo: This doesn't feel right. Originally I wanted 403, then 404
-        // (so we're not exposing that the given bio ID exists), but the
-        // default is 500 which just feels wrong.
-        $this->assertEquals(500, $response->getStatusCode());
+        $this->assertEquals(404, $response->getStatusCode());
     }
 
     // public function testMustBeAuthenticated()
