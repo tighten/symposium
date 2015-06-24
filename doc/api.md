@@ -5,7 +5,7 @@
 Type                              | Resource                                                                    | Description
 ----------------------------------|-----------------------------------------------------------------------------|------------
 [Conferences](#conferences)       | [GET /api/conferences](#conferences)                                        | Conferences
-[Conference](#conference)         | [GET /api/conference](#conference)                                          | Conference
+[Conference](#conference)         | [GET /api/conference/:id](#conference)                                      | Conference
 [User Talks](#talks)              | [GET /api/users/:id/talk](#talks)                                           | Talks for authenticated user
 [Talk](#talk)                     | [GET /api/talk/:id](#talk)                                                  | Talk information
 [User Bios](#bios)                | [GET /api/users/:id/bios](#bios)                                            | Bios for authenticated user
@@ -320,4 +320,4 @@ curl -u client_id:client_secret https://symposiumapp.com/oauth/access-token -d '
 ```
 
 Finally, you can authorize your requests using the provided token:
-![Authorization example using PAW](http://up.stauffe.red/image/241t3g0e1C0j)
+![Authorization example using PAW](https://s3.amazonaws.com/f.cl.ly/items/2g1a3x1x0m2V2O3v2447/Screen%20Shot%202015-06-20%20at%202.25.57%20PM.png)
