@@ -42,5 +42,6 @@ class GenerateOAuthClient extends Command
         $this->info("");
         $this->info("OAUTH CLIENT ID: " . bin2hex(openssl_random_pseudo_bytes(16)));
         $this->info("OAUTH CLIENT SECRET: " . bin2hex(openssl_random_pseudo_bytes(16)));
+        $this->info("OAUTH ENDPOINT ID: " . bin2hex(openssl_random_pseudo_bytes(16)));
     }
 }
