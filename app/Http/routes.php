@@ -61,41 +61,20 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], fun
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    // oAuth
-    //
-    // Test: http://symposiumapp.app:8000/oauth/authorize?client_id=1&redirect_uri=http://mattstauffer.co/&response_type=code
-    // forwards you to mattstauffer.co/?code=code-for-getting-token-below
-    // then pass that code to oauth/access-token to get your info
-    // curl -u client_id:client_secret http://symposiumapp.app:8000/oauth/access-token -d 'grant_type=authorization_code&code=code-from-redirect-above&redirect_uri=http://mattstauffer.co/'
-    // and finally you can authorize your requests using the provided token:
-    // http://up.stauffe.red/image/241t3g0e1C0j
-    //
-    // ... requires you've added client id of one to to the oauth_clients table and a connected entry to the oauth_client_endpoints table
-    Route::get('oauth/authorize', ['before' => 'check-authorization-params|auth', 'as' => 'get-oauth-authorize', function () {
-        $params = Authorizer::getAuthCodeRequestParams();
-        $params['client_id'] = Input::get('client_id'); // @todo wtf, why are we having to do this manually?
-        return View::make('oauth/authorization-form', ['params' => $params]);
-    }]);
+    Route::get('oauth/authorize', [
+        'before' => 'check-authorization-params|auth',
+        'as' => 'get-oauth-authorize',
+        'uses' => 'OAuthController@getAuthorize'
+    ]);
 
-    Route::post('oauth/authorize', ['before' => 'csrf|check-authorization-params|auth', 'as' => 'post-oauth-authorize', function () {
-        $params['user_id'] = Auth::user()->id;
-
-        $redirectUri = '';
-
-        // If the user has allowed the client to access its data, redirect back to the client with an auth code
-        if (Input::get('approve') !== null) {
-            $redirectUri = Authorizer::issueAuthCode('user', $params['user_id'], $params);
-        }
-
-        // If the user has denied the client to access its data, redirect back to the client with an error message
-        if (Input::get('deny') !== null) {
-            $redirectUri = Authorizer::authCodeRequestDeniedRedirectUri();
-        }
-
-        return Redirect::to($redirectUri);
-    }]);
+    Route::post('oauth/authorize', [
+        'before' => 'csrf|check-authorization-params|auth',
+        'as' => 'post-oauth-authorize',
+        'uses' => 'OAuthController@postAuthorize'
+    ]);
 });
 
-Route::post('oauth/access-token', ['as' => 'oauth-access-token', function () {
-    return Response::json(Authorizer::issueAccessToken());
-}]);
+Route::post('oauth/access-token', [
+    'as' => 'oauth-access-token',
+    'uses' => 'OAuthController@postAccessToken'
+]);

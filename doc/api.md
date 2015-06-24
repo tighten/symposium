@@ -59,32 +59,39 @@ Filter takes futur, unclosed_cfp (default), all, and cfp_is_open
   "data": [
     {
       "id": "07098561-6df3-4368-b88a-aad1a7531a50",
-      "title": "ActiveRecordCon 2015",
-      "description": "Culpa labore in sed molestias quos.",
-      "url": "http://example.com",
-      "author_id": 3,
-      "created_at": "2015-06-06 09:16:04",
-      "updated_at": "2015-06-06 09:16:04",
-      "starts_at": "2015-07-20 22:40:21",
-      "ends_at": "2015-07-22 22:40:21",
-      "cfp_starts_at": "2015-06-26 05:54:10",
-      "cfp_ends_at": "2015-07-22 05:54:10",
-      "joindin_id": null
+      "type": "conferences",
+      "attributes": {
+        "title": "ActiveRecordCon 2015",
+        "description": "Culpa labore in sed molestias quos.",
+        "url": "http://example.com",
+        "author_id": 3,
+        "created_at": "2015-06-06 09:16:04",
+        "updated_at": "2015-06-06 09:16:04",
+        "starts_at": "2015-07-20 22:40:21",
+        "ends_at": "2015-07-22 22:40:21",
+        "cfp_starts_at": "2015-06-26 05:54:10",
+        "cfp_ends_at": "2015-07-22 05:54:10",
+        "joindin_id": null
+      }
     },
     {
       "id": "0747de8f-ad9e-4cc5-b33d-922be66bef12",
-      "title": "UltraMegaCon 2016",
-      "description": "Eum aspernatur voluptate quia ut error omnis sit.",
-      "url": "http://example.com",
-      "author_id": 11,
-      "created_at": "2015-06-06 09:16:04",
-      "updated_at": "2015-06-06 09:16:04",
-      "starts_at": "2016-09-15 17:50:49",
-      "ends_at": "2016-09-17 17:50:49",
-      "cfp_starts_at": "2015-07-22 04:14:10",
-      "cfp_ends_at": "2015-08-14 04:14:10",
-      "joindin_id": null
+      "type": "conferences",
+      "attributes": {
+        "title": "UltraMegaCon 2016",
+        "description": "Eum aspernatur voluptate quia ut error omnis sit.",
+        "url": "http://example.com",
+        "author_id": 11,
+        "created_at": "2015-06-06 09:16:04",
+        "updated_at": "2015-06-06 09:16:04",
+        "starts_at": "2016-09-15 17:50:49",
+        "ends_at": "2016-09-17 17:50:49",
+        "cfp_starts_at": "2015-07-22 04:14:10",
+        "cfp_ends_at": "2015-08-14 04:14:10",
+        "joindin_id": null
+      }
     }
+  ]
 }
 ```
 
@@ -104,17 +111,20 @@ GET /api/conferences/:id
 {
   "data": {
     "id": "07098561-6df3-4368-b88a-aad1a7531a50",
-    "title": "ActiveRecordCon 2015",
-    "description": "Culpa labore in sed molestias quos.",
-    "url": "http://example.com",
-    "author_id": 3,
-    "created_at": "2015-06-06 09:16:04",
-    "updated_at": "2015-06-06 09:16:04",
-    "starts_at": "2015-07-20 22:40:21",
-    "ends_at": "2015-07-22 22:40:21",
-    "cfp_starts_at": "2015-06-26 05:54:10",
-    "cfp_ends_at": "2015-07-22 05:54:10",
-    "joindin_id": null
+    "type": "conferences",
+    "attributes": {
+      "title": "ActiveRecordCon 2015",
+      "description": "Culpa labore in sed molestias quos.",
+      "url": "http://example.com",
+      "author_id": 3,
+      "created_at": "2015-06-06 09:16:04",
+      "updated_at": "2015-06-06 09:16:04",
+      "starts_at": "2015-07-20 22:40:21",
+      "ends_at": "2015-07-22 22:40:21",
+      "cfp_starts_at": "2015-06-26 05:54:10",
+      "cfp_ends_at": "2015-07-22 05:54:10",
+      "joindin_id": null
+    }
   }
 }
 ```
@@ -292,3 +302,23 @@ GET /api/me
   }
 }
 ```
+
+## oAuth
+Symposium uses the Authorization Code grant.
+
+Routes:
+Authorization form: `https://symposiumapp.com/oauth/authorize?client_id=:id&redirect_url=:redirect_url&response_type=code`
+
+The authorization form presents users with the ability to approve or deny the conncetion. If they approve, it'll forward them to:
+`:redirect_url/?code=code-for-getting-token-below`
+
+Grab that code, and pass it to `https://symposiumapp.com/oauth/access-token` to get your access token for that user.
+
+E.g.
+
+```bash
+curl -u client_id:client_secret https://symposiumapp.com/oauth/access-token -d 'grant_type=authorization_code&code=:code-from-above&redirect_uri=:redirect_url'
+```
+
+Finally, you can authorize your requests using the provided token:
+![Authorization example using PAW](http://up.stauffe.red/image/241t3g0e1C0j)
