@@ -39,13 +39,4 @@ class TalkApiTest extends ApiTestCase
 
         $this->assertEquals(404, $response->getStatusCode());
     }
-
-    // public function testMustBeAuthenticated()
-    // {
-    //     // @todo: Why is this not bailing out on the auth beforeFilter?
-    //     Auth::logout();
-    //     $response = $this->call('GET', 'api/user/1/talks');
-
-    //     $this->assertEquals('Invalid credentials.', $response->getContent());
-    // }
 }
