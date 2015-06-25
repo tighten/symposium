@@ -3,12 +3,14 @@
 @section('content')
     <div class="hero">
         <div class="container">
-            <p>Do you want to authenticate <strong>{{ $params['client']->getName() }}</strong> to access your Symposium account data?</p>
+        <div class="row col-md-6 col-md-push-3">
+            <p><strong>{{ $params['client']->getName() }}</strong> is requesting to access your Symposium account data.</p>
 
-            {{ Form::open(array('url' => URL::route('post-oauth-authorize', $params))) }}
+            {{ Form::open(['url' => URL::route('post-oauth-authorize', $params), 'class' => 'pull-right']) }}
+                {{ Form::submit('Deny', ['name' => 'deny', 'class' => 'btn btn-default']) }}
                 {{ Form::submit('Approve', ['name' => 'approve', 'class' => 'btn btn-primary']) }}
-                {{ Form::submit('Deny', ['name' => 'deny', 'class' => 'btn btn-danger']) }}
             {{ Form::close() }}
+            </div>
         </div>
     </div>
 @stop
