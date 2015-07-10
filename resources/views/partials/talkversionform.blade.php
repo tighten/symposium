@@ -46,11 +46,6 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('outline', 'Outline', ['class' => 'control-label']) }}
-    {{ Form::textarea('outline', $current->outline, ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
     {{ Form::label('organizer_notes', 'Organizer Notes', ['class' => 'control-label']) }}
     {{ Form::textarea('organizer_notes', $current->organizer_notes, ['class' => 'form-control']) }}
 </div>

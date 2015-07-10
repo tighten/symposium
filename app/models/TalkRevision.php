@@ -7,7 +7,6 @@ class TalkRevision extends UuidBase
     protected $length;
     protected $level;
     protected $description;
-    protected $outline;
     protected $organizer_notes;
 
     protected $table = 'talk_revisions';
@@ -31,11 +30,6 @@ class TalkRevision extends UuidBase
     public function getHtmledDescription()
     {
         return $this->htmlize($this->getAttribute('description'));
-    }
-
-    public function getHtmledOutline()
-    {
-        return $this->htmlize($this->getAttribute('outline'));
     }
 
     public function getHtmledOrganizerNotes()

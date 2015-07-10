@@ -94,7 +94,6 @@ class TalksController extends BaseController
             $revision->length = Input::get('length');
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
-            $revision->outline = Input::get('outline');
             $revision->organizer_notes = Input::get('organizer_notes');
             $revision->talk_id = $talk->id;
             $revision->save();
@@ -148,7 +147,6 @@ class TalksController extends BaseController
             $revision->length = Input::get('length');
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
-            $revision->outline = Input::get('outline');
             $revision->organizer_notes = Input::get('organizer_notes');
             $revision->talk_id = $talk->id;
             $revision->save();

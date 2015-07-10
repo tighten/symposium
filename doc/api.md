@@ -154,7 +154,6 @@ GET /api/users/:id/talks
         "type": "seminar",
         "length": 45,
         "level": "intermediate",
-        "outline": "Talk outline",
         "organizer_notes": "Organizer notes"
       }
     },
@@ -169,7 +168,6 @@ GET /api/users/:id/talks
         "type": "seminar",
         "length": 45,
         "level": "intermediate",
-        "outline": "Talk outline",
         "organizer_notes": "Organizer notes"
       }
     }
@@ -202,7 +200,6 @@ GET /api/talks/:id
       "type": "seminar",
       "length": 45,
       "level": "intermediate",
-      "outline": "Talk outline",
       "organizer_notes": "Organizer notes"
     }
   }

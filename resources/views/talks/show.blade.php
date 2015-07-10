@@ -47,9 +47,6 @@
                 <h3>Description/Proposal</h3>
                 {{ $current->getHtmledDescription() }}
 
-                <h3>Outline</h3>
-                {{ $current->getHtmledOutline() }}
-
                 <h3>Organizer Notes</h3>
                 {{ $current->getHtmledOrganizerNotes() }}
             </div>

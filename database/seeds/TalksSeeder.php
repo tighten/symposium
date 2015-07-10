@@ -22,7 +22,6 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
-            'outline' => 'Talk outline',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-29 15:54:41'
         ]);
@@ -33,7 +32,6 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
-            'outline' => 'Talk outline',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-27 15:54:41'
         ]);
@@ -44,7 +42,6 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
-            'outline' => 'Talk outline',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-28 15:54:41'
         ]);
@@ -63,7 +60,6 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
-            'outline' => 'Talk outline',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-27 15:54:41'
         ]);
@@ -74,7 +70,6 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
-            'outline' => 'Talk outline',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-28 15:54:41'
         ]);
