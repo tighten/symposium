@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('talks/{id}/delete', 'TalksController@destroy');
     Route::get('conferences/{id}/delete', 'ConferencesController@destroy');
 
+    Route::get('dashboard', 'DashboardController@index');
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController');
     Route::resource('bios', 'BiosController');

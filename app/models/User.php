@@ -63,6 +63,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function talks()
     {
         return $this->hasMany('Talk', 'author_id');
+        /* @todo can we do this somehow?
+            ->orderBy(function ($talk) {
+                return strtolower($talk->current()->title);
+            });
+        */
     }
 
     public function bios()
