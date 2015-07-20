@@ -58,7 +58,7 @@
                     @endif
 
                     <?php /* TODO: cleaner substr */ ?>
-                    <p>{{ substr($conference->description, 0, 100) }}...</p>
+                    <p>{{ mb_substr($conference->description, 0, 100) }}...</p>
                 </li>
             @endforeach
         </ul>
