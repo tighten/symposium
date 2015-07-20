@@ -6,9 +6,9 @@
 
         <div class="actions-box">
             <h3>Actions</h3>
-            <a href="/account/edit">Edit account</a><br>
-            <a href="/account/delete">Delete account</a><br>
-            <a href="/account/export">Export data</a><br>
+            <a href="{{ route('account.edit') }}">Edit account</a><br>
+            <a href="{{ route('account.delete') }}">Delete account</a><br>
+            <a href="{{ route('account.export') }}">Export data</a><br>
         </div>
 
         <h3>User</h3>
@@ -21,7 +21,7 @@
         <h4>Favorited Conferences</h4>
         <ul>
         @foreach ($user->favoritedConferences as $conference)
-            <li><a href="/conferences/{{ $conference->id }}">{{  $conference->title }}</a></li>
+            <li><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{  $conference->title }}</a></li>
         @endforeach
         </ul>
     </div>

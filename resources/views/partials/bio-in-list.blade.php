@@ -1,4 +1,4 @@
-<h3><a href="/bios/{{ $bio->id }}">{{ $bio->nickname }}</a></h3>
+<h3><a href="{{ route('bios.show', ['id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
 <p>{{ $bio->preview }}</p>
 
 <div class="modal fade bio-modal" id="modal-{{ $bio->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -19,7 +19,7 @@
 </div>
 
 <p>
-    <a href="/bios/{{ $bio->id }}/delete" data-confirm="confirm"><button type="button" class="btn btn-xs btn-danger">Delete</button></a>
-    <a href="/bios/{{ $bio->id }}/edit"><button type="button" class="btn btn-xs btn-default">Edit</button></a>
+    <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" data-confirm="Are you sure you want to delete this bio?"><button type="button" class="btn btn-xs btn-danger">Delete</button></a>
+    <a href="{{ route('bios.edit', ['id' => $bio->id]) }}"><button type="button" class="btn btn-xs btn-default">Edit</button></a>
     <a href="#" data-toggle="modal" data-target="#modal-{{ $bio->id }}"><button type="button" class="btn btn-xs btn-default">Copy</button></a>
 </p>

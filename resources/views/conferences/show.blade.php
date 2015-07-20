@@ -4,17 +4,17 @@
 
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li><a href="/conferences/">Conferences</a></li>
-            <li class="active"><a href="/conferences/{{ $conference->id }}">Conference: {{ $conference->title }}</a></li>
+            <li><a href="{{ route('dashboard') }}">Home</a></li>
+            <li><a href="{{ route('conferences.index') }}">Conferences</a></li>
+            <li class="active"><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">Conference: {{ $conference->title }}</a></li>
         </ol>
 
         <h1>{{ $conference->title }}</h1>
 
         @if ($conference->author_id == Auth::user()->id)
             <p class="pull-right">
-                <a href="/conferences/{{ $conference->id }}/edit" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                <a href="/conferences/{{ $conference->id }}/delete" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             </p>
         @endif
 
@@ -58,7 +58,7 @@
                         <li>None</li>
                     @endif
                     @foreach ($talksAtConference as $talkRevision)
-                        <li><a href="#" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talkRevision->id]) }}'>Un-Submit</a>
+                        <li><a href="/submissions" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talkRevision->id]) }}'>Un-Submit</a>
                             <a href="{{ $talkRevision->getUrl() }}">{{ $talkRevision->title }}</a>
                             <?php /* |  <a href="#" onclick="alert('Not programmed yet');">Change status [accepted, rejected, submitted]</a> */ ?>
                             </li>

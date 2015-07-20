@@ -4,11 +4,11 @@
 
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li class="active"><a href="/conferences/">Conferences</a></li>
+            <li><a href="{{ route('dashboard') }}">Home</a></li>
+            <li class="active"><a href="{{ route('conferences.index') }}">Conferences</a></li>
         </ol>
 
-        <a href="/conferences/create" class="create-button">Create Conference &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+        <a href="{{ route('conferences.create') }}" class="create-button">Create Conference &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 
         <h2>All Conferences</h2>
 
@@ -37,7 +37,7 @@
                     @else
                         <a href="/conferences/{{ $conference->id  }}/favorite" class="fav-button"><span class="glyphicon glyphicon-star-empty"></a>
                     @endif
-                    <h3><a href="/conferences/{{ $conference->id }}">{{ $conference->title }}</a></h3>
+                    <h3><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{ $conference->title }}</a></h3>
                     @if ($conference->cfpIsOpen())
                         <span class="label label-info">CFP OPEN</span>
                     @endif

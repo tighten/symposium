@@ -174,7 +174,7 @@ class AccountController extends BaseController
     public function export(\Illuminate\Contracts\Filesystem\Factory $storage)
     {
         $user = Auth::user();
-        $user->load('talks.versions.revisions');
+        $user->load('talks.revisions');
 
         $headers = ['Content-type' => 'application/json'];
 

@@ -1,17 +1,16 @@
 @extends('layout')
 
 @section('content')
-
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li><a href="/bios/">Bios</a></li>
-            <li class="active"><a href="/bios/{{ $bio->id }}">Bio: {{ $bio->nickname }}</a></li>
+            <li><a href="{{ route('dashboard') }}">Home</a></li>
+            <li><a href="{{ route('bios.index') }}">Bios</a></li>
+            <li class="active"><a href="{{ route('bios.show', ['id' => $bio->id]) }}">Bio: {{ $bio->nickname }}</a></li>
         </ol>
 
         <p class="pull-right">
-            <a href="/bios/{{ $bio->id }}/edit" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-            <a href="/bios/{{ $bio->id }}/delete" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
         </p>
 
         <h1>{{ $bio->nickname }}</h1>

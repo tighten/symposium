@@ -8,11 +8,11 @@ Route::get('what-is-this', function () {
     return View::make('what-is-this');
 });
 
-Route::get('log-in', 'AuthController@getLogin');
+Route::get('log-in', ['as' => 'log-in', 'uses' => 'AuthController@getLogin']);
 Route::post('log-in', 'AuthController@postLogin');
-Route::get('log-out', 'AuthController@logout');
+Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
 
-Route::get('sign-up', 'AccountController@create');
+Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
 Route::post('sign-up', 'AccountController@store');
 
 // Route::get('s/{shareId}', 'TalksController@showPublic');
@@ -23,12 +23,12 @@ Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'Confe
 Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('account', 'AccountController@show');
-    Route::get('account/edit', 'AccountController@edit');
+    Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
+    Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
     Route::put('account/edit', 'AccountController@update');
-    Route::get('account/delete', 'AccountController@delete');
+    Route::get('account/delete', ['as' => 'account.delete', 'uses' => 'AccountController@delete']);
     Route::post('account/delete', 'AccountController@destroy');
-    Route::get('account/export', 'AccountController@export');
+    Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
     Route::post('submissions', 'SubmissionsController@store');
     Route::delete('submissions', 'SubmissionsController@destroy');
@@ -42,10 +42,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('conferences/{id}/unfavorite', 'ConferencesController@unfavorite');
 
     // Necessary for GET-friendly delete because lazy
-    Route::get('talks/{id}/delete', 'TalksController@destroy');
-    Route::get('conferences/{id}/delete', 'ConferencesController@destroy');
+    Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);
+    Route::get('conferences/{id}/delete', ['as' => 'conferences.delete', 'uses' => 'ConferencesController@destroy']);
+    Route::get('bios/{id}/delete', ['as' => 'bios.delete', 'uses' => 'BiosController@destroy']);
 
-    Route::get('dashboard', 'DashboardController@index');
+    Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController');
     Route::resource('bios', 'BiosController');

@@ -4,9 +4,9 @@
 
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li><a href="/talks/">Talks</a></li>
-            <li><a href="/talks/{{ $current->talk_id }}">Talk: {{ $current->title }}</a></li>
+            <li><a href="{{ route('dashboard') }}">Home</a></li>
+            <li><a href="{{ route('talks.index') }}">Talks</a></li>
+            <li><a href="{{ route('talks.show', ['id' => $current->talk_id]) }}">Talk: {{ $current->title }}</a></li>
         </ol>
 
         <h1>Edit Talk Nickname</h1>

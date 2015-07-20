@@ -1,6 +1,6 @@
 $(function() {
 	$('[data-confirm]').on('click', function( e ) {
-		if (!confirm("Are you sure you want to delete this record?")) {
+		if (! confirm($(this).attr('data-confirm'))) {
 			e.preventDefault();
 			e.cancelBubble = true;
 		}
@@ -14,7 +14,7 @@ $(function() {
 		$(target).toggle();
 	});
 
-	$('[data-dismiss=timeout]').each( function() {
+	$('[data-dismiss=timeout]').each(function() {
 		var timeout_len = 2000,
 			$dismiss_target = $(this);
 
@@ -28,6 +28,7 @@ $(function() {
 		format: 'yyyy-mm-dd'
 	});
 
+	// @todo: This only works for submitting a submission right now. :/
 	$('[data-post]').on('click', function(e) {
 		e.preventDefault();
 		var $that = $(this);
@@ -44,12 +45,13 @@ $(function() {
 		});
 	});
 
+	// @todo: This only works for deleting a submission right now. :/
 	$('[data-delete]').on('click', function(e) {
 		e.preventDefault();
 		var $that = $(this);
 
 		$.ajax({
-			url: "/submissions",
+			url: $that.attr('href'),
 			type: "DELETE",
 			data: $.parseJSON($(this).attr('data-delete')),
 			success: function() {
