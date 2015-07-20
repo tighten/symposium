@@ -136,7 +136,16 @@ legend {
 }
 
 .hero {
-    @extend .jumbotron;
+    // @extend .jumbotron;
+    font-size: 2rem;
+
+    h1 {
+        font-size: 5.5rem;
+    }
+
+    img {
+        border: 2px solid #eee;
+    }
 }
 
 .button {
