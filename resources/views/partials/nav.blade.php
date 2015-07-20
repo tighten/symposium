@@ -1,6 +1,7 @@
 <nav>
     <ul class="primary-header__meta-nav">
         @if (Auth::check())
+            <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/bios">Bios</a></li>
             <li><a href="/conferences">Conferences</a></li>
             <li><a href="/talks">Talks</a></li>

@@ -21,7 +21,7 @@ class AuthController extends BaseController
     {
         if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
             Session::flash('message', 'Successfully logged in.');
-            return Redirect::intended('/talks');
+            return Redirect::intended('/dashboard');
         }
 
         Session::flash('error-message', 'Invalid login credentials.');
