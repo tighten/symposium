@@ -1,29 +1,40 @@
 @extends('layout')
 
 @section('content')
-
     <div class="hero">
         <div class="container">
             <h1>Connecting Speakers &amp; Conferences</h1>
 
             <div class="row">
                 <div class="col-md-8">
-                    <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos,
-                        and conference applications and responses.</p>
+                    <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos, and conference applications and responses.</p>
+
+                    <p>
+                        <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot">
+                    </p>
+
+                    <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review speakers submissions, and manage the entire CFP process.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Sign up</h3>
+                        </div>
+                        <div class="panel-body">
+                            @include ('partials.sign-up-form')
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log in</h3>
+                        </div>
+                        <div class="panel-body">
+                            @include ('partials.log-in-form')
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <p>
-                <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot">
-            </p>
-
-            <div class="row">
-                <div class="col-md-8">
-                    <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review
-                        speakers submissions, and manage the entire CFP process.</p>
-                </div>
-            </div>
-
         </div>
     </div>
 
