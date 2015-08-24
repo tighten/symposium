@@ -52,9 +52,6 @@ class ConferencesController extends BaseController
             case 'open_cfp':
                 $conferences = Conference::openCfp()->get();
                 break;
-            case 'unclosed_cfp':
-                $conferences = Conference::unclosedCfp()->get();
-                break;
             case 'all':
                 $conferences = Conference::all();
                 break;
