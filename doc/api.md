@@ -24,7 +24,7 @@ Unless specified otherwise, all Dates and DateTime strings sent to and from the
 API will be sent in (? @todo);
 
 ### Authentication / Signing
-See [OAuth](#OAuth).
+See [OAuth](#oauth).
 
 ### Pagination
 @todo
