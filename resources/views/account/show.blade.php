@@ -15,6 +15,8 @@
         <p><b>Email:</b><br>{{ $user->email }}</p>
         <p><b>First Name:</b><br>{{ $user->first_name }}</p>
         <p><b>Last name:</b><br>{{ $user->last_name }}</p>
+        <p><b>Speaker profile enabled?</b><br>{{ $user->enable_profile ? 'Yes' : 'No' }}</p>
+        <p><b>Speaker profile URL slug:</b><br>https://symposiumapp.com/u/{{ $user->profile_slug }}</p>
 
         <br><br>
 

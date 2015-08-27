@@ -14,7 +14,7 @@ class AuthController extends BaseController
 
     public function getLogin()
     {
-        return view('user.log-in');
+        return view('account.log-in');
     }
 
     public function postLogin()

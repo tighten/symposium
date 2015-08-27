@@ -12,33 +12,26 @@ use Validator;
 
 class AccountController extends BaseController
 {
+    // @todo: Let's get rid of first and last name and just go to a "Name" field. /cc @adamwathan
     protected $account_rules = array(
         'first_name' => 'required_without:last_name',
         'last_name' => 'required_without:first_name',
         'email' => 'email|required|unique:users',
+        'enable_profile' => '',
+        'profile_slug' => 'unique:users',
     );
 
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => array('create', 'store')));
-        $this->beforeFilter('csrf', array('only' => array('update')));
+        $this->beforeFilter('auth', ['except' => ['create', 'store']]);
+        $this->beforeFilter('csrf', ['only' => ['update']]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
         return view('account.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
     public function store()
     {
         $data = Input::all();
@@ -74,11 +67,6 @@ class AccountController extends BaseController
             ->withInput();
     }
 
-    /**
-     * Display account
-     *
-     * @return Response
-     */
     public function show()
     {
         $user = User::find(Auth::user()->id);
@@ -87,11 +75,6 @@ class AccountController extends BaseController
             ->with('user', $user);
     }
 
-    /**
-     * Show the form for editing account
-     *
-     * @return Response
-     */
     public function edit()
     {
         $user = User::find(Auth::user()->id);
@@ -100,11 +83,6 @@ class AccountController extends BaseController
             ->with('user', $user);
     }
 
-    /**
-     * Update account
-     *
-     * @return Response
-     */
     public function update()
     {
         $data = Input::all();
@@ -113,6 +91,12 @@ class AccountController extends BaseController
         // Avoid unique conflict if email not being changed
         if ($data['email'] == Auth::user()->email) {
             $rules['email'] = 'email|required';
+        }
+
+        // Avoid unique conflict if profile slug not being changed
+        // @todo: There's a cleaner way to do this, isn't there?
+        if ($data['profile_slug'] == Auth::user()->profile_slug) {
+            $rules['profile_slug'] = '';
         }
 
         // Make validator
@@ -127,6 +111,8 @@ class AccountController extends BaseController
             if (Input::get('password')) {
                 $user->password = Hash::make(Input::get('password'));
             }
+            $user->enable_profile = Input::get('enable_profile');
+            $user->profile_slug = Input::get('profile_slug');
             $user->save();
 
             Session::flash('message', 'Successfully edited account.');
@@ -139,21 +125,11 @@ class AccountController extends BaseController
             ->withErrors($validator);
     }
 
-    /**
-     * Show the confirmation for deleting account
-     *
-     * @return Response
-     */
     public function delete()
     {
         return view('account.confirm-delete');
     }
 
-    /**
-     * Remove account
-     *
-     * @return Response
-     */
     public function destroy()
     {
         $user = User::findOrFail(Auth::user()->id);

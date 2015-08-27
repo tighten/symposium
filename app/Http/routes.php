@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Public
+ */
 Route::get('/', function () {
     return View::make('home');
 });
@@ -15,14 +18,28 @@ Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
 Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
 Route::post('sign-up', 'AccountController@store');
 
-// Route::get('s/{shareId}', 'TalksController@showPublic');
-
-// temp fix
-Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create', 'middleware' => 'auth']);
+Route::get('speakers', [
+    'as' => 'speakers-public.index',
+    'uses' => 'PublicProfileController@index'
+]);
+Route::get('u/{profileSlug}', [
+    'as' => 'speakers-public.show',
+    'uses' => 'PublicProfileController@show'
+]);
+Route::get('u/{profileSlug}/talks/{talkId}', [
+    'as' => 'speakers-public.talks.show',
+    'uses' => 'PublicProfileController@showTalk'
+]);
 
 Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
 
+/**
+ * App
+ */
 Route::group(['middleware' => 'auth'], function () {
+    // temp fix
+    Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create']);
+
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
     Route::put('account/edit', 'AccountController@update');
@@ -52,6 +69,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('bios', 'BiosController');
 });
 
+/**
+ * API
+ */
 Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], function () {
     Route::get('me', 'MeController@index');
     Route::get('bios/{bioId}', 'BiosController@show');
@@ -62,6 +82,9 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], fun
     Route::get('conferences', 'ConferencesController@index');
 });
 
+/**
+ * OAuth
+ */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('oauth/authorize', [
         'before' => 'check-authorization-params|auth',

@@ -10,32 +10,56 @@
             @endforeach
         </ul>
 
-        <h3>User</h3>
-        {{ Form::model($user, array('route' => 'account.edit', 'method' => 'put')) }}
+        {{ Form::model($user, ['route' => 'account.edit', 'method' => 'put']) }}
 
-        <div class="form-group">
-            {{ Form::label('email', 'Email Address', ['class' => 'control-label']) }}
-            {{ Form::email('email', null, ['class' => 'form-control']) }}
-        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>User</h3>
 
-        <div class="form-group">
-            {{ Form::label('password', 'Password (leave empty to keep the same)', ['class' => 'control-label']) }}
-            {{ Form::password('password', ['class' => 'form-control']) }}
-        </div>
+                <div class="form-group">
+                    {{ Form::label('email', 'Email Address', ['class' => 'control-label']) }}
+                    {{ Form::email('email', null, ['class' => 'form-control']) }}
+                </div>
 
-        <div class="form-group">
-            {{ Form::label('first_name', 'First Name', ['class' => 'control-label']) }}
-            {{ Form::text('first_name', null, ['class' => 'form-control']) }}
-        </div>
+                <div class="form-group">
+                    {{ Form::label('password', 'Password (leave empty to keep the same)', ['class' => 'control-label']) }}
+                    {{ Form::password('password', ['class' => 'form-control']) }}
+                </div>
 
-        <div class="form-group">
-            {{ Form::label('last_name', 'Last Name', ['class' => 'control-label']) }}
-            {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+                <div class="form-group">
+                    {{ Form::label('first_name', 'First Name', ['class' => 'control-label']) }}
+                    {{ Form::text('first_name', null, ['class' => 'form-control']) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::label('last_name', 'Last Name', ['class' => 'control-label']) }}
+                    {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Public Profile</h3>
+
+                <div class="form-group">
+                    {{ Form::label('enable_profile', 'Show Public Speaker Profile?', ['class' => 'control-label']) }}<br>
+                    <label class="radio-inline">
+                        {{ Form::radio('enable_profile', true, ['id' => 'enable_profile_true']) }} Yes
+                    </label>
+                    <label class="radio-inline">
+                        {{ Form::radio('enable_profile', false, ['id' => 'enable_profile_false']) }} No
+                    </label>
+                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at https://symposiumapp.com/u/your_slug_here</span>
+                </div>
+
+               <div class="form-group">
+                    {{ Form::label('profile_slug', 'Profile URL slug', ['class' => 'control-label']) }}
+                    {{ Form::text('profile_slug', null, ['class' => 'form-control']) }}
+                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at https://symposiumapp.com/s/your_slug_here</span>
+                </div>
+            </div>
         </div>
 
         {{ Form::submit('Save', array('class' => 'button button--primary')) }}
 
         {{ Form::close() }}
-
     </div>
 @stop

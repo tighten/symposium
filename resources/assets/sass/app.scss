@@ -25,12 +25,19 @@ a {
     @extend .navbar-brand;
 }
 
-.gravatar {
+.nav-profile-picture {
     border-radius: 1.5em;
     height: 3em;
     margin-right: 0.5em;
     margin-top: -0.5em;
     width: 3em;
+}
+
+.public-speaker-picture {
+    height: 15em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    width: 15em;
 }
 
 h1 {
