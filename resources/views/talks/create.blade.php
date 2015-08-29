@@ -3,21 +3,28 @@
 @section('content')
 
     <div class="container">
-        <h1>Create Talk</h1>
-
-        <ul class="errors">
-            @foreach ($errors->all() as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
+        <ol class="breadcrumb">
+            <li><a href="{{ route('dashboard') }}">Home</a></li>
+            <li><a href="{{ route('talks.index') }}">Talks</a></li>
+        </ol>
 
         <div class="row">
-            {{ Form::open(array('action' => 'TalksController@store', 'class' => 'new-talk-form')) }}
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1>Create Talk</h1>
 
-            <div class="col-lg-6">
+                <ul class="errors">
+                    @foreach ($errors->all() as $message)
+                        <li>{{ $message }}</li>
+                    @endforeach
+                </ul>
+
+                {{ Form::open(['action' => 'TalksController@store', 'class' => 'new-talk-form']) }}
+
                 @include('partials.talkversionform')
 
-                {{ Form::submit('Create', ['class' => 'btn btn-default']) }}<br><br>
+                <div class="form-group">
+                    {{ Form::submit('Create', ['class' => 'btn btn-block btn-primary']) }}
+                </div>
 
                 {{ Form::close() }}
             </div>
