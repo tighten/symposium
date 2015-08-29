@@ -23,7 +23,9 @@
 
                 @include('partials.talk-version-form')
 
-                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
+                <div class="form-group">
+                    {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+                </div>
 
                 {{ Form::close() }}
             </div>
