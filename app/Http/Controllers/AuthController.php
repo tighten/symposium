@@ -7,11 +7,6 @@ use Session;
 
 class AuthController extends BaseController
 {
-    public function __construct()
-    {
-        $this->beforeFilter('auth', array('only' => array('account')));
-    }
-
     public function getLogin()
     {
         return view('user.log-in');
