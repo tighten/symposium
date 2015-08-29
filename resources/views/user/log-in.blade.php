@@ -9,6 +9,7 @@
                         <h2 class="panel-title">Log in</h2>
                     </div>
                     <div class="panel-body">
+                        {{ $errors->first('auth', '<div class="alert alert-danger">:message</div>') }}
                         @include ('partials.log-in-form')
                     </div>
                 </div>
