@@ -19,7 +19,13 @@
 </div>
 
 <p>
-    <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" data-confirm="Are you sure you want to delete this bio?"><button type="button" class="btn btn-xs btn-danger">Delete</button></a>
-    <a href="{{ route('bios.edit', ['id' => $bio->id]) }}"><button type="button" class="btn btn-xs btn-default">Edit</button></a>
-    <a href="#" data-toggle="modal" data-target="#modal-{{ $bio->id }}"><button type="button" class="btn btn-xs btn-default">Copy</button></a>
+    <a  class="btn btn-xs btn-danger" href="{{ route('bios.delete', ['id' => $bio->id]) }}" data-confirm="Are you sure you want to delete this bio?">
+        Delete
+    </a>
+    <a class="btn btn-xs btn-default" href="{{ route('bios.edit', ['id' => $bio->id]) }}">
+        Edit
+    </a>
+    <button type="button" class="btn btn-xs btn-default" data-clipboard data-clipboard-text="{{ $bio->body }}">
+        <span class="octicon octicon-clippy"></span> Copy
+    </button>
 </p>
