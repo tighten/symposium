@@ -21,9 +21,11 @@
             <div class="col-lg-6 col-md-8">
                 {{ Form::open(array('action' => array('TalksController@update', $current->talk_id), 'class' => 'edit-talk-form', 'method' => 'put')) }}
 
-                @include('partials.talkversionform')
+                @include('partials.talk-version-form')
 
-                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
+                <div class="form-group">
+                    {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+                </div>
 
                 {{ Form::close() }}
             </div>
