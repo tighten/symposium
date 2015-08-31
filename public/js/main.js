@@ -63,6 +63,24 @@ $(function() {
 	});
 
 	$('.bio-modal').on('shown.bs.modal', function () {
-  		$(this).find('textarea').focus();
-  	});
+		$(this).find('textarea').focus();
+	});
+
+	$('[data-clipboard]').each(function (i, element) {
+		$(element).tooltip({
+			trigger: 'manual',
+			placement: 'bottom',
+			title: 'Copied!'
+		});
+
+		var client = new ZeroClipboard(element);
+		client.on("ready", function(readyEvent) {
+			client.on("aftercopy", function(event) {
+				$(element).tooltip('show');
+				setTimeout(function () {
+					$(element).tooltip('hide');
+				}, 800);
+			} );
+		});
+	});
 });
