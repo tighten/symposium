@@ -5,35 +5,42 @@
 
 <div class="form-group">
     {{ Form::label('type', '*Type of Talk', ['class' => 'control-label']) }}
-    <select name="type" id="type" class="form-control">
-        <option value="seminar" {{ $current->type == 'seminar' ? 'selected' : ''}}>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="seminar" {{ $current->type == 'seminar' ? 'checked' : ''}}>
             Seminar
-        </option>
-        <option value="workshop" {{ $current->type == 'workshop' ? 'selected' : ''}}>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="workshop" {{ $current->type == 'workshop' ? 'checked' : ''}}>
             Workshop
-        </option>
-        <option value="lightning" {{ $current->type == 'lightning' ? 'selected' : ''}}>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="lightning" {{ $current->type == 'lightning' ? 'checked' : ''}}>
             Lightning
-        </option>
-        <option value="keynote" {{ $current->type == 'keynote' ? 'selected' : ''}}>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="keynote" {{ $current->type == 'keynote' ? 'checked' : ''}}>
             Keynote
-        </option>
-    </select>
+        </label>
+    </div>
 </div>
 
 <div class="form-group">
     {{ Form::label('level', '*Difficulty Level', ['class' => 'control-label']) }}
-    <select class="form-control" name="level" id="level">
-        <option value="beginner" {{ $current->level == 'beginner' ? 'selected' : '' }}>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="level" value="beginner" {{ $current->type == 'beginner' ? 'checked' : ''}}>
             Beginner
-        </option>
-        <option value="intermediate" {{ $current->level == 'intermediate' ? 'selected' : '' }}>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="level" value="intermediate" {{ $current->type == 'intermediate' ? 'checked' : ''}}>
             Intermediate
-        </option>
-        <option value="advanced" {{ $current->level == 'advanced' ? 'selected' : '' }}>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="level" value="advanced" {{ $current->type == 'advanced' ? 'checked' : ''}}>
             Advanced
-        </option>
-    </select>
+        </label>
+    </div>
 </div>
 
 <div class="form-group">

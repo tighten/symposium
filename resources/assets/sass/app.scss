@@ -308,3 +308,8 @@ legend {
         font-weight: bold;
     }
 }
+
+// Remove top margin for first radio item after label
+.control-label + .radio {
+    margin-top: 0;
+}
