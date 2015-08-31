@@ -3,8 +3,8 @@
 <head>
     <title>Symposium for Speakers & Conferences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/packages/octicons/octicons.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/packages/octicons/octicons.css" rel="stylesheet">
     <link href="/js/vendor/pickadate/default.css" rel="stylesheet">
     <link href="/js/vendor/pickadate/default.date.css" rel="stylesheet">
     <!--[if lt IE 9]>
