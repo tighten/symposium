@@ -74,8 +74,8 @@ $(function() {
 		});
 
 		var client = new ZeroClipboard(element);
-		client.on( "ready", function( readyEvent ) {
-			client.on( "aftercopy", function( event ) {
+		client.on("ready", function(readyEvent) {
+			client.on("aftercopy", function(event) {
 				$(element).tooltip('show');
 				setTimeout(function () {
 					$(element).tooltip('hide');
