@@ -6,23 +6,23 @@
 <div class="form-group">
     {{ Form::label('type', '*Type of Talk', ['class' => 'control-label']) }}<br>
     <label class="radio-inline">
-        {{ Form::radio('type', 'lightning', $current->type ? $current->type == 'lightning' : true); }} Lightning
-    </label>
-    <label class="radio-inline">
         {{ Form::radio('type', 'seminar', $current->type == 'seminar'); }} Seminar
     </label>
     <label class="radio-inline">
-        {{ Form::radio('type', 'keynote', $current->type == 'keynote'); }} Keynote
+        {{ Form::radio('type', 'workshop', $current->type == 'workshop'); }} Workshop
     </label>
     <label class="radio-inline">
-        {{ Form::radio('type', 'workshop', $current->type == 'workshop'); }} Workshop
+        {{ Form::radio('type', 'lightning', $current->type == 'lightning'); }} Lightning
+    </label>
+    <label class="radio-inline">
+        {{ Form::radio('type', 'keynote', $current->type == 'keynote'); }} Keynote
     </label>
 </div>
 
 <div class="form-group">
     {{ Form::label('level', '*Difficulty Level', ['class' => 'control-label']) }}<br>
     <label class="radio-inline">
-        {{ Form::radio('level', 'beginner', $current->level ? $current->level == 'beginner' : true); }} Beginner
+        {{ Form::radio('level', 'beginner', $current->level == 'beginner'); }} Beginner
     </label>
     <label class="radio-inline">
         {{ Form::radio('level', 'intermediate', $current->level == 'intermediate'); }} Intermediate

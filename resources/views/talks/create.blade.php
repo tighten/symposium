@@ -15,9 +15,11 @@
             {{ Form::open(array('action' => 'TalksController@store', 'class' => 'new-talk-form')) }}
 
             <div class="col-lg-6">
-                @include('partials.talkversionform')
+                @include('partials.talk-version-form')
 
-                {{ Form::submit('Create', ['class' => 'btn btn-default']) }}<br><br>
+                <div class="form-group">
+                    {{ Form::submit('Create', ['class' => 'btn btn-default']) }}
+                </div>
 
                 {{ Form::close() }}
             </div>

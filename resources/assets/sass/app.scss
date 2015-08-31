@@ -315,3 +315,9 @@ legend {
         font-weight: bold;
     }
 }
+
+.btn-default.zeroclipboard-is-hover {
+    color: $btn-default-color;
+    background-color: darken($btn-default-bg, 10%);
+    border-color: darken($btn-default-border, 12%);
+}

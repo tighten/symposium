@@ -1,17 +1,11 @@
 <?php namespace Symposium\Http\Controllers;
 
-use Auth;
-use Input;
-use Redirect;
-use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends BaseController
 {
-    public function __construct()
-    {
-        $this->beforeFilter('auth', array('only' => array('account')));
-    }
-
     public function getLogin()
     {
         return view('account.log-in');
@@ -19,13 +13,11 @@ class AuthController extends BaseController
 
     public function postLogin()
     {
-        if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
-            Session::flash('message', 'Successfully logged in.');
-            return Redirect::intended('/dashboard');
+        if (Auth::attempt(Request::only('email', 'password'))) {
+            return redirect()->intended('/dashboard');
         }
 
-        Session::flash('error-message', 'Invalid login credentials.');
-        return Redirect::to('log-in');
+        return back()->withErrors(['auth' => ['The email or password you entered is incorrect.']]);
     }
 
     public function logout()
@@ -33,6 +25,6 @@ class AuthController extends BaseController
         Session::flash('message', 'Successfully logged out.');
         Auth::logout();
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 }

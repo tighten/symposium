@@ -4863,5 +4863,10 @@ legend {
 .filter-link.is-active {
   font-weight: bold; }
 
+.btn-default.zeroclipboard-is-hover, .zeroclipboard-is-hover.button--default {
+  color: #fff;
+  background-color: #798d8f;
+  border-color: #74898a; }
+
 
 /*# sourceMappingURL=app.css.map */
