@@ -28,9 +28,9 @@ class syncJoindInEvents extends Command
     {
         $this->info('Syncing events...');
 
-        foreach ($this->client->getEvents() as $conference) {
-            $this->info('Creating/updating event ' . $conference['name']);
-            $this->importer->import($conference['id']);
+        foreach ($this->client->getEvents() as $event) {
+            $this->info('Creating/updating event ' . $event['name']);
+            $this->importer->import($event['id']);
         }
 
         $this->info('Events synced.');
