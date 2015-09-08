@@ -5,6 +5,7 @@ use Conference;
 use DateTime;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use JoindIn\Client;
 
 class ConferenceImporter
@@ -22,22 +23,18 @@ class ConferenceImporter
     {
         $this->client = Client::factory();
 
-        $this->authorId = $authorId ?: \Auth::user()->id;
+        $this->authorId = $authorId ?: Auth::user()->id;
     }
 
     public function import($eventId)
     {
-        try {
-            $event = $this->client->getEvent((int)$eventId);
-        } catch (ClientErrorResponseException $e) {
-            App::abort('No conference available for #' . $eventId);
-        }
-
-        $conference = $this->mapEventToConference(new Conference, $eventId, $event[0]);
+        $event = $this->getJoindInEvent($eventId);
+        $conference = $this->findOrCreateConference($eventId);
+        $this->updateConferenceFromJoindInEvent($conference, $event);
         $conference->save();
     }
 
-    public function update($eventId)
+    private function getJoindInEvent($eventId)
     {
         try {
             $event = $this->client->getEvent((int)$eventId);
@@ -45,26 +42,32 @@ class ConferenceImporter
             App::abort('No conference available for #' . $eventId);
         }
 
-        $conference = $this->mapEventToConference(
-            Conference::where('joindin_id', $eventId)->firstOrFail(), $eventId, $event[0]
-        );
-        $conference->save();
+        $event = $event[0];
+        $event['id'] = $eventId;
+        return $event;
     }
 
-    private function mapEventToConference($conference, $eventId, array $event)
+    private function findOrCreateConference($eventId)
+    {
+        if (! $conference = Conference::where(['joindin_id' => $eventId])->first()) {
+            $conference = new Conference;
+        }
+
+        return $conference;
+    }
+
+    private function updateConferenceFromJoindInEvent($conference, $event)
     {
         $conference->title = trim($event['name']);
         $conference->description = trim($event['description']);
-        $conference->joindin_id = $eventId;
+        $conference->joindin_id = $event['id'];
         $conference->url = trim($event['website_uri']);
         $conference->starts_at = $this->carbonFromIso($event['start_date']);
         $conference->ends_at = $this->carbonFromIso($event['end_date']);
         $conference->cfp_starts_at = $this->carbonFromIso($event['cfp_start_date']);
         $conference->cfp_ends_at = $this->carbonFromIso($event['cfp_end_date']);
         $conference->author_id = $this->authorId;
-//        $conference->cfp_url = $event['cfp_url'];
-
-        return $conference;
+        // $conference->cfp_url = $event['cfp_url'];
     }
 
     private function carbonFromIso($dateFromApi)

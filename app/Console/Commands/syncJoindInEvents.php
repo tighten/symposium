@@ -7,32 +7,13 @@ use Symposium\JoindIn\ConferenceImporter;
 
 class syncJoindInEvents extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
     protected $name = 'joindin:sync';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Sync down Joind.in events.';
 
-    /**
-     * @var Client
-     */
     protected $client;
-    /**
-     * @var ConferenceImporter
-     */
     private $importer;
 
-    /**
-     * Create a new command instance.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -43,11 +24,6 @@ class syncJoindInEvents extends Command
         $this->importer = new ConferenceImporter($adminUserId);
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function fire()
     {
         $this->info('Syncing events...');
@@ -55,25 +31,15 @@ class syncJoindInEvents extends Command
         $joindInIds = Conference::all()->lists('joindin_id')->toArray();
 
         foreach ($this->client->getEvents() as $conference) {
+            $this->importer->import($conference['id']);
+
             if (in_array($conference['id'], $joindInIds)) {
-                $this->updateConference($conference);
+                $this->info('Updating event ' . $conference['name']);
             } else {
-                $this->addConference($conference);
+                $this->info('Downloading event ' . $conference['name']);
             }
         }
 
         $this->info('Events synced.');
-    }
-
-    private function updateConference($conference)
-    {
-        $this->info('Updating event ' . $conference['name']);
-        $this->importer->update($conference['id']);
-    }
-
-    private function addConference($conference)
-    {
-        $this->info('Downloading event ' . $conference['name']);
-        $this->importer->import($conference['id']);
     }
 }
