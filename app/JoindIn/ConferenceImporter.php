@@ -2,7 +2,9 @@
 
 use Carbon\Carbon;
 use Conference;
+use DateTime;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Illuminate\Support\Facades\App;
 use JoindIn\Client;
 
 class ConferenceImporter
@@ -28,16 +30,29 @@ class ConferenceImporter
         try {
             $event = $this->client->getEvent((int)$eventId);
         } catch (ClientErrorResponseException $e) {
-            \App::abort('No conference available for #' . $eventId);
+            App::abort('No conference available for #' . $eventId);
         }
 
-        $conference = $this->mapEventToConference($eventId, $event[0]);
+        $conference = $this->mapEventToConference(new Conference, $eventId, $event[0]);
         $conference->save();
     }
 
-    private function mapEventToConference($eventId, array $event)
+    public function update($eventId)
     {
-        $conference = new Conference;
+        try {
+            $event = $this->client->getEvent((int)$eventId);
+        } catch (ClientErrorResponseException $e) {
+            App::abort('No conference available for #' . $eventId);
+        }
+
+        $conference = $this->mapEventToConference(
+            Conference::where('joindin_id', $eventId)->firstOrFail(), $eventId, $event[0]
+        );
+        $conference->save();
+    }
+
+    private function mapEventToConference($conference, $eventId, array $event)
+    {
         $conference->title = trim($event['name']);
         $conference->description = trim($event['description']);
         $conference->joindin_id = $eventId;
@@ -58,6 +73,6 @@ class ConferenceImporter
             return Carbon::create(null);
         }
 
-        return Carbon::createFromFormat(\DateTime::ISO8601, $dateFromApi);
+        return Carbon::createFromFormat(DateTime::ISO8601, $dateFromApi);
     }
 }

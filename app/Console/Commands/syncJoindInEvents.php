@@ -1,5 +1,6 @@
 <?php namespace Symposium\Console\Commands;
 
+use Conference;
 use Illuminate\Console\Command;
 use JoindIn\Client;
 use Symposium\JoindIn\ConferenceImporter;
@@ -51,38 +52,28 @@ class syncJoindInEvents extends Command
     {
         $this->info('Syncing events...');
 
-        foreach ($this->listUnsyncedEvents() as $event) {
-            $this->info('Downloading event ' . $event['name']);
-            $this->importer->import($event['id']);
+        $joindInIds = Conference::all()->lists('joindin_id')->toArray();
+
+        foreach ($this->client->getEvents() as $conference) {
+            if (in_array($conference['id'], $joindInIds)) {
+                $this->updateConference($conference);
+            } else {
+                $this->addConference($conference);
+            }
         }
 
         $this->info('Events synced.');
     }
 
-    /**
-     * Get a list of every event in Joind.in that doesn't exist in our system
-     *
-     * @return array
-     */
-    protected function listUnsyncedEvents()
+    private function updateConference($conference)
     {
-        $return = [];
+        $this->info('Updating event ' . $conference['name']);
+        $this->importer->update($conference['id']);
+    }
 
-        $conferences = $this->client->getEvents();
-
-        $alreadyConferences = \Conference::all();
-        $joindinIds = $alreadyConferences->map(function($conference) {
-            return (int)$conference->joindin_id;
-        });
-        $joindinIdsArray = $joindinIds->toArray();
-
-        // @todo this should be a lot simpler if we can get the Collection working
-        foreach ($conferences as $conference) {
-            if (! in_array($conference['id'], $joindinIdsArray)) {
-                $return[] = $conference;
-            }
-        }
-
-        return $return;
+    private function addConference($conference)
+    {
+        $this->info('Downloading event ' . $conference['name']);
+        $this->importer->import($conference['id']);
     }
 }
