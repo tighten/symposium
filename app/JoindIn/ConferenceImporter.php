@@ -29,7 +29,7 @@ class ConferenceImporter
     public function import($eventId)
     {
         $event = $this->getJoindInEvent($eventId);
-        $conference = $this->findOrCreateConference($eventId);
+        $conference = Conference::firstOrNew(['joindin_id' => $eventId]);
         $this->updateConferenceFromJoindInEvent($conference, $event);
         $conference->save();
     }
@@ -45,15 +45,6 @@ class ConferenceImporter
         $event = $event[0];
         $event['id'] = $eventId;
         return $event;
-    }
-
-    private function findOrCreateConference($eventId)
-    {
-        if (! $conference = Conference::where(['joindin_id' => $eventId])->first()) {
-            $conference = new Conference;
-        }
-
-        return $conference;
     }
 
     private function updateConferenceFromJoindInEvent($conference, $event)
