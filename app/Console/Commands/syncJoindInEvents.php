@@ -28,16 +28,9 @@ class syncJoindInEvents extends Command
     {
         $this->info('Syncing events...');
 
-        $joindInIds = Conference::all()->lists('joindin_id')->toArray();
-
         foreach ($this->client->getEvents() as $conference) {
+            $this->info('Creating/updating event ' . $conference['name']);
             $this->importer->import($conference['id']);
-
-            if (in_array($conference['id'], $joindInIds)) {
-                $this->info('Updating event ' . $conference['name']);
-            } else {
-                $this->info('Downloading event ' . $conference['name']);
-            }
         }
 
         $this->info('Events synced.');
