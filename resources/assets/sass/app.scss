@@ -309,6 +309,11 @@ legend {
     }
 }
 
+// Remove top margin for first radio item after label
+.control-label + .radio {
+    margin-top: 0;
+}
+
 .btn-default.zeroclipboard-is-hover {
     color: $btn-default-color;
     background-color: darken($btn-default-bg, 10%);

@@ -4857,6 +4857,9 @@ legend {
 .filter-link.is-active {
   font-weight: bold; }
 
+.control-label + .radio {
+  margin-top: 0; }
+
 .btn-default.zeroclipboard-is-hover, .zeroclipboard-is-hover.button--default {
   color: #fff;
   background-color: #798d8f;
