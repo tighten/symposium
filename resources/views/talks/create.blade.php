@@ -20,7 +20,7 @@
 
                 {{ Form::open(['action' => 'TalksController@store', 'class' => 'new-talk-form']) }}
 
-                @include('partials.talkversionform')
+                @include('partials.talk-version-form')
 
                 <div class="form-group">
                     {{ Form::submit('Create', ['class' => 'btn btn-block btn-primary']) }}

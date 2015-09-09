@@ -7,6 +7,7 @@
     {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
 </div>
-
-{{ Form::submit('Sign in', ['class' => 'button button--primary']) }}
+<div class="text-right">
+    {{ Form::submit('Sign in', ['class' => 'button button--primary']) }}
+</div>
 {{ Form::close() }}

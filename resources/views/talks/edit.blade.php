@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard') }}">Home</a></li>
             <li><a href="{{ route('talks.index') }}">Talks</a></li>
-            <li><a href="{{ route('talks.show', ['id' => $current->talk_id]) }}">Talk: {{ $current->title }}</a></li>
+            <li><a href="{{ route('talks.show', ['id' => $current->talk_id]) }}">{{ $current->title }}</a></li>
         </ol>
 
         <div class="row">
@@ -21,7 +21,7 @@
 
                 {{ Form::open(['action' => ['TalksController@update', $current->talk_id], 'class' => 'edit-talk-form', 'method' => 'put']) }}
 
-                @include('partials.talkversionform')
+                @include('partials.talk-version-form')
 
                 <div class="form-group">
                     {{ Form::submit('Update', ['class' => 'btn btn-block btn-primary']) }}

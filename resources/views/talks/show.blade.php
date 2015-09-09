@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard') }}">Home</a></li>
             <li><a href="{{ route('talks.index') }}">Talks</a></li>
-            <li><a href="{{ route('talks.show', ['id' => $talk->id]) }}">Talk: {{ $current->title }}</a></li>
+            <li><a href="{{ route('talks.show', ['id' => $talk->id]) }}">{{ $current->title }}</a></li>
         </ol>
 
         <div class="pull-right">

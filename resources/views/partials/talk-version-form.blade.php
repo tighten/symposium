@@ -29,15 +29,15 @@
     {{ Form::label('level', '*Difficulty Level', ['class' => 'control-label']) }}
     <div>
         <label class="radio-inline">
-            <input type="radio" name="level" value="beginner" {{ $current->type == 'beginner' ? 'checked' : ''}}>
+            <input type="radio" name="level" value="beginner" {{ $current->level == 'beginner' ? 'checked' : ''}}>
             Beginner
         </label>
         <label class="radio-inline">
-            <input type="radio" name="level" value="intermediate" {{ $current->type == 'intermediate' ? 'checked' : ''}}>
+            <input type="radio" name="level" value="intermediate" {{ $current->level == 'intermediate' ? 'checked' : ''}}>
             Intermediate
         </label>
         <label class="radio-inline">
-            <input type="radio" name="level" value="advanced" {{ $current->type == 'advanced' ? 'checked' : ''}}>
+            <input type="radio" name="level" value="advanced" {{ $current->level == 'advanced' ? 'checked' : ''}}>
             Advanced
         </label>
     </div>

@@ -4,6 +4,7 @@
     <title>Symposium for Speakers & Conferences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/packages/octicons/octicons.css" rel="stylesheet">
     <link href="/js/vendor/pickadate/default.css" rel="stylesheet">
     <link href="/js/vendor/pickadate/default.date.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -17,6 +18,7 @@
     @include('partials.footer')
 
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="/js/vendor/pickadate/picker.js"></script>
     <script src="/js/vendor/pickadate/picker.date.js"></script>
