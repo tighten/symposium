@@ -8,6 +8,7 @@
     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
 </div>
 <div class="text-right">
+    <a href="/password/email" class="button button--default">Reset Password</a>
     {{ Form::submit('Sign in', ['class' => 'button button--primary']) }}
 </div>
 {{ Form::close() }}
