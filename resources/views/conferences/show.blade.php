@@ -75,7 +75,7 @@
                             @if (! $talksAtConference->contains($talk->current()))
                                 <a href="#" class="btn btn-xs btn-primary" data-post='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talk->current()->id]) }}'>Submit</a>
                             @else
-                                <span class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talk->current()->id]) }}'>Un-Submit</span>
+                                <a href="/submissions" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talkRevision->id]) }}'>Un-Submit</a>
                             @endif
                         </li>
                     @endforeach
