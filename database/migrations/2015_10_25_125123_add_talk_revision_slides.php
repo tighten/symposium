@@ -12,9 +12,9 @@ class AddTalkRevisionSlides extends Migration
      */
     public function up()
     {
-		Schema::table('talk_revisions', function(Blueprint $table) {
-			$table->string('slides')->nullable()->after('description');
-		});
+        Schema::table('talk_revisions', function(Blueprint $table) {
+            $table->string('slides')->nullable()->after('description');
+        });
     }
 
     /**
@@ -24,8 +24,8 @@ class AddTalkRevisionSlides extends Migration
      */
     public function down()
     {
-		Schema::table('talk_revisions', function(Blueprint $table) {
-			$table->dropColumn('slides');
-		});
+        Schema::table('talk_revisions', function(Blueprint $table) {
+            $table->dropColumn('slides');
+        });
     }
 }
