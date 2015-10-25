@@ -8,4 +8,7 @@ A web app for conference speakers to track talks, bios, and conferences. Free, a
 
 A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 
-[Api documentation](doc/api.md)
+### Additional resources
+
+* [Api documentation](doc/api.md)
+* Chat about it on freenode IRC channel `#symposium`
