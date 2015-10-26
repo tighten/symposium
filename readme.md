@@ -12,3 +12,26 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 
 * [Api documentation](doc/api.md)
 * Chat about it on freenode IRC channel `#symposium`
+
+### Requirements
+
+* PHP >= 5.5.9
+* PHP [mcrypt extension](http://php.net/manual/en/book.mcrypt.php)
+* A [supported relational database](http://laravel.com/docs/5.1/database#introduction) and corresponding PHP extension
+* [Composer](https://getcomposer.org/download/)
+
+### Installation
+
+1. [Fork this repository](https://help.github.com/articles/fork-a-repo/)
+2. [Install dependencies](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies)
+3. Copy [`.env.sample`](https://github.com/tightenco/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment. In particular, be sure to set `DB_CONNECTION` to a database connection name from [configuration](https://github.com/tightenco/symposium/blob/master/config/database.php) and any applicable related values.
+4. [Run database migrations](http://laravel.com/docs/5.1/migrations#running-migrations). If you want to include seed data, add a `--seeds` flag.
+
+    ```
+    php artisan migrate --env=local
+    ```
+5. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
+
+    ```
+    php -S localhost:8080 -t public
+    ```
