@@ -22,16 +22,17 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 
 ### Installation
 
-1. [Fork this repository](https://help.github.com/articles/fork-a-repo/)
-2. [Install dependencies](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies)
-3. Copy [`.env.example`](https://github.com/tightenco/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment.
-4. [Run database migrations](http://laravel.com/docs/5.1/migrations#running-migrations). If you want to include seed data, add a `--seed` flag.
+1. (Optionally) [Fork this repository](https://help.github.com/articles/fork-a-repo/)
+2. Clone the repository locally
+3. [Install dependencies](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies) with `composer install`
+4. Copy [`.env.example`](https://github.com/tightenco/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment.
+5. [Run database migrations](http://laravel.com/docs/5.1/migrations#running-migrations). If you want to include seed data, add a `--seed` flag.
 
-    ```
+    ```bash
     php artisan migrate --env=local
     ```
-5. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
+6. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
 
-    ```
+	```bash
     php -S localhost:8080 -t public
     ```
