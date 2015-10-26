@@ -7,6 +7,7 @@ class TalkRevision extends UuidBase
     protected $length;
     protected $level;
     protected $description;
+    protected $slides;
     protected $organizer_notes;
 
     protected $table = 'talk_revisions';
