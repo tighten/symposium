@@ -6,6 +6,10 @@ class SlackSubscriber
 {
     public function subscribe($events)
     {
+        if (empty(Slack::getEndpoint())) {
+            return;
+        }
+
         $events->listen('new-signup', [$this, 'onNewSignup']);
         $events->listen('new-conference', [$this, 'onNewConference']);
     }
