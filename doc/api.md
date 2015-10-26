@@ -154,7 +154,8 @@ GET /api/users/:id/talks
         "type": "seminar",
         "length": 45,
         "level": "intermediate",
-        "organizer_notes": "Organizer notes"
+        "organizer_notes": "Organizer notes",
+        "slides": "http://www.speakerdeck.com/09140194h091241"
       }
     },
     {
@@ -168,7 +169,8 @@ GET /api/users/:id/talks
         "type": "seminar",
         "length": 45,
         "level": "intermediate",
-        "organizer_notes": "Organizer notes"
+        "organizer_notes": "Organizer notes",
+        "slides": "http://www.speakerdeck.com/j09j341241"
       }
     }
   ]
@@ -200,7 +202,8 @@ GET /api/talks/:id
       "type": "seminar",
       "length": 45,
       "level": "intermediate",
-      "organizer_notes": "Organizer notes"
+      "organizer_notes": "Organizer notes",
+      "slides": "http://www.speakerdeck.com/oithoi1241421"
     }
   }
 }
