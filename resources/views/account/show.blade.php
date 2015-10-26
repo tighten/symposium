@@ -16,15 +16,17 @@
         <p><b>First Name:</b><br>{{ $user->first_name }}</p>
         <p><b>Last name:</b><br>{{ $user->last_name }}</p>
         <p><b>Speaker profile enabled?</b><br>{{ $user->enable_profile ? 'Yes' : 'No' }}</p>
-        <p><b>Speaker profile URL slug:</b><br>https://symposiumapp.com/u/{{ $user->profile_slug }}</p>
+        <p><b>Speaker profile URL slug:</b><br><a href="{{ route('speakers-public.show', [$user->profile_slug]) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a></p>
 
         <br><br>
 
         <h4>Favorited Conferences</h4>
         <ul>
-        @foreach ($user->favoritedConferences as $conference)
+        @forelse ($user->favoritedConferences as $conference)
             <li><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{  $conference->title }}</a></li>
-        @endforeach
+        @empty
+            <li>(none)</li>
+        @endforelse
         </ul>
     </div>
 @stop
