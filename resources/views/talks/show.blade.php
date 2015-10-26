@@ -49,6 +49,11 @@
 
                 <h3>Organizer Notes</h3>
                 {{ $current->getHtmledOrganizerNotes() }}
+
+                @if ($current->slides)
+                <h3>Slides</h3>
+                <a href="{{ $current->slides }}">{{ $current->slides }}</a>
+                @endif
             </div>
         </div>
         @endif

@@ -57,6 +57,11 @@
 </div>
 
 <div class="form-group">
+    {{ Form::label('slides', 'Slides URL', ['class' => 'control-label']) }}
+    {{ Form::text('slides', $current->slides, ['class' => 'form-control']) }}
+</div>
+
+<div class="form-group">
     {{ Form::label('organizer_notes', 'Organizer Notes', ['class' => 'control-label']) }}
     {{ Form::textarea('organizer_notes', $current->organizer_notes, ['class' => 'form-control']) }}
 </div>
