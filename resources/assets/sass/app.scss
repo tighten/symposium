@@ -2,6 +2,7 @@
 @import "variables", "bootstrap", "bootswatch";
 
 $link_color: #428bca;
+$font-family-oswald: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
 body {
@@ -31,6 +32,10 @@ a {
     margin-right: 0.5em;
     margin-top: -0.5em;
     width: 3em;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    font-family: $font-family-oswald;
 }
 
 h1 {
