@@ -30,7 +30,11 @@
                             <h3 class="panel-title">Log in</h3>
                         </div>
                         <div class="panel-body">
+                            @if (Auth::guest())
                             @include ('partials.log-in-form')
+                            @else
+                            <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
+                            @endif
                         </div>
                     </div>
                 </div>
