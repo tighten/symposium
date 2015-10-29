@@ -22,6 +22,7 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
+            'slides' => 'http://speakerdeck.com/mattstauffer/my-great-talk',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-29 15:54:41'
         ]);
@@ -32,6 +33,7 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
+            'slides' => 'http://speakerdeck.com/mattstauffer/my-awesome-talk',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-27 15:54:41'
         ]);
@@ -42,6 +44,7 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
+            'slides' => 'http://speakerdeck.com/mattstauffer/my-awesome-talk',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-28 15:54:41'
         ]);
@@ -60,6 +63,7 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
+            'slides' => 'http://speakerdeck.com/mattstauffer/my-super-talk',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-27 15:54:41'
         ]);
@@ -70,6 +74,7 @@ class TalksSeeder extends Seeder
             'type' => 'seminar',
             'level' => 'intermediate',
             'length' => '45',
+            'slides' => 'http://speakerdeck.com/mattstauffer/my-spiffy-talk',
             'organizer_notes' => 'Organizer notes',
             'created_at' => '2013-11-28 15:54:41'
         ]);

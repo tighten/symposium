@@ -19,6 +19,7 @@ $factory('TalkRevision', 'talkRevision', [
     'type' => 'lightning',
     'length' => '9',
     'level' => 'beginner',
+    'slides' => 'http://speakerdeck.com/mattstauffer/the-best-talk-ever',
     'description' => 'The best talk ever!',
     'organizer_notes' => 'No really.',
 ]);

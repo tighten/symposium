@@ -30,6 +30,7 @@ class Talk implements Arrayable
             'type' => $this->talk->current()->type,
             'length' => $this->talk->current()->length,
             'level' => $this->talk->current()->level,
+            'slides' => $this->talk->current()->slides,
             'organizer_notes' => $this->talk->current()->organizer_notes,
             'created_at' => (string)$this->talk->current()->created_at,
             'updated_at' => (string)$this->talk->current()->updated_at,
