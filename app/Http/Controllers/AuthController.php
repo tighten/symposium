@@ -17,7 +17,8 @@ class AuthController extends BaseController
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors(['auth' => ['The email or password you entered is incorrect.']]);
+        return redirect()->route('log-in')
+            ->withErrors(['auth' => ['The email or password you entered is incorrect.']]);
     }
 
     public function logout()
