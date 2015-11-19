@@ -24,13 +24,8 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('first_name', 'First Name', ['class' => 'control-label']) }}
-            {{ Form::text('first_name', null, ['class' => 'form-control']) }}
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('last_name', 'Last Name', ['class' => 'control-label']) }}
-            {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+            {{ Form::label('name', 'Name', ['class' => 'control-label']) }}
+            {{ Form::text('name', null, ['class' => 'form-control']) }}
         </div>
 
         {{ Form::submit('Save', array('class' => 'button button--primary')) }}

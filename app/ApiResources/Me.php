@@ -26,8 +26,7 @@ class Me implements Arrayable
     {
         return [
             'email' => $this->user->email,
-            'first_name' => $this->user->first_name,
-            'last_name' => $this->user->last_name,
+            'name' => $this->user->name,
             'created_at' => (string)$this->user->created_at,
             'updated_at' => (string)$this->user->updated_at
         ];

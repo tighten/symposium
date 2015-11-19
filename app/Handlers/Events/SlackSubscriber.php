@@ -16,7 +16,7 @@ class SlackSubscriber
 
     public function onNewSignup($user)
     {
-        Slack::send("*New user signup:*\n{$user->first_name} {$user->last_name}\n{$user->email}");
+        Slack::send("*New user signup:*\n{$user->name}\n{$user->email}");
     }
 
     public function onNewConference($conference)

@@ -14,15 +14,13 @@ class UsersSeeder extends Seeder
         User::create([
             'email' => 'matt@savemyproposals.com',
             'password' => Hash::make('password'),
-            'first_name' => 'Matt',
-            'last_name' => 'Stauffer',
+            'name' => 'Matt Stauffer',
         ]);
 
         foreach (range(1, 10) as $i) {
             Factory::create('user', [
                 'email' => $faker->email,
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
+                'name' => $faker->name
             ]);
         }
     }

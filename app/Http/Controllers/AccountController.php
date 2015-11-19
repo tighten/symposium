@@ -13,8 +13,7 @@ use Validator;
 class AccountController extends BaseController
 {
     protected $account_rules = array(
-        'first_name' => 'required_without:last_name',
-        'last_name' => 'required_without:first_name',
+        'name' => 'required',
         'email' => 'email|required|unique:users',
     );
 
@@ -55,8 +54,7 @@ class AccountController extends BaseController
         if ($validator->passes()) {
             // Save
             $user = new User;
-            $user->first_name = Input::get('first_name');
-            $user->last_name = Input::get('last_name');
+            $user->name = Input::get('name');
             $user->email = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
             $user->save();
@@ -121,8 +119,7 @@ class AccountController extends BaseController
         if ($validator->passes()) {
             // Save
             $user = User::findOrFail(Auth::user()->id);
-            $user->first_name = Input::get('first_name');
-            $user->last_name = Input::get('last_name');
+            $user->name = Input::get('name');
             $user->email = Input::get('email');
             if (Input::get('password')) {
                 $user->password = Hash::make(Input::get('password'));
