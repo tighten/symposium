@@ -13,9 +13,7 @@
 
         <h3>User</h3>
         <p><b>Email:</b><br>{{ $user->email }}</p>
-        <p><b>First Name:</b><br>{{ $user->first_name }}</p>
-        <p><b>Last name:</b><br>{{ $user->last_name }}</p>
-
+        <p><b>Name:</b><br>{{ $user->name }}</p>
         <br><br>
 
         <h4>Favorited Conferences</h4>
