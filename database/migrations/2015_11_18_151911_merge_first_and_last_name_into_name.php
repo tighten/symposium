@@ -13,13 +13,15 @@ class MergeFirstAndLastNameIntoName extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('name');
+            $table->string('name')->nullable();
         });
 
-        $this->populateNameColumn();
-
+        // Drop columns must be separate because SQLite ¯\(°_o)/¯
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('first_name');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('last_name');
         });
     }
@@ -35,19 +37,6 @@ class MergeFirstAndLastNameIntoName extends Migration
             $table->dropColumn('name');
             $table->string('first_name');
             $table->string('last_name');
-        });
-    }
-
-    /**
-     * Populate the name column for all users
-     *
-     * @return void
-     */
-    private function populateNameColumn()
-    {
-        User::all()->each(function ($user) {
-            $user->name = $user->first_name . ' ' . $user->last_name;
-            $user->save();
         });
     }
 }
