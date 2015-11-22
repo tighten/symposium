@@ -23,6 +23,14 @@ Route::get('u/{profileSlug}/talks/{talkId}', [
     'as' => 'speakers-public.talks.show',
     'uses' => 'PublicProfileController@showTalk'
 ]);
+Route::get('u/{profileSlug}/email', [
+    'as' => 'speakers-public.email',
+    'uses' => 'PublicProfileController@getEmail'
+]);
+Route::post('u/{profileSlug}/email', [
+    'as' => 'speakers-public.email',
+    'uses' => 'PublicProfileController@postEmail'
+]);
 
 Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
 

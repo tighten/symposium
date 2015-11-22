@@ -87,6 +87,7 @@ class TalksController extends BaseController
             $revision->title = Input::get('title');
             $revision->type = Input::get('type');
             $revision->length = Input::get('length');
+            $revision->public = Input::get('public') == 'yes';
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
             $revision->slides = Input::get('slides');
@@ -129,6 +130,7 @@ class TalksController extends BaseController
             $revision->title = Input::get('title');
             $revision->type = Input::get('type');
             $revision->length = Input::get('length');
+            $revision->public = Input::get('public') == 'yes';
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
             $revision->slides = Input::get('slides');

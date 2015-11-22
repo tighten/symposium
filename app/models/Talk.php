@@ -4,11 +4,11 @@ class Talk extends UuidBase
 {
     protected $table = 'talks';
 
-    protected $guarded = array(
+    protected $guarded = [
         'id'
-    );
+    ];
 
-    public static $rules = array();
+    public static $rules = [];
 
     public function author()
     {

@@ -5,6 +5,7 @@ class TalkRevision extends UuidBase
     protected $title;
     protected $type;
     protected $length;
+    protected $public;
     protected $level;
     protected $description;
     protected $slides;
@@ -16,7 +17,11 @@ class TalkRevision extends UuidBase
         'id'
     ];
 
-    public static $rules = array();
+    protected $casts = [
+        'public' => 'boolean'
+    ];
+
+    public static $rules = [];
 
     public function talk()
     {

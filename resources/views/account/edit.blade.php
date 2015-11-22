@@ -42,13 +42,13 @@
                     <label class="radio-inline">
                         {{ Form::radio('enable_profile', false, ['id' => 'enable_profile_false']) }} No
                     </label>
-                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at https://symposiumapp.com/u/your_slug_here</span>
+                    <span class="help-block">Do you want a public speaker page that you can show to conference organizers?</span>
                 </div>
 
                <div class="form-group">
                     {{ Form::label('profile_slug', 'Profile URL slug', ['class' => 'control-label']) }}
                     {{ Form::text('profile_slug', null, ['class' => 'form-control']) }}
-                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at https://symposiumapp.com/s/your_slug_here</span>
+                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at https://symposiumapp.com/u/your_slug_here</span>
                 </div>
             </div>
         </div>

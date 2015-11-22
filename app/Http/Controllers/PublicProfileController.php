@@ -45,4 +45,19 @@ class PublicProfileController extends Controller
             ->with('user', $user)
             ->with('talk', $talk);
     }
+
+    public function getEmail($profile_slug)
+    {
+        $user = User::where('profile_slug', $profile_slug)
+            ->where('enable_profile', true)
+            ->firstOrFail();
+
+        return view('account.public-profile.email')
+            ->with('user', $user);
+    }
+
+    public function postEmail()
+    {
+        dd("send email");
+    }
 }
