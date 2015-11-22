@@ -18,6 +18,11 @@ class TalksController extends BaseController
         'type' => 'required',
         'level' => 'required',
         'length' => 'required|integer|min:0',
+        'slides' => 'url',
+    ];
+
+    protected $messages = [
+        'slides.url' => 'Slides URL must contain a valid URL',
     ];
 
     protected $sorting_talks = [
@@ -70,7 +75,7 @@ class TalksController extends BaseController
 
     public function store()
     {
-        $validator = Validator::make(Input::all(), $this->rules);
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if ($validator->passes()) {
             // Save
@@ -84,6 +89,7 @@ class TalksController extends BaseController
             $revision->length = Input::get('length');
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
+            $revision->slides = Input::get('slides');
             $revision->organizer_notes = Input::get('organizer_notes');
             $revision->talk_id = $talk->id;
             $revision->save();
@@ -114,7 +120,7 @@ class TalksController extends BaseController
 
     public function update($talkId)
     {
-        $validator = Validator::make(Input::all(), $this->rules);
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if ($validator->passes()) {
             $talk = Auth::user()->talks()->findOrFail($talkId);
@@ -125,6 +131,7 @@ class TalksController extends BaseController
             $revision->length = Input::get('length');
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
+            $revision->slides = Input::get('slides');
             $revision->organizer_notes = Input::get('organizer_notes');
             $revision->talk_id = $talk->id;
             $revision->save();

@@ -11,13 +11,6 @@ Route::get('what-is-this', function () {
     return View::make('what-is-this');
 });
 
-Route::get('log-in', ['as' => 'log-in', 'uses' => 'AuthController@getLogin']);
-Route::post('log-in', 'AuthController@postLogin');
-Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
-
-Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
-Route::post('sign-up', 'AccountController@store');
-
 Route::get('speakers', [
     'as' => 'speakers-public.index',
     'uses' => 'PublicProfileController@index'
@@ -36,6 +29,22 @@ Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'Confere
 /**
  * App
  */
+Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('password/email', 'Auth\PasswordController@getEmail');
+    Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+    Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+    Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+    Route::get('log-in', ['as' => 'log-in', 'uses' => 'AuthController@getLogin']);
+    Route::post('log-in', 'AuthController@postLogin');
+
+    Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
+    Route::post('sign-up', 'AccountController@store');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     // temp fix
     Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create']);

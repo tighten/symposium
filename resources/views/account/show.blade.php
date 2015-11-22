@@ -13,11 +13,9 @@
 
         <h3>User</h3>
         <p><b>Email:</b><br>{{ $user->email }}</p>
-        <p><b>First Name:</b><br>{{ $user->first_name }}</p>
-        <p><b>Last name:</b><br>{{ $user->last_name }}</p>
+        <p><b>Name:</b><br>{{ $user->name }}</p>
         <p><b>Speaker profile enabled?</b><br>{{ $user->enable_profile ? 'Yes' : 'No' }}</p>
         <p><b>Speaker profile URL slug:</b><br><a href="{{ route('speakers-public.show', [$user->profile_slug]) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a></p>
-
         <br><br>
 
         <h4>Favorited Conferences</h4>

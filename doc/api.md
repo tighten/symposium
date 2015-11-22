@@ -6,8 +6,8 @@ Type                              | Resource                                    
 ----------------------------------|-----------------------------------------------------------------------------|------------
 [Conferences](#conferences)       | [GET /api/conferences](#conferences)                                        | Conferences
 [Conference](#conference)         | [GET /api/conference/:id](#conference)                                      | Conference
-[User Talks](#talks)              | [GET /api/users/:id/talk](#talks)                                           | Talks for authenticated user
-[Talk](#talk)                     | [GET /api/talk/:id](#talk)                                                  | Talk information
+[User Talks](#talks)              | [GET /api/users/:id/talkx](#talks)                                          | Talks for authenticated user
+[Talk](#talk)                     | [GET /api/talkx/:id](#talk)                                                 | Talk information
 [User Bios](#bios)                | [GET /api/users/:id/bios](#bios)                                            | Bios for authenticated user
 [Bio](#bio)                       | [GET /api/bios/:id](#bio)                                                   | Bio information
 [Me](#me)                         | [GET /api/me](#me)                                                          | Information about authenticated user
@@ -154,7 +154,8 @@ GET /api/users/:id/talks
         "type": "seminar",
         "length": 45,
         "level": "intermediate",
-        "organizer_notes": "Organizer notes"
+        "organizer_notes": "Organizer notes",
+        "slides": "http://www.speakerdeck.com/09140194h091241"
       }
     },
     {
@@ -168,7 +169,8 @@ GET /api/users/:id/talks
         "type": "seminar",
         "length": 45,
         "level": "intermediate",
-        "organizer_notes": "Organizer notes"
+        "organizer_notes": "Organizer notes",
+        "slides": "http://www.speakerdeck.com/j09j341241"
       }
     }
   ]
@@ -200,7 +202,8 @@ GET /api/talks/:id
       "type": "seminar",
       "length": 45,
       "level": "intermediate",
-      "organizer_notes": "Organizer notes"
+      "organizer_notes": "Organizer notes",
+      "slides": "http://www.speakerdeck.com/oithoi1241421"
     }
   }
 }
@@ -290,8 +293,7 @@ GET /api/me
     "id": 1,
     "attributes": {
       "email": "matt@symposiumapp.com",
-      "first_name": "Matt",
-      "last_name": "Stauffer",
+      "name": "Matt Stauffer",
       "created_at": "2015-05-31 10:48:38",
       "updated_at": "2015-05-31 10:48:38"
     }

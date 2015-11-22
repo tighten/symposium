@@ -17,19 +17,9 @@
     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            {{ Form::label('first_name', '*First Name', ['class' => 'sr-only']) }}
-            {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'First name']) }}
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            {{ Form::label('last_name', '*Last Name', ['class' => 'sr-only']) }}
-            {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Last name']) }}
-        </div>
-    </div>
+<div class="form-group">
+    {{ Form::label('name', '*Name', ['class' => 'sr-only']) }}
+    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) }}
 </div>
 
 <div class="text-right">

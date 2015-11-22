@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dcd0894cebd09ea6be5aa2e9ac6b96fd",
+    "hash": "d6132ac418056189341c2454b6b7170c",
+    "content-hash": "c7a686b3aca6f0a38bc6023a3eabdc43",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -1163,16 +1164,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.2",
+            "version": "v5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "65a3a4ca4b20083517a9e2effa6a86a49f3e9c96"
+                "reference": "a7ebd043ca178c05cc7946ece03d3a268a5a3f84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/65a3a4ca4b20083517a9e2effa6a86a49f3e9c96",
-                "reference": "65a3a4ca4b20083517a9e2effa6a86a49f3e9c96",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a7ebd043ca178c05cc7946ece03d3a268a5a3f84",
+                "reference": "a7ebd043ca178c05cc7946ece03d3a268a5a3f84",
                 "shasum": ""
             },
             "require": {
@@ -1287,7 +1288,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-06-15 18:25:50"
+            "time": "2015-06-24 19:38:07"
         },
         {
             "name": "league/event",
@@ -2123,12 +2124,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
+                "url": "https://github.com/symfony/console.git",
                 "reference": "564398bc1f33faf92fc2ec86859983d30eb81806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/564398bc1f33faf92fc2ec86859983d30eb81806",
+                "url": "https://api.github.com/repos/symfony/console/zipball/564398bc1f33faf92fc2ec86859983d30eb81806",
                 "reference": "564398bc1f33faf92fc2ec86859983d30eb81806",
                 "shasum": ""
             },
@@ -2180,12 +2181,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/CssSelector.git",
+                "url": "https://github.com/symfony/css-selector.git",
                 "reference": "0b5c07b516226b7dd32afbbc82fe547a469c5092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/0b5c07b516226b7dd32afbbc82fe547a469c5092",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/0b5c07b516226b7dd32afbbc82fe547a469c5092",
                 "reference": "0b5c07b516226b7dd32afbbc82fe547a469c5092",
                 "shasum": ""
             },
@@ -2233,12 +2234,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Debug.git",
+                "url": "https://github.com/symfony/debug.git",
                 "reference": "075070230c5bbc65abde8241191655bbce0716e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/075070230c5bbc65abde8241191655bbce0716e2",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/075070230c5bbc65abde8241191655bbce0716e2",
                 "reference": "075070230c5bbc65abde8241191655bbce0716e2",
                 "shasum": ""
             },
@@ -2293,12 +2294,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/DomCrawler.git",
+                "url": "https://github.com/symfony/dom-crawler.git",
                 "reference": "11d8eb8ccc1533f4c2d89a025f674894fda520b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/11d8eb8ccc1533f4c2d89a025f674894fda520b3",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/11d8eb8ccc1533f4c2d89a025f674894fda520b3",
                 "reference": "11d8eb8ccc1533f4c2d89a025f674894fda520b3",
                 "shasum": ""
             },
@@ -2346,12 +2347,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/EventDispatcher.git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
                 "reference": "be3c5ff8d503c46768aeb78ce6333051aa6f26d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/be3c5ff8d503c46768aeb78ce6333051aa6f26d9",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/be3c5ff8d503c46768aeb78ce6333051aa6f26d9",
                 "reference": "be3c5ff8d503c46768aeb78ce6333051aa6f26d9",
                 "shasum": ""
             },
@@ -2404,12 +2405,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Filesystem.git",
+                "url": "https://github.com/symfony/filesystem.git",
                 "reference": "a0d43eb3e17d4f4c6990289805a488a0482a07f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/a0d43eb3e17d4f4c6990289805a488a0482a07f3",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a0d43eb3e17d4f4c6990289805a488a0482a07f3",
                 "reference": "a0d43eb3e17d4f4c6990289805a488a0482a07f3",
                 "shasum": ""
             },
@@ -2502,12 +2503,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpFoundation.git",
+                "url": "https://github.com/symfony/http-foundation.git",
                 "reference": "4f363c426b0ced57e3d14460022feb63937980ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/4f363c426b0ced57e3d14460022feb63937980ff",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/4f363c426b0ced57e3d14460022feb63937980ff",
                 "reference": "4f363c426b0ced57e3d14460022feb63937980ff",
                 "shasum": ""
             },
@@ -2555,12 +2556,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpKernel.git",
+                "url": "https://github.com/symfony/http-kernel.git",
                 "reference": "208101c7a11e31933183bd2a380486e528c74302"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/208101c7a11e31933183bd2a380486e528c74302",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/208101c7a11e31933183bd2a380486e528c74302",
                 "reference": "208101c7a11e31933183bd2a380486e528c74302",
                 "shasum": ""
             },
@@ -3020,7 +3021,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thujohn/twitter/zipball/4bafe2239672778881588123130b35289e9d9e30",
+                "url": "https://api.github.com/repos/thujohn/twitter/zipball/7a921187081aa2250abb1c5bea3c4c3103b8b4f9",
                 "reference": "4bafe2239672778881588123130b35289e9d9e30",
                 "shasum": ""
             },
@@ -4390,6 +4391,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-mcrypt": "*"
+    },
     "platform-dev": []
 }

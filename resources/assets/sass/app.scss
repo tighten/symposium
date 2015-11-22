@@ -2,6 +2,7 @@
 @import "variables", "bootstrap", "bootswatch";
 
 $link_color: #428bca;
+$font-family-oswald: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
 body {
@@ -38,6 +39,10 @@ a {
     margin-left: 1em;
     margin-bottom: 1em;
     width: 15em;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    font-family: $font-family-oswald;
 }
 
 h1 {
@@ -314,6 +319,11 @@ legend {
     &.is-active {
         font-weight: bold;
     }
+}
+
+// Remove top margin for first radio item after label
+.control-label + .radio {
+    margin-top: 0;
 }
 
 .btn-default.zeroclipboard-is-hover {
