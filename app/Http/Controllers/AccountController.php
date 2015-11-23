@@ -27,7 +27,7 @@ class AccountController extends BaseController
             'password' => 'required',
             'email' => 'email|required|unique:users,email',
             'enable_profile' => '',
-            'profile_slug' => 'unique:users',
+            'profile_slug' => 'alpha_dash|unique:users',
         ]);
 
         $user = new User;
@@ -62,7 +62,7 @@ class AccountController extends BaseController
             'name' => 'required',
             'email' => 'email|required|unique:users,email,' . Auth::user()->id,
             'enable_profile' => '',
-            'profile_slug' => 'unique:users,profile_slug,' . Auth::user()->id,
+            'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
         ]);
 
         // Save
