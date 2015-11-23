@@ -1,25 +1,14 @@
 <?php namespace Symposium\Http\Controllers;
 
-use Auth;
-use Event;
-use Hash;
-use Input;
-use Mail;
-use Redirect;
-use Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use User;
-use Validator;
 
 class AccountController extends BaseController
 {
-    // @todo: Let's get rid of first and last name and just go to a "Name" field. /cc @adamwathan
-    protected $account_rules = array(
-        'name' => 'required',
-        'email' => 'email|required|unique:users',
-        'enable_profile' => '',
-        'profile_slug' => 'unique:users',
-    );
-
     public function __construct()
     {
         $this->beforeFilter('auth', ['except' => ['create', 'store']]);
@@ -31,95 +20,65 @@ class AccountController extends BaseController
         return view('account.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $data = Input::all();
+        $this->validate($request, [
+            'name' => 'required',
+            'password' => 'required',
+            'email' => 'email|required|unique:users,email',
+            'enable_profile' => '',
+            'profile_slug' => 'unique:users',
+        ]);
 
-        $rules = $this->account_rules;
+        $user = new User;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
 
-        // Update rules to add password
-        $rules['password'] = 'required';
-        $rules['email'] = 'email|required|unique:users,email';
+        Event::fire('new-signup', [$user]);
+        Auth::loginUsingId($user->id);
 
-        // Make validator
-        $validator = Validator::make($data, $rules);
+        Session::flash('message', 'Successfully created account.');
 
-        if ($validator->passes()) {
-            // Save
-            $user = new User;
-            $user->name = Input::get('name');
-            $user->email = Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
-            $user->save();
-
-            Event::fire('new-signup', [$user]);
-            Auth::loginUsingId($user->id);
-
-            Session::flash('message', 'Successfully created account.');
-
-            return Redirect::to('/account');
-        }
-
-        return Redirect::to('sign-up')
-            ->withErrors($validator)
-            ->withInput();
+        return redirect('account');
     }
 
     public function show()
     {
-        $user = User::find(Auth::user()->id);
-
         return view('account.show')
-            ->with('user', $user);
+            ->with('user', Auth::user());
     }
 
     public function edit()
     {
-        $user = User::find(Auth::user()->id);
-
         return view('account.edit')
-            ->with('user', $user);
+            ->with('user', Auth::user());
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        $data = Input::all();
-        $rules = $this->account_rules;
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'email|required|unique:users,email,' . Auth::user()->id,
+            'enable_profile' => '',
+            'profile_slug' => 'unique:users,profile_slug,' . Auth::user()->id,
+        ]);
 
-        // Avoid unique conflict if email not being changed
-        if ($data['email'] == Auth::user()->email) {
-            $rules['email'] = 'email|required';
+        // Save
+        $user = Auth::user();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        if ($request->get('password')) {
+            $user->password = Hash::make($request->get('password'));
         }
+        $user->enable_profile = $request->get('enable_profile');
+        $user->profile_slug = $request->get('profile_slug');
+        $user->save();
 
-        // Avoid unique conflict if profile slug not being changed
-        // @todo: There's a cleaner way to do this, isn't there?
-        if ($data['profile_slug'] == Auth::user()->profile_slug) {
-            $rules['profile_slug'] = '';
-        }
+        Session::flash('message', 'Successfully edited account.');
 
-        // Make validator
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->passes()) {
-            // Save
-            $user = User::findOrFail(Auth::user()->id);
-            $user->name = Input::get('name');
-            $user->email = Input::get('email');
-            if (Input::get('password')) {
-                $user->password = Hash::make(Input::get('password'));
-            }
-            $user->enable_profile = Input::get('enable_profile');
-            $user->profile_slug = Input::get('profile_slug');
-            $user->save();
-
-            Session::flash('message', 'Successfully edited account.');
-
-            return Redirect::to('account');
-        }
-
-        return Redirect::to('account/edit')
-            ->withInput()
-            ->withErrors($validator);
+        return redirect('account');
     }
 
     public function delete()
@@ -129,14 +88,14 @@ class AccountController extends BaseController
 
     public function destroy()
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = Auth::user()->id;
         $user->delete();
 
         Auth::logout();
 
         Session::flash('message', 'Successfully deleted account.');
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 
     /**
