@@ -6,12 +6,15 @@
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard') }}">Home</a></li>
             <li><a href="{{ route('speakers-public.index') }}">Speakers</a></li>
-            <li><a href="{{ route('speakers-public.show', ['profile_slug' => $user->profile_slug]) }}">{{ $user->first_name }} {{ $user->last_name }}</a></li>
+            <li><a href="{{ route('speakers-public.show', ['profile_slug' => $user->profile_slug]) }}">{{ $user->name }}</a></li>
             <li class="active"><a href="{{ route('speakers-public.talks.show', ['id' => $talk->id]) }}">Talk: {{ $talk->current()->title }}</a></li>
         </ol>
 
         <div class="pull-right">
-            <a href="{{ route('speakers-public.show', ['profile_slug' => $user->profile_slug]) }}" class="btn btn-default">Return to profile for {{ $user->first_name }} {{ $user->last_name }} &nbsp;<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
+            <a href="{{ route('speakers-public.show', ['profile_slug' => $user->profile_slug]) }}" class="btn btn-default">
+                Return to profile for {{ $user->name }}
+                &nbsp;<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            </a>
         </div>
 
         <h1>{{ $talk->current()->title }}</h1>

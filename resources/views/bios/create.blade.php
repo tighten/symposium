@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-push-3">
                 <h1>Create Bio</h1>
 
                 <ul class="errors">

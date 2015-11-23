@@ -32,6 +32,9 @@ Route::post('u/{profileSlug}/email', [
     'uses' => 'PublicProfileController@postEmail'
 ]);
 
+// temp fix
+Route::get('conferences/create', ['middleware' => 'auth', 'as' => 'conferences.create', 'uses' => 'ConferencesController@create']);
+
 Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
 
 /**
@@ -54,9 +57,6 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    // temp fix
-    Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create']);
-
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
     Route::put('account/edit', 'AccountController@update');

@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-push-3">
                 <h1>Create Conference</h1>
 
                 <ul class="errors">
@@ -13,7 +13,7 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(array('action' => 'ConferencesController@store', 'class' => 'new-conference-form')) }}
+                {{ Form::open(['route' => 'conferences.store', 'class' => 'new-conference-form']) }}
 
                 @include('partials.conferenceform')
 

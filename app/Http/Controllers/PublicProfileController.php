@@ -22,8 +22,7 @@ class PublicProfileController extends Controller
     public function index()
     {
         $users = User::where('enable_profile', true)
-            ->orderBy('last_name', 'asc')
-            ->orderBy('first_name', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
 
         return view('account.public-profile.index')

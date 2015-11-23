@@ -52,7 +52,7 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('public', '*Public?', ['class' => 'control-label']) }}
+    {{ Form::label('public', '*Show on public speaker profile?', ['class' => 'control-label']) }}
     <div class="input-group">
         <label class="radio-inline">
             <input type="radio" name="public" value="yes" {{ $current->public ? 'checked' : ''}}>
