@@ -12,9 +12,9 @@ class AddJoindinIdToConferencesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('conferences', function(Blueprint $table) {
-			$table->integer('joindin_id')->nullable();
-		});
+		// Schema::table('conferences', function(Blueprint $table) {
+		// 	$table->integer('joindin_id')->nullable();
+		// });
 	}
 
 	/**
@@ -24,9 +24,9 @@ class AddJoindinIdToConferencesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('conferences', function(Blueprint $table) {
-			$table->dropColumn('joindin_id');
-		});
+		// Schema::table('conferences', function(Blueprint $table) {
+		// 	$table->dropColumn('joindin_id');
+		// });
 	}
 
 }

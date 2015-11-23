@@ -13,8 +13,8 @@ class AddPublicProfileFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('enable_profile')->default(false);
             $table->string('profile_slug')->nullable();
+            $table->boolean('enable_profile')->default(false);
         });
     }
 
@@ -25,9 +25,13 @@ class AddPublicProfileFieldsToUsersTable extends Migration
      */
     public function down()
     {
+        // Why separate schema calls? Friggin SQlite.
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profile_slug');
+        });
+
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('enable_profile');
-            $table->dropColumn('profile_slug');
         });
     }
 }

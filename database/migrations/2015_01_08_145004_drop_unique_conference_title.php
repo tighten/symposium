@@ -12,9 +12,9 @@ class DropUniqueConferenceTitle extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('conferences', function(Blueprint $table) {
-			$table->dropUnique('conferences_title_unique');
-		});
+		// Schema::table('conferences', function(Blueprint $table) {
+		// 	$table->dropUnique('conferences_title_unique');
+		// });
 	}
 
 	/**
@@ -24,9 +24,9 @@ class DropUniqueConferenceTitle extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('conferences', function(Blueprint $table) {
-			$table->unique('title');
-		});
+		// Schema::table('conferences', function(Blueprint $table) {
+		// 	$table->unique('title');
+		// });
 	}
 
 }

@@ -12,7 +12,8 @@ class DropVersions extends Migration
      */
     public function up()
     {
-        $this->splitVersionsToTalks();
+        // @todo: Would be nice to merge all these changes back into original creates like I did with the other migrations for simplicity and SQLite-happiness
+        // $this->splitVersionsToTalks();
 
         // title & description removal Separate because https://github.com/laravel/framework/issues/2979
         Schema::table('talks', function (Blueprint $table) {
@@ -30,7 +31,7 @@ class DropVersions extends Migration
             $table->dropForeign('talk_version_revisions_talk_version_id_foreign');
         });
 
-        $this->addTalkIdsToTalks();
+        // $this->addTalkIdsToTalks();
 
         Schema::table('talk_revisions', function (Blueprint $table) {
             $table->foreign('talk_id')
@@ -63,15 +64,19 @@ class DropVersions extends Migration
     public function down()
     {
         // No data preservation on the "down" side of this one.
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        if (! App::environment('testing')) {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        }
         foreach (['favorites', 'conferences', 'submissions', 'talk_revisions', 'talks'] as $table) {
             DB::table($table)->truncate();
         }
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        if (! App::environment('testing')) {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        }
 
         Schema::table('talks', function (Blueprint $table) {
-            $table->string('title')->unique();
-            $table->text('description');
+            $table->string('title')->nullable()->unique();
+            $table->text('description')->nullable();
         });
 
         Schema::create('talk_versions', function(Blueprint $table)
@@ -94,7 +99,7 @@ class DropVersions extends Migration
             $table->dropForeign('talk_revisions_talk_id_foreign');
             $table->dropColumn('talk_id');
 
-            $table->string('talk_version_id', 36);
+            $table->string('talk_version_id', 36)->nullable();
             $table->foreign('talk_version_id')
                 ->references('id')
                 ->on('talk_versions')

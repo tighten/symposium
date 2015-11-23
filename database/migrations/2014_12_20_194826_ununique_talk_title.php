@@ -12,9 +12,9 @@ class UnuniqueTalkTitle extends Migration
      */
     public function up()
     {
-        Schema::table('talks', function ($table) {
-            $table->dropUnique('talks_title_unique');
-        });
+        // Schema::table('talks', function ($table) {
+        //     $table->dropUnique('talks_title_unique');
+        // });
     }
 
     /**
@@ -24,8 +24,8 @@ class UnuniqueTalkTitle extends Migration
      */
     public function down()
     {
-        Schema::table('talks', function ($table) {
-            $table->unique('title');
-        });
+        // Schema::table('talks', function ($table) {
+        //     $table->unique('title');
+        // });
     }
 }

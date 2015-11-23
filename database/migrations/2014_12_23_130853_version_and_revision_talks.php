@@ -43,7 +43,6 @@ class VersionAndRevisionTalks extends Migration {
             $table->enum('level', ['beginner', 'intermediate', 'advanced']);
 
             $table->text('description');
-            $table->text('outline');
             $table->text('organizer_notes');
 
             $table->timestamps();
@@ -70,9 +69,9 @@ class VersionAndRevisionTalks extends Migration {
              */
         });
 
-        Schema::table('talks', function(Blueprint $table) {
-            $table->dropColumn('body');
-        });
+        // Schema::table('talks', function(Blueprint $table) {
+        //     $table->dropColumn('body');
+        // });
     }
 
     /**
@@ -86,9 +85,9 @@ class VersionAndRevisionTalks extends Migration {
 
         Schema::drop('talk_versions');
 
-        Schema::table('talks', function(Blueprint $table) {
-            $table->text('body');
-        });
+        // Schema::table('talks', function(Blueprint $table) {
+        //     $table->text('body')->nullable();
+        // });
     }
 
 }
