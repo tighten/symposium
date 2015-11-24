@@ -33,7 +33,9 @@ class PublicProfileController extends Controller
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
-        $talks = $user->talks()->public()->orderBy('title')->get();
+        $talks = $user->talks()->public()->get()->sortBy(function ($talk) {
+            return $talk->current()->title;
+        });
 
         return view('account.public-profile.show')
             ->with('user', $user)
@@ -44,7 +46,7 @@ class PublicProfileController extends Controller
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
-        $talk = $user->talks()->findOrFail($talk_id);
+        $talk = $user->talks()->public()->findOrFail($talk_id);
 
         return view('talks.show-public')
             ->with('user', $user)

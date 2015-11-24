@@ -31,7 +31,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->see($user->name);
     }
 
-    public function test_it_does_not_show_talks_marked_not_public()
+    public function test_it_does_not_list_talks_marked_not_public()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'tonimorrison',
@@ -47,6 +47,23 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->get(route('speakers-public.show', ['profileSlug' => $user->profile_slug]));
         $this->assertResponseOk();
         $this->dontSee($talkRevision->title);
+    }
+
+    public function test_it_does_not_show_talks_marked_not_public()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'jamesandthegiantpeach',
+            'enable_profile' => true
+        ]);
+
+        $talk = Factory::build('talk');
+        $talk->public = false;
+        $user->talks()->save($talk);
+        $talkRevision = Factory::build('talkRevision');
+        $talk->revisions()->save($talkRevision);
+
+        $this->get(route('speakers-public.talks.show', [$user->profile_slug, $talk->id]));
+        $this->assertResponseStatus(404);
     }
 
     public function test_it_shows_talks_marked_public()

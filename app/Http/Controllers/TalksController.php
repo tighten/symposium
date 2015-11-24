@@ -116,6 +116,7 @@ class TalksController extends BaseController
         }
 
         return View::make('talks.edit')
+            ->with('talk', $talk)
             ->with('current', $talk->current());
     }
 
