@@ -1,6 +1,6 @@
 {
 	"ignore": [
 		"tests/*",
-		"database/migrations/*",
+		"database/migrations/*"
 	]
 }
