@@ -1,12 +1,13 @@
 <?php namespace Symposium\Handlers\Events;
 
+use Illuminate\Support\Facades\App;
 use Maknz\Slack\Facades\Slack;
 
 class SlackSubscriber
 {
     public function subscribe($events)
     {
-        if (empty(Slack::getEndpoint())) {
+        if (empty(Slack::getEndpoint()) || App::environment('local')) {
             return;
         }
 
