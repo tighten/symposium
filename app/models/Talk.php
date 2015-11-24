@@ -8,6 +8,10 @@ class Talk extends UuidBase
         'id'
     ];
 
+    protected $casts = [
+        'public' => 'boolean'
+    ];
+
     public static $rules = [];
 
     public function author()
@@ -33,5 +37,10 @@ class Talk extends UuidBase
     public function getRevisionsAttribute()
     {
         return $this->revisions()->getQuery()->orderBy('created_at', 'desc')->get();
+    }
+
+    public function scopePublic()
+    {
+        return $this->where('public', true);
     }
 }

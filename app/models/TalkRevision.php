@@ -5,7 +5,6 @@ class TalkRevision extends UuidBase
     protected $title;
     protected $type;
     protected $length;
-    protected $public;
     protected $level;
     protected $description;
     protected $slides;
@@ -15,10 +14,6 @@ class TalkRevision extends UuidBase
 
     protected $guarded = [
         'id'
-    ];
-
-    protected $casts = [
-        'public' => 'boolean'
     ];
 
     public static $rules = [];

@@ -81,13 +81,13 @@ class TalksController extends BaseController
             // Save
             $talk = new Talk;
             $talk->author_id = Auth::user()->id;
+            $talk->public = Input::get('public') == 'yes';
             $talk->save();
 
             $revision = new TalkRevision;
             $revision->title = Input::get('title');
             $revision->type = Input::get('type');
             $revision->length = Input::get('length');
-            $revision->public = Input::get('public') == 'yes';
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
             $revision->slides = Input::get('slides');
@@ -125,12 +125,13 @@ class TalksController extends BaseController
 
         if ($validator->passes()) {
             $talk = Auth::user()->talks()->findOrFail($talkId);
+            $talk->public = Input::get('public') == 'yes';
+            $talk->save();
 
             $revision = new TalkRevision;
             $revision->title = Input::get('title');
             $revision->type = Input::get('type');
             $revision->length = Input::get('length');
-            $revision->public = Input::get('public') == 'yes';
             $revision->level = Input::get('level');
             $revision->description = Input::get('description');
             $revision->slides = Input::get('slides');

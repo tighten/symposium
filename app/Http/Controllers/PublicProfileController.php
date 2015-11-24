@@ -33,9 +33,7 @@ class PublicProfileController extends Controller
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
-        $talks = $user->talks->sortBy(function ($talk) {
-            return ($talk->title);
-        });
+        $talks = $user->talks()->public()->orderBy('title')->get();
 
         return view('account.public-profile.show')
             ->with('user', $user)

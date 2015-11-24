@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPublicFieldToTalkRevisions extends Migration
+class AddPublicFieldToTalks extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class AddPublicFieldToTalkRevisions extends Migration
      */
     public function up()
     {
-        Schema::table('talk_revisions', function (Blueprint $table) {
+        Schema::table('talks', function (Blueprint $table) {
             $table->boolean('public')->default(false);
         });
     }
@@ -24,7 +24,7 @@ class AddPublicFieldToTalkRevisions extends Migration
      */
     public function down()
     {
-        Schema::table('talk_revisions', function (Blueprint $table) {
+        Schema::table('talks', function (Blueprint $table) {
             $table->dropColumn('public');
         });
     }
