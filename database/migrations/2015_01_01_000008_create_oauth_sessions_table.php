@@ -5,7 +5,6 @@ use LucaDegasperi\OAuth2Server\Support\Migration;
 
 class CreateOauthSessionsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *

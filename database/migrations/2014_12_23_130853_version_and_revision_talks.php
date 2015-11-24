@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class VersionAndRevisionTalks extends Migration {
-
+class VersionAndRevisionTalks extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,8 +12,7 @@ class VersionAndRevisionTalks extends Migration {
      */
     public function up()
     {
-        Schema::create('talk_versions', function(Blueprint $table)
-        {
+        Schema::create('talk_versions', function (Blueprint $table) {
             $table->string('id', 36)->unique();
             $table->string('nickname', 150);
 
@@ -32,8 +31,7 @@ class VersionAndRevisionTalks extends Migration {
              */
         });
 
-        Schema::create('talk_version_revisions', function(Blueprint $table)
-        {
+        Schema::create('talk_version_revisions', function (Blueprint $table) {
             $table->string('id', 36)->unique();
 
             $table->string('title', 255);
@@ -89,5 +87,4 @@ class VersionAndRevisionTalks extends Migration {
         //     $table->text('body')->nullable();
         // });
     }
-
 }

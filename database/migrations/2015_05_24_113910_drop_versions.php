@@ -79,8 +79,7 @@ class DropVersions extends Migration
             $table->text('description')->nullable();
         });
 
-        Schema::create('talk_versions', function(Blueprint $table)
-        {
+        Schema::create('talk_versions', function (Blueprint $table) {
             $table->string('id', 36)->unique();
             $table->string('nickname', 150);
 

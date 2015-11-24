@@ -5,7 +5,6 @@ use LucaDegasperi\OAuth2Server\Support\Migration;
 
 class CreateOauthAccessTokenScopesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *

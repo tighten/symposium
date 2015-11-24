@@ -5,7 +5,6 @@ use LucaDegasperi\OAuth2Server\Support\Migration;
 
 class CreateOauthAuthCodeScopesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
