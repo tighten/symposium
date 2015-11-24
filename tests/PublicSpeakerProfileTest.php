@@ -83,4 +83,13 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->assertResponseOk();
         $this->see($talkRevision->title);
     }
+    public function test_public_profile_page_is_off_by_default()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'jimmybob',
+        ]);
+
+        $this->get(route('speakers-public.show', [$user->profile_slug]));
+        $this->assertResponseStatus(404);
+    }
 }
