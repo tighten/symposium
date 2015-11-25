@@ -1,8 +1,7 @@
 @extends('layout')
 
 @section('content')
-
-    <div class="container">
+    <div class="container body">
         <div class="row">
             <div class="col-md-10 col-md-push-1">
                 <div class="pull-right">
