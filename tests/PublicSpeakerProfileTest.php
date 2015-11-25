@@ -16,7 +16,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => false
         ]);
 
-        $this->get(route('speakers-public.show', ['profileSlug' => $user->profile_slug]));
+        $this->get(route('speakers-public.show', [$user->profile_slug]));
         $this->assertResponseStatus(404);
     }
 
@@ -27,7 +27,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => true
         ]);
 
-        $this->visit(route('speakers-public.show', ['profileSlug' => $user->profile_slug]));
+        $this->visit(route('speakers-public.show', [$user->profile_slug]));
         $this->see($user->name);
     }
 
@@ -44,7 +44,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = Factory::build('talkRevision');
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.show', ['profileSlug' => $user->profile_slug]));
+        $this->get(route('speakers-public.show', [$user->profile_slug]));
         $this->assertResponseOk();
         $this->dontSee($talkRevision->title);
     }
@@ -62,7 +62,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = Factory::build('talkRevision');
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.talks.show', [$user->profile_slug, $talk->id]));
+        $this->get(route('speakers-public.talks.show', [$user->profile_slug]));
         $this->assertResponseStatus(404);
     }
 
@@ -79,10 +79,41 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = Factory::build('talkRevision');
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.show', ['profileSlug' => $user->profile_slug]));
+        $this->get(route('speakers-public.show', [$user->profile_slug]));
         $this->assertResponseOk();
         $this->see($talkRevision->title);
     }
+
+    public function test_it_does_not_show_bios_marked_not_public()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'kuntakinte',
+            'enable_profile' => true
+        ]);
+
+        $bio = Factory::build('bio');
+        $bio->public = false;
+        $user->bios()->save($bio);
+
+        $this->visit(route('speakers-public.show', [$user->profile_slug]));
+        $this->dontSee($bio->nickname);
+    }
+
+    public function test_it_shows_bios_marked_public()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'mydearauntsally',
+            'enable_profile' => true
+        ]);
+
+        $bio = Factory::build('bio');
+        $bio->public = true;
+        $user->bios()->save($bio);
+
+        $this->visit(route('speakers-public.show', [$user->profile_slug]));
+        $this->see($bio->nickname);
+    }
+
     public function test_public_profile_page_is_off_by_default()
     {
         $user = Factory::create('user', [

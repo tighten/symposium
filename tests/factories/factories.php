@@ -29,3 +29,8 @@ $factory('User', 'user', [
     'password' => Hash::make('password'),
     'name' => 'Jane Doe',
 ]);
+
+$factory('Bio', 'bio', [
+    'nickname' => 'short',
+    'body' => 'Lorem ipsum datum',
+]);

@@ -37,9 +37,12 @@ class PublicProfileController extends Controller
             return $talk->current()->title;
         });
 
+        $bios = $user->bios()->public()->get();
+
         return view('account.public-profile.show')
             ->with('user', $user)
-            ->with('talks', $talks);
+            ->with('talks', $talks)
+            ->with('bios', $bios);
     }
 
     public function showTalk($profile_slug, $talk_id)
@@ -51,6 +54,17 @@ class PublicProfileController extends Controller
         return view('talks.show-public')
             ->with('user', $user)
             ->with('talk', $talk);
+    }
+
+    public function showBio($profile_slug, $bio_id)
+    {
+        $user = $this->getPublicUserByProfileSlug($profile_slug);
+
+        $bio = $user->bios()->public()->findOrFail($bio_id);
+
+        return view('bios.show-public')
+            ->with('user', $user)
+            ->with('bio', $bio);
     }
 
     public function getEmail($profile_slug)
