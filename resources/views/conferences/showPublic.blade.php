@@ -3,12 +3,6 @@
 @section('content')
 
     <div class="container">
-        <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li><a href="/conferences/">Conferences</a></li>
-            <li class="active"><a href="{{ $conference->publicUrl }}">Conference: {{ $conference->title }}</a></li>
-        </ol>
-
         <h1>{{ $conference->title }}</h1>
 
         <p><b>Date created:</b>

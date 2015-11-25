@@ -69,8 +69,9 @@ class TalksController extends BaseController
             'type' => 'seminar',
             'level' => 'beginner',
         ]);
+        $talk = new Talk;
 
-        return View::make('talks.create', compact('current'));
+        return View::make('talks.create', compact('current', 'talk'));
     }
 
     public function store()

@@ -1,19 +1,23 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
-        <h2>Edit Account</h2>
+    <div class="container body">
+        <div class="row">
+            <div class="col-md-10 col-md-push-1">
+                <h2>Edit Account</h2>
 
-        <ul class="errors">
-            @foreach ($errors->all() as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
+                <ul class="errors">
+                    @foreach ($errors->all() as $message)
+                        <li>{{ $message }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
 
         {{ Form::model($user, ['route' => 'account.edit', 'method' => 'put']) }}
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5 col-md-push-1">
                 <h3>User</h3>
 
                 <div class="form-group">
@@ -31,7 +35,7 @@
                     {{ Form::text('name', null, ['class' => 'form-control']) }}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5 col-md-push-1">
                 <h3>Public Profile</h3>
 
                 <div class="form-group">
@@ -52,8 +56,11 @@
                 </div>
             </div>
         </div>
-
-        {{ Form::submit('Save', array('class' => 'button button--primary')) }}
+        <div class="row">
+            <div class="col-md-10 col-md-push-1">
+                {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+            </div>
+        </div>
 
         {{ Form::close() }}
     </div>

@@ -3,13 +3,6 @@
 @section('content')
 
     <div class="container">
-        <ol class="breadcrumb">
-            <li><a href="{{ route('dashboard') }}">Home</a></li>
-            <li><a href="{{ route('speakers-public.index') }}">Speakers</a></li>
-            <li><a href="{{ route('speakers-public.show', ['profileSlug' => $user->profile_slug]) }}">{{ $user->name }}</a></li>
-            <li class="active"><a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">Talk: {{ $talk->current()->title }}</a></li>
-        </ol>
-
         <div class="row">
             <div class="col-md-8 col-md-push-2">
                 <div class="pull-right">

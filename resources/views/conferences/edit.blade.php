@@ -1,11 +1,10 @@
 @extends('layout')
 
 @section('content')
-
-    <div class="container">
+    <div class="container body">
         <div class="row">
-            <div class="col-md-6">
-                <h1>Edit Conference</h1>
+            <div class="col-md-6 col-md-push-3 create-edit-form">
+                <h1 class="page-title">Edit Conference</h1>
 
                 <ul class="errors">
                     @foreach ($errors->all() as $message)

@@ -1,17 +1,12 @@
 @extends('layout')
 
 @section('content')
-
-    <div class="container">
-        <ol class="breadcrumb">
-            <li><a href="{{ route('dashboard') }}">Home</a></li>
-            <li class="active"><a href="{{ route('conferences.index') }}">Conferences</a></li>
-        </ol>
+    <div class="container body">
         <div class="row">
             <div class="col-md-8 col-md-push-2">
                 <a href="{{ route('conferences.create') }}" class="create-button">Create Conference &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 
-                <h2>All Conferences</h2>
+                <h2 class="page-title">All Conferences</h2>
 
                 <?php $linkRouteKeysWithDefaults = ['filter' => 'future', 'sort' => 'alpha']; ?>
 
@@ -31,7 +26,7 @@
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => 'filter-link']) }}
                 </p>
                 <ul class="list-conferences">
-                    @foreach ($conferences as $conference)
+                    @forelse ($conferences as $conference)
                         <li>
                             @if ($conference->isFavorited())
                                 <a href="/conferences/{{ $conference->id  }}/unfavorite" class="fav-button fav-button--faved"><span class="glyphicon glyphicon-star"></a>
@@ -61,7 +56,9 @@
                             <?php /* TODO: cleaner substr */ ?>
                             <p>{{ mb_substr($conference->description, 0, 100) }}...</p>
                         </li>
-                    @endforeach
+                    @empty
+                        <li style="margin-left: 0;">No conferences match this filter</li>
+                    @endforelse
                 </ul>
             </div>
         </div>
