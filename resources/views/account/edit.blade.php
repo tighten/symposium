@@ -40,19 +40,30 @@
 
                 <div class="form-group">
                     {{ Form::label('enable_profile', 'Show Public Speaker Profile?', ['class' => 'control-label']) }}<br>
+                    <span class="help-block">Do you want a public speaker page that you can show to conference organizers?</span>
                     <label class="radio-inline">
                         {{ Form::radio('enable_profile', true, ['id' => 'enable_profile_true']) }} Yes
                     </label>
                     <label class="radio-inline">
                         {{ Form::radio('enable_profile', false, ['id' => 'enable_profile_false']) }} No
                     </label>
-                    <span class="help-block">Do you want a public speaker page that you can show to conference organizers?</span>
                 </div>
 
-               <div class="form-group">
+                <div class="form-group">
+                    {{ Form::label('allow_profile_contact', 'Allow contact from your Public Speaker Profile?', ['class' => 'control-label']) }}<br>
+                    <span class="help-block">Do you want a contact form on your public speaker profile? Messages will be sent to your email but your email address will remain private.</span>
+                    <label class="radio-inline">
+                        {{ Form::radio('allow_profile_contact', true, ['id' => 'allow_profile_contact_true']) }} Yes
+                    </label>
+                    <label class="radio-inline">
+                        {{ Form::radio('allow_profile_contact', false, ['id' => 'allow_profile_contact_false']) }} No
+                    </label>
+                </div>
+
+                <div class="form-group">
                     {{ Form::label('profile_slug', 'Profile URL slug', ['class' => 'control-label']) }}
+                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', ['your_slug_here']) }}</span>
                     {{ Form::text('profile_slug', null, ['class' => 'form-control']) }}
-                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at https://symposiumapp.com/u/your_slug_here</span>
                 </div>
             </div>
         </div>

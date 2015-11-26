@@ -6,7 +6,9 @@
             <div class="col-md-10 col-md-push-1">
                 <div class="pull-right">
                    <img src="{{ Gravatar::src($user->email, 200) }}" class="public-speaker-picture"><br>
+                   @if ($user->allow_profile_contact)
                    <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
+                   @endif
                 </div>
 
                 <h1>{{ $user->name }}</h1>

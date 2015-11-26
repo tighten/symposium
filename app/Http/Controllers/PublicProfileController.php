@@ -71,6 +71,10 @@ class PublicProfileController extends Controller
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
+        if (! $user->allow_profile_contact) {
+            abort(404);
+        }
+
         return view('account.public-profile.email')
             ->with('user', $user);
     }
@@ -78,6 +82,10 @@ class PublicProfileController extends Controller
     public function postEmail($profile_slug, Captcha $captcha, Request $request)
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
+
+        if (! $user->allow_profile_contact) {
+            abort(404);
+        }
 
         $this->validate($request, [
             'email' => 'required|email',

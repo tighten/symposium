@@ -123,4 +123,64 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->get(route('speakers-public.show', [$user->profile_slug]));
         $this->assertResponseStatus(404);
     }
+
+    public function test_it_does_not_show_contact_for_non_contactable_users()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'jimmybob',
+            'enable_profile' => true,
+            'allow_profile_contact' => false,
+        ]);
+
+        $this
+            ->visit(route('speakers-public.show', [$user->profile_slug]))
+            ->dontSee('Contact ' . $user->name);
+
+        $this
+            ->get(route('speakers-public.email', [$user->profile_slug]))
+            ->assertResponseStatus(404);
+
+        $this
+            ->post(route('speakers-public.email', [$user->profile_slug]))
+            ->assertResponseStatus(404);
+    }
+
+    public function test_it_shows_contact_for_contactable_users()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'jimmybob',
+            'enable_profile' => true,
+            'allow_profile_contact' => true,
+        ]);
+
+        $this
+            ->visit(route('speakers-public.show', [$user->profile_slug]))
+            ->see('Contact ' . $user->name);
+
+        $this
+            ->visit(route('speakers-public.email', [$user->profile_slug]))
+            ->assertResponseOk();
+
+        $this
+            ->post(route('speakers-public.email', [$user->profile_slug]))
+            ->followRedirects()
+            ->assertResponseOk();
+    }
+
+    public function test_disabled_profile_user_cannot_be_contacted()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'alphabetsoup',
+            'enable_profile' => false,
+            'allow_profile_contact' => true,
+        ]);
+
+        $this
+            ->get(route('speakers-public.email', [$user->profile_slug]))
+            ->assertResponseStatus(404);
+
+        $this
+            ->post(route('speakers-public.email', [$user->profile_slug]))
+            ->assertResponseStatus(404);
+    }
 }
