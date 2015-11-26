@@ -99,7 +99,9 @@ class PublicProfileController extends Controller
             exit('You have not passed the captcha. Please try again.');
         }
 
-        Mail::send('emails.public-profile-contact', ['email' => $request->get('email'), 'name' => $request->get('name'), 'userMessage' => $request->get('message')], function ($m) use ($user) {
+        $message = str_replace("\n", "<br>", htmlentities($messsage));
+
+        Mail::send('emails.public-profile-contact', ['email' => $request->get('email'), 'name' => $request->get('name'), 'userMessage' => $message], function ($m) use ($user) {
             $m->from('noreply@symposiumapp.com', 'Symposium');
 
             $m->to($user->email, $user->name)->subject('Contact from your Symposium public profile page');
