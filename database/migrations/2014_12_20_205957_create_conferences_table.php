@@ -14,13 +14,21 @@ class CreateConferencesTable extends Migration
     {
         Schema::create('conferences', function (Blueprint $table) {
             $table->string('id', 36)->unique();
-            $table->string('title')->unique();
+            $table->string('title');
             $table->text('description');
             $table->string('url');
             $table->integer('author_id')->unsigned();
             $table->foreign('author_id')
                 ->references('id')
                 ->on('users');
+
+            $table->dateTime('starts_at')->nullable()->default(null);
+            $table->dateTime('ends_at')->nullable()->default(null);
+            $table->dateTime('cfp_starts_at')->nullable()->default(null);
+            $table->dateTime('cfp_ends_at')->nullable()->default(null);
+
+            $table->integer('joindin_id')->nullable();
+
             $table->timestamps();
         });
     }

@@ -52,6 +52,20 @@
 </div>
 
 <div class="form-group">
+    {{ Form::label('public', '*Show on public speaker profile?', ['class' => 'control-label']) }}
+    <div class="input-group">
+        <label class="radio-inline">
+            <input type="radio" name="public" value="yes" {{ $talk->public ? 'checked' : ''}}>
+            Yes
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="public" value="no" {{ $talk->public ? '' : 'checked' }}>
+            No
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
     {{ Form::label('description', 'Description', ['class' => 'control-label']) }}
     {{ Form::textarea('description', $current->description, ['class' => 'form-control']) }}
 </div>

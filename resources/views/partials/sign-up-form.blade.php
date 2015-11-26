@@ -23,7 +23,7 @@
 </div>
 
 <div class="text-right">
-    {{ Form::submit('Sign up', ['class' => 'button button--primary']) }}
+    {{ Form::submit('Sign up', ['class' => 'btn btn-primary']) }}
 </div>
 
 {{ Form::close() }}

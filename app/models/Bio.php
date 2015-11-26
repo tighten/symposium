@@ -22,4 +22,9 @@ class Bio extends UuidBase
     {
         return substr($this->getAttribute('body'), 0, 100) . '...';
     }
+
+    public function scopePublic()
+    {
+        return $this->where('public', true);
+    }
 }

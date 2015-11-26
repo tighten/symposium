@@ -1,166 +1,107 @@
 <?php namespace Symposium\Http\Controllers;
 
-use Auth;
-use Event;
-use Hash;
-use Input;
-use Mail;
-use Redirect;
-use Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use User;
-use Validator;
 
 class AccountController extends BaseController
 {
-    protected $account_rules = array(
-        'name' => 'required',
-        'email' => 'email|required|unique:users',
-    );
-
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => array('create', 'store')));
-        $this->beforeFilter('csrf', array('only' => array('update')));
+        $this->beforeFilter('auth', ['except' => ['create', 'store']]);
+        $this->beforeFilter('csrf', ['only' => ['update']]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
         return view('account.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
+    public function store(Request $request)
     {
-        $data = Input::all();
+        $this->validate($request, [
+            'name' => 'required',
+            'password' => 'required',
+            'email' => 'email|required|unique:users,email',
+            'enable_profile' => '',
+            'allow_profile_contact' => '',
+            'profile_intro' => '',
+            'profile_slug' => 'alpha_dash|unique:users',
+        ]);
 
-        $rules = $this->account_rules;
+        $user = new User;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
 
-        // Update rules to add password
-        $rules['password'] = 'required';
-        $rules['email'] = 'email|required|unique:users,email';
+        Event::fire('new-signup', [$user]);
+        Auth::loginUsingId($user->id);
 
-        // Make validator
-        $validator = Validator::make($data, $rules);
+        Session::flash('message', 'Successfully created account.');
 
-        if ($validator->passes()) {
-            // Save
-            $user = new User;
-            $user->name = Input::get('name');
-            $user->email = Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
-            $user->save();
-
-            Event::fire('new-signup', [$user]);
-            Auth::loginUsingId($user->id);
-
-            Session::flash('message', 'Successfully created account.');
-
-            return Redirect::to('/account');
-        }
-
-        return Redirect::to('sign-up')
-            ->withErrors($validator)
-            ->withInput();
+        return redirect('account');
     }
 
-    /**
-     * Display account
-     *
-     * @return Response
-     */
     public function show()
     {
-        $user = User::find(Auth::user()->id);
-
         return view('account.show')
-            ->with('user', $user);
+            ->with('user', Auth::user());
     }
 
-    /**
-     * Show the form for editing account
-     *
-     * @return Response
-     */
     public function edit()
     {
-        $user = User::find(Auth::user()->id);
-
         return view('account.edit')
-            ->with('user', $user);
+            ->with('user', Auth::user());
     }
 
-    /**
-     * Update account
-     *
-     * @return Response
-     */
-    public function update()
+    public function update(Request $request)
     {
-        $data = Input::all();
-        $rules = $this->account_rules;
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'email|required|unique:users,email,' . Auth::user()->id,
+            'enable_profile' => '',
+            'allow_profile_contact' => '',
+            'profile_intro' => '',
+            'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
+        ]);
 
-        // Avoid unique conflict if email not being changed
-        if ($data['email'] == Auth::user()->email) {
-            $rules['email'] = 'email|required';
+        // Save
+        $user = Auth::user();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        if ($request->get('password')) {
+            $user->password = Hash::make($request->get('password'));
         }
+        $user->enable_profile = $request->get('enable_profile');
+        $user->allow_profile_contact = $request->get('allow_profile_contact');
+        $user->profile_intro = $request->get('profile_intro');
+        $user->profile_slug = $request->get('profile_slug');
+        $user->save();
 
-        // Make validator
-        $validator = Validator::make($data, $rules);
+        Session::flash('message', 'Successfully edited account.');
 
-        if ($validator->passes()) {
-            // Save
-            $user = User::findOrFail(Auth::user()->id);
-            $user->name = Input::get('name');
-            $user->email = Input::get('email');
-            if (Input::get('password')) {
-                $user->password = Hash::make(Input::get('password'));
-            }
-            $user->save();
-
-            Session::flash('message', 'Successfully edited account.');
-
-            return Redirect::to('account');
-        }
-
-        return Redirect::to('account/edit')
-            ->withInput()
-            ->withErrors($validator);
+        return redirect('account');
     }
 
-    /**
-     * Show the confirmation for deleting account
-     *
-     * @return Response
-     */
     public function delete()
     {
         return view('account.confirm-delete');
     }
 
-    /**
-     * Remove account
-     *
-     * @return Response
-     */
     public function destroy()
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = Auth::user()->id;
         $user->delete();
 
         Auth::logout();
 
         Session::flash('message', 'Successfully deleted account.');
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 
     /**

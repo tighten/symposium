@@ -1,11 +1,10 @@
 @extends('layout')
 
 @section('content')
-
-    <div class="container">
+    <div class="container body">
         <div class="row">
-            <div class="col-md-6">
-                <h1>Create Conference</h1>
+            <div class="col-md-6 col-md-push-3 create-edit-form">
+                <h1 class="page-title">Create Conference</h1>
 
                 <ul class="errors">
                     @foreach ($errors->all() as $message)
@@ -13,11 +12,11 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(array('action' => 'ConferencesController@store', 'class' => 'new-conference-form')) }}
+                {{ Form::open(['route' => 'conferences.store', 'class' => 'new-conference-form']) }}
 
                 @include('partials.conferenceform')
 
-                {{ Form::submit('Create', ['class' => 'btn btn-primary']) }}<br><br>
+                {{ Form::submit('Create', ['class' => 'btn btn-primary']) }}
 
                 {{ Form::close() }}
             </div>

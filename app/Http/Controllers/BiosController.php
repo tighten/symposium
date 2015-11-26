@@ -3,6 +3,7 @@
 use Auth;
 use Bio;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Input;
 use Log;
@@ -15,10 +16,6 @@ use View;
 
 class BiosController extends BaseController
 {
-    // @todo: Why is this here but only used for update? Why are they not using the same pattern?
-    protected $validation = [
-    ];
-
     public function index()
     {
         $bios = Auth::user()->bios;
@@ -35,6 +32,7 @@ class BiosController extends BaseController
 
     public function store()
     {
+        // @todo: Why is this here? Why aren't we validating like we do everywhere else?
         $form = CreateBioForm::fillOut(Input::all(), Auth::user());
 
         try {
@@ -66,25 +64,24 @@ class BiosController extends BaseController
             ->with('bio', $bio);
     }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
-        $validator = Validator::make(Input::all(), $this->validation);
+        $this->validate($request, [
+            'nickname' => 'required',
+            'body' => 'required',
+            'public' => ''
+        ]);
 
-        if ($validator->passes()) {
-            $bio = Auth::user()->bios()->findOrFail($id);
+        $bio = Auth::user()->bios()->findOrFail($id);
 
-            $bio->nickname = Input::get('nickname');
-            $bio->body = Input::get('body');
-            $bio->save();
+        $bio->nickname = $request->get('nickname');
+        $bio->body = $request->get('body');
+        $bio->public = $request->get('public') == 'yes';
+        $bio->save();
 
-            Session::flash('message', 'Successfully edited bio.');
+        Session::flash('message', 'Successfully edited bio.');
 
-            return Redirect::to('bios/' . $bio->id);
-        }
-
-        return Redirect::to('bios/' . $id . '/edit')
-            ->withErrors($validator)
-            ->withInput();
+        return Redirect::to('bios/' . $bio->id);
     }
 
     public function destroy($id)

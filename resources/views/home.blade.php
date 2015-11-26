@@ -10,13 +10,13 @@
                     <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos, and conference applications and responses.</p>
 
                     <p>
-                        <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot">
+                        <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot" style="border-radius: 0.5em">
                     </p>
 
                     <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review speakers submissions, and manage the entire CFP process.</p>
                 </div>
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-on-grey">
                         <div class="panel-heading">
                           <h3 class="panel-title">Sign up</h3>
                         </div>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-on-grey">
                         <div class="panel-heading">
                             <h3 class="panel-title">Log in</h3>
                         </div>

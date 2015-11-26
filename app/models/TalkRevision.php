@@ -16,7 +16,7 @@ class TalkRevision extends UuidBase
         'id'
     ];
 
-    public static $rules = array();
+    public static $rules = [];
 
     public function talk()
     {

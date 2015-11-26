@@ -13,11 +13,9 @@ class CreateTalksTable extends Migration
     public function up()
     {
         Schema::create('talks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title')->unique();
-            $table->string('slug')->unique();
+            $table->string('id', 36)->unique()->default(0);
+            $table->string('title');
             $table->text('description');
-            $table->text('body');
             $table->integer('author_id')->unsigned();
             $table->foreign('author_id')
                 ->references('id')

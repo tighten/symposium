@@ -12,9 +12,9 @@ class DropTalkSlug extends Migration
      */
     public function up()
     {
-        Schema::table('talks', function (Blueprint $table) {
-            $table->dropColumn('slug');
-        });
+        // Schema::table('talks', function (Blueprint $table) {
+        //     $table->dropColumn('slug');
+        // });
     }
 
     /**
@@ -24,10 +24,8 @@ class DropTalkSlug extends Migration
      */
     public function down()
     {
-        Schema::table('talks', function (Blueprint $table) {
-            $table->string('slug');
-        });
-
-        // Should actually re-unique it here :/
+        // Schema::table('talks', function (Blueprint $table) {
+        //     $table->string('slug');
+        // });
     }
 }

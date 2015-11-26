@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Public
+ */
 Route::get('/', function () {
     return View::make('home');
 });
@@ -8,19 +11,40 @@ Route::get('what-is-this', function () {
     return View::make('what-is-this');
 });
 
-Route::get('log-in', ['as' => 'log-in', 'uses' => 'AuthController@getLogin']);
-Route::post('log-in', 'AuthController@postLogin');
-Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
-
-Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
-Route::post('sign-up', 'AccountController@store');
-
-// Route::get('s/{shareId}', 'TalksController@showPublic');
+Route::get('speakers', [
+    'as' => 'speakers-public.index',
+    'uses' => 'PublicProfileController@index'
+]);
+Route::get('u/{profileSlug}', [
+    'as' => 'speakers-public.show',
+    'uses' => 'PublicProfileController@show'
+]);
+Route::get('u/{profileSlug}/talks/{talkId}', [
+    'as' => 'speakers-public.talks.show',
+    'uses' => 'PublicProfileController@showTalk'
+]);
+Route::get('u/{profileSlug}/bios/{bioId}', [
+    'as' => 'speakers-public.bios.show',
+    'uses' => 'PublicProfileController@showBio'
+]);
+Route::get('u/{profileSlug}/email', [
+    'as' => 'speakers-public.email',
+    'uses' => 'PublicProfileController@getEmail'
+]);
+Route::post('u/{profileSlug}/email', [
+    'as' => 'speakers-public.email',
+    'uses' => 'PublicProfileController@postEmail'
+]);
 
 // temp fix
-Route::get('conferences/create', ['as' => 'conferences.create', 'uses' => 'ConferencesController@create', 'middleware' => 'auth']);
+Route::get('conferences/create', ['middleware' => 'auth', 'as' => 'conferences.create', 'uses' => 'ConferencesController@create']);
 
 Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
+
+/**
+ * App
+ */
+Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('password/email', 'Auth\PasswordController@getEmail');
@@ -28,6 +52,12 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
     Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+    Route::get('log-in', ['as' => 'log-in', 'uses' => 'AuthController@getLogin']);
+    Route::post('log-in', 'AuthController@postLogin');
+
+    Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
+    Route::post('sign-up', 'AccountController@store');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -60,6 +90,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('bios', 'BiosController');
 });
 
+/**
+ * API
+ */
 Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], function () {
     Route::get('me', 'MeController@index');
     Route::get('bios/{bioId}', 'BiosController@show');
@@ -70,6 +103,9 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], fun
     Route::get('conferences', 'ConferencesController@index');
 });
 
+/**
+ * OAuth
+ */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('oauth/authorize', [
         'before' => 'check-authorization-params|auth',

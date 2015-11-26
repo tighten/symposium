@@ -20,7 +20,7 @@
                             </div>
 
                             <div class="text-right">
-                                {{ Form::submit('Send Password Reset Link', ['class' => 'button button--primary']) }}
+                                {{ Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) }}
                             </div>
                         </form>
                     </div>

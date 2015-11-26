@@ -7,6 +7,7 @@ use Validator;
 class CreateBioForm
 {
     private $rules = [
+        'nickname' => ['required'],
         'body' => ['required'],
     ];
 

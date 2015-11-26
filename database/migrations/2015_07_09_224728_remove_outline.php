@@ -12,9 +12,9 @@ class RemoveOutline extends Migration
      */
     public function up()
     {
-        Schema::table('talk_revisions', function (Blueprint $table) {
-            $table->dropColumn('outline');
-        });
+        // Schema::table('talk_revisions', function (Blueprint $table) {
+        //     $table->dropColumn('outline');
+        // });
     }
 
     /**
@@ -24,8 +24,8 @@ class RemoveOutline extends Migration
      */
     public function down()
     {
-        Schema::table('talk_revisions', function (Blueprint $table) {
-            $table->text('outline');
-        });
+        // Schema::table('talk_revisions', function (Blueprint $table) {
+        //     $table->text('outline')->nullable();
+        // });
     }
 }

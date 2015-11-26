@@ -155,6 +155,7 @@ return [
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
 
         'Symposium\Providers\OAuthGuardServiceProvider',
+        Symposium\Providers\CaptchaServiceProvider::class,
     ],
 
     /*

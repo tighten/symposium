@@ -7,6 +7,7 @@ use Redirect;
 use Session;
 use Talk;
 use TalkRevision;
+use User;
 use Validator;
 use View;
 
@@ -36,11 +37,6 @@ class TalksController extends BaseController
         );
     }
 
-    /**
-     * Display all of the current user's talks
-     *
-     * @return Response
-     */
     public function index()
     {
         $bold_style = 'style="font-weight: bold;"';
@@ -67,26 +63,17 @@ class TalksController extends BaseController
             ->with('sorting_talk', $sorting_talk);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
         $current = new TalkRevision([
             'type' => 'seminar',
             'level' => 'beginner',
         ]);
+        $talk = new Talk;
 
-        return View::make('talks.create', compact('current'));
+        return View::make('talks.create', compact('current', 'talk'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
     public function store()
     {
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
@@ -95,6 +82,7 @@ class TalksController extends BaseController
             // Save
             $talk = new Talk;
             $talk->author_id = Auth::user()->id;
+            $talk->public = Input::get('public') == 'yes';
             $talk->save();
 
             $revision = new TalkRevision;
@@ -118,12 +106,6 @@ class TalksController extends BaseController
             ->withInput();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  str  $talkId
-     * @return Response
-     */
     public function edit($talkId)
     {
         try {
@@ -135,21 +117,18 @@ class TalksController extends BaseController
         }
 
         return View::make('talks.edit')
+            ->with('talk', $talk)
             ->with('current', $talk->current());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  str  $talkId
-     * @return Response
-     */
     public function update($talkId)
     {
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if ($validator->passes()) {
             $talk = Auth::user()->talks()->findOrFail($talkId);
+            $talk->public = Input::get('public') == 'yes';
+            $talk->save();
 
             $revision = new TalkRevision;
             $revision->title = Input::get('title');
@@ -172,12 +151,6 @@ class TalksController extends BaseController
             ->withInput();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  string $id
-     * @return Response
-     */
     public function show($id)
     {
         $talk = Auth::user()->talks()->findOrFail($id);
@@ -189,23 +162,6 @@ class TalksController extends BaseController
             ->with('current', $current);
     }
 
-    /**
-     * Show the confirmation for deleting the specified resource
-     *
-     * @param  int  $id
-     * @return Resource
-     */
-    public function delete($id)
-    {
-        dd('t');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function destroy($id)
     {
         Auth::user()->talks()->findOrFail($id)->delete();
