@@ -360,6 +360,12 @@ legend {
 }
 
 .public-profile-pic {
+    text-align: center;
+
+    img {
+        border-radius: 50%;
+    }
+
     @media only screen and (min-width: 768px) {
         float: right;
     }
