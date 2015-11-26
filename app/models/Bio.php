@@ -10,6 +10,7 @@ class Bio extends UuidBase
     protected $fillable = [
         'user_id',
         'nickname',
+        'public',
         'body'
     ];
 
@@ -23,8 +24,8 @@ class Bio extends UuidBase
         return substr($this->getAttribute('body'), 0, 100) . '...';
     }
 
-    public function scopePublic()
+    public function scopePublic($query)
     {
-        return $this->where('public', true);
+        return $query->where('public', true);
     }
 }

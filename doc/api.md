@@ -153,6 +153,7 @@ GET /api/users/:id/talks
         "updated_at": "2015-05-31 10:48:38",
         "type": "seminar",
         "length": 45,
+        "public": true,
         "level": "intermediate",
         "organizer_notes": "Organizer notes",
         "slides": "http://www.speakerdeck.com/09140194h091241"
@@ -168,6 +169,7 @@ GET /api/users/:id/talks
         "updated_at": "2015-05-31 10:48:38",
         "type": "seminar",
         "length": 45,
+        "public": false,
         "level": "intermediate",
         "organizer_notes": "Organizer notes",
         "slides": "http://www.speakerdeck.com/j09j341241"
@@ -201,6 +203,7 @@ GET /api/talks/:id
       "updated_at": "2015-05-31 10:48:38",
       "type": "seminar",
       "length": 45,
+      "public": true,
       "level": "intermediate",
       "organizer_notes": "Organizer notes",
       "slides": "http://www.speakerdeck.com/oithoi1241421"
@@ -230,6 +233,7 @@ GET /api/users/:id/bios
       "attributes": {
         "nickname": "Long Bio",
         "body": "I am short and I love being short and this is very long.",
+        "public": true,
         "created_at": "2015-05-31 10:48:38",
         "updated_at": "2015-05-31 10:48:38"
       }
@@ -240,6 +244,7 @@ GET /api/users/:id/bios
       "attributes": {
         "nickname": "Short Bio",
         "body": "I am short.",
+        "public": false,
         "created_at": "2015-05-31 10:48:38",
         "updated_at": "2015-05-31 10:48:38"
       }
@@ -268,6 +273,7 @@ GET /api/bios/:id
     "attributes": {
       "nickname": "Long Bio",
       "body": "I am short and I love being short and this is very long.",
+      "public": true,
       "created_at": "2015-05-31 10:48:38",
       "updated_at": "2015-05-31 10:48:38"
     }

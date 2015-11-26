@@ -39,8 +39,8 @@ class Talk extends UuidBase
         return $this->revisions()->getQuery()->orderBy('created_at', 'desc')->get();
     }
 
-    public function scopePublic()
+    public function scopePublic($query)
     {
-        return $this->where('public', true);
+        return $query->where('public', true);
     }
 }

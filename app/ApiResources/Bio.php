@@ -26,6 +26,7 @@ class Bio implements Arrayable
     {
         return [
             'nickname' => $this->bio->nickname,
+            'public' => $this->bio->public,
             'body' => $this->bio->body,
             'created_at' => (string)$this->bio->created_at,
             'updated_at' => (string)$this->bio->updated_at,

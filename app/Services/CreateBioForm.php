@@ -9,6 +9,7 @@ class CreateBioForm
     private $rules = [
         'nickname' => ['required'],
         'body' => ['required'],
+        'public' => [],
     ];
 
     private $input;
