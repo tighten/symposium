@@ -183,4 +183,52 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->post(route('speakers-public.email', [$user->profile_slug]))
             ->assertResponseStatus(404);
     }
+
+    public function test_it_does_not_show_talks_for_another_user()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'jinkerjanker',
+            'email' => 'a@b.com',
+            'enable_profile' => true
+        ]);
+
+        $user2 = Factory::create('user', [
+            'profile_slug' => 'alcatraz',
+            'email' => 'c@d.com',
+            'enable_profile' => true
+        ]);
+
+        $talk = Factory::build('talk');
+        $talk->public = true;
+        $user2->talks()->save($talk);
+        $talkRevision = Factory::build('talkRevision');
+        $talk->revisions()->save($talkRevision);
+
+        $this
+            ->visit(route('speakers-public.show', [$user->profile_slug]))
+            ->dontSee($talk->current()->title);
+    }
+
+    public function test_it_does_not_show_bios_for_another_user()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'stampede',
+            'email' => 'a@b.com',
+            'enable_profile' => true
+        ]);
+
+        $user2 = Factory::create('user', [
+            'profile_slug' => 'cruising',
+            'email' => 'c@d.com',
+            'enable_profile' => true
+        ]);
+
+        $bio = Factory::build('bio');
+        $bio->public = true;
+        $user2->bios()->save($bio);
+
+        $this
+            ->visit(route('speakers-public.show', [$user->profile_slug]))
+            ->dontSee($bio->nickname);
+    }
 }
