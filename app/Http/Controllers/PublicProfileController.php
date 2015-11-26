@@ -99,7 +99,7 @@ class PublicProfileController extends Controller
             exit('You have not passed the captcha. Please try again.');
         }
 
-        $message = str_replace("\n", "<br>", htmlentities($messsage));
+        $message = str_replace("\n", "<br>", htmlentities($request->get('message')));
 
         Mail::send('emails.public-profile-contact', ['email' => $request->get('email'), 'name' => $request->get('name'), 'userMessage' => $message], function ($m) use ($user) {
             $m->from('noreply@symposiumapp.com', 'Symposium');
