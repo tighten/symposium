@@ -30,12 +30,18 @@
                     This speaker has not made any of their talks public yet.
                 @endforelse
 
-                <h2>Bios</h2>
-                @forelse ($bios as $bio)
-                    <h3><a href="{{ route('speakers-public.bios.show', ['profile_slug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
-                @empty
+                @if ($bios->count() == 0)
+                    <h2>Bios</h2>
                     This speaker has not made any of their bios public yet.
-                @endforelse
+                @elseif ($bios->count() == 1)
+                    <h3>Bio ({{ $bios->first()->nickname }})</h3>
+                    <p>{{ str_replace("\n", "<br>", $bios->first()->body) }}</p>
+                @else
+                    <h2>Bios</h2>
+                    @foreach ($bios as $bio)
+                    <h3><a href="{{ route('speakers-public.bios.show', ['profile_slug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
