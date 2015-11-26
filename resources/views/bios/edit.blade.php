@@ -17,7 +17,7 @@
 
                 @include('partials.bioform')
 
-                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
+                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
 
                 {{ Form::close() }}
             </div>
