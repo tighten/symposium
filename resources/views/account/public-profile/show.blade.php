@@ -4,15 +4,15 @@
     <div class="container body">
         <div class="row">
             <div class="col-md-10 col-md-push-1">
-                <div class="pull-right">
-                   <img src="{{ Gravatar::src($user->email, 200) }}" class="public-speaker-picture"><br>
-                   @if ($user->allow_profile_contact)
-                   <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
-                   @endif
+                <div class="public-profile-pic">
+                    <img src="{{ Gravatar::src($user->email, 200) }}" class="public-speaker-picture"><br>
+                    @if ($user->allow_profile_contact)
+                    <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
+                    @endif
                 </div>
 
                 <h1>{{ $user->name }}</h1>
-                <p>{{ $user->name }} is using Symposium to manage their talks and bios.</p>
+                <p class="public-profile-intro">{{ str_replace("\n", "<br>", htmlentities($user->profile_intro)) }}</p>
                 <?php /*
                     What's the primary goal we're targeting here?
                     For a speaker to be able to make it known which talks they're

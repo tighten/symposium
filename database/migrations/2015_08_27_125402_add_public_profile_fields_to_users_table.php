@@ -16,6 +16,7 @@ class AddPublicProfileFieldsToUsersTable extends Migration
             $table->string('profile_slug')->nullable();
             $table->boolean('enable_profile')->default(false);
             $table->boolean('allow_profile_contact')->default(false);
+            $table->text('profile_intro');
         });
     }
 
@@ -29,6 +30,7 @@ class AddPublicProfileFieldsToUsersTable extends Migration
         // Why separate schema calls? Friggin SQlite.
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('profile_slug');
+            $table->dropColumn('profile_intro');
         });
 
         Schema::table('users', function (Blueprint $table) {

@@ -358,3 +358,14 @@ legend {
 .login-box, .signup-box {
     margin-top: 5rem;
 }
+
+.public-profile-pic {
+    @media only screen and (min-width: 768px) {
+        float: right;
+    }
+}
+.public-profile-intro {
+     @media only screen and (min-width: 768px) {
+        width: 60%;
+    }
+}

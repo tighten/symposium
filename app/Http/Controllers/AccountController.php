@@ -28,6 +28,7 @@ class AccountController extends BaseController
             'email' => 'email|required|unique:users,email',
             'enable_profile' => '',
             'allow_profile_contact' => '',
+            'profile_intro' => '',
             'profile_slug' => 'alpha_dash|unique:users',
         ]);
 
@@ -64,6 +65,7 @@ class AccountController extends BaseController
             'email' => 'email|required|unique:users,email,' . Auth::user()->id,
             'enable_profile' => '',
             'allow_profile_contact' => '',
+            'profile_intro' => '',
             'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
         ]);
 
@@ -76,6 +78,7 @@ class AccountController extends BaseController
         }
         $user->enable_profile = $request->get('enable_profile');
         $user->allow_profile_contact = $request->get('allow_profile_contact');
+        $user->profile_intro = $request->get('profile_intro');
         $user->profile_slug = $request->get('profile_slug');
         $user->save();
 

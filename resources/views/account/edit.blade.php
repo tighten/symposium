@@ -65,6 +65,12 @@
                     <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', ['your_slug_here']) }}</span>
                     {{ Form::text('profile_slug', null, ['class' => 'form-control']) }}
                 </div>
+
+                <div class="form-group">
+                    {{ Form::label('profile_intro', 'Profile Intro', ['class' => 'control-label']) }}
+                    <span class="help-block">This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers.</span>
+                    {{ Form::textarea('profile_intro', null, ['class' => 'form-control']) }}
+                </div>
             </div>
         </div>
         <div class="row">
