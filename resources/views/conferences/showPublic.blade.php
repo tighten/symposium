@@ -1,8 +1,7 @@
 @extends('layout')
 
 @section('content')
-
-    <div class="container">
+    <div class="container body">
         <h1>{{ $conference->title }}</h1>
 
         <p><b>Date created:</b>
