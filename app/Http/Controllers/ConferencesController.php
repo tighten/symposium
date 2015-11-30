@@ -1,18 +1,16 @@
 <?php namespace Symposium\Http\Controllers;
 
-use Auth;
 use Carbon\Carbon;
 use Conference;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Input;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use JoindIn\Client;
-use Log;
-use Redirect;
-use Session;
 use Symposium\Exceptions\ValidationException;
 use Symposium\Services\CreateConferenceForm;
-use Validator;
-use View;
 
 class ConferencesController extends BaseController
 {
@@ -92,7 +90,7 @@ class ConferencesController extends BaseController
                 break;
         }
 
-        return View::make('conferences.index')
+        return view('conferences.index')
             ->with('conferences', $conferences);
     }
 
@@ -103,7 +101,7 @@ class ConferencesController extends BaseController
      */
     public function create()
     {
-        return View::make('conferences.create')
+        return view('conferences.create')
             ->with('conference', new Conference());
     }
 
@@ -119,14 +117,14 @@ class ConferencesController extends BaseController
         try {
             $conference = $form->complete();
         } catch (ValidationException $e) {
-            return Redirect::to('conferences/create')
+            return redirect('conferences/create')
                 ->withErrors($e->errors())
                 ->withInput();
         }
 
         Session::flash('message', 'Successfully created new conference.');
 
-        return Redirect::to('/conferences/' . $conference->id);
+        return redirect('conferences/' . $conference->id);
     }
 
     /**
@@ -142,160 +140,99 @@ class ConferencesController extends BaseController
         }
 
         try {
-            $conference = Conference::where('id', $id)->firstOrFail();
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-            return Redirect::to('/');
+            $conference = Auth::user()->conferences()->findOrFail($id);
+        } catch (Exception $e) {
+            return redirect('/');
         }
 
-        $talksAtConference = $conference->myTalks();
-        $myTalks = Auth::user()->talks;
+        $talksAtConference = $conference->myTalks()->map(function ($talkRevision) {
+            return $talkRevision->talk->id;
+        });
 
-        return View::make('conferences.show')
+        return view('conferences.show')
             ->with('conference', $conference)
-            ->with('author', $conference->author)
             ->with('talksAtConference', $talksAtConference)
-            ->with('talks', $myTalks);
+            ->with('talks', Auth::user()->talks);
     }
 
     private function showPublic($id)
     {
         $conference = Conference::findOrFail($id);
 
-        return View::make('conferences.showPublic')
+        return view('conferences.showPublic')
             ->with('conference', $conference);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  str $id
-     * @return Response
-     */
     public function edit($id)
     {
         try {
-            $conference = Conference::where('id', $id)->firstOrFail();
-        } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-            return Redirect::to('/');
-        }
-
-        if ($conference->author->id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that conference.');
+            $conference = Auth::user()->conferences()->findOrFail($id);
+        } catch (Exception $e) {
             Log::error('User ' . Auth::user()->id . ' tried to edit a conference they don\'t own.');
-            return Redirect::to('/');
+            return redirect('/');
         }
 
-        return View::make('conferences.edit')
+        return view('conferences.edit')
             ->with('conference', $conference);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  str $id
-     * @return Response
-     */
-    public function update($id)
+    public function update($id, Request $request)
     {
-        $data = Input::all();
+        $this->validate($request, $this->account_rules);
 
-        $rules = $this->account_rules;
-
-        // Make validator
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->passes()) {
-            // Pull
-            $conference = Conference::where('id', $id)->firstOrFail();
-
-            // Validate ownership
-            if ($conference->author->id != Auth::user()->id) {
-                Session::flash('error-message', 'Sorry, but you don\'t own that conference.');
-                Log::error('User ' . Auth::user()->id . ' tried to edit a conference they don\'t own.');
-                return Redirect::to('/');
-            }
-
-            // Default to null
-            foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
-                $nullableDates[$col] = Input::get($col) ?: null;
-            }
-
-            // Save
-            $conference->title = Input::get('title');
-            $conference->description = Input::get('description');
-            $conference->url = Input::get('url');
-            $conference->starts_at = $nullableDates['starts_at'];
-            $conference->ends_at= $nullableDates['ends_at'];
-            $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];
-            $conference->cfp_ends_at = $nullableDates['cfp_ends_at'];
-            $conference->author_id = Auth::user()->id;
-
-            // Add author
-            $conference->save();
-
-            Session::flash('message', 'Successfully edited conference.');
-
-            return Redirect::to('conferences/' . $conference->id);
+        try {
+            $conference = Auth::user()->conferences()->findOrFail($id);
+        } catch (Exception $e) {
+            Log::error('User ' . Auth::user()->id . ' tried to edit a conference they don\'t own.');
+            return redirect('/');
         }
 
-        return Redirect::to('conferences/' . $id . '/edit')
-            ->withErrors($validator)
-            ->withInput();
+        // Default to null
+        foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
+            $nullableDates[$col] = Input::get($col) ?: null;
+        }
+
+        // Save
+        $conference->title = Input::get('title');
+        $conference->description = Input::get('description');
+        $conference->url = Input::get('url');
+        $conference->starts_at = $nullableDates['starts_at'];
+        $conference->ends_at= $nullableDates['ends_at'];
+        $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];
+        $conference->cfp_ends_at = $nullableDates['cfp_ends_at'];
+        $conference->save();
+
+        Session::flash('message', 'Successfully edited conference.');
+
+        return redirect('conferences/' . $conference->id);
     }
 
-    /**
-     * Show the confirmation for deleting the specified resource
-     *
-     * @param  int $id
-     * @return Resource
-     */
-    public function delete($id)
-    {
-        dd('t');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
     public function destroy($id)
     {
-        $conference = Conference::where('id', $id)->firstOrFail();
-
-        // Validate ownership
-        if ($conference->author->id != Auth::user()->id) {
-            Session::flash('error-message', 'Sorry, but you don\'t own that conference.');
-            Log::error('User ' . Auth::user()->id . ' tried to delete a conference they don\'t own.');
-            return Redirect::to('/');
+        try {
+            $conference = Auth::user()->conferences()->findOrFail($id);
+        } catch (Exception $e) {
+            Log::error("User " . Auth::user()->id . " tried to delete a conference that doesn't exist or they don't own.");
+            return redirect('/');
         }
 
-        Session::flash('success-message', 'Conference successfully deleted.');
         $conference->delete();
+        Session::flash('success-message', 'Conference successfully deleted.');
 
-        return Redirect::to('conferences');
+        return redirect('conferences');
     }
 
     public function favorite($conferenceId)
     {
-        $user = Auth::user();
+        Auth::user()->favoritedConferences()->attach($conferenceId);
 
-        $user->favoritedConferences()->attach($conferenceId);
-
-        return Redirect::back();
+        return redirect()->back();
     }
 
     public function unfavorite($conferenceId)
     {
-        $user = Auth::user();
+        Auth::user()->favoritedConferences()->detach($conferenceId);
 
-        $user->favoritedConferences()->detach($conferenceId);
-
-        return Redirect::back();
+        return redirect()->back();
     }
 }
