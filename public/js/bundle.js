@@ -14,7 +14,7 @@ new Vue({
         talks.forEach(function (talk) {
             talk.loading = false;
         });
-        this.$set('talks', talks);
+        this.talks = talks;
     },
     props: {
         conferenceId: {}
