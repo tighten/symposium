@@ -8,10 +8,10 @@ Vue.http.options.emulateJSON = true;
 new Vue({
     el: '#talks-on-conference-page',
     ready: function () {
-        talks.forEach(function (talk) {
+        Symposium.talks.forEach(function (talk) {
             talk.loading = false;
         });
-        this.talks = talks;
+        this.talks = Symposium.talks;
     },
     props: {
         conferenceId: {}
