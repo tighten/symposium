@@ -75,6 +75,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('Bio')->orderBy('nickname');
     }
 
+    public function conferences()
+    {
+        return $this->hasMany('conference', 'author_id');
+    }
+
     public function favoritedConferences()
     {
         return $this->belongstoMany('Conference', 'favorites')->withTimestamps();

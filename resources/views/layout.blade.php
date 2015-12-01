@@ -13,6 +13,10 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <script>
+        var Symposium = {
+        };
+    </script>
     @yield('headerScripts')
 </head>
 <body>
@@ -25,7 +29,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="/js/vendor/pickadate/picker.js"></script>
     <script src="/js/vendor/pickadate/picker.date.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/bundle.js"></script>
 
     @if (! App::isLocal())
     <script>

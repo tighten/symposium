@@ -375,3 +375,25 @@ legend {
         width: 60%;
     }
 }
+
+.conference-talk-submission-sidebar {
+    list-style-type: none;
+    padding-left: 0;
+
+    .btn {
+        width: 7em;
+    }
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.glyphicon-refresh-animate {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}

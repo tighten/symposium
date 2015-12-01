@@ -1,6 +1,16 @@
 @extends('layout')
 
 @section('content')
+    <script>
+        Symposium.talks = {{ json_encode($talks->map(function ($talk) use ($talksAtConference) {
+            return [
+                'id' => $talk->id,
+                'title' => $talk->current()->title,
+                'url' => $talk->current()->getUrl(),
+                'atThisConference' => $talksAtConference->search($talk->id) !== false,
+            ];
+        })) }};
+    </script>
     <div class="container body">
         <div class="row">
             <div class="col-md-12">
@@ -45,36 +55,38 @@
                             {{ $conference->cfpEndsAtDisplay() }}</p>
                     </div>
                     <div class="col-md-6">
-                        <h3>My Talks</h3>
-                        <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
-                        <strong>Applied to speak at this conference</strong>
-                        <ul>
-                            @if ($talksAtConference->isEmpty())
-                                <li>None</li>
-                            @endif
-                            @foreach ($talksAtConference as $talkRevision)
-                                <li><a href="/submissions" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talkRevision->id]) }}'>Un-Submit</a>
-                                    <a href="{{ $talkRevision->getUrl() }}">{{ $talkRevision->title }}</a>
+                        <div id="talks-on-conference-page" conference-id="{{ $conference->id }}">
+                            <h3>My Talks</h3>
+                            <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
+                            <strong>Applied to speak at this conference</strong>
+                            <ul class="conference-talk-submission-sidebar">
+                                <li v-for="talk in talksAtConference" v-cloak>
+                                    <a class="btn btn-xs btn-default" @click.prevent="unsubmit(talk)">
+                                        <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+                                        Un-Submit
+                                    </a>
+                                    <a href="@{{ talk.url }}">@{{ talk.title }}</a>
                                     <?php /* |  <a href="#" onclick="alert('Not programmed yet');">Change status [accepted, rejected, submitted]</a> */ ?>
-                                    </li>
-                            @endforeach
-                        </ul>
-
-                        <strong>All Talks</strong>
-                        <ul>
-                            @if ($talks->isEmpty())
-                                <li>None</li>
-                            @endif
-                            @foreach ($talks as $talk)
-                                <li>{{ $talk->current()->title }}
-                                    @if (! $talksAtConference->contains($talk->current()))
-                                        <a href="#" class="btn btn-xs btn-primary" data-post='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talk->current()->id]) }}'>Submit</a>
-                                    @else
-                                        <a href="/submissions" class="btn btn-xs btn-default" data-delete='{{ json_encode(['conferenceId' => $conference->id, 'talkRevisionId' => $talkRevision->id]) }}'>Un-Submit</a>
-                                    @endif
                                 </li>
-                            @endforeach
-                        </ul>
+                                <li v-if="talksAtConference.length == 0" v-cloak>
+                                    None
+                                </li>
+                            </ul>
+
+                            <strong>Not applied to speak at this conference</strong>
+                            <ul class="conference-talk-submission-sidebar">
+                                <li v-for="talk in talksNotAtConference" v-cloak>
+                                    <a class="btn btn-xs btn-primary" @click.prevent="submit(talk)">
+                                        <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+                                        Submit
+                                    </a>
+                                    <a href="@{{ talk.url }}">@{{ talk.title }}</a>
+                                </li>
+                                <li v-if="talksNotAtConference.length == 0" v-cloak>
+                                    None
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

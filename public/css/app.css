@@ -4938,5 +4938,36 @@ legend {
   .public-profile-intro {
     width: 60%; } }
 
+.conference-talk-submission-sidebar {
+  list-style-type: none;
+  padding-left: 0; }
+  .conference-talk-submission-sidebar .btn, .conference-talk-submission-sidebar .create-button {
+    width: 7em; }
+
+[v-cloak] {
+  display: none; }
+
+.glyphicon-refresh-animate {
+  -webkit-animation: spin 1s infinite linear;
+          animation: spin 1s infinite linear; }
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: scale(1) rotate(0deg);
+            transform: scale(1) rotate(0deg); }
+
+  to {
+    -webkit-transform: scale(1) rotate(360deg);
+            transform: scale(1) rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    -webkit-transform: scale(1) rotate(0deg);
+            transform: scale(1) rotate(0deg); }
+
+  to {
+    -webkit-transform: scale(1) rotate(360deg);
+            transform: scale(1) rotate(360deg); } }
+
 
 /*# sourceMappingURL=app.css.map */
