@@ -1,41 +1,32 @@
 <?php namespace Symposium\Commands;
 
 use Conference;
-use Symposium\Commands\Command;
-
 use Illuminate\Contracts\Bus\SelfHandling;
+use Symposium\Commands\Command;
+use Submission;
+use Talk;
 use TalkRevision;
 
-class DestroySubmission extends Command implements SelfHandling {
+class DestroySubmission extends Command implements SelfHandling
+{
+    private $conferenceId;
+    private $talkId;
 
-	/**
-	 * @var string
-	 */
-	private $conferenceId;
-	/**
-	 * @var string
-	 */
-	private $talkRevisionId;
+    public function __construct($conferenceId, $talkId)
+    {
+        $this->conferenceId = $conferenceId;
+        $this->talkId = $talkId;
+    }
 
-	/**
-	 * Create a new command instance.
-	 */
-	public function __construct($conferenceId, $talkRevisionId)
-	{
-		$this->conferenceId = $conferenceId;
-		$this->talkRevisionId = $talkRevisionId;
-	}
+    public function handle()
+    {
+        $conference = Conference::findOrFail($this->conferenceId);
+        $revisionIds = Talk::findOrFail($this->talkId)->revisions->pluck('id');
 
-	/**
-	 * Execute the command.
-	 *
-	 * @return void
-	 */
-	public function handle()
-	{
-		$conference = Conference::findOrFail($this->conferenceId);
-		$talkRevision = TalkRevision::findOrFail($this->talkRevisionId);
-		$conference->submissions()->detach($talkRevision);
-	}
+        $talkRevision = $conference->submissions()
+            ->whereIn('talk_revision_id', $revisionIds)
+            ->firstOrFail();
 
+        $conference->submissions()->detach($talkRevision);
+    }
 }

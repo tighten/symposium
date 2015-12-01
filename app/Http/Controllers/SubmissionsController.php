@@ -1,31 +1,33 @@
 <?php namespace Symposium\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Symposium\Commands\CreateSubmission;
 use Symposium\Commands\DestroySubmission;
-use Symposium\Http\Requests;
-
-use Illuminate\Http\Request;
 
 class SubmissionsController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
-        $conferenceId = Input::get('conferenceId');
-        $talkRevisionId = Input::get('talkRevisionId');
+        $talk = Auth::user()->talks()->findOrFail($request->get('talkId'));
 
-        $this->dispatch(new CreateSubmission($conferenceId, $talkRevisionId));
+        $this->dispatch(new CreateSubmission(
+            $request->get('conferenceId'),
+            $talk->id
+        ));
 
         return Response::json(['status' => 'success', 'message' => 'Talk Submitted']);
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
-        $conferenceId = Input::get('conferenceId');
-        $talkRevisionId = Input::get('talkRevisionId');
+        $talk = Auth::user()->talks()->findOrFail($request->get('talkId'));
 
-        $this->dispatch(new DestroySubmission($conferenceId, $talkRevisionId));
+        $this->dispatch(new DestroySubmission(
+            $request->get('conferenceId'),
+            $talk->id
+        ));
 
         return Response::json(['status' => 'success', 'message' => 'Talk Un-Submitted']);
     }

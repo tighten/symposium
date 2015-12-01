@@ -25,7 +25,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="/js/vendor/pickadate/picker.js"></script>
     <script src="/js/vendor/pickadate/picker.date.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/bundle.js"></script>
 
     @if (! App::isLocal())
     <script>
