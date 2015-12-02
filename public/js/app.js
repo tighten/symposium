@@ -92,6 +92,247 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
+var Vue // late bind
+var map = Object.create(null)
+var shimmed = false
+var isBrowserify = false
+
+/**
+ * Determine compatibility and apply patch.
+ *
+ * @param {Function} vue
+ * @param {Boolean} browserify
+ */
+
+exports.install = function (vue, browserify) {
+  if (shimmed) return
+  shimmed = true
+
+  Vue = vue
+  isBrowserify = browserify
+
+  exports.compatible = !!Vue.internalDirectives
+  if (!exports.compatible) {
+    console.warn(
+      '[HMR] vue-loader hot reload is only compatible with ' +
+      'Vue.js 1.0.0+.'
+    )
+    return
+  }
+
+  // patch view directive
+  patchView(Vue.internalDirectives.component)
+  console.log('[HMR] Vue component hot reload shim applied.')
+  // shim router-view if present
+  var routerView = Vue.elementDirective('router-view')
+  if (routerView) {
+    patchView(routerView)
+    console.log('[HMR] vue-router <router-view> hot reload shim applied.')
+  }
+}
+
+/**
+ * Shim the view directive (component or router-view).
+ *
+ * @param {Object} View
+ */
+
+function patchView (View) {
+  var unbuild = View.unbuild
+  View.unbuild = function (defer) {
+    if (!this.hotUpdating) {
+      var prevComponent = this.childVM && this.childVM.constructor
+      removeView(prevComponent, this)
+      // defer = true means we are transitioning to a new
+      // Component. Register this new component to the list.
+      if (defer) {
+        addView(this.Component, this)
+      }
+    }
+    // call original
+    return unbuild.call(this, defer)
+  }
+}
+
+/**
+ * Add a component view to a Component's hot list
+ *
+ * @param {Function} Component
+ * @param {Directive} view - view directive instance
+ */
+
+function addView (Component, view) {
+  var id = Component && Component.options.hotID
+  if (id) {
+    if (!map[id]) {
+      map[id] = {
+        Component: Component,
+        views: [],
+        instances: []
+      }
+    }
+    map[id].views.push(view)
+  }
+}
+
+/**
+ * Remove a component view from a Component's hot list
+ *
+ * @param {Function} Component
+ * @param {Directive} view - view directive instance
+ */
+
+function removeView (Component, view) {
+  var id = Component && Component.options.hotID
+  if (id) {
+    map[id].views.$remove(view)
+  }
+}
+
+/**
+ * Create a record for a hot module, which keeps track of its construcotr,
+ * instnaces and views (component directives or router-views).
+ *
+ * @param {String} id
+ * @param {Object} options
+ */
+
+exports.createRecord = function (id, options) {
+  if (typeof options === 'function') {
+    options = options.options
+  }
+  if (typeof options.el !== 'string' && typeof options.data !== 'object') {
+    makeOptionsHot(id, options)
+    map[id] = {
+      Component: null,
+      views: [],
+      instances: []
+    }
+  }
+}
+
+/**
+ * Make a Component options object hot.
+ *
+ * @param {String} id
+ * @param {Object} options
+ */
+
+function makeOptionsHot (id, options) {
+  options.hotID = id
+  injectHook(options, 'created', function () {
+    var record = map[id]
+    if (!record.Component) {
+      record.Component = this.constructor
+    }
+    record.instances.push(this)
+  })
+  injectHook(options, 'beforeDestroy', function () {
+    map[id].instances.$remove(this)
+  })
+}
+
+/**
+ * Inject a hook to a hot reloadable component so that
+ * we can keep track of it.
+ *
+ * @param {Object} options
+ * @param {String} name
+ * @param {Function} hook
+ */
+
+function injectHook (options, name, hook) {
+  var existing = options[name]
+  options[name] = existing
+    ? Array.isArray(existing)
+      ? existing.concat(hook)
+      : [existing, hook]
+    : [hook]
+}
+
+/**
+ * Update a hot component.
+ *
+ * @param {String} id
+ * @param {Object|null} newOptions
+ * @param {String|null} newTemplate
+ */
+
+exports.update = function (id, newOptions, newTemplate) {
+  var record = map[id]
+  // force full-reload if an instance of the component is active but is not
+  // managed by a view
+  if (!record || (record.instances.length && !record.views.length)) {
+    console.log('[HMR] Root or manually-mounted instance modified. Full reload may be required.')
+    if (!isBrowserify) {
+      window.location.reload()
+    } else {
+      // browserify-hmr somehow sends incomplete bundle if we reload here
+      return
+    }
+  }
+  if (!isBrowserify) {
+    // browserify-hmr already logs this
+    console.log('[HMR] Updating component: ' + format(id))
+  }
+  var Component = record.Component
+  // update constructor
+  if (newOptions) {
+    // in case the user exports a constructor
+    Component = record.Component = typeof newOptions === 'function'
+      ? newOptions
+      : Vue.extend(newOptions)
+    makeOptionsHot(id, Component.options)
+  }
+  if (newTemplate) {
+    Component.options.template = newTemplate
+  }
+  // handle recursive lookup
+  if (Component.options.name) {
+    Component.options.components[Component.options.name] = Component
+  }
+  // reset constructor cached linker
+  Component.linker = null
+  // reload all views
+  record.views.forEach(function (view) {
+    updateView(view, Component)
+  })
+}
+
+/**
+ * Update a component view instance
+ *
+ * @param {Directive} view
+ * @param {Function} Component
+ */
+
+function updateView (view, Component) {
+  if (!view._bound) {
+    return
+  }
+  view.Component = Component
+  view.hotUpdating = true
+  // disable transitions
+  view.vm._isCompiled = false
+  // save state
+  var state = view.childVM.$data
+  // remount, make sure to disable keep-alive
+  var keepAlive = view.keepAlive
+  view.keepAlive = false
+  view.mountComponent()
+  view.keepAlive = keepAlive
+  // restore state
+  view.childVM.$data = state
+  // re-eanble transitions
+  view.vm._isCompiled = true
+  view.hotUpdating = false
+}
+
+function format (id) {
+  return id.match(/[^\/]+\.vue$/)[0]
+}
+
+},{}],3:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -253,7 +494,7 @@ module.exports = function (_) {
     return _.http = Http;
 };
 
-},{"./lib/jsonp":4,"./lib/promise":5,"./lib/xhr":7}],3:[function(require,module,exports){
+},{"./lib/jsonp":5,"./lib/promise":6,"./lib/xhr":8}],4:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -294,7 +535,7 @@ if (window.Vue) {
 }
 
 module.exports = install;
-},{"./http":2,"./lib/util":6,"./resource":8,"./url":9}],4:[function(require,module,exports){
+},{"./http":3,"./lib/util":7,"./resource":9,"./url":10}],5:[function(require,module,exports){
 /**
  * JSONP request.
  */
@@ -346,7 +587,7 @@ module.exports = function (_, options) {
 
 };
 
-},{"./promise":5}],5:[function(require,module,exports){
+},{"./promise":6}],6:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.0 (https://github.com/bramstein/promis)
  */
@@ -558,7 +799,7 @@ if (window.MutationObserver) {
 
 module.exports = window.Promise || Promise;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -640,7 +881,7 @@ module.exports = function (Vue) {
     return _;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * XMLHttp request.
  */
@@ -693,7 +934,7 @@ module.exports = function (_, options) {
     return promise;
 };
 
-},{"./promise":5}],8:[function(require,module,exports){
+},{"./promise":6}],9:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -806,7 +1047,7 @@ module.exports = function (_) {
     return _.resource = Resource;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -965,7 +1206,7 @@ module.exports = function (_) {
     return _.url = Url;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (process){
 /*!
  * Vue.js v1.0.10
@@ -10270,70 +10511,25 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = Vue;
 }).call(this,require('_process'))
-},{"_process":1}],11:[function(require,module,exports){
+},{"_process":1}],12:[function(require,module,exports){
 'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _componentsTalksOnConferencePageVue = require('./components/TalksOnConferencePage.vue');
+
+var _componentsTalksOnConferencePageVue2 = _interopRequireDefault(_componentsTalksOnConferencePageVue);
 
 if (window.Vue === undefined) {
     window.Vue = require('vue');
 }
 
 Vue.use(require('vue-resource'));
-Vue.http.options.emulateJSON = true;
 
 new Vue({
     el: '#talks-on-conference-page',
-    ready: function ready() {
-        Symposium.talks.forEach(function (talk) {
-            talk.loading = false;
-        });
-        this.talks = Symposium.talks;
-    },
-    props: {
-        conferenceId: {}
-    },
-    data: {
-        talks: []
-    },
-    computed: {
-        talksAtConference: function talksAtConference() {
-            return this.talks.filter(function (talk) {
-                return talk.atThisConference;
-            });
-        },
-        talksNotAtConference: function talksNotAtConference() {
-            return this.talks.filter(function (talk) {
-                return !talk.atThisConference;
-            });
-        }
-    },
-    methods: {
-        changeSubmissionStatus: function changeSubmissionStatus(talk, submitting) {
-            talk.atThisConference = submitting;
-            talk.loading = true;
-
-            var data = {
-                'conferenceId': this.conferenceId,
-                'talkId': talk.id
-            };
-
-            var method = submitting ? 'post' : 'delete';
-
-            this.$http[method]('/submissions', data, function (data, status, request) {
-                talk.loading = false;
-            }).error(function (data, status, request) {
-                alert('Something went wrong.');
-                talk.loading = false;
-            });
-        },
-        submit: function submit(talk) {
-            this.changeSubmissionStatus(talk, true);
-        },
-        unsubmit: function unsubmit(talk) {
-            this.changeSubmissionStatus(talk, false);
-        }
-    },
-    http: {
-        root: '/'
+    components: {
+        TalksOnConferencePage: _componentsTalksOnConferencePageVue2['default']
     }
 });
 
@@ -10390,6 +10586,80 @@ $(function () {
     });
 });
 
-},{"vue":10,"vue-resource":3}]},{},[11]);
+},{"./components/TalksOnConferencePage.vue":13,"vue":11,"vue-resource":4}],13:[function(require,module,exports){
+'use strict';
 
-//# sourceMappingURL=app.js.map
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    ready: function ready() {
+        Symposium.talks.forEach(function (talk) {
+            talk.loading = false;
+        });
+        this.talks = Symposium.talks;
+    },
+    props: {
+        conferenceId: {}
+    },
+    data: function data() {
+        return {
+            talks: []
+        };
+    },
+    computed: {
+        talksAtConference: function talksAtConference() {
+            return this.talks.filter(function (talk) {
+                return talk.atThisConference;
+            });
+        },
+        talksNotAtConference: function talksNotAtConference() {
+            return this.talks.filter(function (talk) {
+                return !talk.atThisConference;
+            });
+        }
+    },
+    methods: {
+        changeSubmissionStatus: function changeSubmissionStatus(talk, submitting) {
+            talk.atThisConference = submitting;
+            talk.loading = true;
+
+            var data = {
+                'conferenceId': this.conferenceId,
+                'talkId': talk.id
+            };
+
+            var method = submitting ? 'post' : 'delete';
+
+            this.$http[method]('/submissions', data, function (data, status, request) {
+                talk.loading = false;
+            }).error(function (data, status, request) {
+                alert('Something went wrong.');
+                talk.loading = false;
+            });
+        },
+        submit: function submit(talk) {
+            this.changeSubmissionStatus(talk, true);
+        },
+        unsubmit: function unsubmit(talk) {
+            this.changeSubmissionStatus(talk, false);
+        }
+    },
+    http: {
+        root: '/'
+    }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div>\n        <h3>My Talks</h3>\n        <p><i>Note: \"Submit\" just means \"mark as submitted.\" At the moment this isn't actually sending anything to the conference organizers.</i></p>\n        <strong>Applied to speak at this conference</strong>\n        <ul class=\"conference-talk-submission-sidebar\">\n            <li v-for=\"talk in talksAtConference\" v-cloak=\"\">\n                <a class=\"btn btn-xs btn-default\" @click.prevent=\"unsubmit(talk)\">\n                    <i v-show=\"talk.loading\" class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate\"></i>\n                    Un-Submit\n                </a>\n                <a href=\"{{ talk.url }}\">{{ talk.title }}</a>\n            </li>\n            <li v-if=\"talksAtConference.length == 0\" v-cloak=\"\">\n                None\n            </li>\n        </ul>\n\n        <strong>Not applied to speak at this conference</strong>\n        <ul class=\"conference-talk-submission-sidebar\">\n            <li v-for=\"talk in talksNotAtConference\" v-cloak=\"\">\n                <a class=\"btn btn-xs btn-primary\" @click.prevent=\"submit(talk)\">\n                    <i v-show=\"talk.loading\" class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate\"></i>\n                    Submit\n                </a>\n                <a href=\"{{ talk.url }}\">{{ talk.title }}</a>\n            </li>\n            <li v-if=\"talksNotAtConference.length == 0\" v-cloak=\"\">\n                None\n            </li>\n        </ul>\n    </div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/mattstauffer/Sites/symposium/resources/assets/js/components/TalksOnConferencePage.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"vue":11,"vue-hot-reload-api":2}]},{},[12]);

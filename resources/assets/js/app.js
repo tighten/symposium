@@ -3,62 +3,13 @@ if (window.Vue === undefined) {
 }
 
 Vue.use(require('vue-resource'));
-Vue.http.options.emulateJSON = true;
+
+import TalksOnConferencePage from './components/TalksOnConferencePage.vue';
 
 new Vue({
     el: '#talks-on-conference-page',
-    ready: function () {
-        Symposium.talks.forEach(function (talk) {
-            talk.loading = false;
-        });
-        this.talks = Symposium.talks;
-    },
-    props: {
-        conferenceId: {}
-    },
-    data: {
-        talks: []
-    },
-    computed: {
-        talksAtConference: function () {
-            return this.talks.filter(function (talk) {
-                return talk.atThisConference;
-            });
-        },
-        talksNotAtConference: function () {
-            return this.talks.filter(function (talk) {
-                return ! talk.atThisConference;
-            });
-        },
-    },
-    methods: {
-        changeSubmissionStatus: function (talk, submitting) {
-            talk.atThisConference = submitting;
-            talk.loading = true;
-
-            var data = {
-                'conferenceId': this.conferenceId,
-                'talkId': talk.id
-            };
-
-            var method = submitting ? 'post' : 'delete';
-
-            this.$http[method]('/submissions', data, function (data, status, request) {
-                talk.loading = false;
-            }).error(function (data, status, request) {
-                alert('Something went wrong.');
-                talk.loading = false;
-            });
-        },
-        submit: function (talk) {
-            this.changeSubmissionStatus(talk, true);
-        },
-        unsubmit: function (talk) {
-            this.changeSubmissionStatus(talk, false);
-        },
-    },
-    http: {
-        root: '/'
+    components: {
+        TalksOnConferencePage: TalksOnConferencePage
     }
 });
 

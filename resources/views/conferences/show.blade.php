@@ -54,39 +54,8 @@
                         <p><b>Date CFP closes:</b>
                             {{ $conference->cfpEndsAtDisplay() }}</p>
                     </div>
-                    <div class="col-md-6">
-                        <div id="talks-on-conference-page" conference-id="{{ $conference->id }}">
-                            <h3>My Talks</h3>
-                            <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
-                            <strong>Applied to speak at this conference</strong>
-                            <ul class="conference-talk-submission-sidebar">
-                                <li v-for="talk in talksAtConference" v-cloak>
-                                    <a class="btn btn-xs btn-default" @click.prevent="unsubmit(talk)">
-                                        <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                                        Un-Submit
-                                    </a>
-                                    <a href="@{{ talk.url }}">@{{ talk.title }}</a>
-                                    <?php /* |  <a href="#" onclick="alert('Not programmed yet');">Change status [accepted, rejected, submitted]</a> */ ?>
-                                </li>
-                                <li v-if="talksAtConference.length == 0" v-cloak>
-                                    None
-                                </li>
-                            </ul>
-
-                            <strong>Not applied to speak at this conference</strong>
-                            <ul class="conference-talk-submission-sidebar">
-                                <li v-for="talk in talksNotAtConference" v-cloak>
-                                    <a class="btn btn-xs btn-primary" @click.prevent="submit(talk)">
-                                        <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                                        Submit
-                                    </a>
-                                    <a href="@{{ talk.url }}">@{{ talk.title }}</a>
-                                </li>
-                                <li v-if="talksNotAtConference.length == 0" v-cloak>
-                                    None
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="col-md-6" id="talks-on-conference-page">
+                        <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
                     </div>
                 </div>
             </div>
