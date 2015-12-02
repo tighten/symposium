@@ -1,153 +1,69 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-
-if (window.Vue === undefined) {
-    window.Vue = require('vue');
-}
-
-Vue.use(require('vue-resource'));
-Vue.http.options.emulateJSON = true;
-
-new Vue({
-    el: '#talks-on-conference-page',
-    ready: function ready() {
-        Symposium.talks.forEach(function (talk) {
-            talk.loading = false;
-        });
-        this.talks = Symposium.talks;
-    },
-    props: {
-        conferenceId: {}
-    },
-    data: {
-        talks: []
-    },
-    computed: {
-        talksAtConference: function talksAtConference() {
-            return this.talks.filter(function (talk) {
-                return talk.atThisConference;
-            });
-        },
-        talksNotAtConference: function talksNotAtConference() {
-            return this.talks.filter(function (talk) {
-                return !talk.atThisConference;
-            });
-        } },
-    methods: {
-        changeSubmissionStatus: function changeSubmissionStatus(talk, submitting) {
-            talk.atThisConference = submitting;
-            talk.loading = true;
-
-            var data = {
-                'conferenceId': this.conferenceId,
-                'talkId': talk.id
-            };
-
-            var method = submitting ? 'post' : 'delete';
-
-            this.$http[method]('/submissions', data, function (data, status, request) {
-                talk.loading = false;
-            }).error(function (data, status, request) {
-                alert('Something went wrong.');
-                talk.loading = false;
-            });
-        },
-        submit: function submit(talk) {
-            this.changeSubmissionStatus(talk, true);
-        },
-        unsubmit: function unsubmit(talk) {
-            this.changeSubmissionStatus(talk, false);
-        } },
-    http: {
-        root: '/'
-    }
-});
-
-// jQuery bindings
-$(function () {
-    $('[data-confirm]').on('click', function (e) {
-        if (!confirm($(this).attr('data-confirm'))) {
-            e.preventDefault();
-            e.cancelBubble = true;
-        }
-    });
-
-    $('[data-toggle=collapse]').on('click', function (e) {
-        var target = $(this).attr('data-target');
-
-        e.preventDefault();
-
-        $(target).toggle();
-    });
-
-    $('[data-dismiss=timeout]').each(function () {
-        var timeout_len = 2000,
-            $dismiss_target = $(this);
-
-        setTimeout(function () {
-            $dismiss_target.slideToggle();
-        }, timeout_len);
-    });
-
-    $('input[type=date]').pickadate({
-        format: 'yyyy-mm-dd'
-    });
-
-    $('.bio-modal').on('shown.bs.modal', function () {
-        $(this).find('textarea').focus();
-    });
-
-    $('[data-clipboard]').each(function (i, element) {
-        $(element).tooltip({
-            trigger: 'manual',
-            placement: 'bottom',
-            title: 'Copied!'
-        });
-
-        var client = new ZeroClipboard(element);
-        client.on('ready', function (readyEvent) {
-            client.on('aftercopy', function (event) {
-                $(element).tooltip('show');
-                setTimeout(function () {
-                    $(element).tooltip('hide');
-                }, 800);
-            });
-        });
-    });
-});
-
-},{"vue":11,"vue-resource":4}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
 var queue = [];
 var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
 
 function drainQueue() {
     if (draining) {
         return;
     }
+    var timeout = setTimeout(cleanUpNextTick);
     draining = true;
-    var currentQueue;
+
     var len = queue.length;
     while(len) {
         currentQueue = queue;
         queue = [];
-        var i = -1;
-        while (++i < len) {
-            currentQueue[i]();
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
         }
+        queueIndex = -1;
         len = queue.length;
     }
+    currentQueue = null;
     draining = false;
+    clearTimeout(timeout);
 }
+
 process.nextTick = function (fun) {
-    queue.push(fun);
-    if (!draining) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
         setTimeout(drainQueue, 0);
     }
 };
 
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
 process.title = 'browser';
 process.browser = true;
 process.env = {};
@@ -169,14 +85,13 @@ process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
-// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -338,7 +253,7 @@ module.exports = function (_) {
     return _.http = Http;
 };
 
-},{"./lib/jsonp":5,"./lib/promise":6,"./lib/xhr":8}],4:[function(require,module,exports){
+},{"./lib/jsonp":4,"./lib/promise":5,"./lib/xhr":7}],3:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -379,7 +294,7 @@ if (window.Vue) {
 }
 
 module.exports = install;
-},{"./http":3,"./lib/util":7,"./resource":9,"./url":10}],5:[function(require,module,exports){
+},{"./http":2,"./lib/util":6,"./resource":8,"./url":9}],4:[function(require,module,exports){
 /**
  * JSONP request.
  */
@@ -431,7 +346,7 @@ module.exports = function (_, options) {
 
 };
 
-},{"./promise":6}],6:[function(require,module,exports){
+},{"./promise":5}],5:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.0 (https://github.com/bramstein/promis)
  */
@@ -643,7 +558,7 @@ if (window.MutationObserver) {
 
 module.exports = window.Promise || Promise;
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -725,7 +640,7 @@ module.exports = function (Vue) {
     return _;
 };
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * XMLHttp request.
  */
@@ -778,7 +693,7 @@ module.exports = function (_, options) {
     return promise;
 };
 
-},{"./promise":6}],9:[function(require,module,exports){
+},{"./promise":5}],8:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -891,7 +806,7 @@ module.exports = function (_) {
     return _.resource = Resource;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -1050,7 +965,7 @@ module.exports = function (_) {
     return _.url = Url;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 (function (process){
 /*!
  * Vue.js v1.0.10
@@ -10355,4 +10270,126 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = Vue;
 }).call(this,require('_process'))
-},{"_process":2}]},{},[1]);
+},{"_process":1}],11:[function(require,module,exports){
+'use strict';
+
+if (window.Vue === undefined) {
+    window.Vue = require('vue');
+}
+
+Vue.use(require('vue-resource'));
+Vue.http.options.emulateJSON = true;
+
+new Vue({
+    el: '#talks-on-conference-page',
+    ready: function ready() {
+        Symposium.talks.forEach(function (talk) {
+            talk.loading = false;
+        });
+        this.talks = Symposium.talks;
+    },
+    props: {
+        conferenceId: {}
+    },
+    data: {
+        talks: []
+    },
+    computed: {
+        talksAtConference: function talksAtConference() {
+            return this.talks.filter(function (talk) {
+                return talk.atThisConference;
+            });
+        },
+        talksNotAtConference: function talksNotAtConference() {
+            return this.talks.filter(function (talk) {
+                return !talk.atThisConference;
+            });
+        }
+    },
+    methods: {
+        changeSubmissionStatus: function changeSubmissionStatus(talk, submitting) {
+            talk.atThisConference = submitting;
+            talk.loading = true;
+
+            var data = {
+                'conferenceId': this.conferenceId,
+                'talkId': talk.id
+            };
+
+            var method = submitting ? 'post' : 'delete';
+
+            this.$http[method]('/submissions', data, function (data, status, request) {
+                talk.loading = false;
+            }).error(function (data, status, request) {
+                alert('Something went wrong.');
+                talk.loading = false;
+            });
+        },
+        submit: function submit(talk) {
+            this.changeSubmissionStatus(talk, true);
+        },
+        unsubmit: function unsubmit(talk) {
+            this.changeSubmissionStatus(talk, false);
+        }
+    },
+    http: {
+        root: '/'
+    }
+});
+
+// jQuery bindings
+$(function () {
+    $('[data-confirm]').on('click', function (e) {
+        if (!confirm($(this).attr('data-confirm'))) {
+            e.preventDefault();
+            e.cancelBubble = true;
+        }
+    });
+
+    $('[data-toggle=collapse]').on('click', function (e) {
+        var target = $(this).attr('data-target');
+
+        e.preventDefault();
+
+        $(target).toggle();
+    });
+
+    $('[data-dismiss=timeout]').each(function () {
+        var timeout_len = 2000,
+            $dismiss_target = $(this);
+
+        setTimeout(function () {
+            $dismiss_target.slideToggle();
+        }, timeout_len);
+    });
+
+    $('input[type=date]').pickadate({
+        format: 'yyyy-mm-dd'
+    });
+
+    $('.bio-modal').on('shown.bs.modal', function () {
+        $(this).find('textarea').focus();
+    });
+
+    $('[data-clipboard]').each(function (i, element) {
+        $(element).tooltip({
+            trigger: 'manual',
+            placement: 'bottom',
+            title: 'Copied!'
+        });
+
+        var client = new ZeroClipboard(element);
+        client.on("ready", function (readyEvent) {
+            client.on("aftercopy", function (event) {
+                $(element).tooltip('show');
+                setTimeout(function () {
+                    $(element).tooltip('hide');
+                }, 800);
+            });
+        });
+    });
+});
+
+},{"vue":10,"vue-resource":3}]},{},[11]);
+
+//# sourceMappingURL=app.js.map
