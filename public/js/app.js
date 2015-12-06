@@ -10596,6 +10596,7 @@ exports.default = {
     ready: function ready() {
         Symposium.talks.forEach(function (talk) {
             talk.loading = false;
+            talk.joindin = '';
         });
         this.talks = Symposium.talks;
     },
@@ -10643,6 +10644,22 @@ exports.default = {
         },
         unsubmit: function unsubmit(talk) {
             this.changeSubmissionStatus(talk, false);
+        },
+        updateTalk: function updateTalk(talk) {
+            talk.loading = true;
+
+            var data = {
+                'conferenceId': this.conferenceId,
+                'talkId': talk.id,
+                'joindin': talk.joindin
+            };
+
+            this.$http.patch('/submissions', data, function (data, status, request) {
+                console.log('YASSS');
+            }).error(function (data, status, request) {
+                alert('Something went wrong.');
+                talk.loading = false;
+            });
         }
     },
     http: {
@@ -10650,7 +10667,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div>\n        <h3>My Talks</h3>\n        <p><i>Note: \"Submit\" just means \"mark as submitted.\" At the moment this isn't actually sending anything to the conference organizers.</i></p>\n        <strong>Applied to speak at this conference</strong>\n        <ul class=\"conference-talk-submission-sidebar\">\n            <li v-for=\"talk in talksAtConference\" v-cloak=\"\">\n                <a class=\"btn btn-xs btn-default\" @click.prevent=\"unsubmit(talk)\">\n                    <i v-show=\"talk.loading\" class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate\"></i>\n                    Un-Submit\n                </a>\n                <a href=\"{{ talk.url }}\">{{ talk.title }}</a>\n            </li>\n            <li v-if=\"talksAtConference.length == 0\" v-cloak=\"\">\n                None\n            </li>\n        </ul>\n\n        <strong>Not applied to speak at this conference</strong>\n        <ul class=\"conference-talk-submission-sidebar\">\n            <li v-for=\"talk in talksNotAtConference\" v-cloak=\"\">\n                <a class=\"btn btn-xs btn-primary\" @click.prevent=\"submit(talk)\">\n                    <i v-show=\"talk.loading\" class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate\"></i>\n                    Submit\n                </a>\n                <a href=\"{{ talk.url }}\">{{ talk.title }}</a>\n            </li>\n            <li v-if=\"talksNotAtConference.length == 0\" v-cloak=\"\">\n                None\n            </li>\n        </ul>\n    </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <h3>My Talks</h3>\n    <p><i>Note: \"Submit\" just means \"mark as submitted.\" At the moment this isn't actually sending anything to the conference organizers.</i></p>\n    <strong>Applied to speak at this conference</strong>\n    <ul class=\"conference-talk-submission-sidebar\">\n        <li v-for=\"talk in talksAtConference\" v-cloak=\"\">\n            {{ talk | json }}<br><br>\n\n            <a href=\"{{ talk.url }}\">{{ talk.title }}</a><br>\n            <input type=\"text\" placeholder=\"joindin url\" v-model=\"talk.joindin\" debounce=\"300\" @keyup=\"updateTalk(talk) | debounce 300\"><br>\n            <a class=\"btn btn-xs btn-default\" @click.prevent=\"unsubmit(talk)\">\n                <i v-show=\"talk.loading\" class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate\"></i>\n                Un-Submit\n            </a>\n        </li>\n        <li v-if=\"talksAtConference.length == 0\" v-cloak=\"\">\n            None\n        </li>\n    </ul>\n\n    <strong>Not applied to speak at this conference</strong>\n    <ul class=\"conference-talk-submission-sidebar\">\n        <li v-for=\"talk in talksNotAtConference\" v-cloak=\"\">\n            <a class=\"btn btn-xs btn-primary\" @click.prevent=\"submit(talk)\">\n                <i v-show=\"talk.loading\" class=\"glyphicon glyphicon-refresh glyphicon-refresh-animate\"></i>\n                Submit\n            </a>\n            <a href=\"{{ talk.url }}\">{{ talk.title }}</a>\n        </li>\n        <li v-if=\"talksNotAtConference.length == 0\" v-cloak=\"\">\n            None\n        </li>\n    </ul>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

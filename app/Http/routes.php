@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('account/delete', 'AccountController@destroy');
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
+    Route::patch('submissions', 'SubmissionsController@patch');
     Route::post('submissions', 'SubmissionsController@store');
     Route::delete('submissions', 'SubmissionsController@destroy');
 

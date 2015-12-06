@@ -7,13 +7,14 @@
                 'id' => $talk->id,
                 'title' => $talk->current()->title,
                 'url' => $talk->current()->getUrl(),
+                // @todo: Add joindIn Url
                 'atThisConference' => $talksAtConference->search($talk->id) !== false,
             ];
         })) }};
     </script>
     <div class="container body">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-push-1">
                 <h1>{{ $conference->title }}</h1>
 
                 @if ($conference->author_id == Auth::user()->id)

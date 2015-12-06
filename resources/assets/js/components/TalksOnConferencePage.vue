@@ -1,35 +1,36 @@
 <template>
-    <div>
-        <h3>My Talks</h3>
-        <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
-        <strong>Applied to speak at this conference</strong>
-        <ul class="conference-talk-submission-sidebar">
-            <li v-for="talk in talksAtConference" v-cloak>
-                <a class="btn btn-xs btn-default" @click.prevent="unsubmit(talk)">
-                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    Un-Submit
-                </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
-            </li>
-            <li v-if="talksAtConference.length == 0" v-cloak>
-                None
-            </li>
-        </ul>
+    <h3>My Talks</h3>
+    <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
+    <strong>Applied to speak at this conference</strong>
+    <ul class="conference-talk-submission-sidebar">
+        <li v-for="talk in talksAtConference" v-cloak>
+            {{ talk | json }}<br><br>
 
-        <strong>Not applied to speak at this conference</strong>
-        <ul class="conference-talk-submission-sidebar">
-            <li v-for="talk in talksNotAtConference" v-cloak>
-                <a class="btn btn-xs btn-primary" @click.prevent="submit(talk)">
-                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    Submit
-                </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
-            </li>
-            <li v-if="talksNotAtConference.length == 0" v-cloak>
-                None
-            </li>
-        </ul>
-    </div>
+            <a href="{{ talk.url }}">{{ talk.title }}</a><br>
+            <input type="text" placeholder="joindin url" v-model="talk.joindin" debounce="300" @keyup="updateTalk(talk) | debounce 300"><br>
+            <a class="btn btn-xs btn-default" @click.prevent="unsubmit(talk)">
+                <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+                Un-Submit
+            </a>
+        </li>
+        <li v-if="talksAtConference.length == 0" v-cloak>
+            None
+        </li>
+    </ul>
+
+    <strong>Not applied to speak at this conference</strong>
+    <ul class="conference-talk-submission-sidebar">
+        <li v-for="talk in talksNotAtConference" v-cloak>
+            <a class="btn btn-xs btn-primary" @click.prevent="submit(talk)">
+                <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+                Submit
+            </a>
+            <a href="{{ talk.url }}">{{ talk.title }}</a>
+        </li>
+        <li v-if="talksNotAtConference.length == 0" v-cloak>
+            None
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -37,6 +38,7 @@ export default {
     ready: function () {
         Symposium.talks.forEach(function (talk) {
             talk.loading = false;
+            talk.joindin = '';
         });
         this.talks = Symposium.talks;
     },
@@ -85,6 +87,22 @@ export default {
         unsubmit: function (talk) {
             this.changeSubmissionStatus(talk, false);
         },
+        updateTalk: function (talk) {
+            talk.loading = true;
+
+            var data = {
+                'conferenceId': this.conferenceId,
+                'talkId': talk.id,
+                'joindin': talk.joindin
+            };
+
+            this.$http.patch('/submissions', data, function (data, status, request) {
+                console.log('YASSS');
+            }).error(function (data, status, request) {
+                alert('Something went wrong.');
+                talk.loading = false;
+            });
+        }
     },
     http: {
         root: '/'
