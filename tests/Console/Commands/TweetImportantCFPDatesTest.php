@@ -8,7 +8,6 @@ use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDatesTest extends IntegrationTestCase
 {
-
     public function setUp()
     {
         parent::setUp();
