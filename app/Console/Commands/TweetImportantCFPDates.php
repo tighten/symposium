@@ -1,11 +1,11 @@
-<?php namespace Symposium\Console\Commands;
+<?php
+
+namespace Symposium\Console\Commands;
 
 use Conference;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDates extends Command
@@ -14,9 +14,10 @@ class TweetImportantCFPDates extends Command
 
     protected $description = 'Send out a tweet with important upcoming CFP dates.';
 
-    public function __construct(Twitter $twitter)
+    public function __construct(Twitter $twitter, $tweetWaitSeconds = 30)
     {
         $this->twitter = $twitter;
+        $this->tweetWaitSeconds = $tweetWaitSeconds;
 
         parent::__construct();
     }
@@ -31,9 +32,9 @@ class TweetImportantCFPDates extends Command
     {
         $conferences = Conference::cfpOpeningToday()->get();
 
-        $conferences->each(function($conference) {
+        $this->tweetable($conferences)->each(function ($conference) {
             $this->tweet($this->cfpOpensTodayMessage($conference));
-            sleep(30);
+            sleep($this->tweetWaitSeconds);
         });
     }
 
@@ -41,14 +42,14 @@ class TweetImportantCFPDates extends Command
     {
         $conferences = Conference::cfpClosingTomorrow()->get();
 
-        $conferences->each(function($conference) {
+        $this->tweetable($conferences)->each(function ($conference) {
             $this->tweet($this->cfpClosesTomorrowMessage($conference));
-            sleep(30);
+            sleep($this->tweetWaitSeconds);
         });
     }
 
     /**
-     * Creates the message for a tweet about a CFP that opens today
+     * Creates the message for a tweet about a CFP that opens today.
      *
      * 140 characters - 22 for the link, but bring back 4 for the two %s
      */
@@ -66,8 +67,8 @@ class TweetImportantCFPDates extends Command
         );
     }
 
-   /**
-     * Creates the message for a tweet about a CFP that closes tomorrow
+    /**
+     * Creates the message for a tweet about a CFP that closes tomorrow.
      *
      * 140 characters - 22 for the link, but bring back 4 for the two %s
      */
@@ -94,12 +95,29 @@ class TweetImportantCFPDates extends Command
     {
         try {
             $this->twitter->postTweet([
-                'status' => $message
+                'status' => $message,
             ]);
 
-            Log::info('Successfully tweeted: ' . $message);
+            Log::info('Successfully tweeted: '.$message);
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
+    }
+
+    /**
+     * Retrieve only those conferences which should be tweeted.
+     *
+     * @param \Illuminate\Database\Eloquent\Collection $conferences
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function tweetable($conferences)
+    {
+        return $conferences->reject(function ($conference) {
+            $starts = $conference->cfp_starts_at;
+            $ends = $conference->cfp_ends_at;
+
+            return $starts->isSameDay($ends);
+        });
     }
 }
