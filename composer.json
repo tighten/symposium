@@ -25,7 +25,7 @@
         "thomaswelton/laravel-gravatar": "dev-laravel5-support",
         "thujohn/twitter": "dev-master",
         "maknz/slack": "~1.5",
-		"lucadegasperi/oauth2-server-laravel": "4.0.x@dev",
+        "lucadegasperi/oauth2-server-laravel": "4.0.x@dev",
         "ext-mcrypt": "*",
         "recaptcha/php5": "^2.0"
     },
@@ -63,7 +63,8 @@
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"
-        ]
+        ],
+        "test": "phpunit"
     },
     "config": {
         "preferred-install": "dist"
