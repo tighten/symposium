@@ -94,11 +94,9 @@ class AccountController extends BaseController
 
     public function destroy()
     {
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
+        $user = Auth::user();
 
         Auth::logout();
-
         $user->delete();
 
         Session::flash('message', 'Successfully deleted account.');
