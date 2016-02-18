@@ -46,7 +46,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->dontSeeInDatabase('talks', [
             'id' => $talk->id,
-            'author_id' => $talk->author_id,
+            'author_id' => $user->id,
             'public' => $talk->public,
         ]);
 
