@@ -86,7 +86,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     // Cascade deletes
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
         static::deleting(function ($user) {

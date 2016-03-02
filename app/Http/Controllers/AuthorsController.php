@@ -28,7 +28,6 @@ class AuthorsController extends BaseController
             ->with('author', $author)
             ->with('talks', $author->talks->sortBy(function ($talk) {
                     return $talk->title;
-                })
-            );
+            }));
     }
 }

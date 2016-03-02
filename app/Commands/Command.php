@@ -1,7 +1,7 @@
 <?php namespace Symposium\Commands;
 
-abstract class Command {
+abstract class Command
+{
 
-	//
-
+    //
 }

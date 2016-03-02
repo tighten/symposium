@@ -17,4 +17,3 @@ class ValidationException extends RuntimeException
         return $this->errors;
     }
 }
-

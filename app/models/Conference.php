@@ -53,7 +53,7 @@ class Conference extends UuidBase
             ->get();
         $hasNoCfp = self::whereNull('cfp_ends_at')
             ->whereNotNull('starts_at')
-            ->orderBy('starts_at' ,'ASC')
+            ->orderBy('starts_at', 'ASC')
             ->get();
         $hasNoCfpOrConf = self::whereNull('cfp_ends_at')
             ->whereNull('starts_at')
@@ -84,7 +84,7 @@ class Conference extends UuidBase
         return $query
             ->where('cfp_ends_at', '>=', Carbon::now()->addDay()->startOfDay())
             ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
-	}
+    }
 
     public function scopeUnclosedCfp($query)
     {
@@ -167,7 +167,7 @@ class Conference extends UuidBase
     {
         $talks = Auth::user()->talks;
 
-        return $this->submissions->filter(function($talkRevision) use ($talks) {
+        return $this->submissions->filter(function ($talkRevision) use ($talks) {
             return $talks->contains($talkRevision->talk);
         });
     }

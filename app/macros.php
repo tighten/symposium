@@ -1,7 +1,7 @@
 <?php
 
-HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'is-active')
-{
+HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'is-active') {
+
     // This only works if we pass a single param.
     $key = key($parameters);
     if (Input::get($key) === $parameters[$key] ||
@@ -26,8 +26,8 @@ HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = nul
     return HTML::linkRoute($route, $title, $outputParameters, $attributes);
 });
 
-Response::macro('jsonApi', function ($value)
-{
+Response::macro('jsonApi', function ($value) {
+
     $response = Response::json($value);
     $response->headers->set('Content-Type', 'application/vnd.api+json');
     return $response;

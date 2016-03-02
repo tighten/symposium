@@ -1,7 +1,7 @@
 <?php namespace Symposium\Events;
 
-abstract class Event {
+abstract class Event
+{
 
-	//
-
+    //
 }
