@@ -29,5 +29,6 @@ class Kernel extends HttpKernel
         'auth' => 'Symposium\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest' => 'Symposium\Http\Middleware\RedirectIfAuthenticated',
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }
