@@ -25,7 +25,7 @@ $factory('TalkRevision', 'talkRevision', [
 ]);
 
 $factory('User', 'user', [
-    'email' => 'example@example.com',
+    'email' => $faker->email, 
     'password' => Hash::make('password'),
     'name' => 'Jane Doe',
 ]);
