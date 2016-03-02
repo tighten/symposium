@@ -2,11 +2,10 @@
 
 use Conference;
 use Symposium\Commands\Command;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Talk;
 use TalkRevision;
 
-class CreateSubmission extends Command implements SelfHandling
+class CreateSubmission extends Command implements
 {
     private $conferenceId;
     private $talkId;
