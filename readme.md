@@ -1,4 +1,4 @@
-## Symposium
+# Symposium
 [![Codeship Status for tightenco/symposium](https://codeship.com/projects/5dfd2740-dc61-0132-1e9f-025863fcc952/status?branch=master)](https://codeship.com/projects/79937)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/tightenco/symposium/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tightenco/symposium/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/e0d5d507-de6a-4644-bf74-e5fed3b7c228/mini.png)](https://insight.sensiolabs.com/projects/e0d5d507-de6a-4644-bf74-e5fed3b7c228)
@@ -33,6 +33,7 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     ```
 6. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
 
-	```bash
+    ```bash
     php -S localhost:8080 -t public
     ```
+7. Run tests with `composer test`.
