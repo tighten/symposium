@@ -22,6 +22,7 @@ class PublicProfileController extends Controller
     public function index()
     {
         $users = User::where('enable_profile', true)
+            ->whereNotNull('profile_slug')
             ->orderBy('name', 'asc')
             ->get();
 
