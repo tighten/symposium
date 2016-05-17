@@ -16,6 +16,7 @@
                     <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review speakers submissions, and manage the entire CFP process.</p>
                 </div>
                 <div class="col-md-4">
+                    @if (Auth::guest())
                     <div class="panel panel-default panel-on-grey">
                         <div class="panel-heading">
                           <h3 class="panel-title">Sign up</h3>
@@ -24,10 +25,13 @@
                             @include ('partials.sign-up-form')
                         </div>
                     </div>
+                    @endif
 
                     <div class="panel panel-default panel-on-grey">
                         <div class="panel-heading">
+                            @if (Auth::guest())
                             <h3 class="panel-title">Log in</h3>
+                            @endif
                         </div>
                         <div class="panel-body">
                             @if (Auth::guest())
