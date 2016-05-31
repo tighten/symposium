@@ -43,8 +43,8 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind('form', function () {
-            return new \Illuminate\Html\FormBuilder(
-                $this->app->make('Illuminate\Html\HtmlBuilder'),
+            return new \Collective\Html\FormBuilder(
+                $this->app->make('Collective\Html\HtmlBuilder'),
                 $this->app->make('Illuminate\Routing\UrlGenerator'),
                 csrf_token()
             );

@@ -117,7 +117,6 @@ return [
          * Laravel Framework Service Providers...
          */
         'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
         'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
         'Illuminate\Cookie\CookieServiceProvider',
@@ -142,13 +141,11 @@ return [
          * Application Service Providers...
          */
         'Symposium\Providers\AppServiceProvider',
-        'Symposium\Providers\BusServiceProvider',
-        'Symposium\Providers\ConfigServiceProvider',
         'Symposium\Providers\EventServiceProvider',
         'Symposium\Providers\RouteServiceProvider',
         // 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
-        'Illuminate\Html\HtmlServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
         'Maknz\Slack\SlackServiceProvider',
@@ -203,8 +200,8 @@ return [
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
         // 'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-        'Form'      => 'Illuminate\Html\FormFacade',
-        'HTML'      => 'Illuminate\Html\HtmlFacade',
+        'Form'      => 'Collective\Html\FormFacade',
+        'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
         'Slack'     => 'Maknz\Slack\Facades\Slack',
