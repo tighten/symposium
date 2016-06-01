@@ -1,8 +1,23 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use LucaDegasperi\OAuth2Server\Support\Migration;
+/*
+ * This file is part of OAuth 2.0 Laravel.
+ *
+ * (c) Luca Degasperi <packages@lucadegasperi.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+/**
+ * This is the create oauth refresh tokens table migration class.
+ *
+ * @author Luca Degasperi <packages@lucadegasperi.com>
+ */
 class CreateOauthRefreshTokensTable extends Migration
 {
     /**
@@ -12,7 +27,7 @@ class CreateOauthRefreshTokensTable extends Migration
      */
     public function up()
     {
-        $this->schema()->create('oauth_refresh_tokens', function (Blueprint $table) {
+        Schema::create('oauth_refresh_tokens', function (Blueprint $table) {
             $table->string('id', 40)->unique();
             $table->string('access_token_id', 40)->primary();
             $table->integer('expire_time');
@@ -32,9 +47,10 @@ class CreateOauthRefreshTokensTable extends Migration
      */
     public function down()
     {
-        $this->schema()->table('oauth_refresh_tokens', function (Blueprint $table) {
+        Schema::table('oauth_refresh_tokens', function (Blueprint $table) {
             $table->dropForeign('oauth_refresh_tokens_access_token_id_foreign');
         });
-        $this->schema()->drop('oauth_refresh_tokens');
+
+        Schema::drop('oauth_refresh_tokens');
     }
 }

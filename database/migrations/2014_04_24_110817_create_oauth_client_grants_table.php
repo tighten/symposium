@@ -1,8 +1,23 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use LucaDegasperi\OAuth2Server\Support\Migration;
+/*
+ * This file is part of OAuth 2.0 Laravel.
+ *
+ * (c) Luca Degasperi <packages@lucadegasperi.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+/**
+ * This is the create oauth client grants table migration class.
+ *
+ * @author Luca Degasperi <packages@lucadegasperi.com>
+ */
 class CreateOauthClientGrantsTable extends Migration
 {
     /**
@@ -12,7 +27,7 @@ class CreateOauthClientGrantsTable extends Migration
      */
     public function up()
     {
-        $this->schema()->create('oauth_client_grants', function (Blueprint $table) {
+        Schema::create('oauth_client_grants', function (Blueprint $table) {
             $table->increments('id');
             $table->string('client_id', 40);
             $table->string('grant_id', 40);
@@ -40,10 +55,10 @@ class CreateOauthClientGrantsTable extends Migration
      */
     public function down()
     {
-        $this->schema()->table('oauth_client_grants', function (Blueprint $table) {
+        Schema::table('oauth_client_grants', function (Blueprint $table) {
             $table->dropForeign('oauth_client_grants_client_id_foreign');
             $table->dropForeign('oauth_client_grants_grant_id_foreign');
         });
-        $this->schema()->drop('oauth_client_grants');
+        Schema::drop('oauth_client_grants');
     }
 }
