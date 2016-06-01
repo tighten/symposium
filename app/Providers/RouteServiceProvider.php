@@ -24,18 +24,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         parent::boot($router);
-
-        $router->filter('admin-auth', function () {
-            if (\Auth::guest()) {
-                return \Redirect::to('log-in');
-            }
-
-            // Guess we should have roles... @todo
-            if (\Auth::user()->email != getenv('admin_email')) {
-                \Log::error('Non-admin user tried to access admin-only section.');
-                return \Redirect::to('log-in');
-            }
-        });
     }
 
     /**
