@@ -1,11 +1,11 @@
 <?php
 
-namespace Symposium\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symposium\Http\Controllers\Controller;
-use Symposium\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
 
 class DashboardController extends Controller
 {

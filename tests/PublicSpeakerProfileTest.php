@@ -2,8 +2,8 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laracasts\TestDummy\Factory;
-use Symposium\Exceptions\ValidationException;
-use Symposium\Services\CreateConferenceForm;
+use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {

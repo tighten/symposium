@@ -1,10 +1,10 @@
-<?php namespace Symposium\Http\Controllers\Api;
+<?php namespace App\Http\Controllers\Api;
 
 use App;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Symposium\ApiResources\Bio;
-use Symposium\OAuthGuard\Facades\OAuthGuard;
+use App\ApiResources\Bio;
+use App\OAuthGuard\Facades\OAuthGuard;
 use User;
 
 class BiosController extends BaseController

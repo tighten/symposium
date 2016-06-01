@@ -1,8 +1,8 @@
-<?php namespace Symposium\Providers;
+<?php namespace App\Providers;
 
 use Event;
 use Illuminate\Support\ServiceProvider;
-use Symposium\Handlers\Events\SlackSubscriber;
+use App\Handlers\Events\SlackSubscriber;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
-            'Symposium\Services\Registrar'
+            'App\Services\Registrar'
         );
 
         $this->app->bind('form', function () {

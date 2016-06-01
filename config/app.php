@@ -140,9 +140,9 @@ return [
         /*
          * Application Service Providers...
          */
-        'Symposium\Providers\AppServiceProvider',
-        'Symposium\Providers\EventServiceProvider',
-        'Symposium\Providers\RouteServiceProvider',
+        'App\Providers\AppServiceProvider',
+        'App\Providers\EventServiceProvider',
+        'App\Providers\RouteServiceProvider',
         // 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
         'Collective\Html\HtmlServiceProvider',
@@ -152,8 +152,8 @@ return [
         'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
 
-        'Symposium\Providers\OAuthGuardServiceProvider',
-        Symposium\Providers\CaptchaServiceProvider::class,
+        'App\Providers\OAuthGuardServiceProvider',
+        App\Providers\CaptchaServiceProvider::class,
     ],
 
     /*

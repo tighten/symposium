@@ -1,4 +1,4 @@
-<?php namespace Symposium\JoindIn;
+<?php namespace App\JoindIn;
 
 use Carbon\Carbon;
 use Conference;

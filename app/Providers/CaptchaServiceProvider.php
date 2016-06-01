@@ -1,4 +1,4 @@
-<?php namespace Symposium\Providers;
+<?php namespace App\Providers;
 
 use Captcha\Captcha;
 use Illuminate\Support\ServiceProvider;

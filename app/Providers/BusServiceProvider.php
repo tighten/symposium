@@ -1,4 +1,4 @@
-<?php namespace Symposium\Providers;
+<?php namespace App\Providers;
 
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -18,8 +18,8 @@ class BusServiceProvider extends ServiceProvider
 
             return Dispatcher::simpleMapping(
                 $command,
-                'Symposium\Commands',
-                'Symposium\Handlers\Commands'
+                'App\Commands',
+                'App\Handlers\Commands'
             );
         });
     }

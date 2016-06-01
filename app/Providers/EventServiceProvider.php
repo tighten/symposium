@@ -1,4 +1,4 @@
-<?php namespace Symposium\Providers;
+<?php namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 

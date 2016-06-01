@@ -1,6 +1,6 @@
-<?php namespace Symposium\Http\Controllers\Auth;
+<?php namespace App\Http\Controllers\Auth;
 
-use Symposium\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

@@ -1,20 +1,14 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use User;
+use App\User;
 
 class AccountController extends BaseController
 {
-    public function __construct()
-    {
-        $this->beforeFilter('auth', ['except' => ['create', 'store']]);
-        $this->beforeFilter('csrf', ['only' => ['update']]);
-    }
-
     public function create()
     {
         return view('account.create');

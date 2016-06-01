@@ -47,7 +47,7 @@
             "app/Http/Controllers/"
         ],
         "psr-4": {
-            "Symposium\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {

@@ -1,4 +1,4 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Conference;
@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use JoindIn\Client;
-use Symposium\Exceptions\ValidationException;
-use Symposium\Services\CreateConferenceForm;
+use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
 
 class ConferencesController extends BaseController
 {

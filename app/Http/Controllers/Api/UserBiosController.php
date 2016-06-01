@@ -1,8 +1,8 @@
-<?php namespace Symposium\Http\Controllers\Api;
+<?php namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\App;
-use Symposium\ApiResources\Bio;
-use Symposium\OAuthGuard\Facades\OAuthGuard;
+use App\ApiResources\Bio;
+use App\OAuthGuard\Facades\OAuthGuard;
 use User;
 
 class UserBiosController extends BaseController

@@ -1,7 +1,7 @@
-<?php namespace Symposium\Http\Controllers\Api;
+<?php namespace App\Http\Controllers\Api;
 
-use Symposium\ApiResources\Me;
-use Symposium\OAuthGuard\Facades\OAuthGuard;
+use App\ApiResources\Me;
+use App\OAuthGuard\Facades\OAuthGuard;
 
 class MeController extends BaseController
 {

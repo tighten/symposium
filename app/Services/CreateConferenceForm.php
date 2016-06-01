@@ -1,8 +1,8 @@
-<?php namespace Symposium\Services;
+<?php namespace App\Services;
 
 use Conference;
 use Event;
-use Symposium\Exceptions\ValidationException;
+use App\Exceptions\ValidationException;
 use Validator;
 
 class CreateConferenceForm

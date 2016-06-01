@@ -1,13 +1,13 @@
 <?php
 
-namespace Symposium\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Captcha\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Symposium\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use User;
 
 class PublicProfileController extends Controller

@@ -1,4 +1,4 @@
-<?php namespace Symposium\ApiResources;
+<?php namespace App\ApiResources;
 
 use Bio as EloquentBio;
 use Illuminate\Contracts\Support\Arrayable;

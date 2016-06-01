@@ -3,8 +3,8 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Bus;
 use Laracasts\TestDummy\Factory;
-use Symposium\Commands\CreateSubmission;
-use Symposium\Commands\DestroySubmission;
+use App\Commands\CreateSubmission;
+use App\Commands\DestroySubmission;
 
 class SubmissionTest extends IntegrationTestCase
 {

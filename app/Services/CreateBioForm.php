@@ -1,7 +1,7 @@
-<?php namespace Symposium\Services;
+<?php namespace App\Services;
 
 use Bio;
-use Symposium\Exceptions\ValidationException;
+use App\Exceptions\ValidationException;
 use Validator;
 
 class CreateBioForm

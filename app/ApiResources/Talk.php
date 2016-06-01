@@ -1,4 +1,4 @@
-<?php namespace Symposium\ApiResources;
+<?php namespace App\ApiResources;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Talk as EloquentTalk;

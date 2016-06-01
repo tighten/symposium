@@ -1,4 +1,4 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Auth;
 use Input;
@@ -29,13 +29,6 @@ class TalksController extends BaseController
         'date' => '',
         'alpha' => '',
     ];
-
-    public function __construct()
-    {
-        $this->beforeFilter(
-            'auth'
-        );
-    }
 
     public function index()
     {

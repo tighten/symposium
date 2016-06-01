@@ -1,7 +1,7 @@
-<?php namespace Symposium\Commands;
+<?php namespace App\Commands;
 
 use Conference;
-use Symposium\Commands\Command;
+use App\Commands\Command;
 use Submission;
 use Talk;
 use TalkRevision;

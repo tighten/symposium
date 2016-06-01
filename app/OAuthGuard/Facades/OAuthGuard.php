@@ -1,4 +1,4 @@
-<?php namespace Symposium\OAuthGuard\Facades;
+<?php namespace App\OAuthGuard\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use LucaDegasperi\OAuth2Server\Support\Migration;
+use Illuminate\Support\Facades\Schema;
 
 class CreateOauthScopesTable extends Migration
 {
