@@ -62,7 +62,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = Factory::build('talkRevision');
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.talks.show', [$user->profile_slug]));
+        $this->get(route('speakers-public.talks.show', [$user->profile_slug, $talk->id]));
         $this->assertResponseStatus(404);
     }
 
