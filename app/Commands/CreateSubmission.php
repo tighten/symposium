@@ -5,7 +5,7 @@ use App\Commands\Command;
 use Talk;
 use TalkRevision;
 
-class CreateSubmission extends Command implements
+class CreateSubmission extends Command
 {
     private $conferenceId;
     private $talkId;
