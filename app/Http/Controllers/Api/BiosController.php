@@ -5,7 +5,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use App\ApiResources\Bio;
 use App\OAuthGuard\Facades\OAuthGuard;
-use User;
+use App\User;
 
 class BiosController extends BaseController
 {

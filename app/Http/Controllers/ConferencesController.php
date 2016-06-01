@@ -20,22 +20,6 @@ class ConferencesController extends BaseController
         'url' => 'required',
     ];
 
-    public function __construct()
-    {
-        $this->beforeFilter(
-            'auth',
-            [
-                'only' => [
-                    'create',
-                    'store',
-                    'edit',
-                    'update',
-                    'destroy'
-                ]
-            ]
-        );
-    }
-
     /**
      * Display all conferences
      *

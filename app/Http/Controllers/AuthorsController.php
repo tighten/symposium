@@ -3,7 +3,7 @@
 use Log;
 use Redirect;
 use Session;
-use User;
+use App\User;
 use View;
 
 class AuthorsController extends BaseController

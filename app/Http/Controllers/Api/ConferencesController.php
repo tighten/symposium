@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\ApiResources\Conference;
-use User;
+use App\User;
 
 class ConferencesController extends BaseController
 {

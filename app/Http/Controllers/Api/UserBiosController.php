@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\App;
 use App\ApiResources\Bio;
 use App\OAuthGuard\Facades\OAuthGuard;
-use User;
+use App\User;
 
 class UserBiosController extends BaseController
 {

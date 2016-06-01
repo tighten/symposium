@@ -7,7 +7,7 @@ use Redirect;
 use Session;
 use Talk;
 use TalkRevision;
-use User;
+use App\User;
 use Validator;
 use View;
 
