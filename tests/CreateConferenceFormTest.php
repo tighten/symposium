@@ -89,6 +89,24 @@ class CreateConferenceFormTest extends IntegrationTestCase
      * @test
      * @expectedException Symposium\Exceptions\ValidationException
      */
+    public function conference_end_date_must_not_be_before_start_date()
+    {
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-01',
+        ];
+
+        $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
+        $form->complete();
+    }
+
+    /**
+     * @test
+     * @expectedException Symposium\Exceptions\ValidationException
+     */
     public function conference_cfp_start_date_must_be_a_valid_date()
     {
         $input = [
@@ -113,6 +131,24 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'cfp_ends_at' => 'potato',
+        ];
+
+        $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
+        $form->complete();
+    }
+
+    /**
+     * @test
+     * @expectedException Symposium\Exceptions\ValidationException
+     */
+    public function conference_cfp_end_date_must_not_be_before_cfp_start_date()
+    {
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'cfp_starts_at' => '2015-01-18',
+            'cfp_ends_at' => '2015-01-15',
         ];
 
         $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
