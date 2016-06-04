@@ -20,7 +20,9 @@ class UserTalksController extends BaseController
 
         $return = OAuthGuard::user()->talks->map(function ($talk) {
             return new Talk($talk);
-        });
+        })->sortBy(function ($talk) {
+            return $talk->attributes()['title']; 
+        })->values();
 
         return response()->jsonApi([
             'data' => $return

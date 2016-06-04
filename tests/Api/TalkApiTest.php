@@ -15,6 +15,17 @@ class TalkApiTest extends ApiTestCase
         $this->assertInternalType('array', $data->data);
     }
 
+    public function testAllTalksReturnAlphaSorted()
+    {
+        $response = $this->call('GET', 'api/user/1/talks');
+        $data = collect($this->parseJson($response)->data);
+
+        $titles = $data->pluck('attributes.title');
+
+        $this->assertEquals('My awesome talk', $titles->first());
+        $this->assertEquals('My great talk', $titles->last());
+    }
+
     public function testFetchesOneTalk()
     {
         $talkId = Talk::first()->id;
