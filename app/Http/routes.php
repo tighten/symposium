@@ -114,7 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     Route::post('oauth/authorize', [
-        'middleware' => ['csrf', 'check-authorization-params', 'auth'],
+        'middleware' => ['check-authorization-params', 'auth'],
         'as' => 'post-oauth-authorize',
         'uses' => 'OAuthController@postAuthorize'
     ]);
