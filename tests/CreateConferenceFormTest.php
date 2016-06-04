@@ -87,7 +87,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_end_date_must_not_be_before_start_date()
     {
@@ -139,7 +139,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
@@ -157,7 +157,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
@@ -176,7 +176,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {
