@@ -108,13 +108,13 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'oauth'],
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('oauth/authorize', [
-        'middleware' => 'check-authorization-params|auth',
+        'middleware' => ['check-authorization-params', 'auth'],
         'as' => 'get-oauth-authorize',
         'uses' => 'OAuthController@getAuthorize'
     ]);
 
     Route::post('oauth/authorize', [
-        'middleware' => 'csrf|check-authorization-params|auth',
+        'middleware' => ['csrf', 'check-authorization-params', 'auth'],
         'as' => 'post-oauth-authorize',
         'uses' => 'OAuthController@postAuthorize'
     ]);
