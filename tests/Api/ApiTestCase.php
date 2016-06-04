@@ -1,7 +1,6 @@
 <?php
 
 use LucaDegasperi\OAuth2Server\Authorizer;
-use LucaDegasperi\OAuth2Server\Filters\OAuthFilter;
 
 class ApiTestCase extends TestCase
 {
@@ -34,10 +33,6 @@ class ApiTestCase extends TestCase
             $authorizer->userId = $userId;
             return $authorizer;
         });
-
-        $this->app->singleton(OAuthFilter::class, function () use ($userId) {
-            return new DummyOAuthFilter;
-        });
     }
 }
 
@@ -60,17 +55,6 @@ class DummyAuthorizer extends Authorizer
     }
 
     public function getSession()
-    {
-    }
-}
-
-class DummyOAuthFilter extends OAuthFilter
-{
-    public function __construct()
-    {
-    }
-
-    public function filter()
     {
     }
 }

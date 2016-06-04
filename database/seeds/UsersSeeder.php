@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Laracasts\TestDummy\Factory;

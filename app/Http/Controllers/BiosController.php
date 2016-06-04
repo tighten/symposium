@@ -1,4 +1,4 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Auth;
 use Bio;
@@ -9,8 +9,8 @@ use Input;
 use Log;
 use Redirect;
 use Session;
-use Symposium\Exceptions\ValidationException;
-use Symposium\Services\CreateBioForm;
+use App\Exceptions\ValidationException;
+use App\Services\CreateBioForm;
 use Validator;
 use View;
 

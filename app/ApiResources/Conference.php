@@ -1,4 +1,4 @@
-<?php namespace Symposium\ApiResources;
+<?php namespace App\ApiResources;
 
 use Conference as EloquentConference;
 use Illuminate\Contracts\Support\Arrayable;

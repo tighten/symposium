@@ -1,11 +1,12 @@
-<?php namespace Symposium\Http\Controllers\Auth;
+<?php namespace App\Http\Controllers\Auth;
 
-use Symposium\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Registration & Login Controller
 	|--------------------------------------------------------------------------
@@ -16,6 +17,5 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers;
-
+    use AuthenticatesAndRegistersUsers;
 }

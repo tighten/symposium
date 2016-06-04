@@ -1,14 +1,14 @@
 <?php
 
 use Laracasts\TestDummy\Factory;
-use Symposium\Exceptions\ValidationException;
-use Symposium\Services\CreateConferenceForm;
+use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
 
 class CreateConferenceFormTest extends IntegrationTestCase
 {
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_title_is_required()
     {
@@ -23,7 +23,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_description_is_required()
     {
@@ -38,7 +38,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_url_is_required()
     {
@@ -53,7 +53,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_start_date_must_be_a_valid_date()
     {
@@ -70,7 +70,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_end_date_must_be_a_valid_date()
     {
@@ -87,7 +87,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_end_date_must_not_be_before_start_date()
     {
@@ -105,7 +105,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_start_date_must_be_a_valid_date()
     {
@@ -122,7 +122,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_end_date_must_be_a_valid_date()
     {
@@ -139,7 +139,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
@@ -157,7 +157,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
@@ -176,7 +176,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
-     * @expectedException Symposium\Exceptions\ValidationException
+     * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {

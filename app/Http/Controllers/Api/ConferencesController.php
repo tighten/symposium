@@ -1,12 +1,12 @@
-<?php namespace Symposium\Http\Controllers\Api;
+<?php namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
 use Conference as EloquentConference;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Symposium\ApiResources\Conference;
-use User;
+use App\ApiResources\Conference;
+use App\User;
 
 class ConferencesController extends BaseController
 {

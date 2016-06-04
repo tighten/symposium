@@ -2,8 +2,8 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laracasts\TestDummy\Factory;
-use Symposium\Exceptions\ValidationException;
-use Symposium\Services\CreateConferenceForm;
+use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {
@@ -62,7 +62,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = Factory::build('talkRevision');
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.talks.show', [$user->profile_slug]));
+        $this->get(route('speakers-public.talks.show', [$user->profile_slug, $talk->id]));
         $this->assertResponseStatus(404);
     }
 

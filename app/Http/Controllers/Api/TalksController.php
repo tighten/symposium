@@ -1,9 +1,9 @@
-<?php namespace Symposium\Http\Controllers\Api;
+<?php namespace App\Http\Controllers\Api;
 
 use App;
 use Exception;
-use Symposium\ApiResources\Talk;
-use Symposium\OAuthGuard\Facades\OAuthGuard;
+use App\ApiResources\Talk;
+use App\OAuthGuard\Facades\OAuthGuard;
 
 class TalksController extends BaseController
 {

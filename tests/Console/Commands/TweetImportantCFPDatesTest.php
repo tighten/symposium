@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Laracasts\TestDummy\Factory;
 use Mockery as m;
-use Symposium\Console\Commands\TweetImportantCFPDates;
+use App\Console\Commands\TweetImportantCFPDates;
 use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDatesTest extends IntegrationTestCase

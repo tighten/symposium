@@ -1,4 +1,4 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;

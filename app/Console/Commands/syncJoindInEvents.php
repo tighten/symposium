@@ -1,9 +1,9 @@
-<?php namespace Symposium\Console\Commands;
+<?php namespace App\Console\Commands;
 
 use Conference;
 use Illuminate\Console\Command;
 use JoindIn\Client;
-use Symposium\JoindIn\ConferenceImporter;
+use App\JoindIn\ConferenceImporter;
 
 class syncJoindInEvents extends Command
 {

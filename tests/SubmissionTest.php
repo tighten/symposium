@@ -1,10 +1,9 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Bus;
 use Laracasts\TestDummy\Factory;
-use Symposium\Commands\CreateSubmission;
-use Symposium\Commands\DestroySubmission;
+use App\Commands\CreateSubmission;
+use App\Commands\DestroySubmission;
 
 class SubmissionTest extends IntegrationTestCase
 {
@@ -19,7 +18,7 @@ class SubmissionTest extends IntegrationTestCase
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
 
-        Bus::dispatch(new CreateSubmission($conference->id, $talk->id));
+        dispatch(new CreateSubmission($conference->id, $talk->id));
 
         $this->assertTrue($conference->submissions->contains($revision));
     }
@@ -35,9 +34,9 @@ class SubmissionTest extends IntegrationTestCase
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
 
-        Bus::dispatch(new CreateSubmission($conference->id, $talk->id));
+        dispatch(new CreateSubmission($conference->id, $talk->id));
 
-        Bus::dispatch(new DestroySubmission($conference->id, $talk->id));
+        dispatch(new DestroySubmission($conference->id, $talk->id));
 
         $this->assertFalse($conference->submissions->contains($revision));
     }
@@ -62,14 +61,14 @@ class SubmissionTest extends IntegrationTestCase
         $talk2revision = Factory::create('talkRevision');
         $talk2->revisions()->save($talk2revision);
 
-        Bus::dispatch(new CreateSubmission($conference1->id, $talk1->id));
-        Bus::dispatch(new CreateSubmission($conference1->id, $talk2->id));
-        Bus::dispatch(new DestroySubmission($conference1->id, $talk1->id));
+        dispatch(new CreateSubmission($conference1->id, $talk1->id));
+        dispatch(new CreateSubmission($conference1->id, $talk2->id));
+        dispatch(new DestroySubmission($conference1->id, $talk1->id));
         $this->assertTrue($conference1->submissions->contains($talk2revision));
 
-        Bus::dispatch(new CreateSubmission($conference2->id, $talk2->id));
-        Bus::dispatch(new CreateSubmission($conference2->id, $talk1->id));
-        Bus::dispatch(new DestroySubmission($conference2->id, $talk1->id));
+        dispatch(new CreateSubmission($conference2->id, $talk2->id));
+        dispatch(new CreateSubmission($conference2->id, $talk1->id));
+        dispatch(new DestroySubmission($conference2->id, $talk1->id));
         $this->assertTrue($conference2->submissions->contains($talk2revision));
     }
 
@@ -90,7 +89,7 @@ class SubmissionTest extends IntegrationTestCase
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
 
-        Bus::dispatch(new CreateSubmission($conference->id, $talk->id));
+        dispatch(new CreateSubmission($conference->id, $talk->id));
         $conference->load('submissions');
 
         $this->assertTrue($conference->submissions->contains($revision));
@@ -118,14 +117,14 @@ class SubmissionTest extends IntegrationTestCase
         ]);
         $talk->revisions()->save($revision);
 
-        Bus::dispatch(new CreateSubmission($conference->id, $talk->id));
+        dispatch(new CreateSubmission($conference->id, $talk->id));
 
         $revision2 = Factory::create('talkRevision');
         $talk->revisions()->save($revision2);
 
         $this->assertTrue($conference->submissions->contains($revision));
 
-        Bus::dispatch(new DestroySubmission($conference->id, $talk->id));
+        dispatch(new DestroySubmission($conference->id, $talk->id));
         $conference->load('submissions'); // reload
 
         $this->assertFalse($conference->submissions->contains($revision));
@@ -142,9 +141,9 @@ class SubmissionTest extends IntegrationTestCase
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
 
-        Bus::dispatch(new CreateSubmission($conference->id, $talk->id));
+        dispatch(new CreateSubmission($conference->id, $talk->id));
 
-        Bus::dispatch(new DestroySubmission($conference->id, $talk->id));
+        dispatch(new DestroySubmission($conference->id, $talk->id));
 
         $this->assertEquals(1, Conference::find($conference->id)->count());
     }

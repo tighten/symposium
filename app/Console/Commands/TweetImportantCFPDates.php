@@ -1,6 +1,6 @@
 <?php
 
-namespace Symposium\Console\Commands;
+namespace App\Console\Commands;
 
 use Conference;
 use Exception;

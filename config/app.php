@@ -2,6 +2,9 @@
 
 return [
 
+    'env' => env('APP_ENV', 'production'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -113,12 +116,9 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
         'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-        'Illuminate\Routing\ControllerServiceProvider',
         'Illuminate\Cookie\CookieServiceProvider',
         'Illuminate\Database\DatabaseServiceProvider',
         'Illuminate\Encryption\EncryptionServiceProvider',
@@ -136,26 +136,25 @@ return [
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Broadcasting\BroadcastServiceProvider',
+        'Illuminate\Bus\BusServiceProvider',
 
         /*
          * Application Service Providers...
          */
-        'Symposium\Providers\AppServiceProvider',
-        'Symposium\Providers\BusServiceProvider',
-        'Symposium\Providers\ConfigServiceProvider',
-        'Symposium\Providers\EventServiceProvider',
-        'Symposium\Providers\RouteServiceProvider',
+        'App\Providers\AppServiceProvider',
+        'App\Providers\EventServiceProvider',
+        'App\Providers\RouteServiceProvider',
         // 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
-        'Illuminate\Html\HtmlServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
         'Maknz\Slack\SlackServiceProvider',
         'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
 
-        'Symposium\Providers\OAuthGuardServiceProvider',
-        Symposium\Providers\CaptchaServiceProvider::class,
+        'App\Providers\OAuthGuardServiceProvider',
+        App\Providers\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -202,8 +201,8 @@ return [
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
         // 'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-        'Form'      => 'Illuminate\Html\FormFacade',
-        'HTML'      => 'Illuminate\Html\HtmlFacade',
+        'Form'      => 'Collective\Html\FormFacade',
+        'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
         'Slack'     => 'Maknz\Slack\Facades\Slack',

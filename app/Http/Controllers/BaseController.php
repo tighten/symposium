@@ -1,6 +1,6 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-use Symposium\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use View;
 
 class BaseController extends Controller

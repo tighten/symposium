@@ -1,13 +1,12 @@
-<?php namespace Symposium\Commands;
+<?php namespace App\Commands;
 
 use Conference;
-use Illuminate\Contracts\Bus\SelfHandling;
-use Symposium\Commands\Command;
+use App\Commands\Command;
 use Submission;
 use Talk;
 use TalkRevision;
 
-class DestroySubmission extends Command implements SelfHandling
+class DestroySubmission extends Command
 {
     private $conferenceId;
     private $talkId;

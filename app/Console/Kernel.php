@@ -1,4 +1,4 @@
-<?php namespace Symposium\Console;
+<?php namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -11,9 +11,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'Symposium\Console\Commands\syncJoindInEvents',
-        'Symposium\Console\Commands\TweetImportantCFPDates',
-        'Symposium\Console\Commands\GenerateOAuthClient',
+        'App\Console\Commands\syncJoindInEvents',
+        'App\Console\Commands\TweetImportantCFPDates',
+        'App\Console\Commands\GenerateOAuthClient',
     ];
 
     /**

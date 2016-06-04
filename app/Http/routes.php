@@ -93,7 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
 /**
  * API
  */
-Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], function () {
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'oauth'], function () {
     Route::get('me', 'MeController@index');
     Route::get('bios/{bioId}', 'BiosController@show');
     Route::get('user/{userId}/bios', 'UserBiosController@index');
@@ -108,13 +108,13 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api', 'before' => 'oauth'], fun
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('oauth/authorize', [
-        'before' => 'check-authorization-params|auth',
+        'middleware' => ['check-authorization-params', 'auth'],
         'as' => 'get-oauth-authorize',
         'uses' => 'OAuthController@getAuthorize'
     ]);
 
     Route::post('oauth/authorize', [
-        'before' => 'csrf|check-authorization-params|auth',
+        'middleware' => ['check-authorization-params', 'auth'],
         'as' => 'post-oauth-authorize',
         'uses' => 'OAuthController@postAuthorize'
     ]);

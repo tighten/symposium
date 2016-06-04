@@ -1,10 +1,10 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
-use Symposium\Commands\CreateSubmission;
-use Symposium\Commands\DestroySubmission;
+use App\Commands\CreateSubmission;
+use App\Commands\DestroySubmission;
 
 class SubmissionsController extends Controller
 {

@@ -1,9 +1,9 @@
-<?php namespace Symposium\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Log;
 use Redirect;
 use Session;
-use User;
+use App\User;
 use View;
 
 class AuthorsController extends BaseController
@@ -28,7 +28,6 @@ class AuthorsController extends BaseController
             ->with('author', $author)
             ->with('talks', $author->talks->sortBy(function ($talk) {
                     return $talk->title;
-                })
-            );
+            }));
     }
 }

@@ -1,9 +1,9 @@
-<?php namespace Symposium\Providers;
+<?php namespace App\Providers;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use LucaDegasperi\OAuth2Server\Authorizer;
-use Symposium\OAuthGuard\OAuthGuard;
+use App\OAuthGuard\OAuthGuard;
 
 class OAuthGuardServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,7 @@ class OAuthGuardServiceProvider extends ServiceProvider
 
         $this->app->booting(function () {
             $loader = AliasLoader::getInstance();
-            $loader->alias('OAuthGuard', 'Symposium\OAuthGuard\Facades\OAuthGuard');
+            $loader->alias('OAuthGuard', 'App\OAuthGuard\Facades\OAuthGuard');
         });
     }
 }

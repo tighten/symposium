@@ -1,4 +1,4 @@
-<?php namespace Symposium\Handlers\Events;
+<?php namespace App\Handlers\Events;
 
 use Illuminate\Support\Facades\App;
 use Maknz\Slack\Facades\Slack;

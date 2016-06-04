@@ -1,7 +1,10 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "repositories": [
         {
@@ -15,17 +18,17 @@
     ],
     "type": "project",
     "require": {
-        "laravel/framework": "~5.1.21",
+        "laravel/framework": "5.2.*",
         "bugsnag/bugsnag-laravel": "1.*",
         "ramsey/uuid": "~2.8",
         "rexxars/joindin-client": "dev-master",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "illuminate/html": "~5.0",
+        "laravelcollective/html": "5.2.4",
         "doctrine/dbal": "~2.5",
         "thomaswelton/laravel-gravatar": "dev-laravel5-support",
         "thujohn/twitter": "dev-master",
         "maknz/slack": "~1.5",
-        "lucadegasperi/oauth2-server-laravel": "4.0.x@dev",
+        "lucadegasperi/oauth2-server-laravel": "5.1.4",
         "ext-mcrypt": "*",
         "recaptcha/php5": "^2.0"
     },
@@ -33,7 +36,9 @@
         "phpunit/phpunit": "~4.4.0",
         "phpspec/phpspec": "~2.1",
         "laracasts/testdummy": "~2.3",
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "symfony/dom-crawler": "~3.0",
+        "symfony/css-selector": "~3.0"
     },
     "autoload": {
         "classmap": [
@@ -42,7 +47,7 @@
             "app/Http/Controllers/"
         ],
         "psr-4": {
-            "Symposium\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
