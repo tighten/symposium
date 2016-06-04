@@ -13,8 +13,8 @@ class CreateConferenceForm
         'url' => ['required'],
         'starts_at' => ['date'],
         'ends_at' => ['date', 'after:starts_at'],
-        'cfp_starts_at' => ['date'],
-        'cfp_ends_at' => ['date', 'after:cfp_starts_at'],
+        'cfp_starts_at' => ['date', 'before:starts_at'],
+        'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
     ];
 
     private $input;

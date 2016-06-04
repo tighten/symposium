@@ -157,6 +157,44 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
+     * @expectedException Symposium\Exceptions\ValidationException
+     */
+    public function conference_cfp_start_date_must_be_before_the_conference_start_date()
+    {
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-05',
+            'cfp_starts_at' => '2015-02-06',
+        ];
+
+        $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
+        $form->complete();
+    }
+
+    /**
+     * @test
+     * @expectedException Symposium\Exceptions\ValidationException
+     */
+    public function conference_cfp_end_date_must_be_before_the_conference_start_date()
+    {
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-05',
+            'cfp_ends_at' => '2015-02-06',
+        ];
+
+        $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
+        $form->complete();
+    }
+
+    /**
+     * @test
      */
     public function it_creates_a_conference_with_the_minimum_required_input()
     {
