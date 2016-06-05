@@ -20,4 +20,30 @@ class TalkTest extends IntegrationTestCase
              ->visit('talks/' . $talk->id)
              ->see($revision->title);
     }
+
+    /** @test */
+    public function talks_are_sorted_alphabetically()
+    {
+        $user = Factory::create('user');
+        $talk1 = Factory::create('talk', [
+            'author_id' => $user->id
+        ]);
+        $revision1 = Factory::create('talkRevision', [
+            'title' => 'zyxwv'
+        ]);
+        $talk1->revisions()->save($revision1);
+
+        $talk2 = Factory::create('talk', [
+            'author_id' => $user->id
+        ]);
+        $revision2 = Factory::create('talkRevision', [
+            'title' => 'abcde'
+        ]);
+        $talk2->revisions()->save($revision2);
+
+        $talks = $user->talks;
+
+        $this->assertEquals('abcde', $talks->first()->current()->title);
+        $this->assertEquals('zyxwv', $talks->last()->current()->title);
+    }
 }

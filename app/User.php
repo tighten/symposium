@@ -20,11 +20,13 @@ class User extends Authenticatable
     public function talks()
     {
         return $this->hasMany('Talk', 'author_id');
-        /* @todo can we do this somehow?
-            ->orderBy(function ($talk) {
-                return strtolower($talk->current()->title);
-            });
-        */
+    }
+
+    public function getTalksAttribute()
+    {
+        return $this->talks()->get()->sortBy(function ($talk) {
+            return strtolower($talk->current()->title);
+        });
     }
 
     public function bios()
