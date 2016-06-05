@@ -5803,6 +5803,9 @@ legend {
   .conference-talk-submission-sidebar .btn, .conference-talk-submission-sidebar .create-button {
     width: 7em; }
 
+.notice {
+  cursor: pointer; }
+
 .pronto-promo {
   font-size: .9em; }
   .pronto-promo img {
