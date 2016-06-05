@@ -2525,7 +2525,7 @@ select[multiple].input-lg,
   text-align: center;
   vertical-align: middle;
   -ms-touch-action: manipulation;
-      touch-action: manipulation;
+  touch-action: manipulation;
   cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
@@ -4672,13 +4672,11 @@ button.close {
   outline: 0; }
   .modal.fade .modal-dialog {
     -webkit-transform: translate(0, -25%);
-    -ms-transform: translate(0, -25%);
     transform: translate(0, -25%);
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out; }
   .modal.in .modal-dialog {
     -webkit-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
     transform: translate(0, 0); }
 
 .modal-open .modal {
@@ -4998,20 +4996,20 @@ button.close {
         transition: -webkit-transform .6s ease-in-out;
         transition: transform .6s ease-in-out;
         -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
+        backface-visibility: hidden;
         -webkit-perspective: 1000;
-                perspective: 1000; }
+        perspective: 1000; }
         .carousel-inner > .item.next, .carousel-inner > .item.active.right {
           -webkit-transform: translate3d(100%, 0, 0);
-                  transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
           left: 0; }
         .carousel-inner > .item.prev, .carousel-inner > .item.active.left {
           -webkit-transform: translate3d(-100%, 0, 0);
-                  transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
           left: 0; }
         .carousel-inner > .item.next.left, .carousel-inner > .item.prev.right, .carousel-inner > .item.active {
           -webkit-transform: translate3d(0, 0, 0);
-                  transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
           left: 0; } }
   .carousel-inner > .active,
   .carousel-inner > .next,
@@ -5805,27 +5803,36 @@ legend {
   .conference-talk-submission-sidebar .btn, .conference-talk-submission-sidebar .create-button {
     width: 7em; }
 
+.pronto-promo {
+  font-size: .9em; }
+  .pronto-promo img {
+    border: 0;
+    float: right;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    width: 30%; }
+
 [v-cloak] {
   display: none; }
 
 .glyphicon-refresh-animate {
   -webkit-animation: spin 1s infinite linear;
-          animation: spin 1s infinite linear; }
+  animation: spin 1s infinite linear; }
 
 @-webkit-keyframes spin {
   from {
     -webkit-transform: scale(1) rotate(0deg);
-            transform: scale(1) rotate(0deg); }
+    transform: scale(1) rotate(0deg); }
   to {
     -webkit-transform: scale(1) rotate(360deg);
-            transform: scale(1) rotate(360deg); } }
+    transform: scale(1) rotate(360deg); } }
 
 @keyframes spin {
   from {
     -webkit-transform: scale(1) rotate(0deg);
-            transform: scale(1) rotate(0deg); }
+    transform: scale(1) rotate(0deg); }
   to {
     -webkit-transform: scale(1) rotate(360deg);
-            transform: scale(1) rotate(360deg); } }
+    transform: scale(1) rotate(360deg); } }
 
 /*# sourceMappingURL=app.css.map */

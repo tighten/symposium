@@ -385,6 +385,18 @@ legend {
     }
 }
 
+.pronto-promo {
+    font-size: .9em;
+
+    img {
+        border: 0;
+        float: right;
+        margin-bottom: 1em;
+        margin-left: 1em;
+        width: 30%;
+    }
+}
+
 [v-cloak] {
     display: none;
 }

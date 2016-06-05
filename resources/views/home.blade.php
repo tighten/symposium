@@ -17,27 +17,36 @@
                 </div>
                 <div class="col-md-4">
                     @if (Auth::guest())
-                    <div class="panel panel-default panel-on-grey">
-                        <div class="panel-heading">
-                          <h3 class="panel-title">Sign up</h3>
+                        <div class="panel panel-default panel-on-grey">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">Sign up</h3>
+                            </div>
+                            <div class="panel-body">
+                                @include ('partials.sign-up-form')
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            @include ('partials.sign-up-form')
-                        </div>
-                    </div>
                     @endif
 
                     <div class="panel panel-default panel-on-grey">
                         <div class="panel-heading">
                             @if (Auth::guest())
-                            <h3 class="panel-title">Log in</h3>
+                                <h3 class="panel-title">Log in</h3>
                             @endif
                         </div>
                         <div class="panel-body">
                             @if (Auth::guest())
-                            @include ('partials.log-in-form')
+                                @include ('partials.log-in-form')
                             @else
-                            <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
+                                <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
+                                
+                                <hr>
+
+                                <div class="pronto-promo">
+                                    <a href="http://rdohms.github.io/pronto/">
+                                        <img src="/img/pronto-logo.png">
+                                    </a>
+                                    <p>Did you know you can use <a href="http://rdohms.github.io/pronto/">Pronto!</a> to easily submit your Symposium talks to conference web sites?</p>
+                                </div>
                             @endif
                         </div>
                     </div>
