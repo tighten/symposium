@@ -44,4 +44,18 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->assertFalse($conference->isCurrentlyAcceptingProposals());
     }
+
+    /** @test */
+    public function non_owners_can_view_conference()
+    {
+        $user = Factory::create('user');        
+
+        $otherUser = Factory::create('user');        
+        $conference = Factory::build('conference');
+        $otherUser->conferences()->save($conference);
+
+        $this->actingAs($user)
+             ->visit('conferences/' . $conference->id)
+             ->see($conference->title);
+    }
 }

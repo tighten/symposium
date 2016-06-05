@@ -124,7 +124,7 @@ class ConferencesController extends BaseController
         }
 
         try {
-            $conference = Auth::user()->conferences()->findOrFail($id);
+            $conference = Conference::findOrFail($id);
         } catch (Exception $e) {
             return redirect('/');
         }
