@@ -13,7 +13,7 @@
 
                 <h3>Talks</h3>
                 <p>Track all of your talks, each with one or more versions (e.g. "Professional" vs. "Amateur" for audience, or maybe "Lightning" vs. "Keynote" for length), and each version with a full revision history.</p>
-                <p>Look at which version of each talk you submitted to each conference, and haow many times each talk has been accepted and rejected.</p>
+                <p>Look at which version of each talk you submitted to each conference, and how many times each talk has been accepted and rejected.</p>
 
                 <h3>Bios</h3>
                 <p>Store and version multiple biographies for sending in with your talk submissions.</p>
