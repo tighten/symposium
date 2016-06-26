@@ -53,12 +53,12 @@ class ConferenceImporter
         $conference->description = trim($event['description']);
         $conference->joindin_id = $event['id'];
         $conference->url = trim($event['website_uri']);
+        $conference->cfp_url = $event['cfp_url'];
         $conference->starts_at = $this->carbonFromIso($event['start_date']);
         $conference->ends_at = $this->carbonFromIso($event['end_date']);
         $conference->cfp_starts_at = $this->carbonFromIso($event['cfp_start_date']);
         $conference->cfp_ends_at = $this->carbonFromIso($event['cfp_end_date']);
         $conference->author_id = $this->authorId;
-        // $conference->cfp_url = $event['cfp_url'];
     }
 
     private function carbonFromIso($dateFromApi)
