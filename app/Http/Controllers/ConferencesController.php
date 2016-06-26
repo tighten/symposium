@@ -180,6 +180,7 @@ class ConferencesController extends BaseController
         $conference->title = Input::get('title');
         $conference->description = Input::get('description');
         $conference->url = Input::get('url');
+        $conference->cfp_url = Input::get('cfp_url');
         $conference->starts_at = $nullableDates['starts_at'];
         $conference->ends_at= $nullableDates['ends_at'];
         $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];

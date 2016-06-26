@@ -14,6 +14,11 @@
 </div>
 
 <div class="form-group">
+    {{ Form::label('cfp_url', 'URL to CFP page', ['class' => 'control-label']) }}
+    {{ Form::text('cfp_url', $conference->cfp_url, ['class' => 'form-control']) }}
+</div>
+
+<div class="form-group">
     {{ Form::label('starts_at', 'Conference Start Date', ['class' => 'control-label']) }}
     {{ Form::input('date', 'starts_at', $conference->startsAtSet() ? $conference->starts_at->format('Y-m-d') : '', ['class' => 'form-control']) }}
 </div>

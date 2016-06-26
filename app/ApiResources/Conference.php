@@ -28,6 +28,7 @@ class Conference implements Arrayable
             'title' => $this->conference->title,
             'description' => $this->conference->description,
             'url' => $this->conference->url,
+            'cfp_url' => $this->conference->cfp_url,
             'starts_at' => (string)$this->conference->starts_at,
             'ends_at' => (string)$this->conference->ends_at,
             'cfp_starts_at' => (string)$this->conference->cfp_starts_at,

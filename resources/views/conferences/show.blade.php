@@ -29,6 +29,11 @@
                 <p><b>URL:</b>
                     <a href="{{ $conference->url }}">{{ $conference->url }}</a></p>
 
+                @if ($conference->cfp_url)
+                    <p><b>URL for CFP page:</b>
+                        <a href="{{ $conference->cfp_url }}">{{ $conference->cfp_url }}</a></p>
+                @endif
+
                 <p><b>Description:</b><br>
                     <!-- TODO: Figure out how we will be handling HTML/etc. -->
                     {{ str_replace("\n", "<br>", $conference->description) }}</p>
