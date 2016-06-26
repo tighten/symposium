@@ -241,6 +241,25 @@ class CreateConferenceFormTest extends IntegrationTestCase
     /**
      * @test
      */
+    public function conference_cfp_url_is_saved_if_provided()
+    {
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'cfp_url' => 'http://example.com/cfp',
+        ];
+
+        $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
+        $form->complete();
+
+        $conference = Conference::first();
+        $this->assertEquals('http://example.com/cfp', $conference->cfp_url);
+    }
+
+    /**
+     * @test
+     */
     public function empty_dates_are_treated_as_null()
     {
         $input = [

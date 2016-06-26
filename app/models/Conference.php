@@ -16,6 +16,7 @@ class Conference extends UuidBase
         'title',
         'description',
         'url',
+        'cfp_url',
         'starts_at',
         'ends_at',
         'cfp_starts_at',
