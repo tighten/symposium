@@ -1,23 +1,19 @@
 <?php
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Talk extends UuidBase
 {
-    use SoftDeletes;
 
     protected $table = 'talks';
 
-    protected $dates = [
-      'delted_at'
-    ];
 
     protected $guarded = [
         'id'
     ];
 
     protected $casts = [
-        'public' => 'boolean'
+        'public' => 'boolean',
+        'is_archived' => 'boolean'
     ];
 
     public static $rules = [];
@@ -47,8 +43,23 @@ class Talk extends UuidBase
         return $this->revisions()->getQuery()->orderBy('created_at', 'desc')->get();
     }
 
+    public function isArchived()
+    {
+        return $this->attributes['is_archived'];
+    }
+
     public function scopePublic($query)
     {
         return $query->where('public', true);
+    }
+
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_archived', false);
     }
 }

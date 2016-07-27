@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDeletedAtColumnToTalks extends Migration
+class AddIsArchivedColumnToTalks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddDeletedAtColumnToTalks extends Migration
     public function up()
     {
         Schema::table('talks', function (Blueprint $table) {
-            $table->softDeletes();
+            $table->boolean('is_archived');
         });
     }
 
@@ -25,7 +25,7 @@ class AddDeletedAtColumnToTalks extends Migration
     public function down()
     {
         Schema::table('talks', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+            $table->dropColumn('is_archived');
         });
     }
 }

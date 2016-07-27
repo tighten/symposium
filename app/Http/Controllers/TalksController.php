@@ -32,7 +32,8 @@ class TalksController extends BaseController
 
     public function index()
     {
-        list($talks, $sorting_talk) = $this->sortTalks();
+        $talks = Auth::user()->talks()->active()->get();
+        list($talks, $sorting_talk) = $this->sortTalks($talks);
 
         return View::make('talks.index')
             ->with('talks', $talks)
@@ -85,7 +86,7 @@ class TalksController extends BaseController
     public function edit($talkId)
     {
         try {
-            $talk = Auth::user()->talks()->withTrashed()->findOrFail($talkId);
+            $talk = Auth::user()->talks()->findOrFail($talkId);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
@@ -102,7 +103,7 @@ class TalksController extends BaseController
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if ($validator->passes()) {
-            $talk = Auth::user()->talks()->withTrashed()->findOrFail($talkId);
+            $talk = Auth::user()->talks()->findOrFail($talkId);
             $talk->public = Input::get('public') == 'yes';
             $talk->save();
 
@@ -129,7 +130,7 @@ class TalksController extends BaseController
 
     public function show($id)
     {
-        $talk = Auth::user()->talks()->withTrashed()->findOrFail($id);
+        $talk = Auth::user()->talks()->findOrFail($id);
 
         $current = Input::has('revision') ? $talk->revisions()->findOrFail(Input::get('revision')) : $talk->current();
 
@@ -141,39 +142,43 @@ class TalksController extends BaseController
 
     public function destroy($id)
     {
-        Auth::user()->talks()->withTrashed()->findOrFail($id)->forceDelete();
+        Auth::user()->talks()->findOrFail($id)->delete();
 
         Session::flash('message', 'Successfully deleted talk.');
 
         return Redirect::to('talks');
     }
 
-    public function softDelete($id)
+    public function archiveIndex()
     {
-        Auth::user()->talks()->findOrFail($id)->delete();
+        $talks =  Auth::user()->talks()->archived()->get();
+        list($talks, $sorting_talk) = $this->sortTalks($talks);
+
+        return View::make('talks.archive')
+          ->with('talks', $talks)
+          ->with('sorting_talk', $sorting_talk);
+    }
+
+    public function archive($id)
+    {
+        $talk = Auth::user()->talks()->findOrFail($id);
+        $talk->is_archived = true;
+        $talk->save();
 
         Session::flash('message', 'Successfully archived talk.');
 
         return Redirect::to('talks');
     }
 
-    public function restore($id)
+    public function restore($talkId)
     {
-        Auth::user()->talks()->withTrashed()->findOrFail($id)->restore();
+        $talk = Auth::user()->talks()->findOrFail($talkId);
+        $talk->is_archived = false;
+        $talk->save();
 
         Session::flash('message', 'Successfully restored talk.');
 
         return Redirect::to('archive');
-    }
-
-
-    public function archiveIndex()
-    {
-        list($talks, $sorting_talk) = $this->sortTalks('archive');
-
-        return View::make('talks.archive')
-          ->with('talks', $talks)
-          ->with('sorting_talk', $sorting_talk);
     }
 
   /**
@@ -181,32 +186,26 @@ class TalksController extends BaseController
    * @param  string $type Whether the index is for archived talks or active talks
    * @return array       Returns array of variables.
    */
-    private function sortTalks($type = 'active')
+    private function sortTalks($talks)
     {
         $bold_style = 'style="font-weight: bold;"';
 
         $sorting_talk = $this->sorting_talks;
 
-        if ($type == 'archive') {
-            $talks = Auth::user()->talks()->onlyTrashed()->get();
-        } else {
-            $talks = Auth::user()->talks;
-        }
-
         switch (Input::get('sort')) {
-        case 'date':
-            $sorting_talk['date'] = $bold_style;
-            $talks = $talks->sortByDesc('created_at');
-            break;
-        case 'alpha':
+            case 'date':
+                $sorting_talk['date'] = $bold_style;
+                $talks = $talks->sortByDesc('created_at');
+                break;
+            case 'alpha':
             // Pass through
-        default:
-            $sorting_talk['alpha'] = $bold_style;
-            $talks = $talks->sortBy(function ($talk) {
-              return strtolower($talk->current()->title);
-            });
-            break;
-    }
-        return array($talks, $sorting_talk);
+            default:
+                $sorting_talk['alpha'] = $bold_style;
+                $talks = $talks->sortBy(function ($talk) {
+                    return strtolower($talk->current()->title);
+                });
+                break;
+        }
+        return [$talks, $sorting_talk];
     }
 }

@@ -7,13 +7,13 @@
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         Delete
     </a>
-    @if (Route::is('talks.archive'))
+    @if ($talk->isArchived())
         <a href="{{ route('talks.restore', ['id' => $talk->id]) }}" class="btn btn-xs btn-warning">
             <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
             Restore
         </a>
     @else
-        <a href="{{ route('talks.softDelete', ['id' => $talk->id]) }}" class="btn btn-xs btn-warning">
+        <a href="{{ route('talks.archive', ['id' => $talk->id]) }}" class="btn btn-xs btn-warning">
             <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
             Archive
         </a>
@@ -22,4 +22,6 @@
 
 </div>
 <h3><a href="{{ route('talks.show', ['id' => $talk->id]) }}">{{ $talk->current()->title }}</a></h3>
-<p class="talk-meta"><i>{{ $talk->created_at->toFormattedDateString()  }}</i> | {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}</p>
+<p class="talk-meta"><i>{{ $talk->created_at->toFormattedDateString()  }}</i> |
+    {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
+</p>

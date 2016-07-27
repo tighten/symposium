@@ -81,12 +81,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);
-    Route::get('talks/{id}/soft-delete', ['as' => 'talks.softDelete', 'uses' => 'TalksController@softDelete']);
     Route::get('conferences/{id}/delete', ['as' => 'conferences.delete', 'uses' => 'ConferencesController@destroy']);
     Route::get('bios/{id}/delete', ['as' => 'bios.delete', 'uses' => 'BiosController@destroy']);
 
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
-    Route::get('archive', ['as' =>'talks.archive', 'uses' => 'TalksController@archiveIndex']);
+    Route::get('archive', ['as' =>'talks.archived.index', 'uses' => 'TalksController@archiveIndex']);
+    Route::get('talks/{id}/archive', ['as' => 'talks.archive', 'uses' => 'TalksController@archive']);
     Route::get('talks/{id}/restore', ['as' => 'talks.restore', 'uses' => 'TalksController@restore']);
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController');

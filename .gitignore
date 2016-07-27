@@ -1,5 +1,6 @@
 /node_modules
 /vendor
 .env
+.tags
 .sass-cache/
 /.idea
