@@ -1,8 +1,16 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Talk extends UuidBase
 {
+    use SoftDeletes;
+
     protected $table = 'talks';
+
+    protected $dates = [
+      'delted_at'
+    ];
 
     protected $guarded = [
         'id'

@@ -10,9 +10,14 @@
                     <p style="text-align: right">REVISION:<br>
                     {{ $current->created_at }}</p>
                 @else
-                    <a href="/talks/{{ $talk->id }}?revision={{ $talk->current()->id }}" class="btn btn-default">Revisions &nbsp;<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a><br>
-                    <a href="/talks/{{ $talk->id }}/edit" class="btn btn-primary">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><br>
+                    <a href="/talks/{{ $talk->id }}?revision={{ $talk->current()->id }}" class="btn btn-default">Revisions &nbsp;<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+                    <a href="/talks/{{ $talk->id }}/edit" class="btn btn-primary">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                     <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    @if ($talk->trashed())
+                        <a href="{{ route('talks.restore', ['id' => $talk->id]) }}" class="btn btn-warning">Restore &nbsp;<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></a>
+                    @else
+                        <a href="{{ route('talks.softDelete', ['id' => $talk->id]) }}" class="btn btn-warning">Archive &nbsp;<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></a>
+                    @endif
                 @endif
                 </div>
 

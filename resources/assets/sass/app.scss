@@ -243,7 +243,7 @@ legend {
 
 .page-meta-buttons {
     .btn {
-        float: right;
+        display: block;
         margin-left: 1rem;
         margin-bottom: 0.5rem;
     }
@@ -315,6 +315,8 @@ legend {
 
 .page-title {
     margin-top: 0;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .talk-body {
