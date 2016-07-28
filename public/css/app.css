@@ -5604,6 +5604,9 @@ legend {
   padding-right: 0.25em;
   width: inherit; }
 
+.bold {
+  font-weight: bold; }
+
 .container {
   position: relative; }
 

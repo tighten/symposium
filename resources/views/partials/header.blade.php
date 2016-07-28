@@ -1,3 +1,4 @@
+
 <div class="primary-header" role="navigation">
     <div class="container">
         <div class="primary-header__title">
@@ -12,10 +13,9 @@
             </a>
         </div>
         <div class="primary-header__collapse">
+            @include('partials.flash-messages')
             @include('partials.nav')
         </div>
         <!--/.navbar-collapse -->
     </div>
 </div>
-
-@include('partials.flash-messages')

@@ -25,19 +25,21 @@ class TalksController extends BaseController
         'slides.url' => 'Slides URL must contain a valid URL',
     ];
 
-    protected $sorting_talks = [
+    protected $sorting_style = [
         'date' => '',
         'alpha' => '',
     ];
 
     public function index()
     {
-        $talks = Auth::user()->talks()->active()->get();
-        list($talks, $sorting_talk) = $this->sortTalks($talks);
+        $talks = $this->sortTalks(
+            Auth::user()->talks()->active()->get()
+        );
+        $sorting_style = $this->sorting_style;
 
         return View::make('talks.index')
             ->with('talks', $talks)
-            ->with('sorting_talk', $sorting_talk);
+            ->with('sorting_style', $sorting_style);
     }
 
     public function create()
@@ -83,10 +85,10 @@ class TalksController extends BaseController
             ->withInput();
     }
 
-    public function edit($talkId)
+    public function edit($id)
     {
         try {
-            $talk = Auth::user()->talks()->findOrFail($talkId);
+            $talk = Auth::user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
@@ -98,12 +100,12 @@ class TalksController extends BaseController
             ->with('current', $talk->current());
     }
 
-    public function update($talkId)
+    public function update($id)
     {
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if ($validator->passes()) {
-            $talk = Auth::user()->talks()->findOrFail($talkId);
+            $talk = Auth::user()->talks()->findOrFail($id);
             $talk->public = Input::get('public') == 'yes';
             $talk->save();
 
@@ -123,7 +125,7 @@ class TalksController extends BaseController
             return Redirect::to('talks/' . $talk->id);
         }
 
-        return Redirect::to('talks/' . $talkId . '/edit')
+        return Redirect::to('talks/' . $id . '/edit')
             ->withErrors($validator)
             ->withInput();
     }
@@ -151,61 +153,51 @@ class TalksController extends BaseController
 
     public function archiveIndex()
     {
-        $talks =  Auth::user()->talks()->archived()->get();
-        list($talks, $sorting_talk) = $this->sortTalks($talks);
+        $talks = $this->sortTalks(
+            Auth::user()->talks()->archived()->get()
+        );
+
+        $sorting_style = $this->sorting_style;
 
         return View::make('talks.archive')
           ->with('talks', $talks)
-          ->with('sorting_talk', $sorting_talk);
+          ->with('sorting_style', $sorting_style);
     }
 
     public function archive($id)
     {
-        $talk = Auth::user()->talks()->findOrFail($id);
-        $talk->is_archived = true;
-        $talk->save();
+        $talk = Auth::user()->talks()->findOrFail($id)->archive();
 
         Session::flash('message', 'Successfully archived talk.');
 
         return Redirect::to('talks');
     }
 
-    public function restore($talkId)
+    public function restore($id)
     {
-        $talk = Auth::user()->talks()->findOrFail($talkId);
-        $talk->is_archived = false;
-        $talk->save();
+        $talk = Auth::user()->talks()->findOrFail($id)->restore();
 
         Session::flash('message', 'Successfully restored talk.');
 
         return Redirect::to('archive');
     }
 
-  /**
-   * Sorts through talks and returns an array of variables. Access the variables using the list() construct.
-   * @param  string $type Whether the index is for archived talks or active talks
-   * @return array       Returns array of variables.
-   */
     private function sortTalks($talks)
     {
-        $bold_style = 'style="font-weight: bold;"';
-
-        $sorting_talk = $this->sorting_talks;
-
         switch (Input::get('sort')) {
             case 'date':
-                $sorting_talk['date'] = $bold_style;
+                $this->sorting_style['date'] = 'bold';
                 $talks = $talks->sortByDesc('created_at');
                 break;
             case 'alpha':
             // Pass through
             default:
-                $sorting_talk['alpha'] = $bold_style;
+                $this->sorting_style['alpha'] = 'bold';
                 $talks = $talks->sortBy(function ($talk) {
                     return strtolower($talk->current()->title);
                 });
                 break;
         }
-        return [$talks, $sorting_talk];
+        return $talks;
     }
 }

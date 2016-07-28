@@ -69,6 +69,10 @@ legend {
     width: inherit;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .container {
     @extend .container;
     position: relative;

@@ -8,8 +8,8 @@
                 <h2 class="page-title">Archive</h2>
                 <a href="/talks" class="btn btn-default btn-xs">Back</a>
                 <p class="list-sort">Sort:
-                    <a href="{{ route('talks.archived.index') }}?sort=alpha"{{ $sorting_talk['alpha'] }}>Title</a> |
-                    <a href="{{ route('talks.archived.index') }}?sort=date"{{ $sorting_talk['date'] }}>Date</a>
+                    <a href="{{ route('talks.archived.index') }}?sort=alpha" class="{{ $sorting_style['alpha'] }}">Title</a> |
+                    <a href="{{ route('talks.archived.index') }}?sort=date" class="{{ $sorting_style['date'] }}">Date</a>
                 </p>
                 <ul class="list-talks">
                     @forelse ($talks as $talk)

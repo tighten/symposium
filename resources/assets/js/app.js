@@ -31,7 +31,7 @@ $(function() {
     });
 
     $('[data-dismiss=timeout]').each(function() {
-        var timeout_len = 2000,
+        var timeout_len = 1000,
             $dismiss_target = $(this);
 
         setTimeout(function() {
