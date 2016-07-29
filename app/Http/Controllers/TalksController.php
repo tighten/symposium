@@ -25,21 +25,17 @@ class TalksController extends BaseController
         'slides.url' => 'Slides URL must contain a valid URL',
     ];
 
-    protected $sorting_style = [
-        'date' => '',
-        'alpha' => '',
-    ];
+    protected $sorted_by;
 
     public function index()
     {
         $talks = $this->sortTalks(
             Auth::user()->talks()->active()->get()
         );
-        $sorting_style = $this->sorting_style;
 
         return View::make('talks.index')
             ->with('talks', $talks)
-            ->with('sorting_style', $sorting_style);
+            ->with('sorted_by', $this->sorted_by);
     }
 
     public function create()
@@ -157,16 +153,14 @@ class TalksController extends BaseController
             Auth::user()->talks()->archived()->get()
         );
 
-        $sorting_style = $this->sorting_style;
-
         return View::make('talks.archive')
           ->with('talks', $talks)
-          ->with('sorting_style', $sorting_style);
+          ->with('sorted_by', $this->sorted_by);
     }
 
     public function archive($id)
     {
-        $talk = Auth::user()->talks()->findOrFail($id)->archive();
+        Auth::user()->talks()->findOrFail($id)->archive();
 
         Session::flash('message', 'Successfully archived talk.');
 
@@ -175,7 +169,7 @@ class TalksController extends BaseController
 
     public function restore($id)
     {
-        $talk = Auth::user()->talks()->findOrFail($id)->restore();
+        Auth::user()->talks()->findOrFail($id)->restore();
 
         Session::flash('message', 'Successfully restored talk.');
 
@@ -186,13 +180,13 @@ class TalksController extends BaseController
     {
         switch (Input::get('sort')) {
             case 'date':
-                $this->sorting_style['date'] = 'bold';
+                $this->sorted_by = 'date';
                 $talks = $talks->sortByDesc('created_at');
                 break;
             case 'alpha':
             // Pass through
             default:
-                $this->sorting_style['alpha'] = 'bold';
+                $this->sorted_by = 'alpha';
                 $talks = $talks->sortBy(function ($talk) {
                     return strtolower($talk->current()->title);
                 });
