@@ -5,7 +5,9 @@
         <div class="row">
             <div class="col-md-10 col-md-push-1">
                 <div class="public-profile-pic">
-                    <img src="{{ Gravatar::src($user->email, 200) }}" class="public-speaker-picture"><br>
+                    <a href="/img/profile_images/hires/{{ $user->profile_image }}">
+                        <img src="/img/profile_images/{{ $user->profile_image }}" class="public-speaker-picture">
+                    </a><br>
                     @if ($user->allow_profile_contact)
                     <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
                     @endif

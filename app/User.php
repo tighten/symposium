@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -53,6 +54,8 @@ class User extends Authenticatable
              $user->talks()->delete();
              // $user->conferences()->delete(); // Not sure if we want to do this.
              $user->bios()->delete();
+             Storage::delete(public_path('img/profile_images/' . $user->profile_image));
+             Storage::delete(public_path('img/profile_images/hires/' . $user->profile_image));
              \DB::table('favorites')->where('user_id', $user->id)->delete();
         });
     }

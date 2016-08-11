@@ -14,12 +14,11 @@
             </div>
         </div>
 
-        {{ Form::model($user, ['route' => 'account.edit', 'method' => 'put']) }}
+        {{ Form::model($user, ['route' => 'account.edit', 'method' => 'put', 'files' => 'true']) }}
 
         <div class="row">
             <div class="col-md-5 col-md-push-1">
                 <h3>User</h3>
-
                 <div class="form-group">
                     {{ Form::label('email', 'Email Address', ['class' => 'control-label']) }}
                     {{ Form::email('email', null, ['class' => 'form-control']) }}
@@ -33,6 +32,15 @@
                 <div class="form-group">
                     {{ Form::label('name', 'Name', ['class' => 'control-label']) }}
                     {{ Form::text('name', null, ['class' => 'form-control']) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::label('profile_image', 'Profile Image', ['class' => 'control-label']) }}
+                    <div class="private-profile-pic">
+                        <img src="/img/profile_images/{{ $user->profile_image }}" class="public-speaker-picture" alt="">
+                    </div>
+                    <span class="help-block">Please use a high resolution image, as it will be provided to conference organisers.</span>
+                    {{ Form::file('profile_image', null, ['class' => 'form-control']) }}
                 </div>
             </div>
             <div class="col-md-5 col-md-push-1">
