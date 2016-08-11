@@ -29,12 +29,12 @@ class UpdateProfilePicture implements ShouldQueue
     {
         //Make regular image
         Image::make($event->image)
-            ->fit(250,250)
+            ->fit(250, 250)
             ->save(public_path('img/profile_images/' . $event->filename));
 
         //Make hires image
         Image::make($event->image)
-            ->fit(1250,1250, function ($constraint){
+            ->fit(1250, 1250, function ($constraint) {
                 $constraint->upsize();
             })
             ->save(public_path('img/profile_images/hires/' . $event->filename));
