@@ -11,20 +11,20 @@ class ProfilePictureUpdated extends Event
 {
     use SerializesModels;
 
-    public $user;
+    public $previous_profile_image;
     public $image;
     public $filename;
 
     /**
      * Create a new event instance.
      *
-     * @param \App\User $user
-     * @param           $image
-     * @param           $filename
+     * @param $previous_profile_image
+     * @param $image
+     * @param $filename
      */
-    public function __construct(User $user, $image, $filename)
+    public function __construct($previous_profile_image, $image, $filename)
     {
-        $this->user = $user;
+        $this->previous_profile_image = $previous_profile_image;
         $this->image = $image;
         $this->filename = $filename;
     }
