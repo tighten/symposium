@@ -63,7 +63,9 @@ class AccountController extends BaseController
             'allow_profile_contact' => '',
             'profile_intro' => '',
             'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
-            'profile_image' => 'image',
+            'profile_image' => 'max:5000',
+        ],[
+            'profile_image.max' => 'Profile Image cannot be larger than 5mb'
         ]);
 
         // Save
@@ -81,7 +83,7 @@ class AccountController extends BaseController
         if ($request->file('profile_image')) {
             $image = $request->file('profile_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            Event::fire(new ProfilePictureUpdated($image->getRealPath(), $filename));
+            Event::fire(new ProfilePictureUpdated($user->profile_image, $image->getRealPath(), $filename));
             $user->profile_image = $filename;
         }
 

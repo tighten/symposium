@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\ProfilePictureUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class UpdateProfilePicture implements ShouldQueue
@@ -38,5 +39,7 @@ class UpdateProfilePicture implements ShouldQueue
                 $constraint->upsize();
             })
             ->save(public_path('img/profile_images/hires/' . $event->filename));
+
+        Storage::delete($event->image);
     }
 }
