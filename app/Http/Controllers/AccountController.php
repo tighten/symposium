@@ -64,7 +64,7 @@ class AccountController extends BaseController
             'profile_intro' => '',
             'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
             'profile_image' => 'max:5000',
-        ],[
+        ], [
             'profile_image.max' => 'Profile Image cannot be larger than 5mb'
         ]);
 
