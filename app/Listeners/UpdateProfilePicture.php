@@ -34,21 +34,21 @@ class UpdateProfilePicture implements ShouldQueue
         //Make regular image
         Image::make($event->image)
             ->fit(250, 250)
-            ->save(public_path('img/profile_images/' . $filename));
+            ->save(public_path('img/profile_pictures/' . $filename));
 
         //Make hires image
         Image::make($event->image)
             ->fit(1250, 1250, function ($constraint) {
                 $constraint->upsize();
             })
-            ->save(public_path('img/profile_images/hires/' . $filename));
+            ->save(public_path('img/profile_pictures/hires/' . $filename));
 
-        if ($event->user->profile_image != "missing") {
-            File::delete(public_path('img/profile_images/'.$event->user->profile_image));
-            File::delete(public_path('img/profile_images/hires/'.$event->user->profile_image));
+        if ($event->user->profile_picture != "missing") {
+            File::delete(public_path('img/profile_pictures/'.$event->user->profile_picture));
+            File::delete(public_path('img/profile_pictures/hires/'.$event->user->profile_picture));
         }
 
-        $event->user->updateProfileImage($filename);
+        $event->user->updateProfilePicture($filename);
 
         Storage::delete($event->image);
     }

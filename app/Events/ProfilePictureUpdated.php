@@ -21,7 +21,7 @@ class ProfilePictureUpdated extends Event
      * ProfilePictureUpdated constructor.
      *
      * @param User $user
-     * @param      $image
+     * @param      $image 
      * @param      $image_ext
      */
     public function __construct(User $user, $image, $image_ext)

@@ -7,7 +7,7 @@
             <li><a href="{{ route('talks.index') }}">Talks</a></li>
             <li class="dropdown" role="presentation">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    <img src="/img/profile_images/{{ Auth::user()->profile_image }}" class="nav-profile-picture"> Me <span class="caret"></span>
+                    <img src="/img/profile_pictures/{{ Auth::user()->profile_picture }}" class="nav-profile-picture"> Me <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ route('account.show') }}">Account</a></li>

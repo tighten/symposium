@@ -35,12 +35,12 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('profile_image', 'Profile Image', ['class' => 'control-label']) }}
+                    {{ Form::label('profile_picture', 'Profile Picture', ['class' => 'control-label']) }}
                     <div class="private-profile-pic">
-                        <img src="/img/profile_images/{{ $user->profile_image }}" class="public-speaker-picture" alt="">
+                        <img src="/img/profile_pictures/{{ $user->profile_picture }}" class="public-speaker-picture" alt="">
                     </div>
                     <span class="help-block">Please use a high resolution image, as it will be provided to conference organisers.</span>
-                    {{ Form::file('profile_image', null, ['class' => 'form-control']) }}
+                    {{ Form::file('profile_picture', null, ['class' => 'form-control']) }}
                 </div>
             </div>
             <div class="col-md-5 col-md-push-1">

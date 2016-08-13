@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-md-10 col-md-push-1">
                 <div class="public-profile-pic">
-                    <a href="/img/profile_images/hires/{{ $user->profile_image }}">
-                        <img src="/img/profile_images/{{ $user->profile_image }}" class="public-speaker-picture">
+                    <a href="/img/profile_images/hires/{{ $user->profile_picture }}">
+                        <img src="/img/profile_images/{{ $user->profile_picture }}" class="public-speaker-picture">
                     </a><br>
                     @if ($user->allow_profile_contact)
                     <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
