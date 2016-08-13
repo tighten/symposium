@@ -13,7 +13,7 @@ class AddProfilePictureToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('profile_image')->default('missing.png');;
+            $table->string('profile_picture')->default('missing.png');;
         });
     }
 
