@@ -82,9 +82,7 @@ class AccountController extends BaseController
 
         if ($request->file('profile_image')) {
             $image = $request->file('profile_image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Event::fire(new ProfilePictureUpdated($user->profile_image, $image->getRealPath(), $filename));
-            $user->profile_image = $filename;
+            Event::fire(new ProfilePictureUpdated($user, $image->getRealPath(), $image->getClientOriginalExtension()));
         }
 
         $user->save();

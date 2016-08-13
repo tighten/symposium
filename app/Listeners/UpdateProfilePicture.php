@@ -29,23 +29,27 @@ class UpdateProfilePicture implements ShouldQueue
      */
     public function handle(ProfilePictureUpdated $event)
     {
+        $filename = time() . '.' . $event->image_ext;
+
         //Make regular image
         Image::make($event->image)
             ->fit(250, 250)
-            ->save(public_path('img/profile_images/' . $event->filename));
+            ->save(public_path('img/profile_images/' . $filename));
 
         //Make hires image
         Image::make($event->image)
             ->fit(1250, 1250, function ($constraint) {
                 $constraint->upsize();
             })
-            ->save(public_path('img/profile_images/hires/' . $event->filename));
+            ->save(public_path('img/profile_images/hires/' . $filename));
+
+        if ($event->user->profile_image != "missing") {
+            File::delete(public_path('img/profile_images/'.$event->user->profile_image));
+            File::delete(public_path('img/profile_images/hires/'.$event->user->profile_image));
+        }
+
+        $event->user->updateProfileImage($filename);
 
         Storage::delete($event->image);
-
-        if ($event->previous_profile_image != "missing") {
-            File::delete(public_path('img/profile_images/'.$event->previous_profile_image));
-            File::delete(public_path('img/profile_images/hires/'.$event->previous_profile_image));
-        }
     }
 }

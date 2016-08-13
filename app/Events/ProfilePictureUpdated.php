@@ -4,6 +4,8 @@ namespace App\Events;
 
 use App\Events\Event;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
@@ -11,22 +13,22 @@ class ProfilePictureUpdated extends Event
 {
     use SerializesModels;
 
-    public $previous_profile_image;
+    public $user;
     public $image;
-    public $filename;
+    public $image_ext;
 
     /**
-     * Create a new event instance.
+     * ProfilePictureUpdated constructor.
      *
-     * @param $previous_profile_image
-     * @param $image
-     * @param $filename
+     * @param User $user
+     * @param      $image
+     * @param      $image_ext
      */
-    public function __construct($previous_profile_image, $image, $filename)
+    public function __construct(User $user, $image, $image_ext)
     {
-        $this->previous_profile_image = $previous_profile_image;
+        $this->user = $user;
         $this->image = $image;
-        $this->filename = $filename;
+        $this->image_ext = $image_ext;
     }
 
     /**

@@ -45,6 +45,17 @@ class User extends Authenticatable
         return $this->belongstoMany('Conference', 'favorites')->withTimestamps();
     }
 
+    /**
+     * @param string $filename The new filename
+     *
+     * @return bool|int
+     */
+    public function updateProfileImage($filename)
+    {
+        $this->profile_image = $filename;
+        return $this->save();
+    }
+    
     // Cascade deletes
     protected static function boot()
     {
