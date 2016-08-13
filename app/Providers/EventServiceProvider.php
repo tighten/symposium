@@ -11,5 +11,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        'App\Events\ProfilePictureUpdated' => [
+            'App\Listeners\UpdateProfilePicture',
+        ],
     ];
 }

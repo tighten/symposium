@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -44,6 +45,17 @@ class User extends Authenticatable
         return $this->belongstoMany('Conference', 'favorites')->withTimestamps();
     }
 
+    /**
+     * @param string $filename The new filename
+     *
+     * @return bool|int
+     */
+    public function updateProfilePicture($filename)
+    {
+        $this->profile_picture = $filename;
+        return $this->save();
+    }
+    
     // Cascade deletes
     protected static function boot()
     {
@@ -53,6 +65,8 @@ class User extends Authenticatable
              $user->talks()->delete();
              // $user->conferences()->delete(); // Not sure if we want to do this.
              $user->bios()->delete();
+             Storage::delete(public_path('img/profile_pictures/' . $user->profile_picture));
+             Storage::delete(public_path('img/profile_pictures/hires/' . $user->profile_picture));
              \DB::table('favorites')->where('user_id', $user->id)->delete();
         });
     }

@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 
+use App\Events\ProfilePictureUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\User;
+use Intervention\Image\Facades\Image;
 
 class AccountController extends BaseController
 {
@@ -61,6 +63,9 @@ class AccountController extends BaseController
             'allow_profile_contact' => '',
             'profile_intro' => '',
             'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
+            'profile_picture' => 'max:5000',
+        ], [
+            'profile_picture.max' => 'Profile picture cannot be larger than 5mb'
         ]);
 
         // Save
@@ -74,6 +79,12 @@ class AccountController extends BaseController
         $user->allow_profile_contact = $request->get('allow_profile_contact');
         $user->profile_intro = $request->get('profile_intro');
         $user->profile_slug = $request->get('profile_slug');
+
+        if ($request->file('profile_picture')) {
+            $image = $request->file('profile_picture');
+            Event::fire(new ProfilePictureUpdated($user, $image->getRealPath(), $image->getClientOriginalExtension()));
+        }
+
         $user->save();
 
         Session::flash('message', 'Successfully edited account.');
