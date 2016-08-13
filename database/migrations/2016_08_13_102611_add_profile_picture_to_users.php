@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddProfileImageToUsers extends Migration
+class AddProfilePictureToUsers extends Migration
 {
     /**
      * Run the migrations.
