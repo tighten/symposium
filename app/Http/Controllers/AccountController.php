@@ -23,7 +23,9 @@ class AccountController extends BaseController
             'enable_profile' => '',
             'allow_profile_contact' => '',
             'profile_intro' => '',
-            'profile_slug' => 'alpha_dash|unique:users',
+            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,' . Auth::user()->id,
+        ], [
+            'profile_slug.required_if' => 'You must set a Profile URL Slug to enable your Public Speaker Profile'
         ]);
 
         $user = new User;
@@ -60,7 +62,9 @@ class AccountController extends BaseController
             'enable_profile' => '',
             'allow_profile_contact' => '',
             'profile_intro' => '',
-            'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
+            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,' . Auth::user()->id,
+        ], [
+            'profile_slug.required_if' => 'You must set a Profile URL Slug to enable your Public Speaker Profile'
         ]);
 
         // Save
