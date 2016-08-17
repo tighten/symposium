@@ -13,7 +13,7 @@ class AddIsArchivedColumnToTalks extends Migration
     public function up()
     {
         Schema::table('talks', function (Blueprint $table) {
-            $table->boolean('is_archived');
+            $table->boolean('is_archived')->default(0);
         });
     }
 
