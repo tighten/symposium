@@ -12,10 +12,9 @@
             </a>
         </div>
         <div class="primary-header__collapse">
+            @include('partials.flash-messages')
             @include('partials.nav')
         </div>
         <!--/.navbar-collapse -->
     </div>
 </div>
-
-@include('partials.flash-messages')

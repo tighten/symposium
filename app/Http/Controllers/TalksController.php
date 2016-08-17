@@ -1,15 +1,15 @@
 <?php namespace App\Http\Controllers;
 
-use Auth;
-use Input;
 use Log;
-use Redirect;
-use Session;
+use Auth;
 use Talk;
-use TalkRevision;
-use App\User;
-use Validator;
 use View;
+use Input;
+use Session;
+use App\User;
+use Redirect;
+use Validator;
+use TalkRevision;
 
 class TalksController extends BaseController
 {
@@ -25,35 +25,17 @@ class TalksController extends BaseController
         'slides.url' => 'Slides URL must contain a valid URL',
     ];
 
-    protected $sorting_talks = [
-        'date' => '',
-        'alpha' => '',
-    ];
+    protected $sorted_by = 'alpha';
 
     public function index()
     {
-        $bold_style = 'style="font-weight: bold;"';
-
-        $sorting_talk = $this->sorting_talks;
-
-        switch (Input::get('sort')) {
-            case 'date':
-                $sorting_talk['date'] = $bold_style;
-                $talks = Auth::user()->talks->sortByDesc('created_at');
-                break;
-            case 'alpha':
-                // Pass through
-            default:
-                $sorting_talk['alpha'] = $bold_style;
-                $talks = Auth::user()->talks->sortBy(function ($talk) {
-                    return strtolower($talk->current()->title);
-                });
-                break;
-        }
+        $talks = $this->sortTalks(
+            Auth::user()->talks()->active()->get()
+        );
 
         return View::make('talks.index')
             ->with('talks', $talks)
-            ->with('sorting_talk', $sorting_talk);
+            ->with('sorted_by', $this->sorted_by);
     }
 
     public function create()
@@ -99,10 +81,10 @@ class TalksController extends BaseController
             ->withInput();
     }
 
-    public function edit($talkId)
+    public function edit($id)
     {
         try {
-            $talk = Auth::user()->talks()->findOrFail($talkId);
+            $talk = Auth::user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
@@ -114,12 +96,12 @@ class TalksController extends BaseController
             ->with('current', $talk->current());
     }
 
-    public function update($talkId)
+    public function update($id)
     {
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if ($validator->passes()) {
-            $talk = Auth::user()->talks()->findOrFail($talkId);
+            $talk = Auth::user()->talks()->findOrFail($id);
             $talk->public = Input::get('public') == 'yes';
             $talk->save();
 
@@ -139,7 +121,7 @@ class TalksController extends BaseController
             return Redirect::to('talks/' . $talk->id);
         }
 
-        return Redirect::to('talks/' . $talkId . '/edit')
+        return Redirect::to('talks/' . $id . '/edit')
             ->withErrors($validator)
             ->withInput();
     }
@@ -147,6 +129,7 @@ class TalksController extends BaseController
     public function show($id)
     {
         $talk = Auth::user()->talks()->findOrFail($id);
+
         $current = Input::has('revision') ? $talk->revisions()->findOrFail(Input::get('revision')) : $talk->current();
 
         return View::make('talks.show')
@@ -162,5 +145,52 @@ class TalksController extends BaseController
         Session::flash('message', 'Successfully deleted talk.');
 
         return Redirect::to('talks');
+    }
+
+    public function archiveIndex()
+    {
+        $talks = $this->sortTalks(
+            Auth::user()->talks()->archived()->get()
+        );
+
+        return View::make('talks.archive')
+          ->with('talks', $talks)
+          ->with('sorted_by', $this->sorted_by);
+    }
+
+    public function archive($id)
+    {
+        Auth::user()->talks()->findOrFail($id)->archive();
+
+        Session::flash('message', 'Successfully archived talk.');
+
+        return Redirect::to('talks');
+    }
+
+    public function restore($id)
+    {
+        Auth::user()->talks()->findOrFail($id)->restore();
+
+        Session::flash('message', 'Successfully restored talk.');
+
+        return Redirect::to('archive');
+    }
+
+    private function sortTalks($talks)
+    {
+        switch (Input::get('sort')) {
+            case 'date':
+                $this->sorted_by = 'date';
+                return $talks->sortByDesc('created_at');
+                break;
+            case 'alpha':
+            // Pass through
+            default:
+                $this->sorted_by = 'alpha';
+                return $talks->sortBy(function ($talk) {
+                    return strtolower($talk->current()->title);
+                });
+                break;
+        }
     }
 }

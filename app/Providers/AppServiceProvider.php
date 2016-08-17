@@ -15,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
     {
         \Blade::setRawTags('{{', '}}');
         \Blade::setContentTags('{{{', '}}}');
+        \Blade::directive('sorted', function ($expression) {
+            list($sorted_by, $query) = explode(',', str_replace(['(', ')', ' '], '', $expression), 2);
+            return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
+        });
 
         // @todo: Sort of gross, probably can figure out
         // a better solution.
