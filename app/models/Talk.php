@@ -1,19 +1,16 @@
 <?php
 
-
 class Talk extends UuidBase
 {
-
     protected $table = 'talks';
 
-
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $casts = [
         'public' => 'boolean',
-        'is_archived' => 'boolean'
+        'is_archived' => 'boolean',
     ];
 
     public static $rules = [];

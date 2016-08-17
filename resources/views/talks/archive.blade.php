@@ -1,15 +1,14 @@
 @extends('layout')
 
 @section('content')
-
     <div class="container body">
         <div class="row">
             <div class="col-md-8 col-md-push-2">
                 <h2 class="page-title">Archive</h2>
                 <a href="/talks" class="btn btn-default btn-xs">Back</a>
                 <p class="list-sort">Sort:
-                    <a href="{{ route('talks.archived.index') }}?sort=alpha" class="@sorted($sorted_by, 'alpha')">Title</a> |
-                    <a href="{{ route('talks.archived.index') }}?sort=date" class="@sorted($sorted_by, 'date')">Date</a>
+                    <a href="{{ route('talks.archived.index', ['sort' => 'alpha']) }}" class="@sorted($sorted_by, 'alpha')">Title</a> |
+                    <a href="{{ route('talks.archived.index', ['sort' => 'date']) }}" class="@sorted($sorted_by, 'date')">Date</a>
                 </p>
                 <ul class="list-talks">
                     @forelse ($talks as $talk)

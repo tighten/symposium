@@ -1,15 +1,15 @@
 <?php namespace App\Http\Controllers;
 
-use Auth;
-use Input;
 use Log;
-use Redirect;
-use Session;
+use Auth;
 use Talk;
-use TalkRevision;
-use App\User;
-use Validator;
 use View;
+use Input;
+use Session;
+use App\User;
+use Redirect;
+use Validator;
+use TalkRevision;
 
 class TalksController extends BaseController
 {
@@ -25,7 +25,7 @@ class TalksController extends BaseController
         'slides.url' => 'Slides URL must contain a valid URL',
     ];
 
-    protected $sorted_by;
+    protected $sorted_by = 'alpha';
 
     public function index()
     {
@@ -181,17 +181,16 @@ class TalksController extends BaseController
         switch (Input::get('sort')) {
             case 'date':
                 $this->sorted_by = 'date';
-                $talks = $talks->sortByDesc('created_at');
+                return $talks->sortByDesc('created_at');
                 break;
             case 'alpha':
             // Pass through
             default:
                 $this->sorted_by = 'alpha';
-                $talks = $talks->sortBy(function ($talk) {
+                return $talks->sortBy(function ($talk) {
                     return strtolower($talk->current()->title);
                 });
                 break;
         }
-        return $talks;
     }
 }
