@@ -5,9 +5,13 @@
         <div class="row">
             <div class="col-md-10 col-md-push-1">
                 <div class="public-profile-pic">
-                    <a href="/img/profile_pictures/hires/{{ $user->profile_picture }}">
-                        <img src="/img/profile_pictures/{{ $user->profile_picture }}" class="public-speaker-picture">
-                    </a><br>
+                    @if($user->profile_picture == null)
+                        <img src="{{ Gravatar::src($user->email, 200) }}" class="public-speaker-picture"><br>
+                    @else
+                        <a href="{{ asset('storage/profile_pictures/hires/' . $user->profile_picture) }}">
+                            <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" class="public-speaker-picture">
+                        </a><br>
+                    @endif
                     @if ($user->allow_profile_contact)
                     <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
                     @endif

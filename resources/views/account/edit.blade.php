@@ -37,8 +37,18 @@
                 <div class="form-group">
                     {{ Form::label('profile_picture', 'Profile Picture', ['class' => 'control-label']) }}
                     <div class="private-profile-pic">
-                        <img src="/img/profile_pictures/{{ $user->profile_picture }}" class="public-speaker-picture" alt="">
+                        @if($user->profile_picture == null)
+                            <img src="/img/missing.png" class="public-speaker-picture" alt="">
+                        @else
+                            <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture ) }}" class="public-speaker-picture" alt="">
+                        @endif
                     </div>
+                    @if($user->profile_picture == null)
+                        <div class="alert alert-warning">
+                            <strong>Your current public profile picture is sourced from Gravatar.</strong><br>
+                            Please upload a custom profile picture.
+                        </div>
+                    @endif
                     <span class="help-block">Please use a high resolution image, as it will be provided to conference organisers.</span>
                     {{ Form::file('profile_picture', null, ['class' => 'form-control']) }}
                 </div>

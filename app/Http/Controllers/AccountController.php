@@ -62,10 +62,11 @@ class AccountController extends BaseController
             'enable_profile' => '',
             'allow_profile_contact' => '',
             'profile_intro' => '',
-            'profile_slug' => 'alpha_dash|unique:users,profile_slug,' . Auth::user()->id,
-            'profile_picture' => 'max:5000',
+            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,' . Auth::user()->id,
+            'profile_picture' => 'image|max:5000',
         ], [
-            'profile_picture.max' => 'Profile picture cannot be larger than 5mb'
+            'profile_picture.max' => 'Profile picture cannot be larger than 5mb',
+            'profile_slug.required_if' => 'You must set a Profile URL Slug to enable your Public Speaker Profile'
         ]);
 
         // Save
@@ -82,7 +83,10 @@ class AccountController extends BaseController
 
         if ($request->file('profile_picture')) {
             $image = $request->file('profile_picture');
-            Event::fire(new ProfilePictureUpdated($user, $image->getRealPath(), $image->getClientOriginalExtension()));
+            $filename = $image->hashName();
+            Event::fire(
+                new ProfilePictureUpdated($user, $image->getRealPath(), $filename)
+            );
         }
 
         $user->save();

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-class UpdateProfilePicture implements ShouldQueue
+class UpdateProfilePicture
 {
     /**
      * Create the event listener.
@@ -29,27 +29,31 @@ class UpdateProfilePicture implements ShouldQueue
      */
     public function handle(ProfilePictureUpdated $event)
     {
-        $filename = time() . '.' . $event->image_ext;
-
         //Make regular image
-        Image::make($event->image)
-            ->fit(250, 250)
-            ->save(public_path('img/profile_pictures/' . $filename));
+        $thumb = Image::make($event->image_path)
+            ->fit(250, 250);
 
         //Make hires image
-        Image::make($event->image)
+        $hires = Image::make($event->image_path)
             ->fit(1250, 1250, function ($constraint) {
                 $constraint->upsize();
-            })
-            ->save(public_path('img/profile_pictures/hires/' . $filename));
+            });
 
-        if ($event->user->profile_picture != "missing") {
-            File::delete(public_path('img/profile_pictures/'.$event->user->profile_picture));
-            File::delete(public_path('img/profile_pictures/hires/'.$event->user->profile_picture));
+        //Delete the previous profile picture
+        // (although potentially not if people may have a second profile picture later down the line?)
+        if ($event->user->profile_picture != null) {
+            Storage::delete([
+                'profile_pictures/' . $event->user->profile_picture,
+                'profile_pictures/hires/' . $event->user->profile_picture
+            ]);
         }
 
-        $event->user->updateProfilePicture($filename);
+        //Store the new profile pictures
+        Storage::put('profile_pictures/' . $event->filename, $thumb->stream());
+        Storage::put('profile_pictures/hires/' . $event->filename, $hires->stream());
 
-        Storage::delete($event->image);
+        //Save the updated filename to the user
+        $event->user->updateProfilePicture($event->filename);
+
     }
 }

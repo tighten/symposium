@@ -14,21 +14,21 @@ class ProfilePictureUpdated extends Event
     use SerializesModels;
 
     public $user;
-    public $image;
-    public $image_ext;
+    public $image_path;
+    public $filename;
 
     /**
      * ProfilePictureUpdated constructor.
      *
      * @param User $user
-     * @param      $image
-     * @param      $image_ext
+     * @param      $image_path
+     * @param      $filename
      */
-    public function __construct(User $user, $image, $image_ext)
+    public function __construct(User $user, $image_path, $filename)
     {
         $this->user = $user;
-        $this->image = $image;
-        $this->image_ext = $image_ext;
+        $this->image_path = $image_path;
+        $this->filename = $filename;
     }
 
     /**
