@@ -144,7 +144,7 @@ return [
         'App\Providers\AppServiceProvider',
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
-        // 'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
+        'Bugsnag\BugsnagLaravel\BugsnagServiceProvider',
 
         'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
@@ -200,7 +200,7 @@ return [
         'URL'       => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
-        // 'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
+        'Bugsnag'   => 'Bugsnag\BugsnagLaravel\Facades\Bugsnag',
         'Form'      => 'Collective\Html\FormFacade',
         'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',

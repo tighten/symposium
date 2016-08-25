@@ -1,8 +1,10 @@
 <?php namespace App\Providers;
 
-use Event;
-use Illuminate\Support\ServiceProvider;
 use App\Handlers\Events\SlackSubscriber;
+use Event;
+use Illuminate\Contracts\Logging\Log;
+use Illuminate\Support\ServiceProvider;
+use Psr\Log\LoggerInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -59,5 +61,8 @@ class AppServiceProvider extends ServiceProvider
         \Blade::setRawTags('{{', '}}');
         \Blade::setContentTags('{{{', '}}}');
         \Blade::setEscapedContentTags('{{{', '}}}');
+
+        $this->app->alias('bugsnag.logger', Log::class);
+        $this->app->alias('bugsnag.logger', LoggerInterface::class);
     }
 }

@@ -19,7 +19,6 @@
     "type": "project",
     "require": {
         "laravel/framework": "5.2.*",
-        "bugsnag/bugsnag-laravel": "1.*",
         "ramsey/uuid": "~2.8",
         "rexxars/joindin-client": "dev-master",
         "guzzlehttp/guzzle": "~5.3|~6.0",
@@ -30,7 +29,8 @@
         "maknz/slack": "~1.5",
         "lucadegasperi/oauth2-server-laravel": "5.1.4",
         "ext-mcrypt": "*",
-        "recaptcha/php5": "^2.0"
+        "recaptcha/php5": "^2.0",
+        "bugsnag/bugsnag-laravel": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4.0",
