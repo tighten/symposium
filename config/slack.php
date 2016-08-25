@@ -26,7 +26,7 @@ return [
   |
   */
 
-  'channel' => '#symposium-ops',
+  'channel' => '#os-symposium-ops',
 
   /*
   |-------------------------------------------------------------
