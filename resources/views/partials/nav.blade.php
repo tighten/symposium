@@ -7,7 +7,11 @@
             <li><a href="{{ route('talks.index') }}">Talks</a></li>
             <li class="dropdown" role="presentation">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    <img src="{{ Gravatar::src(Auth::user()->email) }}" class="nav-profile-picture"> Me <span class="caret"></span>
+                    @if(Auth::user()->profile_picture == null)
+                        <img src="{{ Gravatar::src(Auth::user()->email) }}" class="nav-profile-picture"> Me <span class="caret"></span>
+                    @else
+                        <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" class="nav-profile-picture"> Me <span class="caret"></span>
+                    @endif
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ route('account.show') }}">Account</a></li>
