@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Events\ProfilePictureUpdated;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use App\User;
 use Intervention\Image\Facades\Image;
 
 class AccountController extends BaseController
@@ -77,15 +77,11 @@ class AccountController extends BaseController
         $user->profile_intro = $request->get('profile_intro');
         $user->profile_slug = $request->get('profile_slug');
 
-        if ($request->file('profile_picture')) {
-            $image = $request->file('profile_picture');
-            $filename = $image->hashName();
-            Event::fire(
-                new ProfilePictureUpdated($user, $image->getRealPath(), $filename)
-            );
-        }
-
         $user->save();
+
+        if ($request->hasFile('profile_picture')) {
+            event(new ProfilePictureUpdated($user, $request->file('profile_picture')));
+        }
 
         Session::flash('message', 'Successfully edited account.');
 

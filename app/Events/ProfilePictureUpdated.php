@@ -14,30 +14,11 @@ class ProfilePictureUpdated extends Event
     use SerializesModels;
 
     public $user;
-    public $image_path;
-    public $filename;
+    public $image;
 
-    /**
-     * ProfilePictureUpdated constructor.
-     *
-     * @param User $user
-     * @param      $image_path
-     * @param      $filename
-     */
-    public function __construct(User $user, $image_path, $filename)
+    public function __construct(User $user, $image)
     {
         $this->user = $user;
-        $this->image_path = $image_path;
-        $this->filename = $filename;
-    }
-
-    /**
-     * Get the channels the event should be broadcast on.
-     *
-     * @return array
-     */
-    public function broadcastOn()
-    {
-        return [];
+        $this->image = $image;
     }
 }

@@ -37,10 +37,10 @@
                 <div class="form-group">
                     {{ Form::label('profile_picture', 'Profile Picture', ['class' => 'control-label']) }}
                     <div class="private-profile-pic">
-                        @if($user->profile_picture == null)
+                        @if ($user->profile_picture == null)
                             <img src="/img/missing.png" class="public-speaker-picture" alt="">
                         @else
-                            <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture ) }}" class="public-speaker-picture" alt="">
+                            <img src="{{ Auth::user()->profile_picture_hires }}" class="public-speaker-picture" alt="">
                         @endif
                     </div>
                     @if($user->profile_picture == null)
@@ -49,7 +49,7 @@
                             Please upload a custom profile picture.
                         </div>
                     @endif
-                    <span class="help-block">Please use a high resolution image, as it will be provided to conference organisers.</span>
+                    <span class="help-block">Please use a high resolution image, as it will be provided to conference organizers.</span>
                     {{ Form::file('profile_picture', null, ['class' => 'form-control']) }}
                 </div>
             </div>
