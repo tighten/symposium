@@ -155,6 +155,7 @@ return [
 
         'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -207,6 +208,7 @@ return [
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
         'Slack'     => 'Maknz\Slack\Facades\Slack',
         'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
+        'Image'     => Intervention\Image\Facades\Image::class,
     ],
 
 ];
