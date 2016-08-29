@@ -1,0 +1,31 @@
+---
+server:
+    install: '1'
+    packages: [git, npm]
+    timezone: UTC
+    locale: en_US.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { base_box: trusty64, hostname: symposium-dev, ip: 192.168.33.99, memory: '1024', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+nginx:
+    install: '1'
+    docroot: /vagrant/public
+    servername: symposium.localhost
+mysql:
+    install: '1'
+    root_password: rootpassword
+    database: homestead
+    user: homestead
+    password: secret
+    dump: ''
+sqlite:
+    install: '1'
+php:
+    install: '1'
+    ppa: php5-5.6
+    packages: [php5-cli, php5-intl, php5-mcrypt, php5-mysql, php5-curl, php5-sqlite]
+xdebug:
+    install: '1'
+composer:
+    install: '1'
+

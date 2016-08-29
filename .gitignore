@@ -2,3 +2,5 @@
 /vendor
 .env
 .sass-cache/
+Vagrantfile
+/.vagrant
