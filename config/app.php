@@ -174,6 +174,7 @@ return [
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Indal\Markdown\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -230,6 +231,7 @@ return [
         'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
+        'Markdown' => Indal\Markdown\Facade::class,
     ],
 
 ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13cded881836c244c21806dfaf14e1ad",
+    "content-hash": "2ca676d90baa6023ffc443ab732ab002",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -56,6 +56,49 @@
             "description": "Algolia Search API Client for PHP",
             "homepage": "https://github.com/algolia/algoliasearch-client-php",
             "time": "2017-05-22T14:50:28+00:00"
+        },
+        {
+            "name": "andreasindal/laravel-markdown",
+            "version": "1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreasindal/laravel-markdown.git",
+                "reference": "9b71f768e2327806a6ef2c7ecb091138702b9f2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreasindal/laravel-markdown/zipball/9b71f768e2327806a6ef2c7ecb091138702b9f2e",
+                "reference": "9b71f768e2327806a6ef2c7ecb091138702b9f2e",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "^1.6",
+                "illuminate/support": "^5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Indal\\Markdown\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Indal",
+                    "email": "andreas@rocketship.se"
+                }
+            ],
+            "description": "Simple Blade directive for markdown parsing.",
+            "time": "2017-01-18T22:14:48+00:00"
         },
         {
             "name": "bugsnag/bugsnag",
@@ -846,6 +889,48 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/1bf24f7334fe16c88bf9d467863309ceaf285b01",
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2017-03-29T16:04:15+00:00"
         },
         {
             "name": "guzzle/guzzle",
