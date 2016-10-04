@@ -10,7 +10,9 @@
                     <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos, and conference applications and responses.</p>
 
                     <p>
-                        <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot" style="border-radius: 0.5em">
+                        <a href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
+                            <img src="/img/symposium-screenshot.png" alt="Symposium Screenshot" style="border-radius: 0.5em">
+                        </a>
                     </p>
 
                     <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review speakers submissions, and manage the entire CFP process.</p>
@@ -38,7 +40,7 @@
                                 @include ('partials.log-in-form')
                             @else
                                 <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
-                                
+
                                 <hr>
 
                                 <div class="pronto-promo">
