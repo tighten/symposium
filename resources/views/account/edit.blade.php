@@ -37,11 +37,7 @@
                 <div class="form-group">
                     {{ Form::label('profile_picture', 'Profile Picture', ['class' => 'control-label']) }}
                     <div class="private-profile-pic">
-                        @if ($user->profile_picture == null)
-                            <img src="/img/missing.png" class="public-speaker-picture" alt="">
-                        @else
-                            <img src="{{ Auth::user()->profile_picture_hires }}" class="public-speaker-picture" alt="">
-                        @endif
+                        <img src="{{ Auth::user()->profile_picture_hires }}" class="public-speaker-picture" alt="">
                     </div>
                     @if($user->profile_picture == null)
                         <div class="alert alert-warning">
