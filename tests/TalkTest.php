@@ -22,7 +22,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function talks_are_sorted_alphabetically()
+    public function user_talks_are_sorted_alphabetically()
     {
         $user = Factory::create('user');
         $talk1 = Factory::create('talk', [
@@ -45,5 +45,23 @@ class TalkTest extends IntegrationTestCase
 
         $this->assertEquals('abcde', $talks->first()->current()->title);
         $this->assertEquals('zyxwv', $talks->last()->current()->title);
+    }
+
+    /** @test */
+    public function user_talks_json_encode_without_keys()
+    {
+        $user = Factory::create('user');
+
+        $talk1 = Factory::create('talk', ['author_id' => $user->id]);
+        $revision1 = Factory::create('talkRevision', ['title' => 'zyxwv']);
+        $talk1->revisions()->save($revision1);
+
+        $talk2 = Factory::create('talk', ['author_id' => $user->id]);
+        $revision2 = Factory::create('talkRevision', ['title' => 'abcde']);
+        $talk2->revisions()->save($revision2);
+
+        $json = json_encode($user->talks);
+
+        $this->assertTrue(is_array(json_decode($json)));
     }
 }
