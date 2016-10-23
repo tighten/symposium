@@ -105,6 +105,24 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
     /**
      * @test
+     */
+    public function conference_can_be_a_single_day_conference()
+    {
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-04',
+        ];
+
+        $form = CreateConferenceForm::fillOut($input, Factory::create('user'));
+        $form->complete();
+        // No assertions, as it should throw an exception on error.
+    }
+
+    /**
+     * @test
      * @expectedException App\Exceptions\ValidationException
      */
     public function conference_cfp_start_date_must_be_a_valid_date()
