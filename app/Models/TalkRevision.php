@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Models;
+
+use UuidBase;
+
 class TalkRevision extends UuidBase
 {
     protected $title;
@@ -13,7 +17,7 @@ class TalkRevision extends UuidBase
     protected $table = 'talk_revisions';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     public static $rules = [];
@@ -25,7 +29,7 @@ class TalkRevision extends UuidBase
 
     public function getUrl()
     {
-        return '/talks/' . $this->talk->id . '/?revision=' . $this->id;
+        return '/talks/'.$this->talk->id.'/?revision='.$this->id;
     }
 
     public function getHtmledDescription()
