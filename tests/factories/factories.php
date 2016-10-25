@@ -30,7 +30,7 @@ $factory('App\Models\User', 'user', [
     'name' => 'Jane Doe',
 ]);
 
-$factory('Bio', 'bio', [
+$factory('App\Models\Bio', 'bio', [
     'nickname' => 'short',
     'body' => 'Lorem ipsum datum',
 ]);

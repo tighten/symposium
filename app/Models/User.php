@@ -35,7 +35,7 @@ class User extends Authenticatable
 
     public function bios()
     {
-        return $this->hasMany('Bio')->orderBy('nickname');
+        return $this->hasMany('App\Models\Bio')->orderBy('nickname');
     }
 
     public function conferences()
