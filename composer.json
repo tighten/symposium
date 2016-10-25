@@ -44,7 +44,6 @@
     "autoload": {
         "classmap": [
             "database",
-            "app/models",
             "app/Http/Controllers/"
         ],
         "psr-4": {
