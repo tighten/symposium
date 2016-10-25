@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Talk;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

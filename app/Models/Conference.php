@@ -46,7 +46,7 @@ class Conference extends UuidBase
 
 //    public function submitters()
 //    {
-//        return $this->hasManyThrough('Talk', 'User');
+//        return $this->hasManyThrough('App\Models\Talk', 'User');
 //    }
 
     // @todo: Deprecate?

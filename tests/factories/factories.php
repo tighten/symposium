@@ -11,7 +11,7 @@ $factory('App\Models\Conference', 'conference', [
     'cfp_ends_at' => new DateTime,
 ]);
 
-$factory('Talk', 'talk', [
+$factory('App\Models\Talk', 'talk', [
 ]);
 
 $factory('TalkRevision', 'talkRevision', [

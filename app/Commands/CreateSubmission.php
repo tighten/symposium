@@ -1,8 +1,8 @@
 <?php namespace App\Commands;
 
 use App\Models\Conference;
+use App\Models\Talk;
 use App\Commands\Command;
-use Talk;
 use TalkRevision;
 
 class CreateSubmission extends Command
