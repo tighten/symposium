@@ -39,7 +39,8 @@
         "laracasts/testdummy": "~2.3",
         "mockery/mockery": "0.9.*",
         "symfony/dom-crawler": "~3.0",
-        "symfony/css-selector": "~3.0"
+        "symfony/css-selector": "~3.0",
+        "filp/whoops": "^2.1"
     },
     "autoload": {
         "classmap": [
