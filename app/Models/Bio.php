@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use UuidBase;
-
 class Bio extends UuidBase
 {
     protected $table = 'bios';

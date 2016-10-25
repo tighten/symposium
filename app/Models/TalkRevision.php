@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use UuidBase;
-
 class TalkRevision extends UuidBase
 {
     protected $title;
