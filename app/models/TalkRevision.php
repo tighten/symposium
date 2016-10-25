@@ -20,7 +20,7 @@ class TalkRevision extends UuidBase
 
     public function talk()
     {
-        return $this->belongsTo('Talk');
+        return $this->belongsTo('App\Models\Talk');
     }
 
     public function getUrl()

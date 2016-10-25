@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Models;
+
+use UuidBase;
+
 class Talk extends UuidBase
 {
     protected $table = 'talks';

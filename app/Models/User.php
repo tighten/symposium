@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     public function talks()
     {
-        return $this->hasMany('Talk', 'author_id');
+        return $this->hasMany('App\Models\Talk', 'author_id');
     }
 
     public function getTalksAttribute()

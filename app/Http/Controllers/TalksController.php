@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Talk;
 use Log;
 use Auth;
-use Talk;
 use View;
 use Input;
 use Session;

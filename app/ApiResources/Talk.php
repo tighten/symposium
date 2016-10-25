@@ -1,7 +1,7 @@
 <?php namespace App\ApiResources;
 
+use App\Models\Talk as EloquentTalk;
 use Illuminate\Contracts\Support\Arrayable;
-use Talk as EloquentTalk;
 
 class Talk implements Arrayable
 {
