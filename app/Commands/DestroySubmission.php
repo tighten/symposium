@@ -2,9 +2,7 @@
 
 use App\Models\Conference;
 use App\Models\Talk;
-use App\Commands\Command;
 use Submission;
-use TalkRevision;
 
 class DestroySubmission extends Command
 {

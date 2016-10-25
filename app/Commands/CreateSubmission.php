@@ -2,8 +2,6 @@
 
 use App\Models\Conference;
 use App\Models\Talk;
-use App\Commands\Command;
-use TalkRevision;
 
 class CreateSubmission extends Command
 {

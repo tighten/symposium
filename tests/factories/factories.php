@@ -14,7 +14,7 @@ $factory('App\Models\Conference', 'conference', [
 $factory('App\Models\Talk', 'talk', [
 ]);
 
-$factory('TalkRevision', 'talkRevision', [
+$factory('App\Models\TalkRevision', 'talkRevision', [
     'title' => 'My Awesome Title',
     'type' => 'lightning',
     'length' => '9',
