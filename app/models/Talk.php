@@ -22,7 +22,7 @@ class Talk extends UuidBase
 
 //    public function submissions()
 //    {
-//        return $this->belongsToMany('Conference');
+//        return $this->belongsToMany('App\Models\Conference');
 //    }
 
     public function current()

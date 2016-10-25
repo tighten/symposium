@@ -1,6 +1,6 @@
 <?php namespace App\ApiResources;
 
-use Conference as EloquentConference;
+use App\Models\Conference as EloquentConference;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Conference implements Arrayable

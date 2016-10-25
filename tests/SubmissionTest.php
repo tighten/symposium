@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Conference;
 use Carbon\Carbon;
 use Laracasts\TestDummy\Factory;
 use App\Commands\CreateSubmission;

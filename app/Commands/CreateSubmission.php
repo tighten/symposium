@@ -1,6 +1,6 @@
 <?php namespace App\Commands;
 
-use Conference;
+use App\Models\Conference;
 use App\Commands\Command;
 use Talk;
 use TalkRevision;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Conference;
 use Laracasts\TestDummy\Factory;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
