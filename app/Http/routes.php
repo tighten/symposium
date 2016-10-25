@@ -85,11 +85,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('talks/{id}/restore', ['as' => 'talks.restore', 'uses' => 'TalksController@restore']);
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController', [
-        'except' => ['show']
+        'except' => ['index', 'show']
     ]);
     Route::resource('bios', 'BiosController');
 });
 
+Route::get('conferences', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
 Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
 
 /**
