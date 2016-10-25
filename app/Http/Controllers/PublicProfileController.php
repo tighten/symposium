@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 
 class PublicProfileController extends Controller
 {

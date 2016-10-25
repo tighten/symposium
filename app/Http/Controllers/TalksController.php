@@ -6,7 +6,7 @@ use Talk;
 use View;
 use Input;
 use Session;
-use App\User;
+use App\Models\User;
 use Redirect;
 use Validator;
 use TalkRevision;

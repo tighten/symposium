@@ -3,7 +3,7 @@
 namespace App\Events;
 
 use App\Events\Event;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\SerializesModels;
