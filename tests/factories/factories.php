@@ -24,7 +24,7 @@ $factory('TalkRevision', 'talkRevision', [
     'organizer_notes' => 'No really.',
 ]);
 
-$factory('App\User', 'user', [
+$factory('App\Models\User', 'user', [
     'email' => $faker->email,
     'password' => Hash::make('password'),
     'name' => 'Jane Doe',

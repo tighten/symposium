@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\App;
 use App\ApiResources\Talk;
 use App\OAuthGuard\Facades\OAuthGuard;
-use App\User;
+use App\Models\User;
 
 class UserTalksController extends BaseController
 {
