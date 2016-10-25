@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Bio;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

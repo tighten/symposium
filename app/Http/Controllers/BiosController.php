@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Bio;
 use Auth;
-use Bio;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
