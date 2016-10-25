@@ -40,12 +40,12 @@ class Conference extends UuidBase
 
     public function submissions()
     {
-        return $this->belongsToMany('App\Models\TalkRevision', 'submissions')->withTimestamps();
+        return $this->belongsToMany(TalkRevision::class, 'submissions')->withTimestamps();
     }
 
 //    public function submitters()
 //    {
-//        return $this->hasManyThrough('App\Models\Talk', 'User');
+//        return $this->hasManyThrough(Talk::class', 'User');
 //    }
 
     // @todo: Deprecate?

@@ -24,7 +24,7 @@ class Talk extends UuidBase
 
 //    public function submissions()
 //    {
-//        return $this->belongsToMany('App\Models\Conference');
+//        return $this->belongsToMany(Conference::class);
 //    }
 
     public function current()
@@ -34,7 +34,7 @@ class Talk extends UuidBase
 
     public function revisions()
     {
-        return $this->hasMany('App\Models\TalkRevision');
+        return $this->hasMany(TalkRevision::class);
     }
 
     public function getRevisionsAttribute()

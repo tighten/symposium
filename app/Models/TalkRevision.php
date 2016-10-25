@@ -22,7 +22,7 @@ class TalkRevision extends UuidBase
 
     public function talk()
     {
-        return $this->belongsTo('App\Models\Talk');
+        return $this->belongsTo(Talk::class);
     }
 
     public function getUrl()
