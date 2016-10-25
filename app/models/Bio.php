@@ -1,8 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
-
 class Bio extends UuidBase
 {
     protected $table = 'bios';
