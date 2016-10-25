@@ -20,6 +20,7 @@
         @else
             <li><a href="/what-is-this">What is this?</a></li>
             <li><a href="/speakers">Our speakers</a></li>
+            <li><a href="{{ route('conferences.index') }}">Conferences</a></li>
             <li><a href="{{ route('log-in') }}">Log in</a></li>
             <li><a href="{{ route('sign-up') }}">Sign up</a></li>
         @endif
