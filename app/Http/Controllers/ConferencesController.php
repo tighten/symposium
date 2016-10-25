@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Conference;
+use App\Models\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;

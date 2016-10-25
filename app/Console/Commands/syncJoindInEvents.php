@@ -1,6 +1,5 @@
 <?php namespace App\Console\Commands;
 
-use Conference;
 use Illuminate\Console\Command;
 use JoindIn\Client;
 use App\JoindIn\ConferenceImporter;

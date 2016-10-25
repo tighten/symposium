@@ -40,12 +40,12 @@ class User extends Authenticatable
 
     public function conferences()
     {
-        return $this->hasMany('conference', 'author_id');
+        return $this->hasMany('App\Models\Conference', 'author_id');
     }
 
     public function favoritedConferences()
     {
-        return $this->belongstoMany('Conference', 'favorites')->withTimestamps();
+        return $this->belongstoMany('App\Models\Conference', 'favorites')->withTimestamps();
     }
 
     public function updateProfilePicture($filename)

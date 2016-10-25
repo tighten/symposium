@@ -1,6 +1,6 @@
 <?php namespace App\Services;
 
-use Conference;
+use App\Models\Conference;
 use Event;
 use App\Exceptions\ValidationException;
 use Validator;

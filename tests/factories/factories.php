@@ -1,6 +1,6 @@
 <?php
 
-$factory('Conference', 'conference', [
+$factory('App\Models\Conference', 'conference', [
     'author_id' => 1,
     'title' => 'Dummy Conference',
     'description' => 'A conference for dummies.',

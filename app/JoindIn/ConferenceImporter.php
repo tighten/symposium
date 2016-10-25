@@ -1,7 +1,7 @@
 <?php namespace App\JoindIn;
 
 use Carbon\Carbon;
-use Conference;
+use App\Models\Conference;
 use DateTime;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Illuminate\Support\Facades\App;

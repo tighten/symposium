@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
-use Conference as EloquentConference;
+use App\Models\Conference as EloquentConference;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
