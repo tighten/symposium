@@ -27,7 +27,7 @@ class TalkRevision extends UuidBase
 
     public function getUrl()
     {
-        return '/talks/'.$this->talk->id.'/?revision='.$this->id;
+        return '/talks/' . $this->talk->id . '/?revision=' . $this->id;
     }
 
     public function getHtmledDescription()
