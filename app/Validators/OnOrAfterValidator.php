@@ -54,6 +54,6 @@ class OnOrAfterValidator
      */
     public function message($message, $attribute, $rule, array $parameters)
     {
-        return str_replace('_', ' ', 'The ' . $attribute . ' must be a date on or after ' . $parameters[0]);
+        return str_replace('_', ' ', 'The ' . $attribute . ' field must be a date on or after the ' . $parameters[0] . ' field.');
     }
 }
