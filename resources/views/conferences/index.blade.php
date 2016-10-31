@@ -15,7 +15,9 @@
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Future', ['filter' => 'future'], ['class' => 'filter-link']) }} |
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP is Open', ['filter' => 'open_cfp'], ['class' => 'filter-link']) }} |
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Unclosed CFP', ['filter' => 'unclosed_cfp'], ['class' => 'filter-link']) }} |
-                    {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Favorites', ['filter' => 'favorites'], ['class' => 'filter-link']) }} |
+                    @if (Auth::check())
+                        {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Favorites', ['filter' => 'favorites'], ['class' => 'filter-link']) }} |
+                    @endif
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'All time', ['filter' => 'all'], ['class' => 'filter-link']) }}
                 </p>
 
@@ -28,7 +30,7 @@
                 <ul class="list-conferences">
                     @forelse ($conferences as $conference)
                         <li>
-                            @if ($conference->isFavorited())
+                            @if (Auth::check() && $conference->isFavorited())
                                 <a href="/conferences/{{ $conference->id  }}/unfavorite" class="fav-button fav-button--faved"><span class="glyphicon glyphicon-star"></a>
                             @else
                                 <a href="/conferences/{{ $conference->id  }}/favorite" class="fav-button"><span class="glyphicon glyphicon-star-empty"></a>
@@ -49,7 +51,7 @@
                                     <br>CFP: <b>{{ $conference->cfpStartsAtDisplay() }}</b> to <b>{{ $conference->cfpEndsAtDisplay() }}</b>
                                     </span>
                                 </i></p>
-                            @if ($conference->appliedTo())
+                            @if (Auth::check() && $conference->appliedTo())
                                 <b>Already Sent Proposal</b>
                             @endif
 
