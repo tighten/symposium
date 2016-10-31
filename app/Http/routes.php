@@ -36,11 +36,6 @@ Route::post('u/{profileSlug}/email', [
     'uses' => 'PublicProfileController@postEmail'
 ]);
 
-// temp fix
-Route::get('conferences/create', ['middleware' => 'auth', 'as' => 'conferences.create', 'uses' => 'ConferencesController@create']);
-
-Route::get('conferences/{id}', ['as' => 'conferences.public', 'uses' => 'ConferencesController@show']);
-
 /**
  * App
  */
@@ -89,9 +84,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('talks/{id}/archive', ['as' => 'talks.archive', 'uses' => 'TalksController@archive']);
     Route::get('talks/{id}/restore', ['as' => 'talks.restore', 'uses' => 'TalksController@restore']);
     Route::resource('talks', 'TalksController');
-    Route::resource('conferences', 'ConferencesController');
+    Route::resource('conferences', 'ConferencesController', [
+        'except' => ['show']
+    ]);
     Route::resource('bios', 'BiosController');
 });
+
+Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
 
 /**
  * API
