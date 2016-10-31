@@ -1,7 +1,7 @@
 <?php namespace App\Commands;
 
-use App\Models\Conference;
-use App\Models\Talk;
+use App\Conference;
+use App\Talk;
 
 class CreateSubmission extends Command
 {

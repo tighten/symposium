@@ -1,13 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\Conference;
+use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
 use Carbon\Carbon;
-use App\Models\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use JoindIn\Client;
-use App\Exceptions\ValidationException;
-use App\Services\CreateConferenceForm;
 
 class ConferencesController extends BaseController
 {

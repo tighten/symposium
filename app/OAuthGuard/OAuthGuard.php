@@ -1,7 +1,7 @@
 <?php namespace App\OAuthGuard;
 
+use App\User;
 use LucaDegasperi\OAuth2Server\Authorizer;
-use App\Models\User;
 
 class OAuthGuard
 {

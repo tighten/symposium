@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\User;
 use Log;
 use Redirect;
 use Session;
-use App\Models\User;
 use View;
 
 class AuthorsController extends BaseController

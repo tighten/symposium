@@ -1,10 +1,9 @@
 <?php
 
-use App\Models\Conference;
-use Carbon\Carbon;
-use Laracasts\TestDummy\Factory;
 use App\Commands\CreateSubmission;
 use App\Commands\DestroySubmission;
+use App\Conference;
+use Laracasts\TestDummy\Factory;
 
 class SubmissionTest extends IntegrationTestCase
 {

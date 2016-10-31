@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Talk;
-use App\Models\TalkRevision;
-use App\Models\User;
+use App\Talk;
+use App\TalkRevision;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class TalksSeeder extends Seeder

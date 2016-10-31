@@ -1,7 +1,7 @@
 <?php namespace App\Services;
 
+use App\Bio;
 use App\Exceptions\ValidationException;
-use App\Models\Bio;
 use Validator;
 
 class CreateBioForm

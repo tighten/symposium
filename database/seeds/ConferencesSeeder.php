@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Conference;
-use App\Models\User;
+use App\Conference;
+use App\User;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;

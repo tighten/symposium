@@ -1,15 +1,14 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\Talk;
-use App\Models\TalkRevision;
-use Log;
+use App\Talk;
+use App\TalkRevision;
 use Auth;
-use View;
 use Input;
-use Session;
-use App\Models\User;
+use Log;
 use Redirect;
+use Session;
 use Validator;
+use View;
 
 class TalksController extends BaseController
 {
