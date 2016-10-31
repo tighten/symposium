@@ -1,8 +1,8 @@
 <?php namespace App\Services;
 
-use Conference;
-use Event;
+use App\Conference;
 use App\Exceptions\ValidationException;
+use Event;
 use Validator;
 
 class CreateConferenceForm

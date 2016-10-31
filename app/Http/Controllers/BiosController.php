@@ -1,16 +1,14 @@
 <?php namespace App\Http\Controllers;
 
+use App\Bio;
+use App\Exceptions\ValidationException;
+use App\Services\CreateBioForm;
 use Auth;
-use Bio;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Input;
 use Log;
 use Redirect;
 use Session;
-use App\Exceptions\ValidationException;
-use App\Services\CreateBioForm;
 use Validator;
 use View;
 

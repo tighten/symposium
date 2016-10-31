@@ -1,6 +1,6 @@
 <?php namespace App\Services;
 
-use Bio;
+use App\Bio;
 use App\Exceptions\ValidationException;
 use Validator;
 

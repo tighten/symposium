@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Talk extends UuidBase
 {
     protected $table = 'talks';
@@ -22,7 +24,7 @@ class Talk extends UuidBase
 
 //    public function submissions()
 //    {
-//        return $this->belongsToMany('Conference');
+//        return $this->belongsToMany(Conference::class);
 //    }
 
     public function current()
@@ -32,7 +34,7 @@ class Talk extends UuidBase
 
     public function revisions()
     {
-        return $this->hasMany('TalkRevision');
+        return $this->hasMany(TalkRevision::class);
     }
 
     public function getRevisionsAttribute()
