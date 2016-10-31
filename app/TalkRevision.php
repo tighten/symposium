@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class TalkRevision extends UuidBase
 {
     protected $title;
@@ -13,14 +15,14 @@ class TalkRevision extends UuidBase
     protected $table = 'talk_revisions';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     public static $rules = [];
 
     public function talk()
     {
-        return $this->belongsTo('Talk');
+        return $this->belongsTo(Talk::class);
     }
 
     public function getUrl()

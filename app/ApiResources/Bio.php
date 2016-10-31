@@ -1,6 +1,6 @@
 <?php namespace App\ApiResources;
 
-use Bio as EloquentBio;
+use App\Bio as EloquentBio;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Bio implements Arrayable

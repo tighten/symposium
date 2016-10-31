@@ -1,7 +1,6 @@
 <?php
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+namespace App;
 
 class Bio extends UuidBase
 {
@@ -11,7 +10,7 @@ class Bio extends UuidBase
         'user_id',
         'nickname',
         'public',
-        'body'
+        'body',
     ];
 
     public function user()

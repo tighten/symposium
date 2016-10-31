@@ -1,5 +1,6 @@
 <?php
 
+use App\Bio;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class BioApiTest extends ApiTestCase

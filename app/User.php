@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     public function talks()
     {
-        return $this->hasMany('Talk', 'author_id');
+        return $this->hasMany(Talk::class, 'author_id');
     }
 
     public function getTalksAttribute()
@@ -35,17 +35,17 @@ class User extends Authenticatable
 
     public function bios()
     {
-        return $this->hasMany('Bio')->orderBy('nickname');
+        return $this->hasMany(Bio::class)->orderBy('nickname');
     }
 
     public function conferences()
     {
-        return $this->hasMany('conference', 'author_id');
+        return $this->hasMany(Conference::class, 'author_id');
     }
 
     public function favoritedConferences()
     {
-        return $this->belongstoMany('Conference', 'favorites')->withTimestamps();
+        return $this->belongstoMany(Conference::class, 'favorites')->withTimestamps();
     }
 
     public function updateProfilePicture($filename)

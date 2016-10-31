@@ -1,5 +1,6 @@
 <?php
 
+use App\Conference;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ConferenceApiTest extends ApiTestCase

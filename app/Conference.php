@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -37,12 +40,12 @@ class Conference extends UuidBase
 
     public function submissions()
     {
-        return $this->belongsToMany('TalkRevision', 'submissions')->withTimestamps();
+        return $this->belongsToMany(TalkRevision::class, 'submissions')->withTimestamps();
     }
 
 //    public function submitters()
 //    {
-//        return $this->hasManyThrough('Talk', 'User');
+//        return $this->hasManyThrough(Talk::class', 'User');
 //    }
 
     // @todo: Deprecate?

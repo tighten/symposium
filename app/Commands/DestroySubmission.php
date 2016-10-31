@@ -1,10 +1,8 @@
 <?php namespace App\Commands;
 
-use Conference;
-use App\Commands\Command;
+use App\Conference;
+use App\Talk;
 use Submission;
-use Talk;
-use TalkRevision;
 
 class DestroySubmission extends Command
 {

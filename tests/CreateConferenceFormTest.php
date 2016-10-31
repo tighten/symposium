@@ -1,8 +1,9 @@
 <?php
 
-use Laracasts\TestDummy\Factory;
+use App\Conference;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
+use Laracasts\TestDummy\Factory;
 
 class CreateConferenceFormTest extends IntegrationTestCase
 {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Bio;
 use App\User;
 use Illuminate\Database\Seeder;
 

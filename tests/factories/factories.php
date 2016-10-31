@@ -1,6 +1,6 @@
 <?php
 
-$factory('Conference', 'conference', [
+$factory(\App\Conference::class, 'conference', [
     'author_id' => 1,
     'title' => 'Dummy Conference',
     'description' => 'A conference for dummies.',
@@ -11,10 +11,10 @@ $factory('Conference', 'conference', [
     'cfp_ends_at' => new DateTime,
 ]);
 
-$factory('Talk', 'talk', [
+$factory(\App\Talk::class, 'talk', [
 ]);
 
-$factory('TalkRevision', 'talkRevision', [
+$factory(App\TalkRevision::class, 'talkRevision', [
     'title' => 'My Awesome Title',
     'type' => 'lightning',
     'length' => '9',
@@ -24,13 +24,13 @@ $factory('TalkRevision', 'talkRevision', [
     'organizer_notes' => 'No really.',
 ]);
 
-$factory('App\User', 'user', [
+$factory(\App\User::class, 'user', [
     'email' => $faker->email,
     'password' => Hash::make('password'),
     'name' => 'Jane Doe',
 ]);
 
-$factory('Bio', 'bio', [
+$factory(\App\Bio::class, 'bio', [
     'nickname' => 'short',
     'body' => 'Lorem ipsum datum',
 ]);
