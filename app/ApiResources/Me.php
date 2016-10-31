@@ -1,7 +1,7 @@
 <?php namespace App\ApiResources;
 
+use App\User;
 use Illuminate\Contracts\Support\Arrayable;
-use App\Models\User;
 
 class Me implements Arrayable
 {

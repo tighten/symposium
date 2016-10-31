@@ -1,12 +1,9 @@
 <?php namespace App\Http\Controllers\Api;
 
-use Carbon\Carbon;
-use App\Models\Conference as EloquentConference;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use App\ApiResources\Conference;
-use App\Models\User;
+use App\Conference as EloquentConference;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 class ConferencesController extends BaseController
 {

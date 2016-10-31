@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Talk;
+use App\Talk;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class TalkApiTest extends ApiTestCase

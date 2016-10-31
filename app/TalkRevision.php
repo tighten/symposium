@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 class TalkRevision extends UuidBase
 {

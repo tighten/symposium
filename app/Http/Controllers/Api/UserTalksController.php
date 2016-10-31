@@ -1,9 +1,8 @@
 <?php namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\App;
 use App\ApiResources\Talk;
 use App\OAuthGuard\Facades\OAuthGuard;
-use App\Models\User;
+use Illuminate\Support\Facades\App;
 
 class UserTalksController extends BaseController
 {
