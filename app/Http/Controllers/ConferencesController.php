@@ -14,10 +14,15 @@ use App\Services\CreateConferenceForm;
 
 class ConferencesController extends BaseController
 {
-    protected $account_rules = [
-        'title' => 'required',
-        'description' => 'required',
-        'url' => 'required',
+    protected $conference_rules = [
+        'title' => ['required'],
+        'description' => ['required'],
+        'url' => ['required'],
+        'cfp_url' => [],
+        'starts_at' => ['date'],
+        'ends_at' => ['date', 'onOrAfter:starts_at'],
+        'cfp_starts_at' => ['date', 'before:starts_at'],
+        'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
     ];
 
     /**
@@ -162,7 +167,7 @@ class ConferencesController extends BaseController
 
     public function update($id, Request $request)
     {
-        $this->validate($request, $this->account_rules);
+        $this->validate($request, $this->conference_rules);
 
         try {
             $conference = Auth::user()->conferences()->findOrFail($id);
@@ -173,18 +178,12 @@ class ConferencesController extends BaseController
 
         // Default to null
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
-            $nullableDates[$col] = Input::get($col) ?: null;
+            $nullableDates[$col] = $request->input($col) ?: null;
         }
 
         // Save
-        $conference->title = Input::get('title');
-        $conference->description = Input::get('description');
-        $conference->url = Input::get('url');
-        $conference->cfp_url = Input::get('cfp_url');
-        $conference->starts_at = $nullableDates['starts_at'];
-        $conference->ends_at= $nullableDates['ends_at'];
-        $conference->cfp_starts_at = $nullableDates['cfp_starts_at'];
-        $conference->cfp_ends_at = $nullableDates['cfp_ends_at'];
+        $conference->fill($request->only(['title', 'description', 'url', 'cfp_url']));
+        $conference->fill($nullableDates);
         $conference->save();
 
         Session::flash('message', 'Successfully edited conference.');

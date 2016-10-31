@@ -31,3 +31,6 @@ Response::macro('jsonApi', function ($value) {
     $response->headers->set('Content-Type', 'application/vnd.api+json');
     return $response;
 });
+
+Validator::extend('onOrAfter', 'App\Validators\OnOrAfterValidator@validate');
+Validator::replacer('onOrAfter', 'App\Validators\OnOrAfterValidator@message');

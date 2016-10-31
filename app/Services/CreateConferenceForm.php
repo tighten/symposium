@@ -13,7 +13,7 @@ class CreateConferenceForm
         'url' => ['required'],
         'cfp_url' => [],
         'starts_at' => ['date'],
-        'ends_at' => ['date', 'after:starts_at'],
+        'ends_at' => ['date', 'onOrAfter:starts_at'],
         'cfp_starts_at' => ['date', 'before:starts_at'],
         'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
     ];
