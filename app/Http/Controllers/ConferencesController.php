@@ -3,9 +3,6 @@
 use Carbon\Carbon;
 use Conference;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use JoindIn\Client;
@@ -25,16 +22,11 @@ class ConferencesController extends BaseController
         'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
     ];
 
-    /**
-     * Display all conferences
-     *
-     * @return Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        switch (Input::get('filter')) {
+        switch ($request->input('filter')) {
             case 'favorites':
-                $conferences = Auth::user()->favoritedConferences()->get();
+                $conferences = auth()->user()->favoritedConferences()->get();
                 break;
             case 'open_cfp':
                 $conferences = Conference::openCfp()->get();
@@ -51,7 +43,7 @@ class ConferencesController extends BaseController
                 $conferences = Conference::future()->get();
         }
 
-        switch (Input::get('sort')) {
+        switch ($request->input('sort')) {
             case 'date':
                 $conferences = $conferences->sortBy(function (Conference $model) {
                     return $model->starts_at;
@@ -83,25 +75,15 @@ class ConferencesController extends BaseController
             ->with('conferences', $conferences);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
         return view('conferences.create')
-            ->with('conference', new Conference());
+            ->with('conference', new Conference);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
+    public function store(Request $request)
     {
-        $form = CreateConferenceForm::fillOut(Input::all(), Auth::user());
+        $form = CreateConferenceForm::fillOut($request->all(), auth()->user());
 
         try {
             $conference = $form->complete();
@@ -116,15 +98,9 @@ class ConferencesController extends BaseController
         return redirect('conferences/' . $conference->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
     public function show($id)
     {
-        if (Auth::guest()) {
+        if (auth()->guest()) {
             return $this->showPublic($id);
         }
 
@@ -141,7 +117,7 @@ class ConferencesController extends BaseController
         return view('conferences.show')
             ->with('conference', $conference)
             ->with('talksAtConference', $talksAtConference)
-            ->with('talks', Auth::user()->talks);
+            ->with('talks', auth()->user()->talks);
     }
 
     private function showPublic($id)
@@ -155,9 +131,9 @@ class ConferencesController extends BaseController
     public function edit($id)
     {
         try {
-            $conference = Auth::user()->conferences()->findOrFail($id);
+            $conference = auth()->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
-            Log::error('User ' . Auth::user()->id . ' tried to edit a conference they don\'t own.');
+            Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
 
@@ -170,20 +146,18 @@ class ConferencesController extends BaseController
         $this->validate($request, $this->conference_rules);
 
         try {
-            $conference = Auth::user()->conferences()->findOrFail($id);
+            $conference = auth()->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
-            Log::error('User ' . Auth::user()->id . ' tried to edit a conference they don\'t own.');
+            Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
-        }
-
-        // Default to null
-        foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
-            $nullableDates[$col] = $request->input($col) ?: null;
         }
 
         // Save
         $conference->fill($request->only(['title', 'description', 'url', 'cfp_url']));
-        $conference->fill($nullableDates);
+        foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
+            $conference->$col = $request->input($col, null);
+        }
+
         $conference->save();
 
         Session::flash('message', 'Successfully edited conference.');
@@ -194,13 +168,14 @@ class ConferencesController extends BaseController
     public function destroy($id)
     {
         try {
-            $conference = Auth::user()->conferences()->findOrFail($id);
+            $conference = auth()->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
-            Log::error("User " . Auth::user()->id . " tried to delete a conference that doesn't exist or they don't own.");
+            Log::error("User " . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
             return redirect('/');
         }
 
         $conference->delete();
+
         Session::flash('success-message', 'Conference successfully deleted.');
 
         return redirect('conferences');
@@ -208,14 +183,14 @@ class ConferencesController extends BaseController
 
     public function favorite($conferenceId)
     {
-        Auth::user()->favoritedConferences()->attach($conferenceId);
+        auth()->user()->favoritedConferences()->attach($conferenceId);
 
         return redirect()->back();
     }
 
     public function unfavorite($conferenceId)
     {
-        Auth::user()->favoritedConferences()->detach($conferenceId);
+        auth()->user()->favoritedConferences()->detach($conferenceId);
 
         return redirect()->back();
     }
