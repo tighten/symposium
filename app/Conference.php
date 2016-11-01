@@ -35,7 +35,7 @@ class Conference extends UuidBase
 
     public function author()
     {
-        return $this->belongsTo('User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function submissions()
@@ -154,7 +154,7 @@ class Conference extends UuidBase
      */
     public function usersFavorited()
     {
-        return $this->belongstoMany('User', 'favorites')->withTimestamps();
+        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
     }
 
     public function isFavorited()

@@ -1,4 +1,6 @@
-<?php namespace App\ApiResources;
+<?php
+
+namespace App\ApiResources;
 
 use App\User;
 use Illuminate\Contracts\Support\Arrayable;
@@ -27,8 +29,8 @@ class Me implements Arrayable
         return [
             'email' => $this->user->email,
             'name' => $this->user->name,
-            'created_at' => (string)$this->user->created_at,
-            'updated_at' => (string)$this->user->updated_at
+            'created_at' => (string) $this->user->created_at,
+            'updated_at' => (string) $this->user->updated_at
         ];
     }
 

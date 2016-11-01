@@ -1,10 +1,12 @@
-<?php namespace App\Console\Commands;
+<?php
+
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use JoindIn\Client;
+use JoindIn\Client as JoindInClient;
 use App\JoindIn\ConferenceImporter;
 
-class syncJoindInEvents extends Command
+class SyncJoindInEvents extends Command
 {
     protected $name = 'joindin:sync';
 
@@ -16,10 +18,11 @@ class syncJoindInEvents extends Command
     public function __construct()
     {
         parent::__construct();
+
         // @todo handle this better
         $adminUserId = 1;
 
-        $this->client = Client::factory();
+        $this->client = JoindInClient::factory();
         $this->importer = new ConferenceImporter($adminUserId);
     }
 

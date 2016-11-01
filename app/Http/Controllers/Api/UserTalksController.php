@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Api;
+<?php
+
+namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Talk;
 use App\OAuthGuard\Facades\OAuthGuard;

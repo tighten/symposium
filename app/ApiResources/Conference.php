@@ -1,4 +1,6 @@
-<?php namespace App\ApiResources;
+<?php
+
+namespace App\ApiResources;
 
 use App\Conference as EloquentConference;
 use Illuminate\Contracts\Support\Arrayable;
@@ -29,10 +31,10 @@ class Conference implements Arrayable
             'description' => $this->conference->description,
             'url' => $this->conference->url,
             'cfp_url' => $this->conference->cfp_url,
-            'starts_at' => (string)$this->conference->starts_at,
-            'ends_at' => (string)$this->conference->ends_at,
-            'cfp_starts_at' => (string)$this->conference->cfp_starts_at,
-            'cfp_ends_at' => (string)$this->conference->cfp_ends_at,
+            'starts_at' => (string) $this->conference->starts_at,
+            'ends_at' => (string) $this->conference->ends_at,
+            'cfp_starts_at' => (string) $this->conference->cfp_starts_at,
+            'cfp_ends_at' => (string) $this->conference->cfp_ends_at,
         ];
     }
 

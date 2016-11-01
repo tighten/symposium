@@ -1,4 +1,6 @@
-<?php namespace App\Exceptions;
+<?php
+
+namespace App\Exceptions;
 
 use RuntimeException;
 
@@ -9,6 +11,7 @@ class ValidationException extends RuntimeException
     public function __construct($message, $errors)
     {
         parent::__construct($message);
+
         $this->errors = $errors;
     }
 

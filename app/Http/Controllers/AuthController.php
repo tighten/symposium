@@ -1,7 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends BaseController
@@ -11,9 +12,9 @@ class AuthController extends BaseController
         return view('account.log-in');
     }
 
-    public function postLogin()
+    public function postLogin(Request $request)
     {
-        if (Auth::attempt(Request::only('email', 'password'))) {
+        if (auth()->attempt($request->only('email', 'password'))) {
             return redirect()->intended('/dashboard');
         }
 
@@ -24,7 +25,7 @@ class AuthController extends BaseController
     public function logout()
     {
         Session::flash('message', 'Successfully logged out.');
-        Auth::logout();
+        auth()->logout();
 
         return redirect('/');
     }

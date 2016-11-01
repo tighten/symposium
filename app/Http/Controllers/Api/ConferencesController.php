@@ -1,15 +1,17 @@
-<?php namespace App\Http\Controllers\Api;
+<?php
+
+namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Conference;
 use App\Conference as EloquentConference;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class ConferencesController extends BaseController
 {
-    public function index()
+    public function index(Request $request)
     {
-        switch (Input::get('filter')) {
+        switch ($request->input('filter')) {
             case 'all':
                 $conferences = EloquentConference::all();
                 break;
@@ -29,8 +31,8 @@ class ConferencesController extends BaseController
         $sort = 'closing_next';
         $sortDir = 'asc';
 
-        if (Input::has('sort')) {
-            $sort = Input::get('sort');
+        if ($request->has('sort')) {
+            $sort = $request->input('sort');
 
             if (substr($sort, 0, 1) == '-') {
                 $sort = substr($sort, 1);
@@ -77,8 +79,7 @@ class ConferencesController extends BaseController
 
     public function show($id)
     {
-        $conference = EloquentConference::findOrFail($id);
-        $conference = new Conference($conference);
+        $conference = new Conference(EloquentConference::findOrFail($id));
 
         return response()->jsonApi([
             'data' => $conference->toArray()

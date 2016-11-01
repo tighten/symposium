@@ -1,11 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use View;
+namespace App\Http\Controllers;
 
 class HomeController extends BaseController
 {
     public function showWelcome()
     {
-        return View::make('hello');
+        return view('hello');
     }
 }

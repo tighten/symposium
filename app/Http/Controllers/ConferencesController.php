@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Conference;
 use App\Exceptions\ValidationException;
@@ -153,8 +155,9 @@ class ConferencesController extends BaseController
 
         // Save
         $conference->fill($request->only(['title', 'description', 'url', 'cfp_url']));
+
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
-            $conference->$col = $request->input($col, null);
+            $conference->$col = $request->input($col) ?: null;
         }
 
         $conference->save();

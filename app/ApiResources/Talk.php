@@ -1,4 +1,6 @@
-<?php namespace App\ApiResources;
+<?php
+
+namespace App\ApiResources;
 
 use App\Talk as EloquentTalk;
 use Illuminate\Contracts\Support\Arrayable;
@@ -33,8 +35,8 @@ class Talk implements Arrayable
             'slides' => $this->talk->current()->slides,
             'public' => $this->talk->public,
             'organizer_notes' => $this->talk->current()->organizer_notes,
-            'created_at' => (string)$this->talk->current()->created_at,
-            'updated_at' => (string)$this->talk->current()->updated_at,
+            'created_at' => (string) $this->talk->current()->created_at,
+            'updated_at' => (string) $this->talk->current()->updated_at,
         ];
     }
 

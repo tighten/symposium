@@ -1,4 +1,6 @@
-<?php namespace App\ApiResources;
+<?php
+
+namespace App\ApiResources;
 
 use App\Bio as EloquentBio;
 use Illuminate\Contracts\Support\Arrayable;
@@ -28,8 +30,8 @@ class Bio implements Arrayable
             'nickname' => $this->bio->nickname,
             'public' => $this->bio->public,
             'body' => $this->bio->body,
-            'created_at' => (string)$this->bio->created_at,
-            'updated_at' => (string)$this->bio->updated_at,
+            'created_at' => (string) $this->bio->created_at,
+            'updated_at' => (string) $this->bio->updated_at,
         ];
     }
 

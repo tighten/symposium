@@ -1,4 +1,6 @@
-<?php namespace App\OAuthGuard;
+<?php
+
+namespace App\OAuthGuard;
 
 use App\User;
 use LucaDegasperi\OAuth2Server\Authorizer;

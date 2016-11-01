@@ -1,9 +1,11 @@
-<?php namespace App\Http\Controllers\Api;
+<?php
+
+namespace App\Http\Controllers\Api;
 
 use App;
-use Exception;
 use App\ApiResources\Talk;
 use App\OAuthGuard\Facades\OAuthGuard;
+use Exception;
 
 class TalksController extends BaseController
 {

@@ -1,10 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\View;
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Authorizer;
 
 class OAuthController extends Controller
@@ -18,7 +16,7 @@ class OAuthController extends Controller
 
     public function postAccessToken()
     {
-         return Response::json($this->authorizer->issueAccessToken());
+         return response()->json($this->authorizer->issueAccessToken());
     }
 
     public function getAuthorize()
@@ -26,23 +24,23 @@ class OAuthController extends Controller
         $params = $this->authorizer->getAuthCodeRequestParams();
         $params['client_id'] = $params['client']->getId(); // @todo wtf, why are we having to do this manually?
 
-        return View::make('oauth/authorization-form', ['params' => $params]);
+        return view('oauth/authorization-form', ['params' => $params]);
     }
 
-    public function postAuthorize()
+    public function postAuthorize(Request $request)
     {
         $params['user_id'] = Auth::user()->id;
 
         $redirectUri = '';
 
-        if (Input::get('approve') !== null) {
+        if ($request->input('approve') !== null) {
             $redirectUri = $this->authorizer->issueAuthCode('user', $params['user_id'], $params);
         }
 
-        if (Input::get('deny') !== null) {
+        if ($request->input('deny') !== null) {
             $redirectUri = $this->authorizer->authCodeRequestDeniedRedirectUri();
         }
 
-        return Redirect::to($redirectUri);
+        return redirect($redirectUri);
     }
 }

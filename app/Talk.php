@@ -19,7 +19,7 @@ class Talk extends UuidBase
 
     public function author()
     {
-        return $this->belongsTo('User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
 //    public function submissions()

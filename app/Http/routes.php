@@ -4,11 +4,11 @@
  * Public
  */
 Route::get('/', function () {
-    return View::make('home');
+    return view('home');
 });
 
 Route::get('what-is-this', function () {
-    return View::make('what-is-this');
+    return view('what-is-this');
 });
 
 Route::get('speakers', [
