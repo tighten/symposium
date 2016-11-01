@@ -16,4 +16,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UpdateProfilePicture',
         ],
     ];
+
+    public function register()
+    {
+
+    }
 }

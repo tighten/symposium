@@ -54,4 +54,9 @@ class RouteServiceProvider extends ServiceProvider
             require app_path('Http/routes.php');
         });
     }
+
+    public function register()
+    {
+
+    }
 }
