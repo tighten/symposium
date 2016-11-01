@@ -5653,7 +5653,7 @@ legend {
   position: fixed;
   width: 20%;
   min-width: 250px;
-  z-index: 20000;
+  z-index: 200;
   text-align: center; }
 
 .hero {
