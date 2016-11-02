@@ -1,12 +1,13 @@
 <?php
 
-use Laracasts\TestDummy\Factory;
+use App\Talk;
 use Carbon\Carbon;
+use Laracasts\TestDummy\Factory;
 
 class TalkTest extends IntegrationTestCase
 {
     /** @test */
-    public function it_shows_the_talk_title_on_its_page()
+    function it_shows_the_talk_title_on_its_page()
     {
         $user = Factory::create('user');
         $conference = Factory::create('conference');
@@ -22,7 +23,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_talks_are_sorted_alphabetically()
+    function user_talks_are_sorted_alphabetically()
     {
         $user = Factory::create('user');
         $talk1 = Factory::create('talk', [
@@ -48,7 +49,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_talks_json_encode_without_keys()
+    function user_talks_json_encode_without_keys()
     {
         $user = Factory::create('user');
 
@@ -63,5 +64,33 @@ class TalkTest extends IntegrationTestCase
         $json = json_encode($user->talks);
 
         $this->assertTrue(is_array(json_decode($json)));
+    }
+
+    /** @test */
+    function user_can_create_talks()
+    {
+        $user = Factory::create('user');
+
+        $this->be($user);
+
+        $data = [
+            'title' => 'Your Best Talk Now',
+            'type' => 'keynote',
+            'level' => 'intermediate',
+            'description' => 'No, really.',
+            'length' => '123',
+            'slides' => 'http://www.google.com/slides',
+            'organizer_notes' => "It'll be awesome!"
+        ];
+
+        $this->post('talks', $data);
+
+        $this->seeInDatabase('talk_revisions', $data);
+
+        $talk = Talk::first();
+
+        $this->visit('talks/' . $talk->id)
+            ->see('Your Best Talk Now')
+            ->see('No, really.');
     }
 }
