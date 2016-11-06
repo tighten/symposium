@@ -16,6 +16,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('users', [
             'email' => 'email@email.com',
+            'name' => 'Joe Schmoe'
         ]);
     }
 
