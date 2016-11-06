@@ -2,9 +2,12 @@
 
 use App\User;
 use Laracasts\TestDummy\Factory;
+use MailThief\Testing\InteractsWithMail;
 
 class AccountTest extends IntegrationTestCase
 {
+    use InteractsWithMail;
+
     /** @test */
     function users_can_sign_up()
     {
@@ -47,7 +50,22 @@ class AccountTest extends IntegrationTestCase
             ->seePageIs('dashboard');
     }
 
-    // @todo: reset password
+    /** @test */
+    function password_reset_emails_are_sent_for_valid_users()
+    {
+        $this->markTestIncomplete('Wait for Laravel 5.3');
+
+        $user = Factory::create('user');
+
+        $this->visit('password/email')
+            ->type($user->email, '#email')
+            ->press('Send Password Reset Link');
+
+        $this->seeMessageFor($user->email);
+        $this->assertTrue($this->lastMessage()->contains('Password or whatever should be here'));
+    }
+
+    // @todo: Also test the round two is triggered correctly
 
     /** @test */
     function users_can_delete_their_accounts()

@@ -40,7 +40,8 @@
         "mockery/mockery": "0.9.*",
         "symfony/dom-crawler": "~3.0",
         "symfony/css-selector": "~3.0",
-        "filp/whoops": "^2.1"
+        "filp/whoops": "^2.1",
+        "tightenco/mailthief": "^0.3.2"
     },
     "autoload": {
         "classmap": [
