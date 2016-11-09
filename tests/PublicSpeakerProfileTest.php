@@ -9,7 +9,31 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
 {
     use DatabaseMigrations;
 
-    public function test_it_does_not_show_a_profile_for_non_public_speakers()
+    /** @test */
+    function non_public_speakers_are_not_listed_on_the_public_speaker_page()
+    {
+        $user = Factory::create('user', [
+            'enable_profile' => false
+        ]);
+
+        $this->visit(route('speakers-public.index'))
+            ->dontSee($user->name);
+    }
+
+    /** @test */
+    function public_speakers_are_listed_on_the_public_speaker_page()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'mattstauffer',
+            'enable_profile' => true
+        ]);
+
+        $this->visit(route('speakers-public.index'))
+            ->see($user->name);
+    }
+
+    /** @test */
+    function non_public_speakers_do_not_have_public_speaker_profile_pages()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'mattstauffer',
@@ -20,18 +44,20 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->assertResponseStatus(404);
     }
 
-    public function test_it_shows_a_profile_for_public_speakers()
+    /** @test */
+    function public_speakers_have_public_speaker_profile_pages()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'abrahamlincoln',
             'enable_profile' => true
         ]);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]));
-        $this->see($user->name);
+        $this->visit(route('speakers-public.show', [$user->profile_slug]))
+            ->see($user->name);
     }
 
-    public function test_it_does_not_list_talks_marked_not_public()
+    /** @test */
+    function talks_marked_not_public_are_not_listed_publicly()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'tonimorrison',
@@ -49,7 +75,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->dontSee($talkRevision->title);
     }
 
-    public function test_it_does_not_show_talks_marked_not_public()
+    /** @test */
+    function talks_marked_not_public_do_not_have_public_pages()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'jamesandthegiantpeach',
@@ -66,7 +93,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->assertResponseStatus(404);
     }
 
-    public function test_it_shows_talks_marked_public()
+    /** @test */
+    function talks_marked_public_are_listed_publicly()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'zipporah',
@@ -84,7 +112,25 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->see($talkRevision->title);
     }
 
-    public function test_it_does_not_show_bios_marked_not_public()
+    /** @test */
+    function bios_marked_public_are_listed_publicly()
+    {
+        $user = Factory::create('user', [
+            'profile_slug' => 'esther',
+            'enable_profile' => true
+        ]);
+
+        $bio = Factory::build('bio');
+        $bio->public = false;
+        $user->bios()->save($bio);
+
+        $this->get(route('speakers-public.show', [$user->profile_slug]));
+        $this->assertResponseOk();
+        $this->see($bio->title);
+    }
+
+    /** @test */
+    function bios_marked_not_public_do_not_have_public_pages()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'kuntakinte',
@@ -99,7 +145,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->dontSee($bio->nickname);
     }
 
-    public function test_it_shows_bios_marked_public()
+    /** @test */
+    function bios_marked_public_have_public_pages()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'mydearauntsally',
@@ -114,7 +161,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->see($bio->nickname);
     }
 
-    public function test_public_profile_page_is_off_by_default()
+    /** @test */
+    function public_profile_page_is_off_by_default()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'jimmybob',
@@ -124,7 +172,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $this->assertResponseStatus(404);
     }
 
-    public function test_it_does_not_show_contact_for_non_contactable_users()
+    /** @test */
+    function non_contactable_users_profile_pages_do_not_show_contact()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'jimmybob',
@@ -145,7 +194,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->assertResponseStatus(404);
     }
 
-    public function test_it_shows_contact_for_contactable_users()
+    /** @test */
+    function contactable_users_profile_pages_show_contact()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'jimmybob',
@@ -167,7 +217,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->assertResponseOk();
     }
 
-    public function test_disabled_profile_user_cannot_be_contacted()
+    /** @test */
+    function disabled_profile_user_cannot_be_contacted()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'alphabetsoup',
@@ -184,7 +235,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->assertResponseStatus(404);
     }
 
-    public function test_it_does_not_show_talks_for_another_user()
+    /** @test */
+    function public_profile_pages_do_not_show_talks_for_other_users()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'jinkerjanker',
@@ -209,7 +261,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->dontSee($talk->current()->title);
     }
 
-    public function test_it_does_not_show_bios_for_another_user()
+    /** @test */
+    function public_profile_pages_do_not_show_bios_for_other_users()
     {
         $user = Factory::create('user', [
             'profile_slug' => 'stampede',
