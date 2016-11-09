@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use LucaDegasperi\OAuth2Server\Authorizer;
 
 class OAuthController extends Controller
