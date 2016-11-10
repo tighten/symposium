@@ -8,7 +8,7 @@ use Laracasts\TestDummy\Factory;
 class SubmissionTest extends IntegrationTestCase
 {
     /** @test */
-    public function submitting_attaches_to_conference()
+    function submitting_attaches_to_conference()
     {
         $user = Factory::create('user');
         $conference = Factory::create('conference');
@@ -24,7 +24,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function un_submitting_deletes_submission()
+    function un_submitting_deletes_submission()
     {
         $user = Factory::create('user');
         $conference = Factory::create('conference');
@@ -42,7 +42,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function un_submitting_deletes_only_this_conference_submission()
+    function un_submitting_deletes_only_this_conference_submission()
     {
         $user = Factory::create('user');
 
@@ -73,7 +73,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function submits_current_revision_if_many()
+    function submits_current_revision_if_many()
     {
         $user = Factory::create('user');
         $conference = Factory::create('conference');
@@ -95,10 +95,8 @@ class SubmissionTest extends IntegrationTestCase
         $this->assertTrue($conference->submissions->contains($revision));
     }
 
-    /**
-     * @test
-     */
-    public function un_submitting_one_revision_of_many_works()
+    /** @test */
+    function un_submitting_one_revision_of_many_works()
     {
         $user = Factory::create('user');
         $conference = Factory::create('conference');
@@ -131,7 +129,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function un_submitting_does_not_delete_conference()
+    function un_submitting_does_not_delete_conference()
     {
         $user = Factory::create('user');
         $conference = Factory::create('conference');
@@ -149,7 +147,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_submit_talks_via_http()
+    function user_can_submit_talks_via_http()
     {
         $user = Factory::create('user');
         $this->be($user);
@@ -170,7 +168,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_cannot_submit_other_users_talk()
+    function user_cannot_submit_other_users_talk()
     {
         $user = Factory::create('user');
         $this->be($user);

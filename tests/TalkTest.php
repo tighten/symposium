@@ -67,7 +67,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_create_talks()
+    function user_can_create_a_talk()
     {
         $user = Factory::create('user');
 
