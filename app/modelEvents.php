@@ -8,3 +8,7 @@ foreach ($models as $model) {
         $model->{$model->getKeyName()} = (string) Rhumsaa\Uuid\Uuid::uuid4();
     });
 }
+
+App\Talk::deleting(function ($talk) {
+    $talk->revisions()->delete();
+});

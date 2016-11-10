@@ -1,6 +1,7 @@
 <?php
 
 use App\Talk;
+use App\TalkRevision;
 use Carbon\Carbon;
 use Laracasts\TestDummy\Factory;
 
@@ -70,7 +71,6 @@ class TalkTest extends IntegrationTestCase
     function user_can_create_a_talk()
     {
         $user = Factory::create('user');
-
         $this->be($user);
 
         $data = [
@@ -92,5 +92,58 @@ class TalkTest extends IntegrationTestCase
         $this->visit('talks/' . $talk->id)
             ->see('Your Best Talk Now')
             ->see('No, really.');
+    }
+
+    /** @test */
+    function user_can_delete_a_talk()
+    {
+        $user = Factory::create('user');
+        $talk = Factory::create('talk', [
+            'author_id' => $user->id
+        ]);
+        $revision = Factory::create('talkRevision', [
+            'title' => 'zyxwv'
+        ]);
+        $talk->revisions()->save($revision);
+
+        $this->be($user);
+
+        $this->delete('talks/' . $talk->id);
+
+        $this->assertEquals(0, Talk::count());
+        $this->assertEquals(0, TalkRevision::count());
+    }
+
+    /** @test */
+    function user_can_save_a_new_revision_of_a_talk()
+    {
+        $user = Factory::create('user');
+        $talk = Factory::create('talk', [
+            'author_id' => $user->id
+        ]);
+        $revision = Factory::create('talkRevision', [
+            'title' => 'old title',
+            'created_at' => Carbon::now()->subMinute(),
+        ]);
+        $talk->revisions()->save($revision);
+
+        $data = [
+            'title' => 'New',
+            'type' => $revision->type,
+            'level' => $revision->level,
+            'description' => $revision->description,
+            'length' => $revision->length,
+            'slides' => $revision->slides,
+            'organizer_notes' => $revision->organizer_notes,
+        ];
+
+        $this->be($user);
+
+        $this->patch('talks/' . $talk->id, $data);
+
+        $talk = Talk::first();
+
+        $this->assertEquals('New', $talk->current()->title);
+        $this->assertEquals('old title', $talk->revisions->last()->title);
     }
 }

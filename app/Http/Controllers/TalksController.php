@@ -99,6 +99,8 @@ class TalksController extends BaseController
     {
         $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
+
+
         if ($validator->passes()) {
             $talk = auth()->user()->talks()->findOrFail($id);
             $talk->update(['public' => $request->input('public') == 'yes']);
