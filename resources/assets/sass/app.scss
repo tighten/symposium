@@ -151,10 +151,13 @@ legend {
 
 %notice {
     @extend .alert;
-    margin-top: 1em;
-    position: absolute;
-    width: 100%;
+    right: 1em;
+    top: 8em;
+    position: fixed;
+    width: 20%;
+    min-width: 250px;
     z-index: 200;
+    text-align: center;
 }
 
 .notice-success {
