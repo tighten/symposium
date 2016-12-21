@@ -201,8 +201,6 @@ class Conference extends UuidBase
         return $this->cfpEndsAtSet() ? $this->cfp_ends_at->toFormattedDateString() : '[Date not set]';
     }
 
-
-
     public function startsAtSet()
     {
         return $this->starts_at;
