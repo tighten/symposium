@@ -19,7 +19,7 @@ class UserTalksController extends BaseController
             App::abort(404);
         }
 
-        $return = OAuthGuard::user()->talks->map(function ($talk) {
+        $return = OAuthGuard::user()->activeTalks->map(function ($talk) {
             return new Talk($talk);
         })->values();
 
