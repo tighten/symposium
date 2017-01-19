@@ -40,20 +40,7 @@ Route::post('u/{profileSlug}/email', [
  * App
  */
 Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
-
-Route::group(['middleware' => 'guest'], function () {
-    Route::get('password/email', 'Auth\PasswordController@getEmail');
-    Route::post('password/email', 'Auth\PasswordController@postEmail');
-
-    Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-    Route::post('password/reset', 'Auth\PasswordController@postReset');
-
-    Route::get('log-in', ['as' => 'log-in', 'uses' => 'AuthController@getLogin']);
-    Route::post('log-in', 'AuthController@postLogin');
-
-    Route::get('sign-up', ['as' => 'sign-up', 'uses' => 'AccountController@create']);
-    Route::post('sign-up', 'AccountController@store');
-});
+Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
@@ -92,19 +79,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('conferences', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
 Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
-
-/**
- * API
- */
-Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'oauth'], function () {
-    Route::get('me', 'MeController@index');
-    Route::get('bios/{bioId}', 'BiosController@show');
-    Route::get('user/{userId}/bios', 'UserBiosController@index');
-    Route::get('talks/{talkId}', 'TalksController@show');
-    Route::get('user/{userId}/talks', 'UserTalksController@index');
-    Route::get('conferences/{id}', 'ConferencesController@show');
-    Route::get('conferences', 'ConferencesController@index');
-});
 
 /**
  * OAuth

@@ -1,4 +1,3 @@
-use Notifiable;
 <?php
 
 namespace App;
@@ -6,6 +5,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Notifiable;
 use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
