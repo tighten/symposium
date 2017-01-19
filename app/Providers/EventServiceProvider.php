@@ -19,6 +19,5 @@ class EventServiceProvider extends ServiceProvider
 
     public function register()
     {
-
     }
 }
