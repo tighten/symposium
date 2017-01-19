@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     // --- The default avatar size
     'size' => 80,
 
@@ -20,4 +20,4 @@ return array(
     // - r: may contain such things as harsh profanity, intense violence, nudity, or hard drug use.
     // - x: may contain hardcore sexual imagery or extremely disturbing violence.
     'maxRating' => 'g'
-);
+];

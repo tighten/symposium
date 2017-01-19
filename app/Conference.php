@@ -10,9 +10,9 @@ class Conference extends UuidBase
 {
     protected $table = 'conferences';
 
-    protected $guarded = array(
+    protected $guarded = [
         'id'
-    );
+    ];
 
     protected $fillable = [
         'author_id',
