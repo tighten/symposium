@@ -19,7 +19,6 @@
     "type": "project",
     "require": {
         "laravel/framework": "5.3.*",
-        "ramsey/uuid": "~2.8",
         "rexxars/joindin-client": "dev-master",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "laravelcollective/html": "5.3.*",
@@ -27,8 +26,7 @@
         "thomaswelton/laravel-gravatar": "dev-laravel5-support",
         "thujohn/twitter": "dev-master",
         "maknz/slack": "~1.5",
-        "lucadegasperi/oauth2-server-laravel": "5.1.4",
-        "ext-mcrypt": "*",
+        "lucadegasperi/oauth2-server-laravel": "5.2.*",
         "recaptcha/php5": "^2.0",
         "bugsnag/bugsnag-laravel": "^2.0",
         "intervention/image": "^2.3",

@@ -135,7 +135,7 @@ class DropVersions extends Migration
                     }
 
                     // Duplicate the talk
-                    $newTalkId = (string)\Rhumsaa\Uuid\Uuid::uuid4();
+                    $newTalkId = (string)\Ramsey\Uuid\Uuid::uuid4();
                     DB::table('talks')->insert([
                         'id' => $newTalkId,
                         'title' => $talk->title,

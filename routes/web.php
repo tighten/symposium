@@ -39,7 +39,7 @@ Route::post('u/{profileSlug}/email', [
 /**
  * App
  */
-Route::get('log-out', ['as' => 'log-out', 'uses' => 'AuthController@logout']);
+Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout']);
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {

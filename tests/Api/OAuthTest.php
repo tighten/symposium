@@ -3,7 +3,7 @@
 use LucaDegasperi\OAuth2Server\Authorizer;
 use LucaDegasperi\OAuth2Server\Filters\OAuthFilter;
 
-class OAuthTestCase extends TestCase
+class OAuthTest extends TestCase
 {
     public function setUp()
     {
