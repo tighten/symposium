@@ -9,6 +9,8 @@ use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
+    use Notifiable;
+
     const ADMIN_ROLE = 1;
     const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
     const PROFILE_PICTURE_HIRES_PATH = 'profile_pictures/hires/';
