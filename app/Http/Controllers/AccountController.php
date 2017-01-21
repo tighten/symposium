@@ -2,42 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ProfilePictureUpdated;
+use App\Jobs\UpdateProfilePicture;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class AccountController extends BaseController
 {
-    public function create()
-    {
-        return view('account.create');
-    }
-
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'password' => 'required',
-            'email' => 'email|required|unique:users,email',
-        ]);
-
-        $user = new User;
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->password = Hash::make($request->get('password'));
-        $user->save();
-
-        Event::fire('new-signup', [$user]);
-        Auth::loginUsingId($user->id);
-
-        Session::flash('message', 'Successfully created account.');
-
-        return redirect('account');
-    }
+    const THUMB_SIZE = 250;
+    const HIRES_SIZE = 1250;
 
     public function show()
     {
@@ -81,12 +59,40 @@ class AccountController extends BaseController
         $user->save();
 
         if ($request->hasFile('profile_picture')) {
-            event(new ProfilePictureUpdated($user, $request->file('profile_picture')));
+            $this->updateProfilePicture($user, $request->file('profile_picture'));
         }
 
         Session::flash('message', 'Successfully edited account.');
 
         return redirect('account');
+    }
+
+    private function updateProfilePicture($user, $picture)
+    {
+        // Make regular image
+        $thumb = Image::make($picture->getRealPath())
+            ->fit(self::THUMB_SIZE, self::THUMB_SIZE);
+
+        // Make hires image
+        $hires = Image::make($picture->getRealPath())
+            ->fit(self::HIRES_SIZE, self::HIRES_SIZE, function ($constraint) {
+                $constraint->upsize();
+            });
+
+        // Delete the previous profile pictures
+        if ($user->profile_picture != null) {
+            Storage::delete([
+                User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture,
+                User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture
+            ]);
+        }
+
+        // Store the new profile pictures
+        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . $picture->hashName(), $thumb->stream());
+        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . $picture->hashName(), $hires->stream());
+
+        // Save the updated filename to the user
+        $user->updateProfilePicture($picture->hashName());
     }
 
     public function delete()

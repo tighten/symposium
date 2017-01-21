@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
@@ -14,7 +15,7 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token'];
 
-    protected $fillable = ['email', 'password'];
+    protected $fillable = ['email', 'password', 'name'];
 
     public function isAdmin()
     {

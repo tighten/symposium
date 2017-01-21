@@ -11,11 +11,12 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_sign_up()
     {
-        $this->visit('sign-up')
+        $this->visit('register')
             ->type('email@email.com', '#email')
             ->type('schmassword', '#password')
             ->type('Joe Schmoe', '#name')
-            ->press('Sign up');
+            ->press('Sign up')
+            ->seePageIs('dashboard');
 
         $this->seeInDatabase('users', [
             'email' => 'email@email.com',
@@ -26,9 +27,9 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function invalid_signups_dont_proceed()
     {
-        $this->visit('sign-up')
+        $this->visit('register')
             ->press('Sign up')
-            ->seePageIs('sign-up')
+            ->seePageIs('register')
             ->see('The name field is required')
             ->see('The password field is required')
             ->see('The email field is required');
@@ -43,7 +44,7 @@ class AccountTest extends IntegrationTestCase
             'password' => bcrypt('super-secret')
         ]);
 
-        $this->visit('log-in')
+        $this->visit('login')
             ->type($user->email, '#email')
             ->type('super-secret', '#password')
             ->press('Log in')

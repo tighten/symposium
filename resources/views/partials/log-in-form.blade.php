@@ -1,4 +1,4 @@
-{{ Form::open(['action' => 'AuthController@postLogin']) }}
+{{ Form::open(['route' => 'login']) }}
 <div class="form-group">
     {{ Form::label('email', 'Email', ['class' => 'sr-only']) }}
     {{ Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}

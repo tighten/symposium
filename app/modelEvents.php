@@ -5,7 +5,7 @@ $models = [App\Talk::class, App\Conference::class, App\TalkRevision::class, App\
 
 foreach ($models as $model) {
     $model::creating(function ($model) {
-        $model->{$model->getKeyName()} = (string) Rhumsaa\Uuid\Uuid::uuid4();
+        $model->{$model->getKeyName()} = (string) Ramsey\Uuid\Uuid::uuid4();
     });
 }
 

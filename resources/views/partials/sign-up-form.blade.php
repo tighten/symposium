@@ -6,7 +6,7 @@
 </ul>
 @endif
 
-{{ Form::open(['action' => ['AccountController@store']]) }}
+{{ Form::open(['route' => 'register']) }}
 <div class="form-group">
     {{ Form::label('email', '*Email Address', ['class' => 'sr-only']) }}
     {{ Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}

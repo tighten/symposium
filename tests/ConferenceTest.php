@@ -88,6 +88,6 @@ class ConferenceTest extends IntegrationTestCase
     function guests_cannot_create_conference()
     {
         $this->visit('conferences/create')
-            ->seePageIs('log-in');
+            ->seePageIs('login');
     }
 }
