@@ -8,8 +8,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ Auth::check() ? route('dashboard') : '/' }}" class="logo">
-                <img src="/img/symposium-logo.png" alt="Symposium">
+            <a href="{{ Auth::check() ? route('dashboard') : url('/') }}" class="logo">
+                <img src="{{ url('/img/symposium-logo.png') }}" alt="Symposium">
             </a>
         </div>
         <div class="primary-header__collapse">
