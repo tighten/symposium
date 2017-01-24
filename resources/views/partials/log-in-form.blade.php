@@ -1,3 +1,9 @@
+@if (!$errors->login->isEmpty())
+<ul class="errors">
+    <li>{{ $errors->login->first() }}</li>
+</ul>
+@endif
+
 {{ Form::open(['route' => 'login']) }}
 <div class="form-group">
     {{ Form::label('email', 'Email', ['class' => 'sr-only']) }}
