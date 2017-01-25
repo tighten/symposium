@@ -17,17 +17,7 @@
 
                     <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review speakers submissions, and manage the entire CFP process.</p>
                 </div>
-                <div class="col-md-4">
-                    @if (Auth::guest())
-                        <div class="panel panel-default panel-on-grey">
-                            <div class="panel-heading">
-                              <h3 class="panel-title">Sign up</h3>
-                            </div>
-                            <div class="panel-body">
-                                @include ('partials.sign-up-form')
-                            </div>
-                        </div>
-                    @endif
+                <div class="col-md-4">                
 
                     <div class="panel panel-default panel-on-grey">
                         <div class="panel-heading">
@@ -35,9 +25,13 @@
                                 <h3 class="panel-title">Log in</h3>
                             @endif
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="github-login-panel">
                             @if (Auth::guest())
-                                @include ('partials.log-in-form')
+                                <a class="btn btn-block btn-social btn-github">
+                                    <span class="octicon octicon-mark-github"></span> Sign in with GitHub
+                                </a>
+                                <br>
+                                <a href="{{ route('login') }}" id="non-github-login">Don't have a GitHub account?</a>
                             @else
                                 <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
 
@@ -52,6 +46,18 @@
                             @endif
                         </div>
                     </div>
+
+                    @if (Auth::guest())
+                        <div class="panel panel-default panel-on-grey">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">Sign up</h3>
+                            </div>
+                            <div class="panel-body">
+                                @include ('partials.sign-up-form')
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>
