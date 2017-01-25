@@ -27,7 +27,7 @@
                         </div>
                         <div class="panel-body" id="github-login-panel">
                             @if (Auth::guest())
-                                <a class="btn btn-block btn-social btn-github">
+                                <a href="{{ url('login/github') }}" class="btn btn-block btn-social btn-github">
                                     <span class="octicon octicon-mark-github"></span> Sign in with GitHub
                                 </a>
                                 <br>
