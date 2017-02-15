@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        Event::fire('new-signup', [$user]);
+        Event::fire('new-signup', [$user, app('request')]);
 
         Session::flash('message', 'Successfully created account.');
 
