@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use App\Handlers\Events\SlackSubscriber;
 use Event;
+use Exception;
 use Illuminate\Contracts\Logging\Log;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
 
@@ -32,6 +35,20 @@ class AppServiceProvider extends ServiceProvider
 
         require app_path() . '/modelEvents.php';
         require app_path() . '/macros.php';
+
+        Validator::extend('emailblacklist', function ($attribute, $value, $parameters, $validator) {
+            try {
+                $blacklist = File::get(storage_path('app/email_domain_blacklist.txt'));
+            } catch (Exception $e) {
+                return true;
+            }
+
+            $blacklist = explode("\n", trim($blacklist));
+            $domain = explode('@', $value)[1];
+
+            // @todo: Handle subdomains
+            return ! in_array($domain, $blacklist);
+        });
     }
 
     /**
