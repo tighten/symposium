@@ -43,11 +43,12 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
 
-            $blacklist = explode("\n", trim($blacklist));
+            $blacklist = collect(explode("\n", trim($blacklist)));
             $domain = explode('@', $value)[1];
 
-            // @todo: Handle subdomains
-            return ! in_array($domain, $blacklist);
+            return $blacklist->filter(function ($blacklistedDomain) use ($domain) {
+                return str_contains($domain, $blacklistedDomain);
+            })->isEmpty();
         });
     }
 
