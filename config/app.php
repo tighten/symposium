@@ -151,6 +151,7 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
 
+
         /*
          * Application Service Providers...
          */
@@ -166,6 +167,7 @@ return [
         'Maknz\Slack\SlackServiceProvider',
         'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
+        PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
 
         'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
@@ -225,6 +227,7 @@ return [
         'Slack'     => 'Maknz\Slack\Facades\Slack',
         'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
+        'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
     ],
 
 ];
