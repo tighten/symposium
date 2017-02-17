@@ -84,6 +84,9 @@ return [
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
+    // Custom
+    'emailblacklist'       => 'This email address is using a blacklisted domain.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
