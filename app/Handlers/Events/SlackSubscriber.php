@@ -17,9 +17,9 @@ class SlackSubscriber
         $events->listen('new-conference', [$this, 'onNewConference']);
     }
 
-    public function onNewSignup($user)
+    public function onNewSignup($user, $request)
     {
-        Slack::send("*New user signup:*\n{$user->name}\n{$user->email}");
+        Slack::send("*New user signup:*\n{$user->name}\n{$user->email}\n{$request->getClientIp()}");
     }
 
     public function onNewConference($conference)

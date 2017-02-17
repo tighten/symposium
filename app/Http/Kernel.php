@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\VerifyCsrfToken::class,
             \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class,
+            \PragmaRX\Firewall\Middleware\FirewallBlacklist::class,
         ],
 
         'api' => [
@@ -38,6 +39,7 @@ class Kernel extends HttpKernel
             'bindings',
             'web'
         ],
+
     ];
 
     /**

@@ -51,7 +51,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users|emailblacklist',
             'password' => 'required|min:6',
         ]);
     }
@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        Event::fire('new-signup', [$user]);
+        Event::fire('new-signup', [$user, app('request')]);
 
         Session::flash('message', 'Successfully created account.');
 
