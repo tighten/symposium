@@ -21,7 +21,7 @@
         {{ Form::close() }}
         <br>
         @if (isset($search_query))
-            <p>Showing search results for {{ $search_query }}:</p><br>
+            <p>Showing search results for <em>{{ $search_query }}</em>:</p><br>
         @endif
 
         @forelse ($speakers as $speaker)
