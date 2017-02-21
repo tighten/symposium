@@ -85,6 +85,20 @@
                     <span class="help-block">This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers.</span>
                     {{ Form::textarea('profile_intro', null, ['class' => 'form-control']) }}
                 </div>
+
+                <div class="form-group">
+                    {{ Form::label('profile_location', 'Profile Location', ['class' => 'control-label']) }}
+                    <span class="help-block">This location will be used to help local conference organizers find you.</span>
+                    {{ Form::text('profile_location', null, ['class' => 'form-control', 'id' => 'autocomplete']) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::hidden('neighborhood', null, ['id' => 'neighborhood', 'readonly' => true]) }}
+                    {{ Form::hidden('locality', null, ['id' => 'locality', 'readonly' => true]) }}
+                    {{ Form::hidden('sublocality_level_1', null, ['id' => 'sublocality_level_1', 'readonly' => true]) }}
+                    {{ Form::hidden('administrative_area_level_1', null, ['id' => 'administrative_area_level_1', 'readonly' => true]) }}
+                    {{ Form::hidden('country', null, ['id' => 'country', 'readonly' => true]) }}
+                </div>
             </div>
         </div>
         <div class="row">
@@ -96,3 +110,53 @@
         {{ Form::close() }}
     </div>
 @stop
+
+@push('scripts')
+<script type="text/javascript">
+var autocomplete;
+var componentForm = {
+    neighborhood: 'long_name', // city within borough (Williamsburg)
+    sublocality_level_1: 'long_name', // borough within city (Brooklyn)
+    locality: 'long_name', // city (New York, Los Angeles)
+    administrative_area_level_1: 'short_name', // state (NY, CA)
+    country: 'short_name', // country (US)
+};
+
+function initAutocomplete() {
+    var input = document.getElementById('autocomplete');
+
+    autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', fillPlaceData);
+
+    // Prevent submitting account form when selecting location
+    input.addEventListener("keypress", function(event){
+        if (event.which == '13') {
+            event.preventDefault();
+        }
+    });
+}
+
+function fillPlaceData() {
+    var place = autocomplete.getPlace();
+    clearComponents();
+    if(place.address_components) {
+        place.address_components.forEach(setComponentInput);
+    }
+}
+
+function clearComponents() {
+    for (var component in componentForm) {
+        document.getElementById(component).value = '';
+    }
+}
+
+function setComponentInput(component) {
+    var addressType = component.types[0];
+    if (componentForm[addressType]) {
+        var val = component[componentForm[addressType]];
+        document.getElementById(addressType).value = val;
+    }
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places&callback=initAutocomplete" async defer></script>
+@endpush
