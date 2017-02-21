@@ -21,6 +21,9 @@
                 @if ($user->profile_slug)
                     <p><b>Speaker profile URL slug:</b><br><a href="{{ route('speakers-public.show', [$user->profile_slug]) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a></p>
                 @endif
+                @if ($user->location)
+                    <p><b>Location:</b><br>{{ $user->location }}</p>
+                @endif
                 <br><br>
 
                 <h4>Favorited Conferences</h4>

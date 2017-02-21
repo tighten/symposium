@@ -56,6 +56,31 @@ class AccountController extends BaseController
         $user->profile_intro = $request->get('profile_intro');
         $user->profile_slug = $request->get('profile_slug');
 
+        if($request->get('location')) {
+            $user->location = $request->get('location');
+        }
+
+        if($request->get('neighborhood')) {
+            $user->neighborhood = $request->get('neighborhood');
+        }
+
+        if($request->get('sublocality')) {
+            $user->sublocality = $request->get('sublocality');
+        }
+
+        if($request->get('city')) {
+            $user->city = $request->get('city');
+
+        }
+        if($request->get('state')) {
+            $user->state = $request->get('state');
+
+        }
+        if($request->get('country')) {
+            $user->country = $request->get('country');
+
+        }
+
         $user->save();
 
         if ($request->hasFile('profile_picture')) {

@@ -87,16 +87,16 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('profile_location', 'Profile Location', ['class' => 'control-label']) }}
-                    <span class="help-block">This location will be used to help local conference organizers find you.</span>
-                    {{ Form::text('profile_location', null, ['class' => 'form-control', 'id' => 'autocomplete']) }}
+                    {{ Form::label('location', 'Location', ['class' => 'control-label']) }}
+                    <span class="help-block">Enter the city in which you reside and local conference organizers can find you.</span>
+                    {{ Form::text('location', null, ['class' => 'form-control', 'id' => 'autocomplete']) }}
                 </div>
 
                 <div class="form-group">
                     {{ Form::hidden('neighborhood', null, ['id' => 'neighborhood', 'readonly' => true]) }}
-                    {{ Form::hidden('locality', null, ['id' => 'locality', 'readonly' => true]) }}
-                    {{ Form::hidden('sublocality_level_1', null, ['id' => 'sublocality_level_1', 'readonly' => true]) }}
-                    {{ Form::hidden('administrative_area_level_1', null, ['id' => 'administrative_area_level_1', 'readonly' => true]) }}
+                    {{ Form::hidden('sublocality', null, ['id' => 'sublocality_level_1', 'readonly' => true]) }}
+                    {{ Form::hidden('city', null, ['id' => 'locality', 'readonly' => true]) }}
+                    {{ Form::hidden('state', null, ['id' => 'administrative_area_level_1', 'readonly' => true]) }}
                     {{ Form::hidden('country', null, ['id' => 'country', 'readonly' => true]) }}
                 </div>
             </div>
