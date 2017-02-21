@@ -150,6 +150,7 @@ return [
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
+        Laravel\Scout\ScoutServiceProvider::class,
 
 
         /*

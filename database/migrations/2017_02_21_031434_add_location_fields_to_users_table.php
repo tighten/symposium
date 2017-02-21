@@ -20,8 +20,6 @@ class AddLocationFieldsToUsersTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('country')->nullable();
-            $table->index('city');
-            $table->index('state');
         });
     }
 
@@ -33,8 +31,6 @@ class AddLocationFieldsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['city']);
-            $table->dropIndex(['state']);
             $table->dropColumn(['location', 'neighborhood', 'sublocality', 'city', 'state', 'country',]);
         });
     }

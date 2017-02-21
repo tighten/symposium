@@ -29,6 +29,23 @@ class PublicProfileController extends Controller
             ->with('speakers', $users);
     }
 
+    public function search(Request $request)
+    {
+        $users = User::search($request->search_query)
+            ->orderBy('name', 'asc')->get();
+
+        // Since Scout searches can only perform rudimentary where clauses,
+        // we must filter search results to only validly public profiles.
+        $filteredUsers = $users->filter(function($user){
+            return $user->enable_profile == true &&
+                !is_null($user->profile_slug);
+        });
+
+        return view('account.public-profile.index')
+            ->with('speakers', $filteredUsers)
+            ->with('search_query', $request->search_query);
+    }
+
     public function show($profile_slug)
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
