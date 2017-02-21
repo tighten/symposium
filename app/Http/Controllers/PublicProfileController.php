@@ -36,7 +36,7 @@ class PublicProfileController extends Controller
 
         // Since Scout searches can only perform rudimentary where clauses,
         // we must filter search results to only validly public profiles.
-        $filteredUsers = $users->filter(function($user){
+        $filteredUsers = $users->filter(function ($user) {
             return $user->enable_profile == true &&
                 !is_null($user->profile_slug);
         });
