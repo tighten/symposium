@@ -115,7 +115,7 @@
 <script type="text/javascript">
 var autocomplete;
 var componentForm = {
-    neighborhood: 'long_name', // city within borough (Williamsburg)
+    neighborhood: 'long_name', // neighborhood within borough (Williamsburg)
     sublocality_level_1: 'long_name', // borough within city (Brooklyn)
     locality: 'long_name', // city (New York, Los Angeles)
     administrative_area_level_1: 'short_name', // state (NY, CA)
