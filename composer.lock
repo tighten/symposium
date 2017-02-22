@@ -2214,16 +2214,16 @@
         },
         {
             "name": "pragmarx/support",
-            "version": "v0.6.14",
+            "version": "v0.6.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/support.git",
-                "reference": "9c9267849dbb833216749a413b76e288a54f63b0"
+                "reference": "50b20d0f3cd233e552f9431825e321f1736057fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/support/zipball/9c9267849dbb833216749a413b76e288a54f63b0",
-                "reference": "9c9267849dbb833216749a413b76e288a54f63b0",
+                "url": "https://api.github.com/repos/antonioribeiro/support/zipball/50b20d0f3cd233e552f9431825e321f1736057fa",
+                "reference": "50b20d0f3cd233e552f9431825e321f1736057fa",
                 "shasum": ""
             },
             "require": {
@@ -2264,7 +2264,7 @@
                 "laravel",
                 "pragmarx"
             ],
-            "time": "2017-01-31T01:58:52+00:00"
+            "time": "2017-02-19T15:56:41+00:00"
         },
         {
             "name": "psr/http-message",
