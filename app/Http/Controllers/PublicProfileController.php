@@ -31,7 +31,7 @@ class PublicProfileController extends Controller
 
     public function search(Request $request)
     {
-        $users = User::search($request->search_query)
+        $users = User::search($request->query)
             ->orderBy('name', 'asc')->get();
 
         // Since Scout searches can only perform rudimentary where clauses,
@@ -43,7 +43,7 @@ class PublicProfileController extends Controller
 
         return view('account.public-profile.index')
             ->with('speakers', $filteredUsers)
-            ->with('search_query', $request->search_query);
+            ->with('query', $request->query);
     }
 
     public function show($profile_slug)
