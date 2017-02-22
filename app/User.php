@@ -5,8 +5,8 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
-use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 use Laravel\Scout\Searchable;
+use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
