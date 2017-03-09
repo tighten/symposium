@@ -34,3 +34,31 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     php -S localhost:8080 -t public
     ```
 7. Run tests with `composer test`.
+
+### Using Vagrant
+
+0. Make sure you have [Vagrant](https://www.vagrantup.com/downloads.html), [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Ansible](https://docs.ansible.com/ansible/intro_installation.html) installed
+1. Copy [`Vagrantfile.dist`](https://github.com/tightenco/symposium/blob/master/Vagrantfile.dist) to `Vagrantfile`
+2. Start VM using `vagrant up`
+3. Ssh into VM using `vagrant ssh`
+4. Navigate to shared folder `cd /vagrant`
+5. [Install dependencies](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies) with `composer install`
+6. Copy [`.env.example`](https://github.com/tightenco/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment.
+7. [Run database migrations](http://laravel.com/docs/5.1/migrations#running-migrations). If you want to include seed data, add a `--seed` flag.
+
+    ```bash
+    php artisan migrate --env=local
+    ```
+8. Update your local `/etc/hosts` file by adding
+
+    ```bash
+    192.168.33.99 symposium.localhost
+    ```
+    
+You should now have a full functional VM running. Test it by opening a browser and navigate to:
+
+    http://symposium.localhost/
+
+    
+If you wish to change anything of the VM configuration, see `/ansible/vars/all.yml`
+
