@@ -30,18 +30,18 @@ class ConferencesController extends BaseController
                 $conferences = auth()->user()->favoritedConferences()->get();
                 break;
             case 'open_cfp':
-                $conferences = Conference::openCfp()->get();
+                $conferences = Conference::undismissed()->openCfp()->get();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::unclosedCfp()->get();
+                $conferences = Conference::undismissed()->unclosedCfp()->get();
                 break;
             case 'all':
-                $conferences = Conference::all();
+                $conferences = Conference::undismissed()->get();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::future()->get();
+                $conferences = Conference::undismissed()->future()->get();
         }
 
         switch ($request->input('sort')) {

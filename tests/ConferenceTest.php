@@ -90,4 +90,29 @@ class ConferenceTest extends IntegrationTestCase
         $this->visit('conferences/create')
             ->seePageIs('login');
     }
+
+    /** @test */
+    function dismissed_conferences_do_not_show_up_in_conference_list()
+    {
+        $user = Factory::create('user');
+
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this
+            ->actingAs($user)
+            ->visit('conferences?filter=all')
+            ->seePageIs('conferences?filter=all')
+            ->see($conference->title);
+
+        $this
+            ->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this
+            ->actingAs($user)
+            ->visit('conferences?filter=all')
+            ->seePageIs('conferences?filter=all')
+            ->dontSee($conference->title);
+    }
 }
