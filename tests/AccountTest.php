@@ -25,6 +25,30 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
+    function users_can_undismiss_a_conference()
+    {
+        $user = Factory::create('user');
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->seeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/undismiss");
+
+        $this->notSeeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+    }
+
+    /** @test */
     function users_can_sign_up()
     {
         $this->visit('register')
