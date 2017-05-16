@@ -99,9 +99,9 @@ class AccountTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $otherUser = Factory::create('user');
-        $favoriteConference = Factory::build('conference');
+        $dismissedConference = Factory::build('conference');
         $otherUser->conferences()->save($conference);
-        $user->favoritedConferences()->save($favoriteConference);
+        $user->dismissedConferences()->save($dismissedConference);
 
         $this->actingAs($user)
              ->visit('account/delete')
@@ -126,9 +126,9 @@ class AccountTest extends IntegrationTestCase
 //            'id' => $conference->id,
 //        ]);
 
-        $this->dontSeeInDatabase('favorites', [
+        $this->dontSeeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $favoriteConference->id,
+            'conference_id' => $dismissedConference->id,
         ]);
     }
 
