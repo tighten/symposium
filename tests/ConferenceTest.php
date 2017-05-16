@@ -92,6 +92,18 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
+    function guests_cannot_dismiss_conference()
+    {
+        $user = Factory::create('user');
+
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this->visit("conferences/{$conference->id}/dismiss")
+            ->seePageIs('login');
+    }
+
+    /** @test */
     function dismissed_conferences_do_not_show_up_in_conference_list()
     {
         $user = Factory::create('user');
@@ -99,18 +111,15 @@ class ConferenceTest extends IntegrationTestCase
         $conference = Factory::build('conference');
         $user->conferences()->save($conference);
 
-        $this
-            ->actingAs($user)
+        $this->actingAs($user)
             ->visit('conferences?filter=all')
             ->seePageIs('conferences?filter=all')
             ->see($conference->title);
 
-        $this
-            ->actingAs($user)
+        $this->actingAs($user)
             ->visit("conferences/{$conference->id}/dismiss");
 
-        $this
-            ->actingAs($user)
+        $this->actingAs($user)
             ->visit('conferences?filter=all')
             ->seePageIs('conferences?filter=all')
             ->dontSee($conference->title);
@@ -124,12 +133,10 @@ class ConferenceTest extends IntegrationTestCase
         $conference = Factory::build('conference');
         $user->conferences()->save($conference);
 
-        $this
-            ->actingAs($user)
+        $this->actingAs($user)
             ->visit("conferences/{$conference->id}/dismiss");
 
-        $this
-            ->actingAs($user)
+        $this->actingAs($user)
             ->visit('conferences?filter=dismissed')
             ->seePageIs('conferences?filter=dismissed')
             ->see($conference->title);
@@ -143,8 +150,7 @@ class ConferenceTest extends IntegrationTestCase
         $conference = Factory::build('conference');
         $user->conferences()->save($conference);
 
-        $this
-            ->actingAs($user)
+        $this->actingAs($user)
             ->visit('conferences?filter=dismissed')
             ->seePageIs('conferences?filter=dismissed')
             ->dontSee($conference->title);
