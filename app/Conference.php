@@ -175,6 +175,11 @@ class Conference extends UuidBase
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
+    public function isDismissed()
+    {
+        return Auth::user()->dismissedConferences->contains($this->id);
+    }
+
     /**
      * Return all talks from this user that were submitted to this conference
      *

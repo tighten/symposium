@@ -115,4 +115,38 @@ class ConferenceTest extends IntegrationTestCase
             ->seePageIs('conferences?filter=all')
             ->dontSee($conference->title);
     }
+
+    /** @test */
+    function filtering_by_dismissed_shows_dismissed_conferences()
+    {
+        $user = Factory::create('user');
+
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this
+            ->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this
+            ->actingAs($user)
+            ->visit('conferences?filter=dismissed')
+            ->seePageIs('conferences?filter=dismissed')
+            ->see($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_dismissed_does_not_show_undismissed_conferences()
+    {
+        $user = Factory::create('user');
+
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this
+            ->actingAs($user)
+            ->visit('conferences?filter=dismissed')
+            ->seePageIs('conferences?filter=dismissed')
+            ->dontSee($conference->title);
+    }
 }
