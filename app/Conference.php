@@ -112,7 +112,7 @@ class Conference extends UuidBase
     public function scopeUndismissed($query)
     {
         return $query
-            ->whereDoesntHave('usersDismissed', function($query) {
+            ->whereDoesntHave('usersDismissed', function ($query) {
                 $query->where('id', Auth::id());
             });
     }
