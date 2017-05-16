@@ -183,6 +183,13 @@ class ConferencesController extends BaseController
         return redirect('conferences');
     }
 
+    public function dismiss($conferenceId)
+    {
+        auth()->user()->dismissedConferences()->attach($conferenceId);
+
+        return redirect()->back();
+    }
+
     public function favorite($conferenceId)
     {
         auth()->user()->favoritedConferences()->attach($conferenceId);

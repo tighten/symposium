@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('conferences/{id}/favorite', 'ConferencesController@favorite');
     Route::get('conferences/{id}/unfavorite', 'ConferencesController@unfavorite');
 
+    Route::get('conferences/{id}/dismiss', 'ConferencesController@dismiss');
+
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);
     Route::get('conferences/{id}/delete', ['as' => 'conferences.delete', 'uses' => 'ConferencesController@destroy']);

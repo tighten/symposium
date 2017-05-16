@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->belongstoMany(Conference::class, 'favorites')->withTimestamps();
     }
 
+    public function dismissedConferences()
+    {
+        return $this->belongstoMany(Conference::class, 'dismissed_conferences')->withTimestamps();
+    }
+
     public function updateProfilePicture($filename)
     {
         $this->profile_picture = $filename;
