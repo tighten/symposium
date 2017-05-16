@@ -58,11 +58,6 @@ class User extends Authenticatable
         return $this->hasMany(Conference::class, 'author_id');
     }
 
-    public function favoritedConferences()
-    {
-        return $this->belongstoMany(Conference::class, 'favorites')->withTimestamps();
-    }
-
     public function dismissedConferences()
     {
         return $this->belongstoMany(Conference::class, 'dismissed_conferences')->withTimestamps();
@@ -107,7 +102,7 @@ class User extends Authenticatable
                 Storage::delete(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
             }
 
-            \DB::table('favorites')->where('user_id', $user->id)->delete();
+            \DB::table('dismissed_conferences')->where('user_id', $user->id)->delete();
         });
     }
 }

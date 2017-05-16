@@ -196,18 +196,4 @@ class ConferencesController extends BaseController
 
         return redirect()->back();
     }
-
-    public function favorite($conferenceId)
-    {
-        auth()->user()->favoritedConferences()->attach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function unfavorite($conferenceId)
-    {
-        auth()->user()->favoritedConferences()->detach($conferenceId);
-
-        return redirect()->back();
-    }
 }

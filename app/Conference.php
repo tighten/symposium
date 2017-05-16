@@ -158,18 +158,8 @@ class Conference extends UuidBase
     }
 
     /**
-     * Get all users who favorited this conference
+     * Get all users who dismissed this conference
      */
-    public function usersFavorited()
-    {
-        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
-    }
-
-    public function isFavorited()
-    {
-        return Auth::user()->favoritedConferences->contains($this->id);
-    }
-
     public function usersDismissed()
     {
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();

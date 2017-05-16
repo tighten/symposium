@@ -21,15 +21,6 @@
                 @if ($user->profile_slug)
                     <p><b>Speaker profile URL slug:</b><br><a href="{{ route('speakers-public.show', [$user->profile_slug]) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a></p>
                 @endif
-                <br><br>
-
-                <h4>Favorited Conferences</h4>
-                <ul>
-                @forelse ($user->favoritedConferences as $conference)
-                    <li><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{  $conference->title }}</a></li>
-                @empty
-                    <li>(none)</li>
-                @endforelse
                 </ul>
             </div>
         </div>
