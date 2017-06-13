@@ -7,8 +7,8 @@
 | account/edit                    | No Test Coverage | 
 | auth/passwords/email            | AccountTest/password_reset_emails_are_sent_for_valid_users() |
 | auth/passwords/reset            | Dig deeper |
-| bios/create                     | No BiosTest |
-| bios/edit                       | No BiosTest |
+| bios/create                     | Covered by BioTest |
+| bios/edit                       | Covered by BioTest |
 | conferences/create              | Covered by CreateConferenceTestForm |
 | conferences/edit                | No test coverage |
 | oauth/authorization-form        | Not sure - dig deeper |
