@@ -51,10 +51,12 @@ class BiosTest extends IntegrationTestCase
         $bio = Factory::build('bio');
         $user->bios()->save($bio);
 
-        $this->actingAs($user)->put('/bios/' . $bio->id,[
-            'nickname' => 'Fresh Prince',
-            'body' => 'Born and raised in West Philidelphia, I spend a large majority of my time on the playground.'
-        ]);
+        $this->actingAs($user)
+            ->visit('/bios/' . $bio->id . '/edit')
+            ->type('Fresh Prince', '#nickname')
+            ->type('Born and raised in West Philidelphia, I spend a large majority of my time on the playground.', '#body')
+            ->select('yes', '#public')
+            ->press('Update');
 
         $this->seeInDatabase('bios', [
             'nickname' => 'Fresh Prince',
