@@ -222,7 +222,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     function user_can_be_contacted_from_profile()
     {
-       // $this->markTestIncomplete("Need Captcha Assistance");
+        $this->markTestIncomplete("Need Captcha Assistance");
 
         $userA = Factory::create('user', [
             'profile_slug' => 'smithy',

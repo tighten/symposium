@@ -133,19 +133,16 @@ class TalkTest extends IntegrationTestCase
         ]);
         $talk->revisions()->save($revision);
 
-        $data = [
-            'title' => 'New',
-            'type' => $revision->type,
-            'level' => $revision->level,
-            'description' => $revision->description,
-            'length' => $revision->length,
-            'slides' => $revision->slides,
-            'organizer_notes' => $revision->organizer_notes,
-        ];
-
-        $this->be($user);
-
-        $this->patch('talks/' . $talk->id, $data);
+        $this->actingAs($user)
+            ->visit('/talks/' . $talk->id . '/edit')
+            ->type('New', '#title')
+            ->select($revision->type, '#type')
+            ->select($revision->level, '#level')
+            ->type($revision->description, '#description')
+            ->type($revision->length, '#length')
+            ->type($revision->slides, '#slides')
+            ->type($revision->organizer_notes, '#organizer_notes')
+            ->press('Update');
 
         $talk = Talk::first();
 
