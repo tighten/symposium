@@ -3,6 +3,7 @@
 use App\Commands\CreateSubmission;
 use App\Commands\DestroySubmission;
 use App\Conference;
+use Illuminate\Support\Facades\Session;
 use Laracasts\TestDummy\Factory;
 
 class SubmissionTest extends IntegrationTestCase
@@ -162,6 +163,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->post('submissions', [
             'conferenceId' => $conference->id,
             'talkId' => $talk->id,
+            '_token' => csrf_token()
         ]);
 
         $this->assertTrue($conference->submissions->contains($revision));
@@ -186,6 +188,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->post('submissions', [
             'conferenceId' => $conference->id,
             'talkId' => $talk->id,
+            '_token' => Session::token(),
         ]);
 
         $this->assertEquals(0, $conference->submissions->count());

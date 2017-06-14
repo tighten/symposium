@@ -114,7 +114,7 @@ class TalkTest extends IntegrationTestCase
 
         $this->be($user);
 
-        $this->delete('talks/' . $talk->id);
+        $this->visit('talks/' . $talk->id . '/delete');
 
         $this->assertEquals(0, Talk::count());
         $this->assertEquals(0, TalkRevision::count());

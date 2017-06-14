@@ -70,19 +70,12 @@ class BiosTest extends IntegrationTestCase
         $userA = Factory::create('user');
         $userB = Factory::create('user');
 
-        $bio = Factory::build('bio');
-        $userA->bios()->save($bio);
+        $bio = Factory::build('bio', [
+            'user_id' => $userA->id
+        ]);
 
-        //It is poor form to put two calls in one test? It is essentially testing
-        //the same thing, but it is two different methods? SRP on testing?
         $responseGet = $this->actingAs($userB)->get('/bios/' . $bio->id . '/edit');
         $responseGet->assertResponseStatus(404); //gives 404, should this be a 403?     
-
-        $responsePut = $this->actingAs($userB)->put('/bios/' . $bio->id,[
-            'nickname' => 'Fresh Prince',
-            'body' => 'Born and raised in West Philidelphia, I spend a large majority of my time on the playground.'
-        ]);
-        $responsePut->assertResponseStatus(404); //gives 404, should this be a 403?  
     }
 
     /** @test */
@@ -96,7 +89,7 @@ class BiosTest extends IntegrationTestCase
             'public' => 0
         ]);
 
-        $this->actingAs($user)->call('delete', '/bios/' . $bio->id);
+        $this->actingAs($user)->visit('/bios/' . $bio->id . '/delete');
         $this->missingFromDatabase('bios', [
             'nickname' => 'Jimmy Buffet',
             'body' => '5 oclock somewhere'

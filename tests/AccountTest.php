@@ -111,8 +111,13 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function user_can_reset_their_password_from_email_link()
     {
+        $this->disableExceptionHandling();
         $user = Factory::create('user');
-        $this->post('/password/email', ['email' => $user->email]);
+        $this->post('/password/email', [
+            'email' => $user->email, 
+            '_token' => csrf_token()
+        ]);
+
         $reset_token = DB::table('password_resets')->where('email', $user->email)->pluck('token')->first();
         
         $this->visit('/password/reset/' . $reset_token)
@@ -121,7 +126,7 @@ class AccountTest extends IntegrationTestCase
             ->type('h4xmahp4ssw0rdn00bz', '#password_confirmation')
             ->press('Reset Password')
             ->seePageIs('/dashboard');
-
+        
         $this->visit('log-out');
 
         $this->visit('login')

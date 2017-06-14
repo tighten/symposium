@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Laracasts\TestDummy\Factory;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Session;
+use Laracasts\TestDummy\Factory;
 use MailThief\Testing\InteractsWithMail;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
@@ -177,6 +178,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     function non_contactable_users_profile_pages_do_not_show_contact()
     {
+        $this->withoutMiddleware();
+
         $user = Factory::create('user', [
             'profile_slug' => 'jimmybob',
             'enable_profile' => true,
@@ -199,6 +202,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     function contactable_users_profile_pages_show_contact()
     {
+        $this->disableExceptionHandling();
+
         $user = Factory::create('user', [
             'profile_slug' => 'jimmybob',
             'enable_profile' => true,
@@ -213,10 +218,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->visit(route('speakers-public.email', [$user->profile_slug]))
             ->assertResponseOk();
 
-        $this
-            ->post(route('speakers-public.email', [$user->profile_slug]))
-            ->followRedirects()
-            ->assertResponseOk();
+        //sending email in next test
     }
 
     /** @test */
@@ -256,7 +258,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->assertResponseStatus(404);
 
         $this
-            ->post(route('speakers-public.email', [$user->profile_slug]))
+            ->post(route('speakers-public.email', [$user->profile_slug]), ['_token' => csrf_token()])
             ->assertResponseStatus(404);
     }
 

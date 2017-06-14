@@ -8,7 +8,7 @@ class IntegrationTestCase extends TestCase
     public function setUp()
     {
         parent::setUp();
-
+        Session::start();
         Artisan::call('migrate');
     }
 
