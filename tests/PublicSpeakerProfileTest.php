@@ -4,10 +4,12 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laracasts\TestDummy\Factory;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
+use MailThief\Testing\InteractsWithMail;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {
     use DatabaseMigrations;
+    use InteractsWithMail;
 
     /** @test */
     function non_public_speakers_are_not_listed_on_the_public_speaker_page()
@@ -215,6 +217,29 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->post(route('speakers-public.email', [$user->profile_slug]))
             ->followRedirects()
             ->assertResponseOk();
+    }
+
+    /** @test */
+    function user_can_be_contacted_from_profile()
+    {
+       // $this->markTestIncomplete("Need Captcha Assistance");
+
+        $userA = Factory::create('user', [
+            'profile_slug' => 'smithy',
+            'enable_profile' => true,
+            'allow_profile_contact' => true,
+        ]);
+        $userB = Factory::create('user');
+
+        $this->actingAs($userB)
+            ->visit(route('speakers-public.email', [$userA->profile_slug]))
+            ->type($userB->email, '#email')
+            ->type($userB->name, '#name')
+            ->type('You are amazing', '#message')
+            ->press('Send');
+
+        $this->seeMessageFor($userA->email);
+        $this->assertTrue($this->lastMessage()->contains('You are amazing'));
     }
 
     /** @test */

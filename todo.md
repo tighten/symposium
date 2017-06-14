@@ -2,8 +2,8 @@
 
 | Form                            | Test Coverage                                                |
 |---------------------------------|--------------------------------------------------------------|
-| auth/passwords/reset            | Needs test coverage |
-| auth/passwords/email            | Needs test coverage |
+| auth/passwords/reset            | AccountTest@password_reset_emails_are_sent_for_valid_users() |
+| auth/passwords/email            | AccountTest@user_can_reset_their_password_from_email_link() |
 | submissions??                   | Don't see anything? |
 | oauth/authorization-form        | Api/OAuthTest |
 | account/edit                    | AccountTest@user_can_update_their_profile() |
