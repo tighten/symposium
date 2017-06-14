@@ -52,6 +52,50 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
+    function user_can_update_their_profile()
+    {
+        $user = Factory::create('user');
+
+        $this->actingAs($user)
+            ->visit('/account/edit')
+            ->type('Kevin Bacon', '#name')
+            ->type('KevinBacon@yahoo.com', '#email')
+            ->type('haxTh1sn00b', '#password')
+            ->select(true, '#enable_profile')
+            ->select(true, '#allow_profile_contact')
+            ->type('kevin_rox', '#profile_slug')
+            ->type('It has been so long since I was in an X-Men movie', '#profile_intro')
+            ->press('Save')
+            ->seePageIs('account');  
+
+        $this->seeInDatabase('users', [
+            'name' => 'Kevin Bacon',
+            'email' => 'KevinBacon@yahoo.com',
+            'enable_profile' => 1,
+            'allow_profile_contact' => 1,
+            'profile_slug' => 'kevin_rox',
+            'profile_intro' => 'It has been so long since I was in an X-Men movie',
+        ]);     
+    }
+
+    /** @test */
+    function user_can_update_their_profile_picture()
+    {
+        $image = __DIR__.'/stubs/test.jpg';
+        $user = Factory::create('user', [
+            'name' => 'Kevin Smith'
+        ]);
+
+        $this->actingAs($user)
+            ->visit('/account/edit')
+            ->attach($image, '#profile_picture')
+            ->press('Save');
+        
+        $user->fresh();
+        $this->assertNotTrue($user->profile_picture, null);
+    }
+
+    /** @test */
     function password_reset_emails_are_sent_for_valid_users()
     {
         $this->markTestIncomplete('Wait for Laravel 5.3');

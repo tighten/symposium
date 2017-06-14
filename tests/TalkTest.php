@@ -71,9 +71,19 @@ class TalkTest extends IntegrationTestCase
     function user_can_create_a_talk()
     {
         $user = Factory::create('user');
-        $this->be($user);
+        
+        $this->actingAs($user)
+            ->visit('/talks/create')
+            ->type('Your Best Talk Now', '#title')
+            ->select('keynote', '#type')
+            ->select('intermediate', '#level')
+            ->type('No, really.', '#description')
+            ->type('123', '#length')
+            ->type('http://www.google.com/slides', '#slides')
+            ->type("It'll be awesome!", '#organizer_notes')
+            ->press('Create');
 
-        $data = [
+        $this->seeInDatabase('talk_revisions', [
             'title' => 'Your Best Talk Now',
             'type' => 'keynote',
             'level' => 'intermediate',
@@ -81,11 +91,7 @@ class TalkTest extends IntegrationTestCase
             'length' => '123',
             'slides' => 'http://www.google.com/slides',
             'organizer_notes' => "It'll be awesome!"
-        ];
-
-        $this->post('talks', $data);
-
-        $this->seeInDatabase('talk_revisions', $data);
+        ]);
 
         $talk = Talk::first();
 

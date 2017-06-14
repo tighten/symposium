@@ -2,21 +2,22 @@
 
 | Form                            | Test Coverage                                                |
 |---------------------------------|--------------------------------------------------------------|
-| account/public-profile/email    | Unsure? |
-| account/confirm-delete          | AccountTest/users_can_delete_their_accounts() |
-| account/edit                    | No Test Coverage | 
-| auth/passwords/email            | AccountTest/password_reset_emails_are_sent_for_valid_users() |
-| auth/passwords/reset            | Dig deeper |
-| bios/create                     | Covered by BioTest |
-| bios/edit                       | Covered by BioTest |
-| conferences/create              | Covered by CreateConferenceTestForm |
-| conferences/edit                | No test coverage |
-| oauth/authorization-form        | Not sure - dig deeper |
+| auth/passwords/reset            | Needs test coverage |
+| auth/passwords/email            | Needs test coverage |
+| submissions??                   | Don't see anything? |
+| oauth/authorization-form        | Api/OAuthTest |
+| account/edit                    | AccountTest@user_can_update_their_profile() |
+|                                 | AccountTest@user_can_update_their_profile_picture() |
 | partials/log-in-form            | AccountTest/users_can_log_in() |
 | partials/sign-up-form           | AccountTest/users_can_sign_up() |
+| account/confirm-delete          | AccountTest@users_can_delete_their_accounts() |
+| account/public-profile/email    | PublicProfileTest@contactable_users_profile_pages_show_contact() ? |
+| bios/create                     | Covered in BioTest |
+| bios/edit                       | Covered in BioTest |
+| conferences/edit                | ConferenceTest@user_can_create_conference() |
+| conferences/create              | ConferenceTest@user_can_edit_conference() |
 | talks/create                    | TalkTest/user_can_create_a_talk() |
-| talks/edit                      | No Test Coverage |
-| submissions??                   | Dig deeper |
+| talks/edit                      | TalkTest@user_can_save_a_new_revision_of_a_talk() |
 
 | Form creation method | Times Used |
 |----------------------|------------|
