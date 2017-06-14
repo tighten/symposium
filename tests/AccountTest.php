@@ -98,19 +98,38 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function password_reset_emails_are_sent_for_valid_users()
     {
-        $this->markTestIncomplete('Wait for Laravel 5.3');
-
         $user = Factory::create('user');
 
-        $this->visit('password/email')
+        $this->visit('/password/reset')
             ->type($user->email, '#email')
             ->press('Send Password Reset Link');
 
         $this->seeMessageFor($user->email);
-        $this->assertTrue($this->lastMessage()->contains('Password or whatever should be here'));
+        $this->assertTrue($this->lastMessage()->contains('You are receiving this email because we received a password reset request for your account'));
     }
 
-    // @todo: Also test the round two is triggered correctly
+    /** @test */
+    function user_can_reset_their_password_from_email_link()
+    {
+        $user = Factory::create('user');
+        $this->post('/password/email', ['email' => $user->email]);
+        $reset_token = DB::table('password_resets')->where('email', $user->email)->pluck('token')->first();
+        
+        $this->visit('/password/reset/' . $reset_token)
+            ->type($user->email, '#email')
+            ->type('h4xmahp4ssw0rdn00bz', '#password')
+            ->type('h4xmahp4ssw0rdn00bz', '#password_confirmation')
+            ->press('Reset Password')
+            ->seePageIs('/dashboard');
+
+        $this->visit('log-out');
+
+        $this->visit('login')
+            ->type($user->email, '#email')
+            ->type('h4xmahp4ssw0rdn00bz', '#password')
+            ->press('Log in')
+            ->seePageIs('dashboard');
+    }
 
     /** @test */
     function users_can_delete_their_accounts()
