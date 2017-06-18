@@ -172,6 +172,7 @@ return [
         'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -227,6 +228,7 @@ return [
         'Slack'     => 'Maknz\Slack\Facades\Slack',
         'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
     ],
 
