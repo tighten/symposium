@@ -171,6 +171,7 @@ return [
 
         'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
+        App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ],
 

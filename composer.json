@@ -19,7 +19,7 @@
     "type": "project",
     "require": {
         "laravel/framework": "5.3.*",
-        "rexxars/joindin-client": "dev-master",
+        "rexxars/joindin-client": "^0.0.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "laravelcollective/html": "5.3.*",
         "doctrine/dbal": "~2.5",
