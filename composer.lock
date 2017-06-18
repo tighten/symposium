@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "18156798e0a2fe2dc1a0b9edf2352e2e",
-    "content-hash": "b2025b0dfbeff351aef4d066d527e53b",
+    "hash": "e341958e67efacfc6d7d1baccc09f204",
+    "content-hash": "87932e6b6d34122aaa378d2ce2443b54",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -2446,11 +2446,11 @@
         },
         {
             "name": "rexxars/joindin-client",
-            "version": "dev-master",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:mattstauffer/joindin-client.git",
-                "reference": "7508830f787125218e80b93d39d8a1e54d290130"
+                "reference": "42f0a991bf4ae33676d32d00a70c8459f7a71374"
             },
             "require": {
                 "guzzle/guzzle": "3.7.1",
@@ -5280,7 +5280,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "rexxars/joindin-client": 20,
         "thomaswelton/laravel-gravatar": 20,
         "thujohn/twitter": 20
     },

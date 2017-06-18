@@ -15,7 +15,7 @@ class ConferenceImporter
 
     public function __construct($authorId = null)
     {
-        $this->client = JoindInClient::factory();
+        $this->client = app(JoindInClient::class);
         $this->authorId = $authorId ?: auth()->user()->id;
     }
 
@@ -56,8 +56,8 @@ class ConferenceImporter
 
     private function carbonFromIso($dateFromApi)
     {
-        if ($dateFromApi == null) {
-            return Carbon::create(null);
+        if (! $dateFromApi) {
+            return null;
         }
 
         return Carbon::createFromFormat(DateTime::ISO8601, $dateFromApi);
