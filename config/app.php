@@ -173,6 +173,7 @@ return [
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ],
 
 ];

@@ -44,6 +44,23 @@ Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('calendar', function() {
+        $events = \App\Conference::all()->map(function($conference) {
+            return \Calendar::event(
+                $conference->title,
+                false,
+                $conference->starts_at,
+                $conference->ends_at,
+                $conference->id
+            );
+        })->toArray();
+
+        $calendar = \Calendar::addEvents($events);
+        $options = $calendar->getOptionsJson();
+
+        return view('test', compact('calendar', 'options'));
+    });
+
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
     Route::put('account/edit', 'AccountController@update');

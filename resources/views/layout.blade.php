@@ -9,6 +9,10 @@
     <link href="{{ url('/packages/octicons/octicons.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -24,13 +28,12 @@
     @yield('content')
     @include('partials.footer')
 
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="{{ ('/js/vendor/pickadate/picker.js') }}"></script>
     <script src="{{ ('/js/vendor/pickadate/picker.date.js') }}"></script>
     <script src="{{ ('/js/app.js') }}"></script>
-
+        
     @if (! App::isLocal())
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
