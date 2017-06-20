@@ -55,6 +55,12 @@ class AccountController extends BaseController
         $user->allow_profile_contact = $request->get('allow_profile_contact');
         $user->profile_intro = $request->get('profile_intro');
         $user->profile_slug = $request->get('profile_slug');
+        $user->location = $request->get('location');
+        $user->neighborhood = $request->get('neighborhood');
+        $user->sublocality = $request->get('sublocality');
+        $user->city = $request->get('city');
+        $user->state = $request->get('state');
+        $user->country = $request->get('country');
 
         $user->save();
 
