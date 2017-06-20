@@ -34,7 +34,7 @@ class SocialLoginController extends Controller
             ]);
         }
 
-        if ($this->needsToCreateSocial($user, $service)) {
+        if (!$user->hasSocialLinked($service)) {
             $user->social()->create([
                 'social_id' => $serviceUser->getId(),
                 'service' => $service,
@@ -44,11 +44,6 @@ class SocialLoginController extends Controller
         Auth::login($user, false);
 
         return redirect()->intended();
-    }
-
-    protected function needsToCreateSocial(User $user, $service)
-    {
-        return !$user->hasSocialLinked($service);
     }
 
     protected function getExistingUser($serviceUser, $service)

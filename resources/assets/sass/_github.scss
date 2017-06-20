@@ -1,89 +1,96 @@
 #github-login-panel {
-	text-align: center;
+    text-align: center;
 }
 
 #github-login-panel .btn {
-	margin-bottom: 0px;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
     background-image: none;
     border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 15px 2px 15px 30px;
-    font-size: 16px;
-    line-height: 1.42857;
     border-radius: 47px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0px; 
+    padding: 15px 2px 15px 30px;
+    text-align: center;
+    touch-action: manipulation;
     user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
-.btn-social{
-position:relative;
-padding-left:30px;
-text-align:center;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
+.btn-social {
+    overflow: hidden;
+    padding-left: 30px;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #github-login-panel .btn-block {
-	display: inline-block;
-    width: 75%;
+    display: inline-block;
     margin-bottom: 5px;
+    width: 75%;
 }
 
-.btn-social>:first-child{
-position:absolute;
-left:25px;
-top:9px;
-bottom:0;
-width:32px;
-line-height:34px;
-font-size:1.6em;
-text-align:center;
+.btn-social>:first-child {
+    bottom: 0;
+    font-size: 1.6em;
+    left: 25px;
+    line-height: 34px;
+    position: absolute;
+    text-align: center;
+    top: 9px;
+    width: 32px;
 }
 
 .btn-github {
-color:#fff;
-background-color:#444;
-border-color:rgba(0,0,0,0.2)
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2);
+    color: #fff;
 }
-.btn-github:focus,.btn-github.focus{
-color:#fff;
-background-color:#2b2b2b;
-border-color:rgba(0,0,0,0.2)
+
+.btn-github:focus,.btn-github.focus {
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2);
+    color: #fff;
 }
-.btn-github:hover{
-color:#fff;
-background-color:#2b2b2b;
-border-color:rgba(0,0,0,0.2)
+
+.btn-github:hover {
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2);
+    color: #fff;
 }
-.btn-github:active,.btn-github.active,.open>.dropdown-toggle.btn-github{
-color:#fff;
-background-color:#2b2b2b;
-border-color:rgba(0,0,0,0.2)
+
+.btn-github:active,.btn-github.active,.open>.dropdown-toggle.btn-github {
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2);
+    color: #fff;
 }
-.btn-github:active:hover,.btn-github.active:hover,.open>.dropdown-toggle.btn-github:hover,.btn-github:active:focus,.btn-github.active:focus,.open>.dropdown-toggle.btn-github:focus,.btn-github:active.focus,.btn-github.active.focus,.open>.dropdown-toggle.btn-github.focus{
-color:#fff;
-background-color:#191919;
-border-color:rgba(0,0,0,0.2)
+
+.btn-github:active:hover,.btn-github.active:hover,.open>.dropdown-toggle.btn-github:hover,.btn-github:active:focus,.btn-github.active:focus,.open>.dropdown-toggle.btn-github:focus,.btn-github:active.focus,.btn-github.active.focus,.open>.dropdown-toggle.btn-github.focus {
+    background-color: #191919;
+    border-color: rgba(0,0,0,0.2);
+    color: #fff;
 }
-.btn-github:active,.btn-github.active,.open>.dropdown-toggle.btn-github{
-background-image:none;
+
+.btn-github:active,.btn-github.active,.open>.dropdown-toggle.btn-github {
+    background-image: none;
 }
-.btn-github.disabled:hover,.btn-github[disabled]:hover,fieldset[disabled] .btn-github:hover,.btn-github.disabled:focus,.btn-github[disabled]:focus,fieldset[disabled] .btn-github:focus,.btn-github.disabled.focus,.btn-github[disabled].focus,fieldset[disabled] .btn-github.focus{
-background-color:#444;
-border-color:rgba(0,0,0,0.2);
+
+.btn-github.disabled:hover,.btn-github[disabled]:hover,fieldset[disabled] .btn-github:hover,.btn-github.disabled:focus,.btn-github[disabled]:focus,fieldset[disabled] .btn-github:focus,.btn-github.disabled.focus,.btn-github[disabled].focus,fieldset[disabled] .btn-github.focus {
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2);
 }
-.btn-github .badge{
-color:#444;
-background-color:#fff;
+
+.btn-github .badge {
+    background-color: #fff;
+    color: #444;
 }
 
 #non-github-login {
+    color: grey;
     font-size: small;
     font-weight: 600;
-    color: grey;
 }
