@@ -6,14 +6,9 @@
 @endsection
 
 @section('content')
-    <style>
-        #calendar {
-            padding: 30px;
-        }
-    </style>
     <div class="container body">
         <div class="row">
-            <div id="calendar">
+            <div id="calendar" class="col-sm-12">
                 {{ $calendar->calendar() }}
 
                 <script>
