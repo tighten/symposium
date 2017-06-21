@@ -8,7 +8,7 @@
 @section('content')
     <div class="container body">
         <div class="row">
-            <div id="calendar" class="col-sm-12">
+            <div id="calendar" class="calendar col-sm-12">
                 {{ $calendar->calendar() }}
 
                 <script>

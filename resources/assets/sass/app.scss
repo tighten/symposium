@@ -340,6 +340,44 @@ legend {
     margin-left: 1em;
 }
 
+.calendar {
+    button {
+        @extend .btn;
+        @extend .btn-primary;
+        text-shadow: none;
+    }
+
+    .fc-button-group {
+        border-radius: 4px;
+        overflow: hidden;
+
+        button {
+            border-radius: 0;
+
+            &:not(:first-child) {
+                border-left: 1px solid #161f29;
+            }
+
+            &.fc-state-active {
+                background-color: #161f29;
+            }
+        }
+    }
+
+    .fc-content {
+        padding: 3px;
+    }
+
+    .fc-day-header {
+        font-family: $font-family-oswald;
+    }
+
+    .fc-time {
+        font-family: $font-family-oswald;
+        font-weight: bold;
+    }
+}
+
 .filter-link {
     &.is-active {
         font-weight: bold;
