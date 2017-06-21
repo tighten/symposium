@@ -20,7 +20,7 @@ class BiosTest extends IntegrationTestCase
         $this->seeInDatabase('bios', [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
-            'public' => 'no'
+            'public' => 'false',
         ]);
     }
 
@@ -40,7 +40,7 @@ class BiosTest extends IntegrationTestCase
         $this->seeInDatabase('bios', [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
-            'public' => 'yes'
+            'public' => 0
         ]);
     }
 
