@@ -37,8 +37,7 @@ class CalendarController extends BaseController
             );
         })->toArray();
 
-        $calendar = Calendar::addEvents($conferences)
-            ->addEvents($cfps);
+        $calendar = Calendar::addEvents(array_merge($conferences, $cfps));
 
         return view('calendar', [
             'calendar' => $calendar,
