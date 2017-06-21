@@ -10,7 +10,7 @@
                         <a href="{{ route('talks.archived.index', ['sort' => 'alpha']) }}" class="@sorted($sorted_by, 'alpha')">Title</a> |
                         <a href="{{ route('talks.archived.index', ['sort' => 'date']) }}" class="@sorted($sorted_by, 'date')">Date</a>
                     </span>
-                    <a href="/talks" class="btn btn-default btn-xs">Show Active Talks</a>
+                    <a href="{{ route('talks.index', ['sort' => 'alpha']) }}" class="btn btn-default btn-xs">Show Active Talks</a>
                 </p>
                 <ul class="list-talks">
                     @forelse ($talks as $talk)

@@ -150,6 +150,7 @@ return [
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
+        Laravel\Scout\ScoutServiceProvider::class,
 
 
         /*
@@ -171,6 +172,7 @@ return [
 
         'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
+        App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ],
 

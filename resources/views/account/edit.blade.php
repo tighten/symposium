@@ -85,6 +85,20 @@
                     <span class="help-block">This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers.</span>
                     {{ Form::textarea('profile_intro', null, ['class' => 'form-control']) }}
                 </div>
+
+                <div class="form-group">
+                    {{ Form::label('location', 'Location', ['class' => 'control-label']) }}
+                    <span class="help-block">Enter the city in which you reside and local conference organizers can find you.</span>
+                    {{ Form::text('location', null, ['class' => 'form-control', 'id' => 'autocomplete']) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::hidden('neighborhood', null, ['id' => 'neighborhood', 'readonly' => true]) }}
+                    {{ Form::hidden('sublocality', null, ['id' => 'sublocality_level_1', 'readonly' => true]) }}
+                    {{ Form::hidden('city', null, ['id' => 'locality', 'readonly' => true]) }}
+                    {{ Form::hidden('state', null, ['id' => 'administrative_area_level_1', 'readonly' => true]) }}
+                    {{ Form::hidden('country', null, ['id' => 'country', 'readonly' => true]) }}
+                </div>
             </div>
         </div>
         <div class="row">
@@ -96,3 +110,8 @@
         {{ Form::close() }}
     </div>
 @stop
+
+@push('scripts')
+<script src="{{ elixir('js/location.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places&callback=initAutocomplete" async defer></script>
+@endpush

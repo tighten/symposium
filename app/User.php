@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Searchable;
 
     const ADMIN_ROLE = 1;
     const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
@@ -85,6 +86,19 @@ class User extends Authenticatable
         }
 
         return asset('/storage/' . self::PROFILE_PICTURE_HIRES_PATH . $this->profile_picture);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'location' => $this->location,
+            'neighborhood' => $this->neighborhood,
+            'sublocality' => $this->sublocality,
+            'city' => $this->city,
+            'state' => $this->state,
+            'country' => $this->country
+        ];
     }
 
     protected static function boot()
