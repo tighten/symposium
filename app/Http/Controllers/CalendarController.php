@@ -9,15 +9,36 @@ class CalendarController extends BaseController
 {
     public function index()
     {
-        $calendar = Calendar::addEvents(Conference::all()->map(function($conference) {
+        $conferences = Conference::all()->map(function ($conference) {
             return \Calendar::event(
                 $conference->title,
                 false,
                 $conference->starts_at,
                 $conference->ends_at,
-                $conference->id
+                $conference->id,
+                [
+                    'color' => '#428bca',
+                    'url' => route('conferences.show', $conference->id),
+                ]
             );
-        })->toArray());
+        })->toArray();
+
+        $cfps = Conference::all()->map(function ($conference) {
+            return \Calendar::event(
+                'CFP\'s open for ' . $conference->title,
+                false,
+                $conference->cfp_starts_at,
+                $conference->cfp_starts_at,
+                'cfp-' . $conference->id,
+                [
+                    'color' => '#F39C12',
+                    'url' => route('conferences.show', $conference->id),
+                ]
+            );
+        })->toArray();
+
+        $calendar = Calendar::addEvents($conferences)
+            ->addEvents($cfps);
 
         return view('calendar', [
             'calendar' => $calendar,
