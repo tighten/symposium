@@ -16,7 +16,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     function non_public_speakers_are_not_listed_on_the_public_speaker_page()
     {
         $user = Factory::create('user', [
-            'enable_profile' => false
+            'enable_profile' => false,
         ]);
 
         $this->visit(route('speakers-public.index'))
@@ -28,7 +28,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'mattstauffer',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $this->visit(route('speakers-public.index'))
@@ -40,7 +40,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'mattstauffer',
-            'enable_profile' => false
+            'enable_profile' => false,
         ]);
 
         $this->get(route('speakers-public.show', [$user->profile_slug]));
@@ -52,7 +52,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'abrahamlincoln',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $this->visit(route('speakers-public.show', [$user->profile_slug]))
@@ -64,7 +64,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'tonimorrison',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $talk = Factory::build('talk');
@@ -83,7 +83,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'jamesandthegiantpeach',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $talk = Factory::build('talk');
@@ -101,7 +101,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'zipporah',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $talk = Factory::build('talk');
@@ -120,7 +120,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'esther',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $bio = Factory::build('bio');
@@ -137,7 +137,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'kuntakinte',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $bio = Factory::build('bio');
@@ -153,7 +153,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $user = Factory::create('user', [
             'profile_slug' => 'mydearauntsally',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $bio = Factory::build('bio');
@@ -268,13 +268,13 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $user = Factory::create('user', [
             'profile_slug' => 'jinkerjanker',
             'email' => 'a@b.com',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $user2 = Factory::create('user', [
             'profile_slug' => 'alcatraz',
             'email' => 'c@d.com',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $talk = Factory::build('talk');
@@ -294,13 +294,13 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $user = Factory::create('user', [
             'profile_slug' => 'stampede',
             'email' => 'a@b.com',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $user2 = Factory::create('user', [
             'profile_slug' => 'cruising',
             'email' => 'c@d.com',
-            'enable_profile' => true
+            'enable_profile' => true,
         ]);
 
         $bio = Factory::build('bio');

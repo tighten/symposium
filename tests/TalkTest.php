@@ -13,7 +13,7 @@ class TalkTest extends IntegrationTestCase
         $user = Factory::create('user');
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
@@ -28,18 +28,18 @@ class TalkTest extends IntegrationTestCase
     {
         $user = Factory::create('user');
         $talk1 = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision1 = Factory::create('talkRevision', [
-            'title' => 'zyxwv'
+            'title' => 'zyxwv',
         ]);
         $talk1->revisions()->save($revision1);
 
         $talk2 = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision2 = Factory::create('talkRevision', [
-            'title' => 'abcde'
+            'title' => 'abcde',
         ]);
         $talk2->revisions()->save($revision2);
 
@@ -90,7 +90,7 @@ class TalkTest extends IntegrationTestCase
             'description' => 'No, really.',
             'length' => '123',
             'slides' => 'http://www.google.com/slides',
-            'organizer_notes' => "It'll be awesome!"
+            'organizer_notes' => "It'll be awesome!",
         ]);
 
         $talk = Talk::first();
@@ -105,10 +105,10 @@ class TalkTest extends IntegrationTestCase
     {
         $user = Factory::create('user');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision', [
-            'title' => 'zyxwv'
+            'title' => 'zyxwv',
         ]);
         $talk->revisions()->save($revision);
 
@@ -125,7 +125,7 @@ class TalkTest extends IntegrationTestCase
     {
         $user = Factory::create('user');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision', [
             'title' => 'old title',

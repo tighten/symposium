@@ -14,7 +14,7 @@ class SubmissionTest extends IntegrationTestCase
         $user = Factory::create('user');
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
@@ -30,7 +30,7 @@ class SubmissionTest extends IntegrationTestCase
         $user = Factory::create('user');
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
@@ -51,13 +51,13 @@ class SubmissionTest extends IntegrationTestCase
         $conference2 = Factory::create('conference');
 
         $talk1 = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $talk1revision = Factory::create('talkRevision');
         $talk1->revisions()->save($talk1revision);
 
         $talk2 = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $talk2revision = Factory::create('talkRevision');
         $talk2->revisions()->save($talk2revision);
@@ -79,11 +79,11 @@ class SubmissionTest extends IntegrationTestCase
         $user = Factory::create('user');
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
 
         $oldRevision = Factory::create('talkRevision', [
-            'created_at' => '1999-01-01 01:01:01'
+            'created_at' => '1999-01-01 01:01:01',
         ]);
         $talk->revisions()->save($oldRevision);
 
@@ -102,17 +102,17 @@ class SubmissionTest extends IntegrationTestCase
         $user = Factory::create('user');
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
 
         $oldRevision = Factory::create('talkRevision', [
             'title' => 'oldie',
-            'created_at' => '1999-01-01 01:01:01'
+            'created_at' => '1999-01-01 01:01:01',
         ]);
         $talk->revisions()->save($oldRevision);
 
         $revision = Factory::create('talkRevision', [
-            'title' => 'submitted i hope'
+            'title' => 'submitted i hope',
         ]);
         $talk->revisions()->save($revision);
 
@@ -135,7 +135,7 @@ class SubmissionTest extends IntegrationTestCase
         $user = Factory::create('user');
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
@@ -155,7 +155,7 @@ class SubmissionTest extends IntegrationTestCase
 
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $user->id
+            'author_id' => $user->id,
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
@@ -163,7 +163,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->post('submissions', [
             'conferenceId' => $conference->id,
             'talkId' => $talk->id,
-            '_token' => csrf_token()
+            '_token' => csrf_token(),
         ]);
 
         $this->assertTrue($conference->submissions->contains($revision));
@@ -175,12 +175,12 @@ class SubmissionTest extends IntegrationTestCase
         $user = Factory::create('user');
         $this->be($user);
         $otherUser = Factory::create('user', [
-            'email' => 'a@b.com'
+            'email' => 'a@b.com',
         ]);
 
         $conference = Factory::create('conference');
         $talk = Factory::create('talk', [
-            'author_id' => $otherUser->id
+            'author_id' => $otherUser->id,
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);

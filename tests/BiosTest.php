@@ -60,7 +60,7 @@ class BiosTest extends IntegrationTestCase
 
         $this->seeInDatabase('bios', [
             'nickname' => 'Fresh Prince',
-            'body' => 'Born and raised in West Philidelphia, I spend a large majority of my time on the playground.'
+            'body' => 'Born and raised in West Philidelphia, I spend a large majority of my time on the playground.',
         ]);
     }
 
@@ -71,7 +71,7 @@ class BiosTest extends IntegrationTestCase
         $userB = Factory::create('user');
 
         $bio = Factory::build('bio', [
-            'user_id' => $userA->id
+            'user_id' => $userA->id,
         ]);
 
         $responseGet = $this->actingAs($userB)->get('/bios/' . $bio->id . '/edit');
@@ -86,13 +86,13 @@ class BiosTest extends IntegrationTestCase
             'user_id' => $user->id,
             'nickname' => 'Jimmy Buffet',
             'body' => '5 oclock somewhere',
-            'public' => 0
+            'public' => 0,
         ]);
 
         $this->actingAs($user)->visit('/bios/' . $bio->id . '/delete');
         $this->missingFromDatabase('bios', [
             'nickname' => 'Jimmy Buffet',
-            'body' => '5 oclock somewhere'
+            'body' => '5 oclock somewhere',
         ]);
     }
 
@@ -105,13 +105,13 @@ class BiosTest extends IntegrationTestCase
             'user_id' => $userA->id,
             'nickname' => 'Jimmy Buffet',
             'body' => '5 oclock somewhere',
-            'public' => 0
+            'public' => 0,
         ]);
 
         $this->actingAs($userB)->call('delete', '/bios/' . $bio->id);
         $this->seeInDatabase('bios', [
             'nickname' => 'Jimmy Buffet',
-            'body' => '5 oclock somewhere'
+            'body' => '5 oclock somewhere',
         ]);
     }
 }

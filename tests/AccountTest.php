@@ -20,7 +20,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('users', [
             'email' => 'email@email.com',
-            'name' => 'Joe Schmoe'
+            'name' => 'Joe Schmoe',
         ]);
     }
 
@@ -41,7 +41,7 @@ class AccountTest extends IntegrationTestCase
     function users_can_log_in()
     {
         $user = Factory::create('user', [
-            'password' => bcrypt('super-secret')
+            'password' => bcrypt('super-secret'),
         ]);
 
         $this->visit('login')
@@ -83,7 +83,7 @@ class AccountTest extends IntegrationTestCase
     {
         $image = __DIR__.'/stubs/test.jpg';
         $user = Factory::create('user', [
-            'name' => 'Kevin Smith'
+            'name' => 'Kevin Smith',
         ]);
 
         $this->actingAs($user)
@@ -115,7 +115,7 @@ class AccountTest extends IntegrationTestCase
         $user = Factory::create('user');
         $this->post('/password/email', [
             'email' => $user->email, 
-            '_token' => csrf_token()
+            '_token' => csrf_token(),
         ]);
 
         $reset_token = DB::table('password_resets')->where('email', $user->email)->pluck('token')->first();
