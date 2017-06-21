@@ -109,6 +109,14 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '>', Carbon::now());
     }
 
+    public function scopeUndismissed($query)
+    {
+        return $query
+            ->whereDoesntHave('usersDismissed', function ($query) {
+                $query->where('id', Auth::id());
+            });
+    }
+
     /**
      * Whether CFP is currently open
      *
@@ -150,16 +158,16 @@ class Conference extends UuidBase
     }
 
     /**
-     * Get all users who favorited this conference
+     * Get all users who dismissed this conference
      */
-    public function usersFavorited()
+    public function usersDismissed()
     {
-        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
+        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
-    public function isFavorited()
+    public function isDismissed()
     {
-        return Auth::user()->favoritedConferences->contains($this->id);
+        return Auth::user()->dismissedConferences->contains($this->id);
     }
 
     /**

@@ -63,8 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('conferences/joindin/import', 'ConferencesController@joindinImportList');
     Route::get('conferences/joindin/all', 'ConferencesController@joindinImportAll');
 
-    Route::get('conferences/{id}/favorite', 'ConferencesController@favorite');
-    Route::get('conferences/{id}/unfavorite', 'ConferencesController@unfavorite');
+    Route::get('conferences/{id}/dismiss', 'ConferencesController@dismiss');
+    Route::get('conferences/{id}/undismiss', 'ConferencesController@undismiss');
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);

@@ -99,9 +99,9 @@ class AccountTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $otherUser = Factory::create('user');
-        $favoriteConference = Factory::build('conference');
+        $dismissedConference = Factory::build('conference');
         $otherUser->conferences()->save($conference);
-        $user->favoritedConferences()->save($favoriteConference);
+        $user->dismissedConferences()->save($dismissedConference);
 
         $this->actingAs($user)
              ->visit('account/delete')
@@ -126,9 +126,49 @@ class AccountTest extends IntegrationTestCase
 //            'id' => $conference->id,
 //        ]);
 
-        $this->dontSeeInDatabase('favorites', [
+        $this->dontSeeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $favoriteConference->id,
+            'conference_id' => $dismissedConference->id,
+        ]);
+    }
+
+    /** @test */
+    function users_can_dismiss_a_conference()
+    {
+        $user = Factory::create('user');
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->seeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+    }
+
+    /** @test */
+    function users_can_undismiss_a_conference()
+    {
+        $user = Factory::create('user');
+        $conference = Factory::build('conference');
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->seeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/undismiss");
+
+        $this->notSeeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
         ]);
     }
 }

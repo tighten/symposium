@@ -26,22 +26,22 @@ class ConferencesController extends BaseController
     public function index(Request $request)
     {
         switch ($request->input('filter')) {
-            case 'favorites':
-                $conferences = auth()->user()->favoritedConferences()->get();
+            case 'dismissed':
+                $conferences = auth()->user()->dismissedConferences()->get();
                 break;
             case 'open_cfp':
-                $conferences = Conference::openCfp()->get();
+                $conferences = Conference::undismissed()->openCfp()->get();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::unclosedCfp()->get();
+                $conferences = Conference::undismissed()->unclosedCfp()->get();
                 break;
             case 'all':
-                $conferences = Conference::all();
+                $conferences = Conference::undismissed()->get();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::future()->get();
+                $conferences = Conference::undismissed()->future()->get();
         }
 
         switch ($request->input('sort')) {
@@ -183,16 +183,16 @@ class ConferencesController extends BaseController
         return redirect('conferences');
     }
 
-    public function favorite($conferenceId)
+    public function dismiss($conferenceId)
     {
-        auth()->user()->favoritedConferences()->attach($conferenceId);
+        auth()->user()->dismissedConferences()->attach($conferenceId);
 
         return redirect()->back();
     }
 
-    public function unfavorite($conferenceId)
+    public function undismiss($conferenceId)
     {
-        auth()->user()->favoritedConferences()->detach($conferenceId);
+        auth()->user()->dismissedConferences()->detach($conferenceId);
 
         return redirect()->back();
     }

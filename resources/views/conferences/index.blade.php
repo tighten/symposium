@@ -16,7 +16,7 @@
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP is Open', ['filter' => 'open_cfp'], ['class' => 'filter-link']) }} |
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Unclosed CFP', ['filter' => 'unclosed_cfp'], ['class' => 'filter-link']) }} |
                     @if (Auth::check())
-                        {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Favorites', ['filter' => 'favorites'], ['class' => 'filter-link']) }} |
+                        {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Dismissed', ['filter' => 'dismissed'], ['class' => 'filter-link']) }} |
                     @endif
                     {{ HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'All time', ['filter' => 'all'], ['class' => 'filter-link']) }}
                 </p>
@@ -30,10 +30,10 @@
                 <ul class="list-conferences">
                     @forelse ($conferences as $conference)
                         <li>
-                            @if (Auth::check() && $conference->isFavorited())
-                                <a href="/conferences/{{ $conference->id  }}/unfavorite" class="fav-button fav-button--faved"><span class="glyphicon glyphicon-star"></a>
+                            @if (Auth::check() && $conference->isDismissed())
+                                <a href="/conferences/{{ $conference->id  }}/undismiss" class="dismiss-button" title="I am interested in this conference"><span class="glyphicon glyphicon-plus"></a>
                             @else
-                                <a href="/conferences/{{ $conference->id  }}/favorite" class="fav-button"><span class="glyphicon glyphicon-star-empty"></a>
+                                <a href="/conferences/{{ $conference->id  }}/dismiss" class="dismiss-button" title="I am not interested in this conference"><span class="glyphicon glyphicon-remove"></a>
                             @endif
                             <h3><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{ $conference->title }}</a></h3>
                             @if ($conference->cfpIsOpen())
