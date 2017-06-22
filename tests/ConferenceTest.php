@@ -1,10 +1,58 @@
 <?php
 
-use Laracasts\TestDummy\Factory;
+use App\Conference;
 use Carbon\Carbon;
+use Laracasts\TestDummy\Factory;
 
 class ConferenceTest extends IntegrationTestCase
 {
+    /** @test */
+    function user_can_create_conference()
+    {
+        $user = Factory::create('user');
+
+        $this->actingAs($user)
+            ->visit('/conferences/create')
+            ->type('Das Conf', '#title')
+            ->type('A very good conference about things', '#description')
+            ->type('http://dasconf.org', '#url')
+            ->press('Create');
+
+        $this->seeInDatabase('conferences',[
+            'title' => 'Das Conf',
+            'description' => 'A very good conference about things',
+        ]);
+    }
+
+    /** @test */
+    function user_can_edit_conference()
+    {
+        $this->disableExceptionHandling();
+
+        $user = Factory::create('user');
+
+        $conference = Factory::create('conference', [
+            'author_id' => $user->id,
+            'title' => 'Rubycon',
+            'description' => 'A conference about Ruby',
+        ]);
+
+        $this->actingAs($user)
+            ->visit('/conferences/' . $conference->id . '/edit')
+            ->type('Laracon', '#title')
+            ->type('A conference about Laravel', '#description')
+            ->press('Update');
+
+        $this->seeInDatabase('conferences',[
+            'title' => 'Laracon',
+            'description' => 'A conference about Laravel',
+        ]);
+
+        $this->missingFromDatabase('conferences',[
+            'title' => 'Rubycon',
+            'description' => 'A conference about Ruby',
+        ]);
+    }
     /** @test */
     function conferences_accept_proposals_during_the_call_for_papers()
     {

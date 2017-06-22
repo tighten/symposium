@@ -1,14 +1,16 @@
 <?php
 
+use Carbon\Carbon;
+
 $factory(\App\Conference::class, 'conference', [
     'author_id' => 1,
     'title' => 'Dummy Conference',
     'description' => 'A conference for dummies.',
     'url' => 'http://example.com',
-    'starts_at' => new DateTime,
-    'ends_at' => new DateTime,
-    'cfp_starts_at' => new DateTime,
-    'cfp_ends_at' => new DateTime,
+    'starts_at' => Carbon::now()->addDays(10),
+    'ends_at' => Carbon::now()->addDays(12),
+    'cfp_starts_at' => Carbon::now()->subDays(2),
+    'cfp_ends_at' => Carbon::now()->addDays(1),
 ]);
 
 $factory(\App\Talk::class, 'talk', [

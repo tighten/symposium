@@ -44,6 +44,11 @@
                     <h3><a href="{{ route('speakers-public.bios.show', ['profile_slug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
                     @endforeach
                 @endif
+
+                @if ($user->location)
+                    <h2>Location</h2>
+                    {{  $user->location }}</p>
+                @endif
             </div>
         </div>
     </div>

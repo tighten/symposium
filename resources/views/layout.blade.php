@@ -33,7 +33,8 @@
     <script src="{{ ('/js/vendor/pickadate/picker.js') }}"></script>
     <script src="{{ ('/js/vendor/pickadate/picker.date.js') }}"></script>
     <script src="{{ ('/js/app.js') }}"></script>
-        
+    @stack('scripts')
+
     @if (! App::isLocal())
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

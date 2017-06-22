@@ -15,6 +15,10 @@ Route::get('speakers', [
     'as' => 'speakers-public.index',
     'uses' => 'PublicProfileController@index'
 ]);
+Route::post('speakers', [
+    'as' => 'speakers-public.search',
+    'uses' => 'PublicProfileController@search'
+]);
 Route::get('u/{profileSlug}', [
     'as' => 'speakers-public.show',
     'uses' => 'PublicProfileController@show'
