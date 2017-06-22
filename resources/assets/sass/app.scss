@@ -340,10 +340,11 @@ legend {
     margin-left: 1em;
 }
 
-.calendar {
+#calendar {
     button {
         @extend .btn;
         @extend .btn-primary;
+        padding: 0 .6em;
         text-shadow: none;
     }
 
@@ -366,15 +367,11 @@ legend {
 
     .fc-content {
         padding: 3px;
+        white-space: normal;
     }
 
     .fc-day-header {
         font-family: $font-family-oswald;
-    }
-
-    .fc-time {
-        font-family: $font-family-oswald;
-        font-weight: bold;
     }
 }
 
