@@ -25,7 +25,7 @@ class CalendarController extends BaseController
 
         $cfps = Conference::all()->map(function ($conference) {
             return Calendar::event(
-                'CFP\'s open for ' . $conference->title,
+                "CFPs open for {$conference->title}",
                 true,
                 $conference->cfp_starts_at,
                 $conference->cfp_starts_at,
