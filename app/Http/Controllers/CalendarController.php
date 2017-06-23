@@ -42,7 +42,7 @@ class CalendarController extends BaseController
                 "CFPs open for {$conference->title}",
                 true,
                 $conference->cfp_starts_at,
-                $conference->cfp_starts_at,
+                $conference->cfp_ends_at,
                 'cfp-' . $conference->id,
                 [
                     'color' => '#F39C12',
