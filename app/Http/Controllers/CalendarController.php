@@ -9,7 +9,18 @@ class CalendarController extends BaseController
 {
     public function index()
     {
-        $conferences = Conference::all()->map(function ($conference) {
+        $calendar = Calendar::addEvents($this->conferenceEvents())
+            ->addEvents($this->cfpEvents());
+
+        return view('calendar', [
+            'calendar' => $calendar,
+            'options' => $calendar->getOptionsJson(),
+        ]);
+    }
+
+    private function conferenceEvents()
+    {
+        return Conference::all()->map(function ($conference) {
             return Calendar::event(
                 $conference->title,
                 true,
@@ -22,8 +33,11 @@ class CalendarController extends BaseController
                 ]
             );
         })->toArray();
+    }
 
-        $cfps = Conference::all()->map(function ($conference) {
+    private function cfpEvents()
+    {
+        return Conference::all()->map(function ($conference) {
             return Calendar::event(
                 "CFPs open for {$conference->title}",
                 true,
@@ -36,12 +50,5 @@ class CalendarController extends BaseController
                 ]
             );
         })->toArray();
-
-        $calendar = Calendar::addEvents(array_merge($conferences, $cfps));
-
-        return view('calendar', [
-            'calendar' => $calendar,
-            'options' => $calendar->getOptionsJson(),
-        ]);
     }
 }
