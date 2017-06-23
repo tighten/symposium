@@ -10,7 +10,7 @@ class CalendarController extends BaseController
     public function index()
     {
         $conferences = Conference::all()->map(function ($conference) {
-            return \Calendar::event(
+            return Calendar::event(
                 $conference->title,
                 true,
                 $conference->starts_at,
@@ -24,7 +24,7 @@ class CalendarController extends BaseController
         })->toArray();
 
         $cfps = Conference::all()->map(function ($conference) {
-            return \Calendar::event(
+            return Calendar::event(
                 'CFP\'s open for ' . $conference->title,
                 true,
                 $conference->cfp_starts_at,
