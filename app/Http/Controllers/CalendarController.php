@@ -10,7 +10,8 @@ class CalendarController extends BaseController
     public function index()
     {
         $calendar = Calendar::addEvents($this->conferenceEvents())
-            ->addEvents($this->cfpEvents());
+            ->addEvents($this->cfpStartEvents())
+            ->addEvents($this->cfpEndEvents());
 
         return view('calendar', [
             'calendar' => $calendar,
@@ -35,17 +36,34 @@ class CalendarController extends BaseController
         })->toArray();
     }
 
-    private function cfpEvents()
+    private function cfpStartEvents()
     {
         return Conference::all()->map(function ($conference) {
             return Calendar::event(
                 "CFPs open for {$conference->title}",
                 true,
                 $conference->cfp_starts_at,
-                $conference->cfp_ends_at,
+                $conference->cfp_starts_at,
                 'cfp-' . $conference->id,
                 [
                     'color' => '#F39C12',
+                    'url' => route('conferences.show', $conference->id),
+                ]
+            );
+        })->toArray();
+    }
+
+    private function cfpEndEvents()
+    {
+        return Conference::all()->map(function ($conference) {
+            return Calendar::event(
+                "CFPs close for {$conference->title}",
+                true,
+                $conference->cfp_ends_at,
+                $conference->cfp_ends_at,
+                'cfp-' . $conference->id,
+                [
+                    'color' => '#E74C3C',
                     'url' => route('conferences.show', $conference->id),
                 ]
             );
