@@ -106,3 +106,7 @@ Route::post('oauth/access-token', [
     'as' => 'oauth-access-token',
     'uses' => 'OAuthController@postAccessToken'
 ]);
+
+// Social logins routes
+Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
+Route::get('/login/{service}/callback', 'Auth\SocialLoginController@callback');

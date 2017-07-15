@@ -119,4 +119,13 @@ class User extends Authenticatable
             \DB::table('favorites')->where('user_id', $user->id)->delete();
         });
     }
+
+    public function social()
+    {
+        return $this->hasMany(UserSocial::class);
+    }
+    public function hasSocialLinked($service)
+    {
+        return (bool) $this->social->where('service', $service)->count();
+    }
 }
