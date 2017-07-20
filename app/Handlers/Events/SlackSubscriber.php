@@ -3,7 +3,7 @@
 namespace App\Handlers\Events;
 
 use Illuminate\Support\Facades\App;
-use Maknz\Slack\Facades\Slack;
+use M1guelpf\Slack\Facades\Slack;
 
 class SlackSubscriber
 {

@@ -1,122 +1,58 @@
 <?php
 
+/*
+ * This file is part of Laravel Slack.
+ *
+ * (c) Miguel Piedrafita <soy@miguelpiedrafita.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 return [
 
-  /*
-  |-------------------------------------------------------------
-  | Incoming webhook endpoint
-  |-------------------------------------------------------------
-  |
-  | The endpoint which Slack generates when creating a
-  | new incoming webhook. It will look something like
-  | https://hooks.slack.com/services/XXXXXXXX/XXXXXXXX/XXXXXXXXXXXXXX
-  |
-  */
+    /*
+    |--------------------------------------------------------------------------
+    | Default Connection Name
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify which of the connections below you wish to use as
+    | your default connection for all work. Of course, you may use many
+    | connections at once using the manager class.
+    |
+    */
 
-  'endpoint' => env('SLACK_ENDPOINT'),
+    'default' => 'main',
 
-  /*
-  |-------------------------------------------------------------
-  | Default channel
-  |-------------------------------------------------------------
-  |
-  | The default channel we should post to. The channel can either be a
-  | channel like #general, a private #group, or a @username. Set to
-  | null to use the default set on the Slack webhook
-  |
-  */
+    /*
+    |--------------------------------------------------------------------------
+    | Slack Connections
+    |--------------------------------------------------------------------------
+    |
+    | Here are each of the connections setup for your application. Example
+    | configuration has been included, but you may add as many connections as
+    | you would like.
+    |
+    */
 
-  'channel' => '#os-symposium-ops',
+    'connections' => [
 
-  /*
-  |-------------------------------------------------------------
-  | Default username
-  |-------------------------------------------------------------
-  |
-  | The default username we should post as. Set to null to use
-  | the default set on the Slack webhook
-  |
-  */
+        'main' => [
+            'hook' => env('SLACK_ENDPOINT'),
+            'username' => 'Symposium',
+            'channel'  => '#os-symposium-ops',
+            'link_names'  => false,
+        ],
 
-  'username' => 'Symposium',
+        'alternative' => [
+          'hook' => 'https://hooks.slack.com/...',
+          'username' => 'api_client',
+          'channel'  => '#general',
+          'link_names'  => true,
+        ],
 
-  /*
-  |-------------------------------------------------------------
-  | Default icon
-  |-------------------------------------------------------------
-  |
-  | The default icon to use. This can either be a URL to an image or Slack
-  | emoji like :ghost: or :heart_eyes:. Set to null to use the default
-  | set on the Slack webhook
-  |
-  */
-
-  'icon' => null,
-
-  /*
-  |-------------------------------------------------------------
-  | Link names
-  |-------------------------------------------------------------
-  |
-  | Whether names like @regan should be converted into links
-  | by Slack
-  |
-  */
-
-  'link_names' => false,
-
-  /*
-  |-------------------------------------------------------------
-  | Unfurl links
-  |-------------------------------------------------------------
-  |
-  | Whether Slack should unfurl links to text-based content
-  |
-  */
-
-  'unfurl_links' => false,
-
-  /*
-  |-------------------------------------------------------------
-  | Unfurl media
-  |-------------------------------------------------------------
-  |
-  | Whether Slack should unfurl links to media content such
-  | as images and YouTube videos
-  |
-  */
-
-  'unfurl_media' => true,
-
-  /*
-  |-------------------------------------------------------------
-  | Markdown in message text
-  |-------------------------------------------------------------
-  |
-  | Whether message text should be interpreted in Slack's Markdown-like
-  | language. For formatting options, see Slack's help article: http://goo.gl/r4fsdO
-  |
-  */
-
-  'allow_markdown' => true,
-
-  /*
-  |-------------------------------------------------------------
-  | Markdown in attachments
-  |-------------------------------------------------------------
-  |
-  | Which attachment fields should be interpreted in Slack's Markdown-like
-  | language. By default, Slack assumes that no fields in an attachment
-  | should be formatted as Markdown.
-  |
-  */
-
-  'markdown_in_attachments' => [],
-
-  // Allow Markdown in just the text and title fields
-  // 'markdown_in_attachments' => ['text', 'title']
-
-  // Allow Markdown in all fields
-  // 'markdown_in_attachments' => ['pretext', 'text', 'title', 'fields', 'fallback']
+    ],
 
 ];

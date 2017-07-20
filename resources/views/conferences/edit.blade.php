@@ -12,13 +12,13 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) }}
+                {!! Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) !!}
 
                 @include('partials.conferenceform')
 
-                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
+                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}<br><br>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

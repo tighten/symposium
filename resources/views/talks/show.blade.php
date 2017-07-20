@@ -45,10 +45,10 @@
                 </p>
 
                 <h3>Description/Proposal</h3>
-                {{ $current->getHtmledDescription() }}
+                {!! $current->getHtmledDescription() !!}
 
                 <h3>Organizer Notes</h3>
-                {{ $current->getHtmledOrganizerNotes() }}
+                {!! $current->getHtmledOrganizerNotes() !!}
 
                 @if ($current->slides)
                 <h3>Slides</h3>

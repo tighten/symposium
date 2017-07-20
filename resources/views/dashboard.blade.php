@@ -11,15 +11,7 @@
 
                 <p class="list-sort">(sorted by title)</p>
                 <ul class="list-talks">
-                    @forelse ($talks as $talk)
-                        <li>
-                            @include ('partials.talk-in-list', ['talk' => $talk])
-                        </li>
-                    @empty
-                        <li>
-                            No talks yet.
-                        </li>
-                    @endforelse
+                  @each('partials.talk-in-list', $talks, 'talk', 'partials.talk-in-list-empty')
                 </ul>
             </div>
             <div class="col-md-6">
@@ -29,15 +21,7 @@
 
                 <p class="list-sort">(sorted by title)</p>
                 <ul class="list-talks">
-                    @forelse ($bios as $bio)
-                        <li>
-                            @include ('partials.bio-in-list')
-                        </li>
-                    @empty
-                        <li>
-                            No bios yet.
-                        </li>
-                    @endforelse
+                  @each('partials.bio-in-list', $bios, 'bio', 'partials.bio-in-list-empty')
                 </ul>
             </div>
         </div>

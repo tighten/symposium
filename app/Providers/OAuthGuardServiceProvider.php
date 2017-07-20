@@ -11,7 +11,7 @@ class OAuthGuardServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app['OAuthGuard'] = $this->app->share(function ($app) {
+        $this->app->singleton('OAuthGuard', function ($app) {
             return new OAuthGuard($app->make(Authorizer::class));
         });
 

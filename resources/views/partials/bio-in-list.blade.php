@@ -1,4 +1,5 @@
-<div class="pull-right">
+<li>
+  <div class="pull-right">
     <a class="btn btn-xs btn-danger" href="{{ route('bios.delete', ['id' => $bio->id]) }}" data-confirm="Are you sure you want to delete this bio?">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         Delete
@@ -13,3 +14,4 @@
 </div>
 <h3><a href="{{ route('bios.show', ['id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
 <p>{{ $bio->preview }}</p>
+</li>

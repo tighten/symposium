@@ -11,7 +11,7 @@
     Name: {{ $name }}<br>
     Message: <br>
     <div style="padding: 1em; border: 1px solid #aaa;">
-    {{ str_replace("\n", "<br>", htmlentities($userMessage)) }}
+    {!! str_replace("\n", "<br>", htmlentities($userMessage)) !!}
     </div>
 </div>
 </body>
