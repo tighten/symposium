@@ -2,6 +2,8 @@
 
 return [
 
+    'slack_endpoint' => env('SLACK_ENDPOINT'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
