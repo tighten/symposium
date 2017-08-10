@@ -18,9 +18,11 @@ class SubmissionTest extends IntegrationTestCase
         ]);
         $revision = Factory::create('talkRevision');
         $talk->revisions()->save($revision);
-    
+
         dispatch(new CreateSubmission($conference->id, $talk->id));
-    
+
+        $revision = $revision->fresh();
+
         $this->assertTrue($conference->submissions->contains($revision));
     }
 
@@ -38,6 +40,8 @@ class SubmissionTest extends IntegrationTestCase
         dispatch(new CreateSubmission($conference->id, $talk->id));
 
         dispatch(new DestroySubmission($conference->id, $talk->id));
+
+        $revision = $revision->fresh();
 
         $this->assertFalse($conference->submissions->contains($revision));
     }
@@ -62,6 +66,8 @@ class SubmissionTest extends IntegrationTestCase
         $talk2revision = Factory::create('talkRevision');
         $talk2->revisions()->save($talk2revision);
     
+        $talk2revision = $talk2revision->fresh();
+
         dispatch(new CreateSubmission($conference1->id, $talk1->id));
         dispatch(new CreateSubmission($conference1->id, $talk2->id));
         dispatch(new DestroySubmission($conference1->id, $talk1->id));
@@ -92,6 +98,8 @@ class SubmissionTest extends IntegrationTestCase
     
         dispatch(new CreateSubmission($conference->id, $talk->id));
         $conference->load('submissions');
+
+        $revision = $revision->fresh();
     
         $this->assertTrue($conference->submissions->contains($revision));
     }
@@ -120,7 +128,9 @@ class SubmissionTest extends IntegrationTestCase
     
         $revision2 = Factory::create('talkRevision');
         $talk->revisions()->save($revision2);
-    
+
+        $revision = $revision->fresh();
+
         $this->assertTrue($conference->submissions->contains($revision));
     
         dispatch(new DestroySubmission($conference->id, $talk->id));
@@ -165,7 +175,9 @@ class SubmissionTest extends IntegrationTestCase
             'talkId' => $talk->id,
             '_token' => csrf_token(),
         ]);
-    
+
+        $revision = $revision->fresh();
+
         $this->assertTrue($conference->submissions->contains($revision));
     }
 
@@ -190,6 +202,8 @@ class SubmissionTest extends IntegrationTestCase
             'talkId' => $talk->id,
             '_token' => Session::token(),
         ]);
+
+        $revision = $revision->fresh();
 
         $this->assertEquals(0, $conference->submissions->count());
         $this->assertFalse($conference->submissions->contains($revision));
