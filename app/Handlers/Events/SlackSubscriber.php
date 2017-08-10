@@ -3,13 +3,12 @@
 namespace App\Handlers\Events;
 
 use Illuminate\Support\Facades\App;
-use M1guelpf\Slack\Facades\Slack;
 
 class SlackSubscriber
 {
     public function subscribe($events)
     {
-        if (empty(Slack::getEndpoint()) || App::environment('local')) {
+        if (empty('SLACK_ENDPOINT') || App::environment('local')) {
             return;
         }
 

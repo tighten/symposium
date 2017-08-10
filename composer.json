@@ -32,8 +32,7 @@
         "php": ">=5.6.4",
         "pragmarx/firewall": "^1.0",
         "laravel/scout": "^3.0",
-        "algolia/algoliasearch-client-php": "^1.18",
-        "m1guelpf/laravel-slack": "^1.0"
+        "algolia/algoliasearch-client-php": "^1.18"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.0",
