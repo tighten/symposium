@@ -104,7 +104,7 @@ class AccountTest extends IntegrationTestCase
             ->type($user->email, '#email')
             ->press('Send Password Reset Link');
 
-            Notification::assertSentTo($user, \Illuminate\Auth\Notifications\ResetPassword::class);
+        Notification::assertSentTo($user, \Illuminate\Auth\Notifications\ResetPassword::class);
     }
 
     /** @test */
@@ -202,9 +202,9 @@ class AccountTest extends IntegrationTestCase
             'id' => $bio->id,
         ]);
 
-      //  $this->dontSeeInDatabase('conferences', [
-      //      'id' => $conference->id,
-      //  ]);
+        // $this->dontSeeInDatabase('conferences', [
+        //     'id' => $conference->id,
+        // ]);
 
         $this->dontSeeInDatabase('favorites', [
             'user_id' => $user->id,
