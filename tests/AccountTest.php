@@ -1,8 +1,9 @@
 <?php
 
 use App\User;
-use Laracasts\TestDummy\Factory;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
+use Laracasts\TestDummy\Factory;
 
 class AccountTest extends IntegrationTestCase
 {
@@ -110,15 +111,28 @@ class AccountTest extends IntegrationTestCase
     function user_can_reset_their_password_from_email_link()
     {
         $this->disableExceptionHandling();
+
+        Notification::fake();
+
         $user = Factory::create('user');
+        $token = null;
+
         $this->post('/password/email', [
-            'email' => $user->email,
+            'email' => $user->email, 
             '_token' => csrf_token(),
         ]);
 
-        $reset_token = DB::table('password_resets')->where('email', $user->email)->pluck('token')->first();
+        Notification::assertSentTo(
+            $user,
+            ResetPassword::class,
+            function ($notification, $channels) use (&$token) {
+                $token = $notification->token;
 
-        $this->visit(route('password.reset', $reset_token))
+                return true;
+            }
+        );
+
+        $this->visit(route('password.reset', $token))
             ->type($user->email, '#email')
             ->type('h4xmahp4ssw0rdn00bz', '#password')
             ->type('h4xmahp4ssw0rdn00bz', '#password_confirmation')
@@ -130,7 +144,8 @@ class AccountTest extends IntegrationTestCase
         $this->visit('login')
             ->type($user->email, '#email')
             ->type('h4xmahp4ssw0rdn00bz', '#password')
-            ->press('Log in');
+            ->press('Log in')
+            ->seePageIs('dashboard');
     }
 
     /** @test */
