@@ -124,6 +124,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserSocial::class);
     }
+
     public function hasSocialLinked($service)
     {
         return (bool) $this->social->where('service', $service)->count();

@@ -11,11 +11,6 @@ use Socialite;
 
 class SocialLoginController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['social', 'guest']);
-    }
-
     public function redirect($service, Request $request)
     {
         return Socialite::driver($service)->redirect();
@@ -27,14 +22,14 @@ class SocialLoginController extends Controller
 
         $user = $this->getExistingUser($serviceUser, $service);
 
-        if (!$user) {
+        if (! $user) {
             $user = User::create([
                 'name' => $serviceUser->getName(),
                 'email' => $serviceUser->getEmail(),
             ]);
         }
 
-        if (!$user->hasSocialLinked($service)) {
+        if (! $user->hasSocialLinked($service)) {
             $user->social()->create([
                 'social_id' => $serviceUser->getId(),
                 'service' => $service,
