@@ -15,6 +15,7 @@
     <![endif]-->
     <script>
         var Symposium = {
+            token: "{{ csrf_token() }}"
         };
     </script>
     @yield('headerScripts')

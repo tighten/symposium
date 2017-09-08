@@ -4,6 +4,8 @@ if (window.Vue === undefined) {
 
 Vue.use(require('vue-resource'));
 
+Vue.http.headers.common['X-CSRF-TOKEN'] = Symposium.token;
+
 import TalksOnConferencePage from './components/TalksOnConferencePage.vue';
 
 new Vue({
