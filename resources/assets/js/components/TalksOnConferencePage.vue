@@ -9,7 +9,7 @@
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
                     Un-Submit
                 </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
+                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksAtConference.length == 0" v-cloak>
                 None
@@ -23,7 +23,7 @@
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
                     Submit
                 </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
+                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksNotAtConference.length == 0" v-cloak>
                 None
@@ -38,6 +38,8 @@ export default {
         Symposium.talks.forEach(function (talk) {
             talk.loading = false;
         });
+
+        console.log(Symposium.talks);
         this.talks = Symposium.talks;
     },
     props: {

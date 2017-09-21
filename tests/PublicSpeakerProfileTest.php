@@ -2,15 +2,15 @@
 
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
+use App\Mail\ContactRequest;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Session;
 use Laracasts\TestDummy\Factory;
-use MailThief\Testing\InteractsWithMail;
+use Illuminate\Support\Facades\Mail;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {
     use DatabaseMigrations;
-    use InteractsWithMail;
 
     /** @test */
     function non_public_speakers_are_not_listed_on_the_public_speaker_page()
@@ -224,6 +224,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     function user_can_be_contacted_from_profile()
     {
+        Mail::fake();
         $this->markTestIncomplete("Need Captcha Assistance");
 
         $userA = Factory::create('user', [
@@ -240,8 +241,10 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->type('You are amazing', '#message')
             ->press('Send');
 
-        $this->seeMessageFor($userA->email);
-        $this->assertTrue($this->lastMessage()->contains('You are amazing'));
+            Mail::assertSent(ContactRequest::class, function ($mail) use ($userA) {
+                return $mail->hasTo($userA->email) &&
+                       $mail->userMessage == 'You are amazing';
+            });
     }
 
     /** @test */

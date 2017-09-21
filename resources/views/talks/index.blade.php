@@ -17,15 +17,7 @@
                     <a href="{{ route('talks.archived.index') }}" class="btn btn-default btn-xs">Show Archived Talks</a>
                 </p>
                 <ul class="list-talks">
-                    @forelse ($talks as $talk)
-                        <li>
-                            @include ('partials.talk-in-list', ['talk' => $talk])
-                        </li>
-                    @empty
-                        <li>
-                            No talks yet.
-                        </li>
-                    @endforelse
+                  @each('partials.talk-in-list', $talks, 'talk', 'partials.talk-in-list-empty')
                 </ul>
             </div>
         </div>

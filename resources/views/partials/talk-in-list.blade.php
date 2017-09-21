@@ -1,4 +1,5 @@
-<div class="pull-right">
+<li>
+  <div class="pull-right">
   <a href="{{ route('talks.edit', ['id' => $talk->id]) }}" class="btn btn-xs btn-primary">
       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
       Edit
@@ -25,3 +26,4 @@
 <p class="talk-meta"><i>{{ $talk->created_at->toFormattedDateString()  }}</i> |
     {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
 </p>
+</li>

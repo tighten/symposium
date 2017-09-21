@@ -13,15 +13,7 @@
                     <a href="{{ route('talks.index', ['sort' => 'alpha']) }}" class="btn btn-default btn-xs">Show Active Talks</a>
                 </p>
                 <ul class="list-talks">
-                    @forelse ($talks as $talk)
-                        <li>
-                            @include ('partials.talk-in-list', ['talk' => $talk])
-                        </li>
-                    @empty
-                        <li>
-                            No talks yet.
-                        </li>
-                    @endforelse
+                  @each('partials.talk-in-list', $talks, 'talk', 'partials.talk-in-list-empty')
                 </ul>
             </div>
         </div>

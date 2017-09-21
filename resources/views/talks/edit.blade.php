@@ -12,15 +12,15 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(['action' => ['TalksController@update', $current->talk_id], 'class' => 'edit-talk-form', 'method' => 'put']) }}
+                {!! Form::open(['action' => ['TalksController@update', $current->talk_id], 'class' => 'edit-talk-form', 'method' => 'put']) !!}
 
                 @include('partials.talk-version-form')
 
                 <div class="form-group">
-                    {{ Form::submit('Update', ['class' => 'btn btn-block btn-primary']) }}
+                    {!! Form::submit('Update', ['class' => 'btn btn-block btn-primary']) !!}
                 </div>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

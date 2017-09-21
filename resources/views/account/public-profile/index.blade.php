@@ -12,13 +12,13 @@
 
         <p>These are all the speakers who have a public profile on Symposium.</p>
 
-        {{ Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) }}
+        {!! Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) !!}
         <div class="form-group">
-            {{ Form::label('query', 'Search Speakers', ['class' => 'control-label']) }}
-            {{ Form::text('query', null, ['class' => 'form-control']) }}
-            {{ Form::submit('Search', array('class' => 'btn btn-primary')) }}
+            {!! Form::label('query', 'Search Speakers', ['class' => 'control-label']) !!}
+            {!! Form::text('query', null, ['class' => 'form-control']) !!}
+            {!! Form::submit('Search', array('class' => 'btn btn-primary')) !!}
         </div>
-        {{ Form::close() }}
+        {!! Form::close() !!}
         <br>
         @if (isset($query))
             <p>Showing search results for <em>{{ $query }}</em>:</p><br>
@@ -42,4 +42,3 @@
         @endforelse
     </div>
 @stop
-

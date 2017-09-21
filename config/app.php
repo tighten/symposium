@@ -2,6 +2,8 @@
 
 return [
 
+    'slack_endpoint' => env('SLACK_ENDPOINT'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -165,7 +167,6 @@ return [
         'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
-        'Maknz\Slack\SlackServiceProvider',
         'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
@@ -193,7 +194,8 @@ return [
         'Artisan'   => 'Illuminate\Support\Facades\Artisan',
         'Auth'      => 'Illuminate\Support\Facades\Auth',
         'Blade'     => 'Illuminate\Support\Facades\Blade',
-        'Bus' => Illuminate\Support\Facades\Bus::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
+        'Bus'       => Illuminate\Support\Facades\Bus::class,
         'Cache'     => 'Illuminate\Support\Facades\Cache',
         'Config'    => 'Illuminate\Support\Facades\Config',
         'Cookie'    => 'Illuminate\Support\Facades\Cookie',
@@ -226,7 +228,6 @@ return [
         'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
-        'Slack'     => 'Maknz\Slack\Facades\Slack',
         'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,

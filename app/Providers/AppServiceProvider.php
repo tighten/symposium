@@ -20,8 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Blade::setRawTags('{{', '}}');
-        \Blade::setContentTags('{{{', '}}}');
         \Blade::directive('sorted', function ($expression) {
             list($sorted_by, $query) = explode(',', $expression, 2);
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
@@ -77,11 +75,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
-
-        \Blade::setRawTags('{{', '}}');
-        \Blade::setContentTags('{{{', '}}}');
-        \Blade::setEscapedContentTags('{{{', '}}}');
-
         $this->app->alias('bugsnag.logger', Log::class);
         $this->app->alias('bugsnag.logger', LoggerInterface::class);
     }
