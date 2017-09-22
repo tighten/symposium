@@ -12,15 +12,15 @@
                         @include('partials.authentication-errors')
 
                         <form method="POST" action="/password/email">
-                            {{ csrf_field() }}
+                            {!! csrf_field() !!}
 
                             <div class="form-group">
-                                {{ Form::label('email', 'Email', ['class' => 'sr-only']) }}
-                                {{ Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}
+                                {!! Form::label('email', 'Email', ['class' => 'sr-only']) !!}
+                                {!! Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
                             </div>
 
                             <div class="text-right">
-                                {{ Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) }}
+                                {!! Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </form>
                     </div>

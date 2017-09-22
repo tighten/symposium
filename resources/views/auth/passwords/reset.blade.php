@@ -12,26 +12,26 @@
                         @include('partials.authentication-errors')
 
                         <form method="POST" action="/password/reset">
-                            {{ csrf_field() }}
+                            {!! csrf_field() !!}
                             <input type="hidden" name="token" value="{{ $token }}">
 
                             <div class="form-group">
-                                {{ Form::label('email', 'Email', ['class' => 'sr-only']) }}
-                                {{ Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}
+                                {!! Form::label('email', 'Email', ['class' => 'sr-only']) !!}
+                                {!! Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
                             </div>
 
                             <div class="form-group">
-                                {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
-                                {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+                                {!! Form::label('password', 'Password', ['class' => 'sr-only']) !!}
+                                {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
                             </div>
 
                             <div class="form-group">
-                                {{ Form::label('password_confirmation', 'Password', ['class' => 'sr-only']) }}
-                                {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password']) }}
+                                {!! Form::label('password_confirmation', 'Password', ['class' => 'sr-only']) !!}
+                                {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password']) !!}
                             </div>
 
                             <div class="text-right">
-                                {{ Form::submit('Reset Password', ['class' => 'btn btn-primary']) }}
+                                {!! Form::submit('Reset Password', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </form>
                     </div>
@@ -40,6 +40,3 @@
         </div>
     </div>
 @stop
-
-
-

@@ -13,13 +13,13 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(array('action' => array('BiosController@update', $bio->id), 'class' => 'edit-bio-form', 'method' => 'put')) }}
+                {!! Form::open(array('action' => array('BiosController@update', $bio->id), 'class' => 'edit-bio-form', 'method' => 'put')) !!}
 
                 @include('partials.bioform')
 
-                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

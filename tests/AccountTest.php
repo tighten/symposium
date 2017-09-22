@@ -1,13 +1,12 @@
 <?php
 
 use App\User;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Notification;
 use Laracasts\TestDummy\Factory;
-use MailThief\Testing\InteractsWithMail;
 
 class AccountTest extends IntegrationTestCase
 {
-    use InteractsWithMail;
-
     /** @test */
     function users_can_sign_up()
     {
@@ -66,7 +65,7 @@ class AccountTest extends IntegrationTestCase
             ->type('kevin_rox', '#profile_slug')
             ->type('It has been so long since I was in an X-Men movie', '#profile_intro')
             ->press('Save')
-            ->seePageIs('account');  
+            ->seePageIs('account');
 
         $this->seeInDatabase('users', [
             'name' => 'Kevin Bacon',
@@ -75,7 +74,7 @@ class AccountTest extends IntegrationTestCase
             'allow_profile_contact' => 1,
             'profile_slug' => 'kevin_rox',
             'profile_intro' => 'It has been so long since I was in an X-Men movie',
-        ]);     
+        ]);
     }
 
     /** @test */
@@ -90,7 +89,7 @@ class AccountTest extends IntegrationTestCase
             ->visit('/account/edit')
             ->attach($image, '#profile_picture')
             ->press('Save');
-        
+
         $user->fresh();
         $this->assertNotTrue($user->profile_picture, null);
     }
@@ -98,35 +97,48 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function password_reset_emails_are_sent_for_valid_users()
     {
+        Notification::fake();
         $user = Factory::create('user');
 
         $this->visit('/password/reset')
             ->type($user->email, '#email')
             ->press('Send Password Reset Link');
 
-        $this->seeMessageFor($user->email);
-        $this->assertTrue($this->lastMessage()->contains('You are receiving this email because we received a password reset request for your account'));
+        Notification::assertSentTo($user, \Illuminate\Auth\Notifications\ResetPassword::class);
     }
 
     /** @test */
     function user_can_reset_their_password_from_email_link()
     {
         $this->disableExceptionHandling();
+
+        Notification::fake();
+
         $user = Factory::create('user');
+        $token = null;
+
         $this->post('/password/email', [
             'email' => $user->email, 
             '_token' => csrf_token(),
         ]);
 
-        $reset_token = DB::table('password_resets')->where('email', $user->email)->pluck('token')->first();
-        
-        $this->visit('/password/reset/' . $reset_token)
+        Notification::assertSentTo(
+            $user,
+            ResetPassword::class,
+            function ($notification, $channels) use (&$token) {
+                $token = $notification->token;
+
+                return true;
+            }
+        );
+
+        $this->visit(route('password.reset', $token))
             ->type($user->email, '#email')
             ->type('h4xmahp4ssw0rdn00bz', '#password')
             ->type('h4xmahp4ssw0rdn00bz', '#password_confirmation')
             ->press('Reset Password')
             ->seePageIs('/dashboard');
-        
+
         $this->visit('log-out');
 
         $this->visit('login')
@@ -190,9 +202,9 @@ class AccountTest extends IntegrationTestCase
             'id' => $bio->id,
         ]);
 
-//        $this->dontSeeInDatabase('conferences', [
-//            'id' => $conference->id,
-//        ]);
+        // $this->dontSeeInDatabase('conferences', [
+        //     'id' => $conference->id,
+        // ]);
 
         $this->dontSeeInDatabase('favorites', [
             'user_id' => $user->id,

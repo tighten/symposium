@@ -2,14 +2,23 @@
 
 namespace App\Handlers\Events;
 
+use App\Notifications\NewConference;
+use App\Notifications\NewUser;
+use App\TightenSlack;
 use Illuminate\Support\Facades\App;
-use Maknz\Slack\Facades\Slack;
 
 class SlackSubscriber
 {
+    protected $slack;
+
+    public function __construct(TightenSlack $slack)
+    {
+        $this->slack = $slack;
+    }
+
     public function subscribe($events)
     {
-        if (empty(Slack::getEndpoint()) || App::environment('local')) {
+        if (empty(config('app.slack_endpoint')) || App::environment('local')) {
             return;
         }
 
@@ -19,11 +28,11 @@ class SlackSubscriber
 
     public function onNewSignup($user, $request)
     {
-        Slack::send("*New user signup:*\n{$user->name}\n{$user->email}\n{$request->getClientIp()}");
+        $this->slack->notify(new NewUser($user, $request->getClientIp()));
     }
 
     public function onNewConference($conference)
     {
-        Slack::send("*New conference created:*\n{$conference->title}\n{$conference->link}");
+        $this->slack->notify(new NewConference($conference));
     }
 }

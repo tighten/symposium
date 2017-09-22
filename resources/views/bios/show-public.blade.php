@@ -13,7 +13,7 @@
 
                 <h1 class="page-title">{{ $bio->nickname }}</h1>
 
-                {{ str_replace("\n", "<br>", $bio->body) }}
+                {!! str_replace("\n", "<br>", $bio->body) !!}
             </div>
         </div>
     </div>
