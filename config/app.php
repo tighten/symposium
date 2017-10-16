@@ -167,8 +167,6 @@ return [
         'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
-        'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
-        'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
 
         'App\Providers\OAuthGuardServiceProvider',
@@ -228,7 +226,6 @@ return [
         'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
-        'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
     ],
