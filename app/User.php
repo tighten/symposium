@@ -5,12 +5,13 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
-    use Notifiable, Searchable;
+    use HasApiTokens, Notifiable, Searchable;
 
     const ADMIN_ROLE = 1;
     const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';

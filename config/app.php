@@ -153,12 +153,13 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
         Laravel\Scout\ScoutServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         'App\Providers\AppServiceProvider',
+        App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
@@ -169,7 +170,6 @@ return [
         'Thujohn\Twitter\TwitterServiceProvider',
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
 
-        'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
