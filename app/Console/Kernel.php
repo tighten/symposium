@@ -10,7 +10,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\SyncJoindInEvents::class,
         \App\Console\Commands\TweetImportantCFPDates::class,
-        \App\Console\Commands\GenerateOAuthClient::class,
     ];
 
     protected function schedule(Schedule $schedule)

@@ -1,32 +1,49 @@
 <?php
 
+use App\User;
 use App\Conference;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Laravel\Passport\Passport;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ConferenceApiTest extends ApiTestCase
+class ConferenceApiTest extends TestCase
 {
-    use WithoutMiddleware;
+    use DatabaseTransactions;
 
-    public function testFetchesAllConferences()
+    public function setup()
+    {
+        parent::setUp();
+
+        Artisan::call('migrate');
+        Artisan::call('db:seed');
+
+        $user = User::first();
+        Passport::actingAs($user);
+    }
+
+    /** @test */
+    public function can_fetch_all_conferences()
     {
         $response = $this->call('GET', 'api/conferences');
-        $data = $this->parseJson($response);
+        $data = json_decode($response->getContent());
 
-        $this->assertIsJson($data);
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertInternalType('array', $data->data);
     }
 
-    public function testFetchesOneConference()
+    /** @test */
+    public function can_fetch_one_conference()
     {
         $conferenceId = Conference::first()->id;
         $response = $this->call('GET', 'api/conferences/' . $conferenceId);
-        $data = $this->parseJson($response);
+        $data = json_decode($response->getContent());
 
-        $this->assertIsJson($data);
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertInternalType('object', $data->data);
     }
 
-    public function testCfpUrlReturnsIfSet()
+    /** @test */
+    public function cfp_url_returns_if_set()
     {
         $conference = Conference::create([
             'author_id' => 1,
@@ -36,12 +53,14 @@ class ConferenceApiTest extends ApiTestCase
             'cfp_url' => 'http://awesome.com/cfp'
         ]);
         $response = $this->call('GET', 'api/conferences/' . $conference->id);
-        $data = $this->parseJson($response);
+        $data = json_decode($response->getContent());
 
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('http://awesome.com/cfp', $data->data->attributes->cfp_url);
     }
 
-    public function testCfpUrlReturnsNullOnApiIfNotSet()
+    /** @test */
+    public function cfp_url_returns_null_on_api_if_not_set()
     {
         $conference = Conference::create([
             'author_id' => 1,
@@ -50,8 +69,9 @@ class ConferenceApiTest extends ApiTestCase
             'url' => 'http://awesome.com'
         ]);
         $response = $this->call('GET', 'api/conferences/' . $conference->id);
-        $data = $this->parseJson($response);
+        $data = json_decode($response->getContent());
 
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertNull($data->data->attributes->cfp_url);
     }
 }

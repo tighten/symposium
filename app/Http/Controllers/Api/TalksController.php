@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App;
-use App\ApiResources\Talk;
-use App\OAuthGuard\Facades\OAuthGuard;
 use Exception;
+use App\ApiResources\Talk;
+use Illuminate\Support\Facades\Auth;
 
 class TalksController extends BaseController
 {
     public function show($id)
     {
         try {
-            $talk = OAuthGuard::user()->talks()->findOrFail($id);
+            $talk = Auth::user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             App::abort(404);
         }
