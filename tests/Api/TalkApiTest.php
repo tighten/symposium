@@ -1,29 +1,10 @@
 <?php
 
-use App\User;
 use App\Talk;
-use Laravel\Passport\Passport;
 use Laracasts\TestDummy\Factory;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class TalkApiTest extends TestCase
+class TalkApiTest extends ApiTestCase
 {
-    use DatabaseTransactions;
-
-    private $user;
-
-    public function setup()
-    {
-        parent::setUp();
-
-        Artisan::call('migrate');
-        Artisan::call('db:seed');
-
-        $this->user = User::first();
-        Passport::actingAs($this->user);
-    }
-
     /** @test */
     function can_fetch_all_talks_for_user()
     {
