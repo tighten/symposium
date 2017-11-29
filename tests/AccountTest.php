@@ -1,9 +1,7 @@
 <?php
 
-use App\User;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
-use Laracasts\TestDummy\Factory;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AccountTest extends IntegrationTestCase
 {
@@ -33,19 +31,17 @@ class AccountTest extends IntegrationTestCase
             ->see('The password field is required')
             ->see('The email field is required');
 
-        $this->assertEquals(0, User::all()->count());
+        $this->assertEquals(0, App\User::all()->count());
     }
 
     /** @test */
     function users_can_log_in()
     {
-        $user = Factory::create('user', [
-            'password' => bcrypt('super-secret'),
-        ]);
+        $user = factory(App\User::class)->create();
 
         $this->visit('login')
             ->type($user->email, '#email')
-            ->type('super-secret', '#password')
+            ->type('password', '#password')
             ->press('Log in')
             ->seePageIs('dashboard');
     }
@@ -53,7 +49,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function user_can_update_their_profile()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account/edit')
@@ -81,9 +77,7 @@ class AccountTest extends IntegrationTestCase
     function user_can_update_their_profile_picture()
     {
         $image = __DIR__.'/stubs/test.jpg';
-        $user = Factory::create('user', [
-            'name' => 'Kevin Smith',
-        ]);
+        $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account/edit')
@@ -98,7 +92,7 @@ class AccountTest extends IntegrationTestCase
     function password_reset_emails_are_sent_for_valid_users()
     {
         Notification::fake();
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
         $this->visit('/password/reset')
             ->type($user->email, '#email')
@@ -114,7 +108,7 @@ class AccountTest extends IntegrationTestCase
 
         Notification::fake();
 
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
         $token = null;
 
         $this->post('/password/email', [
@@ -151,7 +145,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_delete_their_accounts()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
              ->visit('account/delete')
@@ -167,19 +161,19 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function deleting_a_user_deletes_its_associated_entities()
     {
-        $user = Factory::create('user');
-        $talk = Factory::build('talk');
-        $talkRevision = Factory::build('talkRevision');
-        $bio = Factory::build('bio');
-        $conference = Factory::build('conference');
+        $user = factory(App\User::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $talkRevision = factory(App\TalkRevision::class)->create();
+        $bio = factory(App\Bio::class)->create();
+        $conference = factory(App\Conference::class)->create();
 
         $user->talks()->save($talk);
         $talk->revisions()->save($talkRevision);
         $user->bios()->save($bio);
         $user->conferences()->save($conference);
 
-        $otherUser = Factory::create('user');
-        $favoriteConference = Factory::build('conference');
+        $otherUser = factory(App\User::class)->create();
+        $favoriteConference = factory(App\Conference::class)->create();
         $otherUser->conferences()->save($conference);
         $user->favoritedConferences()->save($favoriteConference);
 
@@ -192,7 +186,6 @@ class AccountTest extends IntegrationTestCase
         $this->dontSeeInDatabase('users', [
             'email' => $user->email,
         ]);
-
 
         $this->dontSeeInDatabase('talks', [
             'id' => $talk->id,
