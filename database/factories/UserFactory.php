@@ -29,7 +29,7 @@ $factory->define(App\Conference::class, function (Faker $faker) {
 });
 
 $factory->define(App\Talk::class, function (Faker $faker) {
-    return [ 
+    return [
         'author_id' => function () {
             return factory(App\User::class)->create()->id;
         },
