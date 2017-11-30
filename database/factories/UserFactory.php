@@ -20,7 +20,7 @@ $factory->define(App\Conference::class, function (Faker $faker) {
         },
         'title' => 'Dummy Conference',
         'description' => $faker->sentence,
-        'url' => 'http://example.com',
+        'url' => $faker->domainName,
         'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
         'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
         'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-1 day'),
