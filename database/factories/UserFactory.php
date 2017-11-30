@@ -19,7 +19,7 @@ $factory->define(App\Conference::class, function (Faker $faker) {
             return factory(App\User::class)->create()->id;
         },
         'title' => 'Dummy Conference',
-        'description' => 'A conference for dummies.',
+        'description' => $faker->sentence,
         'url' => 'http://example.com',
         'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
         'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
