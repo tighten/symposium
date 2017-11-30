@@ -24,7 +24,7 @@ $factory->define(App\Conference::class, function (Faker $faker) {
         'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
         'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
         'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-1 day'),
-        'cfp_ends_at' => $faker->dateTime('now'),
+        'cfp_ends_at' => $faker->dateTimeBetween('+1 days', '+2 days'),
     ];
 });
 
