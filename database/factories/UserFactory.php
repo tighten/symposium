@@ -53,7 +53,7 @@ $factory->define(App\Bio::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(App\User::class)->create()->id;
         },
-        'nickname' => $faker->word,
+        'nickname' => 'short',
         'body' => $faker->sentence(),
     ];
 });
