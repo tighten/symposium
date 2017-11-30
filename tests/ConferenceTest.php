@@ -2,14 +2,13 @@
 
 use App\Conference;
 use Carbon\Carbon;
-use Laracasts\TestDummy\Factory;
 
 class ConferenceTest extends IntegrationTestCase
 {
     /** @test */
     function user_can_create_conference()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
             ->visit('/conferences/create')
@@ -29,9 +28,9 @@ class ConferenceTest extends IntegrationTestCase
     {
         $this->disableExceptionHandling();
 
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::create('conference', [
+        $conference = factory(App\Conference::class)->create([
             'author_id' => $user->id,
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
@@ -56,7 +55,7 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function conferences_accept_proposals_during_the_call_for_papers()
     {
-        $conference = Factory::create('conference', [
+        $conference = factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
@@ -67,14 +66,14 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
     {
-        $conference = Factory::create('conference', [
+        $conference = factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::tomorrow(),
             'cfp_ends_at' => Carbon::tomorrow()->addDay(),
         ]);
 
         $this->assertFalse($conference->isCurrentlyAcceptingProposals());
 
-        $conference = Factory::create('conference', [
+        $conference = factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
         ]);
@@ -85,7 +84,7 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
     {
-        $conference = Factory::create('conference', [
+        $conference = factory(App\Conference::class)->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
@@ -96,10 +95,10 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function non_owners_can_view_conference()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $otherUser = Factory::create('user');
-        $conference = Factory::build('conference');
+        $otherUser = factory(App\User::class)->create();
+        $conference = factory(App\Conference::class)->create();
         $otherUser->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -110,9 +109,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function guests_can_view_conference()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::build('conference');
+        $conference = factory(App\Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->visit('conferences/' . $conference->id)
@@ -122,9 +121,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function guests_can_view_conference_list()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::build('conference');
+        $conference = factory(App\Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->visit('conferences?filter=all')
