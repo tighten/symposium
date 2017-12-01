@@ -1,5 +1,10 @@
 <?php
 
+use App\Bio;
+use App\User;
+use App\Talk;
+use App\Conference;
+use App\TalkRevision;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 
@@ -31,13 +36,13 @@ class AccountTest extends IntegrationTestCase
             ->see('The password field is required')
             ->see('The email field is required');
 
-        $this->assertEquals(0, App\User::all()->count());
+        $this->assertEquals(0, User::all()->count());
     }
 
     /** @test */
     function users_can_log_in()
     {
-        $user = factory(App\User::class)->create(['password' => bcrypt('super-secret')]);
+        $user = factory(User::class)->create(['password' => bcrypt('super-secret')]);
 
         $this->visit('login')
             ->type($user->email, '#email')
@@ -49,7 +54,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function user_can_update_their_profile()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account/edit')
@@ -77,7 +82,7 @@ class AccountTest extends IntegrationTestCase
     function user_can_update_their_profile_picture()
     {
         $image = __DIR__.'/stubs/test.jpg';
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/account/edit')
@@ -92,7 +97,7 @@ class AccountTest extends IntegrationTestCase
     function password_reset_emails_are_sent_for_valid_users()
     {
         Notification::fake();
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->visit('/password/reset')
             ->type($user->email, '#email')
@@ -108,7 +113,7 @@ class AccountTest extends IntegrationTestCase
 
         Notification::fake();
 
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
         $token = null;
 
         $this->post('/password/email', [
@@ -145,7 +150,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_delete_their_accounts()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
              ->visit('account/delete')
@@ -161,19 +166,19 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function deleting_a_user_deletes_its_associated_entities()
     {
-        $user = factory(App\User::class)->create();
-        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
-        $talkRevision = factory(App\TalkRevision::class)->create();
-        $bio = factory(App\Bio::class)->create();
-        $conference = factory(App\Conference::class)->create();
+        $user = factory(User::class)->create();
+        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
+        $talkRevision = factory(TalkRevision::class)->create();
+        $bio = factory(Bio::class)->create();
+        $conference = factory(Conference::class)->create();
 
         $user->talks()->save($talk);
         $talk->revisions()->save($talkRevision);
         $user->bios()->save($bio);
         $user->conferences()->save($conference);
 
-        $otherUser = factory(App\User::class)->create();
-        $favoriteConference = factory(App\Conference::class)->create();
+        $otherUser = factory(User::class)->create();
+        $favoriteConference = factory(Conference::class)->create();
         $otherUser->conferences()->save($conference);
         $user->favoritedConferences()->save($favoriteConference);
 
