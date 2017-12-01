@@ -1,9 +1,8 @@
 <?php
 
-use App\Talk;
 use App\User;
+use App\Talk;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Laracasts\TestDummy\Factory;
 
 class TalkApiTest extends ApiTestCase
 {
@@ -27,7 +26,7 @@ class TalkApiTest extends ApiTestCase
 
         $toBeArchivedTalk = $author->talks()->create([]);
 
-        $toBeArchivedTalk->revisions()->save(Factory::create('talkRevision'));
+        $toBeArchivedTalk->revisions()->save(factory(App\TalkRevision::class)->create());
 
         $response = $this->call('GET', 'api/user/1/talks');
         $data = $this->parseJson($response);
