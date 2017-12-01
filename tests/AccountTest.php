@@ -37,11 +37,11 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_log_in()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(App\User::class)->create(['password' => bcrypt('super-secret')]);
 
         $this->visit('login')
             ->type($user->email, '#email')
-            ->type('password', '#password')
+            ->type('super-secret', '#password')
             ->press('Log in')
             ->seePageIs('dashboard');
     }
