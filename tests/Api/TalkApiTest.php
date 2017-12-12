@@ -4,7 +4,6 @@ use App\User;
 use App\Talk;
 use Laravel\Passport\Passport;
 use Laracasts\TestDummy\Factory;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TalkApiTest extends TestCase
@@ -38,7 +37,7 @@ class TalkApiTest extends TestCase
     function all_talks_doesnt_return_archived_talks()
     {
         $toBeArchivedTalk = $this->user->talks()->create([]);
-        $toBeArchivedTalk->revisions()->save(Factory::create('talkRevision'));
+        $toBeArchivedTalk->revisions()->save(factory(App\TalkRevision::class)->create());
 
         $response = $this->call('GET', 'api/user/1/talks');
         $data = json_decode($response->getContent());
@@ -80,7 +79,7 @@ class TalkApiTest extends TestCase
     function cannot_fetch_all_talks_for_other_users()
     {
         $response = $this->call('GET', 'api/user/2/talks');
-        
+
         $this->assertEquals(404, $response->getStatusCode());
     }
 

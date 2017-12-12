@@ -1,21 +1,18 @@
 <?php
 
 use App\Talk;
-use App\TalkRevision;
 use Carbon\Carbon;
-use Laracasts\TestDummy\Factory;
+use App\TalkRevision;
 
 class TalkTest extends IntegrationTestCase
 {
     /** @test */
     function it_shows_the_talk_title_on_its_page()
     {
-        $user = Factory::create('user');
-        $conference = Factory::create('conference');
-        $talk = Factory::create('talk', [
-            'author_id' => $user->id,
-        ]);
-        $revision = Factory::create('talkRevision');
+        $user = factory(App\User::class)->create();
+        $conference = factory(App\Conference::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(App\TalkRevision::class)->create();
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
@@ -26,21 +23,13 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_talks_are_sorted_alphabetically()
     {
-        $user = Factory::create('user');
-        $talk1 = Factory::create('talk', [
-            'author_id' => $user->id,
-        ]);
-        $revision1 = Factory::create('talkRevision', [
-            'title' => 'zyxwv',
-        ]);
+        $user = factory(App\User::class)->create();
+        $talk1 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision1 = factory(App\TalkRevision::class)->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Factory::create('talk', [
-            'author_id' => $user->id,
-        ]);
-        $revision2 = Factory::create('talkRevision', [
-            'title' => 'abcde',
-        ]);
+        $talk2 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision2 = factory(App\TalkRevision::class)->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
         $talks = $user->talks;
@@ -52,14 +41,14 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_talks_json_encode_without_keys()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $talk1 = Factory::create('talk', ['author_id' => $user->id]);
-        $revision1 = Factory::create('talkRevision', ['title' => 'zyxwv']);
+        $talk1 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision1 = factory(App\TalkRevision::class)->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Factory::create('talk', ['author_id' => $user->id]);
-        $revision2 = Factory::create('talkRevision', ['title' => 'abcde']);
+        $talk2 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision2 = factory(App\TalkRevision::class)->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
         $json = json_encode($user->talks);
@@ -70,7 +59,7 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_create_a_talk()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
         
         $this->actingAs($user)
             ->visit('/talks/create')
@@ -103,13 +92,9 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_delete_a_talk()
     {
-        $user = Factory::create('user');
-        $talk = Factory::create('talk', [
-            'author_id' => $user->id,
-        ]);
-        $revision = Factory::create('talkRevision', [
-            'title' => 'zyxwv',
-        ]);
+        $user = factory(App\User::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(App\TalkRevision::class)->create(['title' => 'zyxwv']);
         $talk->revisions()->save($revision);
 
         $this->be($user);
@@ -123,11 +108,9 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_save_a_new_revision_of_a_talk()
     {
-        $user = Factory::create('user');
-        $talk = Factory::create('talk', [
-            'author_id' => $user->id,
-        ]);
-        $revision = Factory::create('talkRevision', [
+        $user = factory(App\User::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(App\TalkRevision::class)->create([
             'title' => 'old title',
             'created_at' => Carbon::now()->subMinute(),
         ]);
