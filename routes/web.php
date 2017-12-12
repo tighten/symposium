@@ -84,25 +84,3 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('conferences', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
 Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
-
-/**
- * OAuth
- */
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('oauth/authorize', [
-        'middleware' => ['check-authorization-params', 'auth'],
-        'as' => 'get-oauth-authorize',
-        'uses' => 'OAuthController@getAuthorize'
-    ]);
-
-    Route::post('oauth/authorize', [
-        'middleware' => ['check-authorization-params', 'auth'],
-        'as' => 'post-oauth-authorize',
-        'uses' => 'OAuthController@postAuthorize'
-    ]);
-});
-
-Route::post('oauth/access-token', [
-    'as' => 'oauth-access-token',
-    'uses' => 'OAuthController@postAccessToken'
-]);

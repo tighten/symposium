@@ -153,12 +153,13 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
         Laravel\Scout\ScoutServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         'App\Providers\AppServiceProvider',
+        App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
@@ -167,11 +168,8 @@ return [
         'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
-        'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
-        'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
 
-        'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -228,7 +226,6 @@ return [
         'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
-        'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
     ],

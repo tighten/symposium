@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Handlers\Events\SlackSubscriber;
 use Event;
 use Exception;
+use Laravel\Passport\Passport;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -61,6 +62,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Passport::ignoreMigrations();
+        
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
             'App\Services\Registrar'

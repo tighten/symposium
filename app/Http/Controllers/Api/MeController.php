@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Me;
-use App\OAuthGuard\Facades\OAuthGuard;
+use Illuminate\Support\Facades\Auth;
 
 class MeController extends BaseController
 {
     public function index()
     {
-        $me = new Me(OAuthGuard::user());
+        $me = new Me(Auth::user());
 
         return response()->jsonApi([
             'data' => $me->toArray()
