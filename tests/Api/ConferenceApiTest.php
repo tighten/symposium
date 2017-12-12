@@ -1,26 +1,9 @@
 <?php
 
-use App\User;
 use App\Conference;
-use Laravel\Passport\Passport;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ConferenceApiTest extends TestCase
+class ConferenceApiTest extends ApiTestCase
 {
-    use DatabaseTransactions;
-
-    public function setup()
-    {
-        parent::setUp();
-
-        Artisan::call('migrate');
-        Artisan::call('db:seed');
-
-        $user = User::first();
-        Passport::actingAs($user);
-    }
-
     /** @test */
     public function can_fetch_all_conferences()
     {
