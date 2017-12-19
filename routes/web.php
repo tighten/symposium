@@ -47,6 +47,10 @@ Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout
 
 Auth::routes();
 
+Route::get('sign-up', function () {
+    return redirect('register');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
