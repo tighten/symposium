@@ -63,7 +63,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Passport::ignoreMigrations();
-        
+
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
             'App\Services\Registrar'
@@ -78,7 +78,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
-        $this->app->alias('bugsnag.logger', Log::class);
-        $this->app->alias('bugsnag.logger', LoggerInterface::class);
+        $this->app->alias('bugsnag.multi', Log::class);
+        $this->app->alias('bugsnag.multi', LoggerInterface::class);
     }
 }
