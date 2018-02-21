@@ -32,7 +32,8 @@
         "pragmarx/firewall": "^1.0",
         "laravel/scout": "^3.0",
         "algolia/algoliasearch-client-php": "^1.18",
-        "laravel/passport": "^4.0"
+        "laravel/passport": "^4.0",
+        "laravel/tinker": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.0",
