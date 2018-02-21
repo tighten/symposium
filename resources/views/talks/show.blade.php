@@ -61,7 +61,7 @@
                         @foreach ($talk->revisions as $revision)
                             <li {{ $revision->id == $current->id ? 'style="font-weight: bold;"' : '' }}>
                                 <a href="/talks/{{ $talk->id }}?revision={{ $revision->id }}">{{ $revision->created_at }}</a>
-                                {{ $talk->current()->id == $revision->id ? '<i>(current)</i>' : '' }}
+                                {!! $talk->current()->id == $revision->id ? '<i>(current)</i>' : '' !!}
                             </li>
                         @endforeach
                     </ul>
