@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUserSocialsTable extends Migration
 {
@@ -19,11 +19,11 @@ class CreateUserSocialsTable extends Migration
             $table->string('social_id');
             $table->string('service');
             $table->timestamps();
-
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -31,6 +31,10 @@ class CreateUserSocialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_socials');
+        Schema::table('users_social', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+        
+        Schema::dropIfExists('users_social');
     }
 }
