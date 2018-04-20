@@ -154,6 +154,10 @@ return [
         Illuminate\Bus\BusServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        
+        /*
+         * Third party Service Providers...
+         */
         Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
