@@ -1,9 +1,9 @@
 <?php
 
 return [
-
+    
     'slack_endpoint' => env('SLACK_ENDPOINT'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -13,12 +13,12 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     */
-
+    
     'name' => 'Symposium',
-
+    
     'env' => env('APP_ENV', 'production'),
-
-
+    
+    
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -29,9 +29,9 @@ return [
     | application. If disabled, a simple generic error page is shown.
     |
     */
-
+    
     'debug' => env('APP_DEBUG'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -42,9 +42,9 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
+    
     'url' => env('APP_URL'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -55,9 +55,9 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
+    
     'timezone' => 'America/Detroit',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -68,9 +68,9 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
+    
     'locale' => 'en',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -81,9 +81,9 @@ return [
     | the language folders that are provided through your application.
     |
     */
-
+    
     'fallback_locale' => 'en',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -94,11 +94,11 @@ return [
     | will not be safe. Please do this before deploying an application!
     |
     */
-
+    
     'key' => env('APP_KEY', 'YourSecretKey!!!'),
-
+    
     'cipher' => 'AES-256-CBC',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration
@@ -111,9 +111,9 @@ return [
     | Available Settings: "single", "daily", "syslog"
     |
     */
-
+    
     'log' => 'daily',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -124,58 +124,60 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
+    
     'providers' => [
-
+        
         /*
          * Laravel Framework Service Providers...
          */
-        'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Cache\CacheServiceProvider',
-        'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-        'Illuminate\Cookie\CookieServiceProvider',
-        'Illuminate\Database\DatabaseServiceProvider',
-        'Illuminate\Encryption\EncryptionServiceProvider',
-        'Illuminate\Filesystem\FilesystemServiceProvider',
-        'Illuminate\Foundation\Providers\FoundationServiceProvider',
-        'Illuminate\Hashing\HashServiceProvider',
-        'Illuminate\Mail\MailServiceProvider',
+        Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
-        'Illuminate\Pagination\PaginationServiceProvider',
-        'Illuminate\Pipeline\PipelineServiceProvider',
-        'Illuminate\Queue\QueueServiceProvider',
-        'Illuminate\Redis\RedisServiceProvider',
-        'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
-        'Illuminate\Session\SessionServiceProvider',
-        'Illuminate\Translation\TranslationServiceProvider',
-        'Illuminate\Validation\ValidationServiceProvider',
-        'Illuminate\View\ViewServiceProvider',
-        'Illuminate\Broadcasting\BroadcastServiceProvider',
-        'Illuminate\Bus\BusServiceProvider',
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Pipeline\PipelineServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-
+        
+        /*
+         * Third party Service Providers...
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
-        'App\Providers\AppServiceProvider',
+        App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider',
-        'Bugsnag\BugsnagLaravel\BugsnagServiceProvider',
-
-        'Collective\Html\HtmlServiceProvider',
-        'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
-        'Thujohn\Twitter\TwitterServiceProvider',
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Thujohn\Twitter\TwitterServiceProvider::class,
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
-
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
@@ -186,48 +188,48 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-
+    
     'aliases' => [
-
-        'App'       => 'Illuminate\Support\Facades\App',
-        'Artisan'   => 'Illuminate\Support\Facades\Artisan',
-        'Auth'      => 'Illuminate\Support\Facades\Auth',
-        'Blade'     => 'Illuminate\Support\Facades\Blade',
+        
+        'App' => Illuminate\Support\Facades\App::class,
+        'Artisan' => Illuminate\Support\Facades\Artisan::class,
+        'Auth' => Illuminate\Support\Facades\Auth::class,
+        'Blade' => Illuminate\Support\Facades\Blade::class,
         'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
-        'Bus'       => Illuminate\Support\Facades\Bus::class,
-        'Cache'     => 'Illuminate\Support\Facades\Cache',
-        'Config'    => 'Illuminate\Support\Facades\Config',
-        'Cookie'    => 'Illuminate\Support\Facades\Cookie',
-        'Crypt'     => 'Illuminate\Support\Facades\Crypt',
-        'DB'        => 'Illuminate\Support\Facades\DB',
-        'Event'     => 'Illuminate\Support\Facades\Event',
-        'File'      => 'Illuminate\Support\Facades\File',
-        'Hash'      => 'Illuminate\Support\Facades\Hash',
-        'Input'     => 'Illuminate\Support\Facades\Input',
-        'Inspiring' => 'Illuminate\Foundation\Inspiring',
-        'Lang'      => 'Illuminate\Support\Facades\Lang',
-        'Log'       => 'Illuminate\Support\Facades\Log',
-        'Mail'      => 'Illuminate\Support\Facades\Mail',
+        'Bus' => Illuminate\Support\Facades\Bus::class,
+        'Cache' => Illuminate\Support\Facades\Cache::class,
+        'Config' => Illuminate\Support\Facades\Config::class,
+        'Cookie' => Illuminate\Support\Facades\Cookie::class,
+        'Crypt' => Illuminate\Support\Facades\Crypt::class,
+        'DB' => Illuminate\Support\Facades\DB::class,
+        'Event' => Illuminate\Support\Facades\Event::class,
+        'File' => Illuminate\Support\Facades\File::class,
+        'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'Inspiring' => Illuminate\Foundation\Inspiring::class,
+        'Lang' => Illuminate\Support\Facades\Lang::class,
+        'Log' => Illuminate\Support\Facades\Log::class,
+        'Mail' => Illuminate\Support\Facades\Mail::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
-        'Paginator' => 'Illuminate\Support\Facades\Paginator',
-        'Password'  => 'Illuminate\Support\Facades\Password',
-        'Queue'     => 'Illuminate\Support\Facades\Queue',
-        'Redirect'  => 'Illuminate\Support\Facades\Redirect',
-        'Redis'     => 'Illuminate\Support\Facades\Redis',
-        'Request'   => 'Illuminate\Support\Facades\Request',
-        'Response'  => 'Illuminate\Support\Facades\Response',
-        'Route'     => 'Illuminate\Support\Facades\Route',
-        'Schema'    => 'Illuminate\Support\Facades\Schema',
-        'Session'   => 'Illuminate\Support\Facades\Session',
-        'URL'       => 'Illuminate\Support\Facades\URL',
-        'Validator' => 'Illuminate\Support\Facades\Validator',
-        'View'      => 'Illuminate\Support\Facades\View',
-        'Bugsnag'   => 'Bugsnag\BugsnagLaravel\Facades\Bugsnag',
-        'Form'      => 'Collective\Html\FormFacade',
-        'HTML'      => 'Collective\Html\HtmlFacade',
-        'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
-        'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
-        'Image'     => Intervention\Image\Facades\Image::class,
+        'Paginator' => Illuminate\Support\Facades\Paginator::class,
+        'Password' => Illuminate\Support\Facades\Password::class,
+        'Queue' => Illuminate\Support\Facades\Queue::class,
+        'Redirect' => Illuminate\Support\Facades\Redirect::class,
+        'Redis' => Illuminate\Support\Facades\Redis::class,
+        'Request' => Illuminate\Support\Facades\Request::class,
+        'Response' => Illuminate\Support\Facades\Response::class,
+        'Route' => Illuminate\Support\Facades\Route::class,
+        'Schema' => Illuminate\Support\Facades\Schema::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+        'URL' => Illuminate\Support\Facades\URL::class,
+        'Validator' => Illuminate\Support\Facades\Validator::class,
+        'View' => Illuminate\Support\Facades\View::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'HTML' => Collective\Html\HtmlFacade::class,
+        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
