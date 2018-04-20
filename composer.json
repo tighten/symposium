@@ -33,6 +33,7 @@
         "laravel/scout": "^3.0",
         "algolia/algoliasearch-client-php": "^1.18",
         "laravel/passport": "^4.0",
+        "laravel/socialite": "2.0.20",
         "laravel/tinker": "^1.0",
         "geoip/geoip": "^1.17"
     },
