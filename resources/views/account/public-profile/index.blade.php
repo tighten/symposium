@@ -2,43 +2,38 @@
 
 @section('content')
 
-    <div class="container">
-        <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li class="active"><a href="{{ route('speakers-public.index') }}">Speakers</a></li>
-        </ol>
+    <div class="container body">
+        <div class="col-md-10 col-md-push-1">
+            <h1>Speaker Profiles</h1>
 
-        <h1>Speaker Profiles</h1>
+            <p>These are all the speakers who have a public profile on Symposium.</p>
 
-        <p>These are all the speakers who have a public profile on Symposium.</p>
-
-        {!! Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) !!}
-        <div class="form-group">
-            {!! Form::label('query', 'Search Speakers', ['class' => 'control-label']) !!}
-            {!! Form::text('query', null, ['class' => 'form-control']) !!}
-            {!! Form::submit('Search', array('class' => 'btn btn-primary')) !!}
-        </div>
-        {!! Form::close() !!}
-        <br>
-        @if (isset($query))
-            <p>Showing search results for <em>{{ $query }}</em>:</p><br>
-        @endif
-
-        @forelse ($speakers as $speaker)
-            <h3>
-                <a href="{{ route('speakers-public.show', ['profile_slug' => $speaker->profile_slug]) }}">
-                    {{ $speaker->name }}
-                </a>
-                @if (isset($query) && $speaker->location)
-                    <small>{{ $speaker->location }}</small>
-                @endif
-            </h3>
-        @empty
-            @if (isset($query))
-                No speakers match your search criteria.
+            {!! Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) !!}
+            <div class="form-group">
+                {!! Form::text('query', null, ['class' => 'form-control', 'placeholder' => 'Search']) !!}
+                {!! Form::submit('Search', ['class' => 'btn btn-primary']) !!}
+            </div>
+            {!! Form::close() !!}
+            @if (isset($query) && $query)
+                <p class="text-muted"><small>Showing search results for <em>{{ $query }}</em>:</small></p>
             @else
-                No speakers have made their profiles public yet.
+                <p class="text-muted"><small>Search by name or location</small></p>
             @endif
-        @endforelse
+
+            @forelse ($speakers as $speaker)
+                <h3 class="mb-0">
+                    <a href="{{ route('speakers-public.show', ['profile_slug' => $speaker->profile_slug]) }}">
+                        {{ $speaker->name }}
+                    </a>
+                </h3>
+                <small class="text-muted">{{ $speaker->location }}</small>
+            @empty
+                @if (isset($query) && $query)
+                    <p class="text-info">No speakers match your search criteria.</p>
+                @else
+                    <p class="text-info">No speakers have made their profiles public yet.</p>
+                @endif
+            @endforelse
+        </div>
     </div>
 @stop
