@@ -374,7 +374,7 @@ legend {
     img {
         border-radius: 50%;
     }
-    
+
     a {
         text-decoration: none;
     }
@@ -570,4 +570,8 @@ legend {
 .btn-github.large:focus:before,
 .btn-github.large:active:before {
     background-position: -108px -22px;
+}
+
+.mb-0 {
+    margin-bottom: 0;
 }
