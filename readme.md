@@ -13,7 +13,6 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 ### Requirements
 
 * PHP >= 5.5.9
-* PHP [mcrypt extension](http://php.net/manual/en/book.mcrypt.php)
 * A [supported relational database](http://laravel.com/docs/5.1/database#introduction) and corresponding PHP extension
 * [Composer](https://getcomposer.org/download/)
 * [Google Places API Key](https://developers.google.com/places/web-service/get-api-key) for speakers to set their location. A configuration guide can be found [here](/google-guide.md).
