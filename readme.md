@@ -36,15 +36,22 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     php artisan migrate --env=local
     ```
     
-7. (Optionally) Enable the API. This will output two client ID/secrets that you can use for testing
+7. Place your Algolia keys in the `.env` file. This is also required for running PHPUnit tests.
+	
+	```bash
+	ALGOLIA_APP_ID=your-app-id-key
+	ALGOLIA_SECRET=your-secret-key
+	```
+    
+8. (Optionally) Enable the API. This will output two client ID/secrets that you can use for testing
 
     ```bash
     php artisan passport:install
     ```
     
-8. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
+9. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
 
     ```bash
     php -S localhost:8080 -t public
     ```
-9. Run tests with `composer test`.
+10. Run tests with `composer test`.
