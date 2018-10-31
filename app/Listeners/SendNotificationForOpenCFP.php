@@ -2,10 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Events\NewConferenceCreated;
-use App\Notifications\CFPIsOpen;
 use App\User;
-use Carbon\Carbon;
+use App\Notifications\CFPIsOpen;
+use App\Events\NewConferenceCreated;
 
 class SendNotificationForOpenCFP
 {
