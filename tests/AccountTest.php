@@ -63,6 +63,7 @@ class AccountTest extends IntegrationTestCase
             ->type('haxTh1sn00b', '#password')
             ->select(true, '#enable_profile')
             ->select(true, '#allow_profile_contact')
+            ->select(true, '#enable_notifications')
             ->type('kevin_rox', '#profile_slug')
             ->type('It has been so long since I was in an X-Men movie', '#profile_intro')
             ->press('Save')
@@ -75,6 +76,7 @@ class AccountTest extends IntegrationTestCase
             'allow_profile_contact' => 1,
             'profile_slug' => 'kevin_rox',
             'profile_intro' => 'It has been so long since I was in an X-Men movie',
+            'enable_notifications' => 1
         ]);
     }
 

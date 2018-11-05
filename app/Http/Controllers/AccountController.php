@@ -34,6 +34,7 @@ class AccountController extends BaseController
         $this->validate($request, [
             'name' => 'required',
             'email' => 'email|required|unique:users,email,' . Auth::user()->id,
+            'enable_notifications' => '',
             'enable_profile' => '',
             'allow_profile_contact' => '',
             'profile_intro' => '',
@@ -51,6 +52,7 @@ class AccountController extends BaseController
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));
         }
+        $user->enable_notifications = $request->get('enable_notifications');
         $user->enable_profile = $request->get('enable_profile');
         $user->allow_profile_contact = $request->get('allow_profile_contact');
         $user->profile_intro = $request->get('profile_intro');

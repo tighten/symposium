@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\User;
+use App\Conference;
 use Illuminate\Console\Command;
+use App\Notifications\CFPIsOpen;
 
 class SendNotificationForOpenCFPs extends Command
 {
@@ -27,6 +30,10 @@ class SendNotificationForOpenCFPs extends Command
      */
     public function handle()
     {
-        //
+        Conference::Approved()->NotShared()->each(function($conference) {
+            User::EnabledNotifications()->get()->each->notify(new CFPIsOpen($conference));
+            $conference->update(['shared' => true]);
+        });
+
     }
 }

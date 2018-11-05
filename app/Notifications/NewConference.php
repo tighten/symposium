@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use Carbon\Carbon;
-use Illuminate\Notifications\Messages\SlackAttachment;
-use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Messages\SlackAttachment;
 
 class NewConference extends Notification
 {

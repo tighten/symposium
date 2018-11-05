@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Events\ConferenceCreated;
-use App\Listeners\SendNotificationForOpenCFP;
+use App\Listeners\SendNotificationForOpenCFPs;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         ConferenceCreated::class => [
-            SendNotificationForOpenCFP::class,
+            SendNotificationForOpenCFPs::class,
         ],
 
     ];

@@ -1,10 +1,7 @@
 <?php
 
-use App\User;
-use Carbon\Carbon;
 use App\Conference;
-use App\Notifications\CFPIsOpen;
-use Illuminate\Support\Facades\Notification;
+use Carbon\Carbon;
 
 class ConferenceTest extends IntegrationTestCase
 {
@@ -146,60 +143,31 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function notification_gets_send_to_all_users_for_open_cfp_today()
+    function check_if_approved()
     {
-        Notification::fake();
-        $user = factory(App\User::class)->create();
+        $conference = factory(App\Conference::class)->create();
+        $this->assertFalse($conference->isApproved());
 
-        $this->actingAs($user)
-            ->visit('/conferences/create')
-            ->type('Das Conf', '#title')
-            ->type('A very good conference about things', '#description')
-            ->type('http://dasconf.org', '#url')
-            ->type(Carbon::today()->addDays(10)->toDateString(), '#starts_at')
-            ->type(Carbon::today()->toDateString(), '#cfp_starts_at')
-            ->type(Carbon::tomorrow()->toDateString(), '#cfp_ends_at')
-            ->press('Create');
-
-        $conference = Conference::first();
-
-        Notification::assertSentTo(User::all(), CFPIsOpen::class, function ($notification) use ($conference) {
-            return $notification->conference->id === $conference->id;
-        });
+        $conferenceApproved = factory(App\Conference::class)->create(['approved' => true]);
+        $this->assertTrue($conferenceApproved->isApproved());
     }
 
     /** @test */
-    function notification_gets_not_send_for_closed_cfp()
+    function get_approved_ones()
     {
-        Notification::fake();
-        $user = factory(App\User::class)->create();
+        factory(App\Conference::class)->create();
+        factory(App\Conference::class)->create(['approved' => true]);
 
-        $this->actingAs($user)
-            ->visit('/conferences/create')
-            ->type('Das Conf', '#title')
-            ->type('A very good conference about things', '#description')
-            ->type('http://dasconf.org', '#url')
-            ->type(Carbon::tomorrow()->addDays(1)->toDateString(), '#starts_at')
-            ->type(Carbon::today()->subDays(10)->toDateString(), '#cfp_starts_at')
-            ->type(Carbon::yesterday()->toDateString(), '#cfp_ends_at')
-            ->press('Create');
-
-        Notification::assertNotSentTo(User::all(), CFPIsOpen::class);
+        $this->assertEquals(1, Conference::approved()->count());
     }
 
     /** @test */
-    function notification_gets_not_send_for_no_cfp_provided()
+    function get_not_shared_ones()
     {
-        Notification::fake();
-        $user = factory(App\User::class)->create();
+        factory(App\Conference::class)->create();
+        factory(App\Conference::class)->create(['shared' => true]);
 
-        $this->actingAs($user)
-            ->visit('/conferences/create')
-            ->type('Das Conf', '#title')
-            ->type('A very good conference about things', '#description')
-            ->type('http://dasconf.org', '#url')
-            ->press('Create');
-
-        Notification::assertNotSentTo(User::all(), CFPIsOpen::class);
+        $this->assertEquals(1, Conference::notShared()->count());
     }
+
 }
