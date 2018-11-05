@@ -130,7 +130,7 @@ class Conference extends UuidBase
     public function scopeNotShared($query)
     {
         return $query
-            ->where('shared',false);
+            ->where('shared', false);
     }
 
     /**
@@ -175,7 +175,7 @@ class Conference extends UuidBase
      */
     public function isApproved()
     {
-    	return $this->approved;
+        return $this->approved;
     }
 
     public function getLinkAttribute()
