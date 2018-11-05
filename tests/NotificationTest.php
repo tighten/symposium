@@ -80,7 +80,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         factory(App\User::class)->create(['enable_notifications' => true]);
-        $conference = factory(Conference::class)->create(['approved' => true]);
+        $conference = factory(Conference::class)->create(['approved' => true, 'shared' => false]);
 
         Artisan::call('symposium:notifyCfps');
 
@@ -92,7 +92,7 @@ class NotificationTest extends IntegrationTestCase
     }
 
     /** @test */
-    function command_will_not_trigger_notification_unapproved_conference()
+    function command_will_not_trigger_notification_for_unapproved_conference()
     {
         Notification::fake();
         $user = factory(App\User::class)->create();
@@ -122,8 +122,8 @@ class NotificationTest extends IntegrationTestCase
     function command_will_not_trigger_notification_for_closed_cfp()
     {
         Notification::fake();
-        $user = factory(App\User::class)->create();
-        factory(Conference::class)->states('closedCFP')->create();
+        $user = factory(App\User::class)->states('enabledNotifications')->create();
+        factory(Conference::class)->states('closedCFP')->create(['approved' => true]);
 
         Artisan::call('symposium:notifyCfps');
 
