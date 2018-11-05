@@ -7,7 +7,7 @@ use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 
-class NewConferenceCreated
+class ConferenceCreated
 {
     use SerializesModels;
 

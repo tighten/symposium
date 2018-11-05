@@ -40,7 +40,7 @@ class ConferenceTest extends IntegrationTestCase
         ]);
 
         $this->actingAs($user)
-            ->visit('/conferences/'.$conference->id.'/edit')
+            ->visit('/conferences/' . $conference->id . '/edit')
             ->type('Laracon', '#title')
             ->type('A conference about Laravel', '#description')
             ->press('Update');
@@ -72,15 +72,13 @@ class ConferenceTest extends IntegrationTestCase
     {
         $conference = factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::tomorrow(),
-            'cfp_ends_at' => Carbon::tomorrow()
-                ->addDay(),
+            'cfp_ends_at' => Carbon::tomorrow()->addDay(),
         ]);
 
         $this->assertFalse($conference->isCurrentlyAcceptingProposals());
 
         $conference = factory(App\Conference::class)->create([
-            'cfp_starts_at' => Carbon::yesterday()
-                ->subDay(),
+            'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
         ]);
 
@@ -109,7 +107,7 @@ class ConferenceTest extends IntegrationTestCase
             ->save($conference);
 
         $this->actingAs($user)
-            ->visit('conferences/'.$conference->id)
+            ->visit('conferences/' . $conference->id)
             ->see($conference->title);
     }
 
@@ -122,7 +120,7 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()
             ->save($conference);
 
-        $this->visit('conferences/'.$conference->id)
+        $this->visit('conferences/' . $conference->id)
             ->see($conference->title);
     }
 
@@ -181,8 +179,7 @@ class ConferenceTest extends IntegrationTestCase
             ->type('Das Conf', '#title')
             ->type('A very good conference about things', '#description')
             ->type('http://dasconf.org', '#url')
-            ->type(Carbon::tomorrow()->addDays(1)
-                ->toDateString(), '#starts_at')
+            ->type(Carbon::tomorrow()->addDays(1)->toDateString(), '#starts_at')
             ->type(Carbon::today()->subDays(10)->toDateString(), '#cfp_starts_at')
             ->type(Carbon::yesterday()->toDateString(), '#cfp_ends_at')
             ->press('Create');

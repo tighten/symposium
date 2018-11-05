@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class CheckForOpenCFPs extends Command
+class SendNotificationForOpenCFPs extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'symposium:checkForOpenCFPs';
+    protected $signature = 'symposium:notifyCfps';
 
     /**
      * The console command description.
@@ -19,16 +19,6 @@ class CheckForOpenCFPs extends Command
      * @var string
      */
     protected $description = 'Send out notification for open CFPs';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.

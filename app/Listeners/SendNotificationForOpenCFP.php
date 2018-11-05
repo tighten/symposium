@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\User;
 use App\Notifications\CFPIsOpen;
-use App\Events\NewConferenceCreated;
+use App\Events\ConferenceCreated;
 
 class SendNotificationForOpenCFP
 {
@@ -20,10 +20,10 @@ class SendNotificationForOpenCFP
     /**
      * Handle the event.
      *
-     * @param  NewConferenceCreated $event
+     * @param  ConferenceCreated $event
      * @return void
      */
-    public function handle(NewConferenceCreated $event)
+    public function handle(ConferenceCreated $event)
     {
         $conference = $event->conference;
 
