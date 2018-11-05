@@ -1,7 +1,7 @@
 <?php
 
-use App\Conference;
 use Carbon\Carbon;
+use App\Conference;
 
 class ConferenceTest extends IntegrationTestCase
 {
