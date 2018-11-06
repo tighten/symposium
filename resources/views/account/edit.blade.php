@@ -53,10 +53,10 @@
                     {!! Form::label('enable_profile', 'Enable email notifications?', ['class' => 'control-label']) !!}<br>
                     <span class="help-block">Do you want to receive email notifications for open CFPs?</span>
                     <label class="radio-inline">
-                        {!! Form::radio('enable_notifications', true, ['id' => 'enable_notifications_true']) !!} Yes
+                        {!! Form::radio('wants_notifications', true, ['id' => 'wants_notifications_true']) !!} Yes
                     </label>
                     <label class="radio-inline">
-                        {!! Form::radio('enable_notifications', false, ['id' => 'enable_notifications_false']) !!} No
+                        {!! Form::radio('wants_notifications', false, ['id' => 'wants_notifications_false']) !!} No
                     </label>
                 </div>
             </div>

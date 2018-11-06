@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Conference;
 use App\Events\ConferenceCreated;
-use Illuminate\Support\Facades\Event;
 use App\Exceptions\ValidationException;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
 
 class CreateConferenceForm

@@ -2,12 +2,12 @@
 
 namespace App\JoindIn;
 
-use DateTime;
-use Carbon\Carbon;
 use App\Conference;
 use App\Events\ConferenceCreated;
-use JoindIn\Client as JoindInClient;
+use Carbon\Carbon;
+use DateTime;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use JoindIn\Client as JoindInClient;
 
 class ConferenceImporter
 {

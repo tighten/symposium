@@ -14,7 +14,7 @@ class AddNotificationFieldToUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('enable_notifications')->default(false);
+            $table->boolean('wants_notifications')->default(false);
         });
     }
 
@@ -26,7 +26,7 @@ class AddNotificationFieldToUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('enable_notifications');
+            $table->dropColumn('wants_notifications');
         });
     }
 }

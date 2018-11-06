@@ -13,7 +13,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(App\User::class, 'enabledNotifications', function (Faker $faker) {
+$factory->state(App\User::class, 'withNotifications', function (Faker $faker) {
     static $password;
 
     return [
@@ -21,7 +21,7 @@ $factory->state(App\User::class, 'enabledNotifications', function (Faker $faker)
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('password'),
         'remember_token' => str_random(10),
-        'enable_notifications' => true
+        'wants_notifications' => true
     ];
 });
 
@@ -51,8 +51,8 @@ $factory->state(App\Conference::class, 'closedCFP', function (Faker $faker) {
         'url' => $faker->domainName,
         'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
         'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
-        'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-1 day'),
-        'cfp_ends_at' => $faker->dateTimeBetween('-3 days', '+2 days'),
+        'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-4 day'),
+        'cfp_ends_at' => $faker->dateTimeBetween('-3 days', '-1 days'),
     ];
 });
 

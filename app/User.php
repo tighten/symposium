@@ -21,9 +21,9 @@ class User extends Authenticatable
 
     protected $fillable = ['email', 'password', 'name'];
 
-    public function scopeEnabledNotifications($query)
+    public function scopeWithNotifications($query)
     {
-        return $query->where('enable_notifications', true);
+        return $query->where('wants_notifications', true);
     }
 
     public function isAdmin()

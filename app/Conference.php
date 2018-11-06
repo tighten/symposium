@@ -123,14 +123,12 @@ class Conference extends UuidBase
 
     public function scopeApproved($query)
     {
-        return $query
-            ->where('approved', true);
+        return $query->where('approved', true);
     }
 
     public function scopeNotShared($query)
     {
-        return $query
-            ->where('shared', false);
+        return $query->where('shared', false);
     }
 
     /**
@@ -151,7 +149,7 @@ class Conference extends UuidBase
      */
     public function isCurrentlyAcceptingProposals()
     {
-        if (! $this->hasAnnouncedCallForProposals()) {
+        if (!$this->hasAnnouncedCallForProposals()) {
             return false;
         }
 
@@ -165,17 +163,7 @@ class Conference extends UuidBase
      */
     private function hasAnnouncedCallForProposals()
     {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
-    }
-
-    /**
-     * Whether conference is approved
-     *
-     * @return bool
-     */
-    public function isApproved()
-    {
-        return $this->approved;
+        return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
     }
 
     public function getLinkAttribute()

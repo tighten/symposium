@@ -149,6 +149,6 @@ class JoindInConferenceImporterTest extends TestCase
         $importer = new ConferenceImporter(1);
         $importer->import($this->eventStub['id']);
 
-       $this->assertTrue(Conference::first()->isApproved());
+       $this->assertTrue(Conference::first()->approved);
     }
 }

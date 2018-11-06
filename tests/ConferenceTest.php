@@ -1,7 +1,7 @@
 <?php
 
-use Carbon\Carbon;
 use App\Conference;
+use Carbon\Carbon;
 
 class ConferenceTest extends IntegrationTestCase
 {
@@ -100,8 +100,7 @@ class ConferenceTest extends IntegrationTestCase
 
         $otherUser = factory(App\User::class)->create();
         $conference = factory(App\Conference::class)->create();
-        $otherUser->conferences()
-            ->save($conference);
+        $otherUser->conferences()->save($conference);
 
         $this->actingAs($user)
             ->visit('conferences/' . $conference->id)
@@ -143,17 +142,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function check_if_approved()
-    {
-        $conference = factory(App\Conference::class)->create();
-        $this->assertFalse($conference->isApproved());
-
-        $conferenceApproved = factory(App\Conference::class)->create(['approved' => true]);
-        $this->assertTrue($conferenceApproved->isApproved());
-    }
-
-    /** @test */
-    function get_approved_ones()
+    function it_can_pull_only_approved_conferences()
     {
         factory(App\Conference::class)->create();
         factory(App\Conference::class)->create(['approved' => true]);
@@ -162,7 +151,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function get_not_shared_ones()
+    function it_can_pull_only_not_shared_conferences()
     {
         factory(App\Conference::class)->create();
         factory(App\Conference::class)->create(['shared' => true]);
