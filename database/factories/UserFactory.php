@@ -13,14 +13,8 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(App\User::class, 'withNotifications', function (Faker $faker) {
-    static $password;
-
+$factory->state(App\User::class, 'withNotifications', function () {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('password'),
-        'remember_token' => str_random(10),
         'wants_notifications' => true
     ];
 });
@@ -43,33 +37,19 @@ $factory->define(App\Conference::class, function (Faker $faker) {
 
 $factory->state(App\Conference::class, 'closedCFP', function (Faker $faker) {
     return [
-        'author_id' => function () {
-            return factory(App\User::class)->create()->id;
-        },
-        'title' => 'Dummy Conference',
-        'description' => $faker->sentence,
-        'url' => $faker->domainName,
-        'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
-        'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
         'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-4 day'),
         'cfp_ends_at' => $faker->dateTimeBetween('-3 days', '-1 days'),
     ];
 });
 
-$factory->state(App\Conference::class, 'noCFPDates', function (Faker $faker) {
+$factory->state(App\Conference::class, 'noCFPDates', function () {
     return [
-        'author_id' => function () {
-            return factory(App\User::class)->create()->id;
-        },
-        'title' => 'Dummy Conference',
-        'description' => $faker->sentence,
-        'url' => $faker->domainName,
-        'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
-        'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
+        'cfp_starts_at' => null,
+        'cfp_ends_at' => null,
     ];
 });
 
-$factory->define(App\Talk::class, function (Faker $faker) {
+$factory->define(App\Talk::class, function () {
     return [
         'author_id' => function () {
             return factory(App\User::class)->create()->id;
@@ -77,7 +57,7 @@ $factory->define(App\Talk::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\TalkRevision::class, function (Faker $faker) {
+$factory->define(App\TalkRevision::class, function () {
     return [
         'title' => 'My Awesome Title',
         'type' => 'lightning',
