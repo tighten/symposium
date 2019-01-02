@@ -117,7 +117,7 @@ class AccountTest extends IntegrationTestCase
         $token = null;
 
         $this->post('/password/email', [
-            'email' => $user->email, 
+            'email' => $user->email,
             '_token' => csrf_token(),
         ]);
 

@@ -80,8 +80,8 @@
                                 ...</p>
                         </li>
                     @empty
-                        <li style="margin-left: 0;">No conferences match this
-                            filter
+                        <li style="margin-left: 0;">
+                            No conferences match this filter
                         </li>
                     @endforelse
                 </ul>

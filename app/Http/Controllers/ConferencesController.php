@@ -22,7 +22,7 @@ class ConferencesController extends BaseController
         'cfp_starts_at' => ['date', 'before:starts_at'],
         'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
     ];
-    
+
     public function index(Request $request)
     {
         switch ($request->input('filter')) {
@@ -43,7 +43,8 @@ class ConferencesController extends BaseController
             default:
                 $conferences = Conference::future()->get();
         }
-        
+
+
         switch ($request->input('sort')) {
             case 'date':
                 $conferences = $conferences->sortBy->starts_at;
@@ -66,21 +67,21 @@ class ConferencesController extends BaseController
                 });
                 break;
         }
-        
+
         return view('conferences.index')
             ->with('conferences', $conferences);
     }
-    
+
     public function create()
     {
         return view('conferences.create')
             ->with('conference', new Conference);
     }
-    
+
     public function store(Request $request)
     {
         $form = CreateConferenceForm::fillOut($request->all(), auth()->user());
-        
+
         try {
             $conference = $form->complete();
         } catch (ValidationException $e) {
@@ -88,42 +89,42 @@ class ConferencesController extends BaseController
                 ->withErrors($e->errors())
                 ->withInput();
         }
-        
+
         Session::flash('message', 'Successfully created new conference.');
-        
+
         return redirect('conferences/' . $conference->id);
     }
-    
+
     public function show($id)
     {
         if (auth()->guest()) {
             return $this->showPublic($id);
         }
-        
+
         try {
             $conference = Conference::findOrFail($id);
         } catch (Exception $e) {
             return redirect('/');
         }
-        
+
         $talksAtConference = $conference->myTalks()->map(function ($talkRevision) {
             return $talkRevision->talk->id;
         });
-        
+
         return view('conferences.show')
             ->with('conference', $conference)
             ->with('talksAtConference', $talksAtConference)
             ->with('talks', auth()->user()->talks);
     }
-    
+
     private function showPublic($id)
     {
         $conference = Conference::findOrFail($id);
-        
+
         return view('conferences.showPublic')
             ->with('conference', $conference);
     }
-    
+
     public function edit($id)
     {
         try {
@@ -132,36 +133,36 @@ class ConferencesController extends BaseController
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
-        
+
         return view('conferences.edit')
             ->with('conference', $conference);
     }
-    
+
     public function update($id, Request $request)
     {
         $this->validate($request, $this->conference_rules);
-        
+
         try {
             $conference = auth()->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
-        
+
         // Save
         $conference->fill($request->only(['title', 'description', 'url', 'cfp_url']));
-        
+
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
             $conference->$col = $request->input($col) ?: null;
         }
-        
+
         $conference->save();
-        
+
         Session::flash('message', 'Successfully edited conference.');
-        
+
         return redirect('conferences/' . $conference->id);
     }
-    
+
     public function destroy($id)
     {
         try {
@@ -170,25 +171,25 @@ class ConferencesController extends BaseController
             Log::error("User " . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
             return redirect('/');
         }
-        
+
         $conference->delete();
-        
+
         Session::flash('success-message', 'Conference successfully deleted.');
-        
+
         return redirect('conferences');
     }
-    
+
     public function favorite($conferenceId)
     {
         auth()->user()->favoritedConferences()->attach($conferenceId);
-        
+
         return redirect()->back();
     }
-    
+
     public function unfavorite($conferenceId)
     {
         auth()->user()->favoritedConferences()->detach($conferenceId);
-        
+
         return redirect()->back();
     }
 }
