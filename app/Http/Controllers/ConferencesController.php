@@ -44,13 +44,10 @@ class ConferencesController extends BaseController
                 $conferences = Conference::future()->get();
         }
 
-
         switch ($request->input('sort')) {
             case 'date':
                 $conferences = $conferences->sortBy->starts_at;
                 break;
-            case 'closing_next':
-                // pass through
             case 'opening_next':
                 // Forces closed CFPs to the end.
                 $conferences = $conferences->sortBy(function (Conference $model) {
@@ -60,6 +57,8 @@ class ConferencesController extends BaseController
             case 'alpha':
                 $conferences = $conferences->sortBy->title;
                 break;
+            case 'closing_next':
+                // pass through
             default:
                 // Forces closed CFPs to the end.
                 $conferences = $conferences->sortBy(function (Conference $model) {
