@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     protected $fillable = ['email', 'password', 'name'];
 
-    public function scopeWithNotifications($query)
+    public function scopeWantsNotifications($query)
     {
         return $query->where('wants_notifications', true);
     }

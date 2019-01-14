@@ -14,17 +14,13 @@ class NotificationTest extends IntegrationTestCase
     /** @test */
     function if_approved_conference_is_created_users_are_notified()
     {
-        // TEST
-        factory(App\User::class)->states('withNotifications')->create();
-        // TEST
-
+        factory(App\User::class)->states('wantsNotifications')->create();
 
         Notification::fake();
-        $user = factory(App\User::class)->states('withNotifications')->create();
+        $user = factory(App\User::class)->states('wantsNotifications')->create();
         $conference = factory(Conference::class)->create(['approved' => true]);
 
-        $listener = new SendNotificationForOpenCFPs();
-        $listener->handle(new ConferenceCreated($conference));
+        event(new ConferenceCreated($conference));
 
         $conference = Conference::first();
 
@@ -42,8 +38,7 @@ class NotificationTest extends IntegrationTestCase
         $user = factory(App\User::class)->create();
         $conference = factory(Conference::class)->states('closedCFP')->create(['approved' => true]);
 
-        $listener = new SendNotificationForOpenCFPs();
-        $listener->handle(new ConferenceCreated($conference));
+        event(new ConferenceCreated($conference));
 
         Notification::assertNotSentTo($user, CFPIsOpen::class);
     }
@@ -55,8 +50,7 @@ class NotificationTest extends IntegrationTestCase
         $user = factory(App\User::class)->create();
         $conference = factory(Conference::class)->states('noCFPDates')->create(['approved' => true]);
 
-        $listener = new SendNotificationForOpenCFPs();
-        $listener->handle(new ConferenceCreated($conference));
+        event(new ConferenceCreated($conference));
 
         Notification::assertNotSentTo($user, CFPIsOpen::class);
     }
@@ -84,12 +78,12 @@ class NotificationTest extends IntegrationTestCase
     function command_will_trigger_notification_for_approved_and_not_shared_conference()
     {
         Notification::fake();
-        factory(App\User::class)->states('withNotifications')->create();
+        factory(App\User::class)->states('wantsNotifications')->create();
         $conference = factory(Conference::class)->create(['approved' => true, 'shared' => false]);
 
         Artisan::call('symposium:notifyCfps');
 
-        Notification::assertSentTo(User::withNotifications()->get(), CFPIsOpen::class, function ($notification) use ($conference) {
+        Notification::assertSentTo(User::wantsNotifications()->get(), CFPIsOpen::class, function ($notification) use ($conference) {
             return $notification->conference->id === $conference->id;
         });
 
@@ -127,7 +121,7 @@ class NotificationTest extends IntegrationTestCase
     function command_will_not_trigger_notification_for_closed_cfp()
     {
         Notification::fake();
-        $user = factory(App\User::class)->states('withNotifications')->create();
+        $user = factory(App\User::class)->states('wantsNotifications')->create();
         factory(Conference::class)->states('closedCFP')->create(['approved' => true]);
 
         Artisan::call('symposium:notifyCfps');

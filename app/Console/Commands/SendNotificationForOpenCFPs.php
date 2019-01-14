@@ -6,6 +6,7 @@ use App\User;
 use App\Conference;
 use Illuminate\Console\Command;
 use App\Notifications\CFPIsOpen;
+use Illuminate\Support\Facades\Notification;
 
 class SendNotificationForOpenCFPs extends Command
 {
@@ -32,7 +33,8 @@ class SendNotificationForOpenCFPs extends Command
     {
         Conference::approved()->notShared()->openCFP()->each(function ($conference) {
             $conference->update(['shared' => true]);
-            User::withNotifications()->get()->each->notify(new CFPIsOpen($conference));
+            Notification::send(User::wantsNotifications()->get(), new CFPIsOpen($conference));
+
         });
     }
 }

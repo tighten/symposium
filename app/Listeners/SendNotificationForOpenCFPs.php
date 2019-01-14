@@ -22,7 +22,7 @@ class SendNotificationForOpenCFPs
             && $conference->approved
             && !$conference->shared) {
             $conference->update(['shared' => true]);
-            User::withNotifications()->get()->each->notify(new CFPIsOpen($conference));
+            User::wantsNotifications()->get()->each->notify(new CFPIsOpen($conference));
         }
     }
 }

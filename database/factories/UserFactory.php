@@ -13,7 +13,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(App\User::class, 'withNotifications', function () {
+$factory->state(App\User::class, 'wantsNotifications', function () {
     return [
         'wants_notifications' => true
     ];
