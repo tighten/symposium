@@ -54,7 +54,7 @@ class ConferenceImporter
         $conference->cfp_starts_at = $this->carbonFromIso($event['cfp_start_date']);
         $conference->cfp_ends_at = $this->carbonFromIso($event['cfp_end_date']);
         $conference->author_id = $this->authorId;
-        $conference->approved = true;
+        $conference->is_approved = true;
     }
 
     private function carbonFromIso($dateFromApi)

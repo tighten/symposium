@@ -19,8 +19,8 @@ class SendNotificationForOpenCFPs
         $conference = $event->conference;
 
         if ($conference->isCurrentlyAcceptingProposals()
-            && $conference->approved
-            && !$conference->shared) {
+            && $conference->is_approved
+            && !$conference->is_shared) {
             $conference->update(['is_shared' => true]);
 
             User::wantsNotifications()->get()->each->notify(new CFPIsOpen($conference));

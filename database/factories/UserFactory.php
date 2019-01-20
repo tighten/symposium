@@ -19,6 +19,12 @@ $factory->state(App\User::class, 'wantsNotifications', function () {
     ];
 });
 
+$factory->state(App\User::class, 'admin', function () {
+    return [
+        'role' => App\User::ADMIN_ROLE,
+    ];
+});
+
 $factory->define(App\Conference::class, function (Faker $faker) {
     return [
         'author_id' => function () {

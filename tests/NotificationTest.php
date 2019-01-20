@@ -28,7 +28,7 @@ class NotificationTest extends IntegrationTestCase
             return $notification->conference->id === $conference->id;
         });
 
-        $this->assertTrue(Conference::first()->shared);
+        $this->assertTrue(Conference::first()->is_shared);
     }
 
     /** @test */
@@ -87,7 +87,7 @@ class NotificationTest extends IntegrationTestCase
             return $notification->conference->id === $conference->id;
         });
 
-        $this->assertTrue(Conference::first()->shared);
+        $this->assertTrue(Conference::first()->is_shared);
     }
 
     /** @test */

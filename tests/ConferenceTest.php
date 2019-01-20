@@ -34,6 +34,7 @@ class ConferenceTest extends IntegrationTestCase
             'author_id' => $user->id,
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
+            'is_approved' => true,
         ]);
 
         $this->actingAs($user)
@@ -112,7 +113,7 @@ class ConferenceTest extends IntegrationTestCase
     {
         $user = factory(App\User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
+        $conference = factory(App\Conference::class)->create(['is_approved' => true]);
         $user->conferences()
             ->save($conference);
 
@@ -125,7 +126,7 @@ class ConferenceTest extends IntegrationTestCase
     {
         $user = factory(App\User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
+        $conference = factory(App\Conference::class)->create(['is_approved' => true]);
         $user->conferences()
             ->save($conference);
 

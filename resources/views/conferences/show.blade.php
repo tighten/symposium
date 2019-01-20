@@ -20,12 +20,12 @@
                     @endif
                 </h1>
 
+                <p class="pull-right action-buttons">
                 @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
-                    <p class="pull-right">
                         <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                         <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    </p>
                 @endif
+                </p>
 
                 <p><b>Date created:</b>
                     {{ $conference->created_at->toFormattedDateString() }}</p>

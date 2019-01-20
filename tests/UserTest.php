@@ -20,8 +20,8 @@ class UserTest extends IntegrationTestCase
     function it_returns_all_users_subscribed_to_notifications()
     {
         factory(User::class)->create();
-        factory(User::class)->states('withNotifications')->create();
+        factory(User::class)->states('wantsNotifications')->create();
 
-        $this->assertEquals(1, User::withNotifications()->count());
+        $this->assertEquals(1, User::wantsNotifications()->count());
     }
 }

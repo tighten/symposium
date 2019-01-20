@@ -43,6 +43,7 @@ class Conference extends UuidBase
     protected $casts = [
         'is_approved' => 'boolean',
         'is_shared' => 'boolean',
+        'author_id' => 'integer',
     ];
 
     public function author()

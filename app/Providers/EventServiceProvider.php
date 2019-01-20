@@ -18,7 +18,6 @@ class EventServiceProvider extends ServiceProvider
         ConferenceCreated::class => [
             SendNotificationForOpenCFPs::class,
         ],
-
     ];
 
     protected $subscribe = [

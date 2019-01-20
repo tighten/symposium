@@ -152,6 +152,7 @@ class ConferencesController extends BaseController
         if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
+
         }
 
         // Save
