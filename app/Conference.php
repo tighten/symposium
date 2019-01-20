@@ -24,8 +24,8 @@ class Conference extends UuidBase
         'ends_at',
         'cfp_starts_at',
         'cfp_ends_at',
-        'approved',
-        'shared'
+        'is_approved',
+        'is_shared'
     ];
 
     protected $dates = [
@@ -41,8 +41,8 @@ class Conference extends UuidBase
      * @var array
      */
     protected $casts = [
-        'approved' => 'boolean',
-        'shared' => 'boolean',
+        'is_approved' => 'boolean',
+        'is_shared' => 'boolean',
     ];
 
     public function author()
@@ -123,12 +123,12 @@ class Conference extends UuidBase
 
     public function scopeApproved($query)
     {
-        return $query->where('approved', true);
+        return $query->where('is_approved', true);
     }
 
     public function scopeNotShared($query)
     {
-        return $query->where('shared', false);
+        return $query->where('is_shared', false);
     }
 
     /**

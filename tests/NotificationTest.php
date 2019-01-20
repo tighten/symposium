@@ -18,7 +18,7 @@ class NotificationTest extends IntegrationTestCase
 
         Notification::fake();
         $user = factory(App\User::class)->states('wantsNotifications')->create();
-        $conference = factory(Conference::class)->create(['approved' => true]);
+        $conference = factory(Conference::class)->create(['is_approved' => true]);
 
         event(new ConferenceCreated($conference));
 
@@ -36,7 +36,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         $user = factory(App\User::class)->create();
-        $conference = factory(Conference::class)->states('closedCFP')->create(['approved' => true]);
+        $conference = factory(Conference::class)->states('closedCFP')->create(['is_approved' => true]);
 
         event(new ConferenceCreated($conference));
 
@@ -48,7 +48,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         $user = factory(App\User::class)->create();
-        $conference = factory(Conference::class)->states('noCFPDates')->create(['approved' => true]);
+        $conference = factory(Conference::class)->states('noCFPDates')->create(['is_approved' => true]);
 
         event(new ConferenceCreated($conference));
 
@@ -79,7 +79,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         factory(App\User::class)->states('wantsNotifications')->create();
-        $conference = factory(Conference::class)->create(['approved' => true, 'shared' => false]);
+        $conference = factory(Conference::class)->create(['is_approved' => true, 'is_shared' => false]);
 
         Artisan::call('symposium:notifyCfps');
 
@@ -95,7 +95,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         $user = factory(App\User::class)->create();
-        factory(Conference::class)->create(['approved' => false]);
+        factory(Conference::class)->create(['is_approved' => false]);
 
         Artisan::call('symposium:notifyCfps');
 
@@ -108,8 +108,8 @@ class NotificationTest extends IntegrationTestCase
         Notification::fake();
         $user = factory(App\User::class)->create();
         factory(Conference::class)->create([
-            'approved' => false,
-            'shared' => false
+            'is_approved' => false,
+            'is_shared' => false
         ]);
 
         Artisan::call('symposium:notifyCfps');
@@ -122,7 +122,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         $user = factory(App\User::class)->states('wantsNotifications')->create();
-        factory(Conference::class)->states('closedCFP')->create(['approved' => true]);
+        factory(Conference::class)->states('closedCFP')->create(['is_approved' => true]);
 
         Artisan::call('symposium:notifyCfps');
 
@@ -134,7 +134,7 @@ class NotificationTest extends IntegrationTestCase
     {
         Notification::fake();
         $user = factory(App\User::class)->create();
-        factory(Conference::class)->create(['approved' => true]);
+        factory(Conference::class)->create(['is_approved' => true]);
 
         Artisan::call('symposium:notifyCfps');
 

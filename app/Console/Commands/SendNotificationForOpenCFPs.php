@@ -32,9 +32,9 @@ class SendNotificationForOpenCFPs extends Command
     public function handle()
     {
         Conference::approved()->notShared()->openCFP()->each(function ($conference) {
-            $conference->update(['shared' => true]);
-            Notification::send(User::wantsNotifications()->get(), new CFPIsOpen($conference));
+            $conference->update(['is_shared' => true]);
 
+            Notification::send(User::wantsNotifications()->get(), new CFPIsOpen($conference));
         });
     }
 }

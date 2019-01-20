@@ -14,7 +14,7 @@ class AddSharedFieldToConferences extends Migration
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
-            $table->boolean('shared')->default(false);
+            $table->boolean('is_shared')->default(false);
         });
     }
 
@@ -26,7 +26,7 @@ class AddSharedFieldToConferences extends Migration
     public function down()
     {
         Schema::table('conferences', function (Blueprint $table) {
-            $table->dropColumn('shared');
+            $table->dropColumn('is_shared');
         });
     }
 }

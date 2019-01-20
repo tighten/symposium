@@ -145,7 +145,7 @@ class ConferenceTest extends IntegrationTestCase
     function it_can_pull_only_approved_conferences()
     {
         factory(App\Conference::class)->create();
-        factory(App\Conference::class)->create(['approved' => true]);
+        factory(App\Conference::class)->create(['is_approved' => true]);
 
         $this->assertEquals(1, Conference::approved()->count());
     }
@@ -154,7 +154,7 @@ class ConferenceTest extends IntegrationTestCase
     function it_can_pull_only_not_shared_conferences()
     {
         factory(App\Conference::class)->create();
-        factory(App\Conference::class)->create(['shared' => true]);
+        factory(App\Conference::class)->create(['is_shared' => true]);
 
         $this->assertEquals(1, Conference::notShared()->count());
     }
