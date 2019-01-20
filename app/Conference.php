@@ -25,7 +25,7 @@ class Conference extends UuidBase
         'cfp_starts_at',
         'cfp_ends_at',
         'is_approved',
-        'is_shared'
+        'is_shared',
     ];
 
     protected $dates = [

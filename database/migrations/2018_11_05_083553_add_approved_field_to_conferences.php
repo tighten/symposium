@@ -14,7 +14,7 @@ class AddApprovedFieldToConferences extends Migration
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
-            $table->boolean('is_approved')->after('id')->default(false);
+            $table->boolean('is_approved')->default(false);
         });
     }
 

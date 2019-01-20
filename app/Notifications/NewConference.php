@@ -27,7 +27,7 @@ class NewConference extends Notification
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title('New conference created')
-                    ->content("{$this->conference->title}\n{$this->conference->link}")
+                    ->content("{$this->conference->title}\nAPPROVE HERE: {$this->conference->link}")
                     ->timestamp(Carbon::now());
             });
     }

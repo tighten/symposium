@@ -27,21 +27,21 @@ class ConferencesController extends BaseController
     {
         switch ($request->input('filter')) {
             case 'favorites':
-                $conferences = auth()->user()->favoritedConferences()->get();
+                $conferences = auth()->user()->favoritedConferences()->approved()->get();
                 break;
             case 'open_cfp':
-                $conferences = Conference::openCfp()->get();
+                $conferences = Conference::openCfp()->approved()->get();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::unclosedCfp()->get();
+                $conferences = Conference::unclosedCfp()->approved()->get();
                 break;
             case 'all':
-                $conferences = Conference::all();
+                $conferences = Conference::approved()->get();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::future()->get();
+                $conferences = Conference::future()->approved()->get();
         }
 
         switch ($request->input('sort')) {
@@ -146,9 +146,10 @@ class ConferencesController extends BaseController
     {
         $this->validate($request, $this->conference_rules);
 
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
+        // @todo Update this to use ACL... gosh this app is old...
+        $conference = Conference::findOrFail($id);
+
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
@@ -158,6 +159,11 @@ class ConferencesController extends BaseController
 
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
             $conference->$col = $request->input($col) ?: null;
+        }
+
+        if (auth()->user()->isAdmin()) {
+            $conference->is_shared = $request->input('is_shared');
+            $conference->is_approved = $request->input('is_approved');
         }
 
         $conference->save();
