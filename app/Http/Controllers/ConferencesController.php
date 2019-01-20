@@ -123,7 +123,7 @@ class ConferencesController extends BaseController
 
     private function showPublic($id)
     {
-        $conference = Conference::findOrFail($id);
+        $conference = Conference::approved()->findOrFail($id);
 
         return view('conferences.showPublic')
             ->with('conference', $conference);
@@ -131,9 +131,9 @@ class ConferencesController extends BaseController
 
     public function edit($id)
     {
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
+        $conference = Conference::findOrFail($id);
+
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
