@@ -19,7 +19,7 @@
                 </p>
 
                 <h3>Description/Proposal</h3>
-                {{ $talk->current()->getHtmledDescription() }}
+                {!! $talk->current()->getHtmledDescription() !!}
             </div>
         </div>
     </div>

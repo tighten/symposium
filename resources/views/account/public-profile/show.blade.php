@@ -14,7 +14,7 @@
                 </div>
 
                 <h1>{{ $user->name }}</h1>
-                <p class="public-profile-intro">{{ str_replace("\n", "<br>", htmlentities($user->profile_intro)) }}</p>
+                <p class="public-profile-intro">{!! str_replace("\n", "<br>", htmlentities($user->profile_intro)) !!}</p>
                 <?php /*
                     What's the primary goal we're targeting here?
                     For a speaker to be able to make it known which talks they're
@@ -37,7 +37,7 @@
                     This speaker has not made any of their bios public yet.
                 @elseif ($bios->count() == 1)
                     <h3>Bio ({{ $bios->first()->nickname }})</h3>
-                    <p>{{ str_replace("\n", "<br>", $bios->first()->body) }}</p>
+                    <p>{!! str_replace("\n", "<br>", $bios->first()->body) !!}</p>
                 @else
                     <h2>Bios</h2>
                     @foreach ($bios as $bio)

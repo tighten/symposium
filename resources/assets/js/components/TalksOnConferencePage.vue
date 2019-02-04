@@ -9,7 +9,7 @@
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
                     Un-Submit
                 </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
+                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksAtConference.length == 0" v-cloak>
                 None
@@ -23,7 +23,7 @@
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
                     Submit
                 </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
+                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksNotAtConference.length == 0" v-cloak>
                 None
@@ -34,10 +34,11 @@
 
 <script>
 export default {
-    ready: function () {
+    mounted: function () {
         Symposium.talks.forEach(function (talk) {
             talk.loading = false;
         });
+
         this.talks = Symposium.talks;
     },
     props: {
@@ -70,14 +71,27 @@ export default {
                 'talkId': talk.id
             };
 
-            var method = submitting ? 'post' : 'delete';
-
-            this.$http[method]('/submissions', data, function (data, status, request) {
-                talk.loading = false;
-            }).error(function (data, status, request) {
-                alert('Something went wrong.');
-                talk.loading = false;
-            });
+            if (submitting) {
+                axios.post('/submissions', data)
+                    .then(response => {
+                        talk.loading = false;
+                    })
+                    .catch(e => {
+                        alert('Something went wrong.');
+                        talk.loading = false;
+                    });
+            } else {
+                // @todo re work this to use the submission id so we can use delete
+                // as axios intends it
+                axios.delete('/submissions', {params: data})
+                    .then(response => {
+                        talk.loading = false;
+                    })
+                    .catch(e => {
+                        alert('Something went wrong.');
+                        talk.loading = false;
+                    });
+            }
         },
         submit: function (talk) {
             this.changeSubmissionStatus(talk, true);

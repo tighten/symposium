@@ -47,6 +47,10 @@ Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout
 
 Auth::routes();
 
+Route::get('sign-up', function () {
+    return redirect('register');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
@@ -87,24 +91,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('conferences', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
 Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
 
-/**
- * OAuth
- */
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('oauth/authorize', [
-        'middleware' => ['check-authorization-params', 'auth'],
-        'as' => 'get-oauth-authorize',
-        'uses' => 'OAuthController@getAuthorize'
-    ]);
-
-    Route::post('oauth/authorize', [
-        'middleware' => ['check-authorization-params', 'auth'],
-        'as' => 'post-oauth-authorize',
-        'uses' => 'OAuthController@postAuthorize'
-    ]);
+// Social logins routes
+Route::group(['middleware' => ['social', 'guest']], function () {
+    Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
+    Route::get('/login/{service}/callback', 'Auth\SocialLoginController@callback');
 });
-
-Route::post('oauth/access-token', [
-    'as' => 'oauth-access-token',
-    'uses' => 'OAuthController@postAccessToken'
-]);

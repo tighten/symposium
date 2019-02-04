@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Mail\ContactRequest;
 use Captcha\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -116,11 +117,7 @@ class PublicProfileController extends Controller
             exit('You have not passed the captcha. Please try again.');
         }
 
-        Mail::send('emails.public-profile-contact', ['email' => $request->get('email'), 'name' => $request->get('name'), 'userMessage' => $request->get('message')], function ($m) use ($user) {
-            $m->from('noreply@symposiumapp.com', 'Symposium');
-
-            $m->to($user->email, $user->name)->subject('Contact from your Symposium public profile page');
-        });
+        Mail::to($user->email)->send(new ContactRequest($request->get('email'), $request->get('name'), $request->get('message')));
 
         Session::flash('success-message', 'Message sent!');
 

@@ -2,16 +2,25 @@ if (window.Vue === undefined) {
     window.Vue = require('vue');
 }
 
-Vue.use(require('vue-resource'));
+if (window.axios === undefined) {
+    window.axios = require('axios');
+}
+
+window.axios.defaults.headers.common = {
+    'X-CSRF-TOKEN': window.Symposium.token,
+    'X-Requested-With': 'XMLHttpRequest'
+};
 
 import TalksOnConferencePage from './components/TalksOnConferencePage.vue';
 
-new Vue({
-    el: '#talks-on-conference-page',
-    components: {
-        TalksOnConferencePage: TalksOnConferencePage
-    }
-});
+if ($('#talks-on-conference-page').length) {
+    new Vue({
+        el: '#talks-on-conference-page',
+        components: {
+            TalksOnConferencePage: TalksOnConferencePage
+        }
+    });
+}
 
 // jQuery bindings
 $(function() {

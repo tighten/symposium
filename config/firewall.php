@@ -80,7 +80,7 @@ return [
      *   php artisan firewall:whitelist country:us
      *   php artisan firewall:blacklist country:cn
      */
-    'enable_country_search' => false,
+    'enable_country_search' => true,
 
     /**
      * Should Firewall use the database?

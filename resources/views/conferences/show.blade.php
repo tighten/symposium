@@ -2,14 +2,14 @@
 
 @section('content')
     <script>
-        Symposium.talks = {{ json_encode($talks->map(function ($talk) use ($talksAtConference) {
+        Symposium.talks = {!! json_encode($talks->map(function ($talk) use ($talksAtConference) {
             return [
                 'id' => $talk->id,
                 'title' => $talk->current()->title,
                 'url' => $talk->current()->getUrl(),
                 'atThisConference' => $talksAtConference->search($talk->id) !== false,
             ];
-        })) }};
+        })) !!};
     </script>
     <div class="container body">
         <div class="row">

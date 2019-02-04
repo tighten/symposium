@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Handlers\Events\SlackSubscriber;
 use Event;
 use Exception;
+use Laravel\Passport\Passport;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -20,8 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Blade::setRawTags('{{', '}}');
-        \Blade::setContentTags('{{{', '}}}');
         \Blade::directive('sorted', function ($expression) {
             list($sorted_by, $query) = explode(',', $expression, 2);
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
@@ -63,6 +62,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Passport::ignoreMigrations();
+
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
             'App\Services\Registrar'
@@ -77,12 +78,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
-
-        \Blade::setRawTags('{{', '}}');
-        \Blade::setContentTags('{{{', '}}}');
-        \Blade::setEscapedContentTags('{{{', '}}}');
-
-        $this->app->alias('bugsnag.logger', Log::class);
-        $this->app->alias('bugsnag.logger', LoggerInterface::class);
+        $this->app->alias('bugsnag.multi', Log::class);
+        $this->app->alias('bugsnag.multi', LoggerInterface::class);
     }
 }

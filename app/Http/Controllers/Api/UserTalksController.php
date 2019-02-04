@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Talk;
-use App\OAuthGuard\Facades\OAuthGuard;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class UserTalksController extends BaseController
 {
@@ -15,11 +15,11 @@ class UserTalksController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != OAuthGuard::user()->id) {
+        if ($userId != Auth::user()->id) {
             App::abort(404);
         }
 
-        $return = OAuthGuard::user()->activeTalks->map(function ($talk) {
+        $return = Auth::user()->activeTalks->map(function ($talk) {
             return new Talk($talk);
         })->values();
 

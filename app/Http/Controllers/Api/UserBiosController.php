@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Bio;
-use App\OAuthGuard\Facades\OAuthGuard;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class UserBiosController extends BaseController
 {
@@ -15,16 +15,16 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != OAuthGuard::user()->id) {
+        if ($userId != Auth::user()->id) {
             App::abort(404);
         }
 
-        $return = OAuthGuard::user()->bios->map(function ($bio) {
+        $return = Auth::user()->bios->map(function ($bio) {
             return new Bio($bio);
         });
 
         return response()->jsonApi([
-            'data' => $return
+            'data' => $return,
         ]);
     }
 }

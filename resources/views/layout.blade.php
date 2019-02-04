@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Symposium for Speakers & Conferences</title>
+    <title>Symposium for Speakers &amp; Conferences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
@@ -17,6 +17,7 @@
     <![endif]-->
     <script>
         var Symposium = {
+            token: "{{ csrf_token() }}"
         };
     </script>
     @yield('headerScripts')

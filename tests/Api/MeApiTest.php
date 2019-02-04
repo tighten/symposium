@@ -1,17 +1,14 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-
 class MeApiTest extends ApiTestCase
 {
-    use WithoutMiddleware;
-
-    public function testFetchesMyInfo()
+    /** @test */
+    public function can_fetch_my_info()
     {
         $response = $this->call('GET', 'api/me');
-        $data = $this->parseJson($response);
+        $data = json_decode($response->getContent());
 
-        $this->assertIsJson($data);
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertInternalType('object', $data->data);
     }
 }

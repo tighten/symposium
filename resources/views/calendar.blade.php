@@ -4,7 +4,7 @@
     <div class="container body">
         <div class="row">
             <div id="calendar" class="calendar col-sm-12">
-                {{ $calendar->calendar() }}
+                {!! $calendar->calendar() !!}
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
     <script>
         jQuery(document).ready(function(){
-            jQuery('#calendar > div').fullCalendar({{ $options }});
+            jQuery('#calendar > div').fullCalendar({!! $options !!});
         });
     </script>
 @endpush

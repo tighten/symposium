@@ -18,21 +18,21 @@
                 </ul>
                 @endif
 
-                {{ Form::open() }}
+                {!! Form::open() !!}
 
                 <div class="form-group">
-                    {{ Form::label('email', '*Email Address', ['class' => 'sr-only']) }}
-                    {{ Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) }}
+                    {!! Form::label('email', '*Email Address', ['class' => 'sr-only']) !!}
+                    {!! Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('name', '*Name', ['class' => 'sr-only']) }}
-                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) }}
+                    {!! Form::label('name', '*Name', ['class' => 'sr-only']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('message', '*Message', ['class' => 'sr-only']) }}
-                    {{ Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Message']) }}
+                    {!! Form::label('message', '*Message', ['class' => 'sr-only']) !!}
+                    {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Message']) !!}
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
@@ -40,10 +40,10 @@
                 <br>
 
                 <div class="form-group">
-                    {{ Form::submit('Send', ['class' => 'btn btn-block btn-primary']) }}
+                    {!! Form::submit('Send', ['class' => 'btn btn-block btn-primary']) !!}
                 </div>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

@@ -5,12 +5,13 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
-    use Notifiable, Searchable;
+    use HasApiTokens, Notifiable, Searchable;
 
     const ADMIN_ROLE = 1;
     const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
@@ -118,5 +119,15 @@ class User extends Authenticatable
 
             \DB::table('favorites')->where('user_id', $user->id)->delete();
         });
+    }
+
+    public function social()
+    {
+        return $this->hasMany(UserSocial::class);
+    }
+
+    public function hasSocialLinked($service)
+    {
+        return (bool) $this->social->where('service', $service)->count();
     }
 }

@@ -409,7 +409,7 @@ legend {
     img {
         border-radius: 50%;
     }
-    
+
     a {
         text-decoration: none;
     }
@@ -467,4 +467,146 @@ legend {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+/* GitHub Login button styles
+ * Using: https://github.com/necolas/css3-social-signin-buttons
+ */
+.btn-auth,
+.btn-auth:visited {
+    background: #fff;
+    border: 1px solid #999;
+    border-radius: 20px;
+    box-sizing: content-box;
+    color: #222;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    height: 22px;
+    line-height: 22px;
+    margin: 0;
+    padding: 0 1em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    white-space: nowrap;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* iOS */
+    -webkit-appearance: none; /* 1 */
+    /* IE6/7 hacks */
+    *overflow: visible;  /* 2 */
+    *display: inline; /* 3 */
+    *zoom: 1; /* 3 */
+}
+
+.btn-auth:hover,
+.btn-auth:focus,
+.btn-auth:active {
+    color: #222;
+    text-decoration: none;
+}
+
+.btn-auth:before {
+    background: url(/img/auth-icons.png) no-repeat 99px 99px;
+    content: "";
+    float: left;
+    height: 22px;
+    width: 22px;
+}
+
+/**
+ * 36px
+ */
+
+.btn-auth.large {
+    font-size: 20px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.btn-auth.large:before {
+    height: 36px;
+    width: 36px;
+}
+
+/*
+ * Remove excess padding and border in FF3+
+ */
+
+.btn-auth::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.btn-github,
+.btn-github:visited {
+    background: #ececec;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+    background-image: -webkit-linear-gradient(#f4f4f4, #ececec);
+    background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+    background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+    background-image: -o-linear-gradient(#f4f4f4, #ececec);
+    background-image: linear-gradient(#f4f4f4, #ececec);
+    border-color: #d4d4d4;
+}
+
+.btn-github:hover,
+.btn-github:focus {
+    background-color: #599bdc;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
+    background-image: -webkit-linear-gradient(#599bdc, #3072b3);
+    background-image: -moz-linear-gradient(#599bdc, #3072b3);
+    background-image: -ms-linear-gradient(#599bdc, #3072b3);
+    background-image: -o-linear-gradient(#599bdc, #3072b3);
+    background-image: linear-gradient(#599bdc, #3072b3);
+    border-color: #518cc6;
+    border-bottom-color: #2a65a0;
+    color: #fff;
+}
+
+.btn-github:active {
+    background: #3072B3;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#599bdc));
+    background: -webkit-linear-gradient(#3072b3, #599bdc);
+    background: -moz-linear-gradient(#3072b3, #599bdc);
+    background: -ms-linear-gradient(#3072b3, #599bdc);
+    background: -o-linear-gradient(#3072b3, #599bdc);
+    background: linear-gradient(#3072b3, #599bdc);
+    border-color: #2A65A0;
+    border-bottom-color: #518CC6;
+    color: #fff;
+}
+
+/*
+ * Icon
+ */
+
+.btn-github:before {
+    background-position: -44px 0;
+    margin: 0 0.6em 0 -0.6em;
+}
+
+.btn-github:hover:before,
+.btn-github:focus:before,
+.btn-github:active:before {
+    background-position: -66px 0;
+}
+
+.btn-github.large:before {
+    background-position: -72px -22px;
+}
+
+.btn-github.large:hover:before,
+.btn-github.large:focus:before,
+.btn-github.large:active:before {
+    background-position: -108px -22px;
+}
+
+.mb-0 {
+    margin-bottom: 0;
 }
