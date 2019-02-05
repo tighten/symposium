@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
     Route::post('submissions', 'SubmissionsController@store');
+    Route::put('submissions', 'SubmissionsController@update');
     Route::delete('submissions', 'SubmissionsController@destroy');
 
     // Joind.in (@todo separate controller)

@@ -5,7 +5,7 @@ namespace App\Commands;
 use App\Conference;
 use App\Talk;
 
-class DestroySubmission extends Command
+class ConvertToAcceptance extends Command
 {
     private $conferenceId;
     private $talkId;
@@ -19,12 +19,15 @@ class DestroySubmission extends Command
     public function handle()
     {
         $conference = Conference::findOrFail($this->conferenceId);
-        $revisionIds = Talk::findOrFail($this->talkId)->revisions->pluck('id');
+        $talk = Talk::findOrFail($this->talkId);
 
+        $revisionIds = $talk->revisions->pluck('id');
         $talkRevision = $conference->submissions()
             ->whereIn('talk_revision_id', $revisionIds)
             ->firstOrFail();
 
         $conference->submissions()->detach($talkRevision);
+
+        $conference->acceptances()->save($talk->current());
     }
 }
