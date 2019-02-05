@@ -40,12 +40,12 @@ class Conference extends UuidBase
 
     public function submissions()
     {
-        return $this->belongsToMany(TalkRevision::class, 'submissions')->withTimestamps();
+        return $this->hasMany(Submission::class);
     }
 
     public function acceptances()
     {
-        return $this->belongsToMany(TalkRevision::class, 'acceptances')->withTimestamps();
+        return $this->hasMany(Acceptance::class);
     }
 
     // @todo: Deprecate?
@@ -171,13 +171,13 @@ class Conference extends UuidBase
     {
         $talks = Auth::user()->talks;
 
-        return $this->submissions->filter(function ($talkRevision) use ($talks) {
-            return $talks->contains($talkRevision->talk);
+        return $this->submissions->filter(function ($submission) use ($talks) {
+            return $talks->contains($submission->talkRevision->talk);
         });
     }
 
     /**
-     * Return all talks from this user that were submitted to this conference
+     * Return all talks from this user that were accepted to this conference
      *
      * @return Collection
      */
@@ -185,8 +185,8 @@ class Conference extends UuidBase
     {
         $talks = Auth::user()->talks;
 
-        return $this->acceptances->filter(function ($talkRevision) use ($talks) {
-            return $talks->contains($talkRevision->talk);
+        return $this->acceptances->filter(function ($acceptance) use ($talks) {
+            return $talks->contains($acceptance->talk);
         });
     }
 
