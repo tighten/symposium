@@ -22,10 +22,10 @@ class Talk extends UuidBase
         return $this->belongsTo(User::class, 'author_id');
     }
 
-//    public function submissions()
-//    {
-//        return $this->belongsToMany(Conference::class);
-//    }
+    public function submissions()
+    {
+        return $this->hasManyThrough(Submission::class, TalkRevision::class);
+    }
 
     public function current()
     {
@@ -72,5 +72,19 @@ class Talk extends UuidBase
     public function scopeActive($query)
     {
         return $query->where('is_archived', false);
+    }
+
+    public function getSubmission(Conference $conference)
+    {
+        return $conference->mySubmissions()->filter(function ($item) {
+            return $item->talkRevision->talk->id === $this->id;
+        })->first();
+    }
+
+    public function getAcceptance($conference)
+    {
+        return $conference->myAcceptedTalks()->filter(function ($item) {
+            return $item->talkRevision->talk->id === $this->id;
+        })->first();
     }
 }

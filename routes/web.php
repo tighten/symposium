@@ -59,9 +59,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('account/delete', 'AccountController@destroy');
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
+    Route::post('acceptances', 'AcceptancesController@store');
+
     Route::post('submissions', 'SubmissionsController@store');
-    Route::put('submissions', 'SubmissionsController@update');
-    Route::delete('submissions', 'SubmissionsController@destroy');
+    Route::delete('submissions/{id}', 'SubmissionsController@destroy');
 
     // Joind.in (@todo separate controller)
     Route::get('conferences/joindin/import/{eventId}', 'ConferencesController@joindinImport');

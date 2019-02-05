@@ -112,22 +112,19 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        $submissions = $conference->mySubmissions();
-        $acceptances = $conference->myAcceptedTalks();
-
-        $talks = auth()->user()->talks->map(function ($talk) use ($submissions, $acceptances) {
+        $talks = auth()->user()->talks->map(function ($talk) use ($conference) {
             /** @var Talk $currentTalk */
             $currentTalk = $talk->current();
+            $submission = $talk->getSubmission($conference);
+            $acceptance = $submission->acceptance;
             return [
                 'id' => $talk->id,
                 'title' => $currentTalk->title,
                 'url' => $currentTalk->getUrl(),
-                'submitted' => $submissions->search(function ($item) use ($talk) {
-                    return $item->talk->id === $talk->id;
-                }) !== false,
-                'accepted' =>  $acceptances->search(function ($item) use ($talk) {
-                    return $item->talk->id === $talk->id;
-                }) !== false
+                'submitted' => $acceptance ? false : !!$submission,
+                'submissionId' => $submission ? $submission->id : null,
+                'accepted' =>  !!$acceptance,
+                'acceptanceId' => $acceptance ? $acceptance->id : null
             ];
         });
 

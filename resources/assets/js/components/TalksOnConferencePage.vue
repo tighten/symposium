@@ -53,13 +53,11 @@
 <script>
 const SUBMITTED = "submitted";
 const UNSUBMITTED = "unsubmitted";
-const ACCEPTED = "accepted";
 
 export default {
     mounted: function () {
         Symposium.talks.forEach(talk => talk.loading = false);
         this.talks = Symposium.talks;
-        console.log(this.talks);
     },
     props: {
         conferenceId: {}
@@ -85,7 +83,8 @@ export default {
             switch(status){
                 case SUBMITTED:
                     axios.post('/submissions', data)
-                        .then(() => {
+                        .then(response => {
+                            talk.submissionId = response.data.submissionId;
                             talk.submitted = true;
                             talk.loading = false;
                         })
@@ -95,20 +94,10 @@ export default {
                         });
                     break;
                 case UNSUBMITTED:
-                    axios.delete('/submissions', {params: data})
+                    axios.delete(`/submissions/${talk.submissionId}`)
                         .then(() => {
                             talk.submitted = false;
-                            talk.loading = false;
-                        })
-                        .catch(() => {
-                            alert('Something went wrong.');
-                            talk.loading = false;
-                        });
-                    break;
-                case ACCEPTED:
-                    axios.put('/submissions', { ...data, accepted: true })
-                        .then(() => {
-                            talk.accepted = true;
+                            talk.submissionId = null;
                             talk.loading = false;
                         })
                         .catch(() => {
@@ -125,7 +114,16 @@ export default {
             this.updateSubmission(talk, UNSUBMITTED);
         },
         markAccepted: function (talk) {
-            this.updateSubmission(talk, ACCEPTED)
+            axios.post('/acceptances', { submissionId: talk.submissionId })
+                .then(() => {
+                    talk.accepted = true;
+                    talk.submitted = false;
+                    talk.loading = false;
+                })
+                .catch(() => {
+                    alert('Something went wrong.');
+                    talk.loading = false;
+                });
         }
     },
     http: {
