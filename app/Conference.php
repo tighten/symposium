@@ -43,10 +43,10 @@ class Conference extends UuidBase
         return $this->belongsToMany(TalkRevision::class, 'submissions')->withTimestamps();
     }
 
-//    public function submitters()
-//    {
-//        return $this->hasManyThrough(Talk::class', 'User');
-//    }
+    public function acceptances()
+    {
+        return $this->belongsToMany(TalkRevision::class, 'acceptances')->withTimestamps();
+    }
 
     // @todo: Deprecate?
     public static function closingSoonest()
@@ -167,7 +167,7 @@ class Conference extends UuidBase
      *
      * @return Collection
      */
-    public function myTalks()
+    public function mySubmissions()
     {
         $talks = Auth::user()->talks;
 
@@ -176,9 +176,23 @@ class Conference extends UuidBase
         });
     }
 
+    /**
+     * Return all talks from this user that were submitted to this conference
+     *
+     * @return Collection
+     */
+    public function myAcceptedTalks()
+    {
+        $talks = Auth::user()->talks;
+
+        return $this->acceptances->filter(function ($talkRevision) use ($talks) {
+            return $talks->contains($talkRevision->talk);
+        });
+    }
+
     public function appliedTo()
     {
-        return $this->myTalks()->count() > 0;
+        return $this->mySubmissions()->count() > 0;
     }
 
     public function startsAtDisplay()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Conference;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
+use App\Talk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -111,14 +112,28 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        $talksAtConference = $conference->myTalks()->map(function ($talkRevision) {
-            return $talkRevision->talk->id;
+        $submissions = $conference->mySubmissions();
+        $acceptances = $conference->myAcceptedTalks();
+
+        $talks = auth()->user()->talks->map(function ($talk) use ($submissions, $acceptances) {
+            /** @var Talk $currentTalk */
+            $currentTalk = $talk->current();
+            return [
+                'id' => $talk->id,
+                'title' => $currentTalk->title,
+                'url' => $currentTalk->getUrl(),
+                'submitted' => $submissions->search(function ($item) use ($talk) {
+                    return $item->talk->id === $talk->id;
+                }) !== false,
+                'accepted' =>  $acceptances->search(function ($item) use ($talk) {
+                    return $item->talk->id === $talk->id;
+                }) !== false
+            ];
         });
 
         return view('conferences.show')
             ->with('conference', $conference)
-            ->with('talksAtConference', $talksAtConference)
-            ->with('talks', auth()->user()->talks);
+            ->with('talks', $talks);
     }
 
     private function showPublic($id)
