@@ -19,14 +19,18 @@ class Acceptance extends UuidBase
 
     public static function createFromSubmission(Submission $submission)
     {
-        return Acceptance::create([
+        $acceptance =  Acceptance::create([
             'talk_revision_id' => $submission->talkRevision->id,
             'conference_id' => $submission->conference->id,
         ]);
+
+        $submission->recordAcceptance($acceptance);
+
+        return $acceptance;
     }
 
     public function submission()
     {
-        return $this->belongsTo(Submission::class);
+        return $this->hasOne(Submission::class);
     }
 }

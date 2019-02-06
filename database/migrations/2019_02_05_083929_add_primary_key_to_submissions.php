@@ -1,8 +1,10 @@
 <?php
 
+use App\Submission;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Ramsey\Uuid\Uuid;
 
 class AddPrimaryKeyToSubmissions extends Migration
 {
@@ -18,8 +20,8 @@ class AddPrimaryKeyToSubmissions extends Migration
             $table->primary('id');
         });
 
-        \App\Submission::all()->map(function($submission){
-            $submission->id = \Ramsey\Uuid\Uuid::uuid4();
+        Submission::all()->map(function ($submission){
+            $submission->id = Uuid::uuid4();
             $submission->save();
         });
     }

@@ -14,7 +14,7 @@ class DropStatusColumnFromSubmissions extends Migration
     public function up()
     {
         Schema::table('submissions', function (Blueprint $table) {
-            $table->dropColumn( 'status');
+            $table->dropColumn('status');
         });
     }
 

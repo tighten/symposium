@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Conference;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
-use App\Talk;
+use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -113,19 +113,7 @@ class ConferencesController extends BaseController
         }
 
         $talks = auth()->user()->talks->map(function ($talk) use ($conference) {
-            /** @var Talk $currentTalk */
-            $currentTalk = $talk->current();
-            $submission = $talk->getSubmission($conference);
-            $acceptance = $submission->acceptance;
-            return [
-                'id' => $talk->id,
-                'title' => $currentTalk->title,
-                'url' => $currentTalk->getUrl(),
-                'submitted' => $acceptance ? false : !!$submission,
-                'submissionId' => $submission ? $submission->id : null,
-                'accepted' =>  !!$acceptance,
-                'acceptanceId' => $acceptance ? $acceptance->id : null
-            ];
+            return (TalkTransformer::transform($talk, $conference));
         });
 
         return view('conferences.show')

@@ -14,11 +14,10 @@ class AddAcceptanceIdToSubmissions extends Migration
     public function up()
     {
         Schema::table('submissions', function (Blueprint $table) {
-            $table->string( 'acceptance_id', 36)->nullable();
+            $table->string('acceptance_id', 36)->nullable();
             $table->foreign('acceptance_id')
                 ->references('id')
-                ->on('acceptances')
-                ->onDelete('cascade');
+                ->on('acceptances');
         });
     }
 
@@ -35,4 +34,3 @@ class AddAcceptanceIdToSubmissions extends Migration
         });
     }
 }
-

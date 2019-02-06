@@ -32,8 +32,6 @@ class CreateAcceptancesTable extends Migration
             $table->unique(['talk_revision_id', 'conference_id'], 'acceptances_talk_revision_conference_unique');
 
             $table->timestamps();
-
-
         });
     }
 
