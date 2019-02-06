@@ -48,4 +48,9 @@ class Submission extends UuidBase
         $this->acceptance_id = $acceptance->id;
         $this->save();
     }
+
+    public function isAccepted()
+    {
+        return $this->acceptance_id !== null;
+    }
 }
