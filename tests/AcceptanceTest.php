@@ -6,7 +6,6 @@ use App\Submission;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
-use Illuminate\Support\Facades\Session;
 
 class AcceptanceTest extends IntegrationTestCase
 {
@@ -51,9 +50,9 @@ class AcceptanceTest extends IntegrationTestCase
         ]);
 
         $this->post('acceptances', [
-            'submissionId' => $submission->id,
-            '_token' => Session::token(),
+            'submissionId' => $submission->id
         ]);
+
 
         $this->assertTrue($submission->refresh()->isAccepted());
     }
@@ -77,9 +76,7 @@ class AcceptanceTest extends IntegrationTestCase
             'acceptance_id' => $acceptance->id
         ]);
 
-        $this->delete('acceptances/'.$acceptance->id, [
-            '_token' => Session::token(),
-        ]);
+        $this->delete('acceptances/'.$acceptance->id);
 
         $this->assertFalse($submission->refresh()->isAccepted());
     }

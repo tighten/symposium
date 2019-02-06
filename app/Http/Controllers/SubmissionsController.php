@@ -4,33 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Conference;
 use App\Submission;
+use App\Talk;
 use Illuminate\Http\Request;
 
 class SubmissionsController extends Controller
 {
     public function store(Request $request)
     {
-        $talkRevision = auth()->user()->talks()->findOrFail($request->input('talkId'))->current();
-        $conference = Conference::findOrFail($request->input('conferenceId'));
+        $talk = Talk::findOrFail($request->input('talkId'));
+        if (auth()->user()->id != $talk->author_id) {
+            return response('', 401);
+        }
 
+        $conference = Conference::findOrFail($request->input('conferenceId'));
+        $talkRevision = $talk->current();
         $submission = $conference->submissions()->create(['talk_revision_id' => $talkRevision->id]);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Talk Submitted',
-            'submissionId' => $submission->id
+            'submissionId' => $submission->id,
         ]);
     }
 
     public function destroy($id)
     {
         $submission = Submission::findOrFail($id);
-        $userHasAccess = auth()->user()->talks->filter(function ($talk) use ($submission) {
-            return $talk->talkRevision === $submission->talkRevision;
-        }) !== false;
-
-        if (!$userHasAccess) {
-            throw new Exception("Not Authorized");
+        if (auth()->user()->id != $submission->talkRevision->talk->author_id) {
+            return response('', 401);
         }
         $submission->delete();
 
