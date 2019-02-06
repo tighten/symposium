@@ -10,13 +10,11 @@ class SubmissionsController extends Controller
 {
     public function store(Request $request)
     {
-        $talk = auth()->user()->talks()->findOrFail($request->input('talkId'))->current();
+        $talkRevision = auth()->user()->talks()->findOrFail($request->input('talkId'))->current();
         $conference = Conference::findOrFail($request->input('conferenceId'));
 
-        $submission = Submission::create([
-            'conference_id' => $conference->id,
-            'talk_revision_id' => $talk->id
-        ]);
+        $submission = $conference->submissions()->create(['talk_revision_id' => $talkRevision->id]);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Talk Submitted',
@@ -26,7 +24,15 @@ class SubmissionsController extends Controller
 
     public function destroy($id)
     {
-        Submission::destroy($id);
+        $submission = Submission::findOrFail($id);
+        $userHasAccess = auth()->user()->talks->filter(function ($talk) use ($submission) {
+            return $talk->talkRevision === $submission->talkRevision;
+        }) !== false;
+
+        if (!$userHasAccess) {
+            throw new Exception("Not Authorized");
+        }
+        $submission->delete();
 
         return response()->json(['status' => 'success', 'message' => 'Talk Un-Submitted']);
     }

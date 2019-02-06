@@ -32,6 +32,17 @@ class Submission extends UuidBase
         return $this->belongsTo(Acceptance::class);
     }
 
+    public function scopeAccepted($query)
+    {
+        return $query->whereNotNull('acceptance_id');
+    }
+
+    public function removeAcceptance()
+    {
+        $this->acceptance_id = null;
+        $this->save();
+    }
+
     public function recordAcceptance(Acceptance $acceptance)
     {
         $this->acceptance_id = $acceptance->id;

@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
     Route::post('acceptances', 'AcceptancesController@store');
+    Route::delete('acceptances/{id}', 'AcceptancesController@destroy');
 
     Route::post('submissions', 'SubmissionsController@store');
     Route::delete('submissions/{id}', 'SubmissionsController@destroy');

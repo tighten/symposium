@@ -9,6 +9,10 @@
                     <i v-show="!talk.loading" class="glyphicon checked"></i>
                     Accepted!
                 </a>
+                <a class="btn btn-xs btn-danger" @click.prevent="undoAcceptance(talk)">
+                    <i v-show="talk.loading" class="glyphicon glyphicon- glyphicon-refresh-animate"></i>
+                    Undo
+                </a>
                 <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksAccepted.length === 0" v-cloak>
@@ -115,9 +119,22 @@ export default {
         },
         markAccepted: function (talk) {
             axios.post('/acceptances', { submissionId: talk.submissionId })
-                .then(() => {
+                .then((response) => {
                     talk.accepted = true;
                     talk.submitted = false;
+                    talk.loading = false;
+                    talk.acceptanceId = response.data.acceptanceId;
+                })
+                .catch(() => {
+                    alert('Something went wrong.');
+                    talk.loading = false;
+                });
+        },
+        undoAcceptance: function (talk) {
+            axios.delete(`/acceptances/${talk.acceptanceId}`, { submissionId: talk.submissionId })
+                .then(() => {
+                    talk.accepted = false;
+                    talk.submitted = true;
                     talk.loading = false;
                 })
                 .catch(() => {
