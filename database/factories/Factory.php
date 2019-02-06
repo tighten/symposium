@@ -45,6 +45,9 @@ $factory->define(App\TalkRevision::class, function (Faker $faker) {
         'slides' => 'http://speakerdeck.com/mattstauffer/the-best-talk-ever',
         'description' => 'The best talk ever!',
         'organizer_notes' => 'No really.',
+        'talk_id' => function () {
+            return factory(App\Talk::class)->create()->id;
+        },
     ];
 });
 
@@ -64,7 +67,7 @@ $factory->define(App\Submission::class, function () {
             return factory(App\TalkRevision::class)->create()->id;
         },
         'conference_id' => function () {
-            return factory(App\TalkRevision::class)->create()->id;
+            return factory(App\Conference::class)->create()->id;
         },
     ];
 });
@@ -75,7 +78,7 @@ $factory->define(App\Acceptance::class, function () {
             return factory(App\TalkRevision::class)->create()->id;
         },
         'conference_id' => function () {
-            return factory(App\TalkRevision::class)->create()->id;
+            return factory(App\Conference::class)->create()->id;
         },
     ];
 });

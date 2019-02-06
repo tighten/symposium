@@ -72,7 +72,7 @@ export default {
         };
     },
     computed: {
-        talksSubmitted: function(){ return this.talks.filter(({ submitted }) => submitted) },
+        talksSubmitted: function(){ return this.talks.filter(({ submitted, accepted }) => submitted && !accepted) },
         talksAccepted: function(){ return this.talks.filter(({ accepted }) => accepted ) },
         talksNotSubmitted: function(){ return this.talks.filter(({ accepted, submitted }) => !accepted && !submitted) },
     },
@@ -84,7 +84,7 @@ export default {
                 talkId: talk.id,
             };
 
-            switch(status){
+            switch (status) {
                 case SUBMITTED:
                     axios.post('/submissions', data)
                         .then(response => {

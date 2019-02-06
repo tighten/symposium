@@ -5,7 +5,6 @@ use App\Submission;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
-use Illuminate\Support\Facades\Session;
 
 class SubmissionTest extends IntegrationTestCase
 {
@@ -23,7 +22,6 @@ class SubmissionTest extends IntegrationTestCase
         $this->post('submissions', [
             'conferenceId' => $conference->id,
             'talkId' => $talk->id,
-            '_token' => Session::token(),
         ]);
 
         $this->assertTrue($conference->submissions->count() === 1);
@@ -45,9 +43,7 @@ class SubmissionTest extends IntegrationTestCase
             'conference_id' => $conference->id,
         ]);
 
-        $this->delete('submissions/'.$submission->id, [
-            '_token' => Session::token(),
-        ]);
+        $this->delete('submissions/'.$submission->id);
 
         $this->assertTrue($conference->submissions->isEmpty());
     }
@@ -71,13 +67,9 @@ class SubmissionTest extends IntegrationTestCase
         $this->post('submissions', [
             'conferenceId' => $conference->id,
             'talkId' => $talk->id,
-            '_token' => Session::token(),
         ]);
 
-        $revision = $revision->fresh();
-
         $this->assertEquals(0, $conference->submissions->count());
-        $this->assertFalse($conference->submissions->contains($revision));
     }
 
     /** @test */
@@ -93,21 +85,18 @@ class SubmissionTest extends IntegrationTestCase
         $talk = factory(Talk::class)->create([
             'author_id' => $otherUser->id,
         ]);
-        $revision = factory(TalkRevision::class)->create();
-        $talk->revisions()->save($revision);
+        $revision = factory(TalkRevision::class)->create([
+            'talk_id' => $talk->id,
+        ]);
 
         $submission = factory(Submission::class)->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id
         ]);
 
-        $this->delete('submissions/'.$submission->id, [
-            '_token' => Session::token(),
-        ]);
+        $this->delete('submissions/'.$submission->id);
 
-        $revision = $revision->fresh();
-
-        $this->assertEquals(0, $conference->submissions->count());
-        $this->assertFalse($conference->submissions->contains($revision));
+        $this->assertEquals(1, $conference->submissions->count());
+        $this->assertTrue($conference->submissions->contains($submission));
     }
 }

@@ -11,12 +11,8 @@ class AcceptancesController extends Controller
     public function store(Request $request)
     {
         $submission = Submission::findOrFail($request->input('submissionId'));
-        $userHasAccess = auth()->user()->talks->filter(function ($talk) use ($submission) {
-            return $talk->talkRevision === $submission->talkRevision;
-        }) !== false;
-
-        if (!$userHasAccess) {
-            throw new Exception("Not Authorized");
+        if (auth()->user()->id != $submission->talkRevision->talk->author_id) {
+            return response('', 401);
         }
 
         $acceptance = Acceptance::createFromSubmission($submission);
@@ -31,12 +27,8 @@ class AcceptancesController extends Controller
     public function destroy($id)
     {
         $acceptance = Acceptance::findOrFail($id);
-        $userHasAccess = auth()->user()->talks->filter(function ($talk) use ($acceptance) {
-            return $talk->talkRevision === $acceptance->talkRevision;
-        }) !== false;
-
-        if (!$userHasAccess) {
-            throw new Exception("Not Authorized");
+        if (auth()->user()->id != $acceptance->submission->talkRevision->talk->author_id) {
+            return response('', 401);
         }
 
         $acceptance->submission->removeAcceptance();
