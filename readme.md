@@ -1,5 +1,5 @@
 # Symposium
-[![Codeship Status for tightenco/symposium](https://codeship.com/projects/5dfd2740-dc61-0132-1e9f-025863fcc952/status?branch=master)](https://codeship.com/projects/79937)
+[![Codeship Status for tightenco/symposium](https://app.codeship.com/projects/abb147a0-0e05-0137-f7f7-062378f4838a/status?branch=master)](https://app.codeship.com/projects/326836)
 
 A web app for conference speakers to track talks, bios, and conferences. Free, available online at [Symposiumapp.com](http://symposiumapp.com/).
 
