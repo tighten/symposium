@@ -3,3 +3,5 @@
 .env
 .sass-cache/
 /storage/*.key
+/public/css
+/public/js
