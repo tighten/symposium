@@ -27,9 +27,8 @@ class SubmissionsController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Submission $submission)
     {
-        $submission = Submission::findOrFail($id);
         if (auth()->user()->id != $submission->talkRevision->talk->author_id) {
             return response('', 401);
         }

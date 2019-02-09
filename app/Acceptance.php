@@ -17,6 +17,14 @@ class Acceptance extends UuidBase
         'conference_id',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function (Acceptance $acceptance) {
+            $acceptance->submission->removeAcceptance();
+        });
+    }
+
     public static function createFromSubmission(Submission $submission)
     {
         $acceptance =  Acceptance::create([

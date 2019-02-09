@@ -24,16 +24,14 @@ class AcceptancesController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Acceptance $acceptance)
     {
-        $acceptance = Acceptance::findOrFail($id);
         if (auth()->user()->id != $acceptance->submission->talkRevision->talk->author_id) {
             return response('', 401);
         }
 
-        $acceptance->submission->removeAcceptance();
         $acceptance->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'Talk Moved back to Submitted Status']);
+        return response()->json(['status' => 'success', 'message' => 'Talk un-marked as accepted.']);
     }
 }
