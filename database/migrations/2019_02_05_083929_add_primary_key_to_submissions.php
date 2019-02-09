@@ -16,13 +16,16 @@ class AddPrimaryKeyToSubmissions extends Migration
     public function up()
     {
         Schema::table('submissions', function (Blueprint $table) {
-            $table->uuid('id')->default(0);;
-            $table->primary('id');
+            $table->uuid('id');
         });
 
         Submission::all()->map(function ($submission){
             $submission->id = Uuid::uuid4();
             $submission->save();
+        });
+
+        Schema::table('submissions', function (Blueprint $table){
+            $table->primary('id');
         });
     }
 
