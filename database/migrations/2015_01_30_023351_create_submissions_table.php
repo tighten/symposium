@@ -13,6 +13,9 @@ class CreateSubmissionsTable extends Migration
     public function up()
     {
         Schema::create('submissions', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->primary('id');
+
             $table->string('status');
 
             $table->string('talk_version_revision_id', 36);
