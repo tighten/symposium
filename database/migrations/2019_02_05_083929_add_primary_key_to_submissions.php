@@ -16,16 +16,10 @@ class AddPrimaryKeyToSubmissions extends Migration
     public function up()
     {
         Schema::table('submissions', function (Blueprint $table) {
+            /** Adding to original migration after it runs on prod because SQLite
             $table->uuid('id');
-        });
-
-        Submission::all()->map(function ($submission){
-            $submission->id = Uuid::uuid4();
-            $submission->save();
-        });
-
-        Schema::table('submissions', function (Blueprint $table){
             $table->primary('id');
+            **/
         });
     }
 
@@ -37,8 +31,10 @@ class AddPrimaryKeyToSubmissions extends Migration
     public function down()
     {
         Schema::table('submissions', function (Blueprint $table) {
+            /*
             $table->dropPrimary();
             $table->dropColumn('id');
+            */
         });
     }
 }
