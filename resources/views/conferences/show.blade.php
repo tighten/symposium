@@ -29,7 +29,7 @@
 
                 <p><b>Description:</b><br>
                     <!-- TODO: Figure out how we will be handling HTML/etc. -->
-                    {{ str_replace("\n", "<br>", $conference->description) }}</p>
+                    {!! str_replace("\n", "<br>", $conference->description) !!}</p>
 
                 @if ($conference->joindin_id)
                     <p><b>JoindIn ID:</b>
