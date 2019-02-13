@@ -140,4 +140,15 @@ class JoindInConferenceImporterTest extends TestCase
 
         $this->assertNull($conference->cfp_ends_at);
     }
+
+    /** @test */
+    function imported_conferences_are_approved()
+    {
+        $this->mockClient();
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($this->eventStub['id']);
+
+        $this->assertTrue(Conference::first()->is_approved);
+    }
 }

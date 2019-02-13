@@ -48,6 +48,17 @@
                     <span class="help-block">Please use a high resolution image, as it will be provided to conference organizers.</span>
                     {!! Form::file('profile_picture', null, ['class' => 'form-control']) !!}
                 </div>
+
+                <div class="form-group">
+                    {!! Form::label('enable_profile', 'Enable email notifications?', ['class' => 'control-label']) !!}<br>
+                    <span class="help-block">Do you want to receive email notifications for open CFPs?</span>
+                    <label class="radio-inline">
+                        {!! Form::radio('wants_notifications', true, ['id' => 'wants_notifications_true']) !!} Yes
+                    </label>
+                    <label class="radio-inline">
+                        {!! Form::radio('wants_notifications', false, ['id' => 'wants_notifications_false']) !!} No
+                    </label>
+                </div>
             </div>
             <div class="col-md-5 col-md-push-1">
                 <h3>Public Profile</h3>
