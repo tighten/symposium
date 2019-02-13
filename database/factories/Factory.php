@@ -72,6 +72,9 @@ $factory->define(App\TalkRevision::class, function () {
         'slides' => 'http://speakerdeck.com/mattstauffer/the-best-talk-ever',
         'description' => 'The best talk ever!',
         'organizer_notes' => 'No really.',
+        'talk_id' => function () {
+            return factory(App\Talk::class)->create()->id;
+        },
     ];
 });
 
@@ -82,5 +85,27 @@ $factory->define(App\Bio::class, function (Faker $faker) {
         },
         'nickname' => 'short',
         'body' => $faker->sentence(),
+    ];
+});
+
+$factory->define(App\Submission::class, function () {
+    return [
+        'talk_revision_id' => function () {
+            return factory(App\TalkRevision::class)->create()->id;
+        },
+        'conference_id' => function () {
+            return factory(App\Conference::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Acceptance::class, function () {
+    return [
+        'talk_revision_id' => function () {
+            return factory(App\TalkRevision::class)->create()->id;
+        },
+        'conference_id' => function () {
+            return factory(App\Conference::class)->create()->id;
+        },
     ];
 });

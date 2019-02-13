@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubmissionsTable extends Migration
+class CreateAcceptancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +13,14 @@ class CreateSubmissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('submissions', function (Blueprint $table) {
+        Schema::create('acceptances', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
 
-            $table->string('status');
-
-            $table->string('talk_version_revision_id', 36);
-            $table->foreign('talk_version_revision_id')
+            $table->string('talk_revision_id', 36);
+            $table->foreign('talk_revision_id')
                 ->references('id')
-                ->on('talk_version_revisions')
+                ->on('talk_revisions')
                 ->onDelete('cascade');
 
             $table->string('conference_id', 36);
@@ -29,6 +28,8 @@ class CreateSubmissionsTable extends Migration
                 ->references('id')
                 ->on('conferences')
                 ->onDelete('cascade');
+
+            $table->unique(['talk_revision_id', 'conference_id'], 'acceptances_talk_revision_conference_unique');
 
             $table->timestamps();
         });
@@ -41,6 +42,6 @@ class CreateSubmissionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('submissions');
+        Schema::dropIfExists('acceptances');
     }
 }

@@ -26,7 +26,12 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
         });
 
-        require app_path() . '/modelEvents.php';
+        // @todo: Sort of gross, probably can figure out
+        // a better solution.
+        if ($this->app->environment() !== 'testing') {
+            Event::subscribe(SlackSubscriber::class);
+        }
+
         require app_path() . '/macros.php';
 
         Validator::extend('emailblacklist', function ($attribute, $value, $parameters, $validator) {

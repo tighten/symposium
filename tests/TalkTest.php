@@ -60,7 +60,7 @@ class TalkTest extends IntegrationTestCase
     function user_can_create_a_talk()
     {
         $user = factory(App\User::class)->create();
-        
+
         $this->actingAs($user)
             ->visit('/talks/create')
             ->type('Your Best Talk Now', '#title')
@@ -94,7 +94,7 @@ class TalkTest extends IntegrationTestCase
     {
         $user = factory(App\User::class)->create();
         $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(App\TalkRevision::class)->create(['title' => 'zyxwv']);
+        $revision = factory(App\TalkRevision::class)->create(['title' => 'zyxwv', 'talk_id' => $talk->id]);
         $talk->revisions()->save($revision);
 
         $this->be($user);

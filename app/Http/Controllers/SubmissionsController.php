@@ -2,32 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Conference;
+use App\Submission;
+use App\Talk;
 use Illuminate\Http\Request;
-use App\Commands\CreateSubmission;
-use App\Commands\DestroySubmission;
 
 class SubmissionsController extends Controller
 {
     public function store(Request $request)
     {
-        $talk = auth()->user()->talks()->findOrFail($request->input('talkId'));
+        $talk = Talk::findOrFail($request->input('talkId'));
+        if (auth()->user()->id != $talk->author_id) {
+            return response('', 401);
+        }
 
-        $this->dispatch(new CreateSubmission(
-            $request->input('conferenceId'),
-            $talk->id
-        ));
+        $conference = Conference::findOrFail($request->input('conferenceId'));
+        $talkRevision = $talk->current();
+        $submission = $conference->submissions()->create(['talk_revision_id' => $talkRevision->id]);
 
-        return response()->json(['status' => 'success', 'message' => 'Talk Submitted']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Talk Submitted',
+            'submissionId' => $submission->id,
+        ]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(Submission $submission)
     {
-        $talk = auth()->user()->talks()->findOrFail($request->input('talkId'));
-
-        $this->dispatch(new DestroySubmission(
-            $request->input('conferenceId'),
-            $talk->id
-        ));
+        if (auth()->user()->id != $submission->talkRevision->talk->author_id) {
+            return response('', 401);
+        }
+        $submission->delete();
 
         return response()->json(['status' => 'success', 'message' => 'Talk Un-Submitted']);
     }

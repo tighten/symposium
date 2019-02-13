@@ -59,8 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('account/delete', 'AccountController@destroy');
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
+    Route::post('acceptances', 'AcceptancesController@store');
+    Route::delete('acceptances/{acceptance}', 'AcceptancesController@destroy');
+
     Route::post('submissions', 'SubmissionsController@store');
-    Route::delete('submissions', 'SubmissionsController@destroy');
+    Route::delete('submissions/{submission}', 'SubmissionsController@destroy');
 
     // Joind.in (@todo separate controller)
     Route::get('conferences/joindin/import/{eventId}', 'ConferencesController@joindinImport');
@@ -69,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('conferences/{id}/favorite', 'ConferencesController@favorite');
     Route::get('conferences/{id}/unfavorite', 'ConferencesController@unfavorite');
+
+    Route::get('calendar', ['as' => 'calendar.index', 'uses' => 'CalendarController@index']);
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);

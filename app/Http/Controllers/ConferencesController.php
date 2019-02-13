@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Conference;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
+use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -111,14 +112,13 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        $talksAtConference = $conference->myTalks()->map(function ($talkRevision) {
-            return $talkRevision->talk->id;
+        $talks = auth()->user()->talks->map(function ($talk) use ($conference) {
+            return (TalkTransformer::transform($talk, $conference));
         });
 
         return view('conferences.show')
             ->with('conference', $conference)
-            ->with('talksAtConference', $talksAtConference)
-            ->with('talks', auth()->user()->talks);
+            ->with('talks', $talks);
     }
 
     private function showPublic($id)
