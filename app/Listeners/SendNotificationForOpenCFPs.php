@@ -2,9 +2,10 @@
 
 namespace App\Listeners;
 
-use App\User;
-use App\Notifications\CFPIsOpen;
 use App\Events\ConferenceCreated;
+use App\Notifications\CFPIsOpen;
+use App\User;
+use Illuminate\Support\Facades\Notification;
 
 class SendNotificationForOpenCFPs
 {
@@ -23,7 +24,7 @@ class SendNotificationForOpenCFPs
             && !$conference->is_shared) {
             $conference->update(['is_shared' => true]);
 
-            User::wantsNotifications()->get()->each->notify(new CFPIsOpen($conference));
+            Notification::send(User::wantsNotifications()->get(), new CFPIsOpen($conference));
         }
     }
 }
