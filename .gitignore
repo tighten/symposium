@@ -3,3 +3,9 @@
 .env
 .sass-cache/
 /storage/*.key
+/public/css/app.css
+/public/css/app.css.map
+/public/js/app.js
+/public/js/app.js.map
+/public/js/location.js
+/public/js/location.js.map

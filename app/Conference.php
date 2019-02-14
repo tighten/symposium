@@ -24,6 +24,8 @@ class Conference extends UuidBase
         'ends_at',
         'cfp_starts_at',
         'cfp_ends_at',
+        'is_approved',
+        'is_shared',
     ];
 
     protected $dates = [
@@ -33,6 +35,17 @@ class Conference extends UuidBase
         'cfp_ends_at'
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_approved' => 'boolean',
+        'is_shared' => 'boolean',
+        'author_id' => 'integer',
+    ];
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
@@ -40,13 +53,13 @@ class Conference extends UuidBase
 
     public function submissions()
     {
-        return $this->belongsToMany(TalkRevision::class, 'submissions')->withTimestamps();
+        return $this->hasMany(Submission::class);
     }
 
-//    public function submitters()
-//    {
-//        return $this->hasManyThrough(Talk::class', 'User');
-//    }
+    public function acceptances()
+    {
+        return $this->hasMany(Acceptance::class);
+    }
 
     // @todo: Deprecate?
     public static function closingSoonest()
@@ -109,6 +122,16 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '>', Carbon::now());
     }
 
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
+
+    public function scopeNotShared($query)
+    {
+        return $query->where('is_shared', false);
+    }
+
     /**
      * Whether CFP is currently open
      *
@@ -127,7 +150,7 @@ class Conference extends UuidBase
      */
     public function isCurrentlyAcceptingProposals()
     {
-        if (! $this->hasAnnouncedCallForProposals()) {
+        if (!$this->hasAnnouncedCallForProposals()) {
             return false;
         }
 
@@ -141,7 +164,7 @@ class Conference extends UuidBase
      */
     private function hasAnnouncedCallForProposals()
     {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
+        return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
     }
 
     public function getLinkAttribute()
@@ -167,18 +190,32 @@ class Conference extends UuidBase
      *
      * @return Collection
      */
-    public function myTalks()
+    public function mySubmissions()
     {
         $talks = Auth::user()->talks;
 
-        return $this->submissions->filter(function ($talkRevision) use ($talks) {
-            return $talks->contains($talkRevision->talk);
+        return $this->submissions->filter(function ($submission) use ($talks) {
+            return $talks->contains($submission->talkRevision->talk);
+        });
+    }
+
+    /**
+     * Return all talks from this user that were accepted to this conference
+     *
+     * @return Collection
+     */
+    public function myAcceptedTalks()
+    {
+        $talks = Auth::user()->talks;
+
+        return $this->acceptances->filter(function ($acceptance) use ($talks) {
+            return $talks->contains($acceptance->talk);
         });
     }
 
     public function appliedTo()
     {
-        return $this->myTalks()->count() > 0;
+        return $this->mySubmissions()->count() > 0;
     }
 
     public function startsAtDisplay()

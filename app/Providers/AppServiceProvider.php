@@ -32,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
             Event::subscribe(SlackSubscriber::class);
         }
 
-        require app_path() . '/modelEvents.php';
         require app_path() . '/macros.php';
 
         Validator::extend('emailblacklist', function ($attribute, $value, $parameters, $validator) {

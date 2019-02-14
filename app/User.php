@@ -21,6 +21,11 @@ class User extends Authenticatable
 
     protected $fillable = ['email', 'password', 'name'];
 
+    public function scopeWantsNotifications($query)
+    {
+        return $query->where('wants_notifications', true);
+    }
+
     public function isAdmin()
     {
         return $this->role == self::ADMIN_ROLE;

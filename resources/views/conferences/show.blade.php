@@ -2,26 +2,23 @@
 
 @section('content')
     <script>
-        Symposium.talks = {!! json_encode($talks->map(function ($talk) use ($talksAtConference) {
-            return [
-                'id' => $talk->id,
-                'title' => $talk->current()->title,
-                'url' => $talk->current()->getUrl(),
-                'atThisConference' => $talksAtConference->search($talk->id) !== false,
-            ];
-        })) !!};
+        Symposium.talks = {!! json_encode($talks) !!};
     </script>
     <div class="container body">
         <div class="row">
             <div class="col-md-12">
-                <h1>{{ $conference->title }}</h1>
+                <h1>{{ $conference->title }}
+                    @if (! $conference->is_approved)
+                    <span style="color: red;">[NOT APPROVED]</span>
+                    @endif
+                </h1>
 
-                @if ($conference->author_id == Auth::user()->id)
-                    <p class="pull-right">
+                <p class="pull-right action-buttons">
+                @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
                         <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                         <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    </p>
                 @endif
+                </p>
 
                 <p><b>Date created:</b>
                     {{ $conference->created_at->toFormattedDateString() }}</p>
@@ -36,7 +33,7 @@
 
                 <p><b>Description:</b><br>
                     <!-- TODO: Figure out how we will be handling HTML/etc. -->
-                    {{ str_replace("\n", "<br>", $conference->description) }}</p>
+                    {!! str_replace("\n", "<br>", $conference->description) !!}</p>
 
                 @if ($conference->joindin_id)
                     <p><b>JoindIn ID:</b>

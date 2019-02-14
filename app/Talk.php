@@ -17,15 +17,27 @@ class Talk extends UuidBase
 
     public static $rules = [];
 
+    /**
+     * Boot function from laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Talk $talk) {
+            $talk->revisions()->delete();
+        });
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-//    public function submissions()
-//    {
-//        return $this->belongsToMany(Conference::class);
-//    }
+    public function submissions()
+    {
+        return $this->hasManyThrough(Submission::class, TalkRevision::class);
+    }
 
     public function current()
     {
@@ -72,5 +84,19 @@ class Talk extends UuidBase
     public function scopeActive($query)
     {
         return $query->where('is_archived', false);
+    }
+
+    public function getMySubmissionForConference(Conference $conference)
+    {
+        return $conference->mySubmissions()->filter(function ($item) {
+            return $item->talkRevision->talk->id === $this->id;
+        })->first();
+    }
+
+    public function getMyAcceptanceForConference(Conference $conference)
+    {
+        return $conference->myAcceptedTalks()->filter(function ($item) {
+            return $item->talkRevision->talk->id === $this->id;
+        })->first();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\JoindIn;
 
 use App\Conference;
+use App\Events\ConferenceCreated;
 use Carbon\Carbon;
 use DateTime;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -25,6 +26,7 @@ class ConferenceImporter
         $conference = Conference::firstOrNew(['joindin_id' => $eventId]);
         $this->updateConferenceFromJoindInEvent($conference, $event);
         $conference->save();
+        event(new ConferenceCreated($conference));
     }
 
     private function getJoindInEvent($eventId)
@@ -52,6 +54,7 @@ class ConferenceImporter
         $conference->cfp_starts_at = $this->carbonFromIso($event['cfp_start_date']);
         $conference->cfp_ends_at = $this->carbonFromIso($event['cfp_end_date']);
         $conference->author_id = $this->authorId;
+        $conference->is_approved = true;
     }
 
     private function carbonFromIso($dateFromApi)

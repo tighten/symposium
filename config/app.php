@@ -174,6 +174,7 @@ return [
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
@@ -229,7 +230,8 @@ return [
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
+        'Firewall'  => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
+        'Calendar'  => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 

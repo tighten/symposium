@@ -17,7 +17,7 @@ class ConferenceTest extends IntegrationTestCase
             ->type('http://dasconf.org', '#url')
             ->press('Create');
 
-        $this->seeInDatabase('conferences',[
+        $this->seeInDatabase('conferences', [
             'title' => 'Das Conf',
             'description' => 'A very good conference about things',
         ]);
@@ -34,6 +34,7 @@ class ConferenceTest extends IntegrationTestCase
             'author_id' => $user->id,
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
+            'is_approved' => true,
         ]);
 
         $this->actingAs($user)
@@ -42,16 +43,17 @@ class ConferenceTest extends IntegrationTestCase
             ->type('A conference about Laravel', '#description')
             ->press('Update');
 
-        $this->seeInDatabase('conferences',[
+        $this->seeInDatabase('conferences', [
             'title' => 'Laracon',
             'description' => 'A conference about Laravel',
         ]);
 
-        $this->missingFromDatabase('conferences',[
+        $this->missingFromDatabase('conferences', [
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
         ]);
     }
+
     /** @test */
     function conferences_accept_proposals_during_the_call_for_papers()
     {
@@ -111,8 +113,9 @@ class ConferenceTest extends IntegrationTestCase
     {
         $user = factory(App\User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
-        $user->conferences()->save($conference);
+        $conference = factory(App\Conference::class)->create(['is_approved' => true]);
+        $user->conferences()
+            ->save($conference);
 
         $this->visit('conferences/' . $conference->id)
             ->see($conference->title);
@@ -123,8 +126,9 @@ class ConferenceTest extends IntegrationTestCase
     {
         $user = factory(App\User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
-        $user->conferences()->save($conference);
+        $conference = factory(App\Conference::class)->create(['is_approved' => true]);
+        $user->conferences()
+            ->save($conference);
 
         $this->visit('conferences?filter=all')
             ->seePageIs('conferences?filter=all')
@@ -139,6 +143,23 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
+    function it_can_pull_only_approved_conferences()
+    {
+        factory(App\Conference::class)->create();
+        factory(App\Conference::class)->create(['is_approved' => true]);
+
+        $this->assertEquals(1, Conference::approved()->count());
+    }
+
+    /** @test */
+    function it_can_pull_only_not_shared_conferences()
+    {
+        factory(App\Conference::class)->create();
+        factory(App\Conference::class)->create(['is_shared' => true]);
+
+        $this->assertEquals(1, Conference::notShared()->count());
+    }
+
     function cfp_closing_next_list_has_a_default_sort()
     {
         $conferenceA = factory(App\Conference::class)->create([
@@ -201,7 +222,7 @@ class ConferenceTest extends IntegrationTestCase
         $this->assertConferenceSort(1, $conferenceA);
     }
 
-    protected function assertConferenceSort($sort, $conference)
+    private function assertConferenceSort($sort, $conference)
     {
         $sortedConference = $this->response->original->getData()['conferences']->values()[$sort];
 

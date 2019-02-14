@@ -13,6 +13,18 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(App\User::class, 'wantsNotifications', function () {
+    return [
+        'wants_notifications' => true
+    ];
+});
+
+$factory->state(App\User::class, 'admin', function () {
+    return [
+        'role' => App\User::ADMIN_ROLE,
+    ];
+});
+
 $factory->define(App\Conference::class, function (Faker $faker) {
     return [
         'author_id' => function () {
@@ -25,10 +37,25 @@ $factory->define(App\Conference::class, function (Faker $faker) {
         'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
         'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-1 day'),
         'cfp_ends_at' => $faker->dateTimeBetween('+1 days', '+2 days'),
+        'is_approved' => false,
     ];
 });
 
-$factory->define(App\Talk::class, function (Faker $faker) {
+$factory->state(App\Conference::class, 'closedCFP', function (Faker $faker) {
+    return [
+        'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-4 day'),
+        'cfp_ends_at' => $faker->dateTimeBetween('-3 days', '-1 days'),
+    ];
+});
+
+$factory->state(App\Conference::class, 'noCFPDates', function () {
+    return [
+        'cfp_starts_at' => null,
+        'cfp_ends_at' => null,
+    ];
+});
+
+$factory->define(App\Talk::class, function () {
     return [
         'author_id' => function () {
             return factory(App\User::class)->create()->id;
@@ -36,7 +63,7 @@ $factory->define(App\Talk::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\TalkRevision::class, function (Faker $faker) {
+$factory->define(App\TalkRevision::class, function () {
     return [
         'title' => 'My Awesome Title',
         'type' => 'lightning',
@@ -45,6 +72,9 @@ $factory->define(App\TalkRevision::class, function (Faker $faker) {
         'slides' => 'http://speakerdeck.com/mattstauffer/the-best-talk-ever',
         'description' => 'The best talk ever!',
         'organizer_notes' => 'No really.',
+        'talk_id' => function () {
+            return factory(App\Talk::class)->create()->id;
+        },
     ];
 });
 
@@ -55,5 +85,27 @@ $factory->define(App\Bio::class, function (Faker $faker) {
         },
         'nickname' => 'short',
         'body' => $faker->sentence(),
+    ];
+});
+
+$factory->define(App\Submission::class, function () {
+    return [
+        'talk_revision_id' => function () {
+            return factory(App\TalkRevision::class)->create()->id;
+        },
+        'conference_id' => function () {
+            return factory(App\Conference::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Acceptance::class, function () {
+    return [
+        'talk_revision_id' => function () {
+            return factory(App\TalkRevision::class)->create()->id;
+        },
+        'conference_id' => function () {
+            return factory(App\Conference::class)->create()->id;
+        },
     ];
 });
