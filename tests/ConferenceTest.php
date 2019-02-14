@@ -160,17 +160,18 @@ class ConferenceTest extends IntegrationTestCase
         $this->assertEquals(1, Conference::notShared()->count());
     }
 
+    /** @test */
     function cfp_closing_next_list_has_a_default_sort()
     {
-        $conferenceA = factory(App\Conference::class)->create([
+        $conferenceA = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
-        $conferenceB = factory(App\Conference::class)->create([
+        $conferenceB = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
         ]);
-        $conferenceC = factory(App\Conference::class)->create([
+        $conferenceC = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
@@ -185,12 +186,12 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function cfp_closing_next_list_sorts_past_cfp_by_conference_date()
     {
-        $conferenceA = factory(App\Conference::class)->create([
+        $conferenceA = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
             'starts_at' => Carbon::now()->addDays(2)
         ]);
-        $conferenceB = factory(App\Conference::class)->create([
+        $conferenceB = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
             'starts_at' => Carbon::now()->addDay()
@@ -205,12 +206,12 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function cfp_closing_next_list_sorts_null_cfp_by_conference_date()
     {
-        $conferenceA = factory(App\Conference::class)->create([
+        $conferenceA = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
             'starts_at' => Carbon::now()->addDays(2)
         ]);
-        $conferenceB = factory(App\Conference::class)->create([
+        $conferenceB = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
             'starts_at' => Carbon::now()->addDay()
