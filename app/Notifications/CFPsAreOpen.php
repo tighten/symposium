@@ -2,28 +2,28 @@
 
 namespace App\Notifications;
 
-use App\Conference;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Collection;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CFPIsOpen extends Notification
+class CFPsAreOpen extends Notification
 {
     use Queueable;
 
     /**
      * @var Conference
      */
-    public $conference;
+    public $conferences;
 
     /**
      * Create a new notification instance.
      *
      * @param Conference $conference
      */
-    public function __construct(Conference $conference)
+    public function __construct(Collection $conferences)
     {
-        $this->conference = $conference;
+        $this->conferences = $conferences;
     }
 
     /**
@@ -46,8 +46,9 @@ class CFPIsOpen extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('New Open CFP')
-            ->line('The CFP for '.$this->conference->title.' is now open.')
-            ->action('Visit CFP', $this->conference->cfp_url);
+            ->subject('New Open CFPs')
+            ->markdown('emails.open-cfps', [
+                'conferences' => $this->conferences
+            ]);
     }
 }
