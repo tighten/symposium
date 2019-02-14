@@ -62,7 +62,18 @@ class ConferencesController extends BaseController
             default:
                 // Forces closed CFPs to the end.
                 $conferences = $conferences->sortBy(function (Conference $model) {
-                    return isset($model->cfp_ends_at) ? $model->cfp_ends_at : Carbon::now()->addCentury();
+                    // cfp with no end sorts in the middle
+                    if (!isset($model->cfp_ends_at)) {
+                        return $model->starts_at->addCentury();
+                    }
+
+                    // cfp ending in the past sorts at the bottom
+                    if ($model->cfp_ends_at->isPast()) {
+                        return $model->starts_at->addCenturies(2);
+                    }
+
+                    // cfp ending in the future sort at the top
+                    return $model->cfp_ends_at;
                 });
                 break;
         }

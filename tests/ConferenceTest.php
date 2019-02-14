@@ -137,4 +137,74 @@ class ConferenceTest extends IntegrationTestCase
         $this->visit('conferences/create')
             ->seePageIs('login');
     }
+
+    /** @test */
+    function cfp_closing_next_list_has_a_default_sort()
+    {
+        $conferenceA = factory(App\Conference::class)->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+        ]);
+        $conferenceB = factory(App\Conference::class)->create([
+            'cfp_starts_at' => Carbon::yesterday()->subDay(),
+            'cfp_ends_at' => Carbon::yesterday(),
+        ]);
+        $conferenceC = factory(App\Conference::class)->create([
+            'cfp_starts_at' => Carbon::yesterday(),
+            'cfp_ends_at' => Carbon::tomorrow(),
+        ]);
+
+        $this->get('conferences');
+
+        $this->assertConferenceSort(0, $conferenceC);
+        $this->assertConferenceSort(1, $conferenceA);
+        $this->assertConferenceSort(2, $conferenceB);
+    }
+
+    /** @test */
+    function cfp_closing_next_list_sorts_past_cfp_by_conference_date()
+    {
+        $conferenceA = factory(App\Conference::class)->create([
+            'cfp_starts_at' => Carbon::yesterday()->subDay(),
+            'cfp_ends_at' => Carbon::yesterday(),
+            'starts_at' => Carbon::now()->addDays(2)
+        ]);
+        $conferenceB = factory(App\Conference::class)->create([
+            'cfp_starts_at' => Carbon::yesterday()->subDay(),
+            'cfp_ends_at' => Carbon::yesterday(),
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+
+        $this->get('conferences');
+
+        $this->assertConferenceSort(0, $conferenceB);
+        $this->assertConferenceSort(1, $conferenceA);
+    }
+
+    /** @test */
+    function cfp_closing_next_list_sorts_null_cfp_by_conference_date()
+    {
+        $conferenceA = factory(App\Conference::class)->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+            'starts_at' => Carbon::now()->addDays(2)
+        ]);
+        $conferenceB = factory(App\Conference::class)->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+
+        $this->get('conferences');
+
+        $this->assertConferenceSort(0, $conferenceB);
+        $this->assertConferenceSort(1, $conferenceA);
+    }
+
+    protected function assertConferenceSort($sort, $conference)
+    {
+        $sortedConference = $this->response->original->getData()['conferences']->values()[$sort];
+
+        $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sort}, but {$sortedConference->id } was in position {$sort}.");
+    }
 }
