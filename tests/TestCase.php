@@ -12,12 +12,6 @@ abstract class TestCase extends BaseTestCase
      */
     public $baseUrl = 'http://localhost';
 
-    public function setUp()
-    {
-        parent::setUp();
-        Config::set(['scout.driver' => null]);
-    }
-
     /**
      * Creates the application.
      *
