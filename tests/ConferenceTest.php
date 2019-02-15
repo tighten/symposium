@@ -163,9 +163,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function guests_cannot_dismiss_conference()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::build('conference');
+        $conference = factory(App\Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->visit("conferences/{$conference->id}/dismiss")
@@ -175,9 +175,11 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function dismissed_conferences_do_not_show_up_in_conference_list()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::build('conference');
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -197,9 +199,11 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function filtering_by_dismissed_shows_dismissed_conferences()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::build('conference');
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -214,9 +218,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function filtering_by_dismissed_does_not_show_undismissed_conferences()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $conference = Factory::build('conference');
+        $conference = factory(App\Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
