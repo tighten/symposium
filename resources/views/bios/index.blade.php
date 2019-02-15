@@ -9,13 +9,7 @@
                 <h2 class="page-title">All Bios</h2>
 
                 <ul class="list-bios">
-                    @forelse ($bios as $bio)
-                        <li>
-                            @include ('partials.bio-in-list', ['bio' => $bio])
-                        </li>
-                    @empty
-                        <li>No bios yet.</li>
-                    @endforelse
+                  @each('partials.bio-in-list', $bios, 'bio', 'partials.bio-in-list-empty')
                 </ul>
             </div>
         </div>

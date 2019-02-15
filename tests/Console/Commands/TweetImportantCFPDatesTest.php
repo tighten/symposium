@@ -1,10 +1,9 @@
 <?php
 
-use Carbon\Carbon;
-use Laracasts\TestDummy\Factory;
 use Mockery as m;
-use App\Console\Commands\TweetImportantCFPDates;
+use Carbon\Carbon;
 use Thujohn\Twitter\Twitter;
+use App\Console\Commands\TweetImportantCFPDates;
 
 class TweetImportantCFPDatesTest extends IntegrationTestCase
 {
@@ -19,7 +18,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     public function cfps_opening_today_should_be_tweeted()
     {
         // starts today, ends next week
-        Factory::create('conference', [
+        factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::now(),
             'cfp_ends_at' => Carbon::now()->addWeek()
         ]);
@@ -33,7 +32,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     public function cfps_closing_tomorrow_should_be_tweeted()
     {
         // started last week, ends tomorrow
-        Factory::create('conference', [
+        factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::now()->subWeek(),
             'cfp_ends_at' => Carbon::now()->addDay()
         ]);
@@ -47,7 +46,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     public function cfps_not_opening_today_nor_closing_tomorrow_should_not_be_tweeted()
     {
         // started last week, ends next week
-        Factory::create('conference', [
+        factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::now()->subWeek(),
             'cfp_ends_at' => Carbon::now()->addWeek(),
         ]);
@@ -60,7 +59,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     /** @test */
     public function cfps_that_open_and_close_same_day_should_not_be_tweeted()
     {
-        Factory::create('conference', [
+        factory(App\Conference::class)->create([
             'cfp_starts_at' => Carbon::now(),
             'cfp_ends_at' => Carbon::now(),
         ]);

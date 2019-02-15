@@ -1,10 +1,10 @@
 <div class="form-group">
-    {{ Form::label('title', '*Talk Title', ['class' => 'control-label']) }}
-    {{ Form::text('title', $current->title, ['class' => 'form-control']) }}
+    {!! Form::label('title', '*Talk Title', ['class' => 'control-label']) !!}
+    {!! Form::text('title', $current->title, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    {{ Form::label('type', '*Type of Talk', ['class' => 'control-label']) }}
+    {!! Form::label('type', '*Type of Talk', ['class' => 'control-label']) !!}
     <div>
         <label class="radio-inline">
             <input type="radio" name="type" value="seminar" {{ $current->type == 'seminar' ? 'checked' : ''}}>
@@ -26,7 +26,7 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('level', '*Difficulty Level', ['class' => 'control-label']) }}
+    {!! Form::label('level', '*Difficulty Level', ['class' => 'control-label']) !!}
     <div>
         <label class="radio-inline">
             <input type="radio" name="level" value="beginner" {{ $current->level == 'beginner' ? 'checked' : ''}}>
@@ -44,15 +44,15 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('length', '*Length', ['class' => 'control-label']) }}
+    {!! Form::label('length', '*Length', ['class' => 'control-label']) !!}
     <div class="input-group">
-        {{ Form::text('length', $current->length, ['class' => 'form-control']) }}
+        {!! Form::text('length', $current->length, ['class' => 'form-control']) !!}
         <div class="input-group-addon">mins</div>
     </div>
 </div>
 
 <div class="form-group">
-    {{ Form::label('public', '*Show on public speaker profile?', ['class' => 'control-label']) }}
+    {!! Form::label('public', '*Show on public speaker profile?', ['class' => 'control-label']) !!}
     <div class="input-group">
         <label class="radio-inline">
             <input type="radio" name="public" value="yes" {{ $talk->public ? 'checked' : ''}}>
@@ -66,16 +66,16 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('description', 'Description', ['class' => 'control-label']) }}
-    {{ Form::textarea('description', $current->description, ['class' => 'form-control']) }}
+    {!! Form::label('description', 'Description', ['class' => 'control-label']) !!}
+    {!! Form::textarea('description', $current->description, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    {{ Form::label('slides', 'Slides URL', ['class' => 'control-label']) }}
-    {{ Form::text('slides', $current->slides, ['class' => 'form-control']) }}
+    {!! Form::label('slides', 'Slides URL', ['class' => 'control-label']) !!}
+    {!! Form::text('slides', $current->slides, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    {{ Form::label('organizer_notes', 'Organizer Notes', ['class' => 'control-label']) }}
-    {{ Form::textarea('organizer_notes', $current->organizer_notes, ['class' => 'form-control']) }}
+    {!! Form::label('organizer_notes', 'Organizer Notes', ['class' => 'control-label']) !!}
+    {!! Form::textarea('organizer_notes', $current->organizer_notes, ['class' => 'form-control']) !!}
 </div>

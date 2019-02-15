@@ -1,13 +1,15 @@
 <?php
 
+use App\Bio;
 use App\User;
-use Laracasts\TestDummy\Factory;
-use MailThief\Testing\InteractsWithMail;
+use App\Talk;
+use App\Conference;
+use App\TalkRevision;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AccountTest extends IntegrationTestCase
 {
-    use InteractsWithMail;
-
     /** @test */
     function users_can_sign_up()
     {
@@ -20,7 +22,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('users', [
             'email' => 'email@email.com',
-            'name' => 'Joe Schmoe'
+            'name' => 'Joe Schmoe',
         ]);
     }
 
@@ -40,9 +42,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_log_in()
     {
-        $user = Factory::create('user', [
-            'password' => bcrypt('super-secret')
-        ]);
+        $user = factory(User::class)->create(['password' => bcrypt('super-secret')]);
 
         $this->visit('login')
             ->type($user->email, '#email')
@@ -52,26 +52,107 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
+    function user_can_update_their_profile()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/account/edit')
+            ->type('Kevin Bacon', '#name')
+            ->type('KevinBacon@yahoo.com', '#email')
+            ->type('haxTh1sn00b', '#password')
+            ->select(true, '#enable_profile')
+            ->select(true, '#allow_profile_contact')
+            ->select(true, '#wants_notifications')
+            ->type('kevin_rox', '#profile_slug')
+            ->type('It has been so long since I was in an X-Men movie', '#profile_intro')
+            ->press('Save')
+            ->seePageIs('account');
+
+        $this->seeInDatabase('users', [
+            'name' => 'Kevin Bacon',
+            'email' => 'KevinBacon@yahoo.com',
+            'enable_profile' => 1,
+            'allow_profile_contact' => 1,
+            'profile_slug' => 'kevin_rox',
+            'profile_intro' => 'It has been so long since I was in an X-Men movie',
+            'wants_notifications' => 1
+        ]);
+    }
+
+    /** @test */
+    function user_can_update_their_profile_picture()
+    {
+        $image = __DIR__.'/stubs/test.jpg';
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/account/edit')
+            ->attach($image, '#profile_picture')
+            ->press('Save');
+
+        $user->fresh();
+        $this->assertNotTrue($user->profile_picture, null);
+    }
+
+    /** @test */
     function password_reset_emails_are_sent_for_valid_users()
     {
-        $this->markTestIncomplete('Wait for Laravel 5.3');
+        Notification::fake();
+        $user = factory(User::class)->create();
 
-        $user = Factory::create('user');
-
-        $this->visit('password/email')
+        $this->visit('/password/reset')
             ->type($user->email, '#email')
             ->press('Send Password Reset Link');
 
-        $this->seeMessageFor($user->email);
-        $this->assertTrue($this->lastMessage()->contains('Password or whatever should be here'));
+        Notification::assertSentTo($user, \Illuminate\Auth\Notifications\ResetPassword::class);
     }
 
-    // @todo: Also test the round two is triggered correctly
+    /** @test */
+    function user_can_reset_their_password_from_email_link()
+    {
+        $this->disableExceptionHandling();
+
+        Notification::fake();
+
+        $user = factory(User::class)->create();
+        $token = null;
+
+        $this->post('/password/email', [
+            'email' => $user->email,
+            '_token' => csrf_token(),
+        ]);
+
+        Notification::assertSentTo(
+            $user,
+            ResetPassword::class,
+            function ($notification, $channels) use (&$token) {
+                $token = $notification->token;
+
+                return true;
+            }
+        );
+
+        $this->visit(route('password.reset', $token))
+            ->type($user->email, '#email')
+            ->type('h4xmahp4ssw0rdn00bz', '#password')
+            ->type('h4xmahp4ssw0rdn00bz', '#password_confirmation')
+            ->press('Reset Password')
+            ->seePageIs('/dashboard');
+
+        $this->visit('log-out');
+
+        $this->visit('login')
+            ->type($user->email, '#email')
+            ->type('h4xmahp4ssw0rdn00bz', '#password')
+            ->press('Log in')
+            ->seePageIs('dashboard');
+    }
 
     /** @test */
     function users_can_delete_their_accounts()
     {
-        $user = Factory::create('user');
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
              ->visit('account/delete')
@@ -87,19 +168,20 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function deleting_a_user_deletes_its_associated_entities()
     {
-        $user = Factory::create('user');
-        $talk = Factory::build('talk');
-        $talkRevision = Factory::build('talkRevision');
-        $bio = Factory::build('bio');
-        $conference = Factory::build('conference');
+        $user = factory(User::class)->create();
+        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
+        $talkRevision = factory(TalkRevision::class)->create();
+        $bio = factory(Bio::class)->create();
+        $conference = factory(Conference::class)->create();
 
         $user->talks()->save($talk);
         $talk->revisions()->save($talkRevision);
         $user->bios()->save($bio);
         $user->conferences()->save($conference);
 
-        $otherUser = Factory::create('user');
-        $dismissedConference = Factory::build('conference');
+        $otherUser = factory(User::class)->create();
+        $favoriteConference = factory(Conference::class)->create();
+
         $otherUser->conferences()->save($conference);
         $user->dismissedConferences()->save($dismissedConference);
 
@@ -113,7 +195,6 @@ class AccountTest extends IntegrationTestCase
             'email' => $user->email,
         ]);
 
-
         $this->dontSeeInDatabase('talks', [
             'id' => $talk->id,
         ]);
@@ -122,9 +203,9 @@ class AccountTest extends IntegrationTestCase
             'id' => $bio->id,
         ]);
 
-//        $this->dontSeeInDatabase('conferences', [
-//            'id' => $conference->id,
-//        ]);
+        // $this->dontSeeInDatabase('conferences', [
+        //     'id' => $conference->id,
+        // ]);
 
         $this->dontSeeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,

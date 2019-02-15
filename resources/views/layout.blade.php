@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Symposium for Speakers & Conferences</title>
+    <title>Symposium for Speakers &amp; Conferences</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
@@ -9,12 +9,15 @@
     <link href="{{ url('/packages/octicons/octicons.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <script>
         var Symposium = {
+            token: "{{ csrf_token() }}"
         };
     </script>
     @yield('headerScripts')

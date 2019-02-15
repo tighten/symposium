@@ -1,31 +1,53 @@
 <template>
     <div>
         <h3>My Talks</h3>
-        <p><i>Note: "Submit" just means "mark as submitted." At the moment this isn't actually sending anything to the conference organizers.</i></p>
+        <strong>Accepted to speak at this conference</strong>
+        <ul class="conference-talk-submission-sidebar">
+            <li v-for="talk in talksAccepted" v-cloak>
+                <a class="btn btn-xs btn-success" disabled>
+                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+                    <i v-show="!talk.loading" class="glyphicon checked"></i>
+                    Accepted!
+                </a>
+                <a class="btn btn-xs btn-danger" @click.prevent="undoAcceptance(talk)">
+                    <i v-show="talk.loading" class="glyphicon glyphicon- glyphicon-refresh-animate"></i>
+                    Undo
+                </a>
+                <a :href="talk.url">{{ talk.title }}</a>
+            </li>
+            <li v-if="talksAccepted.length === 0" v-cloak>
+                None
+            </li>
+        </ul>
         <strong>Applied to speak at this conference</strong>
         <ul class="conference-talk-submission-sidebar">
-            <li v-for="talk in talksAtConference" v-cloak>
+            <li v-for="talk in talksSubmitted" v-cloak>
+                <a class="btn btn-xs btn-success" @click.prevent="markAccepted(talk)">
+                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+                    <i v-show="!talk.loading" class="glyphicon checked"></i>
+                    Mark Accepted
+                </a>
                 <a class="btn btn-xs btn-default" @click.prevent="unsubmit(talk)">
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
                     Un-Submit
                 </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
+                <a :href="talk.url">{{ talk.title }}</a>
             </li>
-            <li v-if="talksAtConference.length == 0" v-cloak>
+            <li v-if="talksSubmitted.length === 0" v-cloak>
                 None
             </li>
         </ul>
 
         <strong>Not applied to speak at this conference</strong>
         <ul class="conference-talk-submission-sidebar">
-            <li v-for="talk in talksNotAtConference" v-cloak>
+            <li v-for="talk in talksNotSubmitted" v-cloak>
                 <a class="btn btn-xs btn-primary" @click.prevent="submit(talk)">
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    Submit
+                    Mark Submitted
                 </a>
-                <a href="{{ talk.url }}">{{ talk.title }}</a>
+                <a :href="talk.url">{{ talk.title }}</a>
             </li>
-            <li v-if="talksNotAtConference.length == 0" v-cloak>
+            <li v-if="talksNotSubmitted.length === 0" v-cloak>
                 None
             </li>
         </ul>
@@ -33,11 +55,12 @@
 </template>
 
 <script>
+const SUBMITTED = "submitted";
+const UNSUBMITTED = "unsubmitted";
+
 export default {
-    ready: function () {
-        Symposium.talks.forEach(function (talk) {
-            talk.loading = false;
-        });
+    mounted: function () {
+        Symposium.talks.forEach(talk => talk.loading = false);
         this.talks = Symposium.talks;
     },
     props: {
@@ -49,42 +72,76 @@ export default {
         };
     },
     computed: {
-        talksAtConference: function () {
-            return this.talks.filter(function (talk) {
-                return talk.atThisConference;
-            });
-        },
-        talksNotAtConference: function () {
-            return this.talks.filter(function (talk) {
-                return ! talk.atThisConference;
-            });
-        },
+        talksSubmitted: function(){ return this.talks.filter(({ submitted, accepted }) => submitted && !accepted) },
+        talksAccepted: function(){ return this.talks.filter(({ accepted }) => accepted ) },
+        talksNotSubmitted: function(){ return this.talks.filter(({ accepted, submitted }) => !accepted && !submitted) },
     },
     methods: {
-        changeSubmissionStatus: function (talk, submitting) {
-            talk.atThisConference = submitting;
+        updateSubmission: function (talk, status) {
             talk.loading = true;
-
-            var data = {
-                'conferenceId': this.conferenceId,
-                'talkId': talk.id
+            const data = {
+                conferenceId: this.conferenceId,
+                talkId: talk.id,
             };
 
-            var method = submitting ? 'post' : 'delete';
-
-            this.$http[method]('/submissions', data, function (data, status, request) {
-                talk.loading = false;
-            }).error(function (data, status, request) {
-                alert('Something went wrong.');
-                talk.loading = false;
-            });
+            switch (status) {
+                case SUBMITTED:
+                    axios.post('/submissions', data)
+                        .then(response => {
+                            talk.submissionId = response.data.submissionId;
+                            talk.submitted = true;
+                            talk.loading = false;
+                        })
+                        .catch(() => {
+                            alert('Something went wrong.');
+                            talk.loading = false;
+                        });
+                    break;
+                case UNSUBMITTED:
+                    axios.delete(`/submissions/${talk.submissionId}`)
+                        .then(() => {
+                            talk.submitted = false;
+                            talk.submissionId = null;
+                            talk.loading = false;
+                        })
+                        .catch(() => {
+                            alert('Something went wrong.');
+                            talk.loading = false;
+                        });
+                    break;
+            }
         },
         submit: function (talk) {
-            this.changeSubmissionStatus(talk, true);
+            this.updateSubmission(talk, SUBMITTED);
         },
         unsubmit: function (talk) {
-            this.changeSubmissionStatus(talk, false);
+            this.updateSubmission(talk, UNSUBMITTED);
         },
+        markAccepted: function (talk) {
+            axios.post('/acceptances', { submissionId: talk.submissionId })
+                .then((response) => {
+                    talk.accepted = true;
+                    talk.submitted = false;
+                    talk.loading = false;
+                    talk.acceptanceId = response.data.acceptanceId;
+                })
+                .catch(() => {
+                    alert('Something went wrong.');
+                    talk.loading = false;
+                });
+        },
+        undoAcceptance: function (talk) {
+            axios.delete(`/acceptances/${talk.acceptanceId}`, { submissionId: talk.submissionId })
+                .then(() => {
+                    talk.accepted = false;
+                    talk.submitted = true;
+                    talk.loading = false;
+                })
+                .catch(() => {
+                    alert('Something went wrong.');
+                    talk.loading = false;
+                });
+        }
     },
     http: {
         root: '/'

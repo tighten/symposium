@@ -1,15 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-
 class JsonApiTest extends ApiTestCase
 {
-    use WithoutMiddleware;
-
-    public function testUsesCorrectJsonApiHeader()
+    /** @test */
+    public function uses_correct_json_api_header()
     {
         $response = $this->call('GET', '/api/user/1/talks');
-
+        
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('application/vnd.api+json', $response->headers->get('Content-Type'));
     }
 }

@@ -2,6 +2,8 @@
 
 return [
 
+    'slack_endpoint' => env('SLACK_ENDPOINT'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -151,12 +153,14 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
         Laravel\Scout\ScoutServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         'App\Providers\AppServiceProvider',
+        App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
@@ -165,15 +169,13 @@ return [
         'Collective\Html\HtmlServiceProvider',
         'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
         'Thujohn\Twitter\TwitterServiceProvider',
-        'Maknz\Slack\SlackServiceProvider',
-        'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
-        'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
 
-        'App\Providers\OAuthGuardServiceProvider',
         App\Providers\CaptchaServiceProvider::class,
         App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -193,7 +195,8 @@ return [
         'Artisan'   => 'Illuminate\Support\Facades\Artisan',
         'Auth'      => 'Illuminate\Support\Facades\Auth',
         'Blade'     => 'Illuminate\Support\Facades\Blade',
-        'Bus' => Illuminate\Support\Facades\Bus::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
+        'Bus'       => Illuminate\Support\Facades\Bus::class,
         'Cache'     => 'Illuminate\Support\Facades\Cache',
         'Config'    => 'Illuminate\Support\Facades\Config',
         'Cookie'    => 'Illuminate\Support\Facades\Cookie',
@@ -226,10 +229,10 @@ return [
         'HTML'      => 'Collective\Html\HtmlFacade',
         'Gravatar'  => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
         'Twitter'   => 'Thujohn\Twitter\Facades\Twitter',
-        'Slack'     => 'Maknz\Slack\Facades\Slack',
-        'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Firewall' => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
+        'Firewall'  => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
+        'Calendar'  => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

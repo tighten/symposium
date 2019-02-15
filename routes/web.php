@@ -47,6 +47,10 @@ Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout
 
 Auth::routes();
 
+Route::get('sign-up', function () {
+    return redirect('register');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
@@ -55,8 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('account/delete', 'AccountController@destroy');
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
 
+    Route::post('acceptances', 'AcceptancesController@store');
+    Route::delete('acceptances/{acceptance}', 'AcceptancesController@destroy');
+
     Route::post('submissions', 'SubmissionsController@store');
-    Route::delete('submissions', 'SubmissionsController@destroy');
+    Route::delete('submissions/{submission}', 'SubmissionsController@destroy');
 
     // Joind.in (@todo separate controller)
     Route::get('conferences/joindin/import/{eventId}', 'ConferencesController@joindinImport');
@@ -65,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('conferences/{id}/dismiss', 'ConferencesController@dismiss');
     Route::get('conferences/{id}/undismiss', 'ConferencesController@undismiss');
+
+    Route::get('calendar', ['as' => 'calendar.index', 'uses' => 'CalendarController@index']);
 
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);
@@ -85,24 +94,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('conferences', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
 Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
 
-/**
- * OAuth
- */
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('oauth/authorize', [
-        'middleware' => ['check-authorization-params', 'auth'],
-        'as' => 'get-oauth-authorize',
-        'uses' => 'OAuthController@getAuthorize'
-    ]);
-
-    Route::post('oauth/authorize', [
-        'middleware' => ['check-authorization-params', 'auth'],
-        'as' => 'post-oauth-authorize',
-        'uses' => 'OAuthController@postAuthorize'
-    ]);
+// Social logins routes
+Route::group(['middleware' => ['social', 'guest']], function () {
+    Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
+    Route::get('/login/{service}/callback', 'Auth\SocialLoginController@callback');
 });
-
-Route::post('oauth/access-token', [
-    'as' => 'oauth-access-token',
-    'uses' => 'OAuthController@postAccessToken'
-]);

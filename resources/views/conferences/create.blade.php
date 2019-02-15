@@ -12,13 +12,13 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(['route' => 'conferences.store', 'class' => 'new-conference-form']) }}
+                {!! Form::open(['route' => 'conferences.store', 'class' => 'new-conference-form']) !!}
 
                 @include('partials.conferenceform')
 
-                {{ Form::submit('Create', ['class' => 'btn btn-primary']) }}
+                {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

@@ -1,41 +1,42 @@
 <?php
 
 use App\Bio;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class BioApiTest extends ApiTestCase
 {
-    use WithoutMiddleware;
-
-    public function testFetchesAllBiosForUser()
+    /** @test */
+    public function can_fetch_all_user_bios()
     {
-        $response = $this->call('GET', 'api/user/1/bios');
-        $data = $this->parseJson($response);
+        $response = $this->call('GET', '/api/user/1/bios');
+        $data = json_decode($response->getContent());
 
-        $this->assertIsJson($data);
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertInternalType('array', $data->data);
     }
 
-    public function testFetchesOneBio()
+    /** @test */
+    public function can_fetch_one_user_bio()
     {
         $bioId = Bio::first()->id;
         $response = $this->call('GET', 'api/bios/' . $bioId);
-        $data = $this->parseJson($response);
+        $data = json_decode($response->getContent());
 
-        $this->assertIsJson($data);
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertInternalType('object', $data->data);
     }
 
-    public function testCannotFetchAllBiosForOtherUser()
+    /** @test */
+    public function cannot_fetch_all_bios_for_other_user()
     {
         $response = $this->call('GET', 'api/user/2/bios');
+        
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    public function testCannotFetchOneBioForOtherUser()
+    /** @test */
+    public function cannot_fetch_one_bio_for_other_user()
     {
         $bioId = Bio::where('user_id', 2)->first()->id;
-
         $response = $this->call('GET', 'api/bios/' . $bioId);
 
         $this->assertEquals(404, $response->getStatusCode());

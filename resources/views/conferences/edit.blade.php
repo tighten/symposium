@@ -12,13 +12,22 @@
                     @endforeach
                 </ul>
 
-                {{ Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) }}
+                {!! Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) !!}
 
                 @include('partials.conferenceform')
 
-                {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}<br><br>
+                @if (auth()->user()->isAdmin())
+                <div class="form-group">
+                    {!! Form::label('is_approved', 'Conference Is Approved?', ['class' => 'control-label']) !!}
+                    <br>
+                    {!! Form::radio('is_approved', true, $conference->is_approved) !!} Yes&nbsp;&nbsp;
+                    {!! Form::radio('is_approved', false, !$conference->is_approved) !!} No
+                </div>
+                @endif
 
-                {{ Form::close() }}
+                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}<br><br>
+
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

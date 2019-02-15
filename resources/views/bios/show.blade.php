@@ -14,7 +14,7 @@
                 <p class="bio-meta">Created {{ $bio->created_at->toFormattedDateString() }} | Updated {{ $bio->updated_at->toFormattedDateString() }}</p>
 
                 <p><!-- TODO: Figure out how we will be handling HTML/etc. -->
-                    {{ str_replace("\n", "<br>", $bio->body) }}</p>
+                    {!! str_replace("\n", "<br>", $bio->body) !!}</p>
             </div>
         </div>
     </div>

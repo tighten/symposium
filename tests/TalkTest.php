@@ -1,21 +1,18 @@
 <?php
 
 use App\Talk;
-use App\TalkRevision;
 use Carbon\Carbon;
-use Laracasts\TestDummy\Factory;
+use App\TalkRevision;
 
 class TalkTest extends IntegrationTestCase
 {
     /** @test */
     function it_shows_the_talk_title_on_its_page()
     {
-        $user = Factory::create('user');
-        $conference = Factory::create('conference');
-        $talk = Factory::create('talk', [
-            'author_id' => $user->id
-        ]);
-        $revision = Factory::create('talkRevision');
+        $user = factory(App\User::class)->create();
+        $conference = factory(App\Conference::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(App\TalkRevision::class)->create();
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
@@ -26,21 +23,13 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_talks_are_sorted_alphabetically()
     {
-        $user = Factory::create('user');
-        $talk1 = Factory::create('talk', [
-            'author_id' => $user->id
-        ]);
-        $revision1 = Factory::create('talkRevision', [
-            'title' => 'zyxwv'
-        ]);
+        $user = factory(App\User::class)->create();
+        $talk1 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision1 = factory(App\TalkRevision::class)->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Factory::create('talk', [
-            'author_id' => $user->id
-        ]);
-        $revision2 = Factory::create('talkRevision', [
-            'title' => 'abcde'
-        ]);
+        $talk2 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision2 = factory(App\TalkRevision::class)->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
         $talks = $user->talks;
@@ -52,14 +41,14 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_talks_json_encode_without_keys()
     {
-        $user = Factory::create('user');
+        $user = factory(App\User::class)->create();
 
-        $talk1 = Factory::create('talk', ['author_id' => $user->id]);
-        $revision1 = Factory::create('talkRevision', ['title' => 'zyxwv']);
+        $talk1 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision1 = factory(App\TalkRevision::class)->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Factory::create('talk', ['author_id' => $user->id]);
-        $revision2 = Factory::create('talkRevision', ['title' => 'abcde']);
+        $talk2 = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision2 = factory(App\TalkRevision::class)->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
         $json = json_encode($user->talks);
@@ -70,22 +59,28 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_create_a_talk()
     {
-        $user = Factory::create('user');
-        $this->be($user);
+        $user = factory(App\User::class)->create();
 
-        $data = [
+        $this->actingAs($user)
+            ->visit('/talks/create')
+            ->type('Your Best Talk Now', '#title')
+            ->select('keynote', '#type')
+            ->select('intermediate', '#level')
+            ->type('No, really.', '#description')
+            ->type('123', '#length')
+            ->type('http://www.google.com/slides', '#slides')
+            ->type("It'll be awesome!", '#organizer_notes')
+            ->press('Create');
+
+        $this->seeInDatabase('talk_revisions', [
             'title' => 'Your Best Talk Now',
             'type' => 'keynote',
             'level' => 'intermediate',
             'description' => 'No, really.',
             'length' => '123',
             'slides' => 'http://www.google.com/slides',
-            'organizer_notes' => "It'll be awesome!"
-        ];
-
-        $this->post('talks', $data);
-
-        $this->seeInDatabase('talk_revisions', $data);
+            'organizer_notes' => "It'll be awesome!",
+        ]);
 
         $talk = Talk::first();
 
@@ -97,18 +92,14 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_delete_a_talk()
     {
-        $user = Factory::create('user');
-        $talk = Factory::create('talk', [
-            'author_id' => $user->id
-        ]);
-        $revision = Factory::create('talkRevision', [
-            'title' => 'zyxwv'
-        ]);
+        $user = factory(App\User::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(App\TalkRevision::class)->create(['title' => 'zyxwv', 'talk_id' => $talk->id]);
         $talk->revisions()->save($revision);
 
         $this->be($user);
 
-        $this->delete('talks/' . $talk->id);
+        $this->visit('talks/' . $talk->id . '/delete');
 
         $this->assertEquals(0, Talk::count());
         $this->assertEquals(0, TalkRevision::count());
@@ -117,29 +108,24 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_save_a_new_revision_of_a_talk()
     {
-        $user = Factory::create('user');
-        $talk = Factory::create('talk', [
-            'author_id' => $user->id
-        ]);
-        $revision = Factory::create('talkRevision', [
+        $user = factory(App\User::class)->create();
+        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(App\TalkRevision::class)->create([
             'title' => 'old title',
             'created_at' => Carbon::now()->subMinute(),
         ]);
         $talk->revisions()->save($revision);
 
-        $data = [
-            'title' => 'New',
-            'type' => $revision->type,
-            'level' => $revision->level,
-            'description' => $revision->description,
-            'length' => $revision->length,
-            'slides' => $revision->slides,
-            'organizer_notes' => $revision->organizer_notes,
-        ];
-
-        $this->be($user);
-
-        $this->patch('talks/' . $talk->id, $data);
+        $this->actingAs($user)
+            ->visit('/talks/' . $talk->id . '/edit')
+            ->type('New', '#title')
+            ->select($revision->type, '#type')
+            ->select($revision->level, '#level')
+            ->type($revision->description, '#description')
+            ->type($revision->length, '#length')
+            ->type($revision->slides, '#slides')
+            ->type($revision->organizer_notes, '#organizer_notes')
+            ->press('Update');
 
         $talk = Talk::first();
 

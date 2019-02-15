@@ -37,6 +37,11 @@
                         </div>
                         <div class="panel-body">
                             @if (Auth::guest())
+                                <div class="text-center">
+                                    <a class="btn-auth btn-github large" href="{{ url('login/github') }}">Sign in with <strong>GitHub</strong></a>
+                                    <br>
+                                    <p class="text-muted">or</p>
+                                </div>
                                 @include ('partials.log-in-form')
                             @else
                                 <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>

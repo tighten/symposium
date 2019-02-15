@@ -4,6 +4,7 @@
             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li><a href="{{ route('bios.index') }}">Bios</a></li>
             <li><a href="{{ route('conferences.index') }}">Conferences</a></li>
+            <li><a href="{{ route('calendar.index') }}">Calendar</a></li>
             <li><a href="{{ route('talks.index') }}">Talks</a></li>
             <li class="dropdown" role="presentation">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Conference;
-use App\Exceptions\ValidationException;
-use App\Services\CreateConferenceForm;
 use Carbon\Carbon;
+use App\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Services\CreateConferenceForm;
 use Illuminate\Support\Facades\Session;
+use App\Exceptions\ValidationException;
+use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 
 class ConferencesController extends BaseController
 {
@@ -27,21 +28,21 @@ class ConferencesController extends BaseController
     {
         switch ($request->input('filter')) {
             case 'dismissed':
-                $conferences = auth()->user()->dismissedConferences()->get();
+                $conferences = auth()->user()->dismissedConferences()->approved()->get();
                 break;
             case 'open_cfp':
-                $conferences = Conference::undismissed()->openCfp()->get();
+                $conferences = Conference::undismissed()->openCfp()->approved()->get();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::undismissed()->unclosedCfp()->get();
+                $conferences = Conference::undismissed()->unclosedCfp()->approved()->get();
                 break;
             case 'all':
-                $conferences = Conference::undismissed()->get();
+                $conferences = Conference::undismissed()->approved()->get();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::undismissed()->future()->get();
+                $conferences = Conference::undismissed()->future()->approved()->get();
         }
 
         switch ($request->input('sort')) {
@@ -111,19 +112,18 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        $talksAtConference = $conference->myTalks()->map(function ($talkRevision) {
-            return $talkRevision->talk->id;
+        $talks = auth()->user()->talks->map(function ($talk) use ($conference) {
+            return (TalkTransformer::transform($talk, $conference));
         });
 
         return view('conferences.show')
             ->with('conference', $conference)
-            ->with('talksAtConference', $talksAtConference)
-            ->with('talks', auth()->user()->talks);
+            ->with('talks', $talks);
     }
 
     private function showPublic($id)
     {
-        $conference = Conference::findOrFail($id);
+        $conference = Conference::approved()->findOrFail($id);
 
         return view('conferences.showPublic')
             ->with('conference', $conference);
@@ -131,9 +131,9 @@ class ConferencesController extends BaseController
 
     public function edit($id)
     {
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
+        $conference = Conference::findOrFail($id);
+
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
@@ -146,11 +146,13 @@ class ConferencesController extends BaseController
     {
         $this->validate($request, $this->conference_rules);
 
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
+        // @todo Update this to use ACL... gosh this app is old...
+        $conference = Conference::findOrFail($id);
+
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
+
         }
 
         // Save
@@ -158,6 +160,11 @@ class ConferencesController extends BaseController
 
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
             $conference->$col = $request->input($col) ?: null;
+        }
+
+        if (auth()->user()->isAdmin()) {
+            $conference->is_shared = $request->input('is_shared');
+            $conference->is_approved = $request->input('is_approved');
         }
 
         $conference->save();

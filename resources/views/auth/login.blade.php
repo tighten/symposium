@@ -9,7 +9,12 @@
                         <h2 class="panel-title">Log in</h2>
                     </div>
                     <div class="panel-body">
-                        {{ $errors->first('auth', '<div class="alert alert-danger">:message</div>') }}
+                        {!! $errors->first('auth', '<div class="alert alert-danger">:message</div>') !!}
+                        <div class="text-center">
+                            <a class="btn-auth btn-github large" href="{{ url('login/github') }}">Sign in with <strong>GitHub</strong></a>
+                            <br>
+                            <p class="text-muted">or</p>
+                        </div>
                         @include ('partials.log-in-form')
                     </div>
                 </div>

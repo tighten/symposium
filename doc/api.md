@@ -314,17 +314,17 @@ GET /api/me
 Symposium uses the OAuth2 Authorization Code grant.
 
 Routes:
-Authorization form: `https://symposiumapp.com/oauth/authorize?client_id=:id&redirect_url=:redirect_url&response_type=code`
+Authorization form: `https://symposiumapp.com/oauth/authorize?client_id=:id&redirect_uri=:redirect_uri&response_type=code`
 
 The authorization form presents users with the ability to approve or deny the conncetion. If they approve, it'll forward them to:
 `:redirect_url/?code=code-for-getting-token-below`
 
-Grab that code, and pass it to `https://symposiumapp.com/oauth/access-token` to get your access token for that user.
+Grab that code, and pass it to `https://symposiumapp.com/oauth/token` to get your access token for that user.
 
 E.g.
 
 ```bash
-curl -u client_id:client_secret https://symposiumapp.com/oauth/access-token -d 'grant_type=authorization_code&code=:code-from-above&redirect_uri=:redirect_url'
+curl -u client_id:client_secret https://symposiumapp.com/oauth/token -d 'grant_type=authorization_code&code=:code-from-above&redirect_uri=:redirect_url'
 ```
 
 Finally, you can authorize your requests using the provided token:
