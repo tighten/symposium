@@ -122,6 +122,11 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '>', Carbon::now());
     }
 
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
+
     public function scopeUndismissed($query)
     {
         return $query
