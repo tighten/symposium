@@ -195,6 +195,12 @@ class ConferencesController extends BaseController
 
     public function dismiss($conferenceId)
     {
+        $conference = Conference::findOrFail($conferenceId);
+
+        if ($conference->isFavorited()) {
+            return redirect()->back();
+        }
+
         auth()->user()->dismissedConferences()->attach($conferenceId);
 
         return redirect()->back();
@@ -209,6 +215,12 @@ class ConferencesController extends BaseController
 
     public function favorite($conferenceId)
     {
+        $conference = Conference::findOrFail($conferenceId);
+
+        if ($conference->isDismissed()) {
+            return redirect()->back();
+        }
+
         auth()->user()->favoritedConferences()->attach($conferenceId);
 
         return redirect()->back();

@@ -32,15 +32,19 @@
                     @forelse ($conferences as $conference)
                         <li>
                             <div class="conference-actions">
-                                @if (Auth::check() && $conference->isDismissed())
-                                    <a href="/conferences/{{ $conference->id  }}/undismiss" class="action-button" title="I am interested in this conference"><span class="glyphicon glyphicon-plus"></a>
-                                @else
-                                    <a href="/conferences/{{ $conference->id  }}/dismiss" class="action-button" title="I am not interested in this conference"><span class="glyphicon glyphicon-remove"></a>
+                                @if (!$conference->isFavorited())
+                                    @if (Auth::check() && $conference->isDismissed())
+                                        <a href="/conferences/{{ $conference->id  }}/undismiss" class="action-button" title="I am interested in this conference"><span class="glyphicon glyphicon-plus"></a>
+                                    @else
+                                        <a href="/conferences/{{ $conference->id  }}/dismiss" class="action-button" title="I am not interested in this conference"><span class="glyphicon glyphicon-remove"></a>
+                                    @endif
                                 @endif
-                                @if (Auth::check() && $conference->isFavorited())
-                                    <a href="/conferences/{{ $conference->id  }}/unfavorite" class="action-button action-button--faved"><span class="glyphicon glyphicon-star"></a>
-                                @else
-                                    <a href="/conferences/{{ $conference->id  }}/favorite" class="action-button"><span class="glyphicon glyphicon-star-empty"></a>
+                                @if (!$conference->isDismissed())
+                                    @if (Auth::check() && $conference->isFavorited())
+                                        <a href="/conferences/{{ $conference->id  }}/unfavorite" class="action-button action-button--faved"><span class="glyphicon glyphicon-star"></a>
+                                    @else
+                                        <a href="/conferences/{{ $conference->id  }}/favorite" class="action-button"><span class="glyphicon glyphicon-star-empty"></a>
+                                    @endif
                                 @endif
                             </div>
                             <div class="details">
