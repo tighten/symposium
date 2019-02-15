@@ -228,4 +228,37 @@ class ConferenceTest extends IntegrationTestCase
             ->seePageIs('conferences?filter=dismissed')
             ->dontSee($conference->title);
     }
+
+    /** @test */
+    function filtering_by_favorites_shows_favorite_conferences()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/favorite");
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=favorites')
+            ->seePageIs('conferences?filter=favorites')
+            ->see($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_favorites_does_not_show_nonfavorite_conferences()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=favorites')
+            ->seePageIs('conferences?filter=favorites')
+            ->dontSee($conference->title);
+    }
 }

@@ -193,6 +193,11 @@ class Conference extends UuidBase
         return Auth::user()->dismissedConferences->contains($this->id);
     }
 
+    public function isFavorited()
+    {
+        return Auth::user()->favoritedConferences->contains($this->id);
+    }
+
     /**
      * Return all talks from this user that were submitted to this conference
      *

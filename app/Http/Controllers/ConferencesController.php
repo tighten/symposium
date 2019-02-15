@@ -27,6 +27,9 @@ class ConferencesController extends BaseController
     public function index(Request $request)
     {
         switch ($request->input('filter')) {
+            case 'favorites':
+                $conferences = auth()->user()->favoritedConferences()->approved()->get();
+                break;
             case 'dismissed':
                 $conferences = auth()->user()->dismissedConferences()->approved()->get();
                 break;
@@ -200,6 +203,20 @@ class ConferencesController extends BaseController
     public function undismiss($conferenceId)
     {
         auth()->user()->dismissedConferences()->detach($conferenceId);
+
+        return redirect()->back();
+    }
+
+    public function favorite($conferenceId)
+    {
+        auth()->user()->favoritedConferences()->attach($conferenceId);
+
+        return redirect()->back();
+    }
+
+    public function unfavorite($conferenceId)
+    {
+        auth()->user()->favoritedConferences()->detach($conferenceId);
 
         return redirect()->back();
     }
