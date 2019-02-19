@@ -204,6 +204,22 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
+    function cfp_by_date_list_sorts_future_dates_ahead_of_past_dates()
+    {
+        $conferenceA = factory(App\Conference::class)->states('approved')->create([
+            'starts_at' => Carbon::now()->subDay()
+        ]);
+        $conferenceB = factory(App\Conference::class)->states('approved')->create([
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+
+        $this->get('conferences?filter=all&sort=date');
+
+        $this->assertConferenceSort(0, $conferenceB);
+        $this->assertConferenceSort(1, $conferenceA);
+    }
+
+    /** @test */
     function cfp_closing_next_list_sorts_null_cfp_by_conference_date()
     {
         $conferenceA = factory(App\Conference::class)->states('approved')->create([

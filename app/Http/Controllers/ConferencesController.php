@@ -47,12 +47,18 @@ class ConferencesController extends BaseController
 
         switch ($request->input('sort')) {
             case 'date':
-                $conferences = $conferences->sortBy->starts_at;
+                $conferences = $conferences->sortBy(function ($conference) {
+                    if ($conference->starts_at->isPast()) {
+                        return $conference->starts_at->addCentury();
+                    }
+
+                    return $conference->starts_at;
+                });
                 break;
             case 'opening_next':
                 // Force CFPs with no CFP start date to the end
-                $conferences = $conferences->sortBy(function (Conference $model) {
-                    return isset($model->cfp_starts_at) ? $model->cfp_starts_at : Carbon::now()->addCentury();
+                $conferences = $conferences->sortBy(function ($conference) {
+                    return isset($conference->cfp_starts_at) ? $conference->cfp_starts_at : Carbon::now()->addCentury();
                 });
                 break;
             case 'alpha':
@@ -62,19 +68,19 @@ class ConferencesController extends BaseController
                 // pass through
             default:
                 // Forces closed CFPs to the end.
-                $conferences = $conferences->sortBy(function (Conference $model) {
+                $conferences = $conferences->sortBy(function ($conference) {
                     // cfp with no end sorts in the middle
-                    if (!isset($model->cfp_ends_at)) {
-                        return $model->starts_at->addCentury();
+                    if (!isset($conference->cfp_ends_at)) {
+                        return $conference->starts_at->addCentury();
                     }
 
                     // cfp ending in the past sorts at the bottom
-                    if ($model->cfp_ends_at->isPast()) {
-                        return $model->starts_at->addCenturies(2);
+                    if ($conference->cfp_ends_at->isPast()) {
+                        return $conference->starts_at->addCenturies(2);
                     }
 
                     // cfp ending in the future sort at the top
-                    return $model->cfp_ends_at;
+                    return $conference->cfp_ends_at;
                 });
                 break;
         }
