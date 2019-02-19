@@ -19,9 +19,9 @@ class CFPsAreOpen extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param Conference $conference
+     * @param $conferences an array or collection of conferences
      */
-    public function __construct(Collection $conferences)
+    public function __construct($conferences)
     {
         $this->conferences = $conferences;
     }
