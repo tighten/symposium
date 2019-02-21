@@ -1,13 +1,13 @@
 <?php
 
 use App\User;
-use Carbon\Carbon;
 use App\Conference;
 use App\Events\ConferenceCreated;
+use App\Listeners\SendNotificationForOpenCFPs;
 use App\Notifications\CFPsAreOpen;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
-use App\Listeners\SendNotificationForOpenCFPs;
 
 class NotificationTest extends IntegrationTestCase
 {

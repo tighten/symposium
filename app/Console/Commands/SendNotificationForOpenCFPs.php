@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\User;
 use App\Conference;
-use Illuminate\Console\Command;
 use App\Notifications\CFPsAreOpen;
+use App\User;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 
 class SendNotificationForOpenCFPs extends Command
