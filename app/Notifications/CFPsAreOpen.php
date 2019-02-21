@@ -11,9 +11,6 @@ class CFPsAreOpen extends Notification
 {
     use Queueable;
 
-    /**
-     * @var Conferences
-     */
     public $conferences;
 
     /**
