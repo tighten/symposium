@@ -1,10 +1,10 @@
 <?php
 
+use App\User;
 use App\Conference;
 use App\Events\ConferenceCreated;
 use App\Listeners\SendNotificationForOpenCFPs;
-use App\Notifications\CFPIsOpen;
-use App\User;
+use App\Notifications\CFPsAreOpen;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
@@ -22,13 +22,8 @@ class NotificationTest extends IntegrationTestCase
 
         event(new ConferenceCreated($conference));
 
-        $conference = Conference::first();
-
-        Notification::assertSentTo($user, CFPIsOpen::class, function ($notification) use ($conference) {
-            return $notification->conference->id === $conference->id;
-        });
-
-        $this->assertTrue(Conference::first()->is_shared);
+        $this->assertUserNotifiedOfCfp($user, $conference);
+        $this->assertTrue($conference->is_shared);
     }
 
     /** @test */
@@ -40,7 +35,7 @@ class NotificationTest extends IntegrationTestCase
 
         event(new ConferenceCreated($conference));
 
-        Notification::assertNotSentTo($user, CFPIsOpen::class);
+        Notification::assertNotSentTo($user, CFPsAreOpen::class);
     }
 
     /** @test */
@@ -52,7 +47,7 @@ class NotificationTest extends IntegrationTestCase
 
         event(new ConferenceCreated($conference));
 
-        Notification::assertNotSentTo($user, CFPIsOpen::class);
+        Notification::assertNotSentTo($user, CFPsAreOpen::class);
     }
 
     /** @test */
@@ -71,22 +66,19 @@ class NotificationTest extends IntegrationTestCase
             ->type(Carbon::tomorrow()->toDateString(), '#cfp_ends_at')
             ->press('Create');
 
-        Notification::assertNotSentTo($user, CFPIsOpen::class);
+        Notification::assertNotSentTo($user, CFPsAreOpen::class);
     }
 
     /** @test */
     function command_will_trigger_notification_for_approved_and_not_shared_conference()
     {
         Notification::fake();
-        factory(App\User::class)->states('wantsNotifications')->create();
+        $user = factory(App\User::class)->states('wantsNotifications')->create();
         $conference = factory(Conference::class)->create(['is_approved' => true, 'is_shared' => false]);
 
         Artisan::call('symposium:notifyCfps');
 
-        Notification::assertSentTo(User::wantsNotifications()->get(), CFPIsOpen::class, function ($notification) use ($conference) {
-            return $notification->conference->id === $conference->id;
-        });
-
+        $this->assertUserNotifiedOfCfp($user, $conference);
         $this->assertTrue(Conference::first()->is_shared);
     }
 
@@ -99,7 +91,7 @@ class NotificationTest extends IntegrationTestCase
 
         Artisan::call('symposium:notifyCfps');
 
-        Notification::assertNotSentTo([$user], CFPIsOpen::class);
+        Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
     /** @test */
@@ -114,7 +106,7 @@ class NotificationTest extends IntegrationTestCase
 
         Artisan::call('symposium:notifyCfps');
 
-        Notification::assertNotSentTo([$user], CFPIsOpen::class);
+        Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
     /** @test */
@@ -126,7 +118,7 @@ class NotificationTest extends IntegrationTestCase
 
         Artisan::call('symposium:notifyCfps');
 
-        Notification::assertNotSentTo([$user], CFPIsOpen::class);
+        Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
     /** @test */
@@ -138,6 +130,13 @@ class NotificationTest extends IntegrationTestCase
 
         Artisan::call('symposium:notifyCfps');
 
-        Notification::assertNotSentTo([$user], CFPIsOpen::class);
+        Notification::assertNotSentTo([$user], CFPsAreOpen::class);
+    }
+
+    private function assertUserNotifiedOfCfp($user, $conference)
+    {
+        Notification::assertSentTo($user, CFPsAreOpen::class, function ($notification) use ($conference) {
+            return $notification->conferences->pluck('id')->contains($conference->id);
+        });
     }
 }
