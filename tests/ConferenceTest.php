@@ -204,7 +204,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function cfp_by_date_list_sorts_future_dates_ahead_of_past_dates()
+    function cfp_by_date_list_sorts_by_date()
     {
         $conferenceA = factory(App\Conference::class)->states('approved')->create([
             'starts_at' => Carbon::now()->subDay()
@@ -215,12 +215,12 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->get('conferences?filter=all&sort=date');
 
-        $this->assertConferenceSort(0, $conferenceB);
-        $this->assertConferenceSort(1, $conferenceA);
+        $this->assertConferenceSort(0, $conferenceA);
+        $this->assertConferenceSort(1, $conferenceB);
     }
 
     /** @test */
-    function cfp_closing_next_list_sorts_null_cfp_by_conference_date()
+    function cfp_closing_next_list_sorts_by_cfp_start_date_then_null_cfp_by_conference_date()
     {
         $conferenceA = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => null,
@@ -232,11 +232,23 @@ class ConferenceTest extends IntegrationTestCase
             'cfp_ends_at' => null,
             'starts_at' => Carbon::now()->addDay()
         ]);
+        $conferenceC = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => Carbon::now()->addDays(2),
+            'cfp_ends_at' => Carbon::now()->addDays(3),
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+        $conferenceD = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => Carbon::now()->addDays(1),
+            'cfp_ends_at' => Carbon::now()->addDays(2),
+            'starts_at' => Carbon::now()->addDay()
+        ]);
 
         $this->get('conferences');
 
-        $this->assertConferenceSort(0, $conferenceB);
-        $this->assertConferenceSort(1, $conferenceA);
+        $this->assertConferenceSort(0, $conferenceD);
+        $this->assertConferenceSort(1, $conferenceC);
+        $this->assertConferenceSort(2, $conferenceB);
+        $this->assertConferenceSort(3, $conferenceA);
     }
 
     private function assertConferenceSort($sort, $conference)

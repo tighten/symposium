@@ -47,13 +47,7 @@ class ConferencesController extends BaseController
 
         switch ($request->input('sort')) {
             case 'date':
-                $conferences = $conferences->sortBy(function ($conference) {
-                    if ($conference->starts_at->isPast()) {
-                        return $conference->starts_at->addCentury();
-                    }
-
-                    return $conference->starts_at;
-                });
+                $conferences = $conferences->sortBy->starts_at;
                 break;
             case 'opening_next':
                 // Force CFPs with no CFP start date to the end
