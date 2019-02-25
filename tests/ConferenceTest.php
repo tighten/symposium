@@ -178,9 +178,11 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->get('conferences');
 
-        $this->assertConferenceSort(0, $pastCfp);
-        $this->assertConferenceSort(1, $futureCfp);
-        $this->assertConferenceSort(2, $nullCfp);
+        $this->assertConferenceSort([
+            $pastCfp,
+            $futureCfp,
+            $nullCfp,
+        ]);
     }
 
     /** @test */
@@ -199,8 +201,10 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->get('conferences?filter=all');
 
-        $this->assertConferenceSort(0, $pastConferenceWithNullCfp);
-        $this->assertConferenceSort(1, $futureConferenceWithNullCfp);
+        $this->assertConferenceSort([
+            $pastConferenceWithNullCfp,
+            $futureConferenceWithNullCfp,
+        ]);
     }
 
     /** @test */
@@ -229,10 +233,12 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->get('conferences?filter=all');
 
-        $this->assertConferenceSort(0, $futureConferenceWithFutureCfpB);
-        $this->assertConferenceSort(1, $futureConferenceWithFutureCfpA);
-        $this->assertConferenceSort(2, $futureConferenceWithNullCfp);
-        $this->assertConferenceSort(3, $pastConferenceWithNullCfp);
+        $this->assertConferenceSort([
+            $futureConferenceWithFutureCfpB,
+            $futureConferenceWithFutureCfpA,
+            $futureConferenceWithNullCfp,
+            $pastConferenceWithNullCfp,
+        ]);
     }
 
     /** @test */
@@ -247,14 +253,18 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->get('conferences?filter=all&sort=date');
 
-        $this->assertConferenceSort(0, $conferenceA);
-        $this->assertConferenceSort(1, $conferenceB);
+        $this->assertConferenceSort([
+            $conferenceA,
+            $conferenceB,
+        ]);
     }
 
-    private function assertConferenceSort($sort, $conference)
+    private function assertConferenceSort($conferences)
     {
-        $sortedConference = $this->response->original->getData()['conferences']->values()[$sort];
+        foreach ($conferences as $sortPosition => $conference) {
+            $sortedConference = $this->response->original->getData()['conferences']->values()[$sortPosition];
 
-        $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sort}, but {$sortedConference->id } was in position {$sort}.");
+            $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
+        }
     }
 }
