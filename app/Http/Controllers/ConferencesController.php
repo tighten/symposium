@@ -61,14 +61,9 @@ class ConferencesController extends BaseController
             case 'closing_next':
                 // pass through
             default:
+                // Force CFPs with no CFP end date to the end
                 $conferences = $conferences->sortBy(function ($conference) {
-                    // cfp with no end sorts at the bottom
-                    if (!isset($conference->cfp_ends_at)) {
-                        return $conference->starts_at->addCentury();
-                    }
-
-                    // all others sort by cfp end
-                    return $conference->cfp_ends_at;
+                    return isset($conference->cfp_ends_at) ? $conference->cfp_ends_at : Carbon::now()->addCentury();
                 });
                 break;
         }
