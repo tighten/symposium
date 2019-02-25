@@ -61,19 +61,13 @@ class ConferencesController extends BaseController
             case 'closing_next':
                 // pass through
             default:
-                // Forces closed CFPs to the end.
                 $conferences = $conferences->sortBy(function ($conference) {
-                    // cfp with no end sorts in the middle
+                    // cfp with no end sorts at the bottom
                     if (!isset($conference->cfp_ends_at)) {
                         return $conference->starts_at->addCentury();
                     }
 
-                    // cfp ending in the past sorts at the bottom
-                    if ($conference->cfp_ends_at->isPast()) {
-                        return $conference->starts_at->addCenturies(2);
-                    }
-
-                    // cfp ending in the future sort at the top
+                    // all others sort by cfp end
                     return $conference->cfp_ends_at;
                 });
                 break;

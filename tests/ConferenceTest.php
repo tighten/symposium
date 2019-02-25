@@ -161,46 +161,78 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function cfp_closing_next_list_has_a_default_sort()
+    function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
     {
-        $conferenceA = factory(App\Conference::class)->states('approved')->create([
+        $nullCfp = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
-        $conferenceB = factory(App\Conference::class)->states('approved')->create([
+        $pastCfp = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
         ]);
-        $conferenceC = factory(App\Conference::class)->states('approved')->create([
+        $futureCfp = factory(App\Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
 
         $this->get('conferences');
 
-        $this->assertConferenceSort(0, $conferenceC);
-        $this->assertConferenceSort(1, $conferenceA);
-        $this->assertConferenceSort(2, $conferenceB);
+        $this->assertConferenceSort(0, $pastCfp);
+        $this->assertConferenceSort(1, $futureCfp);
+        $this->assertConferenceSort(2, $nullCfp);
     }
 
     /** @test */
-    function cfp_closing_next_list_sorts_past_cfp_by_conference_date()
+    function cfp_closing_next_list_sorts_null_cfp_by_conference_start()
     {
-        $conferenceA = factory(App\Conference::class)->states('approved')->create([
-            'cfp_starts_at' => Carbon::yesterday()->subDay(),
-            'cfp_ends_at' => Carbon::yesterday(),
+        $futureConferenceWithNullCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+            'starts_at' => Carbon::tomorrow()
+        ]);
+        $pastConferenceWithNullCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+            'starts_at' => Carbon::yesterday()
+        ]);
+
+        $this->get('conferences?filter=all');
+
+        $this->assertConferenceSort(0, $pastConferenceWithNullCfp);
+        $this->assertConferenceSort(1, $futureConferenceWithNullCfp);
+    }
+
+    /** @test */
+    function cfp_closing_next_list_sorts_by_cfp_start_date_then_null_cfp_by_conference_date()
+    {
+        $pastConferenceWithNullCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
             'starts_at' => Carbon::now()->addDays(2)
         ]);
-        $conferenceB = factory(App\Conference::class)->states('approved')->create([
-            'cfp_starts_at' => Carbon::yesterday()->subDay(),
-            'cfp_ends_at' => Carbon::yesterday(),
+        $futureConferenceWithNullCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+        $futureConferenceWithFutureCfpA = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => Carbon::now()->addDays(2),
+            'cfp_ends_at' => Carbon::now()->addDays(3),
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+        $futureConferenceWithFutureCfpB = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => Carbon::now()->addDays(1),
+            'cfp_ends_at' => Carbon::now()->addDays(2),
             'starts_at' => Carbon::now()->addDay()
         ]);
 
-        $this->get('conferences');
+        $this->get('conferences?filter=all');
 
-        $this->assertConferenceSort(0, $conferenceB);
-        $this->assertConferenceSort(1, $conferenceA);
+        $this->assertConferenceSort(0, $futureConferenceWithFutureCfpB);
+        $this->assertConferenceSort(1, $futureConferenceWithFutureCfpA);
+        $this->assertConferenceSort(2, $futureConferenceWithNullCfp);
+        $this->assertConferenceSort(3, $pastConferenceWithNullCfp);
     }
 
     /** @test */
@@ -217,38 +249,6 @@ class ConferenceTest extends IntegrationTestCase
 
         $this->assertConferenceSort(0, $conferenceA);
         $this->assertConferenceSort(1, $conferenceB);
-    }
-
-    /** @test */
-    function cfp_closing_next_list_sorts_by_cfp_start_date_then_null_cfp_by_conference_date()
-    {
-        $conferenceA = factory(App\Conference::class)->states('approved')->create([
-            'cfp_starts_at' => null,
-            'cfp_ends_at' => null,
-            'starts_at' => Carbon::now()->addDays(2)
-        ]);
-        $conferenceB = factory(App\Conference::class)->states('approved')->create([
-            'cfp_starts_at' => null,
-            'cfp_ends_at' => null,
-            'starts_at' => Carbon::now()->addDay()
-        ]);
-        $conferenceC = factory(App\Conference::class)->states('approved')->create([
-            'cfp_starts_at' => Carbon::now()->addDays(2),
-            'cfp_ends_at' => Carbon::now()->addDays(3),
-            'starts_at' => Carbon::now()->addDay()
-        ]);
-        $conferenceD = factory(App\Conference::class)->states('approved')->create([
-            'cfp_starts_at' => Carbon::now()->addDays(1),
-            'cfp_ends_at' => Carbon::now()->addDays(2),
-            'starts_at' => Carbon::now()->addDay()
-        ]);
-
-        $this->get('conferences');
-
-        $this->assertConferenceSort(0, $conferenceD);
-        $this->assertConferenceSort(1, $conferenceC);
-        $this->assertConferenceSort(2, $conferenceB);
-        $this->assertConferenceSort(3, $conferenceA);
     }
 
     private function assertConferenceSort($sort, $conference)
