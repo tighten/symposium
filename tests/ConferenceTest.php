@@ -160,4 +160,55 @@ class ConferenceTest extends IntegrationTestCase
         $this->assertEquals(1, Conference::notShared()->count());
     }
 
+    /** @test */
+    function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
+    {
+        $nullCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+        ]);
+        $pastCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => Carbon::yesterday()->subDay(),
+            'cfp_ends_at' => Carbon::yesterday(),
+        ]);
+        $futureCfp = factory(App\Conference::class)->states('approved')->create([
+            'cfp_starts_at' => Carbon::yesterday(),
+            'cfp_ends_at' => Carbon::tomorrow(),
+        ]);
+
+        $this->get('conferences');
+
+        $this->assertConferenceSort([
+            $pastCfp,
+            $futureCfp,
+            $nullCfp,
+        ]);
+    }
+
+    /** @test */
+    function cfp_by_date_list_sorts_by_date()
+    {
+        $conferenceA = factory(App\Conference::class)->states('approved')->create([
+            'starts_at' => Carbon::now()->subDay()
+        ]);
+        $conferenceB = factory(App\Conference::class)->states('approved')->create([
+            'starts_at' => Carbon::now()->addDay()
+        ]);
+
+        $this->get('conferences?filter=all&sort=date');
+
+        $this->assertConferenceSort([
+            $conferenceA,
+            $conferenceB,
+        ]);
+    }
+
+    private function assertConferenceSort($conferences)
+    {
+        foreach ($conferences as $sortPosition => $conference) {
+            $sortedConference = $this->response->original->getData()['conferences']->values()[$sortPosition];
+
+            $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
+        }
+    }
 }

@@ -47,28 +47,23 @@ class ConferencesController extends BaseController
 
         switch ($request->input('sort')) {
             case 'date':
-                $conferences = $conferences->sortBy(function (Conference $model) {
-                    return $model->starts_at;
+                $conferences = $conferences->sortBy->starts_at;
+                break;
+            case 'opening_next':
+                // Force CFPs with no CFP start date to the end
+                $conferences = $conferences->sortBy(function ($conference) {
+                    return isset($conference->cfp_starts_at) ? $conference->cfp_starts_at : Carbon::now()->addCentury();
                 });
                 break;
-            case 'closing_next':
-                // Forces closed CFPs to the end. I feel dirty. Even dirtier with the 500 thing.
-                $conferences = $conferences
-                    ->sortBy(function (Conference $model) {
-                        if ($model->cfp_ends_at > Carbon::now()) {
-                            return $model->cfp_ends_at;
-                        } elseif ($model->cfp_ends_at === null) {
-                            return Carbon::now()->addYear(500);
-                        } else {
-                            return $model->cfp_ends_at->addYear(1000);
-                        }
-                    });
-                break;
             case 'alpha':
-                // Pass through
+                $conferences = $conferences->sortBy->title;
+                break;
+            case 'closing_next':
+                // pass through
             default:
-                $conferences = $conferences->sortBy(function (Conference $model) {
-                    return strtolower($model->title);
+                // Force CFPs with no CFP end date to the end
+                $conferences = $conferences->sortBy(function ($conference) {
+                    return isset($conference->cfp_ends_at) ? $conference->cfp_ends_at : Carbon::now()->addCentury();
                 });
                 break;
         }

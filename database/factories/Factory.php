@@ -55,6 +55,12 @@ $factory->state(App\Conference::class, 'noCFPDates', function () {
     ];
 });
 
+$factory->state(App\Conference::class, 'approved', function () {
+    return [
+        'is_approved' => true,
+    ];
+});
+
 $factory->define(App\Talk::class, function () {
     return [
         'author_id' => function () {
