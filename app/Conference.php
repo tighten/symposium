@@ -131,7 +131,7 @@ class Conference extends UuidBase
     {
         return $query
             ->whereDoesntHave('usersDismissed', function ($query) {
-                $query->where('id', Auth::id());
+                $query->where('id', auth()->id());
             });
     }
 
@@ -187,12 +187,12 @@ class Conference extends UuidBase
 
     public function isDismissed()
     {
-        return Auth::user()->dismissedConferences->contains($this->id);
+        return auth()->user()->dismissedConferences->contains($this->id);
     }
 
     public function isFavorited()
     {
-        return Auth::user()->favoritedConferences->contains($this->id);
+        return auth()->user()->favoritedConferences->contains($this->id);
     }
 
     /**
@@ -202,7 +202,7 @@ class Conference extends UuidBase
      */
     public function mySubmissions()
     {
-        $talks = Auth::user()->talks;
+        $talks = auth()->user()->talks;
 
         return $this->submissions->filter(function ($submission) use ($talks) {
             return $talks->contains($submission->talkRevision->talk);
@@ -216,7 +216,7 @@ class Conference extends UuidBase
      */
     public function myAcceptedTalks()
     {
-        $talks = Auth::user()->talks;
+        $talks = auth()->user()->talks;
 
         return $this->acceptances->filter(function ($acceptance) use ($talks) {
             return $talks->contains($acceptance->talk);
