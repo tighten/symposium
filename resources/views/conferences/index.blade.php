@@ -88,7 +88,7 @@
                                     <b>Already Sent Proposal</b>
                                 @endif
 
-                                <?php /* TODO: cleaner substr */ ?>
+                                {{-- TODO: cleaner substr --}}
                                 <p>{{ mb_substr($conference->description, 0, 100) }}...</p>
                             </div>
                         </li>
