@@ -49,6 +49,7 @@
                                         <a href="/conferences/{{ $conference->id  }}/dismiss" class="action-button" title="I am not interested in this conference"><span class="glyphicon glyphicon-remove"></a>
                                     @endif
                                 @endif
+
                                 @if (Auth::check() && !$conference->isDismissed())
                                     @if ($conference->isFavorited())
                                         <a href="/conferences/{{ $conference->id  }}/unfavorite" class="action-button action-button--faved"><span class="glyphicon glyphicon-star"></a>
@@ -57,11 +58,14 @@
                                     @endif
                                 @endif
                             </div>
+
                             <div class="details">
                                 <h3><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{ $conference->title }}</a></h3>
+
                                 @if ($conference->cfpIsOpen())
                                     <span class="label label-info">CFP OPEN</span>
                                 @endif
+
                                 @if ($conference->joindin_id)
                                     <a href="http://joind.in/event/view/{{ $conference->joindin_id }}">
                                         <span class="label-joindin">
@@ -77,7 +81,9 @@
                                         <span {{ $conference->cfpIsOpen() ? '' : 'style="color: #aaa;"' }}>
                                         <br>CFP: <b>{{ $conference->cfpStartsAtDisplay() }}</b> to <b>{{ $conference->cfpEndsAtDisplay() }}</b>
                                         </span>
-                                    </i></p>
+                                    </i>
+                                </p>
+
                                 @if (Auth::check() && $conference->appliedTo())
                                     <b>Already Sent Proposal</b>
                                 @endif
@@ -86,6 +92,7 @@
                                 <p>{{ mb_substr($conference->description, 0, 100) }}...</p>
                             </div>
                         </li>
+
                     @empty
                         <li style="margin-left: 0;">
                             No conferences match this filter
