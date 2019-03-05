@@ -220,8 +220,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_dismiss_a_conference()
     {
-        $user = factory(App\User::class)->create();
-        $conference = factory(App\Conference::class)->create();
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -236,8 +236,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_undismiss_a_conference()
     {
-        $user = factory(App\User::class)->create();
-        $conference = factory(App\Conference::class)->create();
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -260,8 +260,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_favorite_a_conference()
     {
-        $user = factory(App\User::class)->create();
-        $conference = factory(App\Conference::class)->create();
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -276,8 +276,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_unfavorite_a_conference()
     {
-        $user = factory(App\User::class)->create();
-        $conference = factory(App\Conference::class)->create();
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
