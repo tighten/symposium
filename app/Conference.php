@@ -180,9 +180,6 @@ class Conference extends UuidBase
         return route('conferences.show', $this->id);
     }
 
-    /**
-     * Get all users who dismissed this conference
-     */
     public function usersDismissed()
     {
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
