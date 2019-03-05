@@ -61,6 +61,11 @@ class Conference extends UuidBase
         return $this->hasMany(Acceptance::class);
     }
 
+    public function usersDismissed()
+    {
+        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
+    }
+
     // @todo: Deprecate?
     public static function closingSoonest()
     {
@@ -178,11 +183,6 @@ class Conference extends UuidBase
     public function getLinkAttribute()
     {
         return route('conferences.show', $this->id);
-    }
-
-    public function usersDismissed()
-    {
-        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
     public function isDismissed()
