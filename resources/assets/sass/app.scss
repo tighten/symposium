@@ -278,10 +278,10 @@ legend {
     }
 
     .conference-actions {
-        text-align: center;
-        margin-right: 1rem;
         display: flex;
         flex-direction: column;
+        margin-right: 1rem;
+        text-align: center;
     }
 
     .action-button {
