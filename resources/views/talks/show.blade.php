@@ -45,7 +45,8 @@
                 </p>
 
                 <h3>Description/Proposal</h3>
-                {!! $current->getHtmledDescription() !!}
+
+                @markdown($current->getDescription())
 
                 <h3>Organizer Notes</h3>
                 {!! $current->getHtmledOrganizerNotes() !!}
