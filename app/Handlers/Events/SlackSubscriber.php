@@ -18,7 +18,7 @@ class SlackSubscriber
 
     public function subscribe($events)
     {
-        if (empty(config('app.slack_endpoint')) || App::environment('local')) {
+        if (empty(config('app.slack_endpoint')) || App::environment('testing')) {
             return;
         }
 

@@ -16,6 +16,15 @@
 
                 @include('partials.conferenceform')
 
+                @if (auth()->user()->isAdmin())
+                <div class="form-group">
+                    {!! Form::label('is_approved', 'Conference Is Approved?', ['class' => 'control-label']) !!}
+                    <br>
+                    {!! Form::radio('is_approved', true, $conference->is_approved) !!} Yes&nbsp;&nbsp;
+                    {!! Form::radio('is_approved', false, !$conference->is_approved) !!} No
+                </div>
+                @endif
+
                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}<br><br>
 
                 {!! Form::close() !!}

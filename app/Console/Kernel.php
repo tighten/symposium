@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\SyncJoindInEvents::class,
         \App\Console\Commands\TweetImportantCFPDates::class,
+        \App\Console\Commands\SendNotificationForOpenCFPs::class
     ];
 
     protected function schedule(Schedule $schedule)
@@ -20,6 +21,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('tweet:cfpDates')
              ->dailyAt('08:00')
              ->environments('production');
+
+        $schedule->command('symposium:notifyCfps')
+            ->dailyAt('08:00')
+            ->environments('production');
     }
     /**
      * Register the Closure based commands for the application.

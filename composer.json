@@ -37,6 +37,7 @@
         "rexxars/joindin-client": "^0.0.1",
         "thomaswelton/laravel-gravatar": "~1.0",
         "thujohn/twitter": "~2.0",
+        "predis/predis": "^1.1",
         "andreasindal/laravel-markdown": "1.1.6"
     },
     "require-dev": {

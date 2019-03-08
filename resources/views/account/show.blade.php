@@ -24,6 +24,7 @@
                 @if ($user->location)
                     <p><b>Location:</b><br>{{ $user->location }}</p>
                 @endif
+                <p><b>Notifications enabled?</b><br>{{ $user->wants_notifications ? 'Yes' : 'No' }}</p>
                 <br><br>
 
                 <h4>Favorited Conferences</h4>

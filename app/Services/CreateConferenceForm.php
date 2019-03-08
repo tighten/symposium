@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Conference;
+use App\Events\ConferenceCreated;
 use App\Exceptions\ValidationException;
-use Event;
-use Validator;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Validator;
 
 class CreateConferenceForm
 {
@@ -25,13 +26,23 @@ class CreateConferenceForm
 
     private function __construct($input, $user)
     {
-        $this->input = $this->removeEmptyFields($input);
+        $this->input = $input;
         $this->user = $user;
+        $this->guardAdminFields();
+        $this->removeEmptyFields();
     }
 
-    private function removeEmptyFields($input)
+    private function guardAdminFields()
     {
-        return array_filter($input);
+        if (! $this->user->isAdmin()) {
+            unset($this->input['is_approved']);
+            unset($this->input['is_shared']);
+        }
+    }
+
+    private function removeEmptyFields()
+    {
+        $this->input = array_filter($this->input);
     }
 
     public static function fillOut($input, $user)
@@ -51,6 +62,8 @@ class CreateConferenceForm
             'author_id' => $this->user->id,
         ]));
         Event::fire('new-conference', [$conference]);
+        event(new ConferenceCreated($conference));
+
         return $conference;
     }
 }

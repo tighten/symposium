@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Events\ProfilePictureUpdated;
-use App\Listeners\UpdateProfilePicture;
+use App\Events\ConferenceCreated;
+use App\Handlers\Events\SlackSubscriber;
+use App\Listeners\SendNotificationForOpenCFPs;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -14,9 +15,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        ConferenceCreated::class => [
+            SendNotificationForOpenCFPs::class,
+        ],
     ];
 
-    public function boot()
-    {
-    }
+    protected $subscribe = [
+        SlackSubscriber::class,
+    ];
 }

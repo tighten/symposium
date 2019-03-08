@@ -28,47 +28,42 @@ class ConferencesController extends BaseController
     {
         switch ($request->input('filter')) {
             case 'favorites':
-                $conferences = auth()->user()->favoritedConferences()->get();
+                $conferences = auth()->user()->favoritedConferences()->approved()->get();
                 break;
             case 'open_cfp':
-                $conferences = Conference::openCfp()->get();
+                $conferences = Conference::openCfp()->approved()->get();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::unclosedCfp()->get();
+                $conferences = Conference::unclosedCfp()->approved()->get();
                 break;
             case 'all':
-                $conferences = Conference::all();
+                $conferences = Conference::approved()->get();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::future()->get();
+                $conferences = Conference::future()->approved()->get();
         }
 
         switch ($request->input('sort')) {
             case 'date':
-                $conferences = $conferences->sortBy(function (Conference $model) {
-                    return $model->starts_at;
+                $conferences = $conferences->sortBy->starts_at;
+                break;
+            case 'opening_next':
+                // Force CFPs with no CFP start date to the end
+                $conferences = $conferences->sortBy(function ($conference) {
+                    return isset($conference->cfp_starts_at) ? $conference->cfp_starts_at : Carbon::now()->addCentury();
                 });
                 break;
-            case 'closing_next':
-                // Forces closed CFPs to the end. I feel dirty. Even dirtier with the 500 thing.
-                $conferences = $conferences
-                    ->sortBy(function (Conference $model) {
-                        if ($model->cfp_ends_at > Carbon::now()) {
-                            return $model->cfp_ends_at;
-                        } elseif ($model->cfp_ends_at === null) {
-                            return Carbon::now()->addYear(500);
-                        } else {
-                            return $model->cfp_ends_at->addYear(1000);
-                        }
-                    });
-                break;
             case 'alpha':
-                // Pass through
+                $conferences = $conferences->sortBy->title;
+                break;
+            case 'closing_next':
+                // pass through
             default:
-                $conferences = $conferences->sortBy(function (Conference $model) {
-                    return strtolower($model->title);
+                // Force CFPs with no CFP end date to the end
+                $conferences = $conferences->sortBy(function ($conference) {
+                    return isset($conference->cfp_ends_at) ? $conference->cfp_ends_at : Carbon::now()->addCentury();
                 });
                 break;
         }
@@ -123,7 +118,7 @@ class ConferencesController extends BaseController
 
     private function showPublic($id)
     {
-        $conference = Conference::findOrFail($id);
+        $conference = Conference::approved()->findOrFail($id);
 
         return view('conferences.showPublic')
             ->with('conference', $conference);
@@ -131,9 +126,9 @@ class ConferencesController extends BaseController
 
     public function edit($id)
     {
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
+        $conference = Conference::findOrFail($id);
+
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
@@ -146,11 +141,13 @@ class ConferencesController extends BaseController
     {
         $this->validate($request, $this->conference_rules);
 
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
+        // @todo Update this to use ACL... gosh this app is old...
+        $conference = Conference::findOrFail($id);
+
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
+
         }
 
         // Save
@@ -158,6 +155,11 @@ class ConferencesController extends BaseController
 
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
             $conference->$col = $request->input($col) ?: null;
+        }
+
+        if (auth()->user()->isAdmin()) {
+            $conference->is_shared = $request->input('is_shared');
+            $conference->is_approved = $request->input('is_approved');
         }
 
         $conference->save();

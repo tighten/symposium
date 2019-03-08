@@ -24,6 +24,8 @@ class Conference extends UuidBase
         'ends_at',
         'cfp_starts_at',
         'cfp_ends_at',
+        'is_approved',
+        'is_shared',
     ];
 
     protected $dates = [
@@ -31,6 +33,17 @@ class Conference extends UuidBase
         'ends_at',
         'cfp_starts_at',
         'cfp_ends_at'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_approved' => 'boolean',
+        'is_shared' => 'boolean',
+        'author_id' => 'integer',
     ];
 
     public function author()
@@ -109,6 +122,16 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '>', Carbon::now());
     }
 
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
+
+    public function scopeNotShared($query)
+    {
+        return $query->where('is_shared', false);
+    }
+
     /**
      * Whether CFP is currently open
      *
@@ -127,7 +150,7 @@ class Conference extends UuidBase
      */
     public function isCurrentlyAcceptingProposals()
     {
-        if (! $this->hasAnnouncedCallForProposals()) {
+        if (!$this->hasAnnouncedCallForProposals()) {
             return false;
         }
 
@@ -141,7 +164,7 @@ class Conference extends UuidBase
      */
     private function hasAnnouncedCallForProposals()
     {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
+        return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
     }
 
     public function getLinkAttribute()
