@@ -35,11 +35,6 @@ class TalkRevision extends UuidBase
         return $this->htmlize($this->getAttribute('description'), false);
     }
 
-    public function getHtmledDescription()
-    {
-        return $this->htmlize($this->getAttribute('description'));
-    }
-
     public function getHtmledOrganizerNotes()
     {
         return $this->htmlize($this->getAttribute('organizer_notes'));
@@ -51,6 +46,6 @@ class TalkRevision extends UuidBase
             return '<i>(empty)</i>';
         }
 
-        return $changeNewLineToBR ? str_replace("\n", "<br>", $string) : $string;
+        return $changeNewLineToBR ? str_replace("\n", '<br>', $string) : $string;
     }
 }
