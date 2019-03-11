@@ -46,6 +46,6 @@ class TalkRevision extends UuidBase
             return '<i>(empty)</i>';
         }
 
-        return $changeNewLineToBR ? str_replace("\n", '<br>', $string) : $string;
+        return $changeNewLineToBR ? str_replace('\n', '<br>', $string) : $string;
     }
 }
