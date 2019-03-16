@@ -21,7 +21,9 @@ class CalendarController extends BaseController
 
     private function conferenceEvents()
     {
-        return Conference::all()->map(function ($conference) {
+        return Conference::all()->reject(function ($conference) {
+            return $conference->startsAtSet() === null || $conference->endsAtSet() === null;
+        })->map(function ($conference) {
             return Calendar::event(
                 $conference->title,
                 true,
@@ -38,7 +40,9 @@ class CalendarController extends BaseController
 
     private function cfpStartEvents()
     {
-        return Conference::all()->map(function ($conference) {
+        return Conference::all()->reject(function (Conference $conference) {
+            return $conference->cfpStartsAtSet() === null;
+        })->map(function ($conference) {
             return Calendar::event(
                 "CFPs open for {$conference->title}",
                 true,
@@ -55,7 +59,9 @@ class CalendarController extends BaseController
 
     private function cfpEndEvents()
     {
-        return Conference::all()->map(function ($conference) {
+        return Conference::all()->reject(function (Conference $conference) {
+            return $conference->cfpEndsAtSet() === null;
+        })->map(function ($conference) {
             return Calendar::event(
                 "CFPs close for {$conference->title}",
                 true,
