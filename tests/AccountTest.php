@@ -119,7 +119,7 @@ class AccountTest extends IntegrationTestCase
         $token = null;
 
         $this->post('/password/email', [
-            'email' => $user->email, 
+            'email' => $user->email,
             '_token' => csrf_token(),
         ]);
 
@@ -172,16 +172,20 @@ class AccountTest extends IntegrationTestCase
         $talk = factory(Talk::class)->create(['author_id' => $user->id]);
         $talkRevision = factory(TalkRevision::class)->create();
         $bio = factory(Bio::class)->create();
-        $conference = factory(Conference::class)->create();
+        $conferenceA = factory(Conference::class)->create();
+        $conferenceB = factory(Conference::class)->create();
 
         $user->talks()->save($talk);
         $talk->revisions()->save($talkRevision);
         $user->bios()->save($bio);
-        $user->conferences()->save($conference);
+        $user->conferences()->saveMany([$conferenceA, $conferenceB]);
 
         $otherUser = factory(User::class)->create();
+        $dismissedConference = factory(Conference::class)->create();
         $favoriteConference = factory(Conference::class)->create();
-        $otherUser->conferences()->save($conference);
+
+        $otherUser->conferences()->saveMany([$conferenceA, $conferenceB]);
+        $user->dismissedConferences()->save($dismissedConference);
         $user->favoritedConferences()->save($favoriteConference);
 
         $this->actingAs($user)
@@ -202,13 +206,94 @@ class AccountTest extends IntegrationTestCase
             'id' => $bio->id,
         ]);
 
-        // $this->dontSeeInDatabase('conferences', [
-        //     'id' => $conference->id,
-        // ]);
+        $this->dontSeeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $dismissedConference->id,
+        ]);
 
         $this->dontSeeInDatabase('favorites', [
             'user_id' => $user->id,
             'conference_id' => $favoriteConference->id,
+        ]);
+    }
+
+    /** @test */
+    function users_can_dismiss_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->seeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+    }
+
+    /** @test */
+    function users_can_undismiss_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->seeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/undismiss");
+
+        $this->notSeeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+    }
+
+    /** @test */
+    function users_can_favorite_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/favorite");
+
+        $this->seeInDatabase('favorites', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+    }
+
+    /** @test */
+    function users_can_unfavorite_a_conference()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->seeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
+        ]);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/undismiss");
+
+        $this->notSeeInDatabase('dismissed_conferences', [
+            'user_id' => $user->id,
+            'conference_id' => $conference->id
         ]);
     }
 }

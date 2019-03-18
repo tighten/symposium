@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Conference;
-use App\Exceptions\ValidationException;
-use App\Services\CreateConferenceForm;
-use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Carbon\Carbon;
+use App\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Services\CreateConferenceForm;
 use Illuminate\Support\Facades\Session;
+use App\Exceptions\ValidationException;
+use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 
 class ConferencesController extends BaseController
 {
@@ -30,19 +30,22 @@ class ConferencesController extends BaseController
             case 'favorites':
                 $conferences = auth()->user()->favoritedConferences()->approved()->get();
                 break;
+            case 'dismissed':
+                $conferences = auth()->user()->dismissedConferences()->approved()->get();
+                break;
             case 'open_cfp':
-                $conferences = Conference::openCfp()->approved()->get();
+                $conferences = Conference::undismissed()->openCfp()->approved()->get();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::unclosedCfp()->approved()->get();
+                $conferences = Conference::undismissed()->unclosedCfp()->approved()->get();
                 break;
             case 'all':
-                $conferences = Conference::approved()->get();
+                $conferences = Conference::undismissed()->approved()->get();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::future()->approved()->get();
+                $conferences = Conference::undismissed()->future()->approved()->get();
         }
 
         switch ($request->input('sort')) {
@@ -185,8 +188,30 @@ class ConferencesController extends BaseController
         return redirect('conferences');
     }
 
+    public function dismiss($conferenceId)
+    {
+        if (Conference::findOrFail($conferenceId)->isFavorited()) {
+            return redirect()->back();
+        }
+
+        auth()->user()->dismissedConferences()->attach($conferenceId);
+
+        return redirect()->back();
+    }
+
+    public function undismiss($conferenceId)
+    {
+        auth()->user()->dismissedConferences()->detach($conferenceId);
+
+        return redirect()->back();
+    }
+
     public function favorite($conferenceId)
     {
+        if (Conference::findOrFail($conferenceId)->isDismissed()) {
+            return redirect()->back();
+        }
+
         auth()->user()->favoritedConferences()->attach($conferenceId);
 
         return redirect()->back();

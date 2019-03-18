@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
@@ -65,6 +66,11 @@ class User extends Authenticatable
         return $this->hasMany(Conference::class, 'author_id');
     }
 
+    public function dismissedConferences()
+    {
+        return $this->belongstoMany(Conference::class, 'dismissed_conferences')->withTimestamps();
+    }
+
     public function favoritedConferences()
     {
         return $this->belongstoMany(Conference::class, 'favorites')->withTimestamps();
@@ -122,7 +128,8 @@ class User extends Authenticatable
                 Storage::delete(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
             }
 
-            \DB::table('favorites')->where('user_id', $user->id)->delete();
+            DB::table('favorites')->where('user_id', $user->id)->delete();
+            DB::table('dismissed_conferences')->where('user_id', $user->id)->delete();
         });
     }
 

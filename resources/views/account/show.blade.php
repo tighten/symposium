@@ -24,12 +24,13 @@
                 @if ($user->location)
                     <p><b>Location:</b><br>{{ $user->location }}</p>
                 @endif
+
                 <p><b>Notifications enabled?</b><br>{{ $user->wants_notifications ? 'Yes' : 'No' }}</p>
                 <br><br>
 
-                <h4>Favorited Conferences</h4>
+                <h4>Dismissed Conferences</h4>
                 <ul>
-                @forelse ($user->favoritedConferences as $conference)
+                @forelse ($user->dismissedConferences as $conference)
                     <li><a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{  $conference->title }}</a></li>
                 @empty
                     <li>(none)</li>

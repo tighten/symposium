@@ -203,6 +203,146 @@ class ConferenceTest extends IntegrationTestCase
         ]);
     }
 
+    /** @test */
+    function guests_cannot_dismiss_conference()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->visit("conferences/{$conference->id}/dismiss")
+            ->seePageIs('login');
+    }
+
+    /** @test */
+    function dismissed_conferences_do_not_show_up_in_conference_list()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=all')
+            ->seePageIs('conferences?filter=all')
+            ->see($conference->title);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=all')
+            ->seePageIs('conferences?filter=all')
+            ->dontSee($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_dismissed_shows_dismissed_conferences()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=dismissed')
+            ->seePageIs('conferences?filter=dismissed')
+            ->see($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_dismissed_does_not_show_undismissed_conferences()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=dismissed')
+            ->seePageIs('conferences?filter=dismissed')
+            ->dontSee($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_favorites_shows_favorite_conferences()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/favorite");
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=favorites')
+            ->seePageIs('conferences?filter=favorites')
+            ->see($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_favorites_does_not_show_nonfavorite_conferences()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create();
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=favorites')
+            ->seePageIs('conferences?filter=favorites')
+            ->dontSee($conference->title);
+    }
+
+    /** @test */
+    function a_favorited_conference_cannot_be_dismissed()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
+        $user->favoritedConferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/dismiss");
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=dismissed')
+            ->seePageIs('conferences?filter=dismissed')
+            ->dontSee($conference->title);
+    }
+
+    /** @test */
+    function a_dismissed_conference_cannot_be_favorited()
+    {
+        $user = factory(App\User::class)->create();
+
+        $conference = factory(App\Conference::class)->create([
+            'is_approved' => true
+        ]);
+        $user->dismissedConferences()->save($conference);
+
+        $this->actingAs($user)
+            ->visit("conferences/{$conference->id}/favorite");
+
+        $this->actingAs($user)
+            ->visit('conferences?filter=favorites')
+            ->seePageIs('conferences?filter=favorites')
+            ->dontSee($conference->title);
+    }
+
     private function assertConferenceSort($conferences)
     {
         foreach ($conferences as $sortPosition => $conference) {

@@ -267,10 +267,9 @@ legend {
 
 .list-conferences {
     @extend %index-list;
-    // margin-left: 3rem;
 
     & > li {
-        margin-left: 3rem;
+        display: flex;
     }
 
     .conference-meta {
@@ -278,14 +277,17 @@ legend {
         margin-top: 0.25em;
     }
 
-    .fav-button {
-        color: #ee9900;
-        float: left;
-        height: 2rem;
-        margin-left: -3rem;
-        margin-top: 0.4rem;
+    .conference-actions {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem;
         text-align: center;
-        width: 2rem;
+    }
+
+    .action-button {
+        color: #ee9900;
+        height: 3rem;
+        margin-top: 0.4rem;
 
         &--faved {
         }
