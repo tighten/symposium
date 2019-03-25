@@ -3,8 +3,8 @@
 namespace Tests\Api;
 
 use App\User;
-use Artisan;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 

@@ -7,6 +7,7 @@ use App\User;
 use App\Talk;
 use App\Conference;
 use App\TalkRevision;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 
@@ -44,7 +45,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_log_in()
     {
-        $user = factory(User::class)->create(['password' => bcrypt('super-secret')]);
+        $user = factory(User::class)->create(['password' => Hash::make('super-secret')]);
 
         $this->visit('login')
             ->type($user->email, '#email')
@@ -78,14 +79,14 @@ class AccountTest extends IntegrationTestCase
             'allow_profile_contact' => 1,
             'profile_slug' => 'kevin_rox',
             'profile_intro' => 'It has been so long since I was in an X-Men movie',
-            'wants_notifications' => 1
+            'wants_notifications' => 1,
         ]);
     }
 
     /** @test */
     function user_can_update_their_profile_picture()
     {
-        $image = __DIR__.'/stubs/test.jpg';
+        $image = __DIR__ . '/stubs/test.jpg';
         $user = factory(User::class)->create();
 
         $this->actingAs($user)
@@ -94,7 +95,7 @@ class AccountTest extends IntegrationTestCase
             ->press('Save');
 
         $user->fresh();
-        $this->assertNotTrue($user->profile_picture, null);
+        $this->assertNotNull($user->profile_picture);
     }
 
     /** @test */
@@ -107,7 +108,7 @@ class AccountTest extends IntegrationTestCase
             ->type($user->email, '#email')
             ->press('Send Password Reset Link');
 
-        Notification::assertSentTo($user, \Illuminate\Auth\Notifications\ResetPassword::class);
+        Notification::assertSentTo($user, ResetPassword::class);
     }
 
     /** @test */
@@ -231,7 +232,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
     }
 
@@ -247,7 +248,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
 
         $this->actingAs($user)
@@ -255,7 +256,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->notSeeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
     }
 
@@ -271,7 +272,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('favorites', [
             'user_id' => $user->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
     }
 
@@ -287,7 +288,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->seeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
 
         $this->actingAs($user)
@@ -295,7 +296,7 @@ class AccountTest extends IntegrationTestCase
 
         $this->notSeeInDatabase('dismissed_conferences', [
             'user_id' => $user->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
     }
 }
