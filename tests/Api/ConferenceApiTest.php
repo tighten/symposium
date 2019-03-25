@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Api;
+
 use App\Conference;
 
 class ConferenceApiTest extends ApiTestCase

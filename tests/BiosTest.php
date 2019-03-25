@@ -1,11 +1,16 @@
 <?php
 
+namespace Tests;
+
+use App\Bio;
+use App\User;
+
 class BiosTest extends IntegrationTestCase
 {
     /** @test */
     function user_can_create_a_private_bio()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/bios/create')
@@ -25,7 +30,7 @@ class BiosTest extends IntegrationTestCase
     /** @test */
     function user_can_create_a_public_bio()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/bios/create')
@@ -45,8 +50,8 @@ class BiosTest extends IntegrationTestCase
     /** @test */
     function user_can_edit_their_bio()
     {
-        $user = factory(App\User::class)->create();
-        $bio = factory(App\Bio::class)->create(['user_id' => $user->id]);
+        $user = factory(User::class)->create();
+        $bio = factory(Bio::class)->create(['user_id' => $user->id]);
         $user->bios()->save($bio);
 
         $this->actingAs($user)
@@ -65,20 +70,20 @@ class BiosTest extends IntegrationTestCase
     /** @test */
     function user_cannot_edit_a_bio_that_they_do_not_own()
     {
-        $userA = factory(App\User::class)->create();
-        $userB = factory(App\User::class)->create();
+        $userA = factory(User::class)->create();
+        $userB = factory(User::class)->create();
 
-        $bio = factory(App\Bio::class)->create(['user_id' => $userA->id]);
+        $bio = factory(Bio::class)->create(['user_id' => $userA->id]);
 
         $responseGet = $this->actingAs($userB)->get('/bios/' . $bio->id . '/edit');
-        $responseGet->assertResponseStatus(404); //gives 404, should this be a 403?     
+        $responseGet->assertResponseStatus(404); //gives 404, should this be a 403?
     }
 
     /** @test */
     function user_can_delete_their_bio()
     {
-        $user = factory(App\User::class)->create();
-        $bio = factory(App\Bio::class)->create([
+        $user = factory(User::class)->create();
+        $bio = factory(Bio::class)->create([
             'user_id' => $user->id,
             'nickname' => 'Jimmy Buffet',
             'body' => '5 oclock somewhere',
@@ -95,9 +100,9 @@ class BiosTest extends IntegrationTestCase
     /** @test */
     function user_cannot_delete_a_bio_they_dont_own()
     {
-        $userA = factory(App\User::class)->create();
-        $userB = factory(App\User::class)->create();
-        $bio = App\Bio::create([
+        $userA = factory(User::class)->create();
+        $userB = factory(User::class)->create();
+        $bio = Bio::create([
             'user_id' => $userA->id,
             'nickname' => 'Jimmy Buffet',
             'body' => '5 oclock somewhere',

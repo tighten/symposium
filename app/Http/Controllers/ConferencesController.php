@@ -150,11 +150,10 @@ class ConferencesController extends BaseController
         if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
-
         }
 
         // Save
-        $conference->fill($request->only(['title', 'description', 'url', 'cfp_url']));
+        $conference->fill($request->all(['title', 'description', 'url', 'cfp_url']));
 
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
             $conference->$col = $request->input($col) ?: null;

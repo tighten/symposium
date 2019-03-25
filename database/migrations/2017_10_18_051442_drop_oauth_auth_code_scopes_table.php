@@ -22,7 +22,7 @@ class DropOauthAuthCodeScopesTable extends Migration
      * @return void
      */
     public function down()
-    {   
+    {
         Schema::create('oauth_auth_code_scopes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('auth_code_id', 40);

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use App\Bio;
 use App\User;
 use App\Talk;

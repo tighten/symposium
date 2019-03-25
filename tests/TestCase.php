@@ -1,28 +1,12 @@
 <?php
 
-use Illuminate\Contracts\Console\Kernel;
+namespace Tests;
+
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * The base URL of the application.
-     *
-     * @var string
-     */
+    use CreatesApplication;
+
     public $baseUrl = 'http://localhost';
-
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        $app->make(Kernel::class)->bootstrap();
-
-        return $app;
-    }
 }

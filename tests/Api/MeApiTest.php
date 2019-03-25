@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Api;
+
 class MeApiTest extends ApiTestCase
 {
     /** @test */

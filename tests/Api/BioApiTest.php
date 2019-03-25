@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Api;
+
 use App\Bio;
 
 class BioApiTest extends ApiTestCase
@@ -29,7 +31,7 @@ class BioApiTest extends ApiTestCase
     public function cannot_fetch_all_bios_for_other_user()
     {
         $response = $this->call('GET', 'api/user/2/bios');
-        
+
         $this->assertEquals(404, $response->getStatusCode());
     }
 

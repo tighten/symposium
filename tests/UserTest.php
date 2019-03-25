@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use App\User;
 
 class UserTest extends IntegrationTestCase
