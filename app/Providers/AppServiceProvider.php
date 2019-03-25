@@ -3,14 +3,14 @@
 namespace App\Providers;
 
 use App\Handlers\Events\SlackSubscriber;
-use Event;
+use Collective\Html\FormBuilder;
 use Exception;
-use Laravel\Passport\Passport;
-use Illuminate\Contracts\Logging\Log;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Psr\Log\LoggerInterface;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Blade::directive('sorted', function ($expression) {
+        Blade::directive('sorted', function ($expression) {
             list($sorted_by, $query) = explode(',', $expression, 2);
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
         });
@@ -53,31 +53,22 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      *
-     * This service provider is a great spot to register your various container
-     * bindings with the application. As you can see, we are registering our
-     * "Registrar" implementation here. You can add your own bindings too!
-     *
      * @return void
      */
     public function register()
     {
+        Passport::withoutCookieSerialization();
         Passport::ignoreMigrations();
 
-        $this->app->bind(
-            'Illuminate\Contracts\Auth\Registrar',
-            \App\Services\Registrar::class
-        );
-
         $this->app->bind('form', function () {
-            return new \Collective\Html\FormBuilder(
+            return new FormBuilder(
                 $this->app->make('Collective\Html\HtmlBuilder'),
                 $this->app->make('Illuminate\Routing\UrlGenerator'),
+                null,
                 csrf_token()
             );
         });
 
         $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
-        $this->app->alias('bugsnag.multi', Log::class);
-        $this->app->alias('bugsnag.multi', LoggerInterface::class);
     }
 }

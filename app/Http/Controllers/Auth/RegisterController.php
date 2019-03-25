@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -67,7 +68,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
 
         Event::fire('new-signup', [$user, app('request')]);
