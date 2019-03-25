@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Handlers\Events\SlackSubscriber;
-use App\Services\Registrar;
 use Collective\Html\FormBuilder;
 use Exception;
 use Illuminate\Support\Facades\Blade;
