@@ -26,7 +26,7 @@ class SyncJoindInEvents extends Command
         $this->importer = new ConferenceImporter($adminUserId);
     }
 
-    public function fire()
+    public function handle()
     {
         $this->info('Syncing events...');
 
