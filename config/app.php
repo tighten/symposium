@@ -158,11 +158,11 @@ return [
         /*
          * Application Service Providers...
          */
-        'App\Providers\AppServiceProvider',
+        App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider',
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
         'Bugsnag\BugsnagLaravel\BugsnagServiceProvider',
 
         'Collective\Html\HtmlServiceProvider',
