@@ -6,7 +6,7 @@ use App\Handlers\Events\SlackSubscriber;
 use Event;
 use Exception;
 use Laravel\Passport\Passport;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
