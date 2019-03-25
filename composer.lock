@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b9203e94e3213c850a1f0d213bdf434",
+    "content-hash": "f0b1bdbded9750cb81f8eb9e7204cd1e",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3312,7 +3312,7 @@
             "version": "0.0.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:mattstauffer/joindin-client.git",
+                "url": "git@github.com:tightenco/joindin-client.git",
                 "reference": "7508830f787125218e80b93d39d8a1e54d290130"
             },
             "require": {

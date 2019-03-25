@@ -9,7 +9,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@github.com:mattstauffer/joindin-client.git"
+            "url": "git@github.com:tightenco/joindin-client.git"
         },
         {
             "type": "git",
