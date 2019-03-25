@@ -71,7 +71,7 @@ class BiosTest extends IntegrationTestCase
         $bio = factory(App\Bio::class)->create(['user_id' => $userA->id]);
 
         $responseGet = $this->actingAs($userB)->get('/bios/' . $bio->id . '/edit');
-        $responseGet->assertResponseStatus(404); //gives 404, should this be a 403?     
+        $responseGet->assertResponseStatus(404); //gives 404, should this be a 403?
     }
 
     /** @test */
