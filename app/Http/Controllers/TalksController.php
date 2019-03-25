@@ -130,11 +130,11 @@ class TalksController extends BaseController
     {
         $talk = auth()->user()->talks()->findOrFail($id);
 
-        $current = $request->has('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
+        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
 
         return view('talks.show')
             ->with('talk', $talk)
-            ->with('showingRevision', $request->has('revision'))
+            ->with('showingRevision', $request->filled('revision'))
             ->with('current', $current);
     }
 

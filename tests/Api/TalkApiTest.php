@@ -1,8 +1,9 @@
 <?php
 
+namespace Tests\Api;
+
 use App\Talk;
-use Laracasts\TestDummy\Factory;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\TalkRevision;
 
 class TalkApiTest extends ApiTestCase
 {
@@ -20,7 +21,7 @@ class TalkApiTest extends ApiTestCase
     function all_talks_doesnt_return_archived_talks()
     {
         $toBeArchivedTalk = $this->user->talks()->create([]);
-        $toBeArchivedTalk->revisions()->save(factory(App\TalkRevision::class)->create());
+        $toBeArchivedTalk->revisions()->save(factory(TalkRevision::class)->create());
 
         $response = $this->call('GET', 'api/user/1/talks');
         $data = json_decode($response->getContent());

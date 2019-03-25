@@ -1,6 +1,9 @@
 <?php
 
+namespace Tests;
+
 use App\Conference;
+use App\User;
 use Carbon\Carbon;
 
 class ConferenceTest extends IntegrationTestCase
@@ -8,7 +11,7 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function user_can_create_conference()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->visit('/conferences/create')
@@ -28,9 +31,9 @@ class ConferenceTest extends IntegrationTestCase
     {
         $this->disableExceptionHandling();
 
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'author_id' => $user->id,
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
@@ -57,7 +60,7 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function conferences_accept_proposals_during_the_call_for_papers()
     {
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
@@ -68,14 +71,14 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
     {
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'cfp_starts_at' => Carbon::tomorrow(),
             'cfp_ends_at' => Carbon::tomorrow()->addDay(),
         ]);
 
         $this->assertFalse($conference->isCurrentlyAcceptingProposals());
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
         ]);
@@ -86,7 +89,7 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
     {
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
@@ -97,10 +100,10 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function non_owners_can_view_conference()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $otherUser = factory(App\User::class)->create();
-        $conference = factory(App\Conference::class)->create();
+        $otherUser = factory(User::class)->create();
+        $conference = factory(Conference::class)->create();
         $otherUser->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -111,9 +114,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function guests_can_view_conference()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create(['is_approved' => true]);
+        $conference = factory(Conference::class)->create(['is_approved' => true]);
         $user->conferences()
             ->save($conference);
 
@@ -124,9 +127,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function guests_can_view_conference_list()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create(['is_approved' => true]);
+        $conference = factory(Conference::class)->create(['is_approved' => true]);
         $user->conferences()
             ->save($conference);
 
@@ -145,8 +148,8 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function it_can_pull_only_approved_conferences()
     {
-        factory(App\Conference::class)->create();
-        factory(App\Conference::class)->create(['is_approved' => true]);
+        factory(Conference::class)->create();
+        factory(Conference::class)->create(['is_approved' => true]);
 
         $this->assertEquals(1, Conference::approved()->count());
     }
@@ -154,8 +157,8 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function it_can_pull_only_not_shared_conferences()
     {
-        factory(App\Conference::class)->create();
-        factory(App\Conference::class)->create(['is_shared' => true]);
+        factory(Conference::class)->create();
+        factory(Conference::class)->create(['is_shared' => true]);
 
         $this->assertEquals(1, Conference::notShared()->count());
     }
@@ -163,15 +166,15 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
     {
-        $nullCfp = factory(App\Conference::class)->states('approved')->create([
+        $nullCfp = factory(Conference::class)->states('approved')->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
-        $pastCfp = factory(App\Conference::class)->states('approved')->create([
+        $pastCfp = factory(Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
         ]);
-        $futureCfp = factory(App\Conference::class)->states('approved')->create([
+        $futureCfp = factory(Conference::class)->states('approved')->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
@@ -188,10 +191,10 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function cfp_by_date_list_sorts_by_date()
     {
-        $conferenceA = factory(App\Conference::class)->states('approved')->create([
+        $conferenceA = factory(Conference::class)->states('approved')->create([
             'starts_at' => Carbon::now()->subDay()
         ]);
-        $conferenceB = factory(App\Conference::class)->states('approved')->create([
+        $conferenceB = factory(Conference::class)->states('approved')->create([
             'starts_at' => Carbon::now()->addDay()
         ]);
 
@@ -206,9 +209,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function guests_cannot_dismiss_conference()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->visit("conferences/{$conference->id}/dismiss")
@@ -218,9 +221,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function dismissed_conferences_do_not_show_up_in_conference_list()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'is_approved' => true
         ]);
         $user->conferences()->save($conference);
@@ -242,9 +245,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function filtering_by_dismissed_shows_dismissed_conferences()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'is_approved' => true
         ]);
         $user->conferences()->save($conference);
@@ -261,9 +264,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function filtering_by_dismissed_does_not_show_undismissed_conferences()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -275,9 +278,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function filtering_by_favorites_shows_favorite_conferences()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'is_approved' => true
         ]);
         $user->conferences()->save($conference);
@@ -294,9 +297,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function filtering_by_favorites_does_not_show_nonfavorite_conferences()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create();
+        $conference = factory(Conference::class)->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -308,9 +311,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function a_favorited_conference_cannot_be_dismissed()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'is_approved' => true
         ]);
         $user->favoritedConferences()->save($conference);
@@ -327,9 +330,9 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function a_dismissed_conference_cannot_be_favorited()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
-        $conference = factory(App\Conference::class)->create([
+        $conference = factory(Conference::class)->create([
             'is_approved' => true
         ]);
         $user->dismissedConferences()->save($conference);

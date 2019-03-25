@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use App\Acceptance;
 use App\Conference;
 use App\Submission;
@@ -16,8 +18,8 @@ class AcceptanceTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = factory(Conference::class)->create();
-        $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(App\TalkRevision::class)->create();
+        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
+        $revision = factory(TalkRevision::class)->create();
         $talk->revisions()->save($revision);
 
         $submission = factory(Submission::class)->create([

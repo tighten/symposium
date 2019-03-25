@@ -1,11 +1,10 @@
 <?php
 
+namespace Tests;
+
 use App\Conference;
 use App\JoindIn\ConferenceImporter;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use JoindIn\Client;
 use Mockery as m;
 

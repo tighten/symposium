@@ -47,22 +47,22 @@
         "mockery/mockery": "~1.0",
         "symfony/dom-crawler": "3.1.*",
         "symfony/css-selector": "3.1.*",
-        "filp/whoops": "^2.1",
+        "filp/whoops": "~2.0",
         "fzaninotto/faker": "^1.7"
     },
     "autoload": {
-        "classmap": {
-            "1": "app/Http/Controllers/",
-            "0": "database/seeds"
-        },
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
     },
     "autoload-dev": {
-        "classmap": [
-            "tests"
-        ]
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "scripts": {
         "post-install-cmd": [

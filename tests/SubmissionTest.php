@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use App\Conference;
 use App\Submission;
 use App\Talk;

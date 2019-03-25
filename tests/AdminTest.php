@@ -1,14 +1,19 @@
 <?php
 
+namespace Tests;
+
+use App\Conference;
+use App\User;
+
 class AdminTest extends IntegrationTestCase
 {
     /** @test */
     function admins_can_edit_other_peoples_conferences()
     {
-        $user = factory(App\User::class)->create();
-        $user->conferences()->save($conference = factory(App\Conference::class)->make());
+        $user = factory(User::class)->create();
+        $user->conferences()->save($conference = factory(Conference::class)->make());
 
-        $admin = factory(App\User::class)->states('admin')->create();
+        $admin = factory(User::class)->states('admin')->create();
 
         $this->actingAs($admin)
             ->patch(
@@ -25,8 +30,8 @@ class AdminTest extends IntegrationTestCase
     /** @test */
     function admins_can_see_edit_button_for_other_peoples_conferences()
     {
-        $admin = factory(App\User::class)->states('admin')->create();
-        $conference = factory(App\Conference::class)->create();
+        $admin = factory(User::class)->states('admin')->create();
+        $conference = factory(Conference::class)->create();
 
         $this->actingAs($admin)
             ->visit(route('conferences.show', $conference))
@@ -38,12 +43,12 @@ class AdminTest extends IntegrationTestCase
     /** @test */
     function only_admins_can_change_conference_status()
     {
-        $user = factory(App\User::class)->create();
-        $user->conferences()->save($conference = factory(App\Conference::class)->make([
+        $user = factory(User::class)->create();
+        $user->conferences()->save($conference = factory(Conference::class)->make([
             'is_approved' => false,
         ]));
 
-        $admin = factory(App\User::class)->states('admin')->create();
+        $admin = factory(User::class)->states('admin')->create();
 
         $this->actingAs($user)
             ->patch(

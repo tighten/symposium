@@ -31,7 +31,7 @@ class ConferencesController extends BaseController
         $sort = 'closing_next';
         $sortDir = 'asc';
 
-        if ($request->has('sort')) {
+        if ($request->filled('sort')) {
             $sort = $request->input('sort');
 
             if (substr($sort, 0, 1) == '-') {
