@@ -94,8 +94,10 @@ class TalkTest extends IntegrationTestCase
     {
         $user = factory(App\User::class)->create();
         $talk = factory(App\Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(App\TalkRevision::class)->create(['title' => 'zyxwv', 'talk_id' => $talk->id]);
-        $talk->revisions()->save($revision);
+        factory(App\TalkRevision::class)->create([
+            'title' => 'zyxwv',
+            'talk_id' => $talk->id,
+        ]);
 
         $this->be($user);
 

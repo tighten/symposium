@@ -23,9 +23,10 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
             'cfp_ends_at' => Carbon::now()->addWeek()
         ]);
 
-        $this->twitter->shouldReceive('postTweet')->once();
+        $mock = $this->createMock(Twitter::class);
+        $mock->expects($this->once())->method('postTweet');
 
-        (new TweetImportantCFPDates($this->twitter, 0))->fire();
+        (new TweetImportantCFPDates($mock, 0))->fire();
     }
 
     /** @test */
@@ -37,9 +38,10 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
             'cfp_ends_at' => Carbon::now()->addDay()
         ]);
 
-        $this->twitter->shouldReceive('postTweet')->once();
+        $mock = $this->createMock(Twitter::class);
+        $mock->expects($this->once())->method('postTweet');
 
-        (new TweetImportantCFPDates($this->twitter, 0))->fire();
+        (new TweetImportantCFPDates($mock, 0))->fire();
     }
 
     /** @test */
@@ -51,9 +53,10 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
             'cfp_ends_at' => Carbon::now()->addWeek(),
         ]);
 
-        $this->twitter->shouldNotReceive('postTweet');
+        $mock = $this->createMock(Twitter::class);
+        $mock->expects($this->never())->method('postTweet');
 
-        (new TweetImportantCFPDates($this->twitter, 0))->fire();
+        (new TweetImportantCFPDates($mock, 0))->fire();
     }
 
     /** @test */
@@ -64,8 +67,9 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
             'cfp_ends_at' => Carbon::now(),
         ]);
 
-        $this->twitter->shouldNotReceive('postTweet');
+        $mock = $this->createMock(Twitter::class);
+        $mock->expects($this->never())->method('postTweet');
 
-        (new TweetImportantCFPDates($this->twitter, 0))->fire();
+        (new TweetImportantCFPDates($mock, 0))->fire();
     }
 }

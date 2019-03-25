@@ -108,6 +108,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
      */
     public function conference_can_be_a_single_day_conference()
     {
+        $conferenceCount = Conference::count();
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -118,7 +119,8 @@ class CreateConferenceFormTest extends IntegrationTestCase
 
         $form = CreateConferenceForm::fillOut($input, factory(App\User::class)->create());
         $form->complete();
-        // No assertions, as it should throw an exception on error.
+
+        $this->assertCount($conferenceCount + 1, Conference::all());
     }
 
     /**
