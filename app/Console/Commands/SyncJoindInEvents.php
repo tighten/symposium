@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands;
 
+use App\JoindIn\ConferenceImporter;
+use Exception;
 use Illuminate\Console\Command;
 use JoindIn\Client as JoindInClient;
-use App\JoindIn\ConferenceImporter;
 
 class SyncJoindInEvents extends Command
 {
     protected $name = 'joindin:sync';
-
     protected $description = 'Sync down Joind.in events.';
-
     protected $client;
+
     private $importer;
 
     public function __construct()
@@ -30,7 +30,14 @@ class SyncJoindInEvents extends Command
     {
         $this->info('Syncing events...');
 
-        foreach ($this->client->getEvents() as $event) {
+        try {
+            $events = $this->client->getEvents();
+        } catch (Exception $exception) {
+            $this->error("Unable to sync Joind.in events. Message: {$exception->getMessage()}");
+            return;
+        }
+
+        foreach ($events as $event) {
             $this->info('Creating/updating event ' . $event['name']);
             $this->importer->import($event['id']);
         }
