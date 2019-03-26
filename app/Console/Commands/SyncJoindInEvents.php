@@ -32,15 +32,16 @@ class SyncJoindInEvents extends Command
 
         try {
             $events = $this->client->getEvents();
-
-            foreach ($events as $event) {
-                $this->info('Creating/updating event ' . $event['name']);
-                $this->importer->import($event['id']);
-            }
-
-            $this->info('Events synced.');
         } catch (Exception $exception) {
             $this->error("Unable to sync Joind.in events. Message: {$exception->getMessage()}");
+            return;
         }
+
+        foreach ($events as $event) {
+            $this->info('Creating/updating event ' . $event['name']);
+            $this->importer->import($event['id']);
+        }
+
+        $this->info('Events synced.');
     }
 }
