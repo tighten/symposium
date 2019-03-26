@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0b1bdbded9750cb81f8eb9e7204cd1e",
+    "content-hash": "c7576581951392508ced0b6049747347",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3312,8 +3312,14 @@
             "version": "0.0.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:tightenco/joindin-client.git",
+                "url": "https://github.com/rexxars/joindin-client.git",
                 "reference": "7508830f787125218e80b93d39d8a1e54d290130"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rexxars/joindin-client/zipball/7508830f787125218e80b93d39d8a1e54d290130",
+                "reference": "7508830f787125218e80b93d39d8a1e54d290130",
+                "shasum": ""
             },
             "require": {
                 "guzzle/guzzle": "3.7.1",
@@ -3325,19 +3331,19 @@
                     "JoindIn": "library"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Espen Hovlandsdal",
-                    "email": "espen@hovlandsdal.com"
+                    "email": "espen@hovlandsdal.com",
+                    "homepage": "http://rexxars.com",
+                    "role": "Project lead"
                 }
             ],
             "description": "Joind.in API client, powered by Guzzle",
-            "support": {
-                "issues": "https://github.com/rexxars/joind.in-client/issues"
-            },
             "time": "2013-07-25T21:35:36+00:00"
         },
         {
@@ -5923,16 +5929,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.7",
+            "version": "7.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "eb343b86753d26de07ecba7868fa983104361948"
+                "reference": "c29c0525cf4572c11efe1db49a8b8aee9dfac58a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/eb343b86753d26de07ecba7868fa983104361948",
-                "reference": "eb343b86753d26de07ecba7868fa983104361948",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c29c0525cf4572c11efe1db49a8b8aee9dfac58a",
+                "reference": "c29c0525cf4572c11efe1db49a8b8aee9dfac58a",
                 "shasum": ""
             },
             "require": {
@@ -6003,7 +6009,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-03-16T07:31:17+00:00"
+            "time": "2019-03-26T13:23:54+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

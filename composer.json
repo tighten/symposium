@@ -6,16 +6,6 @@
         "laravel"
     ],
     "license": "MIT",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:tightenco/joindin-client.git"
-        },
-        {
-            "type": "git",
-            "url": "git@github.com:mattstauffer/laravel-gravatar.git"
-        }
-    ],
     "type": "project",
     "require": {
         "algolia/algoliasearch-client-php": "^1.18",
