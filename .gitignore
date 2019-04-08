@@ -1,6 +1,7 @@
 /node_modules
 /vendor
 .env
+.idea
 .sass-cache/
 /storage/*.key
 /public/css/app.css
