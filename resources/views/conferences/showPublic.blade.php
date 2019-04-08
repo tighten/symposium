@@ -4,6 +4,11 @@
     <div class="container body">
         <h1>{{ $conference->title }}</h1>
 
+        @unless ( empty($conference->location) )
+            <p><b>Location:</b>
+                {{ $conference->location}}</p>
+        @endunless
+
         <p><b>Date created:</b>
             {{ $conference->created_at->toFormattedDateString() }}</p>
 

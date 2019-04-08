@@ -16,6 +16,7 @@ class ConferenceTest extends IntegrationTestCase
         $this->actingAs($user)
             ->visit('/conferences/create')
             ->type('Das Conf', '#title')
+            ->type('Capital City, Country', '#location')
             ->type('A very good conference about things', '#description')
             ->type('http://dasconf.org', '#url')
             ->press('Create');

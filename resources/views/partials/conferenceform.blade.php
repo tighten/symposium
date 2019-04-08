@@ -4,6 +4,11 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('location', 'Location', ['class' => 'control-label']) !!}
+    {!! Form::text('location', $conference->location, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('description', '*Description', ['class' => 'control-label']) !!}
     {!! Form::textarea('description', $conference->description, ['class' => 'form-control']) !!}
 </div>

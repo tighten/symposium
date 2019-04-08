@@ -15,6 +15,7 @@ class Conference extends UuidBase
     protected $fillable = [
         'author_id',
         'title',
+        'location',
         'description',
         'url',
         'cfp_url',
