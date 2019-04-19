@@ -4,13 +4,13 @@ namespace Tests;
 
 use App\Conference;
 use App\JoindIn\ConferenceImporter;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use JoindIn\Client;
 use Mockery as m;
 
 class JoindInConferenceImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     private $eventStub = [
         'id' => 12345,

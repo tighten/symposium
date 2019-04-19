@@ -7,12 +7,12 @@ use App\Mail\ContactRequest;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     function non_public_speakers_are_not_listed_on_the_public_speaker_page()
