@@ -61,7 +61,7 @@ class CreateConferenceForm
         $conference = Conference::create(array_merge($this->input, [
             'author_id' => $this->user->id,
         ]));
-        Event::fire('new-conference', [$conference]);
+        Event::dispatch('new-conference', [$conference]);
         event(new ConferenceCreated($conference));
 
         return $conference;
