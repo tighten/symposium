@@ -68,7 +68,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "test": "./vendor/bin/phpunit"
+        "test": "phpunit"
     },
     "config": {
         "optimize-autoloader": true,
