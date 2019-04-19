@@ -16,6 +16,17 @@ return [
 
     'name' => env('APP_NAME', 'Symposium'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services the application utilizes. Set this in your ".env" file.
+    |
+    */
+
     'env' => env('APP_ENV', 'production'),
 
 
@@ -44,6 +55,8 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -147,6 +160,11 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
+        /*
+         * Third Party Service Providers...
+         */
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
