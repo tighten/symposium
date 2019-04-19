@@ -31,13 +31,14 @@
         "thujohn/twitter": "~2.0"
     },
     "require-dev": {
+        "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.7",
         "laravel/browser-kit-testing": "4.*",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0",
-        "beyondcode/laravel-dump-server": "^1.0"
+        "xethron/migrations-generator": "^2.0"
     },
     "autoload": {
         "psr-4": {
