@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Str;
 use App\Handlers\Events\SlackSubscriber;
 use Collective\Html\FormBuilder;
 use Exception;
@@ -45,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
             $domain = explode('@', $value)[1];
 
             return $blacklist->filter(function ($blacklistedDomain) use ($domain) {
-                return str_contains($domain, $blacklistedDomain);
+                return Str::contains($domain, $blacklistedDomain);
             })->isEmpty();
         });
     }
