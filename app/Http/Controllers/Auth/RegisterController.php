@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        Event::fire('new-signup', [$user, app('request')]);
+        Event::dispatch('new-signup', [$user, app('request')]);
 
         Session::flash('message', 'Successfully created account.');
 
