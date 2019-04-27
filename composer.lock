@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31ccf4642dcc2e8c0c3f452383d1fa8b",
+    "content-hash": "f40ae9ccb3e27389deb6d516cbc0b4a4",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1820,6 +1820,63 @@
             "time": "2018-05-24T13:35:34+00:00"
         },
         {
+            "name": "laravel/slack-notification-channel",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/slack-notification-channel.git",
+                "reference": "bfa411ba8affbcfad3a36b8716cf2ed906a248ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/slack-notification-channel/zipball/bfa411ba8affbcfad3a36b8716cf2ed906a248ac",
+                "reference": "bfa411ba8affbcfad3a36b8716cf2ed906a248ac",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "illuminate/notifications": "~5.8.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Illuminate\\Notifications\\SlackChannelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Notifications\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Slack Notification Channel for laravel.",
+            "keywords": [
+                "laravel",
+                "notifications",
+                "slack"
+            ],
+            "time": "2019-02-26T16:15:25+00:00"
+        },
+        {
             "name": "laravel/socialite",
             "version": "v3.3.0",
             "source": {
@@ -3499,12 +3556,6 @@
                 "url": "https://github.com/rexxars/joindin-client.git",
                 "reference": "7508830f787125218e80b93d39d8a1e54d290130"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rexxars/joindin-client/zipball/7508830f787125218e80b93d39d8a1e54d290130",
-                "reference": "7508830f787125218e80b93d39d8a1e54d290130",
-                "shasum": ""
-            },
             "require": {
                 "guzzle/guzzle": "3.7.1",
                 "php": ">=5.3.0"
@@ -3515,19 +3566,19 @@
                     "JoindIn": "library"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Espen Hovlandsdal",
-                    "email": "espen@hovlandsdal.com",
-                    "homepage": "http://rexxars.com",
-                    "role": "Project lead"
+                    "email": "espen@hovlandsdal.com"
                 }
             ],
             "description": "Joind.in API client, powered by Guzzle",
+            "support": {
+                "issues": "https://github.com/rexxars/joind.in-client/issues"
+            },
             "time": "2013-07-25T21:35:36+00:00"
         },
         {
@@ -4142,7 +4193,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
