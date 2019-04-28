@@ -9,7 +9,8 @@ class MeController extends BaseController
 {
     public function index()
     {
-        $me = new Me(Auth::user());
+
+        $me = new Me(Auth::guard('api')->user());
 
         return response()->jsonApi([
             'data' => $me->toArray()

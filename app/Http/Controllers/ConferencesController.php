@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Conference;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Services\CreateConferenceForm;
 use Illuminate\Support\Facades\Session;
@@ -28,10 +29,10 @@ class ConferencesController extends BaseController
     {
         switch ($request->input('filter')) {
             case 'favorites':
-                $conferences = auth()->user()->favoritedConferences()->approved()->get();
+                $conferences = Auth::guard('api')->user()->favoritedConferences()->approved()->get();
                 break;
             case 'dismissed':
-                $conferences = auth()->user()->dismissedConferences()->approved()->get();
+                $conferences = Auth::guard('api')->user()->dismissedConferences()->approved()->get();
                 break;
             case 'open_cfp':
                 $conferences = Conference::undismissed()->openCfp()->approved()->get();
@@ -83,7 +84,7 @@ class ConferencesController extends BaseController
 
     public function store(Request $request)
     {
-        $form = CreateConferenceForm::fillOut($request->all(), auth()->user());
+        $form = CreateConferenceForm::fillOut($request->all(), Auth::guard('api')->user());
 
         try {
             $conference = $form->complete();
@@ -110,7 +111,7 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        $talks = auth()->user()->talks->map(function ($talk) use ($conference) {
+        $talks = Auth::guard('api')->user()->talks->map(function ($talk) use ($conference) {
             return (TalkTransformer::transform($talk, $conference));
         });
 
@@ -131,8 +132,8 @@ class ConferencesController extends BaseController
     {
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
-            Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
+        if ($conference->author_id !== auth()->id() && ! Auth::guard('api')->user()->isAdmin()) {
+            Log::error("User " . Auth::guard('api')->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
 
@@ -147,8 +148,8 @@ class ConferencesController extends BaseController
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
-            Log::error("User " . auth()->user()->id . " tried to edit a conference they don't own.");
+        if ($conference->author_id !== auth()->id() && ! Auth::guard('api')->user()->isAdmin()) {
+            Log::error("User " . Auth::guard('api')->user()->id . " tried to edit a conference they don't own.");
             return redirect('/');
         }
 
@@ -159,7 +160,7 @@ class ConferencesController extends BaseController
             $conference->$col = $request->input($col) ?: null;
         }
 
-        if (auth()->user()->isAdmin()) {
+        if (Auth::guard('api')->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');
             $conference->is_approved = $request->input('is_approved');
         }
@@ -174,9 +175,9 @@ class ConferencesController extends BaseController
     public function destroy($id)
     {
         try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
+            $conference = Auth::guard('api')->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
-            Log::error("User " . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
+            Log::error("User " . Auth::guard('api')->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
             return redirect('/');
         }
 
@@ -193,14 +194,14 @@ class ConferencesController extends BaseController
             return redirect()->back();
         }
 
-        auth()->user()->dismissedConferences()->attach($conferenceId);
+        Auth::guard('api')->user()->dismissedConferences()->attach($conferenceId);
 
         return redirect()->back();
     }
 
     public function undismiss($conferenceId)
     {
-        auth()->user()->dismissedConferences()->detach($conferenceId);
+        Auth::guard('api')->user()->dismissedConferences()->detach($conferenceId);
 
         return redirect()->back();
     }
@@ -211,14 +212,14 @@ class ConferencesController extends BaseController
             return redirect()->back();
         }
 
-        auth()->user()->favoritedConferences()->attach($conferenceId);
+        Auth::guard('api')->user()->favoritedConferences()->attach($conferenceId);
 
         return redirect()->back();
     }
 
     public function unfavorite($conferenceId)
     {
-        auth()->user()->favoritedConferences()->detach($conferenceId);
+        Auth::guard('api')->user()->favoritedConferences()->detach($conferenceId);
 
         return redirect()->back();
     }

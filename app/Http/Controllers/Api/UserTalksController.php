@@ -15,11 +15,11 @@ class UserTalksController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Auth::user()->id) {
+        if ($userId != Auth::guard('api')->user()->id) {
             App::abort(404);
         }
 
-        $return = Auth::user()->activeTalks->map(function ($talk) {
+        $return = Auth::guard('api')->user()->activeTalks->map(function ($talk) {
             return new Talk($talk);
         })->values();
 
