@@ -29,7 +29,7 @@ class TalksController extends BaseController
     public function index(Request $request)
     {
         $talks = $this->sortTalks(
-            Auth::guard('api')->user()->talks()->active()->get(),
+            Auth::user()->talks()->active()->get(),
             $request->input('sort')
         );
 
@@ -56,7 +56,7 @@ class TalksController extends BaseController
         if ($validator->passes()) {
             // Save
             $talk = Talk::create([
-                'author_id' => Auth::guard('api')->user()->id,
+                'author_id' => Auth::user()->id,
                 'public' => $request->input('public') == 'yes',
             ]);
 
@@ -84,7 +84,7 @@ class TalksController extends BaseController
     public function edit($id)
     {
         try {
-            $talk = Auth::guard('api')->user()->talks()->findOrFail($id);
+            $talk = Auth::user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
@@ -103,7 +103,7 @@ class TalksController extends BaseController
 
 
         if ($validator->passes()) {
-            $talk = Auth::guard('api')->user()->talks()->findOrFail($id);
+            $talk = Auth::user()->talks()->findOrFail($id);
             $talk->update(['public' => $request->input('public') == 'yes']);
 
             $revision = TalkRevision::create([
@@ -129,7 +129,7 @@ class TalksController extends BaseController
 
     public function show($id, Request $request)
     {
-        $talk = Auth::guard('api')->user()->talks()->findOrFail($id);
+        $talk = Auth::user()->talks()->findOrFail($id);
 
         $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
 
@@ -141,7 +141,7 @@ class TalksController extends BaseController
 
     public function destroy($id)
     {
-        Auth::guard('api')->user()->talks()->findOrFail($id)->delete();
+        Auth::user()->talks()->findOrFail($id)->delete();
 
         Session::flash('message', 'Successfully deleted talk.');
 
@@ -151,7 +151,7 @@ class TalksController extends BaseController
     public function archiveIndex(Request $request)
     {
         $talks = $this->sortTalks(
-            Auth::guard('api')->user()->talks()->archived()->get(),
+            Auth::user()->talks()->archived()->get(),
             $request->input('sort')
         );
 
@@ -162,7 +162,7 @@ class TalksController extends BaseController
 
     public function archive($id)
     {
-        Auth::guard('api')->user()->talks()->findOrFail($id)->archive();
+        Auth::user()->talks()->findOrFail($id)->archive();
 
         Session::flash('message', 'Successfully archived talk.');
 
@@ -171,7 +171,7 @@ class TalksController extends BaseController
 
     public function restore($id)
     {
-        Auth::guard('api')->user()->talks()->findOrFail($id)->restore();
+        Auth::user()->talks()->findOrFail($id)->restore();
 
         Session::flash('message', 'Successfully restored talk.');
 
