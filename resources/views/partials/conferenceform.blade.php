@@ -37,10 +37,3 @@
     {!! Form::label('cfp_ends_at', 'CFP Close Date', ['class' => 'control-label']) !!}
     {!! Form::input('date', 'cfp_ends_at', $conference->cfpEndsAtSet() ? $conference->cfp_ends_at->format('Y-m-d') : '', ['class' => 'form-control']) !!}
 </div>
-
-@if ($conference->joindin_id)
-    <div class="form-group">
-        {!! Form::label('joindin_id', 'JoindIn ID', ['class' => 'control-label']) !!}
-        <p class="form-control-static">{{ $conference->joindin_id }}</p>
-    </div>
-@endif

@@ -8,14 +8,14 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        \App\Console\Commands\SyncJoindInEvents::class,
+        \App\Console\Commands\SyncCallingAllPapersEvents::class,
         \App\Console\Commands\TweetImportantCFPDates::class,
         \App\Console\Commands\SendNotificationForOpenCFPs::class
     ];
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('joindin:sync')
+        $schedule->command('callingallpapers:sync')
             ->hourly();
 
         $schedule->command('tweet:cfpDates')
