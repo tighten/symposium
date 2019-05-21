@@ -36,6 +36,11 @@
                     <li>(none)</li>
                 @endforelse
                 </ul>
+
+                @TODO move these somewhere on their own once they actually work
+                <passport-clients></passport-clients>
+                <passport-authorized-clients></passport-authorized-clients>
+                <passport-personal-access-tokens></passport-personal-access-tokens>
             </div>
         </div>
     </div>
