@@ -11,6 +11,7 @@
                     <a href="{{ route('account.edit') }}">Edit account</a><br>
                     <a href="{{ route('account.delete') }}">Delete account</a><br>
                     <a href="{{ route('account.export') }}">Export data</a><br>
+                    <a href="{{ route('account.oauth-settings') }}">oAuth settings</a><br>
                 </div>
 
                 <h3>User</h3>
@@ -36,11 +37,6 @@
                     <li>(none)</li>
                 @endforelse
                 </ul>
-
-                @TODO move these somewhere on their own once they actually work
-                <passport-clients></passport-clients>
-                <passport-authorized-clients></passport-authorized-clients>
-                <passport-personal-access-tokens></passport-personal-access-tokens>
             </div>
         </div>
     </div>

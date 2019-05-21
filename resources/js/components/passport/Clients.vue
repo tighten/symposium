@@ -1,350 +1,287 @@
-<style scoped>
-    .action-link {
-        cursor: pointer;
-    }
-</style>
-
 <template>
+  <div>
     <div>
-        <div class="card card-default">
-            <div class="card-header">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>
-                        OAuth Clients
-                    </span>
+      <div class="flex items-center justify-between">
+        <span class="text-2xl">OAuth Clients</span>
 
-                    <a class="action-link" tabindex="-1" @click="showCreateClientForm">
-                        Create New Client
-                    </a>
-                </div>
-            </div>
+        <button
+          class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+          @click="showCreateClientForm"
+        >Create New Client</button>
+      </div>
 
-            <div class="card-body">
-                <!-- Current Clients -->
-                <p class="mb-0" v-if="clients.length === 0">
-                    You have not created any OAuth clients.
-                </p>
+      <table v-if="clients.length >0" class="table mb-20 mt-5 container mx-auto">
+        <thead class="bg-blue text-white">
+          <tr>
+            <th scope="col" class="border">#ID</th>
+            <th scope="col" class="border">Name</th>
+            <th scope="col" class="border">Secret</th>
+            <th scope="col" class="border">Actions</th>
+          </tr>
+        </thead>
 
-                <table class="table table-borderless mb-0" v-if="clients.length > 0">
-                    <thead>
-                        <tr>
-                            <th>Client ID</th>
-                            <th>Name</th>
-                            <th>Secret</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr v-for="client in clients">
-                            <!-- ID -->
-                            <td style="vertical-align: middle;">
-                                {{ client.id }}
-                            </td>
-
-                            <!-- Name -->
-                            <td style="vertical-align: middle;">
-                                {{ client.name }}
-                            </td>
-
-                            <!-- Secret -->
-                            <td style="vertical-align: middle;">
-                                <code>{{ client.secret }}</code>
-                            </td>
-
-                            <!-- Edit Button -->
-                            <td style="vertical-align: middle;">
-                                <a class="action-link" tabindex="-1" @click="edit(client)">
-                                    Edit
-                                </a>
-                            </td>
-
-                            <!-- Delete Button -->
-                            <td style="vertical-align: middle;">
-                                <a class="action-link text-danger" @click="destroy(client)">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <tbody>
+          <tr v-for="client in clients" :key="client.id" class="border">
+            <th scope="row" class="border">{{ client.id }}</th>
+            <td class="border">{{ client.name }}</td>
+            <td class="border">
+              <code>{{ client.secret }}</code>
+            </td>
+            <!-- Edit Button -->
+            <td class="border">
+              <a class="cursor-pointer text-blue px-2" @click="edit(client)">Edit</a>
+              <a class="cursor-pointer text-red px-2" @click="destroy(client)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-else role="alert" class="mb-20 pt-5">
+        <div class="bg-blue text-white font-bold rounded-t px-4 py-2">Oops!</div>
+        <div
+          class="border border-t-0 border-blue-light rounded-b bg-blue-lightest px-4 py-3 text-blue-dark"
+        >
+          <p>You Dont Have Any Client Yet. Please Create a New Client</p>
         </div>
-
-        <!-- Create Client Modal -->
-        <div class="modal fade" id="modal-create-client" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            Create Client
-                        </h4>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-
-                    <div class="modal-body">
-                        <!-- Form Errors -->
-                        <div class="alert alert-danger" v-if="createForm.errors.length > 0">
-                            <p class="mb-0"><strong>Whoops!</strong> Something went wrong!</p>
-                            <br>
-                            <ul>
-                                <li v-for="error in createForm.errors">
-                                    {{ error }}
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Create Client Form -->
-                        <form role="form">
-                            <!-- Name -->
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">Name</label>
-
-                                <div class="col-md-9">
-                                    <input id="create-client-name" type="text" class="form-control"
-                                                                @keyup.enter="store" v-model="createForm.name">
-
-                                    <span class="form-text text-muted">
-                                        Something your users will recognize and trust.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Redirect URL -->
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">Redirect URL</label>
-
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="redirect"
-                                                    @keyup.enter="store" v-model="createForm.redirect">
-
-                                    <span class="form-text text-muted">
-                                        Your application's authorization callback URL.
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Modal Actions -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                        <button type="button" class="btn btn-primary" @click="store">
-                            Create
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Edit Client Modal -->
-        <div class="modal fade" id="modal-edit-client" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            Edit Client
-                        </h4>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-
-                    <div class="modal-body">
-                        <!-- Form Errors -->
-                        <div class="alert alert-danger" v-if="editForm.errors.length > 0">
-                            <p class="mb-0"><strong>Whoops!</strong> Something went wrong!</p>
-                            <br>
-                            <ul>
-                                <li v-for="error in editForm.errors">
-                                    {{ error }}
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Edit Client Form -->
-                        <form role="form">
-                            <!-- Name -->
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">Name</label>
-
-                                <div class="col-md-9">
-                                    <input id="edit-client-name" type="text" class="form-control"
-                                                                @keyup.enter="update" v-model="editForm.name">
-
-                                    <span class="form-text text-muted">
-                                        Something your users will recognize and trust.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Redirect URL -->
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">Redirect URL</label>
-
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="redirect"
-                                                    @keyup.enter="update" v-model="editForm.redirect">
-
-                                    <span class="form-text text-muted">
-                                        Your application's authorization callback URL.
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Modal Actions -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                        <button type="button" class="btn btn-primary" @click="update">
-                            Save Changes
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <!-- create modal -->
+    <div v-if="showCreateModal">
+      <div class="fixed pin flex items-center">
+        <div class="fixed pin bg-black opacity-75 z-10"/>
+
+        <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
+          <div class="shadow-lg bg-white rounded-lg p-8">
+            <div class="flex justify-end mb-6">
+              <button @click="close(createForm)">
+                <span class="mr-2 text-red">Close</span>
+                <span>
+                  <i class="fa fa-times"/>
+                </span>
+              </button>
+            </div>
+
+            <h1 class="text-center text-2xl text-blue-dark">Create Client</h1>
+
+            <form class="pt-6 pb-2 my-2">
+              <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="name">Name</label>
+                <input
+                  id="name"
+                  v-model="createForm.name"
+                  :class="{ 'border-red': createForm.errors.has('name') }"
+                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-grey-lightest text-grey-darker py-3 pr-3 pl-9 rounded"
+                  type="text"
+                  placeholder="Something your users will recognize and trust."
+                  @keyup.enter="store"
+                >
+                <has-error :form="createForm" class="text-red" field="name"/>
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-bold mb-2" for="redirecturl">Redirect Url</label>
+                <input
+                  id="redirecturl"
+                  v-model="createForm.redirect"
+                  :class="{ 'border-red': createForm.errors.has('redirect') }"
+                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-grey-lightest text-grey-darker py-3 pr-3 pl-9 rounded"
+                  type="text"
+                  placeholder="Your application's authorization callback URL."
+                  @keyup.enter="store"
+                >
+                <has-error :form="createForm" class="text-red" field="redirect"/>
+              </div>
+              <div class="block">
+                <div>
+                  <button
+                    class="float-right bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded border-b-4 border-blue-darkest"
+                    type="button"
+                    @click="store"
+                  >Create</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- create modal -->
+    <!-- edit modal -->
+    <div v-if="showEditModal">
+      <div class="fixed pin flex items-center">
+        <div class="fixed pin bg-black opacity-75 z-10"/>
+
+        <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
+          <div class="shadow-lg bg-white rounded-lg p-8">
+            <div class="flex justify-end mb-6">
+              <button @click="close(editForm)">
+                <span class="mr-2 text-red">Close</span>
+                <span>
+                  <i class="fa fa-times"/>
+                </span>
+              </button>
+            </div>
+
+            <h1 class="text-center text-2xl text-blue-dark">Edit Client</h1>
+
+            <form class="pt-6 pb-2 my-2">
+              <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="name">Name</label>
+                <input
+                  id="name"
+                  v-model="editForm.name"
+                  :class="{ 'border-red': editForm.errors.has('name') }"
+                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-grey-lightest text-grey-darker py-3 pr-3 pl-9 rounded"
+                  type="text"
+                  placeholder="Something your users will recognize and trust."
+                  @keyup.enter="update"
+                >
+                <has-error :form="editForm" class="text-red" field="name"/>
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-bold mb-2" for="redirecturl">Redirect Url</label>
+                <input
+                  id="redirecturl"
+                  v-model="editForm.redirect"
+                  :class="{ 'border-red': editForm.errors.has('redirect') }"
+                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-grey-lightest text-grey-darker py-3 pr-3 pl-9 rounded"
+                  type="text"
+                  placeholder="Your application's authorization callback URL."
+                  @keyup.enter="update"
+                >
+                <has-error :form="editForm" class="text-red" field="redirect"/>
+              </div>
+              <div class="block">
+                <div>
+                  <button
+                    class="float-right bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded border-b-4 border-blue-darkest"
+                    type="button"
+                    @click="update"
+                  >Save Changes</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- edit modal -->
+  </div>
 </template>
 
 <script>
-    export default {
-        /*
-         * The component's data.
-         */
-        data() {
-            return {
-                clients: [],
+import Form from "vform";
 
-                createForm: {
-                    errors: [],
-                    name: '',
-                    redirect: ''
-                },
+export default {
+  data() {
+    return {
+      clients: [],
 
-                editForm: {
-                    errors: [],
-                    name: '',
-                    redirect: ''
-                }
-            };
-        },
+      createForm: new Form({
+        name: "",
+        redirect: ""
+      }),
 
-        /**
-         * Prepare the component (Vue 1.x).
-         */
-        ready() {
-            this.prepareComponent();
-        },
+      editForm: new Form({
+        name: "",
+        redirect: ""
+      }),
+      showCreateModal: false,
+      showEditModal: false
+    };
+  },
 
-        /**
-         * Prepare the component (Vue 2.x).
-         */
-        mounted() {
-            this.prepareComponent();
-        },
+  /**
+   * Prepare the component (Vue 1.x).
+   */
+  ready() {
+    this.prepareComponent();
+  },
 
-        methods: {
-            /**
-             * Prepare the component.
-             */
-            prepareComponent() {
-                this.getClients();
+  /**
+   * Prepare the component (Vue 2.x).
+   */
+  mounted() {
+    this.prepareComponent();
+  },
 
-                $('#modal-create-client').on('shown.bs.modal', () => {
-                    $('#create-client-name').focus();
-                });
+  methods: {
+    close(form) {
+      this.showCreateModal = false;
+      this.showEditModal = false;
+      form.clear();
+    },
+    /**
+     * Prepare the component.
+     */
+    prepareComponent() {
+      this.getClients();
+    },
 
-                $('#modal-edit-client').on('shown.bs.modal', () => {
-                    $('#edit-client-name').focus();
-                });
-            },
+    /**
+     * Get all of the OAuth clients for the user.
+     */
+    getClients() {
+      axios.get("/oauth/clients").then(response => {
+        this.clients = response.data;
+      });
+    },
 
-            /**
-             * Get all of the OAuth clients for the user.
-             */
-            getClients() {
-                axios.get('/oauth/clients')
-                        .then(response => {
-                            this.clients = response.data;
-                        });
-            },
+    /**
+     * Show the form for creating new clients.
+     */
+    showCreateClientForm() {
+      this.showCreateModal = true;
+    },
 
-            /**
-             * Show the form for creating new clients.
-             */
-            showCreateClientForm() {
-                $('#modal-create-client').modal('show');
-            },
+    /**
+     * Create a new OAuth client for the user.
+     */
+    store() {
+      this.persistClient("post", "/oauth/clients", this.createForm);
+    },
 
-            /**
-             * Create a new OAuth client for the user.
-             */
-            store() {
-                this.persistClient(
-                    'post', '/oauth/clients',
-                    this.createForm, '#modal-create-client'
-                );
-            },
+    /**
+     * Edit the given client.
+     */
+    edit(client) {
+      this.editForm.id = client.id;
+      this.editForm.name = client.name;
+      this.editForm.redirect = client.redirect;
 
-            /**
-             * Edit the given client.
-             */
-            edit(client) {
-                this.editForm.id = client.id;
-                this.editForm.name = client.name;
-                this.editForm.redirect = client.redirect;
+      this.showEditModal = true;
+    },
 
-                $('#modal-edit-client').modal('show');
-            },
+    /**
+     * Update the client being edited.
+     */
+    update() {
+      this.persistClient(
+        "put",
+        "/oauth/clients/" + this.editForm.id,
+        this.editForm
+      );
+    },
 
-            /**
-             * Update the client being edited.
-             */
-            update() {
-                this.persistClient(
-                    'put', '/oauth/clients/' + this.editForm.id,
-                    this.editForm, '#modal-edit-client'
-                );
-            },
+    /**
+     * Persist the client to storage using the given form.
+     */
+    persistClient(method, uri, form) {
+      form[method](uri).then(response => {
+        this.getClients();
 
-            /**
-             * Persist the client to storage using the given form.
-             */
-            persistClient(method, uri, form, modal) {
-                form.errors = [];
+        form.name = "";
+        form.redirect = "";
+        this.close(form);
+      });
+    },
 
-                axios[method](uri, form)
-                    .then(response => {
-                        this.getClients();
-
-                        form.name = '';
-                        form.redirect = '';
-                        form.errors = [];
-
-                        $(modal).modal('hide');
-                    })
-                    .catch(error => {
-                        if (typeof error.response.data === 'object') {
-                            form.errors = _.flatten(_.toArray(error.response.data.errors));
-                        } else {
-                            form.errors = ['Something went wrong. Please try again.'];
-                        }
-                    });
-            },
-
-            /**
-             * Destroy the given client.
-             */
-            destroy(client) {
-                axios.delete('/oauth/clients/' + client.id)
-                        .then(response => {
-                            this.getClients();
-                        });
-            }
-        }
+    /**
+     * Destroy the given client.
+     */
+    destroy(client) {
+      axios.delete("/oauth/clients/" + client.id).then(response => {
+        this.getClients();
+      });
     }
+  }
+};
 </script>
