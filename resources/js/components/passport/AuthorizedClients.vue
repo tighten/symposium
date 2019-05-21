@@ -5,7 +5,7 @@
         <span class="text-2xl">Authorized Clients</span>
       </div>
       <table v-if="tokens.length >0" class="table mb-20 mt-5 container mx-auto">
-        <thead class="bg-blue text-white">
+        <thead class="bg-blue-500 text-white">
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Scopes</th>
@@ -27,7 +27,7 @@
         </tbody>
       </table>
       <div v-else role="alert" class="mb-20 pt-5">
-        <div class="bg-blue text-white font-bold rounded-t px-4 py-2">Oops!</div>
+        <div class="bg-blue-500 text-white font-bold rounded-t px-4 py-2">Oops!</div>
         <div
           class="border border-t-0 border-blue-light rounded-b bg-blue-lightest px-4 py-3 text-blue-dark"
         >
