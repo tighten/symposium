@@ -8,7 +8,7 @@
             <li><a href="{{ route('talks.index') }}">Talks</a></li>
             <li class="dropdown" role="presentation">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    <img src="{{ Auth::user()->profile_picture_thumb }}" class="nav-profile-picture"> Me <span class="caret"></span>
+                    <img src="{{ Auth::user()->profile_picture_thumb }}" class="nav-profile-picture inline"> Me <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ route('account.show') }}">Account</a></li>
