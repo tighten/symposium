@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Contracts\Filesystem\Factory as Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -118,12 +119,7 @@ class AccountController extends BaseController
         return redirect('/');
     }
 
-    /**
-     * @param \Illuminate\Contracts\Filesystem\Factory $storage
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function export(\Illuminate\Contracts\Filesystem\Factory $storage)
+    public function export(Filesystem $storage)
     {
         $user = Auth::user();
         $user->load('talks.revisions');
@@ -133,9 +129,7 @@ class AccountController extends BaseController
         $tempName = sprintf('%d_export.json', $user->id);
         $exportName = sprintf('export_%s.json', date('Y_m_d'));
 
-        $export = [
-            'talks' => $user->talks->toArray()
-        ];
+        $export = ['talks' => $user->talks->toArray()];
 
         $storage
             ->disk('local')
@@ -146,5 +140,10 @@ class AccountController extends BaseController
         return response()
             ->download($path . $tempName, $exportName, $headers)
             ->deleteFileAfterSend(true);
+    }
+
+    public function oAuthSettings()
+    {
+        return view('account.oauth-settings');
     }
 }

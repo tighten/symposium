@@ -142,9 +142,6 @@ export default {
                     talk.loading = false;
                 });
         }
-    },
-    http: {
-        root: '/'
     }
 };
 </script>

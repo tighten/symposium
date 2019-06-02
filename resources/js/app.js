@@ -1,26 +1,36 @@
-if (window.Vue === undefined) {
-    window.Vue = require('vue');
-}
-
-if (window.axios === undefined) {
-    window.axios = require('axios');
-}
+window.Vue = require('vue');
+window.axios = require('axios');
 
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Symposium.token,
     'X-Requested-With': 'XMLHttpRequest'
 };
 
-import TalksOnConferencePage from './components/TalksOnConferencePage.vue';
+import Vue from 'vue';
 
-if ($('#talks-on-conference-page').length) {
-    new Vue({
-        el: '#talks-on-conference-page',
-        components: {
-            TalksOnConferencePage: TalksOnConferencePage
-        }
-    });
-}
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
+
+Vue.component(
+    'talks-on-conference-page',
+    require('./components/TalksOnConferencePage.vue').default
+);
+
+new Vue({
+    el: "#app",
+});
 
 // jQuery bindings
 $(function() {
