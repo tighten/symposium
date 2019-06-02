@@ -73,7 +73,9 @@ class ConferencesController extends BaseController
         }
 
         return response()->jsonApi([
-            'data' => $conferences->values()
+            'data' => $conferences->map(function ($conference) {
+                return (new Conference($conference))->toArray();
+            })->values()
         ]);
     }
 
