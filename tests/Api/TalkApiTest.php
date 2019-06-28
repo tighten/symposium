@@ -13,7 +13,7 @@ class TalkApiTest extends ApiTestCase
         $response = $this->call('GET', 'api/user/1/talks');
         $data = json_decode($response->getContent());
 
-        $this->assertInternalType('array', $data->data);
+        $this->assertIsArray($data->data);
         $this->assertCount(2, $data->data);
     }
 
@@ -56,7 +56,7 @@ class TalkApiTest extends ApiTestCase
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertInternalType('object', $data->data);
+        $this->assertIsObject($data->data);
     }
 
     /** @test */

@@ -15,11 +15,11 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Auth::user()->id) {
+        if ($userId != Auth::guard('api')->user()->id) {
             App::abort(404);
         }
 
-        $return = Auth::user()->bios->map(function ($bio) {
+        $return = Auth::guard('api')->user()->bios->map(function ($bio) {
             return new Bio($bio);
         });
 

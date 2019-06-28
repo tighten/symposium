@@ -1,3 +1,11 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+// Old stuff. All future dev in Tailwind, please.
+
 // Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
 @import "variables", "bootstrap", "bootswatch";
 
@@ -5,6 +13,10 @@ $link_color: #428bca;
 $font-family-oswald: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
+html {
+    font-size: 16px;
+}
+
 body {
     background: #eee;
 }
@@ -28,28 +40,28 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 1.5625rem;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.25rem;
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 0.9375rem;
 }
 
 @media only screen and (min-width: 400px) {
     h1 {
-        font-size: 3.5rem;
+        font-size: 2.1875rem;
     }
 
     h2 {
-        font-size: 3rem;
+        font-size: 1.875rem;
     }
 
     h3 {
-        font-size: 2.5rem;
+        font-size: 1.5625rem;
     }
 }
 
@@ -107,8 +119,8 @@ legend {
 .body {
     background: #fff;
     margin-top: 0;
-    padding-bottom: 6rem;
-    padding-top: 4rem;
+    padding-bottom: 3.75rem;
+    padding-top: 2.5rem;
 }
 
 .primary-header {
@@ -176,10 +188,10 @@ legend {
 }
 
 .hero {
-    font-size: 2rem;
+    font-size: 1.25rem;
 
     h1 {
-        font-size: 5.5rem;
+        font-size: 3.35rem;
     }
 
     img {
@@ -208,18 +220,18 @@ legend {
 }
 
 .create-edit-form {
-    padding: 2rem;
+    padding: 1.25rem;
 }
 
 %index-list {
     list-style-type: none;
     margin-left: 0;
-    padding: 1rem 2rem;
+    padding: 0.625rem 1.25rem;
 
     li {
         border-bottom: 1px solid #ddd;
-        padding-bottom: 1.5rem;
-        padding-top: 1.5rem;
+        padding-bottom: 0.9375rem;
+        padding-top: 0.9375rem;
 
         &:last-of-type {
             border-bottom: 0;
@@ -252,8 +264,8 @@ legend {
 .page-meta-buttons {
     .btn {
         display: block;
-        margin-left: 1rem;
-        margin-bottom: 0.5rem;
+        margin-left: 0.625rem;
+        margin-bottom: 0.3125rem;
     }
 }
 
@@ -280,17 +292,14 @@ legend {
     .conference-actions {
         display: flex;
         flex-direction: column;
-        margin-right: 1rem;
+        margin-right: 0.625rem;
         text-align: center;
     }
 
     .action-button {
         color: #ee9900;
-        height: 3rem;
-        margin-top: 0.4rem;
-
-        &--faved {
-        }
+        height: 1.875rem;
+        margin-top: 0.25rem;
 
         &:hover {
             color: #ff5500;
@@ -302,7 +311,7 @@ legend {
     @extend %index-list;
 
     h3 {
-        font-size: 2rem;
+        font-size: 1.25rem;
     }
 }
 
@@ -402,7 +411,7 @@ legend {
 }
 
 .login-box, .signup-box {
-    margin-top: 5rem;
+    margin-top: 3.125rem;
 }
 
 .public-profile-pic {

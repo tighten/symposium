@@ -316,7 +316,7 @@ Symposium uses the OAuth2 Authorization Code grant.
 Routes:
 Authorization form: `https://symposiumapp.com/oauth/authorize?client_id=:id&redirect_uri=:redirect_uri&response_type=code`
 
-The authorization form presents users with the ability to approve or deny the conncetion. If they approve, it'll forward them to:
+The authorization form presents users with the ability to approve or deny the connection. If they approve, it'll forward them to:
 `:redirect_url/?code=code-for-getting-token-below`
 
 Grab that code, and pass it to `https://symposiumapp.com/oauth/token` to get your access token for that user.

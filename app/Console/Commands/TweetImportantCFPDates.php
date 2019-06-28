@@ -114,10 +114,11 @@ class TweetImportantCFPDates extends Command
     private function tweetable($conferences)
     {
         return $conferences->reject(function ($conference) {
-            $starts = $conference->cfp_starts_at;
-            $ends = $conference->cfp_ends_at;
+            if (! $conference->starts_at || ! $conference->ends_at)  {
+                return true;
+            }
 
-            return $starts->isSameDay($ends);
+            return $conference->cfp_starts_at->isSameDay($conference->cfp_ends_at);
         });
     }
 }

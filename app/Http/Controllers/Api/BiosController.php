@@ -12,7 +12,7 @@ class BiosController extends BaseController
     public function show($id)
     {
         try {
-            $bio = Auth::user()->bios()->findOrFail($id);
+            $bio = Auth::guard('api')->user()->bios()->findOrFail($id);
         } catch (Exception $e) {
             App::abort(404);
         }

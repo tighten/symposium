@@ -11,6 +11,8 @@ class MeApiTest extends ApiTestCase
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertInternalType('object', $data->data);
+        $this->assertIsObject($data->data);
     }
 }
+
+

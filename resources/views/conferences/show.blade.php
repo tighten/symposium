@@ -1,9 +1,12 @@
 @extends('layout')
 
+@section('headerScripts')
+<script>
+    Symposium.talks = {!! json_encode($talks) !!};
+</script>
+@endsection
+
 @section('content')
-    <script>
-        Symposium.talks = {!! json_encode($talks) !!};
-    </script>
     <div class="container body">
         <div class="row">
             <div class="col-md-12">
@@ -56,7 +59,7 @@
                         <p><b>Date CFP closes:</b>
                             {{ $conference->cfpEndsAtDisplay() }}</p>
                     </div>
-                    <div class="col-md-6" id="talks-on-conference-page">
+                    <div class="col-md-6">
                         <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
                     </div>
                 </div>

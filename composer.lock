@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb93d14faf6a96c769cb5d718524d9e0",
+    "content-hash": "f40ae9ccb3e27389deb6d516cbc0b4a4",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1539,16 +1539,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.13",
+            "version": "v5.8.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "837e3823e2274d22b8e281d093391b5d9c23029a"
+                "reference": "d1ba096bf809c7cbe6cb9624222326d75c92fd74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/837e3823e2274d22b8e281d093391b5d9c23029a",
-                "reference": "837e3823e2274d22b8e281d093391b5d9c23029a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d1ba096bf809c7cbe6cb9624222326d75c92fd74",
+                "reference": "d1ba096bf809c7cbe6cb9624222326d75c92fd74",
                 "shasum": ""
             },
             "require": {
@@ -1682,47 +1682,48 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-04-18T15:28:45+00:00"
+            "time": "2019-04-23T13:22:19+00:00"
         },
         {
             "name": "laravel/passport",
-            "version": "v6.0.7",
+            "version": "v7.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "5a3dbeb0904573fcfecf11c018eaa42bfc935372"
+                "reference": "c0c3fca80d8f5af90dcbf65e62bdd1abee9ac25d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/5a3dbeb0904573fcfecf11c018eaa42bfc935372",
-                "reference": "5a3dbeb0904573fcfecf11c018eaa42bfc935372",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/c0c3fca80d8f5af90dcbf65e62bdd1abee9ac25d",
+                "reference": "c0c3fca80d8f5af90dcbf65e62bdd1abee9ac25d",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "firebase/php-jwt": "~3.0|~4.0|~5.0",
                 "guzzlehttp/guzzle": "~6.0",
-                "illuminate/auth": "~5.6",
-                "illuminate/console": "~5.6",
-                "illuminate/container": "~5.6",
-                "illuminate/contracts": "~5.6",
-                "illuminate/database": "~5.6",
-                "illuminate/encryption": "~5.6",
-                "illuminate/http": "~5.6",
-                "illuminate/support": "~5.6",
+                "illuminate/auth": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/console": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/container": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/contracts": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/encryption": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/http": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
+                "illuminate/support": "~5.6.0|~5.7.0|~5.8.0|~5.9.0",
                 "league/oauth2-server": "^7.0",
                 "php": ">=7.1",
                 "phpseclib/phpseclib": "^2.0",
                 "symfony/psr-http-message-bridge": "~1.0",
-                "zendframework/zend-diactoros": "~1.0"
+                "zendframework/zend-diactoros": "~1.0|~2.0"
             },
             "require-dev": {
                 "mockery/mockery": "~1.0",
-                "phpunit/phpunit": "~6.0"
+                "phpunit/phpunit": "~7.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "7.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1751,7 +1752,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2018-08-09T19:10:08+00:00"
+            "time": "2019-03-13T14:21:06+00:00"
         },
         {
             "name": "laravel/scout",
@@ -1817,6 +1818,63 @@
                 "search"
             ],
             "time": "2018-05-24T13:35:34+00:00"
+        },
+        {
+            "name": "laravel/slack-notification-channel",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/slack-notification-channel.git",
+                "reference": "bfa411ba8affbcfad3a36b8716cf2ed906a248ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/slack-notification-channel/zipball/bfa411ba8affbcfad3a36b8716cf2ed906a248ac",
+                "reference": "bfa411ba8affbcfad3a36b8716cf2ed906a248ac",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "illuminate/notifications": "~5.8.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Illuminate\\Notifications\\SlackChannelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Notifications\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Slack Notification Channel for laravel.",
+            "keywords": [
+                "laravel",
+                "notifications",
+                "slack"
+            ],
+            "time": "2019-02-26T16:15:25+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -3052,6 +3110,58 @@
             "time": "2017-02-14T16:28:37+00:00"
         },
         {
+            "name": "psr/http-factory",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2018-07-30T21:54:04+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -3446,12 +3556,6 @@
                 "url": "https://github.com/rexxars/joindin-client.git",
                 "reference": "7508830f787125218e80b93d39d8a1e54d290130"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rexxars/joindin-client/zipball/7508830f787125218e80b93d39d8a1e54d290130",
-                "reference": "7508830f787125218e80b93d39d8a1e54d290130",
-                "shasum": ""
-            },
             "require": {
                 "guzzle/guzzle": "3.7.1",
                 "php": ">=5.3.0"
@@ -3462,33 +3566,33 @@
                     "JoindIn": "library"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Espen Hovlandsdal",
-                    "email": "espen@hovlandsdal.com",
-                    "homepage": "http://rexxars.com",
-                    "role": "Project lead"
+                    "email": "espen@hovlandsdal.com"
                 }
             ],
             "description": "Joind.in API client, powered by Guzzle",
+            "support": {
+                "issues": "https://github.com/rexxars/joind.in-client/issues"
+            },
             "time": "2013-07-25T21:35:36+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.0",
+            "version": "v6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "6fa3232ff9d3f8237c0fae4b7ff05e1baa4cd707"
+                "reference": "5397cd05b0a0f7937c47b0adcb4c60e5ab936b6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/6fa3232ff9d3f8237c0fae4b7ff05e1baa4cd707",
-                "reference": "6fa3232ff9d3f8237c0fae4b7ff05e1baa4cd707",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/5397cd05b0a0f7937c47b0adcb4c60e5ab936b6a",
+                "reference": "5397cd05b0a0f7937c47b0adcb4c60e5ab936b6a",
                 "shasum": ""
             },
             "require": {
@@ -3537,7 +3641,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2019-03-10T07:52:41+00:00"
+            "time": "2019-04-21T09:21:45+00:00"
         },
         {
             "name": "symfony/console",
@@ -4089,7 +4193,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4985,38 +5089,41 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.8.6",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "20da13beba0dde8fb648be3cc19765732790f46e"
+                "reference": "c3c330192bc9cc51b7e9ce968ff721dc32ffa986"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/20da13beba0dde8fb648be3cc19765732790f46e",
-                "reference": "20da13beba0dde8fb648be3cc19765732790f46e",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/c3c330192bc9cc51b7e9ce968ff721dc32ffa986",
+                "reference": "c3c330192bc9cc51b7e9ce968ff721dc32ffa986",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0",
+                "php": "^7.1",
+                "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0"
             },
             "provide": {
+                "psr/http-factory-implementation": "1.0",
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
+                "http-interop/http-factory-tests": "^0.5.0",
                 "php-http/psr7-integration-tests": "dev-master",
-                "phpunit/phpunit": "^5.7.16 || ^6.0.8 || ^7.2.7",
-                "zendframework/zend-coding-standard": "~1.0"
+                "phpunit/phpunit": "^7.0.2",
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8.x-dev",
-                    "dev-develop": "1.9.x-dev",
-                    "dev-release-2.0": "2.0.x-dev"
+                    "dev-master": "2.1.x-dev",
+                    "dev-develop": "2.2.x-dev",
+                    "dev-release-1.8": "1.8.x-dev"
                 }
             },
             "autoload": {
@@ -5036,19 +5143,86 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-2-Clause"
+                "BSD-3-Clause"
             ],
             "description": "PSR HTTP Message implementations",
-            "homepage": "https://github.com/zendframework/zend-diactoros",
             "keywords": [
                 "http",
                 "psr",
                 "psr-7"
             ],
-            "time": "2018-09-05T19:29:37+00:00"
+            "time": "2019-01-05T20:13:32+00:00"
         }
     ],
     "packages-dev": [
+        {
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v3.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "5fcba4cc8e92a230b13b99c1083fc22ba8a5c479"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/5fcba4cc8e92a230b13b99c1083fc22ba8a5c479",
+                "reference": "5fcba4cc8e92a230b13b99c1083fc22ba8a5c479",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "5.5.x|5.6.x|5.7.x|5.8.x",
+                "illuminate/session": "5.5.x|5.6.x|5.7.x|5.8.x",
+                "illuminate/support": "5.5.x|5.6.x|5.7.x|5.8.x",
+                "maximebf/debugbar": "~1.15.0",
+                "php": ">=7.0",
+                "symfony/debug": "^3|^4",
+                "symfony/finder": "^3|^4"
+            },
+            "require-dev": {
+                "laravel/framework": "5.5.x"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Debugbar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Debugbar": "Barryvdh\\Debugbar\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "time": "2019-02-26T18:01:54+00:00"
+        },
         {
             "name": "beyondcode/laravel-dump-server",
             "version": "1.2.2",
@@ -5374,6 +5548,67 @@
                 "testing"
             ],
             "time": "2019-02-05T13:27:14+00:00"
+        },
+        {
+            "name": "maximebf/debugbar",
+            "version": "v1.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximebf/php-debugbar.git",
+                "reference": "30e7d60937ee5f1320975ca9bc7bcdd44d500f07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/30e7d60937ee5f1320975ca9bc7bcdd44d500f07",
+                "reference": "30e7d60937ee5f1320975ca9bc7bcdd44d500f07",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/log": "^1.0",
+                "symfony/var-dumper": "^2.6|^3.0|^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0|^5.0"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "The best way to manage assets",
+                "monolog/monolog": "Log using Monolog",
+                "predis/predis": "Redis storage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.14-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DebugBar\\": "src/DebugBar/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Debug bar in the browser for php application",
+            "homepage": "https://github.com/maximebf/php-debugbar",
+            "keywords": [
+                "debug",
+                "debugbar"
+            ],
+            "time": "2017-12-15T11:13:46+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -6372,16 +6607,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "4.1.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656"
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6fda8ce1974b62b14935adc02a9ed38252eca656",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
                 "shasum": ""
             },
             "require": {
@@ -6396,7 +6631,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -6421,7 +6656,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2019-02-01T05:27:49+00:00"
+            "time": "2019-04-25T07:55:20+00:00"
         },
         {
             "name": "sebastian/exporter",

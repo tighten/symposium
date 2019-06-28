@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Symposium for Speakers &amp; Conferences</title>
+    <title>Symposium for Speakers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
@@ -23,9 +23,11 @@
     @yield('headerScripts')
 </head>
 <body>
-    @include('partials.header')
-    @yield('content')
-    @include('partials.footer')
+    <div id="app">
+        @include('partials.header')
+        @yield('content')
+        @include('partials.footer')
+    </div>
 
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>

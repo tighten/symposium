@@ -14,13 +14,16 @@
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.1",
     "jquery": "^3.2",
-    "laravel-mix": "^4.0.7",
+    "laravel-mix": "^4.0.15",
     "lodash": "^4.17.5",
-    "popper.js": "^1.12",
     "resolve-url-loader": "^2.3.1",
-    "sass": "^1.15.2",
+    "sass": "^1.20.1",
     "sass-loader": "^7.1.0",
-    "vue": "^2.5.17",
+    "tailwindcss": "^1.0.1",
+    "vue": "^2.6.7",
     "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "vform": "^1.0.0"
   }
 }
