@@ -66,11 +66,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('submissions', 'SubmissionsController@store');
     Route::delete('submissions/{submission}', 'SubmissionsController@destroy');
 
-    // Joind.in (@todo separate controller)
-    Route::get('conferences/joindin/import/{eventId}', 'ConferencesController@joindinImport');
-    Route::get('conferences/joindin/import', 'ConferencesController@joindinImportList');
-    Route::get('conferences/joindin/all', 'ConferencesController@joindinImportAll');
-
     Route::get('conferences/{id}/favorite', 'ConferencesController@favorite');
     Route::get('conferences/{id}/unfavorite', 'ConferencesController@unfavorite');
 

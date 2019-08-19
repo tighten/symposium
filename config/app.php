@@ -171,7 +171,6 @@ return [
         Thujohn\Twitter\TwitterServiceProvider::class,
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
         App\Providers\CaptchaServiceProvider::class,
-        App\Providers\JoindInServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,

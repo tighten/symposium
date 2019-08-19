@@ -58,39 +58,39 @@ Filter takes `all`, `future`, `open_cfp`, and `unclosed_cfp` (default).
   "data": [
     {
       "id": "07098561-6df3-4368-b88a-aad1a7531a50",
-      "type": "conferences",
-      "attributes": {
-        "title": "ActiveRecordCon 2015",
-        "description": "Culpa labore in sed molestias quos.",
-        "url": "http://example.com",
-        "cfp_url": "http://example.com/cfp",
-        "author_id": 3,
-        "created_at": "2015-06-06 09:16:04",
-        "updated_at": "2015-06-06 09:16:04",
-        "starts_at": "2015-07-20 22:40:21",
-        "ends_at": "2015-07-22 22:40:21",
-        "cfp_starts_at": "2015-06-26 05:54:10",
-        "cfp_ends_at": "2015-07-22 05:54:10",
-        "joindin_id": null
-      }
+      "title": "ActiveRecordCon 2015",
+      "description": "Culpa labore in sed molestias quos.",
+      "url": "http://example.com",
+      "author_id": 3,
+      "starts_at": "2015-07-20 22:40:21",
+      "ends_at": "2015-07-22 22:40:21",
+      "cfp_starts_at": "2015-06-26 05:54:10",
+      "cfp_ends_at": "2015-07-22 05:54:10",
+      "created_at": "2015-06-06 09:16:04",
+      "updated_at": "2015-06-06 09:16:04",
+      "cfp_url": "http://example.com/cfp",
+      "is_approved": true,
+      "is_shared": false,
+      "location": null,
+      "calling_all_papers_id": "aabbccddeeff11223344556677889900abcdef12"
     },
     {
       "id": "0747de8f-ad9e-4cc5-b33d-922be66bef12",
-      "type": "conferences",
-      "attributes": {
-        "title": "UltraMegaCon 2016",
-        "description": "Eum aspernatur voluptate quia ut error omnis sit.",
-        "url": "http://example.com",
-        "cfp_url": null, 
-        "author_id": 11,
-        "created_at": "2015-06-06 09:16:04",
-        "updated_at": "2015-06-06 09:16:04",
-        "starts_at": "2016-09-15 17:50:49",
-        "ends_at": "2016-09-17 17:50:49",
-        "cfp_starts_at": "2015-07-22 04:14:10",
-        "cfp_ends_at": "2015-08-14 04:14:10",
-        "joindin_id": null
-      }
+      "title": "UltraMegaCon 2016",
+      "description": "Eum aspernatur voluptate quia ut error omnis sit.",
+      "url": "http://example.com",
+      "author_id": 11,
+      "starts_at": "2016-09-15 17:50:49",
+      "ends_at": "2016-09-17 17:50:49",
+      "cfp_starts_at": "2015-07-22 04:14:10",
+      "cfp_ends_at": "2015-08-14 04:14:10",
+      "created_at": "2015-06-06 09:16:04",
+      "updated_at": "2015-06-06 09:16:04",
+      "cfp_url": null,
+      "is_approved": true,
+      "is_shared": false,
+      "location": null,
+      "calling_all_papers_id": "abcdef1234567890abcdef1234567890abcdef12"
     }
   ]
 }
@@ -118,14 +118,10 @@ GET /api/conferences/:id
       "description": "Culpa labore in sed molestias quos.",
       "url": "http://example.com",
       "cfp_url": "http://example.com/cfp",
-      "author_id": 3,
-      "created_at": "2015-06-06 09:16:04",
-      "updated_at": "2015-06-06 09:16:04",
       "starts_at": "2015-07-20 22:40:21",
       "ends_at": "2015-07-22 22:40:21",
       "cfp_starts_at": "2015-06-26 05:54:10",
-      "cfp_ends_at": "2015-07-22 05:54:10",
-      "joindin_id": null
+      "cfp_ends_at": "2015-07-22 05:54:10"
     }
   }
 }
