@@ -8,6 +8,7 @@ use App\CallingAllPapers\Event;
 use App\Conference;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
+use stdClass;
 
 class CallingAllPapersConferenceImporterTest extends TestCase
 {
@@ -16,25 +17,32 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
     /** @var Event */
     private $eventStub;
-    private $eventStubProperties;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
-        $_rel = new \stdClass();
-        $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
-        $this->eventStubProperties = new \stdClass();
-        $this->eventStubProperties->_rel = $_rel;
-        $this->eventStubProperties->name = 'ABC conference';
-        $this->eventStubProperties->description = 'The greatest conference ever.';
-        $this->eventStubProperties->eventUri = 'https://www.example.com/';
-        $this->eventStubProperties->uri = 'https://cfp.example.com/';
-        $this->eventStubProperties->dateCfpStart = '2017-08-20T00:00:00-04:00';
-        $this->eventStubProperties->dateCfpEnd = '2017-09-22T00:00:00-04:00';
-        $this->eventStubProperties->dateEventStart = '2017-10-20T00:00:00-04:00';
-        $this->eventStubProperties->dateEventEnd = '2017-12-22T00:00:00-04:00';
+        $this->eventStub = $this->stubEvent();
+    }
 
-        $this->eventStub = Event::createFromStdClass($this->eventStubProperties);
+    function stubEvent()
+    {
+        $_rel = new stdClass;
+        $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
+
+        $event = new stdClass;
+
+        $event->_rel = $_rel;
+        $event->name = 'ABC conference';
+        $event->description = 'The greatest conference ever.';
+        $event->eventUri = 'https://www.example.com/';
+        $event->uri = 'https://cfp.example.com/';
+        $event->dateCfpStart = '2017-08-20T00:00:00-04:00';
+        $event->dateCfpEnd = '2017-09-22T00:00:00-04:00';
+        $event->dateEventStart = '2017-10-20T00:00:00-04:00';
+        $event->dateEventEnd = '2017-12-22T00:00:00-04:00';
+
+        return Event::createFromApiObject($event);
     }
 
     function mockClient($event = null)

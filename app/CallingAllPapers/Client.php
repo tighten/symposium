@@ -24,8 +24,8 @@ class Client
 
     public function getEvents()
     {
-        return collect($this->get('')->cfps)->map(function ($cfp) {
-            return Event::createFromStdClass($cfp);
+        return collect($this->get('')->cfps)->map(function ($cfpFromApi) {
+            return Event::createFromApiObject($cfpFromApi);
         });
     }
 }

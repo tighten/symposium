@@ -31,26 +31,10 @@ class Event
     {
     }
 
-    public static function createFromStdClass(stdClass $object)
+    public static function createFromApiObject(stdClass $object)
     {
         $event = new self;
-
-        if (preg_match('|v1/cfp/([a-z0-9]{40})|', $object->_rel->cfp_uri ?? null, $matches)) {
-            // The end of the CFP URI contains a SHA-1 of the URI of conference's homepage
-            // Some conferences use the same URI from year to year, so we append the date
-            // to this URI in order to ensure each year's conference is represented separately
-
-            if (self::isValidDateString($object->dateEventStart)) {
-                $year = substr($object->dateEventStart, 0, 4);
-            } elseif (self::isValidDateString($object->dateCfpEnd)) {
-                $year = substr($object->dateCfpEnd, 0, 4);
-            } else {
-                throw new UnexpectedValueException("No valid year found on {$object->_rel->cfp_uri}");
-            }
-            $event->id = $matches[1] . $year;
-        } else {
-            throw new UnexpectedValueException('Hash not found on CallingAllPapers event');
-        }
+        $event->id = self::generateIdWithYear($object);
 
         foreach (get_object_vars($event) as $property => $unused) {
             if ($property == 'id') {
@@ -64,6 +48,31 @@ class Event
             }
         }
         return $event;
+    }
+
+    private static function generateIdWithYear($eventObject)
+    {
+        if (! preg_match('|v1/cfp/([a-z0-9]{40})|', $eventObject->_rel->cfp_uri ?? null, $matches)) {
+            throw new UnexpectedValueException('Hash not found on CallingAllPapers event');
+        }
+
+        // The end of the CFP URI contains a SHA-1 of the URI of conference's homepage
+        // Some conferences use the same URI from year to year, so we append the date
+        // to this URI in order to ensure each year's conference is represented separately
+        return $matches[1] . self::conferenceYear($eventObject);
+    }
+
+    private static function conferenceYear($eventObject)
+    {
+        if (self::isValidDateString($eventObject->dateEventStart)) {
+            return substr($eventObject->dateEventStart, 0, 4);
+        }
+
+        if (self::isValidDateString($eventObject->dateCfpEnd)) {
+            return substr($eventObject->dateCfpEnd, 0, 4);
+        }
+
+        throw new UnexpectedValueException("No valid year found on {$eventObject->_rel->cfp_uri}");
     }
 
     private static function isValidDateString(string $date)
