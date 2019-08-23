@@ -39,7 +39,7 @@
                     <div class="private-profile-pic">
                         <img src="{{ Auth::user()->profile_picture_hires }}" class="public-speaker-picture" alt="">
                     </div>
-                    @if($user->profile_picture == null)
+                    @if ($user->profile_picture == null)
                         <div class="alert alert-warning">
                             <strong>Your current public profile picture is sourced from Gravatar.</strong><br>
                             Please upload a custom profile picture.

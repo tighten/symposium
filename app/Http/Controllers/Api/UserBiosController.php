@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Bio;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 
 class UserBiosController extends BaseController
 {
@@ -15,11 +14,11 @@ class UserBiosController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Auth::guard('api')->user()->id) {
+        if ($userId != auth()->guard('api')->user()->id) {
             App::abort(404);
         }
 
-        $return = Auth::guard('api')->user()->bios->map(function ($bio) {
+        $return = auth()->guard('api')->user()->bios->map(function ($bio) {
             return new Bio($bio);
         });
 

@@ -52,7 +52,7 @@ class AcceptanceTest extends IntegrationTestCase
         ]);
 
         $this->post('acceptances', [
-            'submissionId' => $submission->id
+            'submissionId' => $submission->id,
         ]);
 
 
@@ -75,10 +75,10 @@ class AcceptanceTest extends IntegrationTestCase
         $submission = factory(Submission::class)->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
-            'acceptance_id' => $acceptance->id
+            'acceptance_id' => $acceptance->id,
         ]);
 
-        $this->delete('acceptances/'.$acceptance->id);
+        $this->delete('acceptances/' . $acceptance->id);
 
         $this->assertFalse($submission->refresh()->isAccepted());
     }

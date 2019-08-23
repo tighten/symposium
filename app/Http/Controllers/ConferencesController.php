@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Conference;
+use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
+use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Services\CreateConferenceForm;
 use Illuminate\Support\Facades\Session;
-use App\Exceptions\ValidationException;
-use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 
 class ConferencesController extends BaseController
 {
@@ -71,14 +71,16 @@ class ConferencesController extends BaseController
                 break;
         }
 
-        return view('conferences.index')
-            ->with('conferences', $conferences);
+        return view('conferences.index', [
+            'conferences' => $conferences,
+        ]);
     }
 
     public function create()
     {
-        return view('conferences.create')
-            ->with('conference', new Conference);
+        return view('conferences.create', [
+            'conference' => new Conference,
+        ]);
     }
 
     public function store(Request $request)
@@ -114,17 +116,10 @@ class ConferencesController extends BaseController
             return (TalkTransformer::transform($talk, $conference));
         });
 
-        return view('conferences.show')
-            ->with('conference', $conference)
-            ->with('talks', $talks);
-    }
-
-    private function showPublic($id)
-    {
-        $conference = Conference::approved()->findOrFail($id);
-
-        return view('conferences.showPublic')
-            ->with('conference', $conference);
+        return view('conferences.show', [
+            'conference' => $conference,
+            'talks' => $talks,
+        ]);
     }
 
     public function edit($id)
@@ -136,8 +131,9 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        return view('conferences.edit')
-            ->with('conference', $conference);
+        return view('conferences.edit', [
+            'conference' => $conference,
+        ]);
     }
 
     public function update($id, Request $request)
@@ -221,5 +217,14 @@ class ConferencesController extends BaseController
         auth()->user()->favoritedConferences()->detach($conferenceId);
 
         return redirect()->back();
+    }
+
+    private function showPublic($id)
+    {
+        $conference = Conference::approved()->findOrFail($id);
+
+        return view('conferences.showPublic', [
+            'conference' => $conference,
+        ]);
     }
 }

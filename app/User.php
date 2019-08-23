@@ -109,7 +109,7 @@ class User extends Authenticatable
             'sublocality' => $this->sublocality,
             'city' => $this->city,
             'state' => $this->state,
-            'country' => $this->country
+            'country' => $this->country,
         ];
     }
 

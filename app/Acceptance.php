@@ -9,21 +9,13 @@ class Acceptance extends UuidBase
     protected $primaryKey = 'id';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $fillable = [
         'talk_revision_id',
         'conference_id',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::deleting(function (Acceptance $acceptance) {
-            $acceptance->submission->removeAcceptance();
-        });
-    }
 
     public static function createFromSubmission(Submission $submission)
     {
@@ -40,5 +32,13 @@ class Acceptance extends UuidBase
     public function submission()
     {
         return $this->hasOne(Submission::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function (Acceptance $acceptance) {
+            $acceptance->submission->removeAcceptance();
+        });
     }
 }

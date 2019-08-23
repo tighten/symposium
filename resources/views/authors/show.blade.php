@@ -12,7 +12,7 @@
         <h2>Talks</h2>
         <ul>
             @foreach ($author->talks as $talk)
-                <li><a href="{{ route('talks.show', ['id' => $talk->id])">{{ $talk->title }}</a></li>
+                <li><a href="{{ route('talks.show', ['id' => $talk->id]) }}">{{ $talk->title }}</a></li>
             @endforeach
         </ul>
     </div>

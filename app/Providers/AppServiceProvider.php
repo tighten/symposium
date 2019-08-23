@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Str;
 use App\Handlers\Events\SlackSubscriber;
 use Collective\Html\FormBuilder;
 use Exception;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider

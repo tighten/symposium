@@ -24,7 +24,7 @@
                               <h3 class="panel-title">Sign up</h3>
                             </div>
                             <div class="panel-body">
-                                @include ('partials.sign-up-form')
+                                @include('partials.sign-up-form')
                             </div>
                         </div>
                     @endif
@@ -42,7 +42,7 @@
                                     <br>
                                     <p class="text-muted">or</p>
                                 </div>
-                                @include ('partials.log-in-form')
+                                @include('partials.log-in-form')
                             @else
                                 <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
 

@@ -45,7 +45,7 @@ class SubmissionTest extends IntegrationTestCase
             'conference_id' => $conference->id,
         ]);
 
-        $this->delete('submissions/'.$submission->id);
+        $this->delete('submissions/' . $submission->id);
 
         $this->assertTrue($conference->submissions->isEmpty());
     }
@@ -93,10 +93,10 @@ class SubmissionTest extends IntegrationTestCase
 
         $submission = factory(Submission::class)->create([
             'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id
+            'conference_id' => $conference->id,
         ]);
 
-        $this->delete('submissions/'.$submission->id);
+        $this->delete('submissions/' . $submission->id);
 
         $this->assertEquals(1, $conference->submissions->count());
         $this->assertTrue($conference->submissions->contains($submission));

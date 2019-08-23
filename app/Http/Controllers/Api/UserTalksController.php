@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Talk;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 
 class UserTalksController extends BaseController
 {
@@ -15,16 +14,16 @@ class UserTalksController extends BaseController
      */
     public function index($userId)
     {
-        if ($userId != Auth::guard('api')->user()->id) {
+        if ($userId != auth()->guard('api')->user()->id) {
             App::abort(404);
         }
 
-        $return = Auth::guard('api')->user()->activeTalks->map(function ($talk) {
+        $return = auth()->guard('api')->user()->activeTalks->map(function ($talk) {
             return new Talk($talk);
         })->values();
 
         return response()->jsonApi([
-            'data' => $return
+            'data' => $return,
         ]);
     }
 }

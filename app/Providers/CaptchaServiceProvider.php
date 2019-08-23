@@ -11,8 +11,8 @@ class CaptchaServiceProvider extends ServiceProvider
     {
         $this->app->bind(Captcha::class, function () {
             $captcha = new Captcha;
-            $captcha->setPublicKey(env('CAPTCHA_PUBLIC'));
-            $captcha->setPrivateKey(env('CAPTCHA_PRIVATE'));
+            $captcha->setPublicKey(config('services.google.captcha.public'));
+            $captcha->setPrivateKey(config('services.google.captcha.private'));
 
             return $captcha;
         });

@@ -45,7 +45,7 @@ class Talk implements Arrayable
         return [
             'id' => $this->getId(),
             'type' => $this->getType(),
-            'attributes' => $this->attributes()
+            'attributes' => $this->attributes(),
         ];
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Seeder;
 

@@ -4,6 +4,8 @@ namespace App;
 
 class Talk extends UuidBase
 {
+    public static $rules = [];
+
     protected $table = 'talks';
 
     protected $guarded = [
@@ -14,20 +16,6 @@ class Talk extends UuidBase
         'public' => 'boolean',
         'is_archived' => 'boolean',
     ];
-
-    public static $rules = [];
-
-    /**
-     * Boot function from laravel.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function (Talk $talk) {
-            $talk->revisions()->delete();
-        });
-    }
 
     public function author()
     {
@@ -99,4 +87,17 @@ class Talk extends UuidBase
             return $item->talkRevision->talk->id === $this->id;
         })->first();
     }
+
+    /**
+     * Boot function from laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Talk $talk) {
+            $talk->revisions()->delete();
+        });
+    }
+
 }

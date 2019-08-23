@@ -9,7 +9,7 @@ class Submission extends UuidBase
     protected $primaryKey = 'id';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $fillable = [

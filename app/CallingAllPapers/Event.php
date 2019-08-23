@@ -13,7 +13,7 @@ class Event
     public $dateEventEnd;
     public $dateEventStart;
     public $description;
-    /** @var string The URI to the event's homepage */
+    /** The URI to the event's homepage */
     public $eventUri;
     public $iconUri;
     public $lastChange;
@@ -24,7 +24,7 @@ class Event
     public $sources;
     public $tags;
     public $timezone;
-    /** @var string The URI to the event's CFP */
+    /** The URI to the event's CFP */
     public $uri;
 
     private function __construct()
@@ -43,7 +43,7 @@ class Event
 
             $event->$property = $object->$property ?? null;
 
-            if (substr($property, 0, 4) == 'date' && !self::isValidDateString($event->$property)) {
+            if (substr($property, 0, 4) == 'date' && ! self::isValidDateString($event->$property)) {
                 $event->$property = null;
             }
         }

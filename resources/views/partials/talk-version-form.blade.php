@@ -7,19 +7,19 @@
     {!! Form::label('type', '*Type of Talk', ['class' => 'control-label']) !!}
     <div>
         <label class="radio-inline">
-            <input type="radio" name="type" value="seminar" {{ $current->type == 'seminar' ? 'checked' : ''}}>
+            <input type="radio" name="type" value="seminar" {{ $current->type == 'seminar' ? 'checked' : '' }}>
             Seminar
         </label>
         <label class="radio-inline">
-            <input type="radio" name="type" value="workshop" {{ $current->type == 'workshop' ? 'checked' : ''}}>
+            <input type="radio" name="type" value="workshop" {{ $current->type == 'workshop' ? 'checked' : '' }}>
             Workshop
         </label>
         <label class="radio-inline">
-            <input type="radio" name="type" value="lightning" {{ $current->type == 'lightning' ? 'checked' : ''}}>
+            <input type="radio" name="type" value="lightning" {{ $current->type == 'lightning' ? 'checked' : '' }}>
             Lightning
         </label>
         <label class="radio-inline">
-            <input type="radio" name="type" value="keynote" {{ $current->type == 'keynote' ? 'checked' : ''}}>
+            <input type="radio" name="type" value="keynote" {{ $current->type == 'keynote' ? 'checked' : '' }}>
             Keynote
         </label>
     </div>
@@ -29,15 +29,15 @@
     {!! Form::label('level', '*Difficulty Level', ['class' => 'control-label']) !!}
     <div>
         <label class="radio-inline">
-            <input type="radio" name="level" value="beginner" {{ $current->level == 'beginner' ? 'checked' : ''}}>
+            <input type="radio" name="level" value="beginner" {{ $current->level == 'beginner' ? 'checked' : '' }}>
             Beginner
         </label>
         <label class="radio-inline">
-            <input type="radio" name="level" value="intermediate" {{ $current->level == 'intermediate' ? 'checked' : ''}}>
+            <input type="radio" name="level" value="intermediate" {{ $current->level == 'intermediate' ? 'checked' : '' }}>
             Intermediate
         </label>
         <label class="radio-inline">
-            <input type="radio" name="level" value="advanced" {{ $current->level == 'advanced' ? 'checked' : ''}}>
+            <input type="radio" name="level" value="advanced" {{ $current->level == 'advanced' ? 'checked' : '' }}>
             Advanced
         </label>
     </div>
@@ -55,7 +55,7 @@
     {!! Form::label('public', '*Show on public speaker profile?', ['class' => 'control-label']) !!}
     <div class="input-group">
         <label class="radio-inline">
-            <input type="radio" name="public" value="yes" {{ $talk->public ? 'checked' : ''}}>
+            <input type="radio" name="public" value="yes" {{ $talk->public ? 'checked' : '' }}>
             Yes
         </label>
         <label class="radio-inline">

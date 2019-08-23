@@ -9,7 +9,7 @@
                     <h2 class="panel-title">Sign up</h2>
                 </div>
                 <div class="panel-body">
-                    @include ('partials.sign-up-form')
+                    @include('partials.sign-up-form')
                 </div>
             </div>
         </div>

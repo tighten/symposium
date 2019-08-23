@@ -17,15 +17,15 @@ class Client
         ]);
     }
 
-    private function get($path)
-    {
-        return json_decode($this->guzzle->get($path)->getBody()->getContents());
-    }
-
     public function getEvents()
     {
         return collect($this->get('')->cfps)->map(function ($cfpFromApi) {
             return Event::createFromApiObject($cfpFromApi);
         });
+    }
+
+    private function get($path)
+    {
+        return json_decode($this->guzzle->get($path)->getBody()->getContents());
     }
 }

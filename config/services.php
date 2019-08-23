@@ -48,6 +48,10 @@ return [
         'maps' => [
             'key' => env('GOOGLE_MAPS_API_KEY'),
         ],
+        'captcha' => [
+            'public' => env('CAPTCHA_PUBLIC'),
+            'private' => env('CAPTCHA_PRIVATE'),
+        ],
     ],
 
     'github' => [

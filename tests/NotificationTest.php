@@ -102,7 +102,7 @@ class NotificationTest extends IntegrationTestCase
         $user = factory(User::class)->create();
         factory(Conference::class)->create([
             'is_approved' => false,
-            'is_shared' => false
+            'is_shared' => false,
         ]);
 
         Artisan::call('symposium:notifyCfps');
@@ -134,7 +134,7 @@ class NotificationTest extends IntegrationTestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    private function assertUserNotifiedOfCfp($user, $conference)
+    function assertUserNotifiedOfCfp($user, $conference)
     {
         Notification::assertSentTo($user, CFPsAreOpen::class, function ($notification) use ($conference) {
             return $notification->conferences->pluck('id')->contains($conference->id);

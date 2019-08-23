@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Bio;
 use App\Exceptions\ValidationException;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class CreateBioForm
 {
@@ -24,11 +24,6 @@ class CreateBioForm
         $this->user = $user;
     }
 
-    private function removeEmptyFields($input)
-    {
-        return array_filter($input);
-    }
-
     public static function fillOut($input, $user)
     {
         return new self($input, $user);
@@ -45,5 +40,10 @@ class CreateBioForm
         return Bio::create(array_merge($this->input, [
             'user_id' => $this->user->id,
         ]));
+    }
+
+    private function removeEmptyFields($input)
+    {
+        return array_filter($input);
     }
 }

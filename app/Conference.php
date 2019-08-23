@@ -2,16 +2,14 @@
 
 namespace App;
 
-use Auth;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 
 class Conference extends UuidBase
 {
     protected $table = 'conferences';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $fillable = [
@@ -33,13 +31,11 @@ class Conference extends UuidBase
         'starts_at',
         'ends_at',
         'cfp_starts_at',
-        'cfp_ends_at'
+        'cfp_ends_at',
     ];
 
     /**
      * The attributes that should be cast to native types.
-     *
-     * @var array
      */
     protected $casts = [
         'is_approved' => 'boolean',
@@ -164,7 +160,7 @@ class Conference extends UuidBase
      */
     public function isCurrentlyAcceptingProposals()
     {
-        if (!$this->hasAnnouncedCallForProposals()) {
+        if (! $this->hasAnnouncedCallForProposals()) {
             return false;
         }
 
@@ -178,7 +174,7 @@ class Conference extends UuidBase
      */
     private function hasAnnouncedCallForProposals()
     {
-        return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
+        return (! is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
     }
 
     public function getLinkAttribute()
@@ -198,8 +194,6 @@ class Conference extends UuidBase
 
     /**
      * Return all talks from this user that were submitted to this conference
-     *
-     * @return Collection
      */
     public function mySubmissions()
     {
@@ -212,8 +206,6 @@ class Conference extends UuidBase
 
     /**
      * Return all talks from this user that were accepted to this conference
-     *
-     * @return Collection
      */
     public function myAcceptedTalks()
     {

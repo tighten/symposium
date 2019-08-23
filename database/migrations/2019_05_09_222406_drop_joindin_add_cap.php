@@ -10,11 +10,6 @@ use Illuminate\Database\Migrations\Migration;
  */
 class DropJoindinAddCap extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
@@ -25,11 +20,6 @@ class DropJoindinAddCap extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('conferences', function (Blueprint $table) {

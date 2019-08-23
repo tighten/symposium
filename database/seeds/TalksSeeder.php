@@ -27,7 +27,7 @@ class TalksSeeder extends Seeder
             'length' => '45',
             'slides' => 'http://speakerdeck.com/mattstauffer/my-great-talk',
             'organizer_notes' => 'Organizer notes',
-            'created_at' => '2013-11-29 15:54:41'
+            'created_at' => '2013-11-29 15:54:41',
         ]);
 
         $greatTalk->revisions()->create([
@@ -38,7 +38,7 @@ class TalksSeeder extends Seeder
             'length' => '45',
             'slides' => 'http://speakerdeck.com/mattstauffer/my-awesome-talk',
             'organizer_notes' => 'Organizer notes',
-            'created_at' => '2013-11-27 15:54:41'
+            'created_at' => '2013-11-27 15:54:41',
         ]);
 
         $terribleTalk->revisions()->create([
@@ -49,7 +49,7 @@ class TalksSeeder extends Seeder
             'length' => '45',
             'slides' => 'http://speakerdeck.com/mattstauffer/my-awesome-talk',
             'organizer_notes' => 'Organizer notes',
-            'created_at' => '2013-11-28 15:54:41'
+            'created_at' => '2013-11-28 15:54:41',
         ]);
 
         // Add a talk for user 2 for testing purposes
@@ -68,7 +68,7 @@ class TalksSeeder extends Seeder
             'length' => '45',
             'slides' => 'http://speakerdeck.com/mattstauffer/my-super-talk',
             'organizer_notes' => 'Organizer notes',
-            'created_at' => '2013-11-27 15:54:41'
+            'created_at' => '2013-11-27 15:54:41',
         ]);
 
         $spiffyTalk->revisions()->create([
@@ -79,7 +79,7 @@ class TalksSeeder extends Seeder
             'length' => '45',
             'slides' => 'http://speakerdeck.com/mattstauffer/my-spiffy-talk',
             'organizer_notes' => 'Organizer notes',
-            'created_at' => '2013-11-28 15:54:41'
+            'created_at' => '2013-11-28 15:54:41',
         ]);
     }
 }

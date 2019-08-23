@@ -12,7 +12,7 @@
     {!! Form::label('public', '*Show on public speaker profile?', ['class' => 'control-label']) !!}
     <div class="input-group">
         <label class="radio-inline">
-            <input type="radio" name="public" value="yes" {{ $bio->public ? 'checked' : ''}}>
+            <input type="radio" name="public" value="yes" {{ $bio->public ? 'checked' : '' }}>
             Yes
         </label>
         <label class="radio-inline">

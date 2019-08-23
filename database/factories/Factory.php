@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Str;
+use App\User;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker $faker) {
     static $password;
@@ -16,13 +17,13 @@ $factory->define(App\User::class, function (Faker $faker) {
 
 $factory->state(App\User::class, 'wantsNotifications', function () {
     return [
-        'wants_notifications' => true
+        'wants_notifications' => true,
     ];
 });
 
 $factory->state(App\User::class, 'admin', function () {
     return [
-        'role' => App\User::ADMIN_ROLE,
+        'role' => User::ADMIN_ROLE,
     ];
 });
 

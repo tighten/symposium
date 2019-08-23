@@ -192,10 +192,10 @@ class ConferenceTest extends IntegrationTestCase
     function cfp_by_date_list_sorts_by_date()
     {
         $conferenceA = factory(Conference::class)->states('approved')->create([
-            'starts_at' => Carbon::now()->subDay()
+            'starts_at' => Carbon::now()->subDay(),
         ]);
         $conferenceB = factory(Conference::class)->states('approved')->create([
-            'starts_at' => Carbon::now()->addDay()
+            'starts_at' => Carbon::now()->addDay(),
         ]);
 
         $this->get('conferences?filter=all&sort=date');
@@ -224,7 +224,7 @@ class ConferenceTest extends IntegrationTestCase
         $user = factory(User::class)->create();
 
         $conference = factory(Conference::class)->create([
-            'is_approved' => true
+            'is_approved' => true,
         ]);
         $user->conferences()->save($conference);
 
@@ -248,7 +248,7 @@ class ConferenceTest extends IntegrationTestCase
         $user = factory(User::class)->create();
 
         $conference = factory(Conference::class)->create([
-            'is_approved' => true
+            'is_approved' => true,
         ]);
         $user->conferences()->save($conference);
 
@@ -281,7 +281,7 @@ class ConferenceTest extends IntegrationTestCase
         $user = factory(User::class)->create();
 
         $conference = factory(Conference::class)->create([
-            'is_approved' => true
+            'is_approved' => true,
         ]);
         $user->conferences()->save($conference);
 
@@ -314,7 +314,7 @@ class ConferenceTest extends IntegrationTestCase
         $user = factory(User::class)->create();
 
         $conference = factory(Conference::class)->create([
-            'is_approved' => true
+            'is_approved' => true,
         ]);
         $user->favoritedConferences()->save($conference);
 
@@ -333,7 +333,7 @@ class ConferenceTest extends IntegrationTestCase
         $user = factory(User::class)->create();
 
         $conference = factory(Conference::class)->create([
-            'is_approved' => true
+            'is_approved' => true,
         ]);
         $user->dismissedConferences()->save($conference);
 
@@ -346,7 +346,7 @@ class ConferenceTest extends IntegrationTestCase
             ->dontSee($conference->title);
     }
 
-    private function assertConferenceSort($conferences)
+    function assertConferenceSort($conferences)
     {
         foreach ($conferences as $sortPosition => $conference) {
             $sortedConference = $this->response->original->getData()['conferences']->values()[$sortPosition];

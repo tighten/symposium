@@ -3,7 +3,6 @@
 namespace App\Events;
 
 use App\Conference;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 
@@ -11,9 +10,6 @@ class ConferenceCreated
 {
     use SerializesModels;
 
-    /**
-     * @var Conference
-     */
     public $conference;
 
     /**

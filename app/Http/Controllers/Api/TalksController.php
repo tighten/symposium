@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App;
-use Exception;
 use App\ApiResources\Talk;
-use Illuminate\Support\Facades\Auth;
+use Exception;
+use Illuminate\Support\Facades\App;
 
 class TalksController extends BaseController
 {
     public function show($id)
     {
         try {
-            $talk = Auth::guard('api')->user()->talks()->findOrFail($id);
+            $talk = auth()->guard('api')->user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             App::abort(404);
         }
@@ -20,7 +19,7 @@ class TalksController extends BaseController
         $talk = new Talk($talk);
 
         return response()->jsonApi([
-            'data' => $talk->toArray()
+            'data' => $talk->toArray(),
         ]);
     }
 }

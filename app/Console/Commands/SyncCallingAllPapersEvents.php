@@ -11,8 +11,8 @@ class SyncCallingAllPapersEvents extends Command
 {
     protected $name = 'callingallpapers:sync';
     protected $description = 'Pull down CallingAllPapers events';
-
     protected $client;
+
     private $importer;
 
     public function __construct()

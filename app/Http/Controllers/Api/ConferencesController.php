@@ -75,7 +75,7 @@ class ConferencesController extends BaseController
         return response()->jsonApi([
             'data' => $conferences->map(function ($conference) {
                 return (new Conference($conference))->toArray();
-            })->values()
+            })->values(),
         ]);
     }
 
@@ -84,7 +84,7 @@ class ConferencesController extends BaseController
         $conference = new Conference(EloquentConference::findOrFail($id));
 
         return response()->jsonApi([
-            'data' => $conference->toArray()
+            'data' => $conference->toArray(),
         ]);
     }
 }

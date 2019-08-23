@@ -15,7 +15,6 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     use RefreshDatabase;
 
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
-    /** @var Event */
     private $eventStub;
 
     public function setUp()

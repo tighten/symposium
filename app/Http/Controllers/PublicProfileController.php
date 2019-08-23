@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\Session;
 
 class PublicProfileController extends Controller
 {
-    private function getPublicUserByProfileSlug($profile_slug)
-    {
-        return User::where('profile_slug', $profile_slug)
-            ->where('enable_profile', true)
-            ->firstOrFail();
-    }
-
     public function index()
     {
         $users = User::where('enable_profile', true)
@@ -26,8 +19,9 @@ class PublicProfileController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('account.public-profile.index')
-            ->with('speakers', $users);
+        return view('account.public-profile.index', [
+            'speakers' => $users,
+        ]);
     }
 
     public function search(Request $request)
@@ -39,12 +33,13 @@ class PublicProfileController extends Controller
         // we must filter search results to only validly public profiles.
         $filteredUsers = $users->filter(function ($user) {
             return $user->enable_profile == true &&
-                !is_null($user->profile_slug);
+                ! is_null($user->profile_slug);
         });
 
-        return view('account.public-profile.index')
-            ->with('speakers', $filteredUsers)
-            ->with('query', $request->get('query'));
+        return view('account.public-profile.index', [
+            'speakers' => $filteredUsers,
+            'query' => $request->get('query'),
+        ]);
     }
 
     public function show($profile_slug)
@@ -57,10 +52,11 @@ class PublicProfileController extends Controller
 
         $bios = $user->bios()->public()->get();
 
-        return view('account.public-profile.show')
-            ->with('user', $user)
-            ->with('talks', $talks)
-            ->with('bios', $bios);
+        return view('account.public-profile.show', [
+            'user' => $user,
+            'talks' => $talks,
+            'bios' => $bios,
+        ]);
     }
 
     public function showTalk($profile_slug, $talk_id)
@@ -69,9 +65,10 @@ class PublicProfileController extends Controller
 
         $talk = $user->talks()->public()->findOrFail($talk_id);
 
-        return view('talks.show-public')
-            ->with('user', $user)
-            ->with('talk', $talk);
+        return view('talks.show-public', [
+            'user' => $user,
+            'talk' => $talk,
+        ]);
     }
 
     public function showBio($profile_slug, $bio_id)
@@ -80,9 +77,10 @@ class PublicProfileController extends Controller
 
         $bio = $user->bios()->public()->findOrFail($bio_id);
 
-        return view('bios.show-public')
-            ->with('user', $user)
-            ->with('bio', $bio);
+        return view('bios.show-public', [
+            'user' => $user,
+            'bio' => $bio,
+        ]);
     }
 
     public function getEmail($profile_slug)
@@ -93,8 +91,9 @@ class PublicProfileController extends Controller
             abort(404);
         }
 
-        return view('account.public-profile.email')
-            ->with('user', $user);
+        return view('account.public-profile.email', [
+            'user' => $user,
+        ]);
     }
 
     public function postEmail($profile_slug, Captcha $captcha, Request $request)
@@ -108,7 +107,7 @@ class PublicProfileController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
             'name' => '',
-            'message' => 'required'
+            'message' => 'required',
         ]);
 
         $captchaResponse = $captcha->check();
@@ -122,5 +121,12 @@ class PublicProfileController extends Controller
         Session::flash('success-message', 'Message sent!');
 
         return redirect()->route('speakers-public.show', ['profile_slug' => $user->profile_slug]);
+    }
+
+    private function getPublicUserByProfileSlug($profile_slug)
+    {
+        return User::where('profile_slug', $profile_slug)
+            ->where('enable_profile', true)
+            ->firstOrFail();
     }
 }

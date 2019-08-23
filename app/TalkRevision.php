@@ -4,6 +4,8 @@ namespace App;
 
 class TalkRevision extends UuidBase
 {
+    public static $rules = [];
+
     protected $title;
     protected $type;
     protected $length;
@@ -17,8 +19,6 @@ class TalkRevision extends UuidBase
     protected $guarded = [
         'id',
     ];
-
-    public static $rules = [];
 
     public function talk()
     {

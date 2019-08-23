@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Talk;
 use App\TalkRevision;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -29,13 +28,14 @@ class TalksController extends BaseController
     public function index(Request $request)
     {
         $talks = $this->sortTalks(
-            Auth::user()->talks()->active()->get(),
+            auth()->user()->talks()->active()->get(),
             $request->input('sort')
         );
 
-        return view('talks.index')
-            ->with('talks', $talks)
-            ->with('sorted_by', $this->sorted_by);
+        return view('talks.index', [
+            'talks' => $talks,
+            'sorted_by' => $this->sorted_by,
+        ]);
     }
 
     public function create()
@@ -56,7 +56,7 @@ class TalksController extends BaseController
         if ($validator->passes()) {
             // Save
             $talk = Talk::create([
-                'author_id' => Auth::user()->id,
+                'author_id' => auth()->user()->id,
                 'public' => $request->input('public') == 'yes',
             ]);
 
@@ -84,26 +84,25 @@ class TalksController extends BaseController
     public function edit($id)
     {
         try {
-            $talk = Auth::user()->talks()->findOrFail($id);
+            $talk = auth()->user()->talks()->findOrFail($id);
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
             return redirect('/');
         }
 
-        return view('talks.edit')
-            ->with('talk', $talk)
-            ->with('current', $talk->current());
+        return view('talks.edit', [
+            'talk' => $talk,
+            'current' => $talk->current(),
+        ]);
     }
 
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
-
-
         if ($validator->passes()) {
-            $talk = Auth::user()->talks()->findOrFail($id);
+            $talk = auth()->user()->talks()->findOrFail($id);
             $talk->update(['public' => $request->input('public') == 'yes']);
 
             $revision = TalkRevision::create([
@@ -129,19 +128,20 @@ class TalksController extends BaseController
 
     public function show($id, Request $request)
     {
-        $talk = Auth::user()->talks()->findOrFail($id);
+        $talk = auth()->user()->talks()->findOrFail($id);
 
         $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
 
-        return view('talks.show')
-            ->with('talk', $talk)
-            ->with('showingRevision', $request->filled('revision'))
-            ->with('current', $current);
+        return view('talks.show', [
+            'talk' => $talk,
+            'showingRevision' => $request->filled('revision'),
+            'current' => $current,
+        ]);
     }
 
     public function destroy($id)
     {
-        Auth::user()->talks()->findOrFail($id)->delete();
+        auth()->user()->talks()->findOrFail($id)->delete();
 
         Session::flash('message', 'Successfully deleted talk.');
 
@@ -151,18 +151,19 @@ class TalksController extends BaseController
     public function archiveIndex(Request $request)
     {
         $talks = $this->sortTalks(
-            Auth::user()->talks()->archived()->get(),
+            auth()->user()->talks()->archived()->get(),
             $request->input('sort')
         );
 
-        return view('talks.archive')
-          ->with('talks', $talks)
-          ->with('sorted_by', $this->sorted_by);
+        return view('talks.archive', [
+            'talks' => $talks,
+            'sorted_by' => $this->sorted_by,
+        ]);
     }
 
     public function archive($id)
     {
-        Auth::user()->talks()->findOrFail($id)->archive();
+        auth()->user()->talks()->findOrFail($id)->archive();
 
         Session::flash('message', 'Successfully archived talk.');
 
@@ -171,7 +172,7 @@ class TalksController extends BaseController
 
     public function restore($id)
     {
-        Auth::user()->talks()->findOrFail($id)->restore();
+        auth()->user()->talks()->findOrFail($id)->restore();
 
         Session::flash('message', 'Successfully restored talk.');
 

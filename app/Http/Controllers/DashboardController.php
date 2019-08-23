@@ -12,8 +12,9 @@ class DashboardController extends Controller
             return strtolower($talk->current()->title);
         });
 
-        return view('dashboard')
-            ->with('bios', auth()->user()->bios)
-            ->with('talks', $talks);
+        return view('dashboard', [
+            'bios' => auth()->user()->bios,
+            'talks' => $talks,
+        ]);
     }
 }

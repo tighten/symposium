@@ -9,7 +9,6 @@ class TalkForConferenceTransformer
 {
     public static function transform(Talk $talk, Conference $conference)
     {
-        /** @var Talk $currentTalk */
         $currentTalk = $talk->current();
 
         $submission = $talk->getMySubmissionForConference($conference);
@@ -19,9 +18,9 @@ class TalkForConferenceTransformer
             'id' => $talk->id,
             'title' => $currentTalk->title,
             'url' => $currentTalk->getUrl(),
-            'submitted' => !!$submission,
+            'submitted' => !! $submission,
             'submissionId' => $submission ? $submission->id : null,
-            'accepted' =>  !!$acceptance,
+            'accepted' =>  !! $acceptance,
             'acceptanceId' => $acceptance ? $acceptance->id : null,
         ];
     }

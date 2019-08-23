@@ -5,7 +5,6 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Collection;
 
 class CFPsAreOpen extends Notification
 {
@@ -45,7 +44,7 @@ class CFPsAreOpen extends Notification
         return (new MailMessage)
             ->subject('New Open CFPs')
             ->markdown('emails.open-cfps', [
-                'conferences' => $this->conferences
+                'conferences' => $this->conferences,
             ]);
     }
 }

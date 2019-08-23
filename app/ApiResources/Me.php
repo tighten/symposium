@@ -30,7 +30,7 @@ class Me implements Arrayable
             'email' => $this->user->email,
             'name' => $this->user->name,
             'created_at' => (string) $this->user->created_at,
-            'updated_at' => (string) $this->user->updated_at
+            'updated_at' => (string) $this->user->updated_at,
         ];
     }
 

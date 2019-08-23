@@ -14,7 +14,7 @@ class ConferenceImporter
 
     public function __construct(int $authorId = null, Client $client = null)
     {
-        $this->client = $client ?: new Client();
+        $this->client = $client ?: new Client;
         $this->authorId = $authorId ?: auth()->user()->id;
     }
 

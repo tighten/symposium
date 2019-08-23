@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Contracts\Filesystem\Factory as Filesystem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -18,26 +17,28 @@ class AccountController extends BaseController
 
     public function show()
     {
-        return view('account.show')
-            ->with('user', Auth::user());
+        return view('account.show', [
+            'user' => auth()->user(),
+        ]);
     }
 
     public function edit()
     {
-        return view('account.edit')
-            ->with('user', Auth::user());
+        return view('account.edit', [
+            'user' => auth()->user(),
+        ]);
     }
 
     public function update(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'email|required|unique:users,email,' . Auth::user()->id,
+            'email' => 'email|required|unique:users,email,' . auth()->user()->id,
             'wants_notifications' => '',
             'enable_profile' => '',
             'allow_profile_contact' => '',
             'profile_intro' => '',
-            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,' . Auth::user()->id,
+            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,' . auth()->user()->id,
             'profile_picture' => 'image|max:5000',
         ], [
             'profile_picture.max' => 'Profile picture cannot be larger than 5mb',
@@ -45,7 +46,7 @@ class AccountController extends BaseController
         ]);
 
         // Save
-        $user = Auth::user();
+        $user = auth()->user();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         if ($request->get('password')) {
@@ -90,7 +91,7 @@ class AccountController extends BaseController
         if ($user->profile_picture != null) {
             Storage::delete([
                 User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture,
-                User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture
+                User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture,
             ]);
         }
 
@@ -109,9 +110,9 @@ class AccountController extends BaseController
 
     public function destroy()
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
-        Auth::logout();
+        auth()->logout();
         $user->delete();
 
         Session::flash('message', 'Successfully deleted account.');
@@ -121,7 +122,7 @@ class AccountController extends BaseController
 
     public function export(Filesystem $storage)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $user->load('talks.revisions');
 
         $headers = ['Content-type' => 'application/json'];

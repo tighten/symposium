@@ -32,19 +32,6 @@ class CreateConferenceForm
         $this->removeEmptyFields();
     }
 
-    private function guardAdminFields()
-    {
-        if (! $this->user->isAdmin()) {
-            unset($this->input['is_approved']);
-            unset($this->input['is_shared']);
-        }
-    }
-
-    private function removeEmptyFields()
-    {
-        $this->input = array_filter($this->input);
-    }
-
     public static function fillOut($input, $user)
     {
         return new self($input, $user);
@@ -65,5 +52,18 @@ class CreateConferenceForm
         event(new ConferenceCreated($conference));
 
         return $conference;
+    }
+
+    private function guardAdminFields()
+    {
+        if (! $this->user->isAdmin()) {
+            unset($this->input['is_approved']);
+            unset($this->input['is_shared']);
+        }
+    }
+
+    private function removeEmptyFields()
+    {
+        $this->input = array_filter($this->input);
     }
 }

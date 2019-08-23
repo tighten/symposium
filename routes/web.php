@@ -13,31 +13,31 @@ Route::get('what-is-this', function () {
 
 Route::get('speakers', [
     'as' => 'speakers-public.index',
-    'uses' => 'PublicProfileController@index'
+    'uses' => 'PublicProfileController@index',
 ]);
 Route::post('speakers', [
     'as' => 'speakers-public.search',
-    'uses' => 'PublicProfileController@search'
+    'uses' => 'PublicProfileController@search',
 ]);
 Route::get('u/{profileSlug}', [
     'as' => 'speakers-public.show',
-    'uses' => 'PublicProfileController@show'
+    'uses' => 'PublicProfileController@show',
 ]);
 Route::get('u/{profileSlug}/talks/{talkId}', [
     'as' => 'speakers-public.talks.show',
-    'uses' => 'PublicProfileController@showTalk'
+    'uses' => 'PublicProfileController@showTalk',
 ]);
 Route::get('u/{profileSlug}/bios/{bioId}', [
     'as' => 'speakers-public.bios.show',
-    'uses' => 'PublicProfileController@showBio'
+    'uses' => 'PublicProfileController@showBio',
 ]);
 Route::get('u/{profileSlug}/email', [
     'as' => 'speakers-public.email',
-    'uses' => 'PublicProfileController@getEmail'
+    'uses' => 'PublicProfileController@getEmail',
 ]);
 Route::post('u/{profileSlug}/email', [
     'as' => 'speakers-public.email',
-    'uses' => 'PublicProfileController@postEmail'
+    'uses' => 'PublicProfileController@postEmail',
 ]);
 
 /**

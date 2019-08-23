@@ -15,7 +15,7 @@
                             <br>
                             <p class="text-muted">or</p>
                         </div>
-                        @include ('partials.log-in-form')
+                        @include('partials.log-in-form')
                     </div>
                 </div>
             </div>

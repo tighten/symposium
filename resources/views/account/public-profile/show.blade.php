@@ -47,7 +47,7 @@
 
                 @if ($user->location)
                     <h2>Location</h2>
-                    {{  $user->location }}</p>
+                    {{ $user->location }}</p>
                 @endif
             </div>
         </div>
