@@ -34,7 +34,9 @@ class AccountTest extends IntegrationTestCase
     {
         $this->visit('register')
             ->press('Sign up')
-            ->seePageIs('register');
+            ->see('The name field is required')
+            ->see('The password field is required')
+            ->see('The email field is required');
 
         $this->assertEquals(0, User::all()->count());
     }
