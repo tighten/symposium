@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Exception;
+use App\Http\Requests\Auth\LoginFormRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 
 class LoginController extends Controller
 {
@@ -21,9 +19,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
-
-    public $validatesRequestErrorBag = 'login';
+    use AuthenticatesUsers {
+        login as loginUser;
+    }
 
     /**
      * Where to redirect users after login.
@@ -40,5 +38,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\LoginFormRequest  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function login(LoginFormRequest $request)
+    {
+        return $this->loginUser($request);
     }
 }
