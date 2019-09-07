@@ -25,6 +25,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "5.8.*",
         "maddhatter/laravel-fullcalendar": "^1.2",
+        "nothingworks/blade-svg": "^0.3.2",
         "pragmarx/firewall": "~2.0",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b0c0248ca12b68c1df0918f6cae3bb5",
+    "content-hash": "9e4c0b7f46ddebda3680a600221fecea",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2544,6 +2544,56 @@
                 "php"
             ],
             "time": "2019-02-16T20:54:15+00:00"
+        },
+        {
+            "name": "nothingworks/blade-svg",
+            "version": "v0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamwathan/blade-svg.git",
+                "reference": "5ed76bbff36a3d0025c7ee8ea1e260c3e2bc1671"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamwathan/blade-svg/zipball/5ed76bbff36a3d0025c7ee8ea1e260c3e2bc1671",
+                "reference": "5ed76bbff36a3d0025c7ee8ea1e260c3e2bc1671",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^5.3|^6.0",
+                "illuminate/support": "^5.3|^6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BladeSvg\\BladeSvgServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BladeSvg\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Wathan",
+                    "email": "adam.wathan@gmail.com"
+                }
+            ],
+            "time": "2019-08-22T13:44:02+00:00"
         },
         {
             "name": "opis/closure",
