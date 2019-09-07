@@ -38,7 +38,7 @@
                         <div class="panel-body">
                             @if (Auth::guest())
                                 <div class="text-center">
-                                    <a class="inline-block mt-1 my-2 p-2 border border-gray-800 rounded text-base text-gray-800 hover:bg-blue-500 hover:border-blue-500 hover:text-white hover:no-underline" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong></a>
+                                    <a class="inline-block my-1 p-2 border border-gray-800 rounded text-lg text-gray-800 hover:bg-blue-500 hover:border-blue-500 hover:text-white hover:no-underline" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong> @svg('github', 'inline-block align-top h-6 w-6')</a>
                                     <p class="text-gray-400 text-base">or</p>
                                 </div>
                                 @include('partials.log-in-form')
