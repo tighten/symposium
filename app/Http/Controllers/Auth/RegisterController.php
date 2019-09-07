@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -23,7 +26,9 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers {
+        register as registerUser;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -55,6 +60,17 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users|emailblacklist',
             'password' => 'required|min:6',
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \App\Http\Requests\Auth\RegisterFormRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(RegisterFormRequest $request)
+    {
+        return $this->registerUser($request);
     }
 
     /**
