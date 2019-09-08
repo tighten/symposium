@@ -11,9 +11,8 @@
                     <div class="panel-body">
                         {!! $errors->first('auth', '<div class="alert alert-danger">:message</div>') !!}
                         <div class="text-center">
-                            <a class="btn-auth btn-github large" href="{{ url('login/github') }}">Sign in with <strong>GitHub</strong></a>
-                            <br>
-                            <p class="text-muted">or</p>
+                            <a class="btn-github-login" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong> @svg('github', 'inline-block align-top h-6 w-6')</a>
+                            <p class="text-gray-400 text-base">or</p>
                         </div>
                         @include('partials.log-in-form')
                     </div>
