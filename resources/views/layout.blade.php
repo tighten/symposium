@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
     <link href="{{ url('/css/app.css') }}" rel="stylesheet">
-    <link href="{{ url('/packages/octicons/octicons.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
