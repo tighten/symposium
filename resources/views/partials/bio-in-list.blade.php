@@ -9,7 +9,7 @@
         Edit
     </a>
     <button type="button" class="btn btn-xs btn-default" data-clipboard data-clipboard-text="{{ $bio->body }}">
-        <span class="octicon octicon-clippy"></span> Copy
+        @svg('clipboard', 'fill-current inline-block align-text-bottom h-4 w-4') Copy
     </button>
 </div>
 <h3><a href="{{ route('bios.show', ['id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
