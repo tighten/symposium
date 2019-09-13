@@ -6,6 +6,7 @@
         </a>
         <a class="btn btn-xs btn-primary" href="{{ route('bios.edit', ['id' => $bio->id]) }}">
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            Edit
         </a>
         <button type="button" class="btn btn-xs btn-default" data-clipboard data-clipboard-text="{{ $bio->body }}">
             @svg('clipboard', 'fill-current inline-block align-text-bottom h-4 w-4') Copy
