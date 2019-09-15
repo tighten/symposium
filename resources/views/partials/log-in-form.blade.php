@@ -1,6 +1,10 @@
 {!! Form::open(['route' => 'login']) !!}
     {{ csrf_field() }}
 
+    @if ($errors->default->first('email'))
+        <p class="mt-2 text-sm text-red-500 italic">{{ $errors->default->first('email') }}</p>
+    @endif
+
     <div class="form-group">
         {!! Form::label('email', 'Email', ['class' => 'sr-only']) !!}
         {!! Form::text('email', null, ['required', 'autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}

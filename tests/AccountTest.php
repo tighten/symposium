@@ -54,6 +54,18 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
+    function logging_in_with_invalid_credentials()
+    {
+        $user = factory(User::class)->create();
+
+        $this->visit('login')
+            ->type($user->email, '#email')
+            ->type('incorrect-password', '#password')
+            ->press('Log in')
+            ->see('These credentials do not match our records.');
+    }
+
+    /** @test */
     function user_can_update_their_profile()
     {
         $user = factory(User::class)->create();
