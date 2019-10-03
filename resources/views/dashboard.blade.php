@@ -24,6 +24,12 @@
                   @each('partials.bio-in-list', $bios, 'bio', 'partials.bio-in-list-empty')
                 </ul>
             </div>
+            <div class="col-md-6">
+                <h2 class="page-title">My Submissions</h2>
+                <ul class="list-talks">
+                    @each('partials.submission-in-list', $submissionsByConference, 'conferenceSubmissionGroup', 'partials.submission-in-list-empty')
+                </ul>
+            </div>
         </div>
     </div>
 @stop
