@@ -14,7 +14,9 @@ class AddConferenceLocation extends Migration
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
-        	$table->string('location', 255)->nullable();
+            $table->string('location', 255)->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
         });
     }
 
@@ -27,6 +29,8 @@ class AddConferenceLocation extends Migration
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->dropColumn('location');
+            $table->dropColumn('latitude');
+            $table->dropColumn('longitude');
         });
     }
 }
