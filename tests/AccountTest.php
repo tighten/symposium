@@ -16,6 +16,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function users_can_sign_up()
     {
+        $this->markTestSkipped('Disable email registration');
+
         $this->visit('register')
             ->type('email@email.com', '#email')
             ->type('schmassword', '#password')
@@ -32,6 +34,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function invalid_signups_dont_proceed()
     {
+        $this->markTestSkipped('Disable email registration');
+
         $this->visit('register')
             ->press('Sign up')
             ->see('The name field is required')
