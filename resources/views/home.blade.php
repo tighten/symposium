@@ -18,7 +18,8 @@
                     <p>Symposium <b>will be</b> a single place for <strong>conference organizers</strong> to open CFPs, review speakers submissions, and manage the entire CFP process.</p>
                 </div>
                 <div class="col-md-4">
-                    @if (Auth::guest())
+                    {{-- Disable email registration --}}
+                    @if (false && Auth::guest())
                         <div class="panel panel-default panel-on-grey">
                             <div class="panel-heading">
                               <h3 class="panel-title">Sign up</h3>

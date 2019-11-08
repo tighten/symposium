@@ -45,11 +45,12 @@ Route::post('u/{profileSlug}/email', [
  */
 Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout']);
 
-Auth::routes();
+// Disable email registration
+Auth::routes(['register' => false]);
 
-Route::get('sign-up', function () {
-    return redirect('register');
-});
+// Route::get('sign-up', function () {
+//     return redirect('register');
+// });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
