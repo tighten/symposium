@@ -23,9 +23,9 @@
                 @endif
                 </p>
 
-                @unless ( empty($conference->location) )
+                @unless (empty($conference->location))
                     <p><b>Location:</b>
-                        {{ $conference->location}}</p>
+                        {{ $conference->location }}</p>
                 @endunless
 
                 <p><b>Date created:</b>
