@@ -3,6 +3,17 @@
     {!! Form::text('title', $conference->title, ['class' => 'form-control']) !!}
 </div>
 
+<location-lookup>
+    <div class="form-group" slot-scope="location">
+        {!! Form::label('location', 'Location', ['class' => 'control-label']) !!}
+        {!! Form::text('location', $conference->location, [
+            'class' => 'form-control',
+            '@input' => 'location.lookup',
+            '@keydown.enter.prevent' => true,
+        ]) !!}
+    </div>
+</location-lookup>
+
 <div class="form-group">
     {!! Form::label('description', '*Description', ['class' => 'control-label']) !!}
     {!! Form::textarea('description', $conference->description, ['class' => 'form-control']) !!}

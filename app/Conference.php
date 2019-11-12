@@ -15,6 +15,9 @@ class Conference extends UuidBase
     protected $fillable = [
         'author_id',
         'title',
+        'location',
+        'latitude',
+        'longitude',
         'description',
         'url',
         'cfp_url',
@@ -174,7 +177,7 @@ class Conference extends UuidBase
      */
     private function hasAnnouncedCallForProposals()
     {
-        return (! is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
+        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 
     public function getLinkAttribute()

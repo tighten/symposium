@@ -23,6 +23,11 @@
                 @endif
                 </p>
 
+                @unless (empty($conference->location))
+                    <p><b>Location:</b>
+                        {{ $conference->location }}</p>
+                @endunless
+
                 <p><b>Date created:</b>
                     {{ $conference->created_at->toFormattedDateString() }}</p>
 
