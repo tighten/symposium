@@ -1,5 +1,8 @@
 module.exports = {
   theme: {
+    colors: {
+      indigo: '#4b72D9',
+    },
     extend: {}
   },
   variants: {},
