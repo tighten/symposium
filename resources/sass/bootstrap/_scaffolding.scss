@@ -45,20 +45,20 @@ textarea {
 
 // Links
 
-a {
-  color: $link-color;
-  text-decoration: none;
+// a {
+//   color: $link-color;
+//   text-decoration: none;
 
-  &:hover,
-  &:focus {
-    color: $link-hover-color;
-    text-decoration: $link-hover-decoration;
-  }
+//   &:hover,
+//   &:focus {
+//     color: $link-hover-color;
+//     text-decoration: $link-hover-decoration;
+//   }
 
-  &:focus {
-    @include tab-focus;
-  }
-}
+//   &:focus {
+//     @include tab-focus;
+//   }
+// }
 
 
 // Figures

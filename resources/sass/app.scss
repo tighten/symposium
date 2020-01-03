@@ -25,15 +25,15 @@ img {
     max-width: 100%;
 }
 
-a {
-    color: $link_color;
-    text-decoration: none;
+// a {
+//     color: $link_color;
+//     text-decoration: none;
 
-    &:hover {
-        color: darken($link_color, 15%);
-        text-decoration: underline;
-    }
-}
+//     &:hover {
+//         color: darken($link_color, 15%);
+//         text-decoration: underline;
+//     }
+// }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-family: $font-family-oswald;

@@ -1,11 +1,20 @@
 @extends('layout')
 
 @section('content')
-    <div class="hero">
-        <div class="container">
-            <h1>Connecting Speakers &amp; Conferences</h1>
+    <div class="flex justify-between items-center">
+        @svg('home', 'max-w-sm')
+        <div class="flex flex-col">
+            <h1 class="text-6xl">Connecting<br>Speakers<br>&amp; Conferences</h1>
+            <div class="mt-4">
+                <a class="bg-indigo text-white px-8 py-3 rounded" href="#">Sign up for <span class="uppercase">free</span></a>
+                <a class="text-indigo border rounded px-8 py-3 rounded ml-2" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
+                    Watch Demo
+                </a>
+            </div>
+        </div>
+    </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-8">
                     <p>Symposium is a single place for <strong>speakers</strong> to manage talk proposals, bios, photos, and conference applications and responses.</p>
 
@@ -19,7 +28,7 @@
                 </div>
                 <div class="col-md-4">
                     {{-- Disable email registration --}}
-                    @if (false && Auth::guest())
+                    {{-- @if (false && Auth::guest())
                         <div class="panel panel-default panel-on-grey">
                             <div class="panel-heading">
                               <h3 class="panel-title">Sign up</h3>
@@ -58,9 +67,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div> --}}
+        {{-- </div>
+    </div> --}}
 
     <!--<a href="/im-a-bot">I'm a bot</a>-->
 @stop
