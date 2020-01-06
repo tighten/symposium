@@ -1,7 +1,12 @@
 module.exports = {
   theme: {
     colors: {
-      indigo: '#4b72D9',
+      indigo: {
+        default: '#4b72D9',
+        '100': '#F6F9FC',
+        '500': '#6A96FE',
+        '800': '#4B72D9',
+      },
       white: '#fff',
     },
     extend: {}

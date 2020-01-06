@@ -1,5 +1,5 @@
 @include('partials.flash-messages')
-<main-header class="sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
+<main-header class="sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
     <template slot-scope="slotProps">
         <div class="flex items-center justify-between px-4 py-3 sm:p-0">
             <div>

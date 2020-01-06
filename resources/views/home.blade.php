@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
         @svg('home', 'max-w-sm')
         <div class="flex flex-col">
             <h1 class="text-6xl">Connecting<br>Speakers<br>&amp; Conferences</h1>
@@ -10,6 +10,78 @@
                 <a class="text-indigo border rounded px-8 py-3 rounded ml-2" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
                     Watch Demo
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-indigo-100 relative">
+        <div class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
+            <div class="flex flex-col items-center max-w-sm mx-auto mb-8">
+                <h2 class="text-indigo">Conference Speakers</h2>
+                <div class="text-center">Symposium helps conference speakers plan and manage talk abstracts, CFP submissions, bios, photos, and speaking schedule.</div>
+            </div>
+            <div class="flex flex-wrap">
+                <div class="w-1/3 mb-8 p-4">
+                    <div class="font-semibold mb-4">Track talks</div>
+                    <div>Track all of your talks, each with one or more versions and each version with a full revision history.</div>
+                </div>
+                <div class="w-1/3 mb-8 p-4">
+                    <div class="font-semibold mb-4">Talk version control</div>
+                    <div>Look at which of each talk you submitted to each conference, and how many times each talk has been accepted and rejected.</div>
+                </div>
+                <div class="w-1/3 mb-8 p-4">
+                    <div class="font-semibold mb-4">Track conferences</div>
+                    <div>Track which conferences have accepted or rejected your talk submissions.</div>
+                </div>
+                <div class="w-1/3 mb-8 p-4">
+                    <div class="font-semibold mb-4">Find conferences</div>
+                    <div>Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFP's open and close.</div>
+                </div>
+                <div class="w-1/3 mb-8 p-4">
+                    <div class="font-semibold mb-4">Bios</div>
+                    <div>Store and version multiple biographies for sending in with your talk submissions.</div>
+                </div>
+                <div class="w-1/3 mb-8 p-4">
+                    <div class="font-semibold mb-4">Photos</div>
+                    <div>Store multiple revisions of your bio photos, ready to grab snd upload with your talk submissions.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bg-indigo-500">
+        <div class="bg-white relative rounded shadow px-8 py-12 max-w-md mx-auto sm:max-w-4xl -mt-8">
+            <div class="flex flex-col items-center max-w-sm mx-auto mb-8">
+                <h2 class="text-indigo">Conference Organizers</h2>
+                <div class="text-center">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
+            </div>
+        </div>
+        <div class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
+            <h2 class="text-white text-center">Our Speakers</h2>
+            <div>
+                <div class="flex content-between">
+                    <div class="p-8 text-white">Speaker</div>
+                    <div class="p-8 text-white">Speaker</div>
+                    <div class="p-8 text-white">Speaker</div>
+                    <div class="p-8 text-white">Speaker</div>
+                    <div class="p-8 text-white">Speaker</div>
+                    <div class="p-8 text-white">Speaker</div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="text-white border rounded p-4 mb-8" href="#">View all speakers</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-indigo-800">
+        <div class="flex flex-col px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
+            <h2 class="text-white text-center">Conferences</h2>
+            <div class="flex justify-between">
+                <div class="text-center w-1/3 py-16 bg-white rounded">Conference</div>
+                <div class="text-center w-1/3 mx-4 py-16 bg-white rounded">Conference</div>
+                <div class="text-center w-1/3 py-16 bg-white rounded">Conference</div>
             </div>
         </div>
     </div>

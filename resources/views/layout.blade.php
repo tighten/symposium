@@ -22,7 +22,7 @@
     @yield('headerScripts')
 </head>
 <body>
-    <div id="app" class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
+    <div id="app">
         @include('partials.header')
         @yield('content')
         @include('partials.footer')
