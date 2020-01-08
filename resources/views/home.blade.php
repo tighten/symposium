@@ -16,35 +16,42 @@
     </div>
 
     <div class="bg-indigo-100 relative">
-        <div class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
-            <div class="flex flex-col items-center max-w-sm mx-auto mb-8">
-                <h2 class="text-indigo">Conference Speakers</h2>
-                <div class="text-center">Symposium helps conference speakers plan and manage talk abstracts, CFP submissions, bios, photos, and speaking schedule.</div>
+        <div class="px-8 py-12 max-w-md mx-auto sm:max-w-6xl">
+            <div class="flex flex-col items-center mx-auto mb-16">
+                @svg('podium', 'mw-24')
+                <h2 class="text-indigo font-sans text-5xl">Conference Speakers</h2>
+                <div class="text-center font-sans text-3xl max-w-2xl">Symposium helps conference speakers plan and manage talk abstracts, CFP submissions, bios, photos, and speaking schedule.</div>
             </div>
             <div class="flex flex-wrap">
                 <div class="w-1/3 mb-8 p-4">
-                    <div class="font-semibold mb-4">Track talks</div>
-                    <div>Track all of your talks, each with one or more versions and each version with a full revision history.</div>
+                    @svg('circle', 'ml-3')
+                    <div class="font-sans text-2xl mt-5 font-semibold mb-4">Track talks</div>
+                    <div class="font-sans text-xl">Track all of your talks, each with one or more versions and each version with a full revision history.</div>
                 </div>
                 <div class="w-1/3 mb-8 p-4">
-                    <div class="font-semibold mb-4">Talk version control</div>
-                    <div>Look at which of each talk you submitted to each conference, and how many times each talk has been accepted and rejected.</div>
+                    @svg('circle', 'ml-3')
+                    <div class="font-sans text-2xl mt-5 font-semibold mb-4">Talk version control</div>
+                    <div class="font-sans text-xl">Look at which of each talk you submitted to each conference, and how many times each talk has been accepted and rejected.</div>
                 </div>
                 <div class="w-1/3 mb-8 p-4">
-                    <div class="font-semibold mb-4">Track conferences</div>
-                    <div>Track which conferences have accepted or rejected your talk submissions.</div>
+                    @svg('circle', 'ml-3')
+                    <div class="font-sans text-2xl mt-5 font-semibold mb-4">Track conferences</div>
+                    <div class="font-sans text-xl">Track which conferences have accepted or rejected your talk submissions.</div>
                 </div>
                 <div class="w-1/3 mb-8 p-4">
-                    <div class="font-semibold mb-4">Find conferences</div>
-                    <div>Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFP's open and close.</div>
+                    @svg('circle', 'ml-3')
+                    <div class="font-sans text-2xl mt-5 font-semibold mb-4">Find conferences</div>
+                    <div class="font-sans text-xl">Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFP's open and close.</div>
                 </div>
                 <div class="w-1/3 mb-8 p-4">
-                    <div class="font-semibold mb-4">Bios</div>
-                    <div>Store and version multiple biographies for sending in with your talk submissions.</div>
+                    @svg('circle', 'ml-3')
+                    <div class="font-sans text-2xl mt-5 font-semibold mb-4">Bios</div>
+                    <div class="font-sans text-xl">Store and version multiple biographies for sending in with your talk submissions.</div>
                 </div>
                 <div class="w-1/3 mb-8 p-4">
-                    <div class="font-semibold mb-4">Photos</div>
-                    <div>Store multiple revisions of your bio photos, ready to grab snd upload with your talk submissions.</div>
+                    @svg('circle', 'ml-3')
+                    <div class="font-sans text-2xl mt-5 font-semibold mb-4">Photos</div>
+                    <div class="font-sans text-xl">Store multiple revisions of your bio photos, ready to grab snd upload with your talk submissions.</div>
                 </div>
             </div>
         </div>
