@@ -9,6 +9,7 @@
     <link href="{{ url('/js/vendor/pickadate/default.css') }}" rel="stylesheet">
     <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

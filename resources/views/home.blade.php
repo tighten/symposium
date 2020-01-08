@@ -59,15 +59,13 @@
         </div>
         <div class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
             <h2 class="text-white text-center">Our Speakers</h2>
-            <div>
-                <div class="flex content-between">
-                    <div class="p-8 text-white">Speaker</div>
-                    <div class="p-8 text-white">Speaker</div>
-                    <div class="p-8 text-white">Speaker</div>
-                    <div class="p-8 text-white">Speaker</div>
-                    <div class="p-8 text-white">Speaker</div>
-                    <div class="p-8 text-white">Speaker</div>
-                </div>
+            <div class="flex content-between">
+                <div class="p-8 text-white">Speaker</div>
+                <div class="p-8 text-white">Speaker</div>
+                <div class="p-8 text-white">Speaker</div>
+                <div class="p-8 text-white">Speaker</div>
+                <div class="p-8 text-white">Speaker</div>
+                <div class="p-8 text-white">Speaker</div>
             </div>
             <div class="text-center">
                 <a class="text-white border rounded p-4 mb-8" href="#">View all speakers</a>
@@ -78,10 +76,25 @@
     <div class="bg-indigo-800">
         <div class="flex flex-col px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
             <h2 class="text-white text-center">Conferences</h2>
-            <div class="flex justify-between">
+            <div class="flex justify-between mb-16">
                 <div class="text-center w-1/3 py-16 bg-white rounded">Conference</div>
                 <div class="text-center w-1/3 mx-4 py-16 bg-white rounded">Conference</div>
                 <div class="text-center w-1/3 py-16 bg-white rounded">Conference</div>
+            </div>
+            <div class="text-center">
+                <a class="text-white border rounded p-4 mb-8" href="#">View all conferences</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-black">
+        <div class="flex flex-col px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
+            <h2 class="text-white text-center">Ready to get started?</h2>
+            <div class="flex">
+                <input class="w-1/4 rounded" name="name" placeholder="Name">
+                <input class="w-1/4 rounded" name="email" placeholder="Email">
+                <input class="w-1/4 rounded" name="password" placeholder="Password">
+                <input type="submit" class="w-1/4 rounded" value="Sign up">
             </div>
         </div>
     </div>

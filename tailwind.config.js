@@ -7,9 +7,13 @@ module.exports = {
         '500': '#6A96FE',
         '800': '#4B72D9',
       },
+      black: '#222222',
       white: '#fff',
     },
-    extend: {}
+    extend: {},
+    fontFamily: {
+      sans: ['Work Sans', 'sans-serif'],
+    },
   },
   variants: {},
   plugins: [
