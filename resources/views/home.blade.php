@@ -1,13 +1,14 @@
 @extends('layout')
 
 @section('content')
-    <div class="flex justify-between items-center px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
-        @svg('home', 'max-w-sm')
+    <div class="flex justify-between items-center px-8 py-12 max-w-md mx-auto sm:max-w-6xl">
+        @svg('home', 'max-w-md')
         <div class="flex flex-col">
-            <h1 class="text-6xl">Connecting<br>Speakers<br>&amp; Conferences</h1>
-            <div class="mt-4">
-                <a class="bg-indigo text-white px-8 py-3 rounded" href="#">Sign up for <span class="uppercase">free</span></a>
-                <a class="text-indigo border rounded px-8 py-3 rounded ml-2" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
+            <h1 class="text-7xl font-sans text-gray-300">Connecting<br>Speakers<br>&amp; Conferences</h1>
+            <div class="mt-12 text-sans text-semibold text-xl">
+                <a class="bg-indigo text-white px-12 py-6 rounded" href="#">Sign up for <span class="uppercase">free</span></a>
+                <a class="text-indigo border border-indigo rounded px-12 py-6 rounded ml-2" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
+                    @svg('rectangle', 'inline mr-3 -mt-2')
                     Watch Demo
                 </a>
             </div>
