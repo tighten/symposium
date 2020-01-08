@@ -16,7 +16,7 @@
     </div>
 
     <div class="bg-indigo-100 relative">
-        <div class="py-12 max-w-md mx-auto sm:max-w-6xl">
+        <div class="py-12 max-w-md mx-auto sm:max-w-6xl pb-40">
             <div class="flex flex-col items-center mx-auto mb-16">
                 @svg('podium', 'mw-24')
                 <h2 class="text-indigo font-sans text-5xl">Conference Speakers</h2>
@@ -59,10 +59,11 @@
 
 
     <div class="bg-indigo-500">
-        <div class="bg-white relative rounded-lg shadow px-8 py-12 max-w-md mx-auto sm:max-w-6xl -mt-8">
-            <div class="flex flex-col items-center max-w-sm mx-auto mb-8">
-                <h2 class="text-indigo">Conference Organizers</h2>
-                <div class="text-center">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
+        <div class="bg-white relative rounded-lg shadow px-8 py-12 max-w-md mx-auto sm:max-w-6xl -mt-20">
+            <div class="flex flex-col items-center mb-56">
+                @svg('badge')
+                <h2 class="text-indigo font-sans text-5xl mb-12">Conference Organizers</h2>
+                <div class="text-center max-w-3xl mx-auto font-sans text-3xl">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
             </div>
         </div>
         <div class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
