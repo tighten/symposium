@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   theme: {
     colors: {
@@ -14,9 +16,16 @@ module.exports = {
         '500': '#9B9B9B',
       },
     },
+    fontSize: {
+      ...defaultTheme.fontSize,
+      '6xl': '4.3rem',
+    },
     extend: {},
     fontFamily: {
-      sans: ['Work Sans', 'sans-serif'],
+      sans: [
+        'Work Sans',
+        ...defaultTheme.fontFamily.sans,
+      ],
     },
   },
   variants: {

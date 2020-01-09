@@ -6,8 +6,8 @@
         <div class="flex flex-col">
             <h1 class="text-7xl font-sans text-gray-300">Connecting<br>Speakers<br>&amp; Conferences</h1>
             <div class="mt-12 text-sans text-semibold text-xl">
-                <a class="bg-indigo text-white px-12 py-6 rounded" href="#">Sign up for <span class="uppercase">free</span></a>
-                <a class="text-indigo border border-indigo rounded px-12 py-6 rounded ml-2" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
+                <a class="bg-indigo text-white px-12 py-6 rounded-lg" href="#">Sign up for <span class="uppercase">free</span></a>
+                <a class="text-indigo border border-indigo rounded px-12 py-6 rounded-lg ml-10" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
                     @svg('rectangle', 'inline mr-3 -mt-2')
                     Watch Demo
                 </a>
