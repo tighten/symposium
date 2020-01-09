@@ -19,7 +19,7 @@
                 </ul> --}}
 
         @else
-            <a class="block px-2 sm:px-0 py-1 sm:mr-6 text-indigo no-underline font-semibold rounded hover-bg-indigo-800 uppercase" href="{{ url('what-is-this') }}">How it Works</a>
+            <a class="sm:mt-0 block px-2 sm:px-0 py-1 sm:mr-6 text-indigo no-underline font-semibold rounded hover-bg-indigo-800 uppercase" href="{{ url('what-is-this') }}">How it Works</a>
             <a class="mt-1 sm:mt-0 ml-2 sm:mx-6 block px-2 sm:px-0 py-1 text-indigo no-underline font-semibold rounded hover-bg-indigo-800 uppercase" href="{{ url('speakers') }}">Our speakers</a>
             <a class="mt-1 sm:mt-0 ml-2 sm:mx-6 block px-2 sm:px-0 py-1 text-indigo no-underline font-semibold rounded hover-bg-indigo-800 uppercase" href="{{ route('conferences.index') }}">Conferences</a>
             <a class="mt-1 sm:mt-0 ml-2 sm:ml-6 block px-4 py-2 text-indigo no-underline font-semibold rounded hover-bg-indigo-800 border-indigo border rounded" href="{{ route('login') }}">Sign in</a>

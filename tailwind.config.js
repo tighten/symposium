@@ -19,7 +19,7 @@ module.exports = {
     },
   },
   variants: {
-    margin: ['first', 'last'],
+    margin: ['responsive', 'first', 'last'],
   },
   plugins: [
     function({ addComponents }) {
