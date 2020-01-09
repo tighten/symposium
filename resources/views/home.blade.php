@@ -58,7 +58,7 @@
     </div>
 
 
-    <div class="bg-indigo-500">
+    <div class="bg-indigo-500 pb-24">
         <div class="bg-white relative rounded-lg shadow px-8 py-12 max-w-md mx-auto sm:max-w-6xl -mt-20">
             <div class="flex flex-col items-center mb-56">
                 @svg('badge')
@@ -66,18 +66,23 @@
                 <div class="text-center max-w-3xl mx-auto font-sans text-3xl">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
             </div>
         </div>
-        <div class="px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
-            <h2 class="text-white text-center">Our Speakers</h2>
-            <div class="flex content-between">
-                <div class="p-8 text-white">Speaker</div>
-                <div class="p-8 text-white">Speaker</div>
-                <div class="p-8 text-white">Speaker</div>
-                <div class="p-8 text-white">Speaker</div>
-                <div class="p-8 text-white">Speaker</div>
-                <div class="p-8 text-white">Speaker</div>
+        <div class="max-w-md mx-auto sm:max-w-6xl mt-20">
+            <h2 class="text-white text-center font-sans text-5xl">Our Speakers</h2>
+            <div class="flex justify-between mt-16">
+                @foreach ($speakers as $speaker)
+                    <div class="flex flex-col items-center">
+                        <img
+                            class="rounded-full w-32 h-32"
+                            style="filter:grayscale(100%);"
+                            src="{{ $speaker->profile_picture_hires }}"
+                            alt="{{ $speaker->name }} profile picture"
+                        >
+                        <div class="p-8 text-white text-center">{{ $speaker->name }}</div>
+                    </div>
+                @endforeach
             </div>
-            <div class="text-center">
-                <a class="text-white border rounded p-4 mb-8" href="#">View all speakers</a>
+            <div class="text-center mt-20">
+                <a class="text-white border rounded px-8 py-6 font-sans font-semibold text-xl" href="#">View all speakers</a>
             </div>
         </div>
     </div>

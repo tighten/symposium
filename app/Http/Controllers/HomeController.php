@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+
 class HomeController extends BaseController
 {
-    public function showWelcome()
+    public function show()
     {
-        return view('hello');
+        $speakers = User::where('featured', 1)->get();
+
+        return view('home', ['speakers' => $speakers]);
     }
 }

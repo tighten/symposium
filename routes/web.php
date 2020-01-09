@@ -3,9 +3,7 @@
 /**
  * Public
  */
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@show');
 
 Route::get('what-is-this', function () {
     return view('what-is-this');
