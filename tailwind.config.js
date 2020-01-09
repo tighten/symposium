@@ -18,7 +18,9 @@ module.exports = {
       sans: ['Work Sans', 'sans-serif'],
     },
   },
-  variants: {},
+  variants: {
+    margin: ['first', 'last'],
+  },
   plugins: [
     function({ addComponents }) {
       const buttons = {

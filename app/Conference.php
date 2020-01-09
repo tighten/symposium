@@ -185,6 +185,19 @@ class Conference extends UuidBase
         return route('conferences.show', $this->id);
     }
 
+    public function getEventDatesDisplayAttribute()
+    {
+        if (! $this->starts_at) {
+            return null;
+        }
+
+        if (! $this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
+            return $this->starts_at->format('M j Y');
+        }
+
+        return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
+    }
+
     public function isDismissed()
     {
         return auth()->user()->dismissedConferences->contains($this->id);

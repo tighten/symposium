@@ -371,6 +371,61 @@ class ConferenceTest extends IntegrationTestCase
             ->dontSee($conference->title);
     }
 
+    /** @test */
+    function displaying_event_dates_with_no_dates_set()
+    {
+        $conference = factory(Conference::class)->make([
+            'starts_at' => null,
+            'ends_at' => null,
+        ]);
+
+        $this->assertNull($conference->event_dates_display);
+    }
+
+    /** @test */
+    function displaying_event_dates_with_a_start_date_and_no_end_date()
+    {
+        $conference = factory(Conference::class)->make([
+            'starts_at' => '2020-01-01 09:00:00',
+            'ends_at' => null,
+        ]);
+
+        $this->assertEquals('Jan 1 2020', $conference->event_dates_display);
+    }
+
+    /** @test */
+    function displaying_event_dates_with_an_end_date_and_no_start_date()
+    {
+        $conference = factory(Conference::class)->make([
+            'starts_at' => null,
+            'ends_at' => '2020-01-01 09:00:00',
+        ]);
+
+        $this->assertNull($conference->event_dates_display);
+    }
+
+    /** @test */
+    function displaying_event_dates_with_the_same_start_and_end_dates()
+    {
+        $conference = factory(Conference::class)->make([
+            'starts_at' => '2020-01-01 09:00:00',
+            'ends_at' => '2020-01-01 16:00:00',
+        ]);
+
+        $this->assertEquals('Jan 1 2020', $conference->event_dates_display);
+    }
+
+    /** @test */
+    function displaying_event_dates_with_the_different_start_and_end_dates()
+    {
+        $conference = factory(Conference::class)->make([
+            'starts_at' => '2020-01-01 09:00:00',
+            'ends_at' => '2020-01-03 16:00:00',
+        ]);
+
+        $this->assertEquals('Jan 1 2020 - Jan 3 2020', $conference->event_dates_display);
+    }
+
     function assertConferenceSort($conferences)
     {
         foreach ($conferences as $sortPosition => $conference) {

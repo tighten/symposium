@@ -88,15 +88,22 @@
     </div>
 
     <div class="bg-indigo-800">
-        <div class="flex flex-col px-8 py-12 max-w-md mx-auto sm:max-w-4xl">
-            <h2 class="text-white text-center">Conferences</h2>
-            <div class="flex justify-between mb-16">
-                <div class="text-center w-1/3 py-16 bg-white rounded">Conference</div>
-                <div class="text-center w-1/3 mx-4 py-16 bg-white rounded">Conference</div>
-                <div class="text-center w-1/3 py-16 bg-white rounded">Conference</div>
+        <div class="flex flex-col px-8 py-32 max-w-md mx-auto sm:max-w-6xl">
+            <h2 class="text-white text-center font-sans text-5xl">Conferences</h2>
+            <div class="flex justify-between mt-20 mb-16">
+                @foreach ($conferences as $conference)
+                    <div class="w-1/3 bg-white rounded-lg first:mr-8 last:ml-8 px-8 pt-12 pb-24 font-sans relative shadow">
+                        <div class="text-center text-2xl text-indigo-800 mb-24">{{ $conference->title }}</div>
+                        <div class="font-medium text-xl">{{ $conference->event_dates_display }}</div>
+                        <div class="mt-6 text-xl">{{ $conference->description }}</div>
+                        <div class="block my-10 bottom-0 absolute">
+                            <a class="text-xl font-semibold text-indigo-800" href="#">More Details</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="text-center">
-                <a class="text-white border rounded p-4 mb-8" href="#">View all conferences</a>
+            <div class="text-center mt-16">
+                <a class="text-white border rounded px-10 py-6 font-sans font-semibold text-xl" href="#">View all conferences</a>
             </div>
         </div>
     </div>
