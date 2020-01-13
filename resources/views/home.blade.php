@@ -4,7 +4,7 @@
     <div class="flex justify-between items-center px-8 py-12 max-w-md mx-auto sm:max-w-6xl">
         @svg('home', 'max-w-md')
         <div class="flex flex-col">
-            <h1 class="text-7xl font-sans text-gray-300">Connecting<br>Speakers<br>&amp; Conferences</h1>
+            <h1 class="text-7xl font-sans text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
             <div class="mt-12 text-sans text-semibold text-xl">
                 <a class="bg-indigo text-white px-12 py-6 rounded-lg" href="#">Sign up for <span class="uppercase">free</span></a>
                 <a class="text-indigo border border-indigo rounded px-12 py-6 rounded-lg ml-10" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
