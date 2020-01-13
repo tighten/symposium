@@ -1,18 +1,18 @@
 @extends('layout')
 
 @section('content')
-    <div class="flex justify-between items-center px-8 py-12 max-w-md mx-auto sm:max-w-6xl">
-        @svg('home', 'max-w-md')
+    <div class="flex flex-col items-center justify-around max-w-md md:flex-row md:py-12 mx-auto pb-6 pt-0 px-8 sm:max-w-6xl">
         <div class="flex flex-col">
-            <h1 class="text-7xl font-sans text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
-            <div class="mt-12 text-sans text-semibold text-xl">
-                <a class="bg-indigo text-white px-12 py-6 rounded-lg" href="#">Sign up for <span class="uppercase">free</span></a>
-                <a class="text-indigo border border-indigo rounded px-12 py-6 rounded-lg ml-10" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
-                    @svg('rectangle', 'inline mr-3 -mt-2')
+            <h1 class="font-sans lg:text-7xl md:text-5xl text-5xl text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
+            <div class="flex flex-col lg:flex-row lg:text-lg md:text-base mt-12 sm:text-lg text-base text-sans text-semibold xl:text-xl">
+                <a class="bg-indigo block lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap " href="#">Sign up for <span class="uppercase">free</span></a> <a class=" block border border-indigo lg:ml-10 lg:mt-0 lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left mt-4 mt-4 px-4 py-2 rounded rounded-lg text-center text-indigo whitespace-no-wrap" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
+                    @svg('rectangle', 'inline mr-3 mt-2')
                     Watch Demo
                 </a>
             </div>
         </div>
+
+        @svg('home', 'max-w-md md:order-first sm:pr-4')
     </div>
 
     <div class="bg-indigo-100 relative">
