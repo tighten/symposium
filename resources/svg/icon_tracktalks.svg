@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon_tracktalks" transform="translate(1.000000, 1.000000)">
+            <rect id="Rectangle" stroke="#588CF4" stroke-width="2" x="0" y="0" width="70" height="70" rx="35" fill="#EAF0FF"></rect>
+            <path d="M21,42.75 L37.12,42.75 C44.0420581,42.7280425 49.6480425,37.1220581 49.67,30.2 L49.67,30.2 C49.6535314,23.274037 44.0459477,17.6619851 37.12,17.64 L25.37,17.64 C22.360806,17.64 19.4754412,18.8381099 17.3513758,20.9696809 C15.2273105,23.1012518 14.0393668,25.9908248 14.0499292,29 L14.0499292,49.74 L21,42.75 Z" id="Path" stroke="#588CF4" stroke-width="2"></path>
+            <path d="M52.54,43.08 L43,43.08 C38.8884221,43.0635242 35.5609606,39.7315963 35.55,35.62 L35.55,35.62 C35.5609893,31.5100391 38.8900391,28.1809893 43,28.17 L50,28.17 C53.7113535,28.17 56.72,31.1786465 56.72,34.89 L56.72,47.23 L52.54,43.08 Z" id="Path" fill="#588CF4" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>
