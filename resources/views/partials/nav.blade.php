@@ -25,7 +25,7 @@
                 [
                     'title' => 'Talks',
                     'url' => route('talks.index'),
-                    'classes' => 'mr-4 sm:mx-2 md:mx-4 mt-2 sm:mt-0 border-none',
+                    'classes' => 'mr-4 sm:ml-2 md:ml-4 sm:mr-0 mt-2 sm:mt-0 border-none',
                 ],
 
             ];
@@ -58,7 +58,7 @@
                 [
                     'title' => 'Conferences',
                     'url' => route('conferences.index'),
-                    'classes' => 'mr-4 sm:mx-2 md:mx-4 mt-2 sm:mt-0',
+                    'classes' => 'mr-4 sm:mx-2 md:ml-4 sm:mr-0 mt-2 sm:mt-0',
                 ],
             ];
         @endphp
