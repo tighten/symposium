@@ -59,11 +59,11 @@
 
 
     <div class="bg-indigo-500 pb-24">
-        <div class="bg-white relative rounded-lg shadow px-8 py-12 max-w-md mx-auto sm:max-w-6xl -mt-20">
+        <div class="bg-white relative rounded-lg shadow px-0 py-12 max-w-md mx-auto sm:mx-10 lg:mx-auto sm:max-w-6xl md:max-w-4xl -mt-20">
             <div class="flex flex-col items-center mb-56">
                 @svg('badge')
-                <h2 class="text-indigo font-sans text-5xl mb-12">Conference Organizers</h2>
-                <div class="text-center max-w-3xl mx-auto font-sans text-3xl">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
+                <h2 class="text-indigo font-sans text-3xl lg:text-5xl mb-12">Conference Organizers</h2>
+                <div class="text-center max-w-3xl mx-auto font-sans text-xl md:text-2xl lg:text-3xl px-6">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
             </div>
         </div>
         <div class="max-w-md mx-auto sm:max-w-6xl mt-20">
