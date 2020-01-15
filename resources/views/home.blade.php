@@ -111,11 +111,11 @@
     <div class="bg-black">
         <div class="flex flex-col py-32 max-w-md mx-auto sm:max-w-6xl">
             <h2 class="text-white text-center font-sans text-5xl">Ready to get started?</h2>
-            <div class="flex font-sans text-xl mt-20">
-                <input class="w-1/4 rounded mr-8 px-5 py-6" name="name" placeholder="Name">
-                <input class="w-1/4 rounded mr-8 px-5 py-6" name="email" placeholder="Email">
-                <input class="w-1/4 rounded mr-8 px-5 py-6" name="password" placeholder="Password">
-                <input type="submit" class="w-1/4 rounded bg-indigo-800 text-white border-none" value="Sign up">
+            <div class="flex flex-wrap xl:flex-no-wrap font-sans text-xl mt-20 px-10 sm:px-48 xl:px-0">
+                <input class="w-full xl:w-1/4 rounded xl:mr-8 px-5 py-6 mb-8" name="name" placeholder="Name">
+                <input class="w-full xl:w-1/3 rounded xl:mr-8 px-5 py-6 mb-8" name="email" placeholder="Email">
+                <input class="w-full xl:w-1/4 rounded xl:mr-8 px-5 py-6 mb-8" name="password" type="password" placeholder="Password">
+                <input type="submit" class="w-full xl:w-1/6 rounded bg-indigo-800 text-white border-none px-5 py-6 mb-8" value="Sign up">
             </div>
         </div>
     </div>
