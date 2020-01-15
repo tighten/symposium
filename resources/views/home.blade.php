@@ -90,9 +90,9 @@
     <div class="bg-indigo-800">
         <div class="flex flex-col px-8 py-32 max-w-md mx-auto sm:max-w-6xl">
             <h2 class="text-white text-center font-sans text-5xl">Conferences</h2>
-            <div class="flex justify-between mt-20 mb-16">
+            <div class="flex flex-wrap lg:flex-no-wrap justify-between mt-20 mb-16">
                 @foreach ($conferences as $conference)
-                    <div class="w-1/3 bg-white rounded-lg first:mr-8 last:ml-8 px-8 pt-12 pb-24 font-sans relative shadow">
+                    <div class="w-full lg:w-1/3 bg-white rounded-lg lg:first:mr-8 lg:last:ml-8 mb-10 last:mb-0 lg:mb-0 px-8 pt-12 pb-24 font-sans relative shadow">
                         <div class="text-center text-2xl text-indigo-800 mb-24">{{ $conference->title }}</div>
                         <div class="font-medium text-xl">{{ $conference->event_dates_display }}</div>
                         <div class="mt-6 text-xl">{{ $conference->description }}</div>
