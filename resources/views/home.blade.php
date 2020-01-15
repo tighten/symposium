@@ -68,9 +68,9 @@
         </div>
         <div class="max-w-md mx-auto sm:max-w-6xl mt-20">
             <h2 class="text-white text-center font-sans text-5xl">Our Speakers</h2>
-            <div class="flex justify-between mt-16">
+            <div class="flex flex-wrap justify-between mt-16">
                 @foreach ($speakers as $speaker)
-                    <div class="flex flex-col items-center">
+                    <div class="w-1/2 sm:w-1/3 xl:w-1/6 flex flex-col items-center">
                         <img
                             class="rounded-full w-32 h-32"
                             style="filter:grayscale(100%);"
