@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="flex flex-col items-center justify-around max-w-md md:flex-row md:py-12 mx-auto pb-6 pt-0 px-8 sm:max-w-6xl">
+    <div class="flex flex-col items-center justify-around max-w-md md:flex-row md:py-12 mx-auto pb-6 pt-0 px-8 sm:max-w-6xl pm-12 sm:mt-3">
         <div class="flex flex-col">
             <h1 class="font-sans lg:text-7xl md:text-5xl text-5xl text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
             <div class="flex flex-col lg:flex-row lg:text-lg md:text-base mt-12 sm:text-lg text-base text-sans text-semibold xl:text-xl">

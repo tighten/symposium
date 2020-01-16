@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => 'Conferences'])
 
 @section('content')
     <div class="container body">

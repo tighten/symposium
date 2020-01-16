@@ -3,7 +3,10 @@
 /**
  * Public
  */
-Route::get('/', 'HomeController@show');
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'HomeController@show',
+]);
 
 Route::get('what-is-this', function () {
     return view('what-is-this');

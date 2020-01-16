@@ -24,8 +24,16 @@
 </head>
 <body>
     <div id="app">
-        @include('partials.header')
-        @yield('content')
+        @include('partials.header', ['title' => $title ?? null])
+        @if (request()->route()->getName() === 'home')
+            @yield('content')
+        @else
+            <div class="bg-indigo-100 border-t-2 border-gray-200">
+                <div class="max-w-md mx-auto sm:max-w-6xl px-4">
+                    @yield('content')
+                </div>
+            </div>
+        @endif
         @include('partials.footer')
     </div>
 
