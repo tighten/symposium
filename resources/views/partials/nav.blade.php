@@ -73,7 +73,7 @@
     @endforeach
 
     @if (! Auth::check())
-        <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-4 mt-4 px-8 py-2 rounded rounded-lg sm:block sm:ml-2 sm:mt-0 sm:mt-1 sm:px-4" href="{{ route('login') }}">Sign in</a>
+        <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-4 mt-4 px-8 py-2 rounded rounded-lg sm:block sm:ml-2 sm:mt-0 sm:mt-0 sm:px-4" href="{{ route('login') }}">Sign in</a>
     @endif
     {{-- Disable email registration --}}
     {{-- <a href="{{ route('register') }}">Sign up</a> --}}
