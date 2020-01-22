@@ -31,9 +31,10 @@ module.exports = {
   },
   variants: {
     margin: ['responsive', 'first', 'last'],
+    borderWidth: ['responsive', 'first', 'last']
   },
   plugins: [
-    function({ addComponents }) {
+    function ({ addComponents }) {
       const buttons = {
         '.btn-github-login': {
           margin: '.25rem 0',
