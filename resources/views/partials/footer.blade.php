@@ -1,4 +1,8 @@
-<div class="bg-black pb-12">
+@php
+    $bg_color = $is_home ? 'bg-black' : 'bg-indigo-100';
+@endphp
+
+<div class="{{ $bg_color }} pb-12 pt-4 bottom-0 absolute w-full">
     <div class="font-sans text-lg text-gray-500 max-w-md mx-auto sm:max-w-6xl">
         <footer>
             <div class="flex flex-col lg:flex-row justify-between px-8 xl:px-0 text-center lg:text-left">

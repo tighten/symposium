@@ -1,5 +1,9 @@
+@php
+    $is_home = request()->route()->getName() === 'home';
+@endphp
+
 <!DOCTYPE html>
-<html>
+<html class="h-full">
 <head>
     <title>Symposium for Speakers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,19 +26,22 @@
     </script>
     @yield('headerScripts')
 </head>
-<body>
-    <div id="app">
+<body class="h-full">
+    @php
+        $app_bg_color = $is_home ? 'bg-white' : 'bg-indigo-100';
+    @endphp
+    <div id="app" class="min-h-full relative {{ $app_bg_color }}">
         @include('partials.header', ['title' => $title ?? null])
-        @if (request()->route()->getName() === 'home')
+        @if ($is_home)
             @yield('content')
         @else
-            <div class="bg-indigo-100 border-t-2 border-gray-200">
+            <div class="bg-indigo-100 border-t-2 border-gray-200 pb-32">
                 <div class="max-w-md mx-auto sm:max-w-6xl px-4">
                     @yield('content')
                 </div>
             </div>
         @endif
-        @include('partials.footer')
+        @include('partials.footer', ['is_home' => $is_home])
     </div>
 
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
