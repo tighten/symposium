@@ -75,9 +75,6 @@
                         @forelse ($bios as $bio)
                             <div class="px-4 py-2 border-b last:border-b-0">
                                 <h3 class="font-sans text-lg font-semibold">{{ $bio->nickname }}</h3>
-                                <p>
-                                    {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
-                                </p>
                             </div>
                         @empty
                             No Talks

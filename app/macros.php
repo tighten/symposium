@@ -1,6 +1,6 @@
 <?php
 
-HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'is-active') {
+HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'font-bold text-indigo-500') {
 
     // This only works if we pass a single param.
     $key = key($parameters);
@@ -9,6 +9,8 @@ HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = nul
         $cssClass = isset($attributes['class']) ? $attributes['class'] : '';
         $cssClass .= " {$activeClass}";
         $attributes['class'] = $cssClass;
+    } else {
+        $attributes['class'] .= ' text-gray-700';
     }
 
     // There has to be a better way...
