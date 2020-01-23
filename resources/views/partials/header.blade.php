@@ -1,6 +1,6 @@
 @include('partials.flash-messages')
 <div class="bg-white">
-    <main-header class="pt-12 sm:pt-3 pb-3 px-4 max-w-md mx-auto sm:max-w-6xl">
+    <main-header class="pt-12 sm:pt-3 pb-1 px-4 max-w-md mx-auto sm:max-w-6xl">
         <template slot-scope="slotProps">
             <div class="sm:flex sm:justify-between sm:items-center">
                 <div class="px-4 py-3 sm:p-0">
@@ -20,7 +20,9 @@
             </div>
             @if ($title)
                 <div class="max-w-md mx-auto sm:max-w-6xl border-t border-gray-300 mt-3">
-                    <h2 class="mt-3 text-black font-sans text-2xl" style="margin-left:2.35rem">{{ $title }}</h2>
+                    <div class="sm:max-w-3xl mx-auto">
+                        <h2 class="mt-3 text-black font-sans text-2xl">{{ $title }}</h2>
+                    </div>
                 </div>
             @endif
         </template>

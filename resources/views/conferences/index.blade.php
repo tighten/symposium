@@ -1,7 +1,7 @@
 @extends('layout', ['title' => 'Conferences'])
 
 @section('content')
-    <div class="container body">
+    <div class="body">
         <div class="row">
             <div class="flex py-3 max-w-md mx-auto sm:max-w-3xl">
                 <div class="w-1/4">
