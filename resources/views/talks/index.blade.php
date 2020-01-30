@@ -32,7 +32,7 @@
                     </a>
                 </div>
                 <div class="w-3/4 ml-4">
-                    @foreach ($talks as $talk)
+                    @forelse ($talks as $talk)
                         <div class="border-2 border-indigo-200 rounded mt-4 hover:border-indigo">
                             <div class="bg-white p-4">
                                 <div class="flex items-center justify-between">
@@ -68,7 +68,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        @include ('partials.talk-in-list-empty')
+                    @endforelse
                 </div>
                   {{-- @each('partials.talk-in-list', $talks, 'talk', 'partials.talk-in-list-empty') --}}
             </div>
