@@ -42,11 +42,19 @@
             <div class="border-2 border-indigo-200 rounded mt-4 hover:border-indigo">
                 <div class="bg-white p-4">
                     <div class="flex items-center justify-between">
-                        <h3 class="m-0 font-sans text-2xl">
-                            <a href="{{ route('conferences.show', ['id' => $conference->id]) }}">
-                                {{ $conference->title }}
-                            </a>
-                        </h3>
+                        <div class="flex items-center">
+                            <h3 class="m-0 font-sans text-2xl">
+                                <a href="{{ route('conferences.show', ['id' => $conference->id]) }}">
+                                    {{ $conference->title }}
+                                </a>
+                            </h3>
+                            @if ($conference->cfpIsOpen())
+                                <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">CFP OPEN</span>
+                            @endif
+                            @if (Auth::check() && $conference->appliedTo())
+                                <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">Already Sent Proposal</span>
+                            @endif
+                        </div>
                         <div class="text-indigo-500 text-lg">
                             @if (Auth::check() && !$conference->isDismissed())
                                 @if ($conference->isFavorited())
@@ -78,9 +86,6 @@
                     </div>
                 </div>
 
-                    {{-- @if ($conference->cfpIsOpen())
-                        <span class="label label-info">CFP OPEN</span>
-                    @endif --}}
 
                 <div class="bg-indigo-150 p-4 font-sans flex justify-between">
                     <div>
@@ -94,9 +99,6 @@
                             <div>{{ $conference->cfpStartsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->cfpEndsAtDisplay() }}</div>
                         </div>
                     @endif
-                    {{-- @if (Auth::check() && $conference->appliedTo())
-                        <b>Already Sent Proposal</b>
-                    @endif --}}
                 </div>
             </div>
         @empty
