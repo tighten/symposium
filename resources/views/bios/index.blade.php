@@ -8,7 +8,7 @@
                     <a href="{{ route('bios.create') }}" class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">Add Bio &nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                 </div>
                 <div class="w-3/4 ml-4">
-                    @foreach ($bios as $bio)
+                    @forelse ($bios as $bio)
                         <div class="border-2 border-indigo-200 rounded mt-4 hover:border-indigo">
                             <div class="bg-white p-4">
                                 <div class="flex items-center justify-between">
@@ -35,7 +35,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        @include ('partials.bio-in-list-empty')
+                    @endforelse
 
                   {{-- @each('partials.bio-in-list', $bios, 'bio', 'partials.bio-in-list-empty') --}}
                 </div>
