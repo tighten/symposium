@@ -1,18 +1,26 @@
-<li>
-    <div class="pull-right">
-        <a class="btn btn-xs btn-danger" href="{{ route('bios.delete', ['id' => $bio->id]) }}" data-confirm="Are you sure you want to delete this bio?">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            Delete
-        </a>
-        <a class="btn btn-xs btn-primary" href="{{ route('bios.edit', ['id' => $bio->id]) }}">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-            Edit
-        </a>
-        <button type="button" class="btn btn-xs btn-default" data-clipboard data-clipboard-text="{{ $bio->body }}">
-            @svg('clipboard', 'fill-current inline-block align-text-bottom h-4 w-4') Copy
-        </button>
+<div class="border-2 border-indigo-200 rounded mt-4 hover:border-indigo">
+    <div class="bg-white p-4">
+        <div class="flex items-center justify-between">
+            <h3 class="m-0 font-sans text-2xl">
+                <a href="{{ route('bios.show', ['id' => $bio->id]) }}">
+                    {{ $bio->nickname }}
+                </a>
+            </h3>
+            <div class="text-indigo-500 text-lg">
+                <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" title="Edit">
+                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </a>
+                <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="ml-3" title="Delete">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+                <button type="button" data-clipboard data-clipboard-text="{{ $bio->body }}" title="Copy" class="ml-3">
+                    {{-- @svg('clipboard', 'fill-current align-text-bottom h-5') --}}
+                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="mt-3 font-sans text-gray-500">
+            {{ $bio->nickname }}
+        </div>
     </div>
-
-    <h3><a href="{{ route('bios.show', ['id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
-    <p>{{ $bio->preview }}</p>
-</li>
+</div>
