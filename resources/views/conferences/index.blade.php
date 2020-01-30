@@ -1,35 +1,37 @@
 @extends('layout', ['title' => 'Conferences'])
 
+@php
+    $linkRouteKeysWithDefaults = ['filter' => 'future', 'sort' => 'closing_next'];
+    $inactiveLinkClasses = 'filter-link p-1 rounded';
+@endphp
+
 @section('content')
 
-<div class="flex py-3 max-w-md mx-auto sm:max-w-3xl">
-    <div class="w-1/4">
-        @php
-            $linkRouteKeysWithDefaults = ['filter' => 'future', 'sort' => 'closing_next'];
-            $inactiveLinkClasses = 'filter-link p-1 rounded';
-        @endphp
-
-        <div class="border-2 border-indigo-200 rounded mt-4 font-sans">
-            <div class="bg-indigo-150 p-4">Filter</div>
-            <div class="bg-white flex flex-col p-4">
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Future', ['filter' => 'future'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP is Open', ['filter' => 'open_cfp'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Unclosed CFP', ['filter' => 'unclosed_cfp'], ['class' => $inactiveLinkClasses]) !!}
-                @if (Auth::check())
-                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Favorites', ['filter' => 'favorites'], ['class' => $inactiveLinkClasses]) !!}
-                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Dismissed', ['filter' => 'dismissed'], ['class' => $inactiveLinkClasses]) !!}
-                @endif
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'All time', ['filter' => 'all'], ['class' => $inactiveLinkClasses]) !!}
+<div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
+    <div class="w-full md:w-1/4">
+        <div class="flex md:flex-col">
+            <div class="w-1/2 md:w-full border-2 border-indigo-200 bg-white rounded mt-4 font-sans">
+                <div class="bg-indigo-150 p-4">Filter</div>
+                <div class="flex flex-col p-4">
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Future', ['filter' => 'future'], ['class' => $inactiveLinkClasses]) !!}
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP is Open', ['filter' => 'open_cfp'], ['class' => $inactiveLinkClasses]) !!}
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Unclosed CFP', ['filter' => 'unclosed_cfp'], ['class' => $inactiveLinkClasses]) !!}
+                    @if (Auth::check())
+                        {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Favorites', ['filter' => 'favorites'], ['class' => $inactiveLinkClasses]) !!}
+                        {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Dismissed', ['filter' => 'dismissed'], ['class' => $inactiveLinkClasses]) !!}
+                    @endif
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'All time', ['filter' => 'all'], ['class' => $inactiveLinkClasses]) !!}
+                </div>
             </div>
-        </div>
 
-        <div class="border-2 border-indigo-200 bg-gray-200 rounded mt-4">
-            <div class="bg-indigo-150 p-4">Sort</div>
-            <div class="bg-white flex flex-col p-4">
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Opening Next', ['sort' => 'opening_next'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Title', ['sort' => 'alpha'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Date', ['sort' => 'date'], ['class' => $inactiveLinkClasses]) !!}
+            <div class="w-1/2 md:w-full ml-4 md:ml-0 border-2 border-indigo-200 bg-white rounded mt-4">
+                <div class="bg-indigo-150 p-4">Sort</div>
+                <div class="flex flex-col p-4">
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => $inactiveLinkClasses]) !!}
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Opening Next', ['sort' => 'opening_next'], ['class' => $inactiveLinkClasses]) !!}
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Title', ['sort' => 'alpha'], ['class' => $inactiveLinkClasses]) !!}
+                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Date', ['sort' => 'date'], ['class' => $inactiveLinkClasses]) !!}
+                </div>
             </div>
         </div>
         <a href="{{ route('conferences.create') }}"
@@ -37,7 +39,7 @@
                 class="glyphicon glyphicon-plus"
                 aria-hidden="true"></span></a>
     </div>
-    <div class="w-3/4 ml-4">
+    <div class="w-full md:w-3/4 md:ml-4">
         @forelse ($conferences as $conference)
             <div class="border-2 border-indigo-200 rounded mt-4 hover:border-indigo">
                 <div class="bg-white p-4">
