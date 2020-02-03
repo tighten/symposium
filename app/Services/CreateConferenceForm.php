@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Conference;
-use App\Events\ConferenceCreated;
 use App\Exceptions\ValidationException;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
@@ -50,7 +49,6 @@ class CreateConferenceForm
             'author_id' => $this->user->id,
         ]));
         Event::dispatch('new-conference', [$conference]);
-        event(new ConferenceCreated($conference));
 
         return $conference;
     }
