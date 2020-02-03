@@ -1,26 +1,23 @@
-@extends('layout')
+@extends('layout', ['title' => 'Edit Bio'])
 
 @section('content')
 
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-6 col-md-push-3 create-edit-form">
-                <h1 class="page-title">Edit Bio</h1>
+<div class="px-10 py-3 max-w-md mx-auto sm:max-w-3xl border-2 border-indigo-200 bg-white rounded mt-4">
+    <ul class="errors">
+        @foreach ($errors->all() as $message)
+            <li>{{ $message }}</li>
+        @endforeach
+    </ul>
 
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
+    {!! Form::open(array('action' => array('BiosController@update', $bio->id), 'class' => 'edit-bio-form', 'method' => 'put')) !!}
 
-                {!! Form::open(array('action' => array('BiosController@update', $bio->id), 'class' => 'edit-bio-form', 'method' => 'put')) !!}
+    @include('partials.bioform')
 
-                @include('partials.bioform')
+    {!! Form::submit('Update', [
+        'class' => 'bg-indigo-500 font-semibold mt-8 px-8 py-2 rounded text-white text-lg'
+    ]) !!}
 
-                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+    {!! Form::close() !!}
+</div>
 
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
 @stop
