@@ -7,10 +7,12 @@
 // Old stuff. All future dev in Tailwind, please.
 
 // Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
-@import "variables", "bootstrap", "bootswatch";
+// @import "variables", "bootstrap", "bootswatch";
 
 $link_color: #428bca;
 $font-family-oswald: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
+
+$btn-default-color: '#6A96FE';
 
 /* Build our stylesheet, which currently merely extends bootstrap styles. */
 html {
@@ -166,7 +168,7 @@ legend {
 }
 
 %notice {
-    @extend .alert;
+    @extend .alert !optional;
     right: 1em;
     top: 8em;
     position: fixed;
@@ -178,17 +180,17 @@ legend {
 
 .notice-success {
     @extend %notice;
-    @extend .alert-success;
+    @extend .alert-success !optional;
 }
 
 .notice-error {
     @extend %notice;
-    @extend .alert-danger;
+    @extend .alert-danger !optional;
 }
 
 .notice-info {
     @extend %notice;
-    @extend .alert-info;
+    @extend .alert-info !optional;
 }
 
 .hero {
@@ -353,9 +355,9 @@ legend {
 }
 
 .create-button {
-    @extend .pull-right;
+    @extend .pull-right !optional;
     @extend .btn;
-    @extend .btn-primary;
+    @extend .btn-primary !optional;
 
     margin-left: 1em;
 }
@@ -363,7 +365,7 @@ legend {
 #calendar {
     button {
         @extend .btn;
-        @extend .btn-primary;
+        @extend .btn-primary !optional;
         padding: 0 .6em;
         text-shadow: none;
     }
@@ -404,12 +406,6 @@ legend {
 // Remove top margin for first radio item after label
 .control-label + .radio {
     margin-top: 0;
-}
-
-.btn-default.zeroclipboard-is-hover {
-    color: $btn-default-color;
-    background-color: darken($btn-default-bg, 10%);
-    border-color: darken($btn-default-border, 12%);
 }
 
 .panel-on-grey {
