@@ -7,63 +7,65 @@
 @endsection
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>{{ $conference->title }}
-                    @if (! $conference->is_approved)
+
+<div class="max-w-md mx-auto sm:max-w-3xl border-2 border-indigo-200 rounded mt-4">
+    <div class="bg-white p-10">
+        <div class="flex items-center justify-between">
+            <h2 class="m-0 font-sans text-2xl">
+                {{ $conference->title }}
+                @if (! $conference->is_approved)
                     <span style="color: red;">[NOT APPROVED]</span>
-                    @endif
-                </h1>
-
-                <p class="pull-right action-buttons">
+                @endif
+            </h2>
+            <div class="text-indigo-500 text-lg">
                 @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
-                        <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                        <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" title="Edit">
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                    <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="ml-3" title="Delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
                 @endif
-                </p>
-
-                @unless (empty($conference->location))
-                    <p><b>Location:</b>
-                        {{ $conference->location }}</p>
-                @endunless
-
-                <p><b>Date created:</b>
-                    {{ $conference->created_at->toFormattedDateString() }}</p>
-
-                <p><b>URL:</b>
-                    <a href="{{ $conference->url }}">{{ $conference->url }}</a></p>
-
-                @if ($conference->cfp_url)
-                    <p><b>URL for CFP page:</b>
-                        <a href="{{ $conference->cfp_url }}">{{ $conference->cfp_url }}</a></p>
-                @endif
-
-                <p><b>Description:</b><br>
-                    <!-- TODO: Figure out how we will be handling HTML/etc. -->
-                    {!! str_replace("\n", "<br>", $conference->description) !!}</p>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><b>Date conference starts:</b>
-                            {{ $conference->startsAtDisplay() }}</p>
-
-                        <p><b>Date conference ends:</b>
-                            {{ $conference->endsAtDisplay() }}</p>
-
-                        <p><b>Date CFP opens:</b>
-                            {{ $conference->cfpStartsAtDisplay() }}</p>
-
-                        <p><b>Date CFP closes:</b>
-                            {{ $conference->cfpEndsAtDisplay() }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
-                    </div>
-                </div>
             </div>
         </div>
+
+        <div class="mt-8 font-sans">
+            @unless (empty($conference->location))
+                <div class="text-gray-500">Location:</div>
+                {{ $conference->location }}
+            @endunless
+
+            <div class="text-gray-500 mt-4">URL:</div>
+            <a href="{{ $conference->url }}">{{ $conference->url }}</a>
+
+            @if ($conference->cfp_url)
+                <div class="text-gray-500 mt-4">URL for CFP page:</div>
+                <a href="{{ $conference->cfp_url }}">{{ $conference->cfp_url }}</a></p>
+            @endif
+
+            <div class="text-gray-500 mt-4">Description:</div>
+            <!-- TODO: Figure out how we will be handling HTML/etc. -->
+            {!! str_replace("\n", "<br>", $conference->description) !!}</p>
+        </div>
+        <hr>
+        <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
     </div>
+    <div class="bg-indigo-150 px-10 py-3 font-sans flex justify-between">
+        <div>
+            <div class="text-gray-500">Dates</div>
+            <div>{{ $conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->endsAtDisplay() }}</div>
+        </div>
+        @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
+            <div>
+                <div class="text-gray-500">CFP</div>
+                <div>{{ $conference->cfpStartsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->cfpEndsAtDisplay() }}</div>
+            </div>
+        @endif
+        <div>
+            <div class="text-gray-500">Created</div>
+            <div>{{ $conference->created_at->toFormattedDateString() }}</div>
+        </div>
+    </div>
+</div>
+
 @stop
