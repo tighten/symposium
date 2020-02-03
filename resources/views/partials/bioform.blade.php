@@ -20,24 +20,24 @@
     {!! Form::label('public', '*Show on public speaker profile?', [
         'class' => 'block text-indigo-500 font-bold mb-2'
     ]) !!}
-    <div class="input-group">
-        <label class="radio-inline">
-            <input
-                type="radio"
-                name="public"
-                value="yes"
-                {{ $bio->public ? 'checked' : '' }}
-            >
-            Yes
-        </label>
-        <label class="radio-inline">
-            <input
-                type="radio"
-                name="public"
-                value="no"
-                {{ $bio->public ? '' : 'checked' }}
-            >
-            No
-        </label>
-    </div>
+    <label class="inline-flex items-center">
+        <input
+            type="radio"
+            class="form-radio"
+            name="public"
+            value="yes"
+            {{ $bio->public ? 'checked' : '' }}
+        >
+        <span class="ml-2">Yes</span>
+    </label>
+    <label class="inline-flex items-center ml-6">
+        <input
+            type="radio"
+            class="form-radio"
+            name="public"
+            value="no"
+            {{ $bio->public ? '' : 'checked' }}
+        >
+        <span class="ml-2">No</span>
+    </label>
 </div>

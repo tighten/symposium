@@ -38,6 +38,7 @@ module.exports = {
     borderWidth: ['responsive', 'first', 'last']
   },
   plugins: [
+    require('@tailwindcss/custom-forms'),
     function ({ addComponents }) {
       const buttons = {
         '.btn-github-login': {
