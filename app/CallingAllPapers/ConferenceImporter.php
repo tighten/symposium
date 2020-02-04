@@ -3,7 +3,6 @@
 namespace App\CallingAllPapers;
 
 use App\Conference;
-use App\Events\ConferenceCreated;
 use Carbon\Carbon;
 use DateTime;
 
@@ -23,7 +22,6 @@ class ConferenceImporter
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
         $conference->save();
-        event(new ConferenceCreated($conference));
     }
 
     private function updateConferenceFromCallingAllPapersEvent(Conference $conference, Event $event)
