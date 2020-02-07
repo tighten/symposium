@@ -17,6 +17,7 @@ class ConferencesController extends BaseController
         'title' => ['required'],
         'description' => ['required'],
         'url' => ['required'],
+        'location' => [],
         'cfp_url' => [],
         'starts_at' => ['date'],
         'ends_at' => ['date', 'onOrAfter:starts_at'],
@@ -149,7 +150,7 @@ class ConferencesController extends BaseController
         }
 
         // Save
-        $conference->fill($request->all(['title', 'description', 'url', 'cfp_url']));
+        $conference->fill($request->all(['title', 'description', 'location', 'url', 'cfp_url']));
 
         foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
             $conference->$col = $request->input($col) ?: null;

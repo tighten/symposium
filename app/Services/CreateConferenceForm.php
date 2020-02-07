@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Conference;
-use App\Events\ConferenceCreated;
 use App\Exceptions\ValidationException;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +14,7 @@ class CreateConferenceForm
         'description' => ['required'],
         'url' => ['required'],
         'cfp_url' => [],
+        'location' => [],
         'starts_at' => ['date'],
         'ends_at' => ['date', 'onOrAfter:starts_at'],
         'cfp_starts_at' => ['date', 'before:starts_at'],
@@ -49,7 +49,6 @@ class CreateConferenceForm
             'author_id' => $this->user->id,
         ]));
         Event::dispatch('new-conference', [$conference]);
-        event(new ConferenceCreated($conference));
 
         return $conference;
     }

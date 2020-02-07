@@ -28,6 +28,11 @@ Vue.component(
     require('./components/TalksOnConferencePage.vue').default
 );
 
+Vue.component(
+    'location-lookup',
+    require('./components/LocationLookup.vue').default
+);
+
 new Vue({
     el: "#app",
 });
