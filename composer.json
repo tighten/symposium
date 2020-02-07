@@ -21,7 +21,7 @@
         "laravel/passport": "^7.2",
         "laravel/scout": "^4.0",
         "laravel/slack-notification-channel": "^2.0",
-        "laravel/socialite": "^3.2.0",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "5.8.*",
         "maddhatter/laravel-fullcalendar": "^1.2",
