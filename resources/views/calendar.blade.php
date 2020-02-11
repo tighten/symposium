@@ -1,12 +1,8 @@
 @extends('layout')
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div id="calendar" class="calendar col-sm-12">
-                {!! $calendar->calendar() !!}
-            </div>
-        </div>
+    <div id="calendar" class="calendar mt-8">
+        {!! $calendar->calendar() !!}
     </div>
 @stop
 
