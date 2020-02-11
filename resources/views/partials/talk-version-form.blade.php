@@ -79,15 +79,12 @@
 </div>
 
 <div class="mt-8">
-    {!! Form::label('length', '*Length', [
+    {!! Form::label('length', '*Length (mins)', [
         'class' => 'block text-indigo-500 font-bold mb-2'
     ]) !!}
-    <div class="input-group">
-        {!! Form::text('length', $current->length, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-        ]) !!}
-        <div class="input-group-addon">mins</div>
-    </div>
+    {!! Form::text('length', $current->length, [
+        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+    ]) !!}
 </div>
 
 <div class="mt-8">
