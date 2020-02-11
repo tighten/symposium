@@ -36,7 +36,7 @@
                 [
                     'title' => 'How it Works',
                     'url' => url('what-is-this'),
-                    'classes' => 'mr-4 sm:mr-2 md:mr-4',
+                    'classes' => 'ml-0 mr-4 sm:mx-2 md:mx-4',
                 ],
                 [
                     'title' => 'Our speakers',
@@ -46,7 +46,7 @@
                 [
                     'title' => 'Conferences',
                     'url' => route('conferences.index'),
-                    'classes' => 'mr-4 sm:mx-2 md:ml-4 sm:mr-0 mt-2 lg:mt-0',
+                    'classes' => 'mr-4 sm:mx-2 md:mx-4 sm:mr-0 mt-2 lg:mt-0',
                 ],
             ];
         @endphp
