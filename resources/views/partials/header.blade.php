@@ -2,11 +2,11 @@
 <div class="bg-white">
     <main-header class="pt-12 sm:pt-3 pb-1 px-4 max-w-md mx-auto sm:max-w-6xl">
         <template slot-scope="slotProps">
-            <div class="sm:flex sm:justify-between sm:items-center">
+            <div class="lg:flex lg:justify-between lg:items-center">
                 <div class="px-4 py-3 sm:p-0">
                     <div class="flex items-center justify-between">
                         <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
-                        <div class="sm:hidden">
+                        <div class="lg:hidden">
                             <button v-on:click="slotProps.toggleNav" type="button" class="block text-indigo hover:text-black focus:outline-none">
                                 <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
                                     <path v-if="slotProps.showNav" fill-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
