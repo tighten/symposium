@@ -14,29 +14,31 @@
     @include('partials.conferenceform')
 
     @if (auth()->user()->isAdmin())
-        {!! Form::label('is_approved', 'Conference Is Approved?', [
-            'class' => 'block text-indigo-500 font-bold mb-2'
-        ]) !!}
-        <label class="inline-flex items-center">
-            <input
-                type="radio"
-                class="form-radio"
-                name="type"
-                value="1"
-                {{ $conference->is_approved ? 'checked' : '' }}
-            >
-            <span class="ml-2">Yes</span>
-        </label>
-        <label class="inline-flex items-center">
-            <input
-                type="radio"
-                class="form-radio"
-                name="type"
-                value="1"
-                {{ $conference->is_approved ? '' : 'checked' }}
-            >
-            <span class="ml-2">No</span>
-        </label>
+        <div class="mt-8">
+            {!! Form::label('is_approved', 'Conference Is Approved?', [
+                'class' => 'block text-indigo-500 font-bold mb-2'
+            ]) !!}
+            <label class="inline-flex items-center">
+                <input
+                    type="radio"
+                    class="form-radio"
+                    name="type"
+                    value="1"
+                    {{ $conference->is_approved ? 'checked' : '' }}
+                >
+                <span class="ml-2">Yes</span>
+            </label>
+            <label class="inline-flex items-center">
+                <input
+                    type="radio"
+                    class="form-radio"
+                    name="type"
+                    value="1"
+                    {{ $conference->is_approved ? '' : 'checked' }}
+                >
+                <span class="ml-2">No</span>
+            </label>
+        </div>
     @endif
 
     {!! Form::submit('Update', [
