@@ -57,6 +57,25 @@ h3 {
     font-size: 0.9375rem;
 }
 
+.alert {
+    padding: 15px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-warning {
+    background-color: #F39C12;
+    border-color: #F39C12;
+    color: #fff;
+}
+
+.alert-danger {
+    background-color: #E74C3C;
+    border-color: #E74C3C;
+    color: #fff;
+}
+
 @media only screen and (min-width: 400px) {
     h1 {
         font-size: 2.1875rem;
