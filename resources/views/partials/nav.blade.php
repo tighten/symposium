@@ -25,23 +25,11 @@
                 [
                     'title' => 'Talks',
                     'url' => route('talks.index'),
-                    'classes' => 'mr-4 sm:ml-2 md:ml-4 sm:mr-0 mt-2 sm:mt-0 border-none',
+                    'classes' => 'mr-4 sm:ml-2 md:ml-4 mt-2 sm:mt-0',
                 ],
 
             ];
         @endphp
-        {{-- <li class="" role="presentation">
-            <a class="" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                <img src="{{ Auth::user()->profile_picture_thumb }}" class="nav-profile-picture inline"> Me <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <a href="{{ route('account.show') }}">Account</a>
-                @if (Auth::user()->enable_profile)
-                <a href="{{ route('speakers-public.show', [Auth::user()->profile_slug]) }}">Public Speaker Profile</a>
-                @endif
-                <a href="{{ route('log-out') }}">Log out</a>
-            </ul> --}}
-
     @else
         @php
             $menuItems = [
@@ -74,6 +62,23 @@
 
     @if (! Auth::check())
         <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-4 mt-4 px-8 py-2 rounded rounded-lg sm:block sm:ml-2 sm:mt-0 sm:mt-0 sm:px-4" href="{{ route('login') }}">Sign in</a>
+    @else
+        <div class="mt-4 sm:mt-0">
+            <a class="mr-4 sm:mx-2 md:mx-4 mt-2 sm:mt-0 flex sm:flex-row-reverse items-center" href="#" v-on:click="slotProps.toggleAccountDropdown">
+                <img src="{{ Auth::user()->profile_picture_thumb }}" class="nav-profile-picture inline ml-2">
+                <div class="inline">
+                    <span class="caret"></span>
+                    <span class="mx-2">Me</span>
+                </div>
+            </a>
+            <div class="mr-4 sm:mx-2 md:mx-4 mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
+                <a class="py-1" href="{{ route('account.show') }}">Account</a>
+                @if (Auth::user()->enable_profile)
+                    <a class="py-1" href="{{ route('speakers-public.show', [Auth::user()->profile_slug]) }}">Public Speaker Profile</a>
+                @endif
+                <a class="py-1" href="{{ route('log-out') }}">Log out</a>
+            </div>
+        </div>
     @endif
     {{-- Disable email registration --}}
     {{-- <a href="{{ route('register') }}">Sign up</a> --}}
