@@ -1,6 +1,7 @@
 @extends('layout', ['title' => 'Edit Talk'])
 
 @section('content')
+
 <div class="px-10 py-3 max-w-md mx-auto sm:max-w-3xl border-2 border-indigo-200 bg-white rounded mt-4">
     <ul class="errors">
         @foreach ($errors->all() as $message)
@@ -18,4 +19,5 @@
 
     {!! Form::close() !!}
 </div>
-@stop
+
+@endsection

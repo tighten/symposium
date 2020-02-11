@@ -1,14 +1,16 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
-        <h2>Are you sure?</h2>
 
-        <p>Are you sure you want to delete your account?</p>
+<div class="container">
+    <h2>Are you sure?</h2>
 
-        {!! Form::open(array('action' => array('AccountController@destroy'))) !!}
-        {!! Form::submit('Yes') !!} - <a href="{{ route('account.show') }}">No</a>
-        {!! Form::close() !!}
+    <p>Are you sure you want to delete your account?</p>
 
-    </div>
-@stop
+    {!! Form::open(array('action' => array('AccountController@destroy'))) !!}
+    {!! Form::submit('Yes') !!} - <a href="{{ route('account.show') }}">No</a>
+    {!! Form::close() !!}
+
+</div>
+
+@endsection

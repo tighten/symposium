@@ -178,4 +178,4 @@
     </div> --}}
 
     <!--<a href="/im-a-bot">I'm a bot</a>-->
-@stop
+@endsection

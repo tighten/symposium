@@ -120,7 +120,7 @@
 
         {!! Form::close() !!}
     </div>
-@stop
+@endsection
 
 @push('scripts')
 <script src="{{ elixir('js/location.js') }}"></script>
