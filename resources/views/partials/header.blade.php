@@ -5,7 +5,9 @@
             <div class="lg:flex lg:justify-between lg:items-center">
                 <div class="px-4 py-3 sm:p-0">
                     <div class="flex items-center justify-between">
-                        <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
+                        <a href="{{ Auth::check() ? route('dashboard') : url('/') }}">
+                            <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
+                        </a>
                         <div class="lg:hidden">
                             <button v-on:click="slotProps.toggleNav" type="button" class="block text-indigo hover:text-black focus:outline-none">
                                 <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
