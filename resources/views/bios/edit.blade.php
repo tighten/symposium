@@ -9,7 +9,10 @@
         @endforeach
     </ul>
 
-    {!! Form::open(array('action' => array('BiosController@update', $bio->id), 'class' => 'edit-bio-form', 'method' => 'put')) !!}
+    {!! Form::open([
+        'action' => ['BiosController@update', $bio->id],
+        'class' => 'edit-bio-form', 'method' => 'put'
+    ]) !!}
 
     @include('partials.bioform')
 
