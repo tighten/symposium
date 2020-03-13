@@ -27,9 +27,8 @@
             </div>
         </div>
         <a href="{{ route('talks.create') }}"
-           class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">Add Talk &nbsp;<span
-                class="glyphicon glyphicon-plus"
-                aria-hidden="true"></span>
+           class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">
+           Add Talk @svg('plus', 'ml-2 w-3 h-3 inline fill-current')
         </a>
     </div>
     <div class="w-full md:w-3/4 md:ml-4">

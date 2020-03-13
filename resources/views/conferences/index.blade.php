@@ -35,9 +35,7 @@
             </div>
         </div>
         <a href="{{ route('conferences.create') }}"
-           class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">Add Conference &nbsp;<span
-                class="glyphicon glyphicon-plus"
-                aria-hidden="true"></span></a>
+           class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">Add Conference @svg('plus', 'w-3 h-3 fill-current inline ml-2')</a>
     </div>
     <div class="w-full md:w-3/4 md:ml-4">
         @forelse ($conferences as $conference)
@@ -73,7 +71,7 @@
                             @if (Auth::check() && !$conference->isFavorited())
                                 @if ($conference->isDismissed())
                                     <a href="/conferences/{{ $conference->id }}/undismiss" title="I am interested in this conference">
-                                        <span class="glyphicon glyphicon-plus">
+                                        @svg('plus', 'w-4 h-4 fill-current stroke-2')
                                     </a>
                                 @else
                                     <a href="/conferences/{{ $conference->id }}/dismiss" title="I am not interested in this conference" class="ml-3">
