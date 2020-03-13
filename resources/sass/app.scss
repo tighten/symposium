@@ -101,48 +101,11 @@ h3 {
     }
 }
 
-fieldset {
-    border: 1px solid #aaa;
-    border-width: 1px 0 0 0;
-    margin-bottom: 2em;
-    padding: 1em 0 0 0;
-}
-
-legend {
-    color: lighten(desaturate(rgb(44, 62, 80), 20%), 5%);
-    margin-bottom: 0;
-    margin-left: 0.5em;
-    padding-left: 0.25em;
-    padding-right: 0.25em;
-    width: inherit;
-}
-
-.u-bold {
-    font-weight: bold;
-}
-
 .container {
     @extend .container;
     position: relative;
 }
 
-
-.logo {
-    // @extend .navbar-brand;
-
-    bottom: 0;
-    position: absolute;
-
-    max-width: 50%;
-
-    @media only screen and (min-width: 768px) {
-        max-width: 250px;
-    }
-
-    @media only screen and (min-width: 992px) {
-        max-width: 400px;
-    }
-}
 
 .nav-profile-picture {
     border-radius: 1.5em;
@@ -150,51 +113,6 @@ legend {
     margin-right: 0.5em;
     margin-top: -0.5em;
     width: 3em;
-}
-
-// .body {
-//     background: #fff;
-//     margin-top: 0;
-//     padding-bottom: 3.75rem;
-//     padding-top: 2.5rem;
-// }
-
-// .primary-header {
-//     @extend .navbar;
-//     @extend .navbar-default;
-//     @extend .navbar-static-top;
-
-//     margin-bottom: 0;
-// }
-
-// .primary-header__title {
-//     @extend .navbar-header;
-// }
-
-// .primary-header__toggle {
-//     @extend .navbar-toggle;
-//     margin-top: 2.5em;
-// }
-
-// .primary-header__collapse {
-//     @extend .navbar-collapse;
-//     @extend .collapse;
-// }
-
-// .primary-header__meta-nav {
-//     @extend .nav;
-//     @extend .navbar-nav;
-//     @extend .navbar-right;
-//     margin-top: 2em;
-// }
-
-.primary-footer {
-    color: #777;
-    text-transform: uppercase;
-}
-
-.icon-bar {
-    @extend .icon-bar;
 }
 
 %notice {
@@ -223,32 +141,7 @@ legend {
     @extend .alert-info !optional;
 }
 
-.hero {
-    font-size: 1.25rem;
-
-    h1 {
-        font-size: 3.35rem;
-    }
-
-    img {
-        border: 2px solid #eee;
-    }
-}
-
-.list-sort {
-    border-left: 3px solid #ddd;
-    color: #888;
-    font-size: 0.9em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    text-transform: uppercase;
-
-    a {
-        color: lighten($link_color, 10%);
-    }
-}
-
-.create-edit-form, %index-list {
+.create-edit-form {
     border: 10px solid #eee;
     background: #fcfcfc;
     border-radius: 5px;
@@ -259,108 +152,9 @@ legend {
     padding: 1.25rem;
 }
 
-%index-list {
-    list-style-type: none;
-    margin-left: 0;
-    padding: 0.625rem 1.25rem;
-
-    li {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 0.9375rem;
-        padding-top: 0.9375rem;
-
-        &:last-of-type {
-            border-bottom: 0;
-        }
-    }
-
-    h3 {
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-
-    p:last-of-type {
-        margin-bottom: 0;
-    }
-}
-
-.list-talks {
-    @extend %index-list;
-
-    h3 {
-        font-size: 1.5em;
-    }
-
-    ul li {
-        padding: 0.25rem;
-        border: none;
-    }
-}
-
 .talk-meta, .bio-meta {
     color: #666;
     font-size: .9em;
-}
-
-.page-meta-buttons {
-    .btn {
-        display: block;
-        margin-left: 0.625rem;
-        margin-bottom: 0.3125rem;
-    }
-}
-
-.list-versions {
-    @extend %index-list;
-
-    h3 {
-        margin-top: 0.2em;
-    }
-}
-
-.list-conferences {
-    @extend %index-list;
-
-    & > li {
-        display: flex;
-    }
-
-    .conference-meta {
-        font-size: .8em;
-        margin-top: 0.25em;
-    }
-
-    .conference-actions {
-        display: flex;
-        flex-direction: column;
-        margin-right: 0.625rem;
-        text-align: center;
-    }
-
-    .action-button {
-        color: #ee9900;
-        height: 1.875rem;
-        margin-top: 0.25rem;
-
-        &:hover {
-            color: #ff5500;
-        }
-    }
-}
-
-.list-bios {
-    @extend %index-list;
-
-    h3 {
-        font-size: 1.25rem;
-    }
-}
-
-.actions-box {
-    @media only screen and (min-width: 768px) {
-        float: right;
-        width: 20%;
-    }
 }
 
 .errors {
@@ -376,20 +170,6 @@ legend {
 .page-title {
     margin-top: 0;
     vertical-align: middle;
-}
-
-.talk-body {
-    border: 1px solid #bbb;
-    max-width: 55em;
-    padding: 1em;
-}
-
-.create-button {
-    @extend .pull-right !optional;
-    @extend .btn;
-    @extend .btn-primary !optional;
-
-    margin-left: 1em;
 }
 
 #calendar {
@@ -500,10 +280,6 @@ legend {
 
 [v-cloak] {
     display: none;
-}
-
-.glyphicon-refresh-animate {
-    animation: spin 1s infinite linear;
 }
 
 @keyframes spin {
