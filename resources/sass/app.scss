@@ -168,7 +168,7 @@ h3 {
 
 #calendar {
     button {
-        @extend .btn;
+        @extend .btn !optional;
         @extend .btn-primary !optional;
         padding: 0 .6em;
         text-shadow: none;
