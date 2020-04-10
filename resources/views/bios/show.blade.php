@@ -8,10 +8,10 @@
             <h2 class="m-0 font-sans text-2xl">{{ $bio->nickname }}</h2>
             <div class="text-indigo-500 text-lg">
                 <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" title="Edit">
-                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    @svg('compose', 'w-5 fill-current inline')
                 </a>
                 <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="ml-3" title="Delete">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    @svg('trash', 'w-5 fill-current inline')
                 </a>
             </div>
         </div>

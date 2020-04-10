@@ -20,10 +20,10 @@
             <div class="text-indigo-500 text-lg">
                 @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
                     <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" title="Edit">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        @svg('compose', 'w-5 fill-current inline')
                     </a>
                     <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="ml-3" title="Delete">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        @svg('trash', 'w-5 fill-current inline')
                     </a>
                 @endif
             </div>

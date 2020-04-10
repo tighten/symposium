@@ -8,14 +8,13 @@
             </h3>
             <div class="text-indigo-500 text-lg">
                 <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" title="Edit">
-                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    @svg('compose', 'w-5 fill-current inline')
                 </a>
                 <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="ml-3" title="Delete">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    @svg('trash', 'w-5 fill-current inline')
                 </a>
                 <button type="button" data-clipboard data-clipboard-text="{{ $bio->body }}" title="Copy" class="ml-3">
-                    {{-- @svg('clipboard', 'fill-current align-text-bottom h-5') --}}
-                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                    @svg('clipboard', 'w-5 fill-current inline')
                 </button>
             </div>
         </div>

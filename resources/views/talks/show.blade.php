@@ -33,18 +33,18 @@
             <div class="text-indigo-500 text-lg">
                 @unless ($showingRevision)
                     <a href="/talks/{{ $talk->id }}/edit" class="ml-3" title="Edit">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        @svg('compose', 'w-5 fill-current inline')
                     </a>
                     <a href="/talks/{{ $talk->id }}/delete" class="ml-3" title="Delete">
-                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        @svg('trash', 'w-5 fill-current inline')
                     </a>
                     @if ($talk->isArchived())
                         <a href="{{ route('talks.restore', ['id' => $talk->id]) }}" class="ml-3" title="Restore">
-                          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                            @svg('folder-outline', 'w-5 fill-current inline')
                         </a>
                     @else
                         <a href="{{ route('talks.archive', ['id' => $talk->id]) }}" class="ml-3" title="Archive">
-                          <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                            @svg('folder', 'w-5 fill-current inline')
                         </a>
                     @endif
                 @endif

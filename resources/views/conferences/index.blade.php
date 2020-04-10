@@ -59,11 +59,11 @@
                             @if (Auth::check() && !$conference->isDismissed())
                                 @if ($conference->isFavorited())
                                     <a href="/conferences/{{ $conference->id }}/unfavorite">
-                                        <span class="glyphicon glyphicon-star">
+                                        @svg('star-full', 'w-5 fill-current inline')
                                     </a>
                                 @else
                                     <a href="/conferences/{{ $conference->id }}/favorite" class="ml-3">
-                                        <span class="glyphicon glyphicon-star-empty">
+                                        @svg('star-empty', 'w-5 fill-current inline')
                                     </a>
                                 @endif
                             @endif
@@ -75,7 +75,7 @@
                                     </a>
                                 @else
                                     <a href="/conferences/{{ $conference->id }}/dismiss" title="I am not interested in this conference" class="ml-3">
-                                        <span class="glyphicon glyphicon-remove">
+                                        @svg('close', 'w-4 fill-current inline')
                                     </a>
                                 @endif
                             @endif
