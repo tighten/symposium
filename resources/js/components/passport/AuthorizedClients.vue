@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between">
         <span class="text-2xl">Authorized Clients</span>
       </div>
-      <table v-if="tokens.length >0" class="table mb-20 mt-5 container mx-auto">
+      <table v-if="tokens.length >0" class="table mb-20 mt-5 mx-auto">
         <thead class="bg-blue-500 text-white">
           <tr>
             <th scope="col">Name</th>

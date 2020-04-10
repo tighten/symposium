@@ -10,7 +10,7 @@
         >Create New Client</button>
       </div>
 
-      <table v-if="clients.length >0" class="table mb-20 mt-5 container mx-auto">
+      <table v-if="clients.length >0" class="table mb-20 mt-5 mx-auto">
         <thead class="bg-blue-500 text-white">
           <tr>
             <th scope="col" class="border">ID</th>

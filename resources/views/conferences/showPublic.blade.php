@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container body">
+<div class="body">
     <h1>{{ $conference->title }}</h1>
 
     @unless (empty($conference->location))

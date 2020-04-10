@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container body">
+<div class="body">
     <div class="row">
         <div class="col-md-8 col-md-push-2">
             <p>

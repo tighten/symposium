@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container body">
+<div class="body">
     <div class="col-md-10 col-md-push-1">
         <h1>Speaker Profiles</h1>
 

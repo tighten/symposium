@@ -101,12 +101,6 @@ h3 {
     }
 }
 
-.container {
-    @extend .container;
-    position: relative;
-}
-
-
 .nav-profile-picture {
     border-radius: 1.5em;
     height: 3em;

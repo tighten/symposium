@@ -10,7 +10,7 @@
         >Create New Token</button>
       </div>
       <!-- Personal Access Tokens -->
-      <table v-if="tokens.length >0" class="table mb-20 mt-5 container mx-auto">
+      <table v-if="tokens.length >0" class="table mb-20 mt-5 mx-auto">
         <thead class="bg-blue-500 text-white">
           <tr>
             <td class="text-left pl-4 border font-bold">Name</td>
