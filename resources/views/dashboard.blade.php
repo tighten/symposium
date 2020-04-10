@@ -33,7 +33,7 @@
                     <div class="px-4 py-4 bg-white flex flex-row content-center justify-between">
                         <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Talks</h2>
                         <a href="{{ route('talks.create') }}" class="text-indigo">
-                            @svg('plus', 'w-3 h-3 fill-current inline') Add Talk
+                            @svg('plus', 'w-3 fill-current inline') Add Talk
                         </a>
                     </div>
                     @forelse ($talks as $talk)
@@ -67,7 +67,7 @@
                     <div class="px-4 py-4 bg-white flex flex-row content-center justify-between">
                         <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Bios</h2>
                         <a href="{{ route('bios.create') }}" class="text-indigo">
-                            @svg('plus', 'w-3 h-3 fill-current inline') Add Bio
+                            @svg('plus', 'w-3 fill-current inline') Add Bio
                         </a>
                     </div>
                     @forelse ($bios as $bio)
