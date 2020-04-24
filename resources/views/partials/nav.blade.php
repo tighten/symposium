@@ -65,9 +65,9 @@
             <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-2 lg:ml-4 mt-4 px-8 py-2 rounded rounded-lg lg:block lg:ml-2 lg:mt-0 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
                 Sign in
             </a>
-            <div class="ml-32 mr-4 lg:mx-0 mt-0 lg:mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded z-50 xl:right-0" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
-                <a class="py-1" href="{{ route('login') }}">Sign in with email</a>
-                <a class="py-1" href="{{ url('login/github') }}">Sign in with GitHub</a>
+            <div class="ml-32 mr-4 lg:mx-0 mt-0 lg:mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded z-50 xl:right-0" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
+                <a class="px-2 py-1 hover:bg-indigo-100" href="{{ route('login') }}">Sign in with email</a>
+                <a class="px-2 py-1 hover:bg-indigo-100" href="{{ url('login/github') }}">Sign in with GitHub</a>
             </div>
         </div>
     @else
