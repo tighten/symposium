@@ -14,7 +14,7 @@
     @include('partials.bioform')
 
     {!! Form::submit('Create', [
-        'class' => 'bg-indigo-500 font-semibold mt-8 px-8 py-2 rounded text-white text-lg'
+        'class' => 'bg-indigo-500 font-semibold mt-8 px-8 py-2 rounded text-white text-lg cursor-pointer'
     ]) !!}
 
     {!! Form::close() !!}
