@@ -1,4 +1,4 @@
-<nav :class="slotProps.showNav ? 'block' : 'hidden'" class="pt-2 py-2 pl-4 lg:pl-0 lg:flex font-sans font-semibold text-sm text-indigo items-center block">
+<nav :class="slotProps.showNav ? 'block' : 'hidden'" class="pt-2 py-2 pl-4 lg:pl-0 lg:flex font-sans font-semibold text-sm text-indigo items-center block relative">
     @if (Auth::check())
         @php
             $menuItems = [
@@ -61,11 +61,11 @@
     @endforeach
 
     @if (! Auth::check())
-        <div class="mt-4 lg:mt-0">
-            <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-4 mt-4 px-8 py-2 rounded rounded-lg lg:block lg:ml-2 lg:mt-0 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
+        <div class="sm:ml-2 my-4 lg:mb-0 lg:mt-0 flex lg:block">
+            <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-2 lg:ml-4 mt-4 px-8 py-2 rounded rounded-lg lg:block lg:ml-2 lg:mt-0 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
                 Sign in
             </a>
-            <div class="mr-4 lg:mx-2 md:mx-4 mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
+            <div class="ml-32 mr-4 lg:mx-0 mt-0 lg:mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded z-50 xl:right-0" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
                 <a class="py-1" href="{{ route('login') }}">Sign in with email</a>
                 <a class="py-1" href="{{ url('login/github') }}">Sign in with GitHub</a>
             </div>
