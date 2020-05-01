@@ -146,11 +146,6 @@ h3 {
     padding: 1.25rem;
 }
 
-.talk-meta, .bio-meta {
-    color: #666;
-    font-size: .9em;
-}
-
 .errors {
     color: red;
 }
@@ -224,31 +219,11 @@ h3 {
     margin-top: 3.125rem;
 }
 
-.public-profile-pic {
-    text-align: center;
-
-    img {
-        border-radius: 50%;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    @media only screen and (min-width: 768px) {
-        float: right;
-    }
-}
 .private-profile-pic {
     text-align: center;
 
     img {
         border-radius: 50%;
-    }
-}
-.public-profile-intro {
-     @media only screen and (min-width: 768px) {
-        width: 60%;
     }
 }
 
