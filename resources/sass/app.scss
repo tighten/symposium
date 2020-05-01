@@ -168,8 +168,8 @@ h3 {
 
 #calendar {
     button {
-        @extend .btn !optional;
-        @extend .btn-primary !optional;
+        background-image: none;
+        @apply bg-indigo-500 text-white;
         padding: 0 .6em;
         text-shadow: none;
     }
@@ -180,13 +180,14 @@ h3 {
 
         button {
             border-radius: 0;
+            @apply bg-indigo;
 
             &:not(:first-child) {
                 border-left: 1px solid #161f29;
             }
 
             &.fc-state-active {
-                background-color: #161f29;
+                @apply bg-indigo-900;
             }
         }
     }
