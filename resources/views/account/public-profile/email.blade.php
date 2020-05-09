@@ -7,8 +7,8 @@
 @section('content')
     <div class="body">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <h1>Email {{ $user->name }}</h1>
+            <div class="my-4">
+                <h1 class="text-2xl text-center">Email {{ $user->name }}</h1>
 
                 @if (! $errors->isEmpty())
                 <ul class="errors">
@@ -20,27 +20,27 @@
 
                 {!! Form::open() !!}
 
-                <div class="form-group">
-                    {!! Form::label('email', '*Email Address', ['class' => 'sr-only']) !!}
-                    {!! Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
+                <label class="block mt-4">
+                    {!! Form::label('email', 'Email Address', ['class' => 'hidden']) !!}
+                    {!! Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-input mt-1 block w-full', 'placeholder' => 'Email address']) !!}
+                </label>
+
+                <div class="block mt-4">
+                    {!! Form::label('name', 'Name', ['class' => 'hidden']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-input mt-1 block w-full', 'placeholder' => 'Name']) !!}
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('name', '*Name', ['class' => 'sr-only']) !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('message', '*Message', ['class' => 'sr-only']) !!}
-                    {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Message']) !!}
+                <div class="block mt-4">
+                    {!! Form::label('message', 'Message', ['class' => 'hidden']) !!}
+                    {!! Form::textarea('message', null, ['class' => 'form-textarea mt-1 block w-full', 'placeholder' => 'Message']) !!}
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
 
                 <br>
 
-                <div class="form-group">
-                    {!! Form::submit('Send', ['class' => 'btn btn-block btn-primary']) !!}
+                <div class="block mt-4">
+                    {!! Form::submit('Send', ['class' => 'bg-indigo block w-full md:w-auto lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap ']) !!}
                 </div>
 
                 {!! Form::close() !!}
