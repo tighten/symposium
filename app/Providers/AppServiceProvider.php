@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive('sorted', function ($expression) {
             list($sorted_by, $query) = explode(',', $expression, 2);
+
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
         });
 
@@ -33,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             Event::subscribe(SlackSubscriber::class);
         }
 
-        require app_path() . '/macros.php';
+        require app_path().'/macros.php';
 
         Validator::extend('emailblacklist', function ($attribute, $value, $parameters, $validator) {
             try {

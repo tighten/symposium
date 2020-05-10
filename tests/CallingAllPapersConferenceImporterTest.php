@@ -24,7 +24,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->eventStub = $this->stubEvent();
     }
 
-    function stubEvent()
+    public function stubEvent()
     {
         $_rel = new stdClass;
         $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
@@ -44,7 +44,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         return Event::createFromApiObject($event);
     }
 
-    function mockClient($event = null)
+    public function mockClient($event = null)
     {
         if (! $event) {
             $event = $this->eventStub;
@@ -59,7 +59,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_gets_the_id_from_the_rel_link()
+    public function it_gets_the_id_from_the_rel_link()
     {
         $this->mockClient();
 
@@ -73,13 +73,13 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
+    public function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
     {
         $this->mockClient();
 
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
-        $event->dateEventStart= '1970-01-01T00:00:00+00:00';
+        $event->dateEventStart = '1970-01-01T00:00:00+00:00';
         $importer->import($event);
 
         $this->assertEquals(1, Conference::count());
@@ -89,7 +89,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_basic_text_fields()
+    public function it_imports_basic_text_fields()
     {
         $this->mockClient();
 
@@ -105,7 +105,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_dates_if_we_dont_care_about_time_zones()
+    public function it_imports_dates_if_we_dont_care_about_time_zones()
     {
         $event = $this->eventStub;
 
@@ -121,7 +121,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $conference = Conference::first();
 
-        /**
+        /*
          * Problem here: Our importer discards the time zone when it saves
          * it to the database. So we have to decide: Do we add time zone?
          * Do we convert to UTC? But nothing else in the app is in UTC; we just
@@ -155,7 +155,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_dates_with_the_correct_time_zone()
+    public function it_imports_dates_with_the_correct_time_zone()
     {
         $this->markTestIncomplete('Time zones are hard.  This should be solvable since Calling All Papers gives us a timezone');
 
@@ -173,7 +173,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_null_dates_as_null()
+    public function it_imports_null_dates_as_null()
     {
         $event = $this->eventStub;
 
@@ -190,7 +190,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_Jan_1_1970_dates_as_null()
+    public function it_imports_Jan_1_1970_dates_as_null()
     {
         $event = $this->eventStub;
 
@@ -207,7 +207,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function imported_conferences_are_approved()
+    public function imported_conferences_are_approved()
     {
         $this->mockClient();
 
@@ -218,7 +218,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_updates_data_for_existing_conferences()
+    public function it_updates_data_for_existing_conferences()
     {
         $this->mockClient();
 

@@ -19,7 +19,7 @@ class Acceptance extends UuidBase
 
     public static function createFromSubmission(Submission $submission)
     {
-        $acceptance =  Acceptance::create([
+        $acceptance = self::create([
             'talk_revision_id' => $submission->talkRevision->id,
             'conference_id' => $submission->conference->id,
         ]);
@@ -37,7 +37,7 @@ class Acceptance extends UuidBase
     protected static function boot()
     {
         parent::boot();
-        static::deleting(function (Acceptance $acceptance) {
+        static::deleting(function (self $acceptance) {
             $acceptance->submission->removeAcceptance();
         });
     }

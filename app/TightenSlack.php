@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable as NotifiableTrait;
 class TightenSlack
 {
     use NotifiableTrait;
-    
+
     /**
      * @return string|null
      */

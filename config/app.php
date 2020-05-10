@@ -29,7 +29,6 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -160,7 +159,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
 
         /*
          * Third Party Service Providers...

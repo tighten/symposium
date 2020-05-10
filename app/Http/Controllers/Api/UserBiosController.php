@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 class UserBiosController extends BaseController
 {
     /**
-     * Display all of the given user's bios
+     * Display all of the given user's bios.
      *
      * @return Response
      */

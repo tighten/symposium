@@ -18,9 +18,9 @@ class TalkForConferenceTransformer
             'id' => $talk->id,
             'title' => $currentTalk->title,
             'url' => $currentTalk->getUrl(),
-            'submitted' => !! $submission,
+            'submitted' => (bool) $submission,
             'submissionId' => $submission ? $submission->id : null,
-            'accepted' =>  !! $acceptance,
+            'accepted' =>  (bool) $acceptance,
             'acceptanceId' => $acceptance ? $acceptance->id : null,
         ];
     }

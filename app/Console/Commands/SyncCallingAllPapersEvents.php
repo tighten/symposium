@@ -31,6 +31,7 @@ class SyncCallingAllPapersEvents extends Command
             $events = $this->client->getEvents();
         } catch (Exception $exception) {
             $this->error("Unable to sync Calling All Papers events. Message: {$exception->getMessage()}");
+
             return;
         }
 

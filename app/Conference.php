@@ -146,7 +146,7 @@ class Conference extends UuidBase
     }
 
     /**
-     * Whether CFP is currently open
+     * Whether CFP is currently open.
      *
      * @deprecated
      * @return bool
@@ -157,7 +157,7 @@ class Conference extends UuidBase
     }
 
     /**
-     * Whether conference is currently accepted talk proposals
+     * Whether conference is currently accepted talk proposals.
      *
      * @return bool
      */
@@ -171,7 +171,7 @@ class Conference extends UuidBase
     }
 
     /**
-     * Whether conference has announced a call for proposals
+     * Whether conference has announced a call for proposals.
      *
      * @return bool
      */
@@ -196,7 +196,7 @@ class Conference extends UuidBase
     }
 
     /**
-     * Return all talks from this user that were submitted to this conference
+     * Return all talks from this user that were submitted to this conference.
      */
     public function mySubmissions()
     {
@@ -208,7 +208,7 @@ class Conference extends UuidBase
     }
 
     /**
-     * Return all talks from this user that were accepted to this conference
+     * Return all talks from this user that were accepted to this conference.
      */
     public function myAcceptedTalks()
     {

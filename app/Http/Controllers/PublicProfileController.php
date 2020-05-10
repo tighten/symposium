@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Mail\ContactRequest;
+use App\User;
 use Captcha\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -112,7 +112,7 @@ class PublicProfileController extends Controller
 
         $captchaResponse = $captcha->check();
         if (! $captchaResponse->isValid()) {
-            Log::info('Captcha error on public speaker profile page ' . $request->url() . '; reason: ' . $captchaResponse->getError());
+            Log::info('Captcha error on public speaker profile page '.$request->url().'; reason: '.$captchaResponse->getError());
             exit('You have not passed the captcha. Please try again.');
         }
 
