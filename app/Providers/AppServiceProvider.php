@@ -70,7 +70,5 @@ class AppServiceProvider extends ServiceProvider
                 csrf_token()
             );
         });
-
-        $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
     }
 }

@@ -170,9 +170,7 @@ return [
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
         App\Providers\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Indal\Markdown\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -232,9 +230,7 @@ return [
         'Twitter'   => Thujohn\Twitter\Facades\Twitter::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Firewall'  => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
-        'Calendar'  => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Markdown'  => Indal\Markdown\Facade::class,
     ],
 
 ];
