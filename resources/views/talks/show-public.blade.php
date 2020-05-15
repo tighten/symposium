@@ -20,7 +20,7 @@
 
                 <h3>Description/Proposal</h3>
 
-                @markdown($talk->current()->getDescription())
+{{--                @markdown($talk->current()->getDescription())--}}
             </div>
         </div>
     </div>

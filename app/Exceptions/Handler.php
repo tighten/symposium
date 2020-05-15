@@ -49,11 +49,11 @@ class Handler extends ExceptionHandler
     /**
      * Create a Symfony response for the given exception.
      *
-     * @param \Exception $e
+     * @param \Throwable $e
      *
      * @return mixed
      */
-    protected function convertExceptionToResponse(Exception $e)
+    protected function convertExceptionToResponse(Throwable $e)
     {
         if (config('app.debug')) {
             $whoops = new \Whoops\Run();
