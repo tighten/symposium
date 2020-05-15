@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class IntegrationTestCase extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         Session::start();
@@ -24,12 +24,12 @@ class IntegrationTestCase extends TestCase
             {
             }
 
-            public function report(Exception $exception)
+            public function report(Throwable $exception)
             {
                 // no-op
             }
 
-            public function render($request, Exception $exception)
+            public function render($request, Throwable $exception)
             {
                 throw $exception;
             }

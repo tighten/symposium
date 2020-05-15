@@ -17,7 +17,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
     private $eventStub;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
