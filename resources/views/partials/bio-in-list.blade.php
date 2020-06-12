@@ -4,7 +4,7 @@
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             Delete
         </a>
-        <a class="btn btn-xs btn-primary" href="{{ route('bios.edit', ['id' => $bio->id]) }}">
+        <a class="btn btn-xs btn-primary" href="{{ route('bios.edit', $bio) }}">
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
             Edit
         </a>
@@ -13,6 +13,6 @@
         </button>
     </div>
 
-    <h3><a href="{{ route('bios.show', ['id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
+    <h3><a href="{{ route('bios.show', $bio) }}">{{ $bio->nickname }}</a></h3>
     <p>{{ $bio->preview }}</p>
 </li>
