@@ -29,6 +29,7 @@
         "nothingworks/blade-svg": "^0.3.2",
         "pragmarx/firewall": "~2.0",
         "predis/predis": "^1.1",
+        "progcode/laravel-fullcalendar": "^1.3",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
         "thujohn/twitter": "~2.0"

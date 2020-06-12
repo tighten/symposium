@@ -48,7 +48,7 @@ class CalendarController extends BaseController
                 true,
                 $conference->cfp_starts_at,
                 $conference->cfp_starts_at,
-                'cfp-'.$conference->id,
+                'cfp-' . $conference->id,
                 [
                     'color' => '#F39C12',
                     'url' => route('conferences.show', $conference->id),
@@ -67,7 +67,7 @@ class CalendarController extends BaseController
                 true,
                 $conference->cfp_ends_at,
                 $conference->cfp_ends_at,
-                'cfp-'.$conference->id,
+                'cfp-' . $conference->id,
                 [
                     'color' => '#E74C3C',
                     'url' => route('conferences.show', $conference->id),

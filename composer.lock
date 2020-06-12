@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07de2cb1ede1fa45cd1862c49f14a2a1",
+    "content-hash": "297a6e965fc0666a9f77c9a8e71779c0",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3572,6 +3572,53 @@
                 "redis"
             ],
             "time": "2016-06-16T16:22:20+00:00"
+        },
+        {
+            "name": "progcode/laravel-fullcalendar",
+            "version": "v1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/progcode/laravel-fullcalendar.git",
+                "reference": "155d78665bb11589a398212026d6b8482db39c6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/progcode/laravel-fullcalendar/zipball/155d78665bb11589a398212026d6b8482db39c6b",
+                "reference": "155d78665bb11589a398212026d6b8482db39c6b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0|^6.0|^7.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MaddHatter\\LaravelFullcalendar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Calendar": "MaddHatter\\LaravelFullcalendar\\Facades\\Calendar"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "MaddHatter\\LaravelFullcalendar": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shawn Tunney",
+                    "email": "shawn.tunney@gmail.com"
+                }
+            ],
+            "description": "Laravel helper for FullCalendar.io",
+            "time": "2020-05-14T12:08:26+00:00"
         },
         {
             "name": "psr/container",
