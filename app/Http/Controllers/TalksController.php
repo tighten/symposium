@@ -73,7 +73,7 @@ class TalksController extends BaseController
 
             Session::flash('message', 'Successfully created new talk.');
 
-            return redirect('/talks/'.$talk->id);
+            return redirect('/talks/' . $talk->id);
         }
 
         return redirect('talks/create')
@@ -119,10 +119,10 @@ class TalksController extends BaseController
 
             Session::flash('message', 'Successfully edited talk.');
 
-            return redirect('talks/'.$talk->id);
+            return redirect('talks/' . $talk->id);
         }
 
-        return redirect('talks/'.$id.'/edit')
+        return redirect('talks/' . $id . '/edit')
             ->withErrors($validator)
             ->withInput();
     }

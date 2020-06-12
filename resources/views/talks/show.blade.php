@@ -46,7 +46,7 @@
 
                 <h3>Description/Proposal</h3>
 
-{{--                @markdown($current->getDescription())--}}
+                {!! markdown($current->getDescription()) !!}
 
                 <h3>Organizer Notes</h3>
                 {!! $current->getHtmledOrganizerNotes() !!}

@@ -12,7 +12,9 @@
         "algolia/algoliasearch-client-php": "^1.18",
         "bugsnag/bugsnag-laravel": "^2.6",
         "doctrine/dbal": "~2.5",
+        "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.2",
+        "fruitcake/laravel-cors": "^1.0",
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "6.3.3",
         "intervention/image": "^2.4",
@@ -22,15 +24,14 @@
         "laravel/slack-notification-channel": "^2.0",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "nothingworks/blade-svg": "^0.3.2",
         "pragmarx/firewall": "~2.0",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "thujohn/twitter": "~2.0",
-        "laravel/ui": "^2.0",
-        "fruitcake/laravel-cors": "^1.0"
+        "thujohn/twitter": "~2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -50,6 +51,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/helpers.php"
         ]
     },
     "autoload-dev": {

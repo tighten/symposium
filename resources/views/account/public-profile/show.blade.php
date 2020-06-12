@@ -26,7 +26,7 @@
 
                 <h2>Talks</h2>
                 @forelse ($talks as $talk)
-                    <h3><a href="{{ route('speakers-public.talks.show', ['profile_slug' => $user->profile_slug, 'talk_id' => $talk->id]) }}">{{ $talk->current()->title }}</a></h3>
+                    <h3><a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">{{ $talk->current()->title }}</a></h3>
                     <p class="talk-meta">{{ $talk->current()->length }}-minute {{ $talk->current()->type }} talk at {{ $talk->current()->level }} level</p>
                 @empty
                     This speaker has not made any of their talks public yet.
