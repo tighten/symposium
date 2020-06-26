@@ -9,7 +9,7 @@
                         <img src="{{ $user->profile_picture_hires }}" class="public-speaker-picture">
                     </a><br>
                     @if ($user->allow_profile_contact)
-                    <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
+                    <a href="{{ route('speakers-public.email', $user->profile_slug) }}">Contact {{ $user->name }}</a>
                     @endif
                 </div>
 
@@ -41,7 +41,7 @@
                 @else
                     <h2>Bios</h2>
                     @foreach ($bios as $bio)
-                    <h3><a href="{{ route('speakers-public.bios.show', ['profile_slug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
+                    <h3><a href="{{ route('speakers-public.bios.show', ['profileSlug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
                     @endforeach
                 @endif
 

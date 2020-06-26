@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-6 col-md-push-3">
                 <p class="pull-right">
-                    <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a href="{{ route('bios.edit', $bio) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                     <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                 </p>
 

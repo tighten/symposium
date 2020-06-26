@@ -20,7 +20,7 @@
                 <p><b>Speaker profile enabled?</b><br>{{ $user->enable_profile ? 'Yes' : 'No' }}</p>
                 <p><b>Speaker public contact allowed?</b><br>{{ $user->allow_profile_contact ? 'Yes' : 'No' }}</p>
                 @if ($user->profile_slug)
-                    <p><b>Speaker profile URL slug:</b><br><a href="{{ route('speakers-public.show', [$user->profile_slug]) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a></p>
+                    <p><b>Speaker profile URL slug:</b><br><a href="{{ route('speakers-public.show', $user->profile_slug) }}">{{ route('speakers-public.show', $user->profile_slug) }}</a></p>
                 @endif
                 @if ($user->location)
                     <p><b>Location:</b><br>{{ $user->location }}</p>

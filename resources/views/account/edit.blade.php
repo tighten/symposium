@@ -87,7 +87,7 @@
 
                 <div class="form-group">
                     {!! Form::label('profile_slug', 'Profile URL slug', ['class' => 'control-label']) !!}
-                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', ['your_slug_here']) }}</span>
+                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}</span>
                     {!! Form::text('profile_slug', null, ['class' => 'form-control']) !!}
                 </div>
 

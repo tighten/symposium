@@ -18,7 +18,7 @@
 
                 <p class="pull-right action-buttons">
                 @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
-                        <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                        <a href="{{ route('conferences.edit', $conference) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                         <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                 @endif
                 </p>
