@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
+use Throwable;
 
 class IntegrationTestCase extends TestCase
 {
