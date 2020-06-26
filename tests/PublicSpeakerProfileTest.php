@@ -4,9 +4,11 @@ namespace Tests;
 
 use App\Bio;
 use App\Mail\ContactRequest;
+use App\Services\FakeCaptcha;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
+use Captcha\Captcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 
@@ -189,7 +191,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         ]);
 
         $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->dontSee('Contact '.$user->name);
+            ->dontSee('Contact ' . $user->name);
 
         $this->get(route('speakers-public.email', [$user->profile_slug]))
             ->assertResponseStatus(404);
@@ -210,7 +212,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         ]);
 
         $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->see('Contact '.$user->name);
+            ->see('Contact ' . $user->name);
 
         $this->visit(route('speakers-public.email', [$user->profile_slug]))
             ->assertResponseOk();
@@ -222,14 +224,14 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     public function user_can_be_contacted_from_profile()
     {
         Mail::fake();
-        $this->markTestIncomplete('Need Captcha Assistance');
+        app()->instance(Captcha::class, new FakeCaptcha);
 
         $userA = factory(User::class)->create([
             'profile_slug' => 'smithy',
             'enable_profile' => true,
             'allow_profile_contact' => true,
         ]);
-        $userB = Factory::create('user');
+        $userB = factory(User::class)->create();
 
         $this->actingAs($userB)
             ->visit(route('speakers-public.email', [$userA->profile_slug]))
