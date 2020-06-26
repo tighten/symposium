@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Exceptions\Handler;
+use App\Exceptions\ValidationException;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Artisan;
@@ -16,6 +17,16 @@ class IntegrationTestCase extends TestCase
         parent::setUp();
         Session::start();
         Artisan::call('migrate');
+    }
+
+    function assertHasError($key, ValidationException $exception)
+    {
+        $this->assertContains($key, $exception->errors()->keys());
+    }
+
+    function validationErrorNotThrown($key)
+    {
+        $this->fail("A validation error for {$key} was expected but not thrown");
     }
 
     protected function disableExceptionHandling()
