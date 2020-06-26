@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Public.
+ * Public
  */
 Route::get('/', function () {
     return view('home');

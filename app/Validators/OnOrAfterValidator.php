@@ -7,7 +7,7 @@ use Illuminate\Validation\Validator;
 class OnOrAfterValidator
 {
     /**
-     * Validate if the date is the same, or after another date.
+     * Validate if the date is the same, or after another date
      *
      * @param           $attribute
      * @param           $value
@@ -43,7 +43,7 @@ class OnOrAfterValidator
     }
 
     /**
-     * Generate message to display to the user on validation fail.
+     * Generate message to display to the user on validation fail
      *
      * @param $message
      * @param $attribute
@@ -54,6 +54,6 @@ class OnOrAfterValidator
      */
     public function message($message, $attribute, $rule, array $parameters)
     {
-        return str_replace('_', ' ', 'The '.$attribute.' field must be a date on or after the '.$parameters[0].' field.');
+        return str_replace('_', ' ', 'The ' . $attribute . ' field must be a date on or after the ' . $parameters[0] . ' field.');
     }
 }

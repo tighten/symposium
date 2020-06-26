@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 class UserTalksController extends BaseController
 {
     /**
-     * Display all of the given user's talks.
+     * Display all of the given user's talks
      *
      * @return Response
      */
