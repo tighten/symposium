@@ -114,7 +114,7 @@ class TweetImportantCFPDates extends Command
     private function tweetable($conferences)
     {
         return $conferences->reject(function ($conference) {
-            if (! $conference->starts_at || ! $conference->ends_at)  {
+            if (! $conference->starts_at || ! $conference->ends_at) {
                 return true;
             }
 

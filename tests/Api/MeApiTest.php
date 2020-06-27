@@ -14,5 +14,3 @@ class MeApiTest extends ApiTestCase
         $this->assertIsObject($data->data);
     }
 }
-
-

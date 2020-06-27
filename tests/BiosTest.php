@@ -18,7 +18,7 @@ class BiosTest extends IntegrationTestCase
             ->type('A big chunk of bio-friendly text', '#body')
             ->select('no', '#public')
             ->press('Create');
-            //->seePageIs('bios'); //not sure how to test the string /bios/x
+        //->seePageIs('bios'); //not sure how to test the string /bios/x
 
         $this->seeInDatabase('bios', [
             'nickname' => 'Some Nickname',
@@ -38,7 +38,7 @@ class BiosTest extends IntegrationTestCase
             ->type('A big chunk of bio-friendly text', '#body')
             ->select('yes', '#public')
             ->press('Create');
-            //->seePageIs('bios'); //not sure how to test the string /bios/x
+        //->seePageIs('bios'); //not sure how to test the string /bios/x
 
         $this->seeInDatabase('bios', [
             'nickname' => 'Some Nickname',

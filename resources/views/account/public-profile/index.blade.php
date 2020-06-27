@@ -22,7 +22,7 @@
 
         @forelse ($speakers as $speaker)
             <h3 class="mb-0">
-                <a href="{{ route('speakers-public.show', ['profile_slug' => $speaker->profile_slug]) }}">
+                <a href="{{ route('speakers-public.show', $speaker->profile_slug) }}">
                     {{ $speaker->name }}
                 </a>
             </h3>

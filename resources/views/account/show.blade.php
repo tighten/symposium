@@ -37,7 +37,7 @@
             @if ($user->profile_slug)
                 <div class="mt-4">
                     <div class="text-gray-500">Speaker profile URL slug</div>
-                    <a href="{{ route('speakers-public.show', [$user->profile_slug]) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a>
+                    <a href="{{ route('speakers-public.show', $user->profile_slug) }}">{{ route('speakers-public.show', [$user->profile_slug]) }}</a>
                 </div>
             @endif
 

@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between">
             <h2 class="m-0 font-sans text-2xl">{{ $bio->nickname }}</h2>
             <div class="text-indigo-500 text-lg">
-                <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" title="Edit">
+                <a href="{{ route('bios.edit', $bio) }}" title="Edit">
                     @svg('compose', 'w-5 fill-current inline')
                 </a>
                 <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="ml-3" title="Delete">

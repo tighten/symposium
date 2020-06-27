@@ -35,7 +35,6 @@ class AcceptanceTest extends IntegrationTestCase
         $this->assertEquals($submission->id, $acceptance->submission->id);
     }
 
-
     /** @test */
     function user_can_mark_talks_as_accepted_via_http()
     {
@@ -54,7 +53,6 @@ class AcceptanceTest extends IntegrationTestCase
         $this->post('acceptances', [
             'submissionId' => $submission->id,
         ]);
-
 
         $this->assertTrue($submission->refresh()->isAccepted());
     }

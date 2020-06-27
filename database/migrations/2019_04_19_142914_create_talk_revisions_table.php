@@ -12,7 +12,7 @@ class CreateTalkRevisionsTable extends Migration
             $table->string('title');
             $table->string('type', 50);
             $table->integer('length');
-            $table->enum('level', ['beginner','intermediate','advanced']);
+            $table->enum('level', ['beginner', 'intermediate', 'advanced']);
             $table->text('description', 65535);
             $table->string('slides')->nullable();
             $table->text('organizer_notes', 65535);

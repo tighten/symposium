@@ -82,7 +82,7 @@
             <div class="mr-4 lg:mx-2 md:mx-4 mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
                 <a class="py-1" href="{{ route('account.show') }}">Account</a>
                 @if (Auth::user()->enable_profile)
-                    <a class="py-1" href="{{ route('speakers-public.show', [Auth::user()->profile_slug]) }}">Public Speaker Profile</a>
+                    <a class="py-1" href="{{ route('speakers-public.show', Auth::user()->profile_slug) }}">Public Speaker Profile</a>
                 @endif
                 <a class="py-1" href="{{ route('log-out') }}">Log out</a>
             </div>

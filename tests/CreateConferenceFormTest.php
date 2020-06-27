@@ -3,64 +3,81 @@
 namespace Tests;
 
 use App\Conference;
-use App\Services\CreateConferenceForm;
 use App\Exceptions\ValidationException;
+use App\Services\CreateConferenceForm;
 use App\User;
 use DateTime;
 
 class CreateConferenceFormTest extends IntegrationTestCase
 {
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_title_is_required()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('title', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('title');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_description_is_required()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'url' => 'http://example.com',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('description', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('description');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_url_is_required()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('url', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('url');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_start_date_must_be_a_valid_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -68,16 +85,22 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'starts_at' => 'potato',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('starts_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('starts_at');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_end_date_must_be_a_valid_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -85,16 +108,22 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'ends_at' => 'potato',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('ends_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('ends_at');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_end_date_must_not_be_before_start_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -103,13 +132,18 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'ends_at' => '2015-02-01',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('ends_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('ends_at');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function conference_can_be_a_single_day_conference()
     {
         $conferenceCount = Conference::count();
@@ -127,12 +161,11 @@ class CreateConferenceFormTest extends IntegrationTestCase
         $this->assertCount($conferenceCount + 1, Conference::all());
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_cfp_start_date_must_be_a_valid_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -140,16 +173,22 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_starts_at' => 'potato',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('cfp_starts_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('cfp_starts_at');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_cfp_end_date_must_be_a_valid_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -157,16 +196,22 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_ends_at' => 'potato',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('cfp_ends_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('cfp_ends_at');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -175,16 +220,22 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_ends_at' => '2015-01-15',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+             $this->assertHasError('cfp_ends_at', $e);
+             return;
+        }
+
+        $this->validationErrorNotThrown('cfp_ends_at');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -194,16 +245,22 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_starts_at' => '2015-02-06',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('cfp_starts_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('cfp_starts_at');
     }
 
-    /**
-     * @test
-     * @expectedException App\Exceptions\ValidationException
-     */
+    /** @test */
     function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {
+        $this->withoutExceptionHandling();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -213,13 +270,18 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_ends_at' => '2015-02-06',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
-        $form->complete();
+        try {
+            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form->complete();
+        } catch (ValidationException $e) {
+            $this->assertHasError('cfp_ends_at', $e);
+            return;
+        }
+
+        $this->validationErrorNotThrown('cfp_ends_at');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function it_creates_a_conference_with_the_minimum_required_input()
     {
         $input = [
@@ -237,9 +299,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         $this->assertEquals('http://example.com', $conference->url);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function conference_dates_are_saved_if_provided()
     {
         $input = [
@@ -262,9 +322,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         $this->assertEquals(new DateTime('2015-01-18'), $conference->cfp_ends_at);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function conference_cfp_url_is_saved_if_provided()
     {
         $input = [
@@ -281,9 +339,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         $this->assertEquals('http://example.com/cfp', $conference->cfp_url);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function empty_dates_are_treated_as_null()
     {
         $input = [
@@ -306,9 +362,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         $this->assertNull($conference->cfp_ends_at);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function error_messages_are_available_if_creating_a_conference_fails()
     {
         $form = CreateConferenceForm::fillOut([], factory(User::class)->create());
@@ -320,9 +374,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         }
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     function completing_a_form_returns_the_new_conference()
     {
         $input = [

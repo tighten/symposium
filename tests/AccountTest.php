@@ -3,13 +3,13 @@
 namespace Tests;
 
 use App\Bio;
-use App\User;
-use App\Talk;
 use App\Conference;
+use App\Talk;
 use App\TalkRevision;
+use App\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Auth\Notifications\ResetPassword;
 
 class AccountTest extends IntegrationTestCase
 {

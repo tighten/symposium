@@ -19,7 +19,7 @@
             </h2>
             <div class="text-indigo-500 text-lg">
                 @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
-                    <a href="{{ route('conferences.edit', ['id' => $conference->id]) }}" title="Edit">
+                    <a href="{{ route('conferences.edit', $conference) }}" title="Edit">
                         @svg('compose', 'w-5 fill-current inline')
                     </a>
                     <a href="{{ route('conferences.delete', ['id' => $conference->id]) }}" class="ml-3" title="Delete">

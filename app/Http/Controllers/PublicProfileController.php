@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Mail\ContactRequest;
+use App\User;
 use Captcha\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -120,7 +120,7 @@ class PublicProfileController extends Controller
 
         Session::flash('success-message', 'Message sent!');
 
-        return redirect()->route('speakers-public.show', ['profile_slug' => $user->profile_slug]);
+        return redirect()->route('speakers-public.show', $user->profile_slug);
     }
 
     private function getPublicUserByProfileSlug($profile_slug)

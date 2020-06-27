@@ -9,7 +9,7 @@
         </a>
         @if ($user->allow_profile_contact)
             <a
-                href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}"
+                href="{{ route('speakers-public.email', $user->profile_slug) }}"
                 class="no-underline block mt-10 text-indigo"
             >
                 Contact {{ $user->name }}
@@ -23,7 +23,7 @@
         <h3 class="text-3xl mt-8">Talks</h3>
         @forelse ($talks as $talk)
             <h4 class="text-2xl text-indigo">
-                <a href="{{ route('speakers-public.talks.show', ['profile_slug' => $user->profile_slug, 'talk_id' => $talk->id]) }}">
+                <a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">
                     {{ $talk->current()->title }}
                 </a>
             </h4>
@@ -44,7 +44,7 @@
             <h3 class="text-3xl mt-8">Bios</h3>
             @foreach ($bios as $bio)
                 <h4 class="text-2xl text-indigo">
-                    <a href="{{ route('speakers-public.bios.show', ['profile_slug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">
+                    <a href="{{ route('speakers-public.bios.show', ['profileSlug' => $user->profile_slug, 'bioId' => $bio->id]) }}">
                         {{ $bio->nickname }}
                     </a>
                 </h4>

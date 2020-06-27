@@ -15,6 +15,7 @@ class AuthorsController extends BaseController
         } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
+
             return redirect('/');
         }
 

@@ -52,7 +52,7 @@
         </div>
         <h3 class="text-lg font-normal text-gray-500 mt-4">Description/Proposal</h3>
 
-        @markdown($current->getDescription())
+        {!! markdown($current->getDescription()) !!}
 
         <h3 class="text-lg font-normal text-gray-500 mt-4">Organizer Notes</h3>
         {!! $current->getHtmledOrganizerNotes() !!}

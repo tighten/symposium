@@ -4,8 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -32,16 +33,15 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-
     /**
      * Report or log an exception.
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -49,11 +49,11 @@ class Handler extends ExceptionHandler
     /**
      * Create a Symfony response for the given exception.
      *
-     * @param \Exception $e
+     * @param \Throwable $e
      *
      * @return mixed
      */
-    protected function convertExceptionToResponse(Exception $e)
+    protected function convertExceptionToResponse(Throwable $e)
     {
         if (config('app.debug')) {
             $whoops = new \Whoops\Run();
@@ -73,10 +73,10 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         if ($exception instanceof ModelNotFoundException) {
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);

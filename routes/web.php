@@ -41,7 +41,7 @@ Route::post('u/{profileSlug}/email', [
     'uses' => 'PublicProfileController@postEmail',
 ]);
 
-/**
+/*
  * App
  */
 Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout']);
@@ -83,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('talks/{id}/restore', ['as' => 'talks.restore', 'uses' => 'TalksController@restore']);
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController', [
-        'except' => ['index', 'show']
+        'except' => ['index', 'show'],
     ]);
     Route::resource('bios', 'BiosController');
 });

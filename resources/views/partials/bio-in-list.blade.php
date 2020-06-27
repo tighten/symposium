@@ -2,12 +2,12 @@
     <div class="bg-white p-4">
         <div class="flex items-center justify-between">
             <h3 class="m-0 font-sans text-2xl">
-                <a href="{{ route('bios.show', ['id' => $bio->id]) }}">
+                <a href="{{ route('bios.show', $bio) }}">
                     {{ $bio->nickname }}
                 </a>
             </h3>
             <div class="text-indigo-500 text-lg">
-                <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" title="Edit">
+                <a href="{{ route('bios.edit', $bio) }}" title="Edit">
                     @svg('compose', 'w-5 fill-current inline')
                 </a>
                 <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="ml-3" title="Delete">

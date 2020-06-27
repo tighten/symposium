@@ -127,7 +127,7 @@
         {!! Form::label('profile_slug', 'Profile URL slug', [
             'class' => 'block text-indigo-500 font-bold mb-2'
         ]) !!}
-        <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', ['your_slug_here']) }}</span>
+        <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}</span>
         {!! Form::text('profile_slug', null, [
             'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
         ]) !!}
