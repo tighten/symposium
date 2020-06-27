@@ -4,9 +4,11 @@ namespace Tests;
 
 use App\Bio;
 use App\Mail\ContactRequest;
+use App\Services\FakeCaptcha;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
+use Captcha\Captcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 
@@ -222,14 +224,14 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     function user_can_be_contacted_from_profile()
     {
         Mail::fake();
-        $this->markTestIncomplete("Need Captcha Assistance");
+        app()->instance(Captcha::class, new FakeCaptcha);
 
         $userA = factory(User::class)->create([
             'profile_slug' => 'smithy',
             'enable_profile' => true,
             'allow_profile_contact' => true,
         ]);
-        $userB = Factory::create('user');
+        $userB = factory(User::class)->create();
 
         $this->actingAs($userB)
             ->visit(route('speakers-public.email', [$userA->profile_slug]))
@@ -238,10 +240,10 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             ->type('You are amazing', '#message')
             ->press('Send');
 
-            Mail::assertSent(ContactRequest::class, function ($mail) use ($userA) {
-                return $mail->hasTo($userA->email) &&
+        Mail::assertSent(ContactRequest::class, function ($mail) use ($userA) {
+            return $mail->hasTo($userA->email) &&
                        $mail->userMessage == 'You are amazing';
-            });
+        });
     }
 
     /** @test */

@@ -6,6 +6,7 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Conference;
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
 use stdClass;
@@ -17,7 +18,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
     private $eventStub;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -79,7 +80,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
-        $event->dateEventStart= '1970-01-01T00:00:00+00:00';
+        $event->dateEventStart = '1970-01-01T00:00:00+00:00';
         $importer->import($event);
 
         $this->assertEquals(1, Conference::count());
@@ -121,7 +122,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $conference = Conference::first();
 
-        /**
+        /*
          * Problem here: Our importer discards the time zone when it saves
          * it to the database. So we have to decide: Do we add time zone?
          * Do we convert to UTC? But nothing else in the app is in UTC; we just
@@ -155,21 +156,27 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_dates_with_the_correct_time_zone()
+    function imported_dates_are_adjusted_for_daylight_saving_time_changes()
     {
-        $this->markTestIncomplete('Time zones are hard.  This should be solvable since Calling All Papers gives us a timezone');
-
         $this->mockClient();
 
+        $event = $this->eventStub;
+        $event->dateCfpStart = '2017-08-20T00:00:00-04:00';
+        $event->dateCfpEnd = '2017-09-22T00:00:00-04:00';
+        $event->dateEventStart = '2017-10-20T00:00:00-04:00';
+        $event->dateEventEnd = '2017-12-22T00:00:00-04:00';
+
         $importer = new ConferenceImporter(1);
-        $importer->import($this->eventStub);
+        $importer->import($event);
 
         $conference = Conference::first();
 
-        // $this->assertEquals($this->eventStub->dateCfpStart, $conference->cfp_starts_at->toIso8601String());
-        // $this->assertEquals($this->eventStub->dateCfpEnd, $conference->cfp_ends_at->toIso8601String());
-        // $this->assertEquals($this->eventStub->dateEventStart, $conference->starts_at->toIso8601String());
-        // $this->assertEquals($this->eventStub->dateEventEnd, $conference->ends_at->toIso8601String());
+        $this->assertEquals('2017-08-20T00:00:00-04:00', $conference->cfp_starts_at->toIso8601String());
+        $this->assertEquals('2017-09-22T00:00:00-04:00', $conference->cfp_ends_at->toIso8601String());
+        $this->assertEquals('2017-10-20T00:00:00-04:00', $conference->starts_at->toIso8601String());
+
+        // The conference ends after the time change so it is -5:00 from UTC instead of -4:00
+        $this->assertEquals('2017-12-22T00:00:00-05:00', $conference->ends_at->toIso8601String());
     }
 
     /** @test */

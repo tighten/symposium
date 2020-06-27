@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Drops the joindin_id column from the conferences table and replaces
- * it with a calling_all_papers_id column.  Data loss will ensue
+ * it with a calling_all_papers_id column.  Data loss will ensue.
  */
 class DropJoindinAddCap extends Migration
 {

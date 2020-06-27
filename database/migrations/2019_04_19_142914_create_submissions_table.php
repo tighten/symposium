@@ -13,7 +13,7 @@ class CreateSubmissionsTable extends Migration
             $table->string('conference_id', 36)->index('submissions_conference_id_foreign');
             $table->timestamps();
             $table->string('acceptance_id', 36)->nullable()->index('submissions_acceptance_id_foreign');
-            $table->unique(['talk_revision_id','conference_id'], 'submissions_talk_revision_conference_unique');
+            $table->unique(['talk_revision_id', 'conference_id'], 'submissions_talk_revision_conference_unique');
         });
     }
 

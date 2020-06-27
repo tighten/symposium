@@ -9,7 +9,7 @@
                         <img src="{{ $user->profile_picture_hires }}" class="public-speaker-picture">
                     </a><br>
                     @if ($user->allow_profile_contact)
-                    <a href="{{ route('speakers-public.email', ['profileSlug' => $user->profile_slug]) }}">Contact {{ $user->name }}</a>
+                    <a href="{{ route('speakers-public.email', $user->profile_slug) }}">Contact {{ $user->name }}</a>
                     @endif
                 </div>
 
@@ -26,7 +26,7 @@
 
                 <h2>Talks</h2>
                 @forelse ($talks as $talk)
-                    <h3><a href="{{ route('speakers-public.talks.show', ['profile_slug' => $user->profile_slug, 'talk_id' => $talk->id]) }}">{{ $talk->current()->title }}</a></h3>
+                    <h3><a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">{{ $talk->current()->title }}</a></h3>
                     <p class="talk-meta">{{ $talk->current()->length }}-minute {{ $talk->current()->type }} talk at {{ $talk->current()->level }} level</p>
                 @empty
                     This speaker has not made any of their talks public yet.
@@ -41,7 +41,7 @@
                 @else
                     <h2>Bios</h2>
                     @foreach ($bios as $bio)
-                    <h3><a href="{{ route('speakers-public.bios.show', ['profile_slug' => $user->profile_slug, 'bio_id' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
+                    <h3><a href="{{ route('speakers-public.bios.show', ['profileSlug' => $user->profile_slug, 'bioId' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
                     @endforeach
                 @endif
 

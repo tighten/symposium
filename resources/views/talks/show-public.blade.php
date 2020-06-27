@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-8 col-md-push-2">
                 <p>
-                    <a href="{{ route('speakers-public.show', ['profileSlug' => $user->profile_slug]) }}" class="btn btn-default">
+                    <a href="{{ route('speakers-public.show', $user->profile_slug) }}" class="btn btn-default">
                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;
                         Return to profile for {{ $user->name }}
                     </a>
@@ -20,7 +20,7 @@
 
                 <h3>Description/Proposal</h3>
 
-                @markdown($talk->current()->getDescription())
+                {!! markdown($talk->current()->getDescription()) !!}
             </div>
         </div>
     </div>

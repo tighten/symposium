@@ -13,7 +13,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ route('account.show') }}">Account</a></li>
                     @if (Auth::user()->enable_profile)
-                    <li><a href="{{ route('speakers-public.show', [Auth::user()->profile_slug]) }}">Public Speaker Profile</a></li>
+                    <li><a href="{{ route('speakers-public.show', Auth::user()->profile_slug) }}">Public Speaker Profile</a></li>
                     @endif
                     <li><a href="{{ route('log-out') }}">Log out</a></li>
                 </ul>

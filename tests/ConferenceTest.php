@@ -371,7 +371,7 @@ class ConferenceTest extends IntegrationTestCase
             ->dontSee($conference->title);
     }
 
-    function assertConferenceSort($conferences)
+    public function assertConferenceSort($conferences)
     {
         foreach ($conferences as $sortPosition => $conference) {
             $sortedConference = $this->response->original->getData()['conferences']->values()[$sortPosition];

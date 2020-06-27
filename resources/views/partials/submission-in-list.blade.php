@@ -10,7 +10,7 @@
                         @else
                             <span class="label label-xs label-default">Pending</span>
                         @endif
-                        <a href="{{ route('talks.show', ['id' => $submittedTalk->talkRevision->talk_id, 'revision' => $submittedTalk->talkRevision->id]) }}">{{ $submittedTalk->talkRevision->title }}</a>
+                        <a href="{{ route('talks.show', [$submittedTalk, 'revision' => $submittedTalk->talkRevision->id]) }}">{{ $submittedTalk->talkRevision->title }}</a>
                     </li>
                 </ul>
             </li>

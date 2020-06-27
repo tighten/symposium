@@ -95,9 +95,8 @@ class Talk extends UuidBase
     {
         parent::boot();
 
-        static::deleting(function (Talk $talk) {
+        static::deleting(function (self $talk) {
             $talk->revisions()->delete();
         });
     }
-
 }

@@ -47,6 +47,7 @@ class Event
                 $event->$property = null;
             }
         }
+
         return $event;
     }
 

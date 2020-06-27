@@ -88,6 +88,7 @@ class TalksController extends BaseController
         } catch (Exception $e) {
             Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
             Log::error($e);
+
             return redirect('/');
         }
 
@@ -184,12 +185,14 @@ class TalksController extends BaseController
         switch ($sort) {
             case 'date':
                 $this->sorted_by = 'date';
+
                 return $talks->sortByDesc('created_at');
                 break;
             case 'alpha':
             // Pass through
             default:
                 $this->sorted_by = 'alpha';
+
                 return $talks->sortBy(function ($talk) {
                     return strtolower($talk->current()->title);
                 });
