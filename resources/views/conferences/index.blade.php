@@ -31,8 +31,12 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('conferences.create') }}"
-       class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">Add Conference @svg('plus', 'w-3 h-3 fill-current inline ml-2')</a>
+    <x-buttons.primary
+        :href="route('conferences.create')"
+        icon="plus"
+    >
+        Add Conference
+    </x-buttons.primary>
 @endsection
 
 

@@ -25,10 +25,12 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('talks.create') }}"
-       class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">
-       Add Talk @svg('plus', 'ml-2 w-3 h-3 inline fill-current')
-    </a>
+    <x-buttons.primary
+        :href="route('talks.create')"
+        icon="plus"
+    >
+        Add Talk
+    </x-buttons.primary>
 @endsection
 
 @section('list')

@@ -1,7 +1,12 @@
 @extends('layouts.index', ['title' => 'All Bios'])
 
 @section('sidebar')
-    <a href="{{ route('bios.create') }}" class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">Add Bio @svg('plus', 'w-3 h-3 fill-current inline ml-2')</a>
+    <x-buttons.primary
+        :href="route('bios.create')"
+        icon="plus"
+    >
+        Add Bio
+    </x-buttons.primary>
 @endsection
 
 @section('list')
