@@ -10,5 +10,5 @@
 @endsection
 
 @section('list')
-    @each('partials.bio-in-list', $bios, 'bio', 'partials.bio-in-list-empty')
+    @each('bios.listing', $bios, 'bio', 'partials.bio-in-list-empty')
 @endsection
