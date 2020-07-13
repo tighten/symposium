@@ -35,8 +35,8 @@
         @if ($is_home)
             @yield('content')
         @else
-            <div class="bg-indigo-100 border-t-2 border-gray-200 pb-32">
-                <div class="max-w-md mx-auto sm:max-w-6xl px-4">
+            <div class="bg-indigo-100 border-t-2 border-gray-200 pb-32 px-4">
+                <div class="max-w-md mx-auto sm:max-w-3xl">
                     @yield('content')
                 </div>
             </div>
