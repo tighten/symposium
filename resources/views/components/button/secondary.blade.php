@@ -8,7 +8,7 @@
     :href="$href"
     :icon="$icon"
     :attributes="$attributes->merge([
-        'class' => 'bg-indigo-500 text-white'
+        'class' => 'bg-white border border-indigo-500 text-indigo-500'
     ])"
 >
     {{ $slot }}
