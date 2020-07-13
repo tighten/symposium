@@ -2,7 +2,9 @@
     {{ csrf_field() }}
 
     @if ($errors->default->first('email'))
-        <p class="mt-2 text-sm text-red-500 italic">{{ $errors->default->first('email') }}</p>
+        <p class="mt-2 text-sm text-red-500 italic">
+            {{ $errors->default->first('email') }}
+        </p>
     @endif
 
     <x-input.text
@@ -13,7 +15,9 @@
         autofocus="autofocus"
     ></x-input.text>
     @if ($errors->loginForm->first('email'))
-        <p class="mt-2 text-sm text-red-500 italic">{{ $errors->loginForm->first('email') }}</p>
+        <p class="mt-2 text-sm text-red-500 italic">
+            {{ $errors->loginForm->first('email') }}
+        </p>
     @endif
 
     <x-input.text
@@ -25,7 +29,9 @@
         class="mt-2"
     ></x-input.text>
     @if ($errors->loginForm->first('password'))
-        <p class="mt-2 text-sm text-red-500 italic">{{ $errors->loginForm->first('password') }}</p>
+        <p class="mt-2 text-sm text-red-500 italic">
+            {{ $errors->loginForm->first('password') }}
+        </p>
     @endif
 
     <div class="mt-8 md:flex md:justify-between">
