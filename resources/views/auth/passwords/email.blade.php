@@ -14,14 +14,19 @@
                 <form method="POST" action="/password/email">
                     {!! csrf_field() !!}
 
-                    <div class="form-group">
-                        {!! Form::label('email', 'Email', ['class' => 'sr-only']) !!}
-                        {!! Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
-                    </div>
+                    <x-input.text
+                        name="email"
+                        label="Email"
+                        type="email"
+                        placeholder="Email address"
+                        :hideLabel="true"
+                        autofocus="autofocus"
+                    ></x-input.text>
 
                     <x-button.primary
                         type="submit"
                         size="md"
+                        class="mt-8"
                     >
                         Send Password Reset Link
                     </x-button.primary>

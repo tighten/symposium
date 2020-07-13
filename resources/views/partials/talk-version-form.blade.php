@@ -1,11 +1,8 @@
-<div>
-    {!! Form::label('title', '*Talk Title', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::text('title', $current->title, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.text
+    name="title"
+    label="*Talk Title"
+    :value="$current->title"
+></x-input.text>
 
 <div class="mt-8">
     {!! Form::label('type', '*Type of Talk', [
@@ -78,14 +75,12 @@
     </label>
 </div>
 
-<div class="mt-8">
-    {!! Form::label('length', '*Length (mins)', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::text('length', $current->length, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.text
+    name="length"
+    label="*Length (mins)"
+    class="mt-8"
+    :value="$current->length"
+></x-input.text>
 
 <div class="mt-8">
     {!! Form::label('public', '*Show on public speaker profile?', [
@@ -118,12 +113,12 @@
     ]) !!}
 </div>
 
-<div class="mt-8">
-    {!! Form::label('slides', 'Slides URL', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::text('slides', $current->slides, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) !!}
-</div>
+<x-input.text
+    name="slides"
+    label="Slides URL"
+    :value="$current->slides"
+    class="mt-8"
+></x-input.text>
 
 <div class="mt-8">
     {!! Form::label('organizer_notes', 'Organizer Notes', [

@@ -1,23 +1,19 @@
-<div>
-    {!! Form::label('title', '*Title', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::text('title', $conference->title, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.text
+    name="title"
+    label="*Title"
+    :value="$conference->title"
+></x-input.text>
 
 <location-lookup class="mt-8">
-    <div class="form-group" slot-scope="location">
-        {!! Form::label('location', 'Location', [
-            'class' => 'block text-indigo-500 font-bold mb-2'
-        ]) !!}
-        {!! Form::text('location', $conference->location, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-            '@input' => 'location.lookup',
-            '@keydown.enter.prevent' => true,
-        ]) !!}
-    </div>
+    <template slot-scope="location">
+        <x-input.text
+            name="location"
+            label="Location"
+            :value="$conference->location"
+            @input="location.lookup"
+            @keydown.enter.prevent="true"
+        ></x-input.text>
+    </template>
 </location-lookup>
 
 <div class="mt-8">
@@ -29,23 +25,19 @@
     ]) !!}
 </div>
 
-<div class="mt-8">
-    {!! Form::label('url', '*URL', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::text('url', $conference->url, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.text
+    name="url"
+    label="*URL"
+    :value="$conference->url"
+    class="mt-8"
+></x-input.text>
 
-<div class="mt-8">
-    {!! Form::label('cfp_url', 'URL to CFP page', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::text('cfp_url', $conference->cfp_url, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.text
+    name="cfp_url"
+    label="URL to CFP page"
+    :value="$conference->cfp_url"
+    class="mt-8"
+></x-input.text>
 
 <div class="mt-8">
     {!! Form::label('starts_at', 'Conference Start Date', [

@@ -8,8 +8,15 @@
     <p>These are all the speakers who have a public profile on Symposium.</p>
 
     {!! Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) !!}
-    <div class="form-group">
-        {!! Form::text('query', null, ['class' => 'form-control', 'placeholder' => 'Search']) !!}
+    <div class="flex">
+        <x-input.text
+            name="query"
+            label="Query"
+            placeholder="Search"
+            :hideLabel="true"
+            :inline="true"
+            class="mr-2"
+        ></x-input.text>
         <x-button.primary type="submit">Search</x-button.primary>
     </div>
     {!! Form::close() !!}

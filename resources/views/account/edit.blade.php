@@ -36,14 +36,11 @@
         ]) !!}
     </div>
 
-    <div class="mt-8">
-        {!! Form::label('name', 'Name', [
-            'class' => 'block text-indigo-500 font-bold mb-2'
-        ]) !!}
-        {!! Form::text('name', null, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-        ]) !!}
-    </div>
+    <x-input.text
+        name="name"
+        label="Name"
+        class="mt-8"
+    ></x-input.text>
 
     <div class="mt-8">
         {!! Form::label('profile_picture', 'Profile Picture', [
@@ -123,15 +120,12 @@
         </label>
     </div>
 
-    <div class="mt-8">
-        {!! Form::label('profile_slug', 'Profile URL slug', [
-            'class' => 'block text-indigo-500 font-bold mb-2'
-        ]) !!}
-        <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}</span>
-        {!! Form::text('profile_slug', null, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-        ]) !!}
-    </div>
+    <x-input.text
+        name="profile_slug"
+        label="Profile URL slug"
+        class="mt-8"
+        help="The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}"
+    ></x-input.text>
 
     <div class="mt-8">
         {!! Form::label('profile_intro', 'Profile Intro', [
@@ -143,16 +137,12 @@
         ]) !!}
     </div>
 
-    <div class="mt-8">
-        {!! Form::label('location', 'Location', [
-            'class' => 'block text-indigo-500 font-bold'
-        ]) !!}
-        <span class="help-block">Enter the city in which you reside and local conference organizers can find you.</span>
-        {!! Form::text('location', null, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-            'id' => 'autocomplete',
-        ]) !!}
-    </div>
+    <x-input.text
+        name="location"
+        label="Location"
+        class="mt-8"
+        help="Enter the city in which you reside and local conference organizers can find you."
+    ></x-input.text>
 
     <div class="mt-8">
         {!! Form::hidden('neighborhood', null, ['id' => 'neighborhood', 'readonly' => true]) !!}

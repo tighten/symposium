@@ -15,15 +15,23 @@
 
     {!! Form::open() !!}
 
-    <label class="block mt-4">
-        {!! Form::label('email', 'Email Address', ['class' => 'hidden']) !!}
-        {!! Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-input mt-1 block w-full', 'placeholder' => 'Email address']) !!}
-    </label>
+    <x-input.text
+        type="email"
+        name="email"
+        label="Email Address"
+        placeholder="Email address"
+        autofocus="autofocus"
+        :hideLabel="true"
+        class="mt-4"
+    ></x-input.text>
 
-    <div class="block mt-4">
-        {!! Form::label('name', 'Name', ['class' => 'hidden']) !!}
-        {!! Form::text('name', null, ['class' => 'form-input mt-1 block w-full', 'placeholder' => 'Name']) !!}
-    </div>
+    <x-input.text
+        name="name"
+        label="Name"
+        placeholder="Name"
+        :hideLabel="true"
+        class="mt-4"
+    ></x-input.text>
 
     <div class="block mt-4">
         {!! Form::label('message', 'Message', ['class' => 'hidden']) !!}
