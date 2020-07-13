@@ -121,19 +121,6 @@
     </div>
 </div>
 
-{{-- Disable email registration --}}
-{{-- @if (false && Auth::guest())
-    <div class="panel panel-default panel-on-grey">
-        <div class="panel-heading">
-          <h3 class="panel-title">Sign up</h3>
-        </div>
-        <div class="panel-body">
-            @include('partials.sign-up-form')
-        </div>
-    </div>
-@endif --}}
-
-
 {{-- @if (Auth::guest())
     <div class="text-center">
         <a class="btn-github-login" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong> @svg('github', 'inline-block align-top h-6 w-6')</a>
