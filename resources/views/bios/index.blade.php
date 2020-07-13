@@ -1,12 +1,13 @@
 @extends('layouts.index', ['title' => 'All Bios'])
 
 @section('sidebar')
-    <x-buttons.primary
+    <x-button.primary
         :href="route('bios.create')"
         icon="plus"
+        class="block mt-4 w-full"
     >
         Add Bio
-    </x-buttons.primary>
+    </x-button.primary>
 @endsection
 
 @section('list')

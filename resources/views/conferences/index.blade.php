@@ -31,12 +31,13 @@
             </div>
         </div>
     </div>
-    <x-buttons.primary
+    <x-button.primary
         :href="route('conferences.create')"
         icon="plus"
+        class="block mt-4 w-full"
     >
         Add Conference
-    </x-buttons.primary>
+    </x-button.primary>
 @endsection
 
 

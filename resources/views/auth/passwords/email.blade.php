@@ -19,9 +19,12 @@
                         {!! Form::text('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
                     </div>
 
-                    <div class="text-right">
-                        {!! Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) !!}
-                    </div>
+                    <x-button.primary
+                        type="submit"
+                        size="md"
+                    >
+                        Send Password Reset Link
+                    </x-button.primary>
                 </form>
             </div>
         </div>

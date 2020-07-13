@@ -13,9 +13,13 @@
 
     @include('partials.conferenceform')
 
-    {!! Form::submit('Create', [
-        'class' => 'bg-indigo-500 font-semibold mt-8 px-8 py-2 rounded text-white text-lg cursor-pointer'
-    ]) !!}
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Create
+    </x-button.primary>
 
     {!! Form::close() !!}
 </div>

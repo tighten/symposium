@@ -33,7 +33,12 @@
     <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
 
     <div class="block mt-4">
-        {!! Form::submit('Send', ['class' => 'bg-indigo block w-full md:w-auto lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap ']) !!}
+        <x-button.primary
+            type="submit"
+            class="w-full md:w-auto"
+        >
+            Send
+        </x-button.primary>
     </div>
 
     {!! Form::close() !!}

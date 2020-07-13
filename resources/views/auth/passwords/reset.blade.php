@@ -30,9 +30,12 @@
                         {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password']) !!}
                     </div>
 
-                    <div class="text-right">
-                        {!! Form::submit('Reset Password', ['class' => 'btn btn-primary']) !!}
-                    </div>
+                    <x-button.primary
+                        type="submit"
+                        size="md"
+                    >
+                        Reset Password
+                    </x-button.primary>
                 </form>
             </div>
         </div>

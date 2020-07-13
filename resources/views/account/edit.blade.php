@@ -162,9 +162,13 @@
         {!! Form::hidden('country', null, ['id' => 'country', 'readonly' => true]) !!}
     </div>
 
-    {!! Form::submit('Save', [
-        'class' => 'bg-indigo-500 font-semibold mt-8 px-8 py-2 rounded text-white text-lg'
-    ]) !!}
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Save
+    </x-button.primary>
 
     {!! Form::close() !!}
 </div>

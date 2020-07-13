@@ -22,7 +22,13 @@
     </div>
 
     <div class="mt-8 md:flex md:justify-between">
-        {!! Form::submit('Log in', ['class' => 'bg-indigo block w-full mt-4 md:w-auto md:inline-block md:px-8 md:py-4 md:text-left lg:px-10 lg:py-5 px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap']) !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="block"
+        >
+            Log in
+        </x-button.primary>
 
         <a href="/password/reset" class="block hover:border-indigo lg:ml-10 lg:mt-0 lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left mt-4 px-4 py-2 rounded rounded-lg text-center text-indigo whitespace-no-wrap">Reset Password</a>
     </div>

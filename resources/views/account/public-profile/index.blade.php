@@ -10,7 +10,7 @@
     {!! Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) !!}
     <div class="form-group">
         {!! Form::text('query', null, ['class' => 'form-control', 'placeholder' => 'Search']) !!}
-        {!! Form::submit('Search', ['class' => 'btn btn-primary']) !!}
+        <x-button.primary type="submit">Search</x-button.primary>
     </div>
     {!! Form::close() !!}
     @if (isset($query) && $query)

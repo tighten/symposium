@@ -25,12 +25,13 @@
             </div>
         </div>
     </div>
-    <x-buttons.primary
+    <x-button.primary
         :href="route('talks.create')"
         icon="plus"
+        class="block mt-4 w-full"
     >
         Add Talk
-    </x-buttons.primary>
+    </x-button.primary>
 @endsection
 
 @section('list')
