@@ -16,11 +16,13 @@
 <{{ $element }}
     @isset($href) href="{{ $href }}" @endisset
     {{ $attributes->merge([
-        'class' => "py-2 rounded text-center {$sizeClasses[$size]}"
+        'class' => "py-2 rounded {$sizeClasses[$size]}"
     ]) }}
 >
-    @isset($icon)
-        @svg($icon, 'w-3 h-3 fill-current inline mr-2')
-    @endisset
-    {{ $slot }}
+    <span class="flex items-center">
+        @isset($icon)
+            @svg($icon, 'fill-current hc-18 inline pr-1')
+        @endisset
+        {{ $slot }}
+    </span>
 </{{ $element }}>
