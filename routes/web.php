@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
     Route::put('account/edit', 'AccountController@update');
     Route::get('account/delete', ['as' => 'account.delete', 'uses' => 'AccountController@delete']);
-    Route::post('account/delete', 'AccountController@destroy');
+    Route::post('account/delete', 'AccountController@destroy')->name('account.delete.confirm');
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
     Route::get('account/oauth-settings', ['as' => 'account.oauth-settings', 'uses' => 'AccountController@oauthSettings']);
 
