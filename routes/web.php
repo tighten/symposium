@@ -37,7 +37,7 @@ Route::get('u/{profileSlug}/email', [
     'uses' => 'PublicProfileController@getEmail',
 ]);
 Route::post('u/{profileSlug}/email', [
-    'as' => 'speakers-public.email',
+    'as' => 'speakers-public.email.send',
     'uses' => 'PublicProfileController@postEmail',
 ]);
 

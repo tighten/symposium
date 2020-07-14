@@ -1,12 +1,10 @@
-{!! Form::open(['route' => 'login']) !!}
-    {{ csrf_field() }}
+@if ($errors->default->first('email'))
+    <p class="mt-2 text-sm text-red-500 italic">
+        {{ $errors->default->first('email') }}
+    </p>
+@endif
 
-    @if ($errors->default->first('email'))
-        <p class="mt-2 text-sm text-red-500 italic">
-            {{ $errors->default->first('email') }}
-        </p>
-    @endif
-
+<x-form :action="route('login')">
     <x-input.text
         name="email"
         label="Email"
@@ -52,4 +50,4 @@
             Reset Password
         </x-button.secondary>
     </div>
-{!! Form::close() !!}
+</x-form>

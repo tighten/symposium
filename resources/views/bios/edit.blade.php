@@ -9,22 +9,17 @@
         @endforeach
     </ul>
 
-    {!! Form::open([
-        'action' => ['BiosController@update', $bio->id],
-        'class' => 'edit-bio-form', 'method' => 'put'
-    ]) !!}
+    <x-form :action="route('bios.update', $bio->id)" method="PUT">
+        @include('partials.bioform')
 
-    @include('partials.bioform')
-
-    <x-button.primary
-        type="submit"
-        size="md"
-        class="mt-8"
-    >
-        Update
-    </x-button.primary>
-
-    {!! Form::close() !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="mt-8"
+        >
+            Update
+        </x-button.primary>
+    </x-form>
 </div>
 
 @endsection

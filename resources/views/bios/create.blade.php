@@ -9,19 +9,17 @@
         @endforeach
     </ul>
 
-    {!! Form::open(array('action' => 'BiosController@store', 'class' => 'new-bio-form')) !!}
+    <x-form :action="route('bios.store')">
+        @include('partials.bioform')
 
-    @include('partials.bioform')
-
-    <x-button.primary
-        type="submit"
-        size="md"
-        class="mt-8"
-    >
-        Create
-    </x-button.primary>
-
-    {!! Form::close() !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="mt-8"
+        >
+            Create
+        </x-button.primary>
+    </x-form>
 </div>
 
 @endsection

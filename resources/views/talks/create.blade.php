@@ -9,19 +9,17 @@
         @endforeach
     </ul>
 
-    {!! Form::open(['action' => 'TalksController@store', 'class' => 'new-talk-form']) !!}
+    <x-form :action="route('talks.store')">
+        @include('partials.talk-version-form')
 
-    @include('partials.talk-version-form')
-
-    <x-button.primary
-        type="submit"
-        size="md"
-        class="mt-8"
-    >
-        Create
-    </x-button.primary>
-
-    {!! Form::close() !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="mt-8"
+        >
+            Create
+        </x-button.primary>
+    </x-form>
 </div>
 
 @endsection

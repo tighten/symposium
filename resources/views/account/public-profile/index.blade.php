@@ -7,19 +7,19 @@
 
     <p>These are all the speakers who have a public profile on Symposium.</p>
 
-    {!! Form::open(['route' => 'speakers-public.search', 'class' => 'form-inline']) !!}
-    <div class="flex">
-        <x-input.text
-            name="query"
-            label="Query"
-            placeholder="Search"
-            :hideLabel="true"
-            :inline="true"
-            class="mr-2"
-        ></x-input.text>
-        <x-button.primary type="submit">Search</x-button.primary>
-    </div>
-    {!! Form::close() !!}
+    <x-form :action="route('speakers-public.search')">
+        <div class="flex">
+            <x-input.text
+                name="query"
+                label="Query"
+                placeholder="Search"
+                :hideLabel="true"
+                :inline="true"
+                class="mr-2"
+            ></x-input.text>
+            <x-button.primary type="submit">Search</x-button.primary>
+        </div>
+    </x-form>
     @if (isset($query) && $query)
         <p class="text-muted"><small>Showing search results for <em>{{ $query }}</em>:</small></p>
     @else

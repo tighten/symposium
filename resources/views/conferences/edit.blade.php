@@ -9,47 +9,45 @@
         @endforeach
     </ul>
 
-    {!! Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) !!}
+    <x-form :action="route('conferences.update', $conference->id)" method="PUT">
+        @include('partials.conferenceform')
 
-    @include('partials.conferenceform')
+        @if (auth()->user()->isAdmin())
+            <div class="mt-8">
+                {!! Form::label('is_approved', 'Conference Is Approved?', [
+                    'class' => 'block text-indigo-500 font-bold mb-2'
+                ]) !!}
+                <label class="inline-flex items-center">
+                    <input
+                        type="radio"
+                        class="form-radio"
+                        name="type"
+                        value="1"
+                        {{ $conference->is_approved ? 'checked' : '' }}
+                    >
+                    <span class="ml-2">Yes</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input
+                        type="radio"
+                        class="form-radio"
+                        name="type"
+                        value="1"
+                        {{ $conference->is_approved ? '' : 'checked' }}
+                    >
+                    <span class="ml-2">No</span>
+                </label>
+            </div>
+        @endif
 
-    @if (auth()->user()->isAdmin())
-        <div class="mt-8">
-            {!! Form::label('is_approved', 'Conference Is Approved?', [
-                'class' => 'block text-indigo-500 font-bold mb-2'
-            ]) !!}
-            <label class="inline-flex items-center">
-                <input
-                    type="radio"
-                    class="form-radio"
-                    name="type"
-                    value="1"
-                    {{ $conference->is_approved ? 'checked' : '' }}
-                >
-                <span class="ml-2">Yes</span>
-            </label>
-            <label class="inline-flex items-center">
-                <input
-                    type="radio"
-                    class="form-radio"
-                    name="type"
-                    value="1"
-                    {{ $conference->is_approved ? '' : 'checked' }}
-                >
-                <span class="ml-2">No</span>
-            </label>
-        </div>
-    @endif
-
-    <x-button.primary
-        type="submit"
-        size="md"
-        class="mt-8"
-    >
-        Update
-    </x-button.primary>
-
-    {!! Form::close() !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="mt-8"
+        >
+            Update
+        </x-button.primary>
+    </x-form>
 </div>
 
 @endsection

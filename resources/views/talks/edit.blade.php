@@ -9,19 +9,17 @@
         @endforeach
     </ul>
 
-    {!! Form::open(['action' => ['TalksController@update', $current->talk_id], 'class' => 'edit-talk-form', 'method' => 'put']) !!}
+    <x-form :action="route('talks.update', $current->talk_id)" method="PUT">
+        @include('partials.talk-version-form')
 
-    @include('partials.talk-version-form')
-
-    <x-button.primary
-        type="submit"
-        size="md"
-        class="mt-8"
-    >
-        Update
-    </x-button.primary>
-
-    {!! Form::close() !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="mt-8"
+        >
+            Update
+        </x-button.primary>
+    </x-form>
 </div>
 
 @endsection

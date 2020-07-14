@@ -9,19 +9,17 @@
         @endforeach
     </ul>
 
-    {!! Form::open(['route' => 'conferences.store', 'class' => 'new-conference-form']) !!}
+    <x-form :action="route('conferences.store')">
+        @include('partials.conferenceform')
 
-    @include('partials.conferenceform')
-
-    <x-button.primary
-        type="submit"
-        size="md"
-        class="mt-8"
-    >
-        Create
-    </x-button.primary>
-
-    {!! Form::close() !!}
+        <x-button.primary
+            type="submit"
+            size="md"
+            class="mt-8"
+        >
+            Create
+        </x-button.primary>
+    </x-form>
 </div>
 
 @endsection

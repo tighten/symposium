@@ -5,16 +5,16 @@
 @endsection
 
 @section('content')
-    @if (! $errors->isEmpty())
-        <ul class="errors">
-            @foreach ($errors->all() as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
-    @endif
 
-    {!! Form::open() !!}
+@if (! $errors->isEmpty())
+    <ul class="errors">
+        @foreach ($errors->all() as $message)
+            <li>{{ $message }}</li>
+        @endforeach
+    </ul>
+@endif
 
+<x-form :action="route('speakers-public.email.send', $user->profile_slug)">
     <x-input.text
         type="email"
         name="email"
@@ -51,6 +51,6 @@
             Send
         </x-button.primary>
     </div>
+</x-form>
 
-    {!! Form::close() !!}
 @endsection
