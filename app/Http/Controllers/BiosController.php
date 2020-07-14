@@ -74,7 +74,7 @@ class BiosController extends BaseController
 
         $bio->nickname = $request->get('nickname');
         $bio->body = $request->get('body');
-        $bio->public = $request->get('public') == 'yes';
+        $bio->public = $request->get('public');
         $bio->save();
 
         Session::flash('message', 'Successfully edited bio.');
