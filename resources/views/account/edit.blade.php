@@ -56,66 +56,45 @@
         {!! Form::file('profile_picture', null) !!}
     </div>
 
-    <div class="mt-8">
-        {!! Form::label('enable_profile', 'Enable email notifications?', [
-            'class' => 'block text-indigo-500 font-bold'
-        ]) !!}
-        <span class="help-block">Do you want to receive email notifications for open CFPs?</span>
-        <label class="inline-flex items-center">
-            {!! Form::radio('wants_notifications', true, [
-                'id' => 'wants_notifications_true',
-                'class' => 'form-radio',
-            ]) !!} <span class="ml-2">Yes</span>
-        </label>
-        <label class="inline-flex items-center ml-6">
-            {!! Form::radio('wants_notifications', false, [
-                'id' => 'wants_notifications_false',
-                'class' => 'form-radio',
-            ]) !!} <span class="ml-2">No</span>
-        </label>
-    </div>
+    <x-input.radios
+        name="wants_notifications"
+        label="Enable email notifications?"
+        :options="[
+            'Yes' => '1',
+            'No' => '0',
+        ]"
+        :value="$user->wants_notifications"
+        help="Do you want to receive email notifications for open CFPs?"
+        class="mt-8"
+    ></x-input.radios>
 
     <hr class="my-8">
 
     <h3 class="font-sans mb-8">Public Profile</h3>
 
-    <div class="mt-8">
-        {!! Form::label('enable_profile', 'Show Public Speaker Profile?', [
-            'class' => 'block text-indigo-500 font-bold'
-        ]) !!}
-        <span class="help-block">Do you want a public speaker page that you can show to conference organizers?</span>
-        <label class="inline-flex items-center">
-            {!! Form::radio('enable_profile', true, [
-                'id' => 'enable_profile_true',
-                'class' => 'form-radio',
-            ]) !!} <span class="ml-2">Yes</span>
-        </label>
-        <label class="inline-flex items-center ml-6">
-            {!! Form::radio('enable_profile', false, [
-                'id' => 'enable_profile_false',
-                'class' => 'form-radio',
-            ]) !!} <span class="ml-2">No</span>
-        </label>
-    </div>
+    <x-input.radios
+        name="enable_profile"
+        label="Show Public Speaker Profile?"
+        :options="[
+            'Yes' => '1',
+            'No' => '0',
+        ]"
+        :value="$user->enable_profile"
+        help="Do you want a public speaker page that you can show to conference organizers?"
+        class="mt-8"
+    ></x-input.radios>
 
-    <div class="mt-8">
-        {!! Form::label('allow_profile_contact', 'Allow contact from your Public Speaker Profile?', [
-            'class' => 'block text-indigo-500 font-bold'
-        ]) !!}
-        <span class="help-block">Do you want a contact form on your public speaker profile? Messages will be sent to your email but your email address will remain private.</span>
-        <label class="inline-flex items-center">
-            {!! Form::radio('allow_profile_contact', true, [
-                'id' => 'allow_profile_contact_true',
-                'class' => 'form-radio',
-            ]) !!} <span class="ml-2">Yes</span>
-        </label>
-        <label class="inline-flex items-center ml-6">
-            {!! Form::radio('allow_profile_contact', false, [
-                'id' => 'allow_profile_contact_false',
-                'class' => 'form-radio',
-            ]) !!} <span class="ml-2">No</span>
-        </label>
-    </div>
+    <x-input.radios
+        name="allow_profile_contact"
+        label="Allow contact from your Public Speaker Profile?"
+        :options="[
+            'Yes' => '1',
+            'No' => '0',
+        ]"
+        :value="$user->allow_profile_contact"
+        help="Do you want a contact form on your public speaker profile? Messages will be sent to your email but your email address will remain private."
+        class="mt-8"
+    ></x-input.radios>
 
     <x-input.text
         name="profile_slug"
