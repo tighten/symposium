@@ -40,11 +40,11 @@
     ></x-input.text>
 
     <div class="mt-8">
-        {!! Form::label('profile_picture', 'Profile Picture', [
-            'class' => 'block text-indigo-500 font-bold mb-2'
-        ]) !!}
-        <div class="private-profile-pic">
-            <img src="{{ Auth::user()->profile_picture_hires }}" class="public-speaker-picture" alt="">
+        <label for="profile_picture" class="block text-indigo-500 font-bold mb-2">
+            Profile Picture
+        </label>
+        <div class="rounded-full text-center">
+            <img src="{{ Auth::user()->profile_picture_hires }}" class="h-48 w-48 mb-1 rounded-full" alt="">
         </div>
         @if ($user->profile_picture == null)
             <div class="alert alert-warning">
@@ -52,8 +52,11 @@
                 Please upload a custom profile picture.
             </div>
         @endif
-        <span class="help-block">Please use a high resolution image, as it will be provided to conference organizers.</span>
-        {!! Form::file('profile_picture', null) !!}
+        <x-input.upload
+            name="profile_picture"
+            help="Please use a high resolution image, as it will be provided to conference organizers."
+            class="mt-2"
+        ></x-input.upload>
     </div>
 
     <x-input.radios
