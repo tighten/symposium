@@ -19,9 +19,9 @@
         'class' => "py-2 rounded {$sizeClasses[$size]}"
     ]) }}
 >
-    <span class="flex items-center">
+    <span class="flex items-center justify-center">
         @isset($icon)
-            @svg($icon, 'fill-current hc-18 inline pr-1')
+            @svg($icon, 'w-3 h-3 fill-current inline mr-2')
         @endisset
         {{ $slot }}
     </span>
