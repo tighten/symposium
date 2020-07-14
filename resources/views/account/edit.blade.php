@@ -18,14 +18,13 @@
 
 
     <h3 class="font-sans mb-8">User</h3>
-    <div>
-        {!! Form::label('email', 'Email Address', [
-            'class' => 'block text-indigo-500 font-bold mb-2'
-        ]) !!}
-        {!! Form::email('email', null, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-        ]) !!}
-    </div>
+
+    <x-input.text
+        name="email"
+        label="Email Address"
+        type="email"
+        :value="$user->email"
+    ></x-input.text>
 
     <div class="mt-8">
         {!! Form::label('password', 'Password (leave empty to keep the same)', [
