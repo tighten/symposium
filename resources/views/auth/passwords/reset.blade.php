@@ -24,15 +24,23 @@
                         autofocus="autofocus"
                     ></x-input.text>
 
-                    <div class="form-group">
-                        {!! Form::label('password', 'Password', ['class' => 'sr-only']) !!}
-                        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
-                    </div>
+                    <x-input.text
+                        name="password"
+                        label="Password"
+                        type="password"
+                        placeholder="Password"
+                        :hideLabel="true"
+                        class="mt-4"
+                    ></x-input.text>
 
-                    <div class="form-group">
-                        {!! Form::label('password_confirmation', 'Password', ['class' => 'sr-only']) !!}
-                        {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password']) !!}
-                    </div>
+                    <x-input.text
+                        name="password_confirmation"
+                        label="Password"
+                        type="password"
+                        placeholder="Confirm Password"
+                        :hideLabel="true"
+                        class="mt-4"
+                    ></x-input.text>
 
                     <x-button.primary
                         type="submit"
