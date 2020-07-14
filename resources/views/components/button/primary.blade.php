@@ -7,6 +7,7 @@
 <x-button.base
     :href="$href"
     :icon="$icon"
+    :size="$size"
     :attributes="$attributes->merge([
         'class' => 'bg-indigo-500 text-white'
     ])"
