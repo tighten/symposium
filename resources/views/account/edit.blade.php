@@ -119,13 +119,11 @@
         help="Enter the city in which you reside and local conference organizers can find you."
     ></x-input.text>
 
-    <div class="mt-8">
-        {!! Form::hidden('neighborhood', null, ['id' => 'neighborhood', 'readonly' => true]) !!}
-        {!! Form::hidden('sublocality', null, ['id' => 'sublocality_level_1', 'readonly' => true]) !!}
-        {!! Form::hidden('city', null, ['id' => 'locality', 'readonly' => true]) !!}
-        {!! Form::hidden('state', null, ['id' => 'administrative_area_level_1', 'readonly' => true]) !!}
-        {!! Form::hidden('country', null, ['id' => 'country', 'readonly' => true]) !!}
-    </div>
+    <input name="neighborhood" id="neighborhood" type="hidden" readonly>
+    <input name="sublocality" id="sublocality_level_1" type="hidden" readonly>
+    <input name="city" id="locality" type="hidden" readonly>
+    <input name="state" id="administrative_area_level_1" type="hidden" readonly>
+    <input name="country" id="country" type="hidden" readonly>
 
     <x-button.primary
         type="submit"
