@@ -40,6 +40,7 @@
         name="name"
         label="Name"
         class="mt-8"
+        :value="$user->name"
     ></x-input.text>
 
     <div class="mt-8">
@@ -123,6 +124,7 @@
     <x-input.text
         name="profile_slug"
         label="Profile URL slug"
+        :value="$user->profile_slug"
         class="mt-8"
         help="The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}"
     ></x-input.text>
