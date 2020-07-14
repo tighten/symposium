@@ -129,15 +129,13 @@
         help="The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}"
     ></x-input.text>
 
-    <div class="mt-8">
-        {!! Form::label('profile_intro', 'Profile Intro', [
-            'class' => 'block text-indigo-500 font-bold'
-        ]) !!}
-        <span class="help-block">This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers.</span>
-        {!! Form::textarea('profile_intro', null, [
-            'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-        ]) !!}
-    </div>
+    <x-input.textarea
+        name="profile_intro"
+        label="Profile Intro"
+        class="mt-8"
+        help="This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers."
+        :value="$user->profile_intro"
+    ></x-input.textarea>
 
     <x-input.text
         name="location"

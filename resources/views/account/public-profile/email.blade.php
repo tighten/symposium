@@ -33,10 +33,13 @@
         class="mt-4"
     ></x-input.text>
 
-    <div class="block mt-4">
-        {!! Form::label('message', 'Message', ['class' => 'hidden']) !!}
-        {!! Form::textarea('message', null, ['class' => 'form-textarea mt-1 block w-full', 'placeholder' => 'Message']) !!}
-    </div>
+    <x-input.textarea
+        name="message"
+        label="Message"
+        placeholder="Message"
+        class="mt-4"
+        :hideLabel="true"
+    ></x-input.textarea>
 
     <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
 

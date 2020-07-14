@@ -16,14 +16,12 @@
     </template>
 </location-lookup>
 
-<div class="mt-8">
-    {!! Form::label('description', '*Description', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::textarea('description', $conference->description, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.textarea
+    name="description"
+    label="*Description"
+    class="mt-8"
+    :value="$conference->description"
+></x-input.textarea>
 
 <x-input.text
     name="url"

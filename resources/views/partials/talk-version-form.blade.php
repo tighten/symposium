@@ -104,14 +104,13 @@
     </label>
 </div>
 
-<div class="mt-8">
-    {!! Form::label('description', 'Description', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!} <span> (markdown supported)</span>
-    {!! Form::textarea('description', $current->description, [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.textarea
+    name="description"
+    label="Description"
+    class="mt-8"
+    :value="$current->description"
+    help="markdown supported"
+></x-input.textarea>
 
 <x-input.text
     name="slides"
@@ -120,9 +119,9 @@
     class="mt-8"
 ></x-input.text>
 
-<div class="mt-8">
-    {!! Form::label('organizer_notes', 'Organizer Notes', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::textarea('organizer_notes', $current->organizer_notes, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) !!}
-</div>
+<x-input.textarea
+    name="organizer_notes"
+    label="Organizer Notes"
+    class="mt-8"
+    :value="$current->organizer_notes"
+></x-input.textarea>
