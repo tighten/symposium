@@ -37,38 +37,30 @@
     class="mt-8"
 ></x-input.text>
 
-<div class="mt-8">
-    {!! Form::label('starts_at', 'Conference Start Date', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::input('date', 'starts_at', $conference->startsAtSet() ? $conference->starts_at->format('Y-m-d') : '', [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.date
+    name="starts_at"
+    label="Conference Start Date"
+    :value="$conference->startsAtSet() ? $conference->starts_at->format('Y-m-d') : ''"
+    class="mt-8"
+></x-input.date>
 
-<div class="mt-8">
-    {!! Form::label('ends_at', 'Conference End Date', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::input('date', 'ends_at', $conference->endsAtSet() ? $conference->ends_at->format('Y-m-d') : '', [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.date
+    name="ends_at"
+    label="Conference End Date"
+    :value="$conference->endsAtSet() ? $conference->ends_at->format('Y-m-d') : ''"
+    class="mt-8"
+></x-input.date>
 
-<div class="mt-8">
-    {!! Form::label('cfp_starts_at', 'CFP Open Date', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::input('date', 'cfp_starts_at', $conference->cfpStartsAtSet() ? $conference->cfp_starts_at->format('Y-m-d') : '', [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.date
+    name="cfp_starts_at"
+    label="CFP Open Date"
+    :value="$conference->cfpStartsAtSet() ? $conference->cfp_starts_at->format('Y-m-d') : ''"
+    class="mt-8"
+></x-input.date>
 
-<div class="mt-8">
-    {!! Form::label('cfp_ends_at', 'CFP Close Date', [
-        'class' => 'block text-indigo-500 font-bold mb-2'
-    ]) !!}
-    {!! Form::input('date', 'cfp_ends_at', $conference->cfpEndsAtSet() ? $conference->cfp_ends_at->format('Y-m-d') : '', [
-        'class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-    ]) !!}
-</div>
+<x-input.date
+    name="cfp_ends_at"
+    label="CFP Close Date"
+    :value="$conference->cfpEndsAtSet() ? $conference->cfp_ends_at->format('Y-m-d') : ''"
+    class="mt-8"
+></x-input.date>
