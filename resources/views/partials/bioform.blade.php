@@ -1,6 +1,7 @@
 <x-input.text
     name="nickname"
     label="*Nickname"
+    :value="$bio->nickname"
 ></x-input.text>
 
 <div class="mt-8">
