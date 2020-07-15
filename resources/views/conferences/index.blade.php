@@ -1,35 +1,83 @@
 @extends('layouts.index', ['title' => 'Conferences'])
 
 @php
-    $linkRouteKeysWithDefaults = ['filter' => 'future', 'sort' => 'closing_next'];
-    $inactiveLinkClasses = 'filter-link py-1 px-5 hover:bg-indigo-100';
+    $filterLinks = [
+        'future' => [
+            'label' => 'Future',
+            'route' => 'conferences.index',
+            'query' => ['filter' => 'future'],
+        ],
+        'open_cfp' => [
+            'label' => 'CFP is Open',
+            'route' => 'conferences.index',
+            'query' => ['filter' => 'open_cfp'],
+        ],
+        'unclosed_cfp' => [
+            'label' => 'Unclosed CFP',
+            'route' => 'conferences.index',
+            'query' => ['filter' => 'unclosed_cfp'],
+        ],
+    ];
+
+    if (auth()->check()) {
+        $filterLinks['favorites'] = [
+            'label' => 'Favorites',
+            'route' => 'conferences.index',
+            'query' => ['filter' => 'favorites'],
+        ];
+        $filterLinks['dismissed'] = [
+            'label' => 'Dismissed',
+            'route' => 'conferences.index',
+            'query' => ['filter' => 'dismissed'],
+        ];
+    }
+
+    $filterLinks['all'] = [
+        'label' => 'All time',
+        'route' => 'conferences.index',
+        'query' => ['filter' => 'all'],
+    ];
+@endphp
+
+@php
+    $sortLinks = [
+        'closing_next' => [
+            'label' => 'CFP Closing Next',
+            'route' => 'conferences.index',
+            'query' => ['sort' => 'closing_next'],
+        ],
+        'opening_next' => [
+            'label' => 'CFP Opening Next',
+            'route' => 'conferences.index',
+            'query' => ['sort' => 'opening_next'],
+        ],
+        'alpha' => [
+            'label' => 'Title',
+            'route' => 'conferences.index',
+            'query' => ['sort' => 'alpha'],
+        ],
+        'date' => [
+            'label' => 'Date',
+            'route' => 'conferences.index',
+            'query' => ['sort' => 'date'],
+        ],
+    ];
 @endphp
 
 @section('sidebar')
     <div class="flex md:flex-col">
-        <x-panel size="sm" class="w-1/2 md:w-full font-sans">
-            <div class="bg-indigo-150 p-5">Filter</div>
-            <div class="flex flex-col py-4">
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Future', ['filter' => 'future'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP is Open', ['filter' => 'open_cfp'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Unclosed CFP', ['filter' => 'unclosed_cfp'], ['class' => $inactiveLinkClasses]) !!}
-                @if (Auth::check())
-                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Favorites', ['filter' => 'favorites'], ['class' => $inactiveLinkClasses]) !!}
-                    {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Dismissed', ['filter' => 'dismissed'], ['class' => $inactiveLinkClasses]) !!}
-                @endif
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'All time', ['filter' => 'all'], ['class' => $inactiveLinkClasses]) !!}
-            </div>
-        </x-panel>
+        <x-side-menu
+            title="Filter"
+            :links="$filterLinks"
+            :defaults="['filter' => 'future', 'sort' => 'closing_next']"
+        ></x-side-menu>
 
-        <x-panel size="sm" class="w-1/2 md:w-full ml-4 md:ml-0 mt-4">
-            <div class="bg-indigo-150 p-5">Sort</div>
-            <div class="flex flex-col py-4">
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Opening Next', ['sort' => 'opening_next'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Title', ['sort' => 'alpha'], ['class' => $inactiveLinkClasses]) !!}
-                {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Date', ['sort' => 'date'], ['class' => $inactiveLinkClasses]) !!}
-            </div>
-        </x-panel>
+        <x-side-menu
+            title="Sort"
+            :links="$sortLinks"
+            :defaults="['filter' => 'future', 'sort' => 'closing_next']"
+            class="mt-4"
+        ></x-side-menu>
     </div>
     <x-button.primary
         :href="route('conferences.create')"

@@ -9,18 +9,27 @@
 
 <div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
     <div class="w-full md:w-1/4">
-        <x-panel size="sm" class="w-1/2 md:w-full font-sans">
-            <div class="bg-indigo-150 p-5">Revisions</div>
-            <div class="flex flex-col py-4">
+        <x-side-menu title="Revisions">
+            <x-slot name="body">
                 @foreach ($talk->revisions as $revision)
                     @if ($talk->current()->id == $revision->id)
-                        <a href="/talks/{{ $talk->id }}" class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}">{{ $revision->created_at }} <i>(current)</i></a>
+                        <a
+                            href="/talks/{{ $talk->id }}"
+                            class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
+                        >
+                            {{ $revision->created_at }} <i>(current)</i>
+                        </a>
                     @else
-                        <a href="/talks/{{ $talk->id }}?revision={{ $revision->id }}" class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}">{{ $revision->created_at }}</a>
+                        <a
+                            href="/talks/{{ $talk->id }}?revision={{ $revision->id }}"
+                            class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
+                        >
+                            {{ $revision->created_at }}
+                        </a>
                     @endif
                 @endforeach
-            </div>
-        </x-panel>
+            </x-slot>
+        </x-side-menu>
     </div>
     <x-panel size="md" class="w-full md:w-3/4 md:ml-4">
         <div class="flex items-center justify-between">
