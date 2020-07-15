@@ -32,7 +32,7 @@
         </a>
     </div>
     <div class="w-full md:w-3/4 md:ml-4">
-        @each('partials.talk-in-list', $talks, 'talk', 'partials.talk-in-list-empty')
+        @each('partials.talk-in-list', $talks, 'talk', 'talks.listing-empty')
     </div>
 </div>
 
