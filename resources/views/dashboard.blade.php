@@ -29,8 +29,9 @@
         <x-panel class="mt-4">
             <div class="px-4 py-4 bg-white flex flex-row content-center justify-between">
                 <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Talks</h2>
-                <a href="{{ route('talks.create') }}" class="text-indigo">
-                    @svg('plus', 'w-3 fill-current inline') Add Talk
+                <a href="{{ route('talks.create') }}" class="text-indigo flex items-center">
+                    @svg('plus', 'w-3 fill-current inline')
+                    <span class="ml-1">Add Talk</span>
                 </a>
             </div>
             @forelse ($talks as $talk)
@@ -41,19 +42,6 @@
                             {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
                         </p>
                     </div>
-                    <div x-data="{open: false}" class="relative">
-                        <a x-on:click="open = true">
-                            @svg('dots', 'w-4 inline')
-                        </a>
-                        <ul class="absolute right-0 mt-1 z-50 bg-white rounded border border-gray-300"
-                            x-show="open"
-                            x-on:click.away="open = false" >
-                            <li class="py-2 px-8 border-b border-gray-300">Edit</li>
-                            <li class="py-2 px-8 border-b border-gray-300">Delete<li>
-                            <li class="py-2 px-8">Archive<li>
-                        </ul>
-                    </div>
-
                 </div>
             @empty
                 No Talks
@@ -63,8 +51,9 @@
         <x-panel class="mt-4">
             <div class="px-4 py-4 bg-white flex flex-row content-center justify-between">
                 <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Bios</h2>
-                <a href="{{ route('bios.create') }}" class="text-indigo">
-                    @svg('plus', 'w-3 fill-current inline') Add Bio
+                <a href="{{ route('bios.create') }}" class="flex items-center text-indigo">
+                    @svg('plus', 'w-3 fill-current inline')
+                    <span class="ml-1">Add Bio</span>
                 </a>
             </div>
             @forelse ($bios as $bio)
