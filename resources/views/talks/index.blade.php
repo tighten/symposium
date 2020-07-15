@@ -35,5 +35,5 @@
 @endsection
 
 @section('list')
-    @each('talks.listing', $talks, 'talk', 'partials.talk-in-list-empty')
+    @each('talks.listing', $talks, 'talk', 'talks.listing-empty')
 @endsection

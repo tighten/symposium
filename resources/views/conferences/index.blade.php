@@ -42,5 +42,5 @@
 
 
 @section('list')
-    @each('conferences.listing', $conferences, 'conference', 'partials.conference-in-list-empty')
+    @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
 @endsection
