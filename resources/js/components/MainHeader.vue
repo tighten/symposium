@@ -20,11 +20,12 @@
                     return
                 }
                 this.showSignInDropdown = false;
+                this.showAccountDropdown = false;
             }
-            document.addEventListener("click", listener)
-            this.$once("hook:beforeDestroy", () => {
-                document.removeEventListener("click", listener)
-            })
+            document.addEventListener('click', listener);
+            this.$once('hook:beforeDestroy', () => {
+                document.removeEventListener('click', listener)
+            });
         },
         data() {
             return {
