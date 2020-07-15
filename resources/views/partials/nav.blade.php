@@ -62,7 +62,7 @@
 
     @if (auth()->guest())
         <div class="sm:ml-2 my-4 lg:mb-0 lg:mt-0 flex lg:block">
-            <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-2 lg:ml-4 mt-4 px-8 py-2 rounded rounded-lg lg:block lg:ml-2 lg:mt-0 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
+            <a class="border border-indigo hover:text-indigo-800 inline-block md:ml-2 lg:ml-4 mt-4 px-8 py-2 rounded rounded-lg lg:block lg:ml-2 lg:mt-0 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
                 Sign in
             </a>
             <div class="ml-32 mr-4 lg:mx-0 mt-0 lg:mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded z-50 xl:right-0" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
@@ -79,17 +79,17 @@
                     <span class="mx-2">Me</span>
                 </div>
             </a>
-            <div class="mr-4 lg:mx-2 md:mx-4 mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded lg:right-0" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
-                <a class="py-1" href="{{ route('account.show') }}">Account</a>
+            <div class="mr-4 lg:mx-2 md:mx-4 mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded lg:right-0" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
+                <a class="py-1 px-2 hover:bg-indigo-100 hover:text-indigo-800" href="{{ route('account.show') }}">Account</a>
                 @if (auth()->user()->enable_profile)
                     <a
-                        class="py-1 whitespace-no-wrap"
+                        class="hover:bg-indigo-100 hover:text-indigo-800 py-1 px-2 whitespace-no-wrap"
                         href="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
                     >
                         Public Speaker Profile
                     </a>
                 @endif
-                <a class="py-1" href="{{ route('log-out') }}">Log out</a>
+                <a class="hover:bg-indigo-100 hover:text-indigo-800 py-1 px-2" href="{{ route('log-out') }}">Log out</a>
             </div>
         </div>
     @endif
