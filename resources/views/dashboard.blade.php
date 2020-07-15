@@ -11,18 +11,17 @@
         <x-panel class="mt-4">
             <div class="bg-white h-16 flex content-end justify-center">
                 <div class="bg-white rounded-full w-24 h-24 mt-4 border-2 border-indigo-800 p-1">
-                    <div class="bg-indigo w-full h-full rounded-full"></div>
+                    <div class="w-full h-full rounded-full">
+                        <img
+                            src="{{ auth()->user()->profile_picture_hires }}"
+                            class="rounded-full"
+                            alt="profile picture"
+                        >
+                    </div>
                 </div>
             </div>
             <div class="bg-indigo-100 p-4 pt-12 text-center">
-                <h2>Matt Stauffer</h2>
-                <h3>Co-Founder of Tighten</h3>
-                <ul>
-                    <li>Twitter<li>
-                    <li>LinkedIn</li>
-                    <li>Github</li>
-                    <li>Website</li>
-                </ul>
+                <h2>{{ auth()->user()->name }}</h2>
             </div>
         </x-panel>
     </div>

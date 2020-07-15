@@ -38,7 +38,11 @@
                 Profile Picture
             </label>
             <div class="rounded-full text-center">
-                <img src="{{ Auth::user()->profile_picture_hires }}" class="h-48 w-48 mb-1 rounded-full" alt="">
+                <img
+                    src="{{ auth()->user()->profile_picture_hires }}"
+                    class="h-48 w-48 mb-1 rounded-full"
+                    alt="profile picture"
+                >
             </div>
             @if ($user->profile_picture == null)
                 <div class="alert alert-warning">
