@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="bg-white py-10 px-10 lg:px-32 mt-8 flex flex-col items-center md:flex-row md:flex-row-reverse md:items-start justify-between">
-    <div class="text-center flex-none">
+<x-panel>
+    <div class="flex flex-col items-center sm:flex-none sm:items-start">
         <a href="{{ $user->profile_picture_hires }}">
             <img src="{{ $user->profile_picture_hires }}" class="rounded-full h-56 w-56">
         </a>
@@ -56,7 +56,7 @@
             <p>{{ $user->location }}</p>
         @endif
     </div>
-</div>
+</x-panel>
 
 @endsection
 
