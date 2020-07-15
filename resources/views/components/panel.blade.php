@@ -6,7 +6,7 @@
     $styles = [
         'sm' => 'p-0',
         'md' => 'p-4',
-        'lg' => 'p-10',
+        'lg' => 'p-10 max-w-md mx-auto sm:max-w-3xl',
     ];
 @endphp
 

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="max-w-md mx-auto sm:max-w-3xl mt-4">
+<x-panel class="mt-4">
     <h2 class="m-0 font-sans text-2xl">
         {{ $conference->title }}
     </h2>

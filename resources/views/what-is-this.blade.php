@@ -4,7 +4,7 @@
 
 <p class="mt-8 text-xl">Symposium is an <strong>under-development</strong> site for conference speakers and conference organizers. </p>
 
-<x-panel class="max-w-md sm:max-w-3xl mx-auto mt-8">
+<x-panel class="mt-8">
     <h2 class="text-3xl text-indigo-800">Conference Speakers</h2>
     <p>Symposium helps conference speakers plan and manage talk abstracts, CFP submissions, bios, photos, and speaking schedule.</p>
 
@@ -27,7 +27,7 @@
     </x-slot>
 </x-panel>
 
-<x-panel class="max-w-md sm:max-w-3xl mx-auto mt-8">
+<x-panel class="mt-8">
     <h2 class="text-3xl text-indigo-800">Conference Organizers</h2>
     <x-slot name="body">
         <div class="bg-indigo-100 p-10">

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="max-w-md mx-auto sm:max-w-3xl mt-4">
+<x-panel class="mt-4">
     <div class="flex items-center justify-between">
         <h2 class="m-0 font-sans text-2xl">{{ $bio->nickname }}</h2>
         <div class="text-indigo-500 text-lg">
