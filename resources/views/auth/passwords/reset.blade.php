@@ -15,7 +15,6 @@
         placeholder="Email address"
         :hideLabel="true"
         autofocus="autofocus"
-        class="mt-4"
     ></x-input.text>
 
     <x-input.text

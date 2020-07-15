@@ -8,7 +8,7 @@
 
 <div class="flex py-4 max-w-md mx-auto sm:max-w-6xl flex-col md:flex-row">
     <div class="w-full md:w-1/2 lg:w-1/3">
-        <x-panel size="sm" class="mt-4">
+        <x-panel size="sm">
             <div class="bg-white h-16 flex content-end justify-center">
                 <div class="bg-white rounded-full w-24 h-24 mt-4 border-2 border-indigo-800 p-1">
                     <div class="w-full h-full rounded-full">
@@ -26,7 +26,7 @@
         </x-panel>
     </div>
     <div class="w-full md:w-1/2 lg:w-2/3 md:ml-4">
-        <x-panel size="md" class="mt-4">
+        <x-panel size="md">
             <div class="px-4 py-4 flex flex-row content-center justify-between">
                 <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Talks</h2>
                 <a href="{{ route('talks.create') }}" class="text-indigo flex items-center">

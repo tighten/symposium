@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="mt-4">
+<x-panel>
     <p class="mb-4">These are all the speakers who have a public profile on Symposium.</p>
 
     <x-form :action="route('speakers-public.search')">

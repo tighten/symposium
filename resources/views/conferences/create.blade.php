@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="mt-4">
+<x-panel>
     <ul class="errors">
         @foreach ($errors->all() as $message)
             <li>{{ $message }}</li>

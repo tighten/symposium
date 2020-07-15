@@ -1,3 +1,3 @@
-<x-panel size="md" class="mt-4">
+<x-panel size="md">
     No conferences match this filter
 </x-panel>

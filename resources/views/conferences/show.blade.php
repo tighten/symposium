@@ -8,7 +8,7 @@
 
 @section('content')
 
-<x-panel class="mt-4">
+<x-panel>
     <div class="flex items-center justify-between">
         <h2 class="m-0 font-sans text-2xl">
             {{ $conference->title }}

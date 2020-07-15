@@ -4,7 +4,7 @@
     <x-button.primary
         :href="route('bios.create')"
         icon="plus"
-        class="block mt-4 w-full"
+        class="block w-full"
     >
         Add Bio
     </x-button.primary>

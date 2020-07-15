@@ -22,7 +22,6 @@
         placeholder="Email address"
         autofocus="autofocus"
         :hideLabel="true"
-        class="mt-4"
     ></x-input.text>
 
     <x-input.text
