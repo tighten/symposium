@@ -37,7 +37,11 @@
             @forelse ($talks as $talk)
                 <div class="bg-indigo-100 px-4 py-2 border-b last:border-b-0 flex flex-row justify-between content-center">
                     <div>
-                        <h3 class="font-sans text-lg font-semibold">{{ $talk->current()->title }}</h3>
+                        <h3 class="font-sans text-lg font-semibold">
+                            <a href="{{ route('talks.show', $talk) }}">
+                                {{ $talk->current()->title }}
+                            </a>
+                        </h3>
                         <p>
                             {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
                         </p>
@@ -58,7 +62,11 @@
             </div>
             @forelse ($bios as $bio)
                 <div class="bg-indigo-100 px-4 py-2 border-b last:border-b-0">
-                    <h3 class="font-sans text-lg font-semibold">{{ $bio->nickname }}</h3>
+                    <h3 class="font-sans text-lg font-semibold">
+                        <a href="{{ route('bios.show', $bio) }}">
+                            {{ $bio->nickname }}
+                        </a>
+                    </h3>
                 </div>
             @empty
                 No Talks
