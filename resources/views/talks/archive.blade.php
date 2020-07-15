@@ -26,10 +26,13 @@
                 </div>
             </x-panel>
         </div>
-        <a href="{{ route('talks.create') }}"
-           class="mt-4 w-full bg-indigo-500 text-white rounded px-4 py-2 block text-center">
-           Add Talk @svg('plus', 'ml-2 w-3 h-3 inline fill-current')
-        </a>
+        <x-button.primary
+            :href="route('talks.create')"
+            icon="plus"
+            class="block mt-4 w-full"
+        >
+            Add Talk
+        </x-button.primary>
     </div>
     <div class="w-full md:w-3/4 md:ml-4">
         @each('talks.listing', $talks, 'talk', 'talks.listing-empty')
