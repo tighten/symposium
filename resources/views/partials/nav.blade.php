@@ -1,4 +1,4 @@
-<nav :class="slotProps.showNav ? 'block' : 'hidden'" class="pt-2 py-2 pl-4 lg:pl-0 lg:flex font-sans font-semibold text-sm text-indigo items-center block relative">
+<nav :class="slotProps.showNav ? 'block' : 'hidden'" class="pt-2 py-2 pl-4 lg:pl-0 lg:flex font-sans font-semibold text-sm text-indigo-500 items-center block relative">
     @if (Auth::check())
         @php
             $menuItems = [
@@ -53,7 +53,7 @@
     @endif
 
     @foreach ($menuItems as $item)
-        <a class="block border-b border-indigo border-solid hover-bg-indigo-800 py-1 lg:border-none uppercase {{ $item['classes'] }}"
+        <a class="block border-b border-indigo border-solid hover:text-indigo-800 py-1 lg:border-none uppercase {{ $item['classes'] }}"
            href="{{ $item['url'] }}"
         >
             {{ $item['title'] }}
@@ -74,7 +74,7 @@
         <div class="mt-4 lg:mt-0">
             <a class="mr-4 lg:mx-2 md:mx-4 mt-2 lg:mt-0 flex lg:flex-row-reverse items-center" href="#" v-on:click="slotProps.toggleAccountDropdown">
                 <img src="{{ Auth::user()->profile_picture_thumb }}" class="nav-profile-picture inline ml-2">
-                <div class="inline">
+                <div class="inline text-indigo-500 hover:text-indigo-800">
                     <span class="caret"></span>
                     <span class="mx-2">Me</span>
                 </div>
