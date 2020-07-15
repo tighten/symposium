@@ -9,7 +9,7 @@
 
 @section('sidebar')
     <div class="flex md:flex-col">
-        <x-panel class="w-1/2 md:w-full mt-4 font-sans">
+        <x-panel size="sm" class="w-1/2 md:w-full mt-4 font-sans">
             <div class="bg-indigo-150 p-4">Filter</div>
             <div class="flex flex-col py-4">
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'talks.index', 'Active', ['filter' => 'active'], ['class' => $inactiveLinkClasses]) !!}
@@ -17,7 +17,7 @@
             </div>
         </x-panel>
 
-        <x-panel class="w-1/2 md:w-full mt-4 font-sans">
+        <x-panel size="sm" class="w-1/2 md:w-full mt-4 font-sans">
             <div class="bg-indigo-150 p-4">Sort</div>
             <div class="flex flex-col py-4">
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'talks.index', 'Title', ['sort' => 'alpha'], ['class' => $inactiveLinkClasses]) !!}

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="max-w-md mx-auto sm:max-w-3xl mt-4 px-10 py-3">
+<x-panel class="max-w-md mx-auto sm:max-w-3xl mt-4">
     <p class="mb-4">These are all the speakers who have a public profile on Symposium.</p>
 
     <x-form :action="route('speakers-public.search')">

@@ -10,7 +10,7 @@
 <div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
     <div class="w-full md:w-1/4">
         <div class="flex md:flex-col md:items-center">
-            <x-panel class="w-1/2 md:w-full mt-4 font-sans">
+            <x-panel size="sm" class="w-1/2 md:w-full mt-4 font-sans">
                 <div class="bg-indigo-150 p-4">Filter</div>
                 <div class="flex flex-col p-4">
                     <a href="{{ route('talks.index') }}" class="{{ $inactiveLinkClasses }}">Active</a>
@@ -18,7 +18,7 @@
                 </div>
             </x-panel>
 
-            <x-panel class="w-1/2 md:w-full ml-4 md:ml-0 mt-4">
+            <x-panel size="sm" class="w-1/2 md:w-full ml-4 md:ml-0 mt-4">
                 <div class="bg-indigo-150 p-4">Sort</div>
                 <div class="flex flex-col p-4">
                     {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'talks.archived.index', 'Title', ['sort' => 'alpha'], ['class' => $inactiveLinkClasses]) !!}

@@ -4,7 +4,7 @@
 
 <div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
     <div class="w-full md:w-1/4">
-        <x-panel class="mt-4 font-sans">
+        <x-panel size="sm" class="mt-4 font-sans">
             <div class="bg-indigo-150 p-4">Actions</div>
             <div class="flex flex-col p-4">
                 <a href="{{ route('account.edit') }}" class="m-1">Edit account</a>
@@ -15,7 +15,7 @@
         </x-panel>
     </div>
     <div class="w-full md:w-3/4 md:ml-4">
-        <x-panel class="p-4 mt-4">
+        <x-panel size="md" class="mt-4">
             <h3 class="font-sans m-0">User</h3>
             <div class="mt-4">
                 <div class="text-gray-500">Email</div>
@@ -53,7 +53,7 @@
                 {{ $user->wants_notifications ? 'Yes' : 'No' }}
             </div>
         </x-panel>
-        <x-panel class="p-4 mt-4">
+        <x-panel size="md" class="mt-4">
             <h3 class="font-sans m-0">Dismissed Conferences</h3>
             @forelse ($user->dismissedConferences as $conference)
                 <div class="mt-4">

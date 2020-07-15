@@ -7,7 +7,7 @@
 
 @section('sidebar')
     <div class="flex md:flex-col">
-        <x-panel class="w-1/2 md:w-full mt-4 font-sans">
+        <x-panel size="sm" class="w-1/2 md:w-full mt-4 font-sans">
             <div class="bg-indigo-150 p-4">Filter</div>
             <div class="flex flex-col py-4">
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'Future', ['filter' => 'future'], ['class' => $inactiveLinkClasses]) !!}
@@ -21,7 +21,7 @@
             </div>
         </x-panel>
 
-        <x-panel class="w-1/2 md:w-full ml-4 md:ml-0 mt-4">
+        <x-panel size="sm" class="w-1/2 md:w-full ml-4 md:ml-0 mt-4">
             <div class="bg-indigo-150 p-4">Sort</div>
             <div class="flex flex-col py-4">
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'conferences.index', 'CFP Closing Next', ['sort' => 'closing_next'], ['class' => $inactiveLinkClasses]) !!}

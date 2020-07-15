@@ -1,5 +1,5 @@
-<x-panel class="mt-4 hover:border-indigo">
-    <div class="bg-white p-4">
+<x-panel size="md" class="mt-4 hover:border-indigo">
+    <div class="bg-white">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 {{ $header }}
@@ -15,8 +15,8 @@
         @endisset
     </div>
     @isset($footer)
-        <div class="bg-indigo-150 p-4 font-sans flex justify-between">
+        <x-slot name="footer">
             {{ $footer }}
-        </div>
+        </x-slot>
     @endisset
 </x-panel>

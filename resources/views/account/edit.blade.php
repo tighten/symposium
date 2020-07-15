@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="px-10 py-3 max-w-md mx-auto sm:max-w-3xl mt-4 mb-20">
+<x-panel class="max-w-md mx-auto sm:max-w-3xl mt-4 mb-20">
     <ul class="errors">
         @foreach ($errors->all() as $message)
             <li>{{ $message }}</li>
