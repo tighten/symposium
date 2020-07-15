@@ -5,7 +5,7 @@
         <span class="text-2xl">Authorized Clients</span>
       </div>
       <table v-if="tokens.length >0" class="table mb-20 mt-5 mx-auto">
-        <thead class="bg-blue-500 text-white">
+        <thead class="bg-indigo-500 text-white">
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Scopes</th>
@@ -21,15 +21,15 @@
             </td>
             <!-- Edit Button -->
             <td class="border">
-              <a class="cursor-pointer text-red" @click="revoke(token)">Revoke</a>
+              <a class="cursor-pointer text-red-500" @click="revoke(token)">Revoke</a>
             </td>
           </tr>
         </tbody>
       </table>
       <div v-else role="alert" class="mb-20 pt-5">
-        <div class="bg-blue-500 text-white font-bold rounded-t px-4 py-2">Oops!</div>
+        <div class="bg-indigo-500 text-white font-bold rounded-t px-4 py-2">Oops!</div>
         <div
-          class="border border-t-0 border-blue-light rounded-b bg-blue-lightest px-4 py-3 text-blue-dark"
+          class="border border-t-0 border-indigo-300 rounded-b bg-indigo-100 px-4 py-3 text-indigo-800"
         >
           <p>You Dont Have Any Authorized Clients Yet!</p>
         </div>

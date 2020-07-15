@@ -1,13 +1,9 @@
-@extends('layout')
+@extends('layout', ['title' => 'OAuth settings'])
 
 @section('content')
 
-<div class="col-md-8 col-md-push-2">
-    <h1>OAuth settings</h1>
-
-    <passport-clients></passport-clients>
-    <passport-authorized-clients></passport-authorized-clients>
-    <passport-personal-access-tokens></passport-personal-access-tokens>
-</div>
+<passport-clients class="mt-4"></passport-clients>
+<passport-authorized-clients class="mt-4"></passport-authorized-clients>
+<passport-personal-access-tokens class="mt-4"></passport-personal-access-tokens>
 
 @endsection
