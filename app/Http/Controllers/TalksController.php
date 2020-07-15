@@ -16,7 +16,8 @@ class TalksController extends BaseController
         'type' => 'required',
         'level' => 'required',
         'length' => 'required|integer|min:0',
-        'slides' => 'url',
+        'slides' => 'nullable|url',
+        'organizer_notes' => 'required',
     ];
 
     protected $messages = [

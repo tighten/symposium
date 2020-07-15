@@ -44,6 +44,7 @@
         'Yes' => '1',
         'No' => '0',
     ]"
+    class="mt-8"
 ></x-input.radios>
 
 <x-input.textarea
@@ -63,7 +64,7 @@
 
 <x-input.textarea
     name="organizer_notes"
-    label="Organizer Notes"
+    label="*Organizer Notes"
     class="mt-8"
     :value="$current->organizer_notes"
 ></x-input.textarea>
