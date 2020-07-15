@@ -1,5 +1,5 @@
 <nav :class="slotProps.showNav ? 'block' : 'hidden'" class="pt-2 py-2 pl-4 lg:pl-0 lg:flex font-sans font-semibold text-sm text-indigo-500 items-center block relative">
-    @if (Auth::check())
+    @if (auth()->check())
         @php
             $menuItems = [
                 [
@@ -60,7 +60,7 @@
         </a>
     @endforeach
 
-    @if (! Auth::check())
+    @if (auth()->guest())
         <div class="sm:ml-2 my-4 lg:mb-0 lg:mt-0 flex lg:block">
             <a class="border border-indigo hover-bg-indigo-800 inline-block md:ml-2 lg:ml-4 mt-4 px-8 py-2 rounded rounded-lg lg:block lg:ml-2 lg:mt-0 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
                 Sign in
@@ -73,7 +73,7 @@
     @else
         <div class="mt-4 lg:mt-0">
             <a class="mr-4 lg:mx-2 md:mx-4 mt-2 lg:mt-0 flex lg:flex-row-reverse items-center" href="#" v-on:click="slotProps.toggleAccountDropdown">
-                <img src="{{ Auth::user()->profile_picture_thumb }}" class="nav-profile-picture inline ml-2">
+                <img src="{{ auth()->user()->profile_picture_thumb }}" class="nav-profile-picture inline ml-2">
                 <div class="inline text-indigo-500 hover:text-indigo-800">
                     <span class="caret"></span>
                     <span class="mx-2">Me</span>
@@ -81,8 +81,8 @@
             </a>
             <div class="mr-4 lg:mx-2 md:mx-4 mt-2 px-2 py-1 flex flex-col absolute bg-white border border-indigo rounded" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
                 <a class="py-1" href="{{ route('account.show') }}">Account</a>
-                @if (Auth::user()->enable_profile)
-                    <a class="py-1" href="{{ route('speakers-public.show', Auth::user()->profile_slug) }}">Public Speaker Profile</a>
+                @if (auth()->user()->enable_profile)
+                    <a class="py-1" href="{{ route('speakers-public.show', auth()->user()->profile_slug) }}">Public Speaker Profile</a>
                 @endif
                 <a class="py-1" href="{{ route('log-out') }}">Log out</a>
             </div>
