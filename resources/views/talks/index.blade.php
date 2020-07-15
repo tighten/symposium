@@ -10,7 +10,7 @@
 @section('sidebar')
     <div class="flex md:flex-col">
         <x-panel size="sm" class="w-1/2 md:w-full font-sans">
-            <div class="bg-indigo-150 p-4">Filter</div>
+            <div class="bg-indigo-150 p-5">Filter</div>
             <div class="flex flex-col py-4">
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'talks.index', 'Active', ['filter' => 'active'], ['class' => $inactiveLinkClasses]) !!}
                 <a href="{{ route('talks.archived.index') }}" class="{{ $inactiveLinkClasses }}">Archived</a>
@@ -18,7 +18,7 @@
         </x-panel>
 
         <x-panel size="sm" class="w-1/2 md:w-full mt-4 font-sans">
-            <div class="bg-indigo-150 p-4">Sort</div>
+            <div class="bg-indigo-150 p-5">Sort</div>
             <div class="flex flex-col py-4">
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'talks.index', 'Title', ['sort' => 'alpha'], ['class' => $inactiveLinkClasses]) !!}
                 {!! HTML::activeLinkRoute($linkRouteKeysWithDefaults, 'talks.index', 'Date', ['sort' => 'date'], ['class' => $inactiveLinkClasses]) !!}

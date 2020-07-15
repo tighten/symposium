@@ -5,12 +5,12 @@
 <div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
     <div class="w-full md:w-1/4">
         <x-panel size="sm" class="font-sans">
-            <div class="bg-indigo-150 p-4">Actions</div>
-            <div class="flex flex-col p-4">
-                <a href="{{ route('account.edit') }}" class="m-1">Edit account</a>
-                <a href="{{ route('account.delete') }}" class="m-1">Delete account</a>
-                <a href="{{ route('account.export') }}" class="m-1">Export data</a>
-                <a href="{{ route('account.oauth-settings') }}" class="m-1">oAuth settings</a>
+            <div class="bg-indigo-150 p-5">Actions</div>
+            <div class="flex flex-col py-4">
+                <a href="{{ route('account.edit') }}" class="py-1 px-5 hover:bg-indigo-100">Edit account</a>
+                <a href="{{ route('account.delete') }}" class="py-1 px-5 hover:bg-indigo-100">Delete account</a>
+                <a href="{{ route('account.export') }}" class="py-1 px-5 hover:bg-indigo-100">Export data</a>
+                <a href="{{ route('account.oauth-settings') }}" class="py-1 px-5 hover:bg-indigo-100">oAuth settings</a>
             </div>
         </x-panel>
     </div>

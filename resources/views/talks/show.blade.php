@@ -1,7 +1,7 @@
 @extends('layout')
 
 @php
-    $baseLinkClasses = 'filter-link p-1 rounded';
+    $baseLinkClasses = 'filter-link py-1 px-5 hover:bg-indigo-100';
     $activeLinkClasses = 'font-bold text-indigo-500'
 @endphp
 
@@ -10,8 +10,8 @@
 <div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
     <div class="w-full md:w-1/4">
         <x-panel size="sm" class="w-1/2 md:w-full font-sans">
-            <div class="bg-indigo-150 p-4">Revisions</div>
-            <div class="flex flex-col p-4">
+            <div class="bg-indigo-150 p-5">Revisions</div>
+            <div class="flex flex-col py-4">
                 @foreach ($talk->revisions as $revision)
                     @if ($talk->current()->id == $revision->id)
                         <a href="/talks/{{ $talk->id }}" class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}">{{ $revision->created_at }} <i>(current)</i></a>
