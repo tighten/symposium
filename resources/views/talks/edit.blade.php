@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="px-10 py-3 max-w-md mx-auto sm:max-w-3xl border-2 border-indigo-200 bg-white rounded mt-4">
+<x-panel class="px-10 py-3 max-w-md mx-auto sm:max-w-3xl mt-4">
     <ul class="errors">
         @foreach ($errors->all() as $message)
             <li>{{ $message }}</li>
@@ -20,6 +20,6 @@
             Update
         </x-button.primary>
     </x-form>
-</div>
+</x-panel>
 
 @endsection

@@ -1,4 +1,4 @@
-<div class="border-2 border-indigo-200 rounded mt-4 hover:border-indigo">
+<x-panel class="mt-4 hover:border-indigo">
     <div class="bg-white p-4">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
@@ -19,4 +19,4 @@
             {{ $footer }}
         </div>
     @endisset
-</div>
+</x-panel>

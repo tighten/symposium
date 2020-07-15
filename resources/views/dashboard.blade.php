@@ -8,13 +8,13 @@
 
 <div class="flex py-4 max-w-md mx-auto sm:max-w-6xl flex-col md:flex-row">
     <div class="w-full md:w-1/2 lg:w-1/3">
-        <div class="border-2 border-gray-300 rounded mt-4">
-            <div class="bg-white h-16 flex content-end justify-center mb-8">
+        <x-panel class="mt-4">
+            <div class="bg-white h-16 flex content-end justify-center">
                 <div class="bg-white rounded-full w-24 h-24 mt-4 border-2 border-indigo-800 p-1">
                     <div class="bg-indigo w-full h-full rounded-full"></div>
                 </div>
             </div>
-            <div class="p-4 text-center">
+            <div class="bg-indigo-100 p-4 pt-12 text-center">
                 <h2>Matt Stauffer</h2>
                 <h3>Co-Founder of Tighten</h3>
                 <ul>
@@ -24,10 +24,10 @@
                     <li>Website</li>
                 </ul>
             </div>
-        </div>
+        </x-panel>
     </div>
     <div class="w-full md:w-1/2 lg:w-2/3 md:ml-4">
-        <div class="border-2 border-gray-300 rounded mt-4">
+        <x-panel class="mt-4">
             <div class="px-4 py-4 bg-white flex flex-row content-center justify-between">
                 <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Talks</h2>
                 <a href="{{ route('talks.create') }}" class="text-indigo">
@@ -35,7 +35,7 @@
                 </a>
             </div>
             @forelse ($talks as $talk)
-                <div class="px-4 py-2 border-b last:border-b-0 flex flex-row justify-between content-center">
+                <div class="bg-indigo-100 px-4 py-2 border-b last:border-b-0 flex flex-row justify-between content-center">
                     <div>
                         <h3 class="font-sans text-lg font-semibold">{{ $talk->current()->title }}</h3>
                         <p>
@@ -59,9 +59,9 @@
             @empty
                 No Talks
             @endforelse
-        </div>
+        </x-panel>
 
-        <div class="border-2 border-gray-300 rounded mt-4">
+        <x-panel class="mt-4">
             <div class="px-4 py-4 bg-white flex flex-row content-center justify-between">
                 <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Bios</h2>
                 <a href="{{ route('bios.create') }}" class="text-indigo">
@@ -69,13 +69,13 @@
                 </a>
             </div>
             @forelse ($bios as $bio)
-                <div class="px-4 py-2 border-b last:border-b-0">
+                <div class="bg-indigo-100 px-4 py-2 border-b last:border-b-0">
                     <h3 class="font-sans text-lg font-semibold">{{ $bio->nickname }}</h3>
                 </div>
             @empty
                 No Talks
             @endforelse
-        </div>
+        </x-panel>
     </div>
 </div>
 

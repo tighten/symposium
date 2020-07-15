@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div class="max-w-md mx-auto sm:max-w-3xl border-2 border-indigo-200 rounded mt-4">
+<x-panel class="max-w-md mx-auto sm:max-w-3xl mt-4">
     <div class="bg-white p-10">
         <div class="flex items-center justify-between">
             <h2 class="m-0 font-sans text-2xl">
@@ -66,6 +66,6 @@
             <div>{{ $conference->created_at->toFormattedDateString() }}</div>
         </div>
     </div>
-</div>
+</x-panel>
 
 @endsection

@@ -9,7 +9,7 @@
 
 <div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl mt-4">
     <div class="w-full md:w-1/4">
-        <div class="w-1/2 md:w-full border-2 border-indigo-200 bg-white rounded font-sans">
+        <x-panel class="w-1/2 md:w-full font-sans">
             <div class="bg-indigo-150 p-4">Revisions</div>
             <div class="flex flex-col p-4">
                 @foreach ($talk->revisions as $revision)
@@ -20,9 +20,9 @@
                     @endif
                 @endforeach
             </div>
-        </div>
+        </x-panel>
     </div>
-    <div class="w-full md:w-3/4 md:ml-4 bg-white p-10 border-2 border-indigo-200 rounded">
+    <x-panel class="w-full md:w-3/4 md:ml-4 p-10">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="m-0 font-sans text-2xl">{{ $current->title }}</h2>
@@ -61,7 +61,7 @@
             <h3 class="text-lg font-normal text-gray-500 mt-4">Slides</h3>
             <a href="{{ $current->slides }}">{{ $current->slides }}</a>
         @endif
-    </div>
+    </x-panel>
 </div>
 
 @endsection
