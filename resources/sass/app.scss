@@ -60,6 +60,12 @@ h3 {
     border-radius: 4px;
 }
 
+.alert-success {
+    background-color: #18BC9C;
+    border-color: #18BC9C;
+    color: #fff;
+}
+
 .alert-warning {
     background-color: #F39C12;
     border-color: #F39C12;
@@ -69,6 +75,12 @@ h3 {
 .alert-danger {
     background-color: #E74C3C;
     border-color: #E74C3C;
+    color: #fff;
+}
+
+.alert-info {
+    background-color: #3498DB;
+    border-color: #3498DB;
     color: #fff;
 }
 
