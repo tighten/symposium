@@ -76,7 +76,9 @@
         :links="$sortLinks"
         :defaults="['filter' => 'future', 'sort' => 'closing_next']"
     ></x-side-menu>
+@endsection
 
+@section('actions')
     <x-button.primary
         :href="route('conferences.create')"
         icon="plus"

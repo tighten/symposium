@@ -1,6 +1,6 @@
 @extends('layouts.index', ['title' => 'All Bios'])
 
-@section('sidebar')
+@section('actions')
     <x-button.primary
         :href="route('bios.create')"
         icon="plus"

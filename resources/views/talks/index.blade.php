@@ -36,7 +36,9 @@
         ]"
         :defaults="['filter' => 'active', 'sort' => 'alpha']"
     ></x-side-menu>
+@endsection
 
+@section('actions')
     <x-button.primary
         :href="route('talks.create')"
         icon="plus"
