@@ -5,9 +5,9 @@
         <ul class="list-none pl-0">
             <li v-for="talk in talksAccepted" v-cloak>
                 <a :href="talk.url">{{ talk.title }}</a>
-                <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="undoAcceptance(talk)">
+                <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center" @click.prevent="undoAcceptance(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
                         Undo
                     </div>
                 </a>
@@ -23,13 +23,13 @@
                 <a :href="talk.url">{{ talk.title }}</a>
                 <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="markAccepted(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
                         Mark Accepted
                     </div>
                 </a>
-                <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center ml-2" @click.prevent="unsubmit(talk)">
+                <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center ml-2" @click.prevent="unsubmit(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
                         Un-Submit
                     </div>
                 </a>
@@ -45,7 +45,7 @@
                 <a :href="talk.url">{{ talk.title }}</a>
                 <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="submit(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
                         Mark Submitted
                     </div>
                 </a>

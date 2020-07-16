@@ -1,5 +1,5 @@
 <template>
-    <div class="loader ease-linear rounded-full border-2 border-t-2 border-white text-indigo-800"></div>
+    <div class="loader ease-linear rounded-full border-2 border-t-2"></div>
 </template>
 
 <script>
