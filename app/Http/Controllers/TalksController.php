@@ -73,7 +73,7 @@ class TalksController extends BaseController
                 'talk_id' => $talk->id,
             ]);
 
-            Session::flash('message', 'Successfully created new talk.');
+            Session::flash('success-message', 'Successfully created new talk.');
 
             return redirect('/talks/' . $talk->id);
         }
@@ -119,7 +119,7 @@ class TalksController extends BaseController
                 'talk_id' => $talk->id,
             ]);
 
-            Session::flash('message', 'Successfully edited talk.');
+            Session::flash('success-message', 'Successfully edited talk.');
 
             return redirect('talks/' . $talk->id);
         }
@@ -146,7 +146,7 @@ class TalksController extends BaseController
     {
         auth()->user()->talks()->findOrFail($id)->delete();
 
-        Session::flash('message', 'Successfully deleted talk.');
+        Session::flash('success-message', 'Successfully deleted talk.');
 
         return redirect('talks');
     }
@@ -168,7 +168,7 @@ class TalksController extends BaseController
     {
         auth()->user()->talks()->findOrFail($id)->archive();
 
-        Session::flash('message', 'Successfully archived talk.');
+        Session::flash('success-message', 'Successfully archived talk.');
 
         return redirect('talks');
     }
@@ -177,7 +177,7 @@ class TalksController extends BaseController
     {
         auth()->user()->talks()->findOrFail($id)->restore();
 
-        Session::flash('message', 'Successfully restored talk.');
+        Session::flash('success-message', 'Successfully restored talk.');
 
         return redirect('archive');
     }

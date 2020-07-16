@@ -89,7 +89,7 @@ class RegisterController extends Controller
 
         Event::dispatch('new-signup', [$user, app('request')]);
 
-        Session::flash('message', 'Successfully created account.');
+        Session::flash('success-message', 'Successfully created account.');
 
         return $user;
     }

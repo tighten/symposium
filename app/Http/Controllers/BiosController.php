@@ -39,7 +39,7 @@ class BiosController extends BaseController
                 ->withInput();
         }
 
-        Session::flash('message', 'Successfully created new bio.');
+        Session::flash('success-message', 'Successfully created new bio.');
 
         return redirect('/bios/' . $bio->id);
     }
@@ -77,7 +77,7 @@ class BiosController extends BaseController
         $bio->public = $request->get('public');
         $bio->save();
 
-        Session::flash('message', 'Successfully edited bio.');
+        Session::flash('success-message', 'Successfully edited bio.');
 
         return redirect('bios/' . $bio->id);
     }

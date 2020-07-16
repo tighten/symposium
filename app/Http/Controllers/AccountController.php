@@ -70,7 +70,7 @@ class AccountController extends BaseController
             $this->updateProfilePicture($user, $request->file('profile_picture'));
         }
 
-        Session::flash('message', 'Successfully edited account.');
+        Session::flash('success-message', 'Successfully edited account.');
 
         return redirect('account');
     }
@@ -115,7 +115,7 @@ class AccountController extends BaseController
         auth()->logout();
         $user->delete();
 
-        Session::flash('message', 'Successfully deleted account.');
+        Session::flash('success-message', 'Successfully deleted account.');
 
         return redirect('/');
     }
