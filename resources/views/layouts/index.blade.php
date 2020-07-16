@@ -7,7 +7,9 @@
         @yield('sidebar')
     </div>
     <div class="w-full md:w-3/4 md:ml-4">
-      @yield('list')
+        <div class="space-y-4">
+            @yield('list')
+        </div>
     </div>
 </div>
 
