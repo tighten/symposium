@@ -2,7 +2,7 @@
     $styles = $is_home ? 'bg-black' : 'bg-white border-t border-gray-300';
 @endphp
 
-<div class="{{ $styles }} py-4 bottom-0 absolute w-full">
+<div class="{{ $styles }} py-4 w-full">
     <div class="font-sans text-lg text-gray-500 max-w-md mx-auto sm:max-w-6xl">
         <footer>
             <div class="flex flex-col lg:flex-row justify-between px-8 xl:px-0 text-center lg:text-left">

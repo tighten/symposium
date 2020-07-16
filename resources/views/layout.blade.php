@@ -26,17 +26,19 @@
     @php
         $app_bg_color = $is_home ? 'bg-white' : 'bg-indigo-100';
     @endphp
-    <div id="app" class="min-h-full relative {{ $app_bg_color }}">
-        @include('partials.header', ['title' => $title ?? null])
-        @if ($is_home)
-            @yield('content')
-        @else
-            <div class="bg-indigo-100 border-t-2 border-gray-200 pb-32 px-4">
-                <div class="max-w-md mx-auto sm:max-w-3xl pt-4">
-                    @yield('content')
+    <div id="app" class="min-h-full flex flex-col justify-between {{ $app_bg_color }}">
+        <div class="flex-1">
+            @include('partials.header', ['title' => $title ?? null])
+            @if ($is_home)
+                @yield('content')
+            @else
+                <div class="bg-indigo-100 border-t-2 border-gray-200 pb-8 px-4">
+                    <div class="max-w-md mx-auto sm:max-w-3xl pt-4">
+                        @yield('content')
+                    </div>
                 </div>
-            </div>
-        @endif
+            @endif
+        </div>
         @include('partials.footer', ['is_home' => $is_home])
     </div>
 
