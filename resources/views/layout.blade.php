@@ -46,7 +46,6 @@
 
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
-    {{-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> --}}
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places"></script>
     <script src="{{ ('/js/vendor/pickadate/picker.js') }}"></script>
     <script src="{{ ('/js/vendor/pickadate/picker.date.js') }}"></script>
