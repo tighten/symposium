@@ -1,4 +1,4 @@
-@extends('layout', ['title' => 'Edit Bio'])
+@extends('app', ['title' => 'Edit Bio'])
 
 @section('content')
 

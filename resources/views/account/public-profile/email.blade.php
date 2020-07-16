@@ -1,4 +1,4 @@
-@extends('layout', ['title' => "Email {$user->name}"])
+@extends('app', ['title' => "Email {$user->name}"])
 
 @section('headerScripts')
     <script src='https://www.google.com/recaptcha/api.js'></script>

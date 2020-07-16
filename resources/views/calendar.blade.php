@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
     <div id="calendar" class="calendar mt-8">

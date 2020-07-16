@@ -1,4 +1,4 @@
-@extends('layout', ['title' => 'Add Talk'])
+@extends('app', ['title' => 'Add Talk'])
 
 @section('content')
 

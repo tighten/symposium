@@ -1,4 +1,4 @@
-@extends('layout', ['title' => 'Reset Password'])
+@extends('app', ['title' => 'Reset Password'])
 
 @section('content')
 

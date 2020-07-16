@@ -1,4 +1,4 @@
-@extends('layout', ['title' => 'OAuth settings'])
+@extends('app', ['title' => 'OAuth settings'])
 
 @section('content')
 

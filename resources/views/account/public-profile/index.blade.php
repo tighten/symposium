@@ -1,4 +1,4 @@
-@extends('layout', ['title' => 'Speaker Profiles'])
+@extends('app', ['title' => 'Speaker Profiles'])
 
 @section('content')
 
