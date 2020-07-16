@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="bg-indigo-100 p-4 pt-12 text-center">
-                <h2>{{ auth()->user()->name }}</h2>
+                <h2 class="text-xl">{{ auth()->user()->name }}</h2>
             </div>
         </x-panel>
     </div>

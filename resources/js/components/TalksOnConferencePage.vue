@@ -2,7 +2,7 @@
     <div>
         <h3 class="m-0 font-sans text-2xl">My Talks</h3>
         <div class="text-gray-500 mt-4">Accepted to speak at this conference:</div>
-        <ul class="conference-talk-submission-sidebar">
+        <ul class="list-none pl-0">
             <li v-for="talk in talksAccepted" v-cloak>
                 <a class="btn btn-xs btn-success" disabled>
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
@@ -21,7 +21,7 @@
         </ul>
 
         <div class="text-gray-500 mt-4">Applied to speak at this conference:</div>
-        <ul class="conference-talk-submission-sidebar">
+        <ul class="list-none pl-0">
             <li v-for="talk in talksSubmitted" v-cloak>
                 <a class="btn btn-xs btn-success" @click.prevent="markAccepted(talk)">
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
@@ -40,10 +40,10 @@
         </ul>
 
         <div class="text-gray-500 mt-4">Not applied to speak at this conference:</div>
-        <ul class="conference-talk-submission-sidebar">
+        <ul class="list-none pl-0">
             <li v-for="talk in talksNotSubmitted" v-cloak>
                 <a :href="talk.url">{{ talk.title }}</a>
-                <a class="mt-4 w-full bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="submit(talk)">
+                <a class="cursor-pointer mt-4 w-full bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="submit(talk)">
                     <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
                     Mark Submitted
                 </a>

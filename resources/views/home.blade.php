@@ -4,7 +4,7 @@
 
 <div class="flex flex-col items-center justify-around max-w-md md:flex-row md:py-12 mx-auto pb-6 pt-0 px-8 sm:max-w-6xl pm-12 sm:mt-3">
     <div class="flex flex-col">
-        <h1 class="font-sans lg:text-7xl md:text-5xl text-5xl text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
+        <h1 class="font-sans text-5xl text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
         <div class="flex flex-col lg:flex-row lg:text-lg md:text-base mt-12 sm:text-lg text-base text-sans text-semibold xl:text-xl">
             <a class="bg-indigo block lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap " href="#">Sign up for <span class="uppercase">free</span></a> <a class=" block border border-indigo lg:ml-10 lg:mt-0 lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left mt-4 mt-4 px-4 py-2 rounded rounded-lg text-center text-indigo whitespace-no-wrap" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
                 @svg('rectangle', 'inline mr-3 mt-2')
@@ -120,22 +120,5 @@
         </div>
     </div>
 </div>
-
-{{-- @if (Auth::guest())
-    <div class="text-center">
-        <a class="btn-github-login" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong> @svg('github', 'inline-block align-top h-6 w-6')</a>
-        <p class="text-gray-400 text-base">or</p>
-    </div>
-    @include('partials.log-in-form')
-@else
-    <div class="pronto-promo">
-        <a href="http://rdohms.github.io/pronto/">
-            <img src="{{ url('/img/pronto-logo.png') }}">
-        </a>
-        <p>Did you know you can use <a href="http://rdohms.github.io/pronto/">Pronto!</a> to easily submit your Symposium talks to conference web sites?</p>
-    </div>
-@endif --}}
-
-<!--<a href="/im-a-bot">I'm a bot</a>-->
 
 @endsection

@@ -75,7 +75,7 @@
             <a class="mr-4 lg:mx-2 md:mx-4 mt-2 lg:mt-0 flex lg:flex-row-reverse items-center" href="#" v-on:click="slotProps.toggleAccountDropdown">
                 <img
                     src="{{ auth()->user()->profile_picture_thumb }}"
-                    class="nav-profile-picture inline ml-2 hidden lg:block"
+                    class="inline ml-2 hidden lg:block rounded-full w-12"
                 >
                 <div class="text-indigo-500 hover:text-indigo-800 flex items-center lg:flex-row-reverse">
                     <span class="mr-2 lg:mr-0 lg:ml-2 uppercase">Me</span>

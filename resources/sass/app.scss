@@ -4,55 +4,6 @@
 
 @tailwind utilities;
 
-// Old stuff. All future dev in Tailwind, please.
-
-// Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
-// @import "variables", "bootstrap", "bootswatch";
-
-$link_color: #428bca;
-$font-family-oswald: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
-
-$btn-default-color: '#6A96FE';
-
-/* Build our stylesheet, which currently merely extends bootstrap styles. */
-html {
-    font-size: 16px;
-}
-
-.text-7xl {
-    font-size: 5rem;
-}
-
-img {
-    max-width: 100%;
-}
-
-// a {
-//     color: $link_color;
-//     text-decoration: none;
-
-//     &:hover {
-//         color: darken($link_color, 15%);
-//         text-decoration: underline;
-//     }
-// }
-
-// h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-//     font-family: $font-family-oswald;
-// }
-
-// h1 {
-//     font-size: 1.5625rem;
-// }
-
-h2 {
-    font-size: 1.25rem;
-}
-
-h3 {
-    font-size: 0.9375rem;
-}
-
 .alert {
     padding: 15px;
     margin-bottom: 21px;
@@ -95,28 +46,6 @@ h3 {
     border-left: 4px solid transparent;
 }
 
-@media only screen and (min-width: 400px) {
-    // h1 {
-    //     font-size: 2.1875rem;
-    // }
-
-    // h2 {
-    //     font-size: 1.875rem;
-    // }
-
-    // h3 {
-    //     font-size: 1.5625rem;
-    // }
-}
-
-.nav-profile-picture {
-    border-radius: 1.5em;
-    height: 3em;
-    margin-right: 0.5em;
-    margin-top: -0.5em;
-    width: 3em;
-}
-
 %notice {
     @extend .alert !optional;
     right: 1em;
@@ -126,6 +55,7 @@ h3 {
     min-width: 250px;
     z-index: 200;
     text-align: center;
+    cursor: pointer;
 }
 
 .notice-success {
@@ -141,26 +71,6 @@ h3 {
 .notice-info {
     @extend %notice;
     @extend .alert-info !optional;
-}
-
-.create-edit-form {
-    border: 10px solid #eee;
-    background: #fcfcfc;
-    border-radius: 5px;
-    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1);
-}
-
-.create-edit-form {
-    padding: 1.25rem;
-}
-
-.errors {
-    color: red;
-}
-
-.page-title {
-    margin-top: 0;
-    vertical-align: middle;
 }
 
 #calendar {
@@ -195,50 +105,7 @@ h3 {
     }
 
     .fc-day-header {
-        font-family: $font-family-oswald;
-    }
-}
-
-.filter-link {
-    &.is-active {
-        font-weight: bold;
-    }
-}
-
-// Remove top margin for first radio item after label
-.control-label + .radio {
-    margin-top: 0;
-}
-
-.panel-on-grey {
-    .panel-heading {
-        border-color: #ddd;
-        background: #ddd;
-    }
-}
-
-.login-box, .signup-box {
-    margin-top: 3.125rem;
-}
-
-.conference-talk-submission-sidebar {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.notice {
-    cursor: pointer;
-}
-
-.pronto-promo {
-    font-size: .9em;
-
-    img {
-        border: 0;
-        float: right;
-        margin-bottom: 1em;
-        margin-left: 1em;
-        width: 30%;
+        font-family: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
     }
 }
 
@@ -249,8 +116,4 @@ h3 {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
-}
-
-.mb-0 {
-    margin-bottom: 0;
 }

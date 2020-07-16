@@ -7,7 +7,7 @@
 @section('content')
 
 @if (! $errors->isEmpty())
-    <ul class="errors">
+    <ul class="text-red-500">
         @foreach ($errors->all() as $message)
             <li>{{ $message }}</li>
         @endforeach

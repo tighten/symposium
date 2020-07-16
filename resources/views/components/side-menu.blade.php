@@ -5,7 +5,7 @@
 ])
 
 @php
-    $baseStyles = 'filter-link py-1 px-5 hover:bg-indigo-100';
+    $baseStyles = 'py-1 px-5 hover:bg-indigo-100';
 @endphp
 
 <x-panel size="sm" :attributes="$attributes->merge(['class' => 'w-1/2 md:w-full font-sans'])">

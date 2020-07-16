@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @php
-    $baseLinkClasses = 'filter-link py-1 px-5 hover:bg-indigo-100';
+    $baseLinkClasses = 'py-1 px-5 hover:bg-indigo-100';
     $activeLinkClasses = 'font-bold text-indigo-500'
 @endphp
 
