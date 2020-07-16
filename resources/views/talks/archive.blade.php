@@ -33,13 +33,12 @@
             ],
         ]"
         :defaults="['filter' => 'archived', 'sort' => 'alpha']"
-        class="mt-4"
     ></x-side-menu>
 
     <x-button.primary
         :href="route('talks.create')"
         icon="plus"
-        class="block mt-4 w-full"
+        class="block w-full"
     >
         Add Talk
     </x-button.primary>

@@ -75,13 +75,12 @@
         title="Sort"
         :links="$sortLinks"
         :defaults="['filter' => 'future', 'sort' => 'closing_next']"
-        class="mt-4"
     ></x-side-menu>
 
     <x-button.primary
         :href="route('conferences.create')"
         icon="plus"
-        class="block mt-4 w-full"
+        class="block w-full"
     >
         Add Conference
     </x-button.primary>
