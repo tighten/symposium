@@ -49,7 +49,7 @@
 
 <x-input.textarea
     name="description"
-    label="Description"
+    label="*Description"
     class="mt-8"
     :value="$current->description"
     help="markdown supported"
