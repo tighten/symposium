@@ -12,7 +12,7 @@
 
 <div
     {{ $attributes->merge([
-        'class' => "border-2 border-gray-300 bg-white rounded",
+        'class' => "shadow-md bg-white rounded",
     ]) }}
 >
     <div class="{{ $styles[$size] }}">

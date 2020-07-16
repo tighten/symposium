@@ -1,42 +1,41 @@
 @extends('layouts.index', ['title' => 'My Archived Talks'])
 
 @section('sidebar')
-    <div class="flex md:flex-col md:items-center">
-        <x-side-menu
-            title="Filter"
-            :links="[
-                'active' => [
-                    'label' => 'Active',
-                    'route' => 'talks.index',
-                    'query' => ['filter' => 'active'],
-                ],
-                'archived' => [
-                    'label' => 'Archived',
-                    'route' => 'talks.archived.index',
-                    'query' => ['filter' => 'archived'],
-                ],
-            ]"
-            :defaults="['filter' => 'archived', 'sort' => 'alpha']"
-        ></x-side-menu>
+    <x-side-menu
+        title="Filter"
+        :links="[
+            'active' => [
+                'label' => 'Active',
+                'route' => 'talks.index',
+                'query' => ['filter' => 'active'],
+            ],
+            'archived' => [
+                'label' => 'Archived',
+                'route' => 'talks.archived.index',
+                'query' => ['filter' => 'archived'],
+            ],
+        ]"
+        :defaults="['filter' => 'archived', 'sort' => 'alpha']"
+    ></x-side-menu>
 
-        <x-side-menu
-            title="Sort"
-            :links="[
-                'alpha' => [
-                    'label' => 'Title',
-                    'route' => 'talks.archived.index',
-                    'query' => ['sort' => 'alpha']
-                ],
-                'date' => [
-                    'label' => 'Date',
-                    'route' => 'talks.archived.index',
-                    'query' => ['sort' => 'date']
-                ],
-            ]"
-            :defaults="['filter' => 'archived', 'sort' => 'alpha']"
-            class="mt-4"
-        ></x-side-menu>
-    </div>
+    <x-side-menu
+        title="Sort"
+        :links="[
+            'alpha' => [
+                'label' => 'Title',
+                'route' => 'talks.archived.index',
+                'query' => ['sort' => 'alpha']
+            ],
+            'date' => [
+                'label' => 'Date',
+                'route' => 'talks.archived.index',
+                'query' => ['sort' => 'date']
+            ],
+        ]"
+        :defaults="['filter' => 'archived', 'sort' => 'alpha']"
+        class="mt-4"
+    ></x-side-menu>
+
     <x-button.primary
         :href="route('talks.create')"
         icon="plus"

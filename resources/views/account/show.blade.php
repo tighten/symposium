@@ -63,6 +63,7 @@
             {{ $user->wants_notifications ? 'Yes' : 'No' }}
         </div>
     </x-panel>
+
     <x-panel size="md" class="mt-4">
         <h3 class="font-sans m-0">Dismissed Conferences</h3>
         @forelse ($user->dismissedConferences as $conference)

@@ -65,20 +65,19 @@
 @endphp
 
 @section('sidebar')
-    <div class="flex md:flex-col">
-        <x-side-menu
-            title="Filter"
-            :links="$filterLinks"
-            :defaults="['filter' => 'future', 'sort' => 'closing_next']"
-        ></x-side-menu>
+    <x-side-menu
+        title="Filter"
+        :links="$filterLinks"
+        :defaults="['filter' => 'future', 'sort' => 'closing_next']"
+    ></x-side-menu>
 
-        <x-side-menu
-            title="Sort"
-            :links="$sortLinks"
-            :defaults="['filter' => 'future', 'sort' => 'closing_next']"
-            class="mt-4"
-        ></x-side-menu>
-    </div>
+    <x-side-menu
+        title="Sort"
+        :links="$sortLinks"
+        :defaults="['filter' => 'future', 'sort' => 'closing_next']"
+        class="mt-4"
+    ></x-side-menu>
+
     <x-button.primary
         :href="route('conferences.create')"
         icon="plus"
