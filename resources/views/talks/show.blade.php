@@ -1,37 +1,36 @@
-@extends('layout')
+@extends('layouts.index')
 
 @php
     $baseLinkClasses = 'filter-link py-1 px-5 hover:bg-indigo-100';
     $activeLinkClasses = 'font-bold text-indigo-500'
 @endphp
 
-@section('content')
+@section('sidebar')
+    <x-side-menu title="Revisions">
+        <x-slot name="body">
+            @foreach ($talk->revisions as $revision)
+                @if ($talk->current()->id == $revision->id)
+                    <a
+                        href="/talks/{{ $talk->id }}"
+                        class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
+                    >
+                        {{ $revision->created_at }} <i>(current)</i>
+                    </a>
+                @else
+                    <a
+                        href="/talks/{{ $talk->id }}?revision={{ $revision->id }}"
+                        class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
+                    >
+                        {{ $revision->created_at }}
+                    </a>
+                @endif
+            @endforeach
+        </x-slot>
+    </x-side-menu>
+@endsection
 
-<div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
-    <div class="w-full md:w-1/4">
-        <x-side-menu title="Revisions">
-            <x-slot name="body">
-                @foreach ($talk->revisions as $revision)
-                    @if ($talk->current()->id == $revision->id)
-                        <a
-                            href="/talks/{{ $talk->id }}"
-                            class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
-                        >
-                            {{ $revision->created_at }} <i>(current)</i>
-                        </a>
-                    @else
-                        <a
-                            href="/talks/{{ $talk->id }}?revision={{ $revision->id }}"
-                            class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
-                        >
-                            {{ $revision->created_at }}
-                        </a>
-                    @endif
-                @endforeach
-            </x-slot>
-        </x-side-menu>
-    </div>
-    <x-panel size="md" class="w-full md:w-3/4 md:ml-4">
+@section('list')
+    <x-panel size="md">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="m-0 font-sans text-2xl">{{ $current->title }}</h2>
@@ -71,6 +70,4 @@
             <a href="{{ $current->slides }}">{{ $current->slides }}</a>
         @endif
     </x-panel>
-</div>
-
 @endsection
