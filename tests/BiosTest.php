@@ -16,14 +16,14 @@ class BiosTest extends IntegrationTestCase
             ->visit('/bios/create')
             ->type('Some Nickname', '#nickname')
             ->type('A big chunk of bio-friendly text', '#body')
-            ->select('no', '#public')
+            ->select('0', '#public')
             ->press('Create');
         //->seePageIs('bios'); //not sure how to test the string /bios/x
 
         $this->seeInDatabase('bios', [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
-            'public' => 0,
+            'public' => '0',
         ]);
     }
 
