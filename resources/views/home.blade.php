@@ -3,27 +3,17 @@
 @section('content')
 
 <div class="flex flex-col items-center justify-around max-w-md md:flex-row md:py-12 mx-auto pb-6 pt-0 px-8 sm:max-w-6xl pm-12 sm:mt-3">
-    <div class="flex flex-col">
-        <h1 class="font-sans text-5xl text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
-        <div class="flex flex-col lg:flex-row lg:text-lg md:text-base mt-12 sm:text-lg text-base text-sans text-semibold xl:text-xl">
-            {{-- Disable email signup --}}
-            {{-- <a
-                class="bg-indigo block lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap"
-                href="#"
-            >
-                Sign up for <span class="uppercase">free</span>
-            </a> --}}
-            <a
-                class="block border border-indigo lg:ml-10 lg:mt-0 lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left mt-4 mt-4 px-4 py-2 rounded rounded-lg text-center text-indigo whitespace-no-wrap flex items-center"
-                href="https://www.youtube.com/watch?v=60hxVJpEXhw"
-                target="_blank"
-            >
-                @svg('rectangle', 'inline w-2')
-                Watch Demo
-            </a>
-        </div>
+    <div class="space-y-8">
+        <h1 class="font-sans text-5xl text-black leading-none">Connecting<br>Speakers<br>&amp; Conferences</h1>
+        <a
+            class="block md:inline-block border border-indigo rounded rounded-lg text-indigo px-10 py-5"
+            href="https://www.youtube.com/watch?v=60hxVJpEXhw"
+            target="_blank"
+        >
+            @svg('rectangle', 'inline w-2 mr-2')
+            Watch Demo
+        </a>
     </div>
-
     @svg('home', 'max-w-md md:order-first sm:pr-4')
 </div>
 
@@ -72,7 +62,7 @@
 
 <div class="bg-indigo-500 pb-24">
     <div class="bg-white relative rounded-lg shadow px-0 py-12 max-w-md mx-auto sm:mx-10 lg:mx-auto sm:max-w-6xl md:max-w-4xl -mt-20">
-        <div class="flex flex-col items-center mb-56">
+        <div class="flex flex-col items-center">
             @svg('badge')
             <h2 class="text-indigo font-sans text-3xl lg:text-5xl mb-12">Conference Organizers</h2>
             <div class="text-center max-w-3xl mx-auto font-sans text-xl md:text-2xl lg:text-3xl px-6">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
@@ -110,7 +100,7 @@
         <div class="flex flex-wrap lg:flex-no-wrap justify-between mt-20 mb-16">
             @foreach ($conferences as $conference)
                 <div class="w-full lg:w-1/3 bg-white rounded-lg lg:first:mr-8 lg:last:ml-8 mb-10 last:mb-0 lg:mb-0 px-8 pt-12 pb-24 font-sans relative shadow">
-                    <div class="text-center text-2xl text-indigo-800 mb-24">{{ $conference->title }}</div>
+                    <div class="text-center text-2xl text-indigo-800 mb-12">{{ $conference->title }}</div>
                     <div class="font-medium text-xl">{{ $conference->event_dates_display }}</div>
                     <div class="mt-6 text-xl">{{ $conference->description }}</div>
                     <div class="block my-10 bottom-0 absolute">
@@ -131,18 +121,6 @@
             >
                 View all conferences
             </a>
-        </div>
-    </div>
-</div>
-
-<div class="bg-black">
-    <div class="flex flex-col py-32 max-w-md mx-auto sm:max-w-6xl">
-        <h2 class="text-white text-center font-sans text-5xl">Ready to get started?</h2>
-        <div class="flex flex-wrap xl:flex-no-wrap font-sans text-xl mt-20 px-10 sm:px-48 xl:px-0">
-            <input class="w-full xl:w-1/4 rounded xl:mr-8 px-5 py-6 mb-8" name="name" placeholder="Name">
-            <input class="w-full xl:w-1/3 rounded xl:mr-8 px-5 py-6 mb-8" name="email" placeholder="Email">
-            <input class="w-full xl:w-1/4 rounded xl:mr-8 px-5 py-6 mb-8" name="password" type="password" placeholder="Password">
-            <input type="submit" class="w-full xl:w-1/6 rounded bg-indigo-800 text-white border-none px-5 py-6 mb-8" value="Sign up">
         </div>
     </div>
 </div>
