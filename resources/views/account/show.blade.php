@@ -66,7 +66,12 @@
     <x-panel size="md" class="mt-4" title="Dismissed Conferences">
         @forelse ($user->dismissedConferences as $conference)
             <div class="mt-4">
-                <a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{  $conference->title }}</a>
+                <a
+                    href="{{ route('conferences.show', ['id' => $conference->id]) }}"
+                    class="hover:text-indigo-500"
+                >
+                    {{  $conference->title }}
+                </a>
             </div>
         @empty
             <div class="mt-4">(none)</div>
