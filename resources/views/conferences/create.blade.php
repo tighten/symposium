@@ -2,24 +2,24 @@
 
 @section('content')
 
-<x-panel>
-    <ul class="text-red-500">
-        @foreach ($errors->all() as $message)
-            <li>{{ $message }}</li>
-        @endforeach
-    </ul>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
 
-    <x-form :action="route('conferences.store')">
-        @include('partials.conferenceform')
+<x-form :action="route('conferences.store')">
+    <x-panel>
+            @include('partials.conferenceform')
+    </x-panel>
 
-        <x-button.primary
-            type="submit"
-            size="md"
-            class="mt-8"
-        >
-            Create
-        </x-button.primary>
-    </x-form>
-</x-panel>
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Create
+    </x-button.primary>
+</x-form>
 
 @endsection

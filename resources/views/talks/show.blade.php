@@ -30,14 +30,13 @@
 @endsection
 
 @section('list')
-    <x-panel size="md">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="m-0 font-sans text-2xl">{{ $current->title }}</h2>
-                <p style="font-style: italic;">
-                    {{ $current->length }} minute {{ $current->level }} {{ $current->type }}
-                </p>
-            </div>
+    <x-panel size="md" :title="$current->title">
+        <x-slot name="subtitle">
+            <span class="italic">
+                {{ $current->length }} minute {{ $current->level }} {{ $current->type }}
+            </span>
+        </x-slot>
+        <x-slot name="actions">
             <div class="text-indigo-500 text-lg">
                 @unless ($showingRevision)
                     <a href="/talks/{{ $talk->id }}/edit" class="ml-3" title="Edit">
@@ -57,7 +56,7 @@
                     @endif
                 @endif
             </div>
-        </div>
+        </x-slot>
         <h3 class="text-lg font-normal text-gray-500 mt-4">Description/Proposal</h3>
 
         {!! markdown($current->getDescription()) !!}

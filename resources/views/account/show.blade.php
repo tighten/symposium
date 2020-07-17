@@ -25,8 +25,7 @@
 @endsection
 
 @section('list')
-    <x-panel size="md">
-        <h3 class="font-sans m-0">User</h3>
+    <x-panel size="md" title="User">
         <div class="mt-4">
             <div class="text-gray-500">Email</div>
             {{ $user->email }}
@@ -64,8 +63,7 @@
         </div>
     </x-panel>
 
-    <x-panel size="md" class="mt-4">
-        <h3 class="font-sans m-0">Dismissed Conferences</h3>
+    <x-panel size="md" class="mt-4" title="Dismissed Conferences">
         @forelse ($user->dismissedConferences as $conference)
             <div class="mt-4">
                 <a href="{{ route('conferences.show', ['id' => $conference->id]) }}">{{  $conference->title }}</a>

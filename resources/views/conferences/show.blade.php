@@ -9,13 +9,14 @@
 @section('content')
 
 <x-panel>
-    <div class="flex items-center justify-between">
-        <h2 class="m-0 font-sans text-2xl">
-            {{ $conference->title }}
-            @if (! $conference->is_approved)
-                <span style="color: red;">[NOT APPROVED]</span>
-            @endif
-        </h2>
+    <x-slot name="title">
+        {{ $conference->title }}
+        @if (! $conference->is_approved)
+            <span style="color: red;">[NOT APPROVED]</span>
+        @endif
+    </x-slot>
+
+    <x-slot name="actions">
         <div class="text-indigo-500 text-lg">
             @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
                 <a href="{{ route('conferences.edit', $conference) }}" title="Edit">
@@ -26,9 +27,9 @@
                 </a>
             @endif
         </div>
-    </div>
+    </x-slot>
 
-    <div class="mt-8 font-sans">
+    <div class="font-sans">
         @unless (empty($conference->location))
             <div class="text-gray-500">Location:</div>
             {{ $conference->location }}
@@ -46,8 +47,7 @@
         <!-- TODO: Figure out how we will be handling HTML/etc. -->
         {!! str_replace("\n", "<br>", $conference->description) !!}</p>
     </div>
-    <hr class="my-4">
-    <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
+
     <x-slot name="footer">
         <div>
             <div class="text-gray-500">Dates</div>
@@ -64,6 +64,10 @@
             <div>{{ $conference->created_at->toFormattedDateString() }}</div>
         </div>
     </x-slot>
+</x-panel>
+
+<x-panel title="My Talks" class="mt-6">
+    <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
 </x-panel>
 
 @endsection

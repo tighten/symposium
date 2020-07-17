@@ -2,16 +2,14 @@
 
 @section('content')
 
-<x-panel>
-    <ul class="text-red-500">
-        @foreach ($errors->all() as $message)
-            <li>{{ $message }}</li>
-        @endforeach
-    </ul>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
 
-    <x-form :action="route('account.edit', $user)" method="PUT" :upload="true">
-        <h3 class="font-sans mb-8">User</h3>
-
+<x-form :action="route('account.edit', $user)" method="PUT" :upload="true">
+    <x-panel title="User">
         <x-input.text
             name="email"
             label="Email Address"
@@ -68,11 +66,9 @@
             help="Do you want to receive email notifications for open CFPs?"
             class="mt-8"
         ></x-input.radios>
+    </x-panel>
 
-        <hr class="my-8">
-
-        <h3 class="font-sans mb-8">Public Profile</h3>
-
+    <x-panel title="Public Profile" class="mt-6">
         <x-input.radios
             name="enable_profile"
             label="Show Public Speaker Profile?"
@@ -82,7 +78,6 @@
             ]"
             :value="$user->enable_profile"
             help="Do you want a public speaker page that you can show to conference organizers?"
-            class="mt-8"
         ></x-input.radios>
 
         <x-input.radios
@@ -127,15 +122,16 @@
         <input name="state" id="administrative_area_level_1" type="hidden" readonly>
         <input name="country" id="country" type="hidden" readonly>
 
-        <x-button.primary
-            type="submit"
-            size="md"
-            class="mt-8"
-        >
-            Save
-        </x-button.primary>
-    </x-form>
-</x-panel>
+    </x-panel>
+
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-6"
+    >
+        Save
+    </x-button.primary>
+</x-form>
 
 @endsection
 

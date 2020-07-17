@@ -2,9 +2,8 @@
 
 @section('content')
 
-<x-panel>
-    <div class="flex items-center justify-between">
-        <h2 class="m-0 font-sans text-2xl">{{ $bio->nickname }}</h2>
+<x-panel :title="$bio->nickname">
+    <x-slot name="actions">
         <div class="text-indigo-500 text-lg">
             <a href="{{ route('bios.edit', $bio) }}" title="Edit">
                 @svg('compose', 'w-5 fill-current inline')
@@ -13,7 +12,7 @@
                 @svg('trash', 'w-5 fill-current inline')
             </a>
         </div>
-    </div>
+    </x-slot>
     <div class="mt-3 font-sans">
         <!-- TODO: Figure out how we will be handling HTML/etc. -->
         {!! str_replace("\n", "<br>", $bio->body) !!}

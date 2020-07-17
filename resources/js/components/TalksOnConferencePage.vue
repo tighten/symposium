@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h3 class="m-0 font-sans text-2xl">My Talks</h3>
         <div class="text-gray-500 mt-4">Accepted to speak at this conference:</div>
         <ul class="list-none pl-0">
             <li v-for="talk in talksAccepted" v-cloak>
@@ -17,7 +16,7 @@
             </li>
         </ul>
 
-        <div class="text-gray-500 mt-4">Applied to speak at this conference:</div>
+        <div class="text-gray-500 mt-8">Applied to speak at this conference:</div>
         <ul class="list-none pl-0">
             <li v-for="talk in talksSubmitted" v-cloak>
                 <a :href="talk.url">{{ talk.title }}</a>
@@ -39,7 +38,7 @@
             </li>
         </ul>
 
-        <div class="text-gray-500 mt-4">Not applied to speak at this conference:</div>
+        <div class="text-gray-500 mt-8">Not applied to speak at this conference:</div>
         <ul class="list-none pl-0">
             <li v-for="talk in talksNotSubmitted" v-cloak>
                 <a :href="talk.url">{{ talk.title }}</a>

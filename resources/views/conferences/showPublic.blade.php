@@ -2,11 +2,8 @@
 
 @section('content')
 
-<x-panel>
-    <h2 class="m-0 font-sans text-2xl">
-        {{ $conference->title }}
-    </h2>
-    <div class="mt-8 font-sans">
+<x-panel :title="$conference->title">
+    <div class="font-sans">
         @unless (empty($conference->location))
             <div class="text-gray-500">Location:</div>
             {{ $conference->location }}

@@ -1,5 +1,6 @@
 @props([
     'size' => 'lg',
+    'title',
 ])
 
 @php
@@ -16,6 +17,21 @@
     ]) }}
 >
     <div class="{{ $styles[$size] }}">
+        @isset ($title)
+            <div class="pb-4 flex content-center justify-between">
+                <div>
+                    <h2 class="font-sans text-xl uppercase text-gray-500">{{ $title }}</h2>
+
+                    @isset ($subtitle)
+                        {{ $subtitle }}
+                    @endisset
+                </div>
+
+                @isset ($actions)
+                    {{ $actions }}
+                @endisset
+            </div>
+        @endisset
         {{ $slot }}
     </div>
 

@@ -24,17 +24,16 @@
 @endsection
 
 @section('list')
-    <x-panel size="md">
-        <div class="px-4 py-4 flex flex-row content-center justify-between">
-            <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Talks</h2>
+    <x-panel size="md" title="Talks">
+        <x-slot name="actions">
             <a href="{{ route('talks.create') }}" class="text-indigo flex items-center">
                 @svg('plus', 'w-3 fill-current inline')
                 <span class="ml-1">Add Talk</span>
             </a>
-        </div>
+        </x-slot>
         <div class="-mb-4">
             @forelse ($talks as $talk)
-                <div class="bg-indigo-100 -mx-4 px-8 py-2 border-b last:border-b-0 flex flex-row justify-between content-center">
+                <div class="bg-indigo-100 -mx-4 px-4 py-2 border-b last:border-b-0 flex flex-row justify-between content-center">
                     <div>
                         <h3 class="font-sans text-lg font-semibold">
                             <a href="{{ route('talks.show', $talk) }}">
@@ -52,17 +51,16 @@
         </div>
     </x-panel>
 
-    <x-panel size="md">
-        <div class="px-4 py-4 flex flex-row content-center justify-between">
-            <h2 class="m-0 font-sans text-xl uppercase text-gray-500">Bios</h2>
+    <x-panel size="md" title="Bios">
+        <x-slot name="actions">
             <a href="{{ route('bios.create') }}" class="flex items-center text-indigo">
                 @svg('plus', 'w-3 fill-current inline')
                 <span class="ml-1">Add Bio</span>
             </a>
-        </div>
+        </x-slot>
         <div class="-mb-4">
             @forelse ($bios as $bio)
-                <div class="bg-indigo-100 -mx-4 px-8 py-2 border-b last:border-b-0">
+                <div class="bg-indigo-100 -mx-4 px-4 py-2 border-b last:border-b-0">
                     <h3 class="font-sans text-lg font-semibold">
                         <a href="{{ route('bios.show', $bio) }}">
                             {{ $bio->nickname }}
