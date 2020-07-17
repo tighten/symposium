@@ -82,7 +82,7 @@
                     <span class="caret"></span>
                 </div>
             </a>
-            <div class="mr-4 lg:mx-2 md:mx-4 mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded lg:right-0" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
+            <div class="mr-4 lg:mx-2 md:mx-4 mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded lg:right-0 z-50" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
                 <a class="py-1 px-4 hover:bg-indigo-100 hover:text-indigo-800" href="{{ route('account.show') }}">Account</a>
                 @if (auth()->user()->enable_profile)
                     <a
