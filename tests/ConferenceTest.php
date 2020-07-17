@@ -16,7 +16,6 @@ class ConferenceTest extends IntegrationTestCase
         $this->actingAs($user)
             ->visit('/conferences/create')
             ->type('Das Conf', '#title')
-            ->type('Capital City, Country', '#location')
             ->type('A very good conference about things', '#description')
             ->type('http://dasconf.org', '#url')
             ->press('Create');
@@ -24,7 +23,6 @@ class ConferenceTest extends IntegrationTestCase
         $this->seeInDatabase('conferences', [
             'title' => 'Das Conf',
             'description' => 'A very good conference about things',
-            'location' => 'Capital City, Country',
         ]);
     }
 
