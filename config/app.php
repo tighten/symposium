@@ -224,7 +224,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Bugsnag'   => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
-        'Form'      => Collective\Html\FormFacade::class,
         'HTML'      => Collective\Html\HtmlFacade::class,
         'Gravatar'  => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'Twitter'   => Thujohn\Twitter\Facades\Twitter::class,
