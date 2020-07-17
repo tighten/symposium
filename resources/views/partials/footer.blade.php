@@ -7,15 +7,15 @@
         <footer>
             <div class="flex flex-col lg:flex-row justify-between px-8 xl:px-0 text-center lg:text-left">
                 <div>
-                    <a href="http://tighten.co/">&copy; Tighten Co. {{ date('Y') }}</a>
+                    <a href="http://tighten.co/" target="_blank">&copy; Tighten Co. {{ date('Y') }}</a>
                 </div>
                 <div class="invisible lg:visible">|</div>
                 <div>
-                    <a href="https://github.com/tightenco/symposium">Source &amp; roadmap on GitHub</a>
+                    <a href="https://github.com/tightenco/symposium" target="_blank">Source &amp; roadmap on GitHub</a>
                 </div>
                 <div class="invisible lg:visible">|</div>
                 <div>
-                    <a href="http://rdohms.github.io/pronto/">Submit your talks easily with  Pronto!</a>
+                    <a href="http://rdohms.github.io/pronto/" target="_blank">Submit your talks easily with  Pronto!</a>
                 </div>
             </div>
         </footer>
