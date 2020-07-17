@@ -36,11 +36,21 @@
         @endunless
 
         <div class="text-gray-500 mt-4">URL:</div>
-        <a href="{{ $conference->url }}">{{ $conference->url }}</a>
+        <a
+            href="{{ $conference->url }}"
+            class="hover:text-indigo-500"
+        >
+            {{ $conference->url }}
+        </a>
 
         @if ($conference->cfp_url)
             <div class="text-gray-500 mt-4">URL for CFP page:</div>
-            <a href="{{ $conference->cfp_url }}">{{ $conference->cfp_url }}</a></p>
+            <a
+                href="{{ $conference->cfp_url }}"
+                class="hover:text-indigo-500"
+            >
+                {{ $conference->cfp_url }}
+            </a>
         @endif
 
         <div class="text-gray-500 mt-4">Description:</div>

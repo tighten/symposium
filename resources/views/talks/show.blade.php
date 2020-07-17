@@ -66,7 +66,7 @@
 
         @if ($current->slides)
             <h3 class="text-lg font-normal text-gray-500 mt-4">Slides</h3>
-            <a href="{{ $current->slides }}">{{ $current->slides }}</a>
+            <a href="{{ $current->slides }}" class="hover:text-indigo-500">{{ $current->slides }}</a>
         @endif
     </x-panel>
 @endsection

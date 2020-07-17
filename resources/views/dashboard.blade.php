@@ -26,7 +26,7 @@
 @section('list')
     <x-panel size="md" title="Talks">
         <x-slot name="actions">
-            <a href="{{ route('talks.create') }}" class="text-indigo flex items-center">
+            <a href="{{ route('talks.create') }}" class="text-indigo-500 hover:text-indigo-800 flex items-center">
                 @svg('plus', 'w-3 fill-current inline')
                 <span class="ml-1">Add Talk</span>
             </a>
@@ -35,7 +35,7 @@
             @forelse ($talks as $talk)
                 <div class="bg-indigo-100 -mx-4 px-4 py-2 border-b last:border-b-0 flex flex-row justify-between content-center">
                     <div>
-                        <h3 class="font-sans text-lg font-semibold">
+                        <h3 class="font-sans text-lg font-semibold hover:text-indigo-500">
                             <a href="{{ route('talks.show', $talk) }}">
                                 {{ $talk->current()->title }}
                             </a>
@@ -53,7 +53,7 @@
 
     <x-panel size="md" title="Bios">
         <x-slot name="actions">
-            <a href="{{ route('bios.create') }}" class="flex items-center text-indigo">
+            <a href="{{ route('bios.create') }}" class="flex items-center text-indigo-500 hover:text-indigo-800">
                 @svg('plus', 'w-3 fill-current inline')
                 <span class="ml-1">Add Bio</span>
             </a>
@@ -61,7 +61,7 @@
         <div class="-mb-4">
             @forelse ($bios as $bio)
                 <div class="bg-indigo-100 -mx-4 px-4 py-2 border-b last:border-b-0">
-                    <h3 class="font-sans text-lg font-semibold">
+                    <h3 class="font-sans text-lg font-semibold hover:text-indigo-500">
                         <a href="{{ route('bios.show', $bio) }}">
                             {{ $bio->nickname }}
                         </a>

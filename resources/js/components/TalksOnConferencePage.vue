@@ -3,7 +3,7 @@
         <div class="text-gray-500 mt-4">Accepted to speak at this conference:</div>
         <ul class="list-none pl-0">
             <li v-for="talk in talksAccepted" v-cloak>
-                <a :href="talk.url">{{ talk.title }}</a>
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
                 <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center" @click.prevent="undoAcceptance(talk)">
                     <div class="flex items-center">
                         <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
@@ -19,7 +19,7 @@
         <div class="text-gray-500 mt-8">Applied to speak at this conference:</div>
         <ul class="list-none pl-0">
             <li v-for="talk in talksSubmitted" v-cloak>
-                <a :href="talk.url">{{ talk.title }}</a>
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
                 <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="markAccepted(talk)">
                     <div class="flex items-center">
                         <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
@@ -41,7 +41,7 @@
         <div class="text-gray-500 mt-8">Not applied to speak at this conference:</div>
         <ul class="list-none pl-0">
             <li v-for="talk in talksNotSubmitted" v-cloak>
-                <a :href="talk.url">{{ talk.title }}</a>
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
                 <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="submit(talk)">
                     <div class="flex items-center">
                         <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
