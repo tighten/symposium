@@ -10,7 +10,7 @@
 
 <x-form :action="route('bios.update', $bio->id)" method="PUT">
     <x-panel>
-        @include('partials.bioform')
+        @include('bios.form')
     </x-panel>
 
     <x-button.primary

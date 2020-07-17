@@ -10,7 +10,7 @@
 
 <x-form :action="route('bios.store')">
     <x-panel>
-        @include('partials.bioform')
+        @include('bios.form')
     </x-panel>
 
     <x-button.primary

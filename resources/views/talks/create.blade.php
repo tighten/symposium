@@ -10,7 +10,7 @@
 
 <x-form :action="route('talks.store')">
     <x-panel>
-        @include('partials.talk-version-form')
+        @include('talks.form')
     </x-panel>
 
     <x-button.primary

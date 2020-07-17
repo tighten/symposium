@@ -10,7 +10,7 @@
 
 <x-form :action="route('talks.update', $current->talk_id)" method="PUT">
     <x-panel>
-        @include('partials.talk-version-form')
+        @include('talks.form')
     </x-panel>
 
     <x-button.primary

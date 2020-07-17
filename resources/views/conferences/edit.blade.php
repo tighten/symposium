@@ -10,7 +10,7 @@
 
 <x-form :action="route('conferences.update', $conference->id)" method="PUT">
     <x-panel>
-        @include('partials.conferenceform')
+        @include('conferences.form')
 
         @if (auth()->user()->isAdmin())
             <x-input.radios

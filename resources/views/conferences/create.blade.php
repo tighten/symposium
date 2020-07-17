@@ -10,7 +10,7 @@
 
 <x-form :action="route('conferences.store')">
     <x-panel>
-            @include('partials.conferenceform')
+            @include('conferences.form')
     </x-panel>
 
     <x-button.primary
