@@ -78,15 +78,17 @@
     ></x-side-menu>
 @endsection
 
-@section('actions')
-    <x-button.primary
-        :href="route('conferences.create')"
-        icon="plus"
-        class="block w-full"
-    >
-        Add Conference
-    </x-button.primary>
-@endsection
+@if (auth()->user())
+    @section('actions')
+        <x-button.primary
+            :href="route('conferences.create')"
+            icon="plus"
+            class="block w-full"
+        >
+            Add Conference
+        </x-button.primary>
+    @endsection
+@endif
 
 
 @section('list')
