@@ -66,8 +66,8 @@
                 Sign in
             </a>
             <div class="ml-32 mr-4 lg:mx-0 mt-0 lg:mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded z-50 xl:right-0" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
-                <a class="px-2 py-1 hover:bg-indigo-100" href="{{ route('login') }}">Sign in with email</a>
-                <a class="px-2 py-1 hover:bg-indigo-100" href="{{ url('login/github') }}">Sign in with GitHub</a>
+                <a class="py-1 px-4 hover:bg-indigo-100" href="{{ route('login') }}">Sign in with email</a>
+                <a class="py-1 px-4 hover:bg-indigo-100" href="{{ url('login/github') }}">Sign in with GitHub</a>
             </div>
         </div>
     @else
@@ -83,16 +83,16 @@
                 </div>
             </a>
             <div class="mr-4 lg:mx-2 md:mx-4 mt-2 py-1 flex flex-col absolute bg-white border border-indigo rounded lg:right-0" :class="slotProps.showAccountDropdown ? 'block' : 'hidden'">
-                <a class="py-1 px-2 hover:bg-indigo-100 hover:text-indigo-800" href="{{ route('account.show') }}">Account</a>
+                <a class="py-1 px-4 hover:bg-indigo-100 hover:text-indigo-800" href="{{ route('account.show') }}">Account</a>
                 @if (auth()->user()->enable_profile)
                     <a
-                        class="hover:bg-indigo-100 hover:text-indigo-800 py-1 px-2 whitespace-no-wrap"
+                        class="hover:bg-indigo-100 hover:text-indigo-800 py-1 px-4 whitespace-no-wrap"
                         href="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
                     >
                         Public Speaker Profile
                     </a>
                 @endif
-                <a class="hover:bg-indigo-100 hover:text-indigo-800 py-1 px-2" href="{{ route('log-out') }}">Log out</a>
+                <a class="hover:bg-indigo-100 hover:text-indigo-800 py-1 px-4" href="{{ route('log-out') }}">Log out</a>
             </div>
         </div>
     @endif
