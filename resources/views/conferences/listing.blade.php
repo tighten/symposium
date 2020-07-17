@@ -1,10 +1,8 @@
-<x-listing>
+<x-listing
+    :title="$conference->title"
+    :href="route('conferences.show', ['id' => $conference->id])"
+>
     <x-slot name="header">
-        <h3 class="m-0 font-sans text-2xl">
-            <a href="{{ route('conferences.show', ['id' => $conference->id]) }}">
-                {{ $conference->title }}
-            </a>
-        </h3>
         @if ($conference->cfpIsOpen())
             <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">CFP OPEN</span>
         @endif

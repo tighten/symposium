@@ -1,11 +1,4 @@
-<x-listing>
-    <x-slot name="header">
-        <h3 class="m-0 font-sans text-2xl">
-            <a href="{{ route('bios.show', $bio) }}">
-                {{ $bio->nickname }}
-            </a>
-        </h3>
-    </x-slot>
+<x-listing :title="$bio->nickname" :href="route('bios.show', $bio)">
     <x-slot name="actions">
         <a href="{{ route('bios.edit', $bio) }}" title="Edit">
             @svg('compose', 'w-5 fill-current inline')

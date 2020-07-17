@@ -2,7 +2,14 @@
     <div class="bg-white">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
-                {{ $header }}
+                <h3 class="font-sans text-2xl hover:text-indigo-500">
+                    <a href="{{ $href }}">
+                        {{ $title }}
+                    </a>
+                </h3>
+                @isset ($header)
+                    {{ $header }}
+                @endisset
             </div>
             <div class="text-indigo-500 text-lg">
                 {{ $actions }}

@@ -1,11 +1,4 @@
-<x-listing>
-    <x-slot name="header">
-        <h3 class="m-0 font-sans text-2xl">
-            <a href="{{ route('talks.show', $talk) }}">
-                {{ $talk->current()->title }}
-            </a>
-        </h3>
-    </x-slot>
+<x-listing :title="$talk->current()->title" :href="route('talks.show', $talk)">
     <x-slot name="actions">
         <a href="{{ route('talks.edit', $talk) }}" title="Edit">
             @svg('compose', 'w-5 fill-current inline')
