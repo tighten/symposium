@@ -36,14 +36,14 @@ class BiosTest extends IntegrationTestCase
             ->visit('/bios/create')
             ->type('Some Nickname', '#nickname')
             ->type('A big chunk of bio-friendly text', '#body')
-            ->select('yes', '#public')
+            ->select('1', '#public')
             ->press('Create');
         //->seePageIs('bios'); //not sure how to test the string /bios/x
 
         $this->seeInDatabase('bios', [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
-            'public' => 1,
+            'public' => '1',
         ]);
     }
 
@@ -58,7 +58,7 @@ class BiosTest extends IntegrationTestCase
             ->visit('/bios/' . $bio->id . '/edit')
             ->type('Fresh Prince', '#nickname')
             ->type('Born and raised in West Philidelphia, I spend a large majority of my time on the playground.', '#body')
-            ->select('yes', '#public')
+            ->select('1', '#public')
             ->press('Update');
 
         $this->seeInDatabase('bios', [

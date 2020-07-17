@@ -20,7 +20,7 @@ class CreateBioForm
     private function __construct($input, $user)
     {
         $this->input = $this->removeEmptyFields($input);
-        $this->input['public'] = $this->input['public'] == 'yes';
+        $this->input['public'] = $this->input['public'] == '1';
         $this->user = $user;
     }
 
