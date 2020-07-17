@@ -6,8 +6,19 @@
     <div class="flex flex-col">
         <h1 class="font-sans text-5xl text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
         <div class="flex flex-col lg:flex-row lg:text-lg md:text-base mt-12 sm:text-lg text-base text-sans text-semibold xl:text-xl">
-            <a class="bg-indigo block lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap " href="#">Sign up for <span class="uppercase">free</span></a> <a class=" block border border-indigo lg:ml-10 lg:mt-0 lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left mt-4 mt-4 px-4 py-2 rounded rounded-lg text-center text-indigo whitespace-no-wrap" href="https://www.youtube.com/watch?v=60hxVJpEXhw" target="_blank">
-                @svg('rectangle', 'inline mr-3 mt-2')
+            {{-- Disable email signup --}}
+            {{-- <a
+                class="bg-indigo block lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left px-4 py-2 rounded-lg text-center text-white whitespace-no-wrap"
+                href="#"
+            >
+                Sign up for <span class="uppercase">free</span>
+            </a> --}}
+            <a
+                class="block border border-indigo lg:ml-10 lg:mt-0 lg:px-10 lg:py-5 md:inline-block md:px-8 md:py-4 md:text-left mt-4 mt-4 px-4 py-2 rounded rounded-lg text-center text-indigo whitespace-no-wrap flex items-center"
+                href="https://www.youtube.com/watch?v=60hxVJpEXhw"
+                target="_blank"
+            >
+                @svg('rectangle', 'inline w-2')
                 Watch Demo
             </a>
         </div>
@@ -83,7 +94,12 @@
             @endforeach
         </div>
         <div class="text-center mt-20">
-            <a class="text-white border rounded px-8 py-6 font-sans font-semibold text-xl" href="#">View all speakers</a>
+            <a
+                class="text-white border rounded px-8 py-6 font-sans font-semibold text-xl"
+                href="{{ route('speakers-public.index') }}"
+            >
+                View all speakers
+            </a>
         </div>
     </div>
 </div>
@@ -98,13 +114,23 @@
                     <div class="font-medium text-xl">{{ $conference->event_dates_display }}</div>
                     <div class="mt-6 text-xl">{{ $conference->description }}</div>
                     <div class="block my-10 bottom-0 absolute">
-                        <a class="text-xl font-semibold text-indigo-800" href="#">More Details</a>
+                        <a
+                            class="text-xl font-semibold text-indigo-800"
+                            href="{{ route('conferences.show', $conference) }}"
+                        >
+                            More Details
+                        </a>
                     </div>
                 </div>
             @endforeach
         </div>
         <div class="text-center mt-16">
-            <a class="text-white border rounded px-10 py-6 font-sans font-semibold text-xl" href="#">View all conferences</a>
+            <a
+                class="text-white border rounded px-10 py-6 font-sans font-semibold text-xl"
+                href="{{ route('conferences.index') }}"
+            >
+                View all conferences
+            </a>
         </div>
     </div>
 </div>
