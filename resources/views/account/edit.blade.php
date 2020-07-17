@@ -37,6 +37,7 @@
             </label>
             <div class="rounded-full text-center">
                 <img
+                    id="profile_picture"
                     src="{{ auth()->user()->profile_picture_hires }}"
                     class="h-48 w-48 mb-1 rounded-full"
                     alt="profile picture"

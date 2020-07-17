@@ -104,13 +104,12 @@ class AccountTest extends IntegrationTestCase
         $image = __DIR__ . '/stubs/test.jpg';
         $user = factory(User::class)->create();
 
-        $this->actingAs($user)
+        $this->actingAs($user->fresh())
             ->visit('/account/edit')
             ->attach($image, '#profile_picture')
             ->press('Save');
 
-        $user->fresh();
-        $this->assertNotNull($user->profile_picture);
+        $this->assertNotNull($user->fresh()->profile_picture);
     }
 
     /** @test */
