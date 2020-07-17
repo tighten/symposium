@@ -6,7 +6,7 @@
 
 @section('sidebar')
     <x-panel size="sm" class="w-full">
-        <div class="bg-white h-16 flex content-end justify-center">
+        <div class="h-16 flex justify-center">
             <div class="bg-white rounded-full w-24 h-24 mt-4 border-2 border-indigo-800 p-1">
                 <div class="w-full h-full rounded-full">
                     <img
