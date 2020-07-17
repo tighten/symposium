@@ -22,5 +22,4 @@
     </x-button.primary>
 </x-form>
 
-
 @endsection
