@@ -18,7 +18,7 @@
 
     <x-slot name="actions">
         <div class="text-indigo-500 text-lg">
-            @if ($conference->author_id == Auth::user()->id || auth()->user()->isAdmin())
+            @if ($conference->author_id == auth()->user()->id || auth()->user()->isAdmin())
                 <a href="{{ route('conferences.edit', $conference) }}" title="Edit">
                     @svg('compose', 'w-5 fill-current inline')
                 </a>

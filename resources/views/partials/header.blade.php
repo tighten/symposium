@@ -5,7 +5,7 @@
             <div class="lg:flex lg:justify-between lg:items-center">
                 <div class="px-4 py-3 sm:p-0">
                     <div class="flex items-center justify-between">
-                        <a href="{{ Auth::check() ? route('dashboard') : url('/') }}">
+                        <a href="{{ auth()->check() ? route('dashboard') : url('/') }}">
                             <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
                         </a>
                         <div class="lg:hidden">

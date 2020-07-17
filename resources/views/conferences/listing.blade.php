@@ -6,7 +6,7 @@
         @if ($conference->cfpIsOpen())
             <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">CFP OPEN</span>
         @endif
-        @if (Auth::check() && $conference->appliedTo())
+        @if (auth()->check() && $conference->appliedTo())
             <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">Already Sent Proposal</span>
         @endif
     </x-slot>
