@@ -1,4 +1,4 @@
-<x-panel size="md" class="hover:border-indigo">
+<x-panel size="md">
     <div class="bg-white">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
