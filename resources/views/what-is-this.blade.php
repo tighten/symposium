@@ -21,7 +21,7 @@
             <p>Store multiple revisions of your bio photos, ready to grab and upload with your talk submissions.</p>
 
             <h3 class="mt-5 text-2xl text-indigo-800">Conferences</h3>
-            <p>Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFP's open and close.</p>
+            <p>Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFPs open and close.</p>
             <p>Track which conferences have accepted or rejected your talk submissions.</p>
         </div>
     </x-slot>

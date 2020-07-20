@@ -43,7 +43,7 @@
             <div class="w-full md:w-1/2 lg:w-1/3 mb-8 px-6 lg:pl-0 pb-6 md:pb-0">
                 @svg('icon_find', 'mx-auto md:ml-3 w-16')
                 <div class="text-center md:text-left font-sans text-2xl mt-5 font-semibold mb-4">Find conferences</div>
-                <div class="font-sans text-xl">Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFP's open and close.</div>
+                <div class="font-sans text-xl">Find which conferences you're interested in applying to speak at; favorite them, track them, and get reminders when their CFPs open and close.</div>
             </div>
             <div class="w-full md:w-1/2 lg:w-1/3 mb-8 px-6 pb-6 md:pb-0">
                 @svg('icon_bios', 'mx-auto md:ml-3 w-16')
