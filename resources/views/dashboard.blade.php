@@ -1,9 +1,5 @@
 @extends('layouts.index', ['title' => 'Dashboard'])
 
-@section('headerScripts')
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.9.5/dist/alpine.js" defer></script>
-@endsection
-
 @section('sidebar')
     <x-panel size="sm" class="w-full">
         <div class="h-16 flex justify-center">
