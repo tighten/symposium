@@ -1,5 +1,5 @@
 # Symposium
-[![Codeship Status for tightenco/symposium](https://app.codeship.com/projects/abb147a0-0e05-0137-f7f7-062378f4838a/status?branch=master)](https://app.codeship.com/projects/326836)
+[![Codeship Status for tighten/symposium](https://app.codeship.com/projects/abb147a0-0e05-0137-f7f7-062378f4838a/status?branch=master)](https://app.codeship.com/projects/326836)
 
 A web app for conference speakers to track talks, bios, and conferences. Free, available online at [Symposiumapp.com](http://symposiumapp.com/).
 
@@ -24,7 +24,7 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 1. (Optionally) [Fork this repository](https://help.github.com/articles/fork-a-repo/)
 2. Clone the repository locally
 3. [Install dependencies](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies) with `composer install`
-4. Copy [`.env.example`](https://github.com/tightenco/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment.
+4. Copy [`.env.example`](https://github.com/tighten/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment.
 5. Place your Algolia keys in the `.env` file. This is also required for running PHPUnit tests.
 	
 	```bash
