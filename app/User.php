@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function scopeWhereFeatured($query)
     {
-        return $query->where('featured', true);
+        return $query->where('is_featured', true);
     }
 
     public function isAdmin()

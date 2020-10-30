@@ -147,7 +147,7 @@ class Conference extends UuidBase
 
     public function scopeWhereFeatured($query)
     {
-        return $query->where('featured', true);
+        return $query->where('is_featured', true);
     }
 
     /**
