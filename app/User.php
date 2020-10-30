@@ -27,6 +27,11 @@ class User extends Authenticatable
         return $query->where('wants_notifications', true);
     }
 
+    public function scopeWhereFeatured($query)
+    {
+        return $query->where('featured', true);
+    }
+
     public function isAdmin()
     {
         return $this->role == self::ADMIN_ROLE;

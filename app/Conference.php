@@ -145,6 +145,11 @@ class Conference extends UuidBase
         return $query->where('is_shared', false);
     }
 
+    public function scopeWhereFeatured($query)
+    {
+        return $query->where('featured', true);
+    }
+
     /**
      * Whether CFP is currently open
      *

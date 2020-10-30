@@ -9,12 +9,9 @@ class HomeController extends BaseController
 {
     public function show()
     {
-        $speakers = User::where('featured', 1)->get();
-        $conferences = Conference::where('featured', 1)->get();
-
         return view('home', [
-            'speakers' => $speakers,
-            'conferences' => $conferences,
+            'speakers' => User::whereFeatured()->get(),
+            'conferences' => Conference::whereFeatured()->get(),
         ]);
     }
 }
