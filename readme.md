@@ -1,6 +1,8 @@
 ![Symposium_banner](https://raw.githubusercontent.com/tighten/symposium/develop/symposium-banner.png)
 # Symposium
 [![Codeship Status for tightenco/symposium](https://app.codeship.com/projects/abb147a0-0e05-0137-f7f7-062378f4838a/status?branch=master)](https://app.codeship.com/projects/326836)
+[![Actions Status](https://img.shields.io/github/workflow/status/tighten/symposium/Test)](https://github.com/tighten/symposium/actions)
+
 
 A web app for conference speakers to track talks, bios, and conferences. Free, available online at [Symposiumapp.com](http://symposiumapp.com/).
 
