@@ -70,6 +70,6 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->alias('ttwitter', 'Thujohn\Twitter\Twitter');
+        $this->app->bind('ttwitter', 'Thujohn\Twitter\Twitter');
     }
 }
