@@ -40,7 +40,7 @@
                             @if (Auth::guest())
                                 <div class="text-center">
                                     <a class="btn-github-login" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong> @svg('github', 'inline-block align-top h-6 w-6')</a>
-                                    <p class="text-gray-400 text-base">or</p>
+                                    <p class="text-base text-gray-400">or</p>
                                 </div>
                                 @include('partials.log-in-form')
                             @else
