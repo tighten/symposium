@@ -9,7 +9,7 @@
     "type": "project",
     "require": {
         "php": "^7.4",
-        "algolia/algoliasearch-client-php": "^2.2",
+        "algolia/algoliasearch-client-php": "^1.18",
         "andreasindal/laravel-markdown": "~3.0",
         "bugsnag/bugsnag-laravel": "^2.6",
         "doctrine/dbal": "~2.5",
