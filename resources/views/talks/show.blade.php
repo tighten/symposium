@@ -1,74 +1,72 @@
-@extends('layout')
+@extends('layouts.index')
 
-@section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <div class="pull-right page-meta-buttons">
-                @if ($showingRevision)
-                    <a href="/talks/{{ $talk->id }}" class="btn btn-default">Return to talk &nbsp;
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+@php
+    $baseLinkClasses = 'py-1 px-5 hover:bg-indigo-100';
+    $activeLinkClasses = 'font-bold text-indigo-500'
+@endphp
+
+@section('sidebar')
+    <x-side-menu title="Revisions">
+        <x-slot name="body">
+            @foreach ($talk->revisions as $revision)
+                @if ($talk->current()->id == $revision->id)
+                    <a
+                        href="/talks/{{ $talk->id }}"
+                        class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
+                    >
+                        {{ $revision->created_at }} <i>(current)</i>
                     </a>
-                    <br>
-                    <p style="text-align: right">REVISION:<br>
-                    {{ $current->created_at }}</p>
                 @else
-                    <a href="/talks/{{ $talk->id }}?revision={{ $talk->current()->id }}" class="btn btn-default">Revisions &nbsp;
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    <a
+                        href="/talks/{{ $talk->id }}?revision={{ $revision->id }}"
+                        class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"
+                    >
+                        {{ $revision->created_at }}
                     </a>
-                    <a href="/talks/{{ $talk->id }}/edit" class="btn btn-primary">Edit &nbsp;
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                @endif
+            @endforeach
+        </x-slot>
+    </x-side-menu>
+@endsection
+
+@section('list')
+    <x-panel size="md" :title="$current->title">
+        <x-slot name="subtitle">
+            <span class="italic">
+                {{ $current->length }} minute {{ $current->level }} {{ $current->type }}
+            </span>
+        </x-slot>
+        <x-slot name="actions">
+            <div class="text-indigo-500 text-lg">
+                @unless ($showingRevision)
+                    <a href="/talks/{{ $talk->id }}/edit" class="ml-3" title="Edit">
+                        @svg('compose', 'w-5 fill-current inline')
                     </a>
-                    <a href="/talks/{{ $talk->id }}/delete" class="btn btn-danger">Delete &nbsp;
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <a href="/talks/{{ $talk->id }}/delete" class="ml-3" title="Delete">
+                        @svg('trash', 'w-5 fill-current inline')
                     </a>
                     @if ($talk->isArchived())
-                        <a href="{{ route('talks.restore', ['id' => $talk->id]) }}" class="btn btn-warning">Restore &nbsp;
-                            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        <a href="{{ route('talks.restore', ['id' => $talk->id]) }}" class="ml-3" title="Restore">
+                            @svg('folder-outline', 'w-5 fill-current inline')
                         </a>
                     @else
-                        <a href="{{ route('talks.archive', ['id' => $talk->id]) }}" class="btn btn-warning">Archive &nbsp;
-                            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        <a href="{{ route('talks.archive', ['id' => $talk->id]) }}" class="ml-3" title="Archive">
+                            @svg('folder', 'w-5 fill-current inline')
                         </a>
                     @endif
                 @endif
-                </div>
-
-                @if ($current === null)
-                    <p>No revisions yet. @todo Throw exception etc.</p>
-                @else
-
-                <h1 class="page-title">{{ $current->title }}</h1>
-
-                <p style="font-style: italic;">
-                    {{ $current->length }} minute {{ $current->level }} {{ $current->type }}
-                </p>
-
-                <h3>Description/Proposal</h3>
-
-                @markdown($current->getDescription())
-
-                <h3>Organizer Notes</h3>
-                {!! $current->getHtmledOrganizerNotes() !!}
-
-                @if ($current->slides)
-                <h3>Slides</h3>
-                <a href="{{ $current->slides }}">{{ $current->slides }}</a>
-                @endif
-
-                @if ($showingRevision)
-                    <h3>Revisions</h3>
-                    <ul>
-                        @foreach ($talk->revisions as $revision)
-                            <li {{ $revision->id == $current->id ? 'style="font-weight: bold;"' : '' }}>
-                                <a href="/talks/{{ $talk->id }}?revision={{ $revision->id }}">{{ $revision->created_at }}</a>
-                                {!! $talk->current()->id == $revision->id ? '<i>(current)</i>' : '' !!}
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-                @endif
             </div>
-        </div>
-    </div>
-@stop
+        </x-slot>
+        <h3 class="text-lg font-normal text-gray-500 mt-4">Description/Proposal</h3>
+
+        {!! markdown($current->getDescription()) !!}
+
+        <h3 class="text-lg font-normal text-gray-500 mt-4">Organizer Notes</h3>
+        {!! $current->getHtmledOrganizerNotes() !!}
+
+        @if ($current->slides)
+            <h3 class="text-lg font-normal text-gray-500 mt-4">Slides</h3>
+            <a href="{{ $current->slides }}" class="hover:text-indigo-500">{{ $current->slides }}</a>
+        @endif
+    </x-panel>
+@endsection

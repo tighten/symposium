@@ -145,6 +145,11 @@ class Conference extends UuidBase
         return $query->where('is_shared', false);
     }
 
+    public function scopeWhereFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
     /**
      * Whether CFP is currently open
      *
@@ -183,6 +188,19 @@ class Conference extends UuidBase
     public function getLinkAttribute()
     {
         return route('conferences.show', $this->id);
+    }
+
+    public function getEventDatesDisplayAttribute()
+    {
+        if (! $this->starts_at) {
+            return null;
+        }
+
+        if (! $this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
+            return $this->starts_at->format('M j Y');
+        }
+
+        return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
     }
 
     public function isDismissed()

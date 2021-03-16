@@ -10,7 +10,7 @@ use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDatesTest extends IntegrationTestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }

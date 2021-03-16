@@ -1,6 +1,7 @@
 <?php
+
 return [
-    /**
+    /*
      * Blacklisted IP  addresses, ranges, countries, files and/or files of files
      */
     'blacklist' => [
@@ -13,7 +14,7 @@ return [
         storage_path('app/ip_blacklist.txt'),
     ],
 
-    /**
+    /*
      * Whitelisted IP addresses, ranges, countries, files and/or files of files
      */
     'whitelist' => [
@@ -26,7 +27,7 @@ return [
         // storage_path().DIRECTORY_SEPARATOR.'whitelisted.txt',
     ],
 
-    /**
+    /*
      * Code and message for blocked responses
      */
     'block_response_code' => 403,
@@ -35,31 +36,31 @@ return [
 
     'block_response_abort' => false, // return abort() instead of Response::make() - disabled by default
 
-    /**
+    /*
      * Do you wish to redirect non whitelisted accesses to an error page?
      *
      * You can use a route name (coming.soon) or url (/coming/soon);
      */
     'redirect_non_whitelisted_to' => null,
 
-    /**
+    /*
      * How long should we keep IP addresses in cache?
      */
     'cache_expire_time' => 0, // minutes - disabled by default
 
-    /**
+    /*
      *--------------------------------------------------------------------------
      * How long should we keep lists of IP addresses in cache?
      *--------------------------------------------------------------------------
      */
     'ip_list_cache_expire_time' => 0, // minutes - disabled by default
 
-    /**
+    /*
      * Send suspicious events to log?
      */
     'enable_log' => true,
 
-    /**
+    /*
      * Search by range allow you to store ranges of addresses in
      * your black and whitelist:
      *
@@ -73,7 +74,7 @@ return [
      */
     'enable_range_search' => true,
 
-    /**
+    /*
      * Search by country range allow you to store country ids in your
      * your black and whitelist:
      *
@@ -82,12 +83,12 @@ return [
      */
     'enable_country_search' => true,
 
-    /**
+    /*
      * Should Firewall use the database?
      */
     'use_database' => false,
 
-    /**
+    /*
      * Models
      *
      * When using the "eloquent" driver, we need to know which Eloquent models
@@ -95,7 +96,7 @@ return [
      */
     'firewall_model' => 'PragmaRX\Firewall\Vendor\Laravel\Models\Firewall',
 
-    /**
+    /*
      * Session object binding in the IoC Container
      *
      * When blacklisting IPs for the current session, Firewall

@@ -6,7 +6,6 @@ use App\Bio;
 use App\Exceptions\ValidationException;
 use App\Services\CreateBioForm;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 class BiosController extends BaseController
@@ -30,7 +29,7 @@ class BiosController extends BaseController
     public function store()
     {
         // @todo: Why is this here? Why aren't we validating like we do everywhere else?
-        $form = CreateBioForm::fillOut(Input::all(), auth()->user());
+        $form = CreateBioForm::fillOut(request()->input(), auth()->user());
 
         try {
             $bio = $form->complete();
@@ -40,7 +39,7 @@ class BiosController extends BaseController
                 ->withInput();
         }
 
-        Session::flash('message', 'Successfully created new bio.');
+        Session::flash('success-message', 'Successfully created new bio.');
 
         return redirect('/bios/' . $bio->id);
     }
@@ -75,10 +74,10 @@ class BiosController extends BaseController
 
         $bio->nickname = $request->get('nickname');
         $bio->body = $request->get('body');
-        $bio->public = $request->get('public') == 'yes';
+        $bio->public = $request->get('public');
         $bio->save();
 
-        Session::flash('message', 'Successfully edited bio.');
+        Session::flash('success-message', 'Successfully edited bio.');
 
         return redirect('bios/' . $bio->id);
     }

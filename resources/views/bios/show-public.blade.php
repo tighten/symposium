@@ -1,20 +1,19 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <p>
-                    <a href="{{ route('speakers-public.show', ['profileSlug' => $user->profile_slug]) }}" class="btn btn-default">
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;
-                        Return to profile for {{ $user->name }}
-                    </a>
-                </p><br>
 
-                <h1 class="page-title">{{ $bio->nickname }}</h1>
+<x-panel>
+    <x-button.primary
+        :href="route('speakers-public.show', $user->profile_slug)"
+        icon="arrow-thick-left"
+        class="inline-block"
+    >
+        Return to profile for {{ $user->name }}
+    </x-button.primary>
 
-                {!! str_replace("\n", "<br>", $bio->body) !!}
-            </div>
-        </div>
-    </div>
-@stop
+    <h2 class="text-4xl mt-8">{{ $bio->nickname }}</h2>
+
+    {!! str_replace("\n", "<br>", $bio->body) !!}
+</x-panel>
+
+@endsection

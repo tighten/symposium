@@ -1,34 +1,39 @@
-@extends('layout')
+@extends('app', ['title' => 'Edit Conference'])
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-6 col-md-push-3 create-edit-form">
-                <h1 class="page-title">Edit Conference</h1>
 
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
 
-                {!! Form::open(array('action' => array('ConferencesController@update', $conference->id), 'class' => 'edit-conference-form', 'method' => 'put')) !!}
+<x-form :action="route('conferences.update', $conference->id)" method="PUT">
+    <x-panel>
+        @include('conferences.form')
 
-                @include('partials.conferenceform')
+        @if (auth()->user()->isAdmin())
+            <x-input.radios
+                name="is_approved"
+                label="Conference Is Approved?"
+                :value="$conference->is_approved"
+                :options="[
+                    'Yes' => '1',
+                    'No' => '0',
+                ]"
+                class="mt-8"
+            ></x-input.radios>
+        @endif
 
-                @if (auth()->user()->isAdmin())
-                <div class="form-group">
-                    {!! Form::label('is_approved', 'Conference Is Approved?', ['class' => 'control-label']) !!}
-                    <br>
-                    {!! Form::radio('is_approved', true, $conference->is_approved) !!} Yes&nbsp;&nbsp;
-                    {!! Form::radio('is_approved', false, !$conference->is_approved) !!} No
-                </div>
-                @endif
+    </x-panel>
 
-                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}<br><br>
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Update
+    </x-button.primary>
+</x-form>
 
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-@stop
+@endsection

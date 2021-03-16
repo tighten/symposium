@@ -5,13 +5,13 @@
         <span class="text-2xl">OAuth Clients</span>
 
         <button
-          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          class="bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
           @click="showCreateClientForm"
         >Create New Client</button>
       </div>
 
-      <table v-if="clients.length >0" class="table mb-20 mt-5 container mx-auto">
-        <thead class="bg-blue-500 text-white">
+      <table v-if="clients.length >0" class="table mb-20 mt-5 mx-auto">
+        <thead class="bg-indigo-500 text-white">
           <tr>
             <th scope="col" class="border">ID</th>
             <th scope="col" class="border">Name</th>
@@ -29,16 +29,16 @@
             </td>
             <!-- Edit Button -->
             <td class="border">
-              <a class="cursor-pointer text-blue-500 px-2" @click="edit(client)">Edit</a>
+              <a class="cursor-pointer text-indigo-500 px-2" @click="edit(client)">Edit</a>
               <a class="cursor-pointer text-red-500 px-2" @click="destroy(client)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
       <div v-else role="alert" class="mb-20 pt-5">
-        <div class="bg-blue-500 text-white font-bold rounded-t px-4 py-2">Oops!</div>
+        <div class="bg-indigo-500 text-white font-bold rounded-t px-4 py-2">Oops!</div>
         <div
-          class="border border-t-0 border-blue-400 rounded-b bg-blue-100 px-4 py-3 text-blue-600"
+          class="border border-t-0 border-indigo-300 rounded-b bg-indigo-100 px-4 py-3 text-indigo-800"
         >
           <p>You Dont Have Any Client Yet. Please Create a New Client</p>
         </div>
@@ -52,15 +52,15 @@
         <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
           <div class="shadow-lg bg-white rounded-lg p-8">
             <div class="flex justify-end mb-6">
-              <button @click="close(createForm)">
-                <span class="mr-2 text-red">Close</span>
-                <span>
-                  <i class="fa fa-times"/>
-                </span>
+              <button @click="close(createForm)" class="flex items-center text-red-500">
+                <span class="mr-2">Close</span>
+                <svg viewBox="0 0 20 20" class="fill-current h-4">
+                  <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+                </svg>
               </button>
             </div>
 
-            <h1 class="text-center text-2xl text-blue-600">Create Client</h1>
+            <h1 class="text-center text-2xl text-indigo-800">Create Client</h1>
 
             <form class="pt-6 pb-2 my-2">
               <div class="mb-4">
@@ -69,7 +69,7 @@
                   id="name"
                   v-model="createForm.name"
                   :class="{ 'border-red': createForm.errors.has('name') }"
-                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
+                  class="block appearance-none outline-none w-full h-full border focus:border-indigo-300 bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
                   type="text"
                   placeholder="Something your users will recognize and trust."
                   @keyup.enter="store"
@@ -81,8 +81,8 @@
                 <input
                   id="redirecturl"
                   v-model="createForm.redirect"
-                  :class="{ 'border-red': createForm.errors.has('redirect') }"
-                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
+                  :class="{ 'border-red-500': createForm.errors.has('redirect') }"
+                  class="block appearance-none outline-none w-full h-full border focus:border-indigo-300 bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
                   type="text"
                   placeholder="Your application's authorization callback URL."
                   @keyup.enter="store"
@@ -91,7 +91,7 @@
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded border-b-4 border-blue-800"
+                  class="float-right bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
                   type="button"
                   @click="store"
                 >Create</button>
@@ -110,15 +110,15 @@
         <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
           <div class="shadow-lg bg-white rounded-lg p-8">
             <div class="flex justify-end mb-6">
-              <button @click="close(editForm)">
-                <span class="mr-2 text-red">Close</span>
-                <span>
-                  <i class="fa fa-times"/>
-                </span>
+              <button @click="close(editForm)" class="flex items-center text-red-500">
+                <span class="mr-2">Close</span>
+                <svg viewBox="0 0 20 20" class="fill-current h-4">
+                  <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+                </svg>
               </button>
             </div>
 
-            <h1 class="text-center text-2xl text-blue-600">Edit Client</h1>
+            <h1 class="text-center text-2xl text-indigo-800">Edit Client</h1>
 
             <form class="pt-6 pb-2 my-2">
               <div class="mb-4">
@@ -126,30 +126,30 @@
                 <input
                   id="name"
                   v-model="editForm.name"
-                  :class="{ 'border-red': editForm.errors.has('name') }"
-                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
+                  :class="{ 'border-red-500': editForm.errors.has('name') }"
+                  class="block appearance-none outline-none w-full h-full border focus:border-indigo-300 bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
                   type="text"
                   placeholder="Something your users will recognize and trust."
                   @keyup.enter="update"
                 >
-                <has-error :form="editForm" class="text-red" field="name"/>
+                <has-error :form="editForm" class="text-red-500" field="name"/>
               </div>
               <div class="mb-6">
                 <label class="block text-sm font-bold mb-2" for="redirecturl">Redirect Url</label>
                 <input
                   id="redirecturl"
                   v-model="editForm.redirect"
-                  :class="{ 'border-red': editForm.errors.has('redirect') }"
-                  class="block appearance-none outline-none w-full h-full border focus:border-blue bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
+                  :class="{ 'border-red-500': editForm.errors.has('redirect') }"
+                  class="block appearance-none outline-none w-full h-full border focus:indigo-300 bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
                   type="text"
                   placeholder="Your application's authorization callback URL."
                   @keyup.enter="update"
                 >
-                <has-error :form="editForm" class="text-red" field="redirect"/>
+                <has-error :form="editForm" class="text-red-500" field="redirect"/>
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded border-b-4 border-blue-800"
+                  class="float-right bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
                   type="button"
                   @click="update"
                 >Save Changes</button>

@@ -1,51 +1,53 @@
 <template>
     <div>
-        <h3>My Talks</h3>
-        <strong>Accepted to speak at this conference</strong>
-        <ul class="conference-talk-submission-sidebar">
+        <div class="text-gray-500 mt-4">Accepted to speak at this conference:</div>
+        <ul class="list-none pl-0">
             <li v-for="talk in talksAccepted" v-cloak>
-                <a class="btn btn-xs btn-success" disabled>
-                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    <i v-show="!talk.loading" class="glyphicon checked"></i>
-                    Accepted!
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
+                <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center" @click.prevent="undoAcceptance(talk)">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
+                        Undo
+                    </div>
                 </a>
-                <a class="btn btn-xs btn-danger" @click.prevent="undoAcceptance(talk)">
-                    <i v-show="talk.loading" class="glyphicon glyphicon- glyphicon-refresh-animate"></i>
-                    Undo
-                </a>
-                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksAccepted.length === 0" v-cloak>
                 None
             </li>
         </ul>
-        <strong>Applied to speak at this conference</strong>
-        <ul class="conference-talk-submission-sidebar">
+
+        <div class="text-gray-500 mt-8">Applied to speak at this conference:</div>
+        <ul class="list-none pl-0">
             <li v-for="talk in talksSubmitted" v-cloak>
-                <a class="btn btn-xs btn-success" @click.prevent="markAccepted(talk)">
-                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    <i v-show="!talk.loading" class="glyphicon checked"></i>
-                    Mark Accepted
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
+                <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="markAccepted(talk)">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
+                        Mark Accepted
+                    </div>
                 </a>
-                <a class="btn btn-xs btn-default" @click.prevent="unsubmit(talk)">
-                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    Un-Submit
+                <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center ml-2" @click.prevent="unsubmit(talk)">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
+                        Un-Submit
+                    </div>
                 </a>
-                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksSubmitted.length === 0" v-cloak>
                 None
             </li>
         </ul>
 
-        <strong>Not applied to speak at this conference</strong>
-        <ul class="conference-talk-submission-sidebar">
+        <div class="text-gray-500 mt-8">Not applied to speak at this conference:</div>
+        <ul class="list-none pl-0">
             <li v-for="talk in talksNotSubmitted" v-cloak>
-                <a class="btn btn-xs btn-primary" @click.prevent="submit(talk)">
-                    <i v-show="talk.loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
-                    Mark Submitted
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
+                <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="submit(talk)">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
+                        Mark Submitted
+                    </div>
                 </a>
-                <a :href="talk.url">{{ talk.title }}</a>
             </li>
             <li v-if="talksNotSubmitted.length === 0" v-cloak>
                 None
@@ -57,6 +59,8 @@
 <script>
 const SUBMITTED = "submitted";
 const UNSUBMITTED = "unsubmitted";
+
+import LoadingSpinner from './LoadingSpinner.vue';
 
 export default {
     mounted: function () {
@@ -142,6 +146,9 @@ export default {
                     talk.loading = false;
                 });
         }
-    }
+    },
+    components: {
+        LoadingSpinner,
+    },
 };
 </script>

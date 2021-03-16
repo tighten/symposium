@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon_versioncontrol" transform="translate(1.000000, 1.000000)" stroke="#588CF4">
+            <rect id="Rectangle" stroke-width="2" x="0" y="0" width="70" height="70" rx="35" fill="#EAF0FF"></rect>
+            <path d="M23.999995,21.77 L23.999995,27 C23.9966616,29.932316 25.6548877,32.6133732 28.28,33.92 L37.65,38.61" id="Path" stroke-width="2"></path>
+            <line x1="37.55" y1="21.77" x2="37.55" y2="47.37" id="Path" stroke-width="2"></line>
+            <circle id="Oval" stroke-width="2" cx="23.95" cy="19.37" r="3.2"></circle>
+            <circle id="Oval" fill="#588CF4" fill-rule="nonzero" cx="37.55" cy="50.57" r="3.2"></circle>
+            <circle id="Oval" fill="#588CF4" fill-rule="nonzero" cx="37.55" cy="19.37" r="3.2"></circle>
+        </g>
+    </g>
+</svg>

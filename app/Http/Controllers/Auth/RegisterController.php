@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterFormRequest;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -89,7 +89,7 @@ class RegisterController extends Controller
 
         Event::dispatch('new-signup', [$user, app('request')]);
 
-        Session::flash('message', 'Successfully created account.');
+        Session::flash('success-message', 'Successfully created account.');
 
         return $user;
     }

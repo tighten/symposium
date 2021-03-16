@@ -1,50 +1,55 @@
-@extends('layout')
+@extends('app', ['title' => "Email {$user->name}"])
 
 @section('headerScripts')
-<script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <h1>Email {{ $user->name }}</h1>
 
-                @if (! $errors->isEmpty())
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
-                @endif
+@if (! $errors->isEmpty())
+    <ul class="text-red-500">
+        @foreach ($errors->all() as $message)
+            <li>{{ $message }}</li>
+        @endforeach
+    </ul>
+@endif
 
-                {!! Form::open() !!}
+<x-form :action="route('speakers-public.email.send', $user->profile_slug)">
+    <x-input.text
+        type="email"
+        name="email"
+        label="Email Address"
+        placeholder="Email address"
+        autofocus="autofocus"
+        :hideLabel="true"
+    ></x-input.text>
 
-                <div class="form-group">
-                    {!! Form::label('email', '*Email Address', ['class' => 'sr-only']) !!}
-                    {!! Form::email('email', null, ['autofocus' => 'autofocus', 'class' => 'form-control', 'placeholder' => 'Email address']) !!}
-                </div>
+    <x-input.text
+        name="name"
+        label="Name"
+        placeholder="Name"
+        :hideLabel="true"
+        class="mt-4"
+    ></x-input.text>
 
-                <div class="form-group">
-                    {!! Form::label('name', '*Name', ['class' => 'sr-only']) !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
-                </div>
+    <x-input.textarea
+        name="message"
+        label="Message"
+        placeholder="Message"
+        class="mt-4"
+        :hideLabel="true"
+    ></x-input.textarea>
 
-                <div class="form-group">
-                    {!! Form::label('message', '*Message', ['class' => 'sr-only']) !!}
-                    {!! Form::textarea('message', null, ['class' => 'form-control', 'placeholder' => 'Message']) !!}
-                </div>
+    <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
 
-                <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
-
-                <br>
-
-                <div class="form-group">
-                    {!! Form::submit('Send', ['class' => 'btn btn-block btn-primary']) !!}
-                </div>
-
-                {!! Form::close() !!}
-            </div>
-        </div>
+    <div class="block mt-4">
+        <x-button.primary
+            type="submit"
+            class="w-full md:w-auto"
+        >
+            Send
+        </x-button.primary>
     </div>
+</x-form>
+
 @endsection

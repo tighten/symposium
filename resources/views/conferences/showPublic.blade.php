@@ -1,40 +1,36 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
-    <div class="container body">
-        <h1>{{ $conference->title }}</h1>
 
+<x-panel :title="$conference->title">
+    <div class="font-sans">
         @unless (empty($conference->location))
-            <p><b>Location:</b>
-                {{ $conference->location }}</p>
+            <div class="text-gray-500">Location:</div>
+            {{ $conference->location }}
         @endunless
 
-        <p><b>Date created:</b>
-            {{ $conference->created_at->toFormattedDateString() }}</p>
+        <div class="text-gray-500 mt-4">URL:</div>
+        <a href="{{ $conference->url }}">{{ $conference->url }}</a>
 
-        <p><b>URL:</b>
-            <a href="{{ $conference->url }}">{{ $conference->url }}</a></p>
-
-        <p><b>Description:</b><br>
-            <!-- TODO: Figure out how we will be handling HTML/etc. -->
-            {!! str_replace("\n", "<br>", $conference->description) !!}</p>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-6">
-                <p><b>Date conference starts:</b>
-                    {{ $conference->startsAtDisplay() }}</p>
-
-                <p><b>Date conference ends:</b>
-                    {{ $conference->endsAtDisplay() }}</p>
-
-                <p><b>Date CFP opens:</b>
-                    {{ $conference->cfpStartsAtDisplay() }}</p>
-
-                <p><b>Date CFP closes:</b>
-                    {{ $conference->cfpEndsAtDisplay() }}</p>
-            </div>
-        </div>
+        <div class="text-gray-500 mt-4">Description:</div>
+        {!! str_replace("\n", "<br>", $conference->description) !!}</p>
     </div>
-@stop
+    <x-slot name="footer">
+        <div>
+            <div class="text-gray-500">Dates</div>
+            <div>{{ $conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->endsAtDisplay() }}</div>
+        </div>
+        @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
+            <div>
+                <div class="text-gray-500">CFP</div>
+                <div>{{ $conference->cfpStartsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->cfpEndsAtDisplay() }}</div>
+            </div>
+        @endif
+        <div>
+            <div class="text-gray-500">Created</div>
+            <div>{{ $conference->created_at->toFormattedDateString() }}</div>
+        </div>
+    </x-slot>
+</x-panel>
+
+@endsection

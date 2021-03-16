@@ -33,6 +33,11 @@ Vue.component(
     require('./components/LocationLookup.vue').default
 );
 
+Vue.component(
+    'main-header',
+    require('./components/MainHeader.vue').default
+);
+
 new Vue({
     el: "#app",
 });

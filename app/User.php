@@ -27,6 +27,11 @@ class User extends Authenticatable
         return $query->where('wants_notifications', true);
     }
 
+    public function scopeWhereFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
     public function isAdmin()
     {
         return $this->role == self::ADMIN_ROLE;
@@ -79,6 +84,7 @@ class User extends Authenticatable
     public function updateProfilePicture($filename)
     {
         $this->profile_picture = $filename;
+
         return $this->save();
     }
 
@@ -124,8 +130,8 @@ class User extends Authenticatable
             $user->bios()->delete();
 
             if ($user->profile_picture && strpos($user->profile_picture, '/') === false) {
-                Storage::delete(User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
-                Storage::delete(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
             }
 
             DB::table('favorites')->where('user_id', $user->id)->delete();

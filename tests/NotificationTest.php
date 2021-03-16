@@ -88,7 +88,7 @@ class NotificationTest extends IntegrationTestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    function assertUserNotifiedOfCfp($user, $conference)
+    public function assertUserNotifiedOfCfp($user, $conference)
     {
         Notification::assertSentTo($user, CFPsAreOpen::class, function ($notification) use ($conference) {
             return $notification->conferences->pluck('id')->contains($conference->id);

@@ -1,25 +1,25 @@
-@extends('layout')
+@extends('app', ['title' => 'Add Bio'])
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-6 col-md-push-3 create-edit-form">
-                <h1 class="page-title">Create Bio</h1>
 
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
 
-                {!! Form::open(array('action' => 'BiosController@store', 'class' => 'new-bio-form')) !!}
+<x-form :action="route('bios.store')">
+    <x-panel>
+        @include('bios.form')
+    </x-panel>
 
-                @include('partials.bioform')
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Create
+    </x-button.primary>
+</x-form>
 
-                {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
-
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-@stop
+@endsection

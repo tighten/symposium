@@ -3,9 +3,10 @@
 /**
  * Public
  */
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'HomeController@show',
+]);
 
 Route::get('what-is-this', function () {
     return view('what-is-this');
@@ -36,11 +37,11 @@ Route::get('u/{profileSlug}/email', [
     'uses' => 'PublicProfileController@getEmail',
 ]);
 Route::post('u/{profileSlug}/email', [
-    'as' => 'speakers-public.email',
+    'as' => 'speakers-public.email.send',
     'uses' => 'PublicProfileController@postEmail',
 ]);
 
-/**
+/*
  * App
  */
 Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout']);
@@ -53,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
     Route::put('account/edit', 'AccountController@update');
     Route::get('account/delete', ['as' => 'account.delete', 'uses' => 'AccountController@delete']);
-    Route::post('account/delete', 'AccountController@destroy');
+    Route::post('account/delete', 'AccountController@destroy')->name('account.delete.confirm');
     Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
     Route::get('account/oauth-settings', ['as' => 'account.oauth-settings', 'uses' => 'AccountController@oauthSettings']);
 
@@ -82,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('talks/{id}/restore', ['as' => 'talks.restore', 'uses' => 'TalksController@restore']);
     Route::resource('talks', 'TalksController');
     Route::resource('conferences', 'ConferencesController', [
-        'except' => ['index', 'show']
+        'except' => ['index', 'show'],
     ]);
     Route::resource('bios', 'BiosController');
 });

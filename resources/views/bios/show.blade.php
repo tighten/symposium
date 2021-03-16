@@ -1,21 +1,32 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-6 col-md-push-3">
-                <p class="pull-right">
-                    <a href="{{ route('bios.edit', ['id' => $bio->id]) }}" class="btn btn-default">Edit &nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="btn btn-danger">Delete &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                </p>
 
-                <h1>{{ $bio->nickname }}</h1>
-
-                <p class="bio-meta">Created {{ $bio->created_at->toFormattedDateString() }} | Updated {{ $bio->updated_at->toFormattedDateString() }}</p>
-
-                <p><!-- TODO: Figure out how we will be handling HTML/etc. -->
-                    {!! str_replace("\n", "<br>", $bio->body) !!}</p>
-            </div>
+<x-panel :title="$bio->nickname">
+    <x-slot name="actions">
+        <div class="text-indigo-500 text-lg">
+            <a href="{{ route('bios.edit', $bio) }}" title="Edit">
+                @svg('compose', 'w-5 fill-current inline')
+            </a>
+            <a href="{{ route('bios.delete', ['id' => $bio->id]) }}" class="ml-3" title="Delete">
+                @svg('trash', 'w-5 fill-current inline')
+            </a>
         </div>
+    </x-slot>
+    <div class="mt-3 font-sans">
+        <!-- TODO: Figure out how we will be handling HTML/etc. -->
+        {!! str_replace("\n", "<br>", $bio->body) !!}
     </div>
-@stop
+    <x-slot name="footer">
+        <div>
+            <div class="text-gray-500">Created</div>
+            <div>{{ $bio->created_at->toFormattedDateString() }}</div>
+        </div>
+        <div>
+            <div class="text-gray-500">Updated</div>
+            <div>{{ $bio->updated_at->toFormattedDateString() }}</div>
+       </div>
+    </x-slot>
+</x-panel>
+
+@endsection
