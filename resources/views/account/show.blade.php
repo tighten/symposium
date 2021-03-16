@@ -8,10 +8,6 @@
                 'label' => 'Edit account',
                 'route' => 'account.edit',
             ],
-            'delete' => [
-                'label' => 'Delete account',
-                'route' => 'account.delete',
-            ],
             'export' => [
                 'label' => 'Export data',
                 'route' => 'account.export',
@@ -19,6 +15,10 @@
             'oauth' => [
                 'label' => 'oAuth settings',
                 'route' => 'account.oauth-settings',
+            ],
+            'delete' => [
+                'label' => 'Delete account',
+                'route' => 'account.delete',
             ],
         ]"
     ></x-side-menu>
