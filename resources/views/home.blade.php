@@ -59,25 +59,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-                    <div class="panel panel-default panel-on-grey">
-                        <div class="panel-heading">
-                            @if (Auth::guest())
-                                <h3 class="panel-title">Log in</h3>
-                            @endif
-                        </div>
-                        <div class="panel-body">
-                            @if (Auth::guest())
-                                <div class="text-center">
-                                    <a class="btn-github-login" href="{{ url('login/github') }}">Log in with <strong>GitHub</strong> @svg('github', 'inline-block align-top h-6 w-6')</a>
-                                    <p class="text-base text-gray-400">or</p>
-                                </div>
-                                @include('partials.log-in-form')
-                            @else
-                                <p><a href="{{ route('dashboard') }}">Dashboard</a> | <a href="{{ route('log-out') }}">Logout</a></p>
-=======
->>>>>>> develop
-
 <div class="bg-indigo-500 pb-24">
     <div class="bg-white relative rounded-lg shadow px-0 py-12 max-w-md mx-auto sm:mx-10 lg:mx-auto sm:max-w-6xl md:max-w-4xl -mt-20">
         <div class="flex flex-col items-center">
