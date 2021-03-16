@@ -22,7 +22,7 @@
 @section('list')
     <x-panel size="md" title="Talks">
         <x-slot name="actions">
-            <a href="{{ route('talks.create') }}" class="flex items-center text-indigo-500 hover:text-indigo-800">
+            <a href="{{ route('talks.create') }}" class="flex items-center text-indigo-800 hover:text-indigo-500">
                 @svg('plus', 'w-3 fill-current inline')
                 <span class="ml-1">Add Talk</span>
             </a>
