@@ -1,56 +1,69 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-10 col-md-push-1">
-                <div class="public-profile-pic">
-                    <a href="{{ $user->profile_picture_hires }}">
-                        <img src="{{ $user->profile_picture_hires }}" class="public-speaker-picture">
-                    </a><br>
-                    @if ($user->allow_profile_contact)
-                    <a href="{{ route('speakers-public.email', $user->profile_slug) }}">Contact {{ $user->name }}</a>
-                    @endif
-                </div>
 
-                <h1>{{ $user->name }}</h1>
-                <p class="public-profile-intro">{!! str_replace("\n", "<br>", htmlentities($user->profile_intro)) !!}</p>
-                <?php /*
-                    What's the primary goal we're targeting here?
-                    For a speaker to be able to make it known which talks they're
-                    interested in giving again, and to prove to conference organizers
-                    that they're a good speaker and this particular talk has merit.
-                    Also, it's for conference organizers to be able to easily find
-                    talks interesting to them.
-                */ ?>
+<x-panel>
+    <div class="flex flex-col items-center sm:flex-none sm:items-start">
+        <a href="{{ $user->profile_picture_hires }}">
+            <img src="{{ $user->profile_picture_hires }}" class="rounded-full h-56 w-56">
+        </a>
 
-                <h2>Talks</h2>
-                @forelse ($talks as $talk)
-                    <h3><a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">{{ $talk->current()->title }}</a></h3>
-                    <p class="talk-meta">{{ $talk->current()->length }}-minute {{ $talk->current()->type }} talk at {{ $talk->current()->level }} level</p>
-                @empty
-                    This speaker has not made any of their talks public yet.
-                @endforelse
+        <h2 class="text-4xl">{{ $user->name }}</h2>
 
-                @if ($bios->count() == 0)
-                    <h2>Bios</h2>
-                    This speaker has not made any of their bios public yet.
-                @elseif ($bios->count() == 1)
-                    <h3>Bio ({{ $bios->first()->nickname }})</h3>
-                    <p>{!! str_replace("\n", "<br>", $bios->first()->body) !!}</p>
-                @else
-                    <h2>Bios</h2>
-                    @foreach ($bios as $bio)
-                    <h3><a href="{{ route('speakers-public.bios.show', ['profileSlug' => $user->profile_slug, 'bioId' => $bio->id]) }}">{{ $bio->nickname }}</a></h3>
-                    @endforeach
-                @endif
+        @if ($user->location)
+            <small class="text-lg text-gray-500">{{ $user->location }}</small>
+        @endif
 
-                @if ($user->location)
-                    <h2>Location</h2>
-                    {{ $user->location }}</p>
-                @endif
-            </div>
-        </div>
+        <p class="mt-8">
+            {!! str_replace("\n", "<br>", htmlentities($user->profile_intro)) !!}
+        </p>
+
+        @if ($user->allow_profile_contact)
+            <a
+                href="{{ route('speakers-public.email', $user->profile_slug) }}"
+                class="no-underline block mt-8 text-indigo"
+            >
+                Contact {{ $user->name }}
+            </a>
+        @endif
     </div>
-@stop
+</x-panel>
+
+<x-panel title="Talks" class="mt-6">
+    <div class="space-y-4">
+        @forelse ($talks as $talk)
+            <h4 class="text-2xl text-indigo">
+                <a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">
+                    {{ $talk->current()->title }}
+                </a>
+            </h4>
+            <span class="text-sm text-gray-500">
+                {{ $talk->current()->length }}-minute {{ $talk->current()->type }} talk at {{ $talk->current()->level }} level
+            </span>
+        @empty
+            This speaker has not made any of their talks public yet.
+        @endforelse
+    </div>
+</x-panel>
+
+<x-panel title="Bios" class="mt-6">
+    <div class="space-y-4">
+        @if ($bios->count() == 0)
+            This speaker has not made any of their bios public yet.
+        @elseif ($bios->count() == 1)
+            <h3 class="text-3xl mt-8">Bio ({{ $bios->first()->nickname }})</h3>
+            <p>{!! str_replace("\n", "<br>", $bios->first()->body) !!}</p>
+        @else
+            @foreach ($bios as $bio)
+                <h4 class="text-2xl text-indigo">
+                    <a href="{{ route('speakers-public.bios.show', ['profileSlug' => $user->profile_slug, 'bioId' => $bio->id]) }}">
+                        {{ $bio->nickname }}
+                    </a>
+                </h4>
+            @endforeach
+        @endif
+    </div>
+</x-panel>
+
+@endsection
 

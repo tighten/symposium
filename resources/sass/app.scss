@@ -4,165 +4,50 @@
 
 @tailwind utilities;
 
-// Old stuff. All future dev in Tailwind, please.
-
-// Bootstrap & Flatly ( http://bootswatch.com/flatly/ )
-@import "variables", "bootstrap", "bootswatch";
-
-$link_color: #428bca;
-$font-family-oswald: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
-
-/* Build our stylesheet, which currently merely extends bootstrap styles. */
-html {
-    font-size: 16px;
+.alert {
+    padding: 15px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
-body {
-    background: #eee;
+.alert-success {
+    background-color: #18BC9C;
+    border-color: #18BC9C;
+    color: #fff;
 }
 
-img {
-    max-width: 100%;
+.alert-warning {
+    background-color: #F39C12;
+    border-color: #F39C12;
+    color: #fff;
 }
 
-a {
-    color: $link_color;
-    text-decoration: none;
-
-    &:hover {
-        color: darken($link_color, 15%);
-        text-decoration: underline;
-    }
+.alert-danger {
+    background-color: #E74C3C;
+    border-color: #E74C3C;
+    color: #fff;
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-    font-family: $font-family-oswald;
+.alert-info {
+    background-color: #3498DB;
+    border-color: #3498DB;
+    color: #fff;
 }
 
-h1 {
-    font-size: 1.5625rem;
-}
-
-h2 {
-    font-size: 1.25rem;
-}
-
-h3 {
-    font-size: 0.9375rem;
-}
-
-@media only screen and (min-width: 400px) {
-    h1 {
-        font-size: 2.1875rem;
-    }
-
-    h2 {
-        font-size: 1.875rem;
-    }
-
-    h3 {
-        font-size: 1.5625rem;
-    }
-}
-
-fieldset {
-    border: 1px solid #aaa;
-    border-width: 1px 0 0 0;
-    margin-bottom: 2em;
-    padding: 1em 0 0 0;
-}
-
-legend {
-    color: lighten(desaturate(rgb(44, 62, 80), 20%), 5%);
-    margin-bottom: 0;
-    margin-left: 0.5em;
-    padding-left: 0.25em;
-    padding-right: 0.25em;
-    width: inherit;
-}
-
-.u-bold {
-    font-weight: bold;
-}
-
-.container {
-    @extend .container;
-    position: relative;
-}
-
-
-.logo {
-    // @extend .navbar-brand;
-
-    bottom: 0;
-    position: absolute;
-
-    max-width: 50%;
-
-    @media only screen and (min-width: 768px) {
-        max-width: 250px;
-    }
-
-    @media only screen and (min-width: 992px) {
-        max-width: 400px;
-    }
-}
-
-.nav-profile-picture {
-    border-radius: 1.5em;
-    height: 3em;
-    margin-right: 0.5em;
-    margin-top: -0.5em;
-    width: 3em;
-}
-
-.body {
-    background: #fff;
-    margin-top: 0;
-    padding-bottom: 3.75rem;
-    padding-top: 2.5rem;
-}
-
-.primary-header {
-    @extend .navbar;
-    @extend .navbar-default;
-    @extend .navbar-static-top;
-
-    margin-bottom: 0;
-}
-
-.primary-header__title {
-    @extend .navbar-header;
-}
-
-.primary-header__toggle {
-    @extend .navbar-toggle;
-    margin-top: 2.5em;
-}
-
-.primary-header__collapse {
-    @extend .navbar-collapse;
-    @extend .collapse;
-}
-
-.primary-header__meta-nav {
-    @extend .nav;
-    @extend .navbar-nav;
-    @extend .navbar-right;
-    margin-top: 2em;
-}
-
-.primary-footer {
-    color: #777;
-    text-transform: uppercase;
-}
-
-.icon-bar {
-    @extend .icon-bar;
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
 }
 
 %notice {
-    @extend .alert;
+    @extend .alert !optional;
     right: 1em;
     top: 8em;
     position: fixed;
@@ -170,196 +55,28 @@ legend {
     min-width: 250px;
     z-index: 200;
     text-align: center;
+    cursor: pointer;
 }
 
 .notice-success {
     @extend %notice;
-    @extend .alert-success;
+    @extend .alert-success !optional;
 }
 
 .notice-error {
     @extend %notice;
-    @extend .alert-danger;
+    @extend .alert-danger !optional;
 }
 
 .notice-info {
     @extend %notice;
-    @extend .alert-info;
-}
-
-.hero {
-    font-size: 1.25rem;
-
-    h1 {
-        font-size: 3.35rem;
-    }
-
-    img {
-        border: 2px solid #eee;
-    }
-}
-
-.list-sort {
-    border-left: 3px solid #ddd;
-    color: #888;
-    font-size: 0.9em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    text-transform: uppercase;
-
-    a {
-        color: lighten($link_color, 10%);
-    }
-}
-
-.create-edit-form, %index-list {
-    border: 10px solid #eee;
-    background: #fcfcfc;
-    border-radius: 5px;
-    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1);
-}
-
-.create-edit-form {
-    padding: 1.25rem;
-}
-
-%index-list {
-    list-style-type: none;
-    margin-left: 0;
-    padding: 0.625rem 1.25rem;
-
-    li {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 0.9375rem;
-        padding-top: 0.9375rem;
-
-        &:last-of-type {
-            border-bottom: 0;
-        }
-    }
-
-    h3 {
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-
-    p:last-of-type {
-        margin-bottom: 0;
-    }
-}
-
-.list-talks {
-    @extend %index-list;
-
-    h3 {
-        font-size: 1.5em;
-    }
-
-    ul li {
-        padding: 0.25rem;
-        border: none;
-    }
-}
-
-.talk-meta, .bio-meta {
-    color: #666;
-    font-size: .9em;
-}
-
-.page-meta-buttons {
-    .btn {
-        display: block;
-        margin-left: 0.625rem;
-        margin-bottom: 0.3125rem;
-    }
-}
-
-.list-versions {
-    @extend %index-list;
-
-    h3 {
-        margin-top: 0.2em;
-    }
-}
-
-.list-conferences {
-    @extend %index-list;
-
-    & > li {
-        display: flex;
-    }
-
-    .conference-meta {
-        font-size: .8em;
-        margin-top: 0.25em;
-    }
-
-    .conference-actions {
-        display: flex;
-        flex-direction: column;
-        margin-right: 0.625rem;
-        text-align: center;
-    }
-
-    .action-button {
-        color: #ee9900;
-        height: 1.875rem;
-        margin-top: 0.25rem;
-
-        &:hover {
-            color: #ff5500;
-        }
-    }
-}
-
-.list-bios {
-    @extend %index-list;
-
-    h3 {
-        font-size: 1.25rem;
-    }
-}
-
-.actions-box {
-    @media only screen and (min-width: 768px) {
-        float: right;
-        width: 20%;
-    }
-}
-
-.errors {
-    color: red;
-}
-
-.public-speaker-picture {
-    height: 15em;
-    margin-bottom: 1em;
-    width: 15em;
-}
-
-.page-title {
-    margin-top: 0;
-    vertical-align: middle;
-}
-
-.talk-body {
-    border: 1px solid #bbb;
-    max-width: 55em;
-    padding: 1em;
-}
-
-.create-button {
-    @extend .pull-right;
-    @extend .btn;
-    @extend .btn-primary;
-
-    margin-left: 1em;
+    @extend .alert-info !optional;
 }
 
 #calendar {
     button {
-        @extend .btn;
-        @extend .btn-primary;
+        background-image: none;
+        @apply bg-indigo-500 text-white;
         padding: 0 .6em;
         text-shadow: none;
     }
@@ -370,13 +87,14 @@ legend {
 
         button {
             border-radius: 0;
+            @apply bg-indigo;
 
             &:not(:first-child) {
                 border-left: 1px solid #161f29;
             }
 
             &.fc-state-active {
-                background-color: #161f29;
+                @apply bg-indigo-900;
             }
         }
     }
@@ -387,84 +105,7 @@ legend {
     }
 
     .fc-day-header {
-        font-family: $font-family-oswald;
-    }
-}
-
-.filter-link {
-    &.is-active {
-        font-weight: bold;
-    }
-}
-
-// Remove top margin for first radio item after label
-.control-label + .radio {
-    margin-top: 0;
-}
-
-.btn-default.zeroclipboard-is-hover {
-    color: $btn-default-color;
-    background-color: darken($btn-default-bg, 10%);
-    border-color: darken($btn-default-border, 12%);
-}
-
-.panel-on-grey {
-    .panel-heading {
-        border-color: #ddd;
-        background: #ddd;
-    }
-}
-
-.login-box, .signup-box {
-    margin-top: 3.125rem;
-}
-
-.public-profile-pic {
-    text-align: center;
-
-    img {
-        border-radius: 50%;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    @media only screen and (min-width: 768px) {
-        float: right;
-    }
-}
-.private-profile-pic {
-    text-align: center;
-
-    img {
-        border-radius: 50%;
-    }
-}
-.public-profile-intro {
-     @media only screen and (min-width: 768px) {
-        width: 60%;
-    }
-}
-
-.conference-talk-submission-sidebar {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.notice {
-    cursor: pointer;
-}
-
-.pronto-promo {
-    font-size: .9em;
-
-    img {
-        border: 0;
-        float: right;
-        margin-bottom: 1em;
-        margin-left: 1em;
-        width: 30%;
+        font-family: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
     }
 }
 
@@ -472,15 +113,7 @@ legend {
     display: none;
 }
 
-.glyphicon-refresh-animate {
-    animation: spin 1s infinite linear;
-}
-
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
-}
-
-.mb-0 {
-    margin-bottom: 0;
 }

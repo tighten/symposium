@@ -1,126 +1,140 @@
-@extends('layout')
+@extends('app', ['title' => 'Edit Account'])
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-10 col-md-push-1">
-                <h2>Edit Account</h2>
 
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
+
+<x-form :action="route('account.edit', $user)" method="PUT" :upload="true">
+    <x-panel title="User">
+        <x-input.text
+            name="email"
+            label="Email Address"
+            type="email"
+            :value="$user->email"
+        ></x-input.text>
+
+        <x-input.text
+            name="password"
+            label="Password (leave empty to keep the same)"
+            type="password"
+            class="mt-8"
+        ></x-input.text>
+
+        <x-input.text
+            name="name"
+            label="Name"
+            class="mt-8"
+            :value="$user->name"
+        ></x-input.text>
+
+        <div class="mt-8">
+            <label for="profile_picture" class="block text-indigo-500 font-bold mb-2">
+                Profile Picture
+            </label>
+            <div class="rounded-full text-center">
+                <img
+                    id="profile_picture"
+                    src="{{ auth()->user()->profile_picture_hires }}"
+                    class="h-48 w-48 mb-1 rounded-full"
+                    alt="profile picture"
+                >
             </div>
+            @if ($user->profile_picture == null)
+                <div class="alert alert-warning">
+                    <strong>Your current public profile picture is sourced from Gravatar.</strong><br>
+                    Please upload a custom profile picture.
+                </div>
+            @endif
+            <x-input.upload
+                name="profile_picture"
+                help="Please use a high resolution image, as it will be provided to conference organizers."
+                class="mt-2"
+            ></x-input.upload>
         </div>
 
-        {!! Form::model($user, ['route' => 'account.edit', 'method' => 'put', 'files' => 'true']) !!}
+        <x-input.radios
+            name="wants_notifications"
+            label="Enable email notifications?"
+            :options="[
+                'Yes' => '1',
+                'No' => '0',
+            ]"
+            :value="$user->wants_notifications"
+            help="Do you want to receive email notifications for open CFPs?"
+            class="mt-8"
+        ></x-input.radios>
+    </x-panel>
 
-        <div class="row">
-            <div class="col-md-5 col-md-push-1">
-                <h3>User</h3>
-                <div class="form-group">
-                    {!! Form::label('email', 'Email Address', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
-                </div>
+    <x-panel title="Public Profile" class="mt-6">
+        <x-input.radios
+            name="enable_profile"
+            label="Show Public Speaker Profile?"
+            :options="[
+                'Yes' => '1',
+                'No' => '0',
+            ]"
+            :value="$user->enable_profile"
+            help="Do you want a public speaker page that you can show to conference organizers?"
+        ></x-input.radios>
 
-                <div class="form-group">
-                    {!! Form::label('password', 'Password (leave empty to keep the same)', ['class' => 'control-label']) !!}
-                    {!! Form::password('password', ['class' => 'form-control']) !!}
-                </div>
+        <x-input.radios
+            name="allow_profile_contact"
+            label="Allow contact from your Public Speaker Profile?"
+            :options="[
+                'Yes' => '1',
+                'No' => '0',
+            ]"
+            :value="$user->allow_profile_contact"
+            help="Do you want a contact form on your public speaker profile? Messages will be sent to your email but your email address will remain private."
+            class="mt-8"
+        ></x-input.radios>
 
-                <div class="form-group">
-                    {!! Form::label('name', 'Name', ['class' => 'control-label']) !!}
-                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                </div>
+        <x-input.text
+            name="profile_slug"
+            label="Profile URL slug"
+            :value="$user->profile_slug"
+            help="The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}"
+            class="mt-8"
+        ></x-input.text>
 
-                <div class="form-group">
-                    {!! Form::label('profile_picture', 'Profile Picture', ['class' => 'control-label']) !!}
-                    <div class="private-profile-pic">
-                        <img src="{{ Auth::user()->profile_picture_hires }}" class="public-speaker-picture" alt="">
-                    </div>
-                    @if ($user->profile_picture == null)
-                        <div class="alert alert-warning">
-                            <strong>Your current public profile picture is sourced from Gravatar.</strong><br>
-                            Please upload a custom profile picture.
-                        </div>
-                    @endif
-                    <span class="help-block">Please use a high resolution image, as it will be provided to conference organizers.</span>
-                    {!! Form::file('profile_picture', null, ['class' => 'form-control']) !!}
-                </div>
+        <x-input.textarea
+            name="profile_intro"
+            label="Profile Intro"
+            :value="$user->profile_intro"
+            help="This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers."
+            class="mt-8"
+        ></x-input.textarea>
 
-                <div class="form-group">
-                    {!! Form::label('enable_profile', 'Enable email notifications?', ['class' => 'control-label']) !!}<br>
-                    <span class="help-block">Do you want to receive email notifications for open CFPs?</span>
-                    <label class="radio-inline">
-                        {!! Form::radio('wants_notifications', '1', ['id' => 'wants_notifications_true']) !!} Yes
-                    </label>
-                    <label class="radio-inline">
-                        {!! Form::radio('wants_notifications', '0', ['id' => 'wants_notifications_false']) !!} No
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-5 col-md-push-1">
-                <h3>Public Profile</h3>
+        <x-input.text
+            name="location"
+            label="Location"
+            :value="$user->location"
+            help="Enter the city in which you reside and local conference organizers can find you."
+            class="mt-8"
+        ></x-input.text>
 
-                <div class="form-group">
-                    {!! Form::label('enable_profile', 'Show Public Speaker Profile?', ['class' => 'control-label']) !!}<br>
-                    <span class="help-block">Do you want a public speaker page that you can show to conference organizers?</span>
-                    <label class="radio-inline">
-                        {!! Form::radio('enable_profile', '1', ['id' => 'enable_profile_true']) !!} Yes
-                    </label>
-                    <label class="radio-inline">
-                        {!! Form::radio('enable_profile', '0', ['id' => 'enable_profile_false']) !!} No
-                    </label>
-                </div>
+        <input name="neighborhood" id="neighborhood" type="hidden" readonly>
+        <input name="sublocality" id="sublocality_level_1" type="hidden" readonly>
+        <input name="city" id="locality" type="hidden" readonly>
+        <input name="state" id="administrative_area_level_1" type="hidden" readonly>
+        <input name="country" id="country" type="hidden" readonly>
 
-                <div class="form-group">
-                    {!! Form::label('allow_profile_contact', 'Allow contact from your Public Speaker Profile?', ['class' => 'control-label']) !!}<br>
-                    <span class="help-block">Do you want a contact form on your public speaker profile? Messages will be sent to your email but your email address will remain private.</span>
-                    <label class="radio-inline">
-                        {!! Form::radio('allow_profile_contact', '1', ['id' => 'allow_profile_contact_true']) !!} Yes
-                    </label>
-                    <label class="radio-inline">
-                        {!! Form::radio('allow_profile_contact', '0', ['id' => 'allow_profile_contact_false']) !!} No
-                    </label>
-                </div>
+    </x-panel>
 
-                <div class="form-group">
-                    {!! Form::label('profile_slug', 'Profile URL slug', ['class' => 'control-label']) !!}
-                    <span class="help-block">The URL slug to be used for your public speaker profile. This will make your profile available at {{ route('speakers-public.show', 'your_slug_here') }}</span>
-                    {!! Form::text('profile_slug', null, ['class' => 'form-control']) !!}
-                </div>
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-6"
+    >
+        Save
+    </x-button.primary>
+</x-form>
 
-                <div class="form-group">
-                    {!! Form::label('profile_intro', 'Profile Intro', ['class' => 'control-label']) !!}
-                    <span class="help-block">This paragraph will go at the top of your public speaker profile page. You can use it to communicate any message you'd like to conference organizers.</span>
-                    {!! Form::textarea('profile_intro', null, ['class' => 'form-control']) !!}
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('location', 'Location', ['class' => 'control-label']) !!}
-                    <span class="help-block">Enter the city in which you reside and local conference organizers can find you.</span>
-                    {!! Form::text('location', null, ['class' => 'form-control', 'id' => 'autocomplete']) !!}
-                </div>
-
-                <div class="form-group">
-                    {!! Form::hidden('neighborhood', null, ['id' => 'neighborhood', 'readonly' => true]) !!}
-                    {!! Form::hidden('sublocality', null, ['id' => 'sublocality_level_1', 'readonly' => true]) !!}
-                    {!! Form::hidden('city', null, ['id' => 'locality', 'readonly' => true]) !!}
-                    {!! Form::hidden('state', null, ['id' => 'administrative_area_level_1', 'readonly' => true]) !!}
-                    {!! Form::hidden('country', null, ['id' => 'country', 'readonly' => true]) !!}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 col-md-push-1">
-                {!! Form::submit('Save', array('class' => 'btn btn-primary')) !!}
-            </div>
-        </div>
-
-        {!! Form::close() !!}
-    </div>
-@stop
+@endsection
 
 @push('scripts')
 <script src="{{ elixir('js/location.js') }}"></script>

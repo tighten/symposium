@@ -1,27 +1,25 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
 
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <p>
-                    <a href="{{ route('speakers-public.show', $user->profile_slug) }}" class="btn btn-default">
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;
-                        Return to profile for {{ $user->name }}
-                    </a>
-                </p><br>
+<x-panel>
+    <x-button.primary
+        :href="route('speakers-public.show', $user->profile_slug)"
+        icon="arrow-thick-left"
+        class="inline-block"
+    >
+        Return to profile for {{ $user->name }}
+    </x-button.primary>
 
-                <h1 class="page-title">{{ $talk->current()->title }}</h1>
+    <h2 class="text-4xl mt-8">{{ $talk->current()->title }}</h2>
 
-                <p style="font-style: italic;">
-                    {{ $talk->current()->length }} minute {{ $talk->current()->level }} {{ $talk->current()->type }}
-                </p>
+    <p style="font-style: italic;">
+        {{ $talk->current()->length }} minute {{ $talk->current()->level }} {{ $talk->current()->type }}
+    </p>
 
-                <h3>Description/Proposal</h3>
+    <h3 class="text-3xl mt-8">Description/Proposal</h3>
 
-                {!! markdown($talk->current()->getDescription()) !!}
-            </div>
-        </div>
-    </div>
-@stop
+    {!! markdown($talk->current()->getDescription()) !!}
+</x-panel>
+
+@endsection

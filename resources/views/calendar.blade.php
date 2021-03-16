@@ -1,14 +1,10 @@
-@extends('layout')
+@extends('app')
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div id="calendar" class="calendar col-sm-12">
-                {!! $calendar->calendar() !!}
-            </div>
-        </div>
+    <div id="calendar" class="calendar mt-8">
+        {!! $calendar->calendar() !!}
     </div>
-@stop
+@endsection
 
 @push('scripts')
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>

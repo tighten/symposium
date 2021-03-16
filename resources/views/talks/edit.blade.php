@@ -1,27 +1,25 @@
-@extends('layout')
+@extends('app', ['title' => 'Edit Talk'])
 
 @section('content')
-    <div class="container body">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 create-edit-form">
-                <h1 class="page-title">Edit Talk</h1>
 
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
 
-                {!! Form::open(['action' => ['TalksController@update', $current->talk_id], 'class' => 'edit-talk-form', 'method' => 'put']) !!}
+<x-form :action="route('talks.update', $current->talk_id)" method="PUT">
+    <x-panel>
+        @include('talks.form')
+    </x-panel>
 
-                @include('partials.talk-version-form')
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Update
+    </x-button.primary>
+</x-form>
 
-                <div class="form-group">
-                    {!! Form::submit('Update', ['class' => 'btn btn-block btn-primary']) !!}
-                </div>
-
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-@stop
+@endsection

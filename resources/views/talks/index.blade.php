@@ -1,25 +1,53 @@
-@extends('layout')
+@extends('layouts.index', ['title' => 'My Talks'])
 
 @section('content')
 
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <a href="{{ route('talks.create') }}" class="create-button">Create Talk &nbsp;
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </a>
-                <h2 class="page-title">My Talks</h2>
-                <p>
-                    <span class="list-sort">Sort: {{ $sorted_by }}
-                        <a href="{{ route('talks.index', ['sort' => 'alpha']) }}" class="@sorted($sorted_by, 'alpha')">Title</a> |
-                        <a href="{{ route('talks.index', ['sort' => 'date']) }}" class="@sorted($sorted_by, 'date')">Date</a>
-                    </span>
-                    <a href="{{ route('talks.archived.index') }}" class="btn btn-default btn-xs">Show Archived Talks</a>
-                </p>
-                <ul class="list-talks">
-                  @each('partials.talk-in-list', $talks, 'talk', 'partials.talk-in-list-empty')
-                </ul>
-            </div>
-        </div>
-    </div>
-@stop
+@section('sidebar')
+    <x-side-menu
+        title="Filter"
+        :links="[
+            'alpha' => [
+                'label' => 'Active',
+                'route' => 'talks.index',
+                'query' => ['filter' => 'active'],
+            ],
+            'archived' => [
+                'label' => 'Archived',
+                'route' => 'talks.archived.index',
+                'query' => ['filter' => 'archived'],
+            ],
+        ]"
+        :defaults="['filter' => 'active', 'sort' => 'alpha']"
+    ></x-side-menu>
+
+    <x-side-menu
+        title="Sort"
+        :links="[
+            'alpha' => [
+                'label' => 'Title',
+                'route' => 'talks.index',
+                'query' => ['sort' => 'alpha']
+            ],
+            'date' => [
+                'label' => 'Date',
+                'route' => 'talks.index',
+                'query' => ['sort' => 'date']
+            ],
+        ]"
+        :defaults="['filter' => 'active', 'sort' => 'alpha']"
+    ></x-side-menu>
+@endsection
+
+@section('actions')
+    <x-button.primary
+        :href="route('talks.create')"
+        icon="plus"
+        class="block w-full"
+    >
+        Add Talk
+    </x-button.primary>
+@endsection
+
+@section('list')
+    @each('talks.listing', $talks, 'talk', 'talks.listing-empty')
+@endsection

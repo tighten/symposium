@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon_trackconferences" transform="translate(1.000000, 1.000000)" stroke="#588CF4" stroke-width="2">
+            <rect id="Rectangle" x="0" y="0" width="70" height="70" rx="35" fill="#EAF0FF"></rect>
+            <path d="M26.4999948,34.17 L26.4999948,26.65 C26.4949681,21.7916769 30.1672271,17.7176295 34.9999948,17.22 C35.0761645,14.5131118 37.2096345,12.3139407 39.9129687,12.1557346 C42.6163029,11.9975284 44.9917329,13.932827 45.3831242,16.6123526 C45.7745156,19.2918783 44.0518887,21.8257694 41.4162477,22.4474136 C38.7806067,23.0690578 36.1072394,21.572009 35.26,19 C31.3259916,19.3666996 28.3184408,22.6689384 28.32,26.62 L28.32,34.14" id="Path"></path>
+            <rect id="Rectangle" x="15.5" y="34.17" width="39" height="7"></rect>
+            <polyline id="Path" points="21.5 67.17 21.5 41.17 48.5 41.17 48.5 67.17"></polyline>
+        </g>
+    </g>
+</svg>

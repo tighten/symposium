@@ -96,7 +96,7 @@ class ConferencesController extends BaseController
                 ->withInput();
         }
 
-        Session::flash('message', 'Successfully created new conference.');
+        Session::flash('success-message', 'Successfully created new conference.');
 
         return redirect('conferences/' . $conference->id);
     }
@@ -165,7 +165,7 @@ class ConferencesController extends BaseController
 
         $conference->save();
 
-        Session::flash('message', 'Successfully edited conference.');
+        Session::flash('success-message', 'Successfully edited conference.');
 
         return redirect('conferences/' . $conference->id);
     }

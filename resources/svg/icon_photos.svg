@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon_photos" transform="translate(1.000000, 1.000000)">
+            <rect id="Rectangle" stroke="#588CF4" stroke-width="2" x="0" y="0" width="70" height="70" rx="35" fill="#EAF0FF"></rect>
+            <rect id="Rectangle" stroke="#588CF4" stroke-width="2" x="16.86" y="16" width="30.4" height="33.16"></rect>
+            <polyline id="Path" stroke="#588CF4" stroke-width="2" points="49.24 20.84 52 20.84 52 54 21.6 54 21.6 51.24"></polyline>
+            <rect id="Rectangle" stroke="#588CF4" stroke-width="2" x="21" y="20.15" width="22.11" height="22.11"></rect>
+            <path d="M36.12,30.39 C36.12,32.39 35.71,36.39 32.41,36.39 C29.11,36.39 28.69,32.49 28.69,30.39 C28.6187294,29.0167694 29.3108045,27.716225 30.4895967,27.008206 C31.6683889,26.3001871 33.1416111,26.3001871 34.3204033,27.008206 C35.4991955,27.716225 36.1912706,29.0167694 36.12,30.39 Z" id="Path" fill="#588CF4" fill-rule="nonzero"></path>
+            <path d="M34.09,34.7 L30.15,34.7 C30.15,34.7 24,39.11 24,42.25 L40.83,42.25 C40.83,39.11 34.67,34.7 34.67,34.7" id="Path" fill="#588CF4" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

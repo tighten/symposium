@@ -35,9 +35,7 @@ class AdminTest extends IntegrationTestCase
 
         $this->actingAs($admin)
             ->visit(route('conferences.show', $conference))
-            ->within('.action-buttons', function () {
-                $this->see('Edit');
-            });
+            ->see('Edit');
     }
 
     /** @test */

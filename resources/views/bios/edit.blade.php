@@ -1,26 +1,25 @@
-@extends('layout')
+@extends('app', ['title' => 'Edit Bio'])
 
 @section('content')
 
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-6 col-md-push-3 create-edit-form">
-                <h1 class="page-title">Edit Bio</h1>
+<ul class="text-red-500">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+</ul>
 
-                <ul class="errors">
-                    @foreach ($errors->all() as $message)
-                        <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
+<x-form :action="route('bios.update', $bio->id)" method="PUT">
+    <x-panel>
+        @include('bios.form')
+    </x-panel>
 
-                {!! Form::open(array('action' => array('BiosController@update', $bio->id), 'class' => 'edit-bio-form', 'method' => 'put')) !!}
+    <x-button.primary
+        type="submit"
+        size="md"
+        class="mt-8"
+    >
+        Update
+    </x-button.primary>
+</x-form>
 
-                @include('partials.bioform')
-
-                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-@stop
+@endsection
