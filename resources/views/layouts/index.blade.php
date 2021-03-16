@@ -2,16 +2,16 @@
 
 @section('content')
 
-<div class="flex flex-col md:flex-row py-3 max-w-md mx-auto sm:max-w-3xl">
-    <div class="w-full md:w-1/4 space-y-6">
+<div class="flex flex-col max-w-md py-3 mx-auto md:flex-row sm:max-w-3xl">
+    <div class="w-full space-y-6 md:w-1/2">
         @hasSection('sidebar')
-            <div class="flex items-start flex-wrap md:flex-col space-x-6 space-y-0 md:space-x-0 md:space-y-6">
+            <div class="flex flex-wrap items-start space-x-6 space-y-0 md:flex-col md:space-x-0 md:space-y-6">
                 @yield('sidebar')
             </div>
         @endif
         @yield('actions')
     </div>
-    <div class="w-full md:w-3/4 md:ml-6 mt-6 md:mt-0">
+    <div class="w-full mt-6 md:w-3/4 md:ml-6 md:mt-0">
         <div class="space-y-6">
             @yield('list')
         </div>

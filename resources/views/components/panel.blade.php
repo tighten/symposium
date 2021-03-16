@@ -18,9 +18,9 @@
 >
     <div class="{{ $styles[$size] }}">
         @isset ($title)
-            <div class="pb-4 flex content-center justify-between">
+            <div class="flex content-center justify-between pb-4">
                 <div>
-                    <h2 class="font-sans text-xl uppercase text-gray-500">{{ $title }}</h2>
+                    <h2 class="font-sans text-xl text-gray-500 uppercase">{{ $title }}</h2>
 
                     @isset ($subtitle)
                         {{ $subtitle }}
