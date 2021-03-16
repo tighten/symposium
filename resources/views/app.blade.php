@@ -14,6 +14,7 @@
     <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <script>
         var Symposium = {
@@ -32,8 +33,8 @@
             @if ($is_home)
                 @yield('content')
             @else
-                <div class="bg-indigo-100 border-t-2 border-gray-200 pb-8 px-4">
-                    <div class="max-w-md mx-auto sm:max-w-3xl pt-4">
+                <div class="px-4 pb-8 bg-indigo-100 border-t-2 border-gray-200">
+                    <div class="max-w-md pt-4 mx-auto sm:max-w-3xl">
                         @yield('content')
                     </div>
                 </div>
