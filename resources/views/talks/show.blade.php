@@ -2,7 +2,7 @@
 
 @php
     $baseLinkClasses = 'py-1 px-5 hover:bg-indigo-100';
-    $activeLinkClasses = 'font-bold text-indigo-500'
+    $activeLinkClasses = 'font-extrabold text-indigo-800'
 @endphp
 
 @section('sidebar')
@@ -37,7 +37,7 @@
             </span>
         </x-slot>
         <x-slot name="actions">
-            <div class="text-indigo-500 text-lg">
+            <div class="text-lg text-indigo-800">
                 @unless ($showingRevision)
                     <a href="/talks/{{ $talk->id }}/edit" class="ml-3" title="Edit">
                         @svg('compose', 'w-5 fill-current inline')
@@ -57,15 +57,15 @@
                 @endif
             </div>
         </x-slot>
-        <h3 class="text-lg font-normal text-gray-500 mt-4">Description/Proposal</h3>
+        <h3 class="mt-4 text-lg font-normal text-gray-500">Description/Proposal</h3>
 
         {!! markdown($current->getDescription()) !!}
 
-        <h3 class="text-lg font-normal text-gray-500 mt-4">Organizer Notes</h3>
+        <h3 class="mt-4 text-lg font-normal text-gray-500">Organizer Notes</h3>
         {!! $current->getHtmledOrganizerNotes() !!}
 
         @if ($current->slides)
-            <h3 class="text-lg font-normal text-gray-500 mt-4">Slides</h3>
+            <h3 class="mt-4 text-lg font-normal text-gray-500">Slides</h3>
             <a href="{{ $current->slides }}" class="hover:text-indigo-500">{{ $current->slides }}</a>
         @endif
     </x-panel>

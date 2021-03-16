@@ -11,7 +11,7 @@
                     {{ $header }}
                 @endisset
             </div>
-            <div class="text-indigo-500 text-lg">
+            <div class="text-lg text-indigo-800">
                 {{ $actions }}
             </div>
         </div>

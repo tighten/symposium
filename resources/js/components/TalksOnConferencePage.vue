@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="text-gray-500 mt-4">Accepted to speak at this conference:</div>
-        <ul class="list-none pl-0">
+        <div class="mt-4 text-gray-500">Accepted to speak at this conference:</div>
+        <ul class="pl-0 list-none">
             <li v-for="talk in talksAccepted" v-cloak>
                 <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
-                <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center" @click.prevent="undoAcceptance(talk)">
+                <a class="inline-block px-1 mt-4 text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer" @click.prevent="undoAcceptance(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-indigo-300"></loading-spinner>
                         Undo
                     </div>
                 </a>
@@ -16,19 +16,19 @@
             </li>
         </ul>
 
-        <div class="text-gray-500 mt-8">Applied to speak at this conference:</div>
-        <ul class="list-none pl-0">
+        <div class="mt-8 text-gray-500">Applied to speak at this conference:</div>
+        <ul class="pl-0 list-none">
             <li v-for="talk in talksSubmitted" v-cloak>
                 <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
-                <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="markAccepted(talk)">
+                <a class="inline-block px-1 mt-4 text-center text-white bg-indigo-500 rounded cursor-pointer" @click.prevent="markAccepted(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-white"></loading-spinner>
                         Mark Accepted
                     </div>
                 </a>
-                <a class="inline-block cursor-pointer mt-4 bg-white border border-indigo-500 text-indigo-500 rounded px-1 text-center ml-2" @click.prevent="unsubmit(talk)">
+                <a class="inline-block px-1 mt-4 ml-2 text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer" @click.prevent="unsubmit(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-indigo-300 text-indigo-800"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-indigo-300"></loading-spinner>
                         Un-Submit
                     </div>
                 </a>
@@ -38,13 +38,13 @@
             </li>
         </ul>
 
-        <div class="text-gray-500 mt-8">Not applied to speak at this conference:</div>
-        <ul class="list-none pl-0">
+        <div class="mt-8 text-gray-500">Not applied to speak at this conference:</div>
+        <ul class="pl-0 list-none">
             <li v-for="talk in talksNotSubmitted" v-cloak>
                 <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
-                <a class="inline-block cursor-pointer mt-4 bg-indigo-500 text-white rounded px-1 text-center" @click.prevent="submit(talk)">
+                <a class="inline-block px-1 mt-4 text-center text-white bg-indigo-500 rounded cursor-pointer" @click.prevent="submit(talk)">
                     <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="h-4 w-4 mr-1 border-white text-indigo-800"></loading-spinner>
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-white"></loading-spinner>
                         Mark Submitted
                     </div>
                 </a>

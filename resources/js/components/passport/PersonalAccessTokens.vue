@@ -5,33 +5,33 @@
         <span class="text-2xl">Personal Tokens</span>
 
         <button
-          class="bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
+          class="px-4 py-2 font-extrabold text-white bg-indigo-500 rounded hover:bg-indigo-800"
           @click="showCreateTokenForm"
         >Create New Token</button>
       </div>
       <!-- Personal Access Tokens -->
-      <table v-if="tokens.length >0" class="table mb-20 mt-5 mx-auto">
-        <thead class="bg-indigo-500 text-white">
+      <table v-if="tokens.length >0" class="table mx-auto mt-5 mb-20">
+        <thead class="text-white bg-indigo-500">
           <tr>
-            <td class="text-left pl-4 border font-bold">Name</td>
-            <td class="text-right pr-4 border font-bold">Actions</td>
+            <td class="pl-4 text-left border font-extraextrabold">Name</td>
+            <td class="pr-4 text-right border font-extraextrabold">Actions</td>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="(token,index) in tokens" :key="index">
-            <td scope="row" class="border text-left pl-4">{{ token.name }}</td>
-            <td scope="row" class="border text-right pr-4">
-              <a class="cursor-pointer text-red-500" @click="revoke(token)">Delete</a>
+            <td scope="row" class="pl-4 text-left border">{{ token.name }}</td>
+            <td scope="row" class="pr-4 text-right border">
+              <a class="text-red-500 cursor-pointer" @click="revoke(token)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
       <!-- No Tokens Notice -->
-      <div v-else role="alert" class="mb-20 pt-5">
-        <div class="bg-indigo-500 text-white font-bold rounded-t px-4 py-2">Oops!</div>
+      <div v-else role="alert" class="pt-5 mb-20">
+        <div class="px-4 py-2 text-white bg-indigo-500 rounded-t font-extraextrabold">Oops!</div>
         <div
-          class="border border-t-0 border-indigo-300 rounded-b bg-indigo-100 px-4 py-3 text-indigo-800"
+          class="px-4 py-3 text-indigo-800 bg-indigo-100 border border-t-0 border-indigo-300 rounded-b"
         >
           <p>You Dont Have Any Personal Tokens Yet. Please Create a New Personal Token</p>
         </div>
@@ -41,29 +41,29 @@
     <!-- Create Token Modal -->
     <div v-if="showCreateModal">
       <div class="fixed inset-0 flex items-center">
-        <div class="fixed inset-0 bg-black opacity-75 z-10"/>
+        <div class="fixed inset-0 z-10 bg-black opacity-75"/>
 
-        <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
-          <div class="shadow-lg bg-white rounded-lg p-8">
+        <div class="relative z-20 w-full m-8 mx-6 md:mx-auto md:w-1/2 lg:w-1/3">
+          <div class="p-8 bg-white rounded-lg shadow-lg">
             <div class="flex justify-end mb-6">
               <button @click="showCreateModal = false" class="flex items-center text-red-500">
                 <span class="mr-2">Close</span>
-                <svg viewBox="0 0 20 20" class="fill-current h-4">
+                <svg viewBox="0 0 20 20" class="h-4 fill-current">
                   <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
                 </svg>
               </button>
             </div>
 
-            <h1 class="text-center text-2xl text-indigo-800">Create Token</h1>
+            <h1 class="text-2xl text-center text-indigo-800">Create Token</h1>
 
             <form class="pt-6 pb-2 my-2" @submit.prevent="store">
               <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="name">Name</label>
+                <label class="block mb-2 text-sm font-extrabold" for="name">Name</label>
                 <input
                   id="name"
                   v-model="form.name"
                   :class="{ 'border-red-500': form.errors.has('name') }"
-                  class="block appearance-none outline-none w-full h-full border focus:border-indigo-300 bg-gray-100 text-gray-700 px-3 py-3 pr-3 pl-9 rounded"
+                  class="block w-full h-full px-3 py-3 pr-3 text-gray-700 bg-gray-100 border rounded outline-none appearance-none focus:border-indigo-300 pl-9"
                   placeholder="Name Your Token"
                   type="text"
                   @keyup.enter="store"
@@ -71,10 +71,10 @@
                 <has-error :form="form" class="text-red-500" field="name"/>
               </div>
 
-              <div v-if="scopes.length > 0" class="mb-4 flex flex-wrap">
-                <label class="w-full pr-4 pl-4 pt-2 pb-2 mb-0 leading-normal font-bold -ml-4">Scopes</label>
+              <div v-if="scopes.length > 0" class="flex flex-wrap mb-4">
+                <label class="w-full pt-2 pb-2 pl-4 pr-4 mb-0 -ml-4 font-extrabold leading-normal">Scopes</label>
 
-                <div class="w-full pr-4 pl-4">
+                <div class="w-full pl-4 pr-4">
                   <div v-for="(scope,index) in scopes" :key="index">
                     <div class="checkbox">
                       <label>
@@ -91,7 +91,7 @@
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
+                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-500 rounded hover:bg-indigo-800"
                   type="button"
                   @click="store"
                 >Create</button>
@@ -103,27 +103,27 @@
     </div>
     <div v-if="showAccessTokenModal">
       <div class="fixed inset-0 flex items-center">
-        <div class="fixed inset-0 bg-black opacity-75 z-10"/>
+        <div class="fixed inset-0 z-10 bg-black opacity-75"/>
 
-        <div class="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3 z-20 m-8">
-          <div class="shadow-lg bg-white rounded-lg p-8">
+        <div class="relative z-20 w-full m-8 mx-6 md:mx-auto md:w-1/2 lg:w-1/3">
+          <div class="p-8 bg-white rounded-lg shadow-lg">
             <div class="flex justify-end mb-6">
               <button @click="showAccessTokenModal = false" class="flex items-center text-red-500">
                 <span class="mr-2">Close</span>
-                <svg viewBox="0 0 20 20" class="fill-current h-4">
+                <svg viewBox="0 0 20 20" class="h-4 fill-current">
                   <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
                 </svg>
               </button>
             </div>
 
-            <h1 class="text-center text-2xl text-indigo-800 pb-5">Personal Access Token</h1>
-            <p class="text-justify text-gray-700 text-lg tracking-tight pb-5">
+            <h1 class="pb-5 text-2xl text-center text-indigo-800">Personal Access Token</h1>
+            <p class="pb-5 text-lg tracking-tight text-justify text-gray-700">
               Here is your new personal access token. This is the only time it will be shown so don't lose it!
               You may now use this token to make API requests.
             </p>
             <textarea
               v-model="accessToken"
-              class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-700 border border-gray-500 rounded"
+              class="block w-full px-2 py-1 mb-1 text-base leading-normal text-gray-700 bg-white border border-gray-500 rounded appearance-none"
               rows="10"
             />
           </div>

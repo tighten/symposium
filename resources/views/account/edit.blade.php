@@ -32,14 +32,14 @@
         ></x-input.text>
 
         <div class="mt-8">
-            <label for="profile_picture" class="block text-indigo-500 font-bold mb-2">
+            <label for="profile_picture" class="block mb-2 font-extrabold text-indigo-900">
                 Profile Picture
             </label>
-            <div class="rounded-full text-center">
+            <div class="text-center rounded-full">
                 <img
                     id="profile_picture"
                     src="{{ auth()->user()->profile_picture_hires }}"
-                    class="h-48 w-48 mb-1 rounded-full"
+                    class="w-48 h-48 mb-1 rounded-full"
                     alt="profile picture"
                 >
             </div>

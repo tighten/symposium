@@ -14,6 +14,7 @@
     <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <script>

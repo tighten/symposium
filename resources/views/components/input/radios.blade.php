@@ -9,7 +9,7 @@
 <div {{ $attributes->only(['class']) }}>
     <label
         for="{{ $name }}"
-        class="block font-bold text-indigo-500"
+        class="block font-extrabold text-indigo-900"
     >
         {{ $label }}
     </label>

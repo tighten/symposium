@@ -4,7 +4,7 @@
 
 <x-panel :title="$bio->nickname">
     <x-slot name="actions">
-        <div class="text-indigo-500 text-lg">
+        <div class="text-lg text-indigo-800">
             <a href="{{ route('bios.edit', $bio) }}" title="Edit">
                 @svg('compose', 'w-5 fill-current inline')
             </a>

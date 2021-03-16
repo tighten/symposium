@@ -17,7 +17,7 @@
     </x-slot>
 
     <x-slot name="actions">
-        <div class="text-indigo-500 text-lg">
+        <div class="text-lg text-indigo-800">
             @if ($conference->author_id == auth()->user()->id || auth()->user()->isAdmin())
                 <a href="{{ route('conferences.edit', $conference) }}" title="Edit">
                     @svg('compose', 'w-5 fill-current inline')
@@ -35,7 +35,7 @@
             {{ $conference->location }}
         @endunless
 
-        <div class="text-gray-500 mt-4">URL:</div>
+        <div class="mt-4 text-gray-500">URL:</div>
         <a
             href="{{ $conference->url }}"
             class="hover:text-indigo-500"
@@ -44,7 +44,7 @@
         </a>
 
         @if ($conference->cfp_url)
-            <div class="text-gray-500 mt-4">URL for CFP page:</div>
+            <div class="mt-4 text-gray-500">URL for CFP page:</div>
             <a
                 href="{{ $conference->cfp_url }}"
                 class="hover:text-indigo-500"
@@ -53,7 +53,7 @@
             </a>
         @endif
 
-        <div class="text-gray-500 mt-4">Description:</div>
+        <div class="mt-4 text-gray-500">Description:</div>
         <!-- TODO: Figure out how we will be handling HTML/etc. -->
         {!! str_replace("\n", "<br>", $conference->description) !!}</p>
     </div>

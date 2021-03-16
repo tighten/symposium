@@ -11,7 +11,7 @@
 <div {{ $attributes->only(['class']) }}>
     <label
         for="{{ $name }}"
-        class="font-bold text-indigo-500 @if ($hideLabel) hidden @endif"
+        class="font-extrabold text-indigo-900 @if ($hideLabel) hidden @endif"
     >
         {{ $label }}
     </label>

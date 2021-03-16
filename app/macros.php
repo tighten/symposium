@@ -1,6 +1,6 @@
 <?php
 
-HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'font-bold text-indigo-500') {
+HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'font-extrabold text-indigo-800') {
 
     // This only works if we pass a single param.
     $key = key($parameters);
