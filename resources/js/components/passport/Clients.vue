@@ -36,11 +36,11 @@
         </tbody>
       </table>
       <div v-else role="alert" class="pt-5 mb-20">
-        <div class="px-4 py-2 font-extrabold text-white bg-indigo-500 rounded-t">Oops!</div>
+        <div class="px-4 py-2 font-extrabold text-white bg-indigo-500 rounded-t">Attention needed</div>
         <div
           class="px-4 py-3 text-indigo-800 bg-indigo-100 border border-t-0 border-indigo-300 rounded-b"
         >
-          <p>You Dont Have Any Client Yet. Please Create a New Client</p>
+          <p>You Don't Have Any Clients Yet. Please Create a New Client.</p>
         </div>
       </div>
     </div>
