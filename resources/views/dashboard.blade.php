@@ -42,7 +42,7 @@
                     </div>
                 </div>
             @empty
-                No Talks
+                <p class="pb-4">No Talks</p>
             @endforelse
         </div>
     </x-panel>
@@ -64,7 +64,7 @@
                     </h3>
                 </div>
             @empty
-                No Talks
+                <p class="pb-4">No Talks</p>
             @endforelse
         </div>
     </x-panel>

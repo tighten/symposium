@@ -5,7 +5,7 @@
         <span class="text-2xl">Personal Tokens</span>
 
         <button
-          class="px-4 py-2 font-extrabold text-white bg-indigo-500 rounded hover:bg-indigo-800"
+          class="px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-500"
           @click="showCreateTokenForm"
         >Create New Token</button>
       </div>
@@ -91,7 +91,7 @@
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-500 rounded hover:bg-indigo-800"
+                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-500"
                   type="button"
                   @click="store"
                 >Create</button>
