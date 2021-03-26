@@ -1,5 +1,6 @@
 @php
     $is_home = request()->route()->getName() === 'home';
+    $is_conferences = request()->route()->getName() === 'conferences.index';
 @endphp
 
 <!DOCTYPE html>
@@ -27,6 +28,7 @@
 <body class="h-full">
     @php
         $app_bg_color = $is_home ? 'bg-white' : 'bg-indigo-100';
+        $app_conferences = $is_conferences ? 'sm:max-w-5xl' : 'sm:max-w-3xl'
     @endphp
     <div id="app" class="min-h-full flex flex-col justify-between {{ $app_bg_color }}">
         <div class="flex-1">
@@ -35,7 +37,7 @@
                 @yield('content')
             @else
                 <div class="px-4 pb-8 bg-indigo-100 border-t-2 border-gray-200">
-                    <div class="max-w-md pt-4 mx-auto sm:max-w-3xl">
+                    <div class="max-w-md pt-4 mx-auto {{ $app_conferences }}">
                         @yield('content')
                     </div>
                 </div>

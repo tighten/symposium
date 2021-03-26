@@ -4,10 +4,10 @@
 >
     <x-slot name="header">
         @if ($conference->cfpIsOpen())
-            <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">CFP OPEN</span>
+            <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">CFP OPEN</span>
         @endif
         @if (auth()->check() && $conference->appliedTo())
-            <span class="bg-indigo-500 font-semibold ml-4 px-1 rounded text-white text-xs">Already Sent Proposal</span>
+            <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">Already Sent Proposal</span>
         @endif
     </x-slot>
     <x-slot name="actions">
@@ -39,13 +39,13 @@
         {{ mb_substr($conference->description, 0, 100) }}...
     </x-slot>
     <x-slot name="footer">
-        <div>
+        <div class="pr-3 lg:pr-0">
             <div class="text-gray-500">Dates</div>
             <div>{{ $conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->endsAtDisplay() }}</div>
         </div>
 
         @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
-            <div>
+            <div class="pl-3 lg:pl-0">
                 <div class="text-gray-500">CFP</div>
                 <div>{{ $conference->cfpStartsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->cfpEndsAtDisplay() }}</div>
             </div>

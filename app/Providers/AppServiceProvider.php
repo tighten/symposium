@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Handlers\Events\SlackSubscriber;
 use Collective\Html\FormBuilder;
 use Exception;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         }
 
         require app_path() . '/macros.php';
+
+        Paginator::useTailwind();
 
         Validator::extend('emailblacklist', function ($attribute, $value, $parameters, $validator) {
             try {

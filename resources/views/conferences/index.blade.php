@@ -93,4 +93,5 @@
 
 @section('list')
     @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
+    {{ $conferences->links() }}
 @endsection

@@ -9,10 +9,10 @@
             {{ $conference->location }}
         @endunless
 
-        <div class="text-gray-500 mt-4">URL:</div>
+        <div class="mt-4 text-gray-500">URL:</div>
         <a href="{{ $conference->url }}">{{ $conference->url }}</a>
 
-        <div class="text-gray-500 mt-4">Description:</div>
+        <div class="mt-4 text-gray-500">Description:</div>
         {!! str_replace("\n", "<br>", $conference->description) !!}</p>
     </div>
     <x-slot name="footer">

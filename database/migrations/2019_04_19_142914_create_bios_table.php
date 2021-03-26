@@ -22,3 +22,4 @@ class CreateBiosTable extends Migration
         Schema::drop('bios');
     }
 }
+

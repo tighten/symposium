@@ -29,51 +29,45 @@ class ConferencesController extends BaseController
     {
         switch ($request->input('filter')) {
             case 'favorites':
-                $conferences = auth()->user()->favoritedConferences()->approved()->get();
+                $query = auth()->user()->favoritedConferences()->approved();
                 break;
             case 'dismissed':
-                $conferences = auth()->user()->dismissedConferences()->approved()->get();
+                $query = auth()->user()->dismissedConferences()->approved();
                 break;
             case 'open_cfp':
-                $conferences = Conference::undismissed()->openCfp()->approved()->get();
+                $query = Conference::undismissed()->openCfp()->approved();
                 break;
             case 'unclosed_cfp':
-                $conferences = Conference::undismissed()->unclosedCfp()->approved()->get();
+                $query = Conference::undismissed()->unclosedCfp()->approved();
                 break;
             case 'all':
-                $conferences = Conference::undismissed()->approved()->get();
+                $query = Conference::undismissed()->approved();
                 break;
             case 'future':
                 // Pass through
             default:
-                $conferences = Conference::undismissed()->future()->approved()->get();
+                $query = Conference::undismissed()->future()->approved();
         }
 
         switch ($request->input('sort')) {
+            case 'alpha':
+                $query->orderBy('title');
+                break;
             case 'date':
-                $conferences = $conferences->sortBy->starts_at;
+                $query->orderBy('starts_at');
                 break;
             case 'opening_next':
-                // Force CFPs with no CFP start date to the end
-                $conferences = $conferences->sortBy(function ($conference) {
-                    return isset($conference->cfp_starts_at) ? $conference->cfp_starts_at : Carbon::now()->addCentury();
-                });
-                break;
-            case 'alpha':
-                $conferences = $conferences->sortBy->title;
+                $query->orderByRaw('ISNULL(cfp_ends_at), cfp_ends_at ASC');
                 break;
             case 'closing_next':
                 // pass through
             default:
-                // Force CFPs with no CFP end date to the end
-                $conferences = $conferences->sortBy(function ($conference) {
-                    return isset($conference->cfp_ends_at) ? $conference->cfp_ends_at : Carbon::now()->addCentury();
-                });
-                break;
+                $query->orderByRaw('ISNULL(cfp_ends_at), cfp_ends_at ASC'); 
+            break;
         }
 
         return view('conferences.index', [
-            'conferences' => $conferences,
+            'conferences' => $query->paginate(5)->withQueryString(),
         ]);
     }
 
@@ -127,7 +121,7 @@ class ConferencesController extends BaseController
     {
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
+        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
             Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');
@@ -145,7 +139,7 @@ class ConferencesController extends BaseController
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
+        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
             Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');

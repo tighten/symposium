@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="flex flex-col max-w-md py-3 mx-auto md:flex-row sm:max-w-3xl">
+<div class="flex flex-col w-full py-3 mx-auto md:flex-row">
     <div class="w-full space-y-6 md:w-1/2">
         @hasSection('sidebar')
             <div class="flex flex-wrap items-start space-x-6 space-y-0 md:flex-col md:space-x-0 md:space-y-6">
