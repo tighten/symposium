@@ -66,7 +66,7 @@
                   class="block w-full h-full px-3 py-3 pr-3 text-gray-700 bg-gray-100 border rounded outline-none appearance-none focus:border-indigo-300 pl-9"
                   placeholder="Name Your Token"
                   type="text"
-                  @keyup.enter="store"
+                  @keyup.enter="callMethod(store)"
                 >
                 <has-error :form="form" class="text-red-500" field="name"/>
               </div>
@@ -216,6 +216,10 @@ export default {
           this.showCreateModal = false;
           this.showAccessToken(response.data.accessToken);
         });
+    },
+
+    callMethod(method) {
+        this.method;
     },
 
     /**
