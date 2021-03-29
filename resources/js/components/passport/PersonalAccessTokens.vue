@@ -10,18 +10,18 @@
         >Create New Token</button>
       </div>
       <!-- Personal Access Tokens -->
-      <table v-if="tokens.length >0" class="table mx-auto mt-5 mb-20">
-        <thead class="text-white bg-indigo-500">
+      <table v-if="tokens.length >0" class="table w-full mx-auto mt-5 mb-20">
+        <thead class="py-2 text-white bg-indigo-500">
           <tr>
-            <td class="pl-4 text-left border font-extraextrabold">Name</td>
-            <td class="pr-4 text-right border font-extraextrabold">Actions</td>
+            <td class="py-2 pl-4 text-left border font-extraextrabold">Name</td>
+            <td class="py-2 pr-4 text-right border font-extraextrabold">Actions</td>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="(token,index) in tokens" :key="index">
-            <td scope="row" class="pl-4 text-left border">{{ token.name }}</td>
-            <td scope="row" class="pr-4 text-right border">
+            <td scope="row" class="py-3 pl-3 text-left border">{{ token.name }}</td>
+            <td scope="row" class="py-3 pr-3 text-right border">
               <a class="text-red-500 cursor-pointer" @click="revoke(token)">Delete</a>
             </td>
           </tr>

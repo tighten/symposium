@@ -4,23 +4,23 @@
       <div class="flex items-center justify-between">
         <span class="text-2xl">Authorized Clients</span>
       </div>
-      <table v-if="tokens.length >0" class="table mx-auto mt-5 mb-20">
+      <table v-if="tokens.length >0" class="table w-full mx-auto mt-5 mb-20">
         <thead class="text-white bg-indigo-500">
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Scopes</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="py-2">Name</th>
+            <th scope="col" class="py-2">Scopes</th>
+            <th scope="col" class="py-2">Actions</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="(token,index) in tokens" :key="index">
-            <td class="border">{{ token.client.name }}</td>
-            <td class="border">
+            <td class="py-3 pl-3 border">{{ token.client.name }}</td>
+            <td class="py-3 pl-3 border">
               <span v-if="token.scopes.length > 0">{{ token.scopes.join(', ') }}</span>
             </td>
             <!-- Edit Button -->
-            <td class="border">
+            <td class="py-3 pl-3 border">
               <a class="text-red-500 cursor-pointer" @click="revoke(token)">Revoke</a>
             </td>
           </tr>

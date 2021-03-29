@@ -10,21 +10,21 @@
         >Create New Client</button>
       </div>
 
-      <table v-if="clients.length >0" class="table mx-auto mt-5 mb-20">
+      <table v-if="clients.length >0" class="table w-full mx-auto mt-5 mb-20">
         <thead class="text-white bg-indigo-500">
           <tr>
-            <th scope="col" class="border">ID</th>
-            <th scope="col" class="border">Name</th>
-            <th scope="col" class="border">Secret</th>
-            <th scope="col" class="border">Actions</th>
+            <th scope="col" class="px-2 py-2 border">ID</th>
+            <th scope="col" class="py-2 border">Name</th>
+            <th scope="col" class="py-2 border">Secret</th>
+            <th scope="col" class="py-2 border">Actions</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="client in clients" :key="client.id" class="border">
-            <th scope="row" class="border">{{ client.id }}</th>
-            <td class="border">{{ client.name }}</td>
-            <td class="border">
+            <th scope="row" class="py-3 border">{{ client.id }}</th>
+            <td class="py-3 pl-3 border">{{ client.name }}</td>
+            <td class="py-3 pl-3 border">
               <code>{{ client.secret }}</code>
             </td>
             <!-- Edit Button -->
