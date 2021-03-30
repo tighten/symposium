@@ -5,7 +5,7 @@
         <span class="text-2xl">Authorized Clients</span>
       </div>
       <table v-if="tokens.length >0" class="table w-full mx-auto mt-5 mb-20">
-        <thead class="text-white bg-indigo-800">
+        <thead class="text-white bg-indigo-500">
           <tr>
             <th scope="col" class="py-2">Name</th>
             <th scope="col" class="py-2">Scopes</th>
@@ -27,7 +27,7 @@
         </tbody>
       </table>
       <div v-else role="alert" class="pt-5 mb-20">
-        <div class="px-4 py-2 font-extrabold text-white bg-indigo-800 rounded-t">Attention needed.</div>
+        <div class="px-4 py-2 font-extrabold text-white bg-indigo-500 rounded-t">Attention needed.</div>
         <div
           class="px-4 py-3 text-indigo-800 bg-indigo-100 border border-t-0 border-indigo-300 rounded-b"
         >

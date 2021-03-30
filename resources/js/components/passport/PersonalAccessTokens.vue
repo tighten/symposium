@@ -11,7 +11,7 @@
       </div>
       <!-- Personal Access Tokens -->
       <table v-if="tokens.length >0" class="table w-full mx-auto mt-5 mb-20">
-        <thead class="py-2 text-white bg-indigo-800">
+        <thead class="py-2 text-white bg-indigo-500">
           <tr>
             <td class="py-2 pl-4 text-left border font-extraextrabold">Name</td>
             <td class="py-2 pr-4 text-right border font-extraextrabold">Actions</td>
@@ -29,7 +29,7 @@
       </table>
       <!-- No Tokens Notice -->
       <div v-else role="alert" class="pt-5 mb-20">
-        <div class="px-4 py-2 text-white bg-indigo-800 rounded-t font-extraextrabold">Attention needed.</div>
+        <div class="px-4 py-2 text-white bg-indigo-500 rounded-t font-extraextrabold">Attention needed.</div>
         <div
           class="px-4 py-3 text-indigo-800 bg-indigo-100 border border-t-0 border-indigo-300 rounded-b"
         >
@@ -91,7 +91,7 @@
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-800"
+                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-500"
                   type="button"
                   @click="store"
                 >Create</button>

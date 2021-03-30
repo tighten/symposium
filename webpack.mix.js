@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
 let tailwindcss = require('tailwindcss');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ mix.js('resources/js/app.js', 'public/js')
         processCssUrls: false,
         postCss: [tailwindcss('./tailwind.config.js')],
     })
+    .purgeCss()
     .browserSync({
         proxy: process.env.APP_URL,
         files: [
