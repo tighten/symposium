@@ -9,7 +9,7 @@ class ConferencesSeeder extends Seeder
     {
         Conference::truncate();
 
-        $conference_names = collect([
+        $conferenceNames = collect([
             'MegaAwesomeCon',
             'SuperPHP',
             'ActiveRecordCon',
@@ -18,10 +18,17 @@ class ConferencesSeeder extends Seeder
             'TightenFest',
             'UltraMegaCon',
             'ArbysCon',
+            'TightenCon',
+            'LiveTightenStuff',
+            'SuperTightenYay',
         ]);
 
-        factory(App\Conference::class)->create([
-            'title' => $conference_names->random(),
-        ], 30);
+        foreach ($conferenceNames as $name) {
+            factory(Conference::class)->create([
+                'title' => $name,
+                'is_featured' => rand(0, 1),
+                'is_approved' => true,
+            ]);
+        }
     }
 }
