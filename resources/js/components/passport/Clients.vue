@@ -11,7 +11,7 @@
       </div>
 
       <table v-if="clients.length >0" class="table w-full mx-auto mt-5 mb-20">
-        <thead class="text-white bg-indigo-500">
+        <thead class="text-white bg-indigo-800">
           <tr>
             <th scope="col" class="px-2 py-2 border">ID</th>
             <th scope="col" class="py-2 border">Name</th>
@@ -36,7 +36,7 @@
         </tbody>
       </table>
       <div v-else role="alert" class="pt-5 mb-20">
-        <div class="px-4 py-2 font-extrabold text-white bg-indigo-500 rounded-t">Attention needed</div>
+        <div class="px-4 py-2 font-extrabold text-white bg-indigo-800 rounded-t">Attention needed</div>
         <div
           class="px-4 py-3 text-indigo-800 bg-indigo-100 border border-t-0 border-indigo-300 rounded-b"
         >
@@ -91,7 +91,7 @@
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-500"
+                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-800"
                   type="button"
                   @click="store"
                 >Create</button>
@@ -149,7 +149,7 @@
               </div>
               <div class="block clearfix">
                 <button
-                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-500"
+                  class="float-right px-4 py-2 font-extrabold text-white bg-indigo-800 rounded hover:bg-indigo-800"
                   type="button"
                   @click="update"
                 >Save Changes</button>
