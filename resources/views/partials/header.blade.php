@@ -1,19 +1,18 @@
 @include('partials.flash-messages')
 <div class="bg-white">
-    <main-header class="max-w-md px-4 pt-12 pb-1 mx-auto sm:pt-3 sm:max-w-6xl">
+    <main-header class="max-w-xl px-4 py-6 mx-auto lg:pt-3 sm:max-w-6xl">
         <template slot-scope="slotProps">
             <div class="lg:flex lg:justify-between lg:items-center">
-                <div class="px-4 py-3 sm:p-0">
+                <div class="py-3 sm:px-4">
                     <div class="flex items-center justify-between">
                         <a href="{{ auth()->check() ? route('dashboard') : url('/') }}">
                             <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
                         </a>
                         <div class="lg:hidden">
-                            <button v-on:click="slotProps.toggleNav" type="button" class="block text-indigo hover:text-black focus:outline-none">
-                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                                    <path v-if="slotProps.showNav" fill-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
-                                    <path v-else fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
-                                </svg>
+                            <button v-on:click="slotProps.toggleNav" type="button" class="mobileMenuBtn focus:outline-none">
+                                {{-- <div id="jsMenuBtn" class="bar-1 w-6 h-0.5 mb-1 transition duration-75 ease-in-out bg-indigo-800"></div> --}}
+                                <div :class="slotProps.showNav ? 'invisible h-0 bg-opacity-0' : 'visible w-6 h-0.5 bg-indigo-800 bg-opacity-100'"></div>
+                                {{-- <div id="jsMenuBtn" class="bar-3 w-6 h-0.5 mb-1 transition duration-75 ease-in-out bg-indigo-800"></div> --}}
                             </button>
                         </div>
                     </div>
@@ -33,3 +32,6 @@
         </template>
     </main-header>
 </div>
+
+
+

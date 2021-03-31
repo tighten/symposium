@@ -2,9 +2,9 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     purge: [
-        './resources/**/*.blade.php',
-        './resources/**/*.js',
-        './resources/**/*.vue',
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './resources/**/*.vue',
     ],
     theme: {
         fontSize: {
@@ -31,6 +31,9 @@ module.exports = {
                     '300': '#D8D8D8',
                     '500': '#9B9B9B',
                 },
+            },
+            spacing: {
+                '0.5': '2px',
             },
         },
     },

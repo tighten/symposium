@@ -37,6 +37,14 @@
         methods: {
             toggleNav() {
                 this.showNav = !this.showNav;
+
+                const menuBtn = document.querySelector('.mobileMenuBtn');
+                
+                if (this.showNav) {                  
+                    menuBtn.classList.add('isActive');
+                } else {
+                    menuBtn.classList.remove('isActive');
+                }
             },
             toggleAccountDropdown() {
                 this.showAccountDropdown = !this.showAccountDropdown;

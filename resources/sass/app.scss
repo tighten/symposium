@@ -117,3 +117,29 @@
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+
+.mobileMenuBtn {
+    @apply relative flex justify-center items-center w-16 h-16 transform-gpu;
+
+    &:before,
+    &:after {
+        @apply absolute block w-6 h-0.5 bg-indigo-800 transition duration-75 ease-in-out;
+        content: '';
+    }
+
+    &:before {
+        top: calc(50% - 6px);
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    &:after {
+        bottom: calc(50% - 8px);
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    &.isActive {
+        &:before { transform: translateY(calc(-50% + 8px)) rotate(45deg); }
+        &:after { transform: translateY(calc(-50% - 4px)) rotate(-45deg); }
+    }
+}
