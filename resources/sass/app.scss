@@ -120,7 +120,7 @@
 
 
 .mobileMenuBtn {
-    @apply relative flex justify-center items-center w-16 h-16 transform-gpu;
+    @apply relative flex justify-center items-center w-16 h-16;
 
     &:before,
     &:after {

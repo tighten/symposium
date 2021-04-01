@@ -6,7 +6,7 @@
     <div class="space-y-8">
         <h1 class="font-sans text-5xl leading-none text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
         <a
-            class="block px-10 py-5 border rounded rounded-lg md:inline-block border-indigo text-indigo"
+            class="block px-10 py-5 transition duration-150 ease-in-out border rounded rounded-lg md:inline-block border-indigo text-indigo hover:text-white hover:bg-indigo"
             href="https://www.youtube.com/watch?v=60hxVJpEXhw"
             target="_blank"
         >
@@ -84,7 +84,7 @@
         </div>
         <div class="mt-20 text-center">
             <a
-                class="px-8 py-6 font-sans text-xl font-semibold text-white border rounded"
+                class="px-8 py-6 font-sans text-xl font-semibold text-white transition duration-150 ease-in-out border rounded hover:bg-white hover:text-indigo-800"
                 href="{{ route('speakers-public.index') }}"
             >
                 View all speakers
@@ -115,7 +115,7 @@
         </div>
         <div class="mt-16 text-center">
             <a
-                class="px-10 py-6 font-sans text-xl font-semibold text-white border rounded"
+                class="px-8 py-6 font-sans text-xl font-semibold text-white transition duration-150 ease-in-out border rounded hover:bg-white hover:text-indigo-800"
                 href="{{ route('conferences.index') }}"
             >
                 View all conferences

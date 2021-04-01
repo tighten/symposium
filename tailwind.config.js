@@ -30,6 +30,7 @@ module.exports = {
                 gray: {
                     '300': '#D8D8D8',
                     '500': '#9B9B9B',
+                    '600': '#828080',
                 },
             },
             spacing: {
@@ -39,7 +40,7 @@ module.exports = {
     },
     variants: {
         margin: ['responsive', 'first', 'last'],
-        borderWidth: ['responsive', 'first', 'last']
+        borderWidth: ['responsive', 'first', 'last'],
     },
     plugins: [
         require('@tailwindcss/custom-forms'),

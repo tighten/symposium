@@ -38,8 +38,7 @@
             toggleNav() {
                 this.showNav = !this.showNav;
 
-                const menuBtn = document.querySelector('.mobileMenuBtn');
-                
+                const menuBtn = document.querySelector('.mobileMenuBtn');               
                 if (this.showNav) {                  
                     menuBtn.classList.add('isActive');
                 } else {

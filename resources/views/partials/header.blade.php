@@ -9,10 +9,8 @@
                             <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
                         </a>
                         <div class="lg:hidden">
-                            <button v-on:click="slotProps.toggleNav" type="button" class="mobileMenuBtn focus:outline-none">
-                                {{-- <div id="jsMenuBtn" class="bar-1 w-6 h-0.5 mb-1 transition duration-75 ease-in-out bg-indigo-800"></div> --}}
+                            <button v-on:click="slotProps.toggleNav" type="button" class="mobileMenuBtn focus:outline-none transform-gpu">
                                 <div :class="slotProps.showNav ? 'invisible h-0 bg-opacity-0' : 'visible w-6 h-0.5 bg-indigo-800 bg-opacity-100'"></div>
-                                {{-- <div id="jsMenuBtn" class="bar-3 w-6 h-0.5 mb-1 transition duration-75 ease-in-out bg-indigo-800"></div> --}}
                             </button>
                         </div>
                     </div>

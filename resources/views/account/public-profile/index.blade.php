@@ -19,7 +19,7 @@
         </div>
     </x-form>
 
-    <p class="text-gray-500 mb-8">
+    <p class="mb-8 text-gray-500">
         @if (isset($query) && $query)
             <small>Showing search results for <em>{{ $query }}</em>:</small>
         @else
@@ -28,7 +28,7 @@
     </p>
 
     @forelse ($speakers as $speaker)
-        <h3 class="mb-0 mt-5 text-2xl leading-4 text-indigo">
+        <h3 class="my-6 text-2xl leading-4 text-indigo">
             <a href="{{ route('speakers-public.show', $speaker->profile_slug) }}">
                 {{ $speaker->name }}
             </a>
