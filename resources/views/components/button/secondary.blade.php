@@ -9,7 +9,7 @@
     :icon="$icon"
     :size="$size"
     :attributes="$attributes->merge([
-        'class' => 'bg-white border border-indigo-500 text-indigo-500'
+        'class' => 'bg-white border border-indigo-500 text-indigo-500 transition duration-150 ease-in-out'
     ])"
 >
     {{ $slot }}

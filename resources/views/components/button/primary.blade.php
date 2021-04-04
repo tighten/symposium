@@ -9,7 +9,7 @@
     :icon="$icon"
     :size="$size"
     :attributes="$attributes->merge([
-        'class' => 'bg-indigo-800 hover:bg-indigo-500 text-white'
+        'class' => 'bg-indigo-800 hover:bg-indigo-500 text-white transition duration-150 ease-in-out'
     ])"
 >
     {{ $slot }}

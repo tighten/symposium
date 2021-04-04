@@ -28,7 +28,7 @@
     </p>
 
     @forelse ($speakers as $speaker)
-        <h3 class="my-6 text-2xl leading-4 text-indigo">
+        <h3 class="my-6 text-2xl leading-4 text-indigo-800 hover:underline hover:text-indigo-500">
             <a href="{{ route('speakers-public.show', $speaker->profile_slug) }}">
                 {{ $speaker->name }}
             </a>
