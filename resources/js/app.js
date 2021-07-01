@@ -1,5 +1,5 @@
-window.Vue = require('vue');
-window.axios = require('axios');
+window.Vue = require('vue').default;
+window.axios = require('axios').default;
 
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Symposium.token,
