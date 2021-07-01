@@ -57,13 +57,13 @@ class ConferencesController extends BaseController
                 $query->orderBy('starts_at');
                 break;
             case 'opening_next':
-                $query->orderByRaw('ISNULL(cfp_ends_at), cfp_ends_at ASC');
+                $query->orderByRaw('cfp_ends_at IS NULL, cfp_ends_at ASC');
                 break;
             case 'closing_next':
                 // pass through
             default:
-                $query->orderByRaw('ISNULL(cfp_ends_at), cfp_ends_at ASC'); 
-            break;
+                $query->orderByRaw('cfp_ends_at IS NULL, cfp_ends_at ASC');
+                break;
         }
 
         return view('conferences.index', [
@@ -121,7 +121,7 @@ class ConferencesController extends BaseController
     {
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');
@@ -139,7 +139,7 @@ class ConferencesController extends BaseController
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');
