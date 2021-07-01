@@ -302,11 +302,11 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create();
+        $bio = factory(Bio::class)->create(['nickname' => 'test bio']);
         $bio->public = true;
         $user2->bios()->save($bio);
 
         $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->dontSee($bio->nickname);
+            ->dontSee('test bio');
     }
 }
