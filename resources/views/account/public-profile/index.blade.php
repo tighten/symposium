@@ -27,20 +27,22 @@
         @endif
     </p>
 
-    @forelse ($speakers as $speaker)
-        <h3 class="my-6 text-2xl leading-4 text-indigo-800 hover:underline hover:text-indigo-500">
-            <a href="{{ route('speakers-public.show', $speaker->profile_slug) }}">
-                {{ $speaker->name }}
-            </a>
-        </h3>
-        <small class="text-gray-500">{{ $speaker->location }}</small>
-    @empty
-        @if (isset($query) && $query)
-            <p class="text-info">No speakers match your search criteria.</p>
-        @else
-            <p class="text-info">No speakers have made their profiles public yet.</p>
-        @endif
-    @endforelse
+    <div class="space-y-4">
+        @forelse ($speakers as $speaker)
+            <h3 class="text-2xl leading-4 text-indigo-800 hover:underline hover:text-indigo-500">
+                <a href="{{ route('speakers-public.show', $speaker->profile_slug) }}">
+                    {{ $speaker->name }}
+                </a>
+            </h3>
+            <small class="text-gray-500 @if (!$speaker->location) invisible @endif">{{ $speaker->location ?: '-' }}</small>
+        @empty
+            @if (isset($query) && $query)
+                <p class="text-info">No speakers match your search criteria.</p>
+            @else
+                <p class="text-info">No speakers have made their profiles public yet.</p>
+            @endif
+        @endforelse
+    </div>
 </x-panel>
 
 @endsection
