@@ -26,7 +26,7 @@
         </div>
         <div class="flex flex-wrap">
             <div class="w-full px-6 pb-6 mb-8 md:w-1/2 lg:w-1/3 lg:pl-0 md:pb-0">
-                @svg('icon_tracktalks', 'mx-auto md:ml-3 w-16 h-16')
+                @svg('icon_tracktalks', 'mx-auto md:ml-3 w-16')
                 <div class="mt-5 mb-4 font-sans text-2xl font-semibold text-center md:text-left">Track talks</div>
                 <div class="font-sans text-xl">Track all of your talks, each with one or more versions and each version with a full revision history.</div>
             </div>
