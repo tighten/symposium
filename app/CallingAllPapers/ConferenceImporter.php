@@ -31,6 +31,8 @@ class ConferenceImporter
         $conference->url = trim($event->eventUri);
         $conference->cfp_url = $event->uri;
         $conference->location = $event->location;
+        $conference->latitude = $event->latitude;
+        $conference->longitude = $event->longitude;
         $conference->starts_at = self::carbonFromIso($event->dateEventStart);
         $conference->ends_at = self::carbonFromIso($event->dateEventEnd);
         $conference->cfp_starts_at = self::carbonFromIso($event->dateCfpStart);
