@@ -104,7 +104,7 @@ class PublicProfileController extends Controller
             abort(404);
         }
 
-        $this->validate($request, [
+        request()->validate([
             'email' => 'required|email',
             'name' => '',
             'message' => 'required',
