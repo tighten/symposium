@@ -17,6 +17,15 @@ class Talk extends UuidBase
         'is_archived' => 'boolean',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (self $talk) {
+            $talk->revisions()->delete();
+        });
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
@@ -86,17 +95,5 @@ class Talk extends UuidBase
         return $conference->myAcceptedTalks()->filter(function ($item) {
             return $item->talkRevision->talk->id === $this->id;
         })->first();
-    }
-
-    /**
-     * Boot function from laravel.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function (self $talk) {
-            $talk->revisions()->delete();
-        });
     }
 }

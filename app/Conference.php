@@ -46,26 +46,6 @@ class Conference extends UuidBase
         'author_id' => 'integer',
     ];
 
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'author_id');
-    }
-
-    public function submissions()
-    {
-        return $this->hasMany(Submission::class);
-    }
-
-    public function acceptances()
-    {
-        return $this->hasMany(Acceptance::class);
-    }
-
-    public function usersDismissed()
-    {
-        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
-    }
-
     // @todo: Deprecate?
     public static function closingSoonest()
     {
@@ -92,6 +72,26 @@ class Conference extends UuidBase
             ->merge($hasExpiredCfp);
 
         return $return;
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+    public function acceptances()
+    {
+        return $this->hasMany(Acceptance::class);
+    }
+
+    public function usersDismissed()
+    {
+        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
     public function scopeCfpOpeningToday($query)
@@ -173,16 +173,6 @@ class Conference extends UuidBase
         }
 
         return Carbon::today()->between($this->getAttribute('cfp_starts_at'), $this->getAttribute('cfp_ends_at'));
-    }
-
-    /**
-     * Whether conference has announced a call for proposals
-     *
-     * @return bool
-     */
-    private function hasAnnouncedCallForProposals()
-    {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 
     public function getLinkAttribute()
@@ -280,5 +270,10 @@ class Conference extends UuidBase
     public function cfpEndsAtSet()
     {
         return $this->cfp_ends_at;
+    }
+
+    private function hasAnnouncedCallForProposals()
+    {
+        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 }

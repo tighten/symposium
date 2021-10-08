@@ -11,13 +11,6 @@ use Throwable;
 
 class IntegrationTestCase extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Session::start();
-        Artisan::call('migrate');
-    }
-
     function assertHasError($key, ValidationException $exception)
     {
         $this->assertContains($key, $exception->errors()->keys());
@@ -28,7 +21,7 @@ class IntegrationTestCase extends TestCase
         $this->fail("A validation error for {$key} was expected but not thrown");
     }
 
-    protected function disableExceptionHandling()
+    function disableExceptionHandling()
     {
         $this->app->instance(ExceptionHandler::class, new class extends Handler {
             public function __construct()
@@ -45,5 +38,12 @@ class IntegrationTestCase extends TestCase
                 throw $exception;
             }
         });
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Session::start();
+        Artisan::call('migrate');
     }
 }

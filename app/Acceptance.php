@@ -29,16 +29,16 @@ class Acceptance extends UuidBase
         return $acceptance;
     }
 
-    public function submission()
-    {
-        return $this->hasOne(Submission::class);
-    }
-
     protected static function boot()
     {
         parent::boot();
         static::deleting(function (self $acceptance) {
             $acceptance->submission->removeAcceptance();
         });
+    }
+
+    public function submission()
+    {
+        return $this->hasOne(Submission::class);
     }
 }
