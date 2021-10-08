@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddConferenceLocation extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
@@ -20,11 +15,6 @@ class AddConferenceLocation extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('conferences', function (Blueprint $table) {
