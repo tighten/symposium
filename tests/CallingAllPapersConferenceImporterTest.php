@@ -6,7 +6,6 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Conference;
-use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
 use stdClass;

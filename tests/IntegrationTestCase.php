@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Exceptions\Handler;
 use App\Exceptions\ValidationException;
-use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;

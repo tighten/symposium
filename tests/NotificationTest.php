@@ -3,10 +3,8 @@
 namespace Tests;
 
 use App\Conference;
-use App\Events\ConferenceCreated;
 use App\Notifications\CFPsAreOpen;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
 
