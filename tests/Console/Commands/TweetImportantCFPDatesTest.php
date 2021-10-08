@@ -10,11 +10,6 @@ use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDatesTest extends IntegrationTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /** @test */
     function cfps_opening_today_should_be_tweeted()
     {
