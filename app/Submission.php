@@ -32,6 +32,11 @@ class Submission extends UuidBase
         return $this->belongsTo(Acceptance::class);
     }
 
+    public function rejection()
+    {
+        return $this->belongsTo(Rejection::class);
+    }
+
     public function scopeAccepted($query)
     {
         return $query->whereNotNull('acceptance_id');
@@ -52,5 +57,27 @@ class Submission extends UuidBase
     public function isAccepted()
     {
         return $this->acceptance_id !== null;
+    }
+
+    public function scopeRejected($query)
+    {
+        return $query->whereNotNull('rejection_id');
+    }
+
+    public function removeRejection()
+    {
+        $this->rejection_id = null;
+        $this->save();
+    }
+
+    public function recordRejection(Rejection $rejection)
+    {
+        $this->rejection_id = $rejection->id;
+        $this->save();
+    }
+
+    public function isRejected()
+    {
+        return $this->rejection_id !== null;
     }
 }
