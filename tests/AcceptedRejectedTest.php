@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\Acceptance;
 use App\Conference;
@@ -9,7 +9,6 @@ use App\Submission;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
-use Tests\IntegrationTestCase;
 
 class AcceptedRejectedTest extends IntegrationTestCase
 {
