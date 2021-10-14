@@ -8,7 +8,6 @@ class AcceptanceSeeder extends Seeder
 {
     public function run()
     {
-        // randomly generate acceptances for submissions
         Submission::all()->each(function($submission) {
             if ((bool)mt_rand(0, 1)) {
                 $acceptance = factory(Acceptance::class)->create([
