@@ -9,7 +9,7 @@ class AcceptanceSeeder extends Seeder
     public function run()
     {
         Submission::all()->each(function($submission) {
-            if ((bool)mt_rand(0, 1)) {
+            if (mt_rand(0, 1)) {
                 $acceptance = factory(Acceptance::class)->create([
                     'talk_revision_id' => $submission->talk_revision_id,
                     'conference_id' => $submission->conference_id,
