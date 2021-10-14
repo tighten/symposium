@@ -20,7 +20,7 @@ class RejectionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Talk Rejected',
-            'acceptanceId' => $rejection->id,
+            'rejectionId' => $rejection->id,
         ]);
     }
 
