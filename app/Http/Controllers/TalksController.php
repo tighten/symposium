@@ -30,7 +30,9 @@ class TalksController extends BaseController
     public function index(Request $request)
     {
         $talks = $this->sortTalks(
-            auth()->user()->talks()->active()->get(),
+            $request->input('filter') === 'submitted'
+                ? auth()->user()->talks()->submitted()->get()
+                : auth()->user()->talks()->active()->get(),
             $request->input('sort')
         );
 
