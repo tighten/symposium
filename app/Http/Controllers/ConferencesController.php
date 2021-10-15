@@ -16,9 +16,9 @@ class ConferencesController extends BaseController
     protected $conference_rules = [
         'title' => ['required'],
         'description' => ['required'],
-        'url' => ['required'],
+        'url' => ['required', 'url'],
         'location' => [],
-        'cfp_url' => [],
+        'cfp_url' => ['nullable', 'url'],
         'starts_at' => ['date'],
         'ends_at' => ['date', 'onOrAfter:starts_at'],
         'cfp_starts_at' => ['date', 'before:starts_at'],
