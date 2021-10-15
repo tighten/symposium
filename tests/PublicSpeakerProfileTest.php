@@ -144,7 +144,9 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create();
+        $bio = factory(Bio::class)->create([
+            'nickname' => 'Private Bio'
+        ]);
         $bio->public = false;
         $user->bios()->save($bio);
 
