@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Conference;
+use App\Submission;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
@@ -137,5 +138,21 @@ class TalkTest extends IntegrationTestCase
 
         $this->assertEquals('New', $talk->current()->title);
         $this->assertEquals('old title', $talk->revisions->last()->title);
+    }
+
+    /** @test */
+    function scoping_talks_where_submitted()
+    {
+        [$talkRevisionA, $talkRevisionB] = factory(TalkRevision::class, 2)->create();
+        $conference = factory(Conference::class)->create();
+        factory(Submission::class)->create([
+            'talk_revision_id' => $talkRevisionA->id,
+            'conference_id' => $conference->id,
+        ]);
+
+        $submittedTalkIds = Talk::submitted()->get()->pluck('id');
+
+        $this->assertContains($talkRevisionA->talk_id, $submittedTalkIds);
+        $this->assertNotContains($talkRevisionB->talk_id, $submittedTalkIds);
     }
 }
