@@ -15,6 +15,10 @@ class AcceptancesController extends Controller
             return response('', 401);
         }
 
+        if ($submission->isRejected()) {
+            return response('Cannot Accept a Rejected Submission', 403);
+        }
+
         $acceptance = Acceptance::createFromSubmission($submission);
 
         return response()->json([

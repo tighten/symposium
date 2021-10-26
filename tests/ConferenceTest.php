@@ -35,7 +35,7 @@ class ConferenceTest extends IntegrationTestCase
             ->post('/conferences', [
                 'title' => 'JediCon',
                 'description' => 'The force is strong here',
-                'url' => 'jedicon.com',
+                'url' => 'https://jedicon.com',
                 'latitude' => '37.7991531',
                 'longitude' => '-122.45050129999998',
             ]);
@@ -43,7 +43,7 @@ class ConferenceTest extends IntegrationTestCase
         $this->seeInDatabase('conferences', [
             'title' => 'JediCon',
             'description' => 'The force is strong here',
-            'url' => 'jedicon.com',
+            'url' => 'https://jedicon.com',
             'latitude' => '37.7991531',
             'longitude' => '-122.45050129999998',
         ]);

@@ -35,7 +35,7 @@ $factory->define(App\Conference::class, function (Faker $faker) {
         },
         'title' => 'Dummy Conference',
         'description' => $faker->sentence,
-        'url' => $faker->domainName,
+        'url' => $faker->url,
         'starts_at' => $faker->dateTimeBetween('+3 days', '+10 days'),
         'ends_at' => $faker->dateTimeBetween('+11 days', '+20 days'),
         'cfp_starts_at' => $faker->dateTimeBetween('-9 days', '-1 day'),
@@ -109,6 +109,17 @@ $factory->define(App\Submission::class, function () {
 });
 
 $factory->define(App\Acceptance::class, function () {
+    return [
+        'talk_revision_id' => function () {
+            return factory(App\TalkRevision::class)->create()->id;
+        },
+        'conference_id' => function () {
+            return factory(App\Conference::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Rejection::class, function () {
     return [
         'talk_revision_id' => function () {
             return factory(App\TalkRevision::class)->create()->id;

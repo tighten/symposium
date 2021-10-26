@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call('TalksSeeder');
         $this->call('BiosSeeder');
         $this->call('ConferencesSeeder');
+        $this->call('SubmissionsSeeder');
+        $this->call('AcceptanceSeeder');
+        $this->call('RejectionSeeder');
 
         if (! app()->environment('testing')) {
             DB::statement('SET FOREIGN_KEY_CHECKS = 1');

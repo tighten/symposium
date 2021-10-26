@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Url;
 use Carbon\Carbon;
 
 class Conference extends UuidBase
@@ -44,6 +45,8 @@ class Conference extends UuidBase
         'is_approved' => 'boolean',
         'is_shared' => 'boolean',
         'author_id' => 'integer',
+        'url' => Url::class,
+        'cfp_url' => Url::class,
     ];
 
     // @todo: Deprecate?

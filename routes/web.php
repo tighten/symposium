@@ -61,6 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('acceptances', 'AcceptancesController@store');
     Route::delete('acceptances/{acceptance}', 'AcceptancesController@destroy');
 
+    Route::post('rejections', 'RejectionController@store');
+    Route::delete('rejections/{rejection}', 'RejectionController@destroy');
+
     Route::post('submissions', 'SubmissionsController@store');
     Route::delete('submissions/{submission}', 'SubmissionsController@destroy');
 

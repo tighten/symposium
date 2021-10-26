@@ -83,6 +83,11 @@ class Talk extends UuidBase
         return $query->where('is_archived', false);
     }
 
+    public function scopeSubmitted($query)
+    {
+        $query->has('submissions');
+    }
+
     public function getMySubmissionForConference(Conference $conference)
     {
         return $conference->mySubmissions()->filter(function ($item) {

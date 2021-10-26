@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Submission;
 use App\Talk;
 use App\TalkRevision;
 use Illuminate\Http\Request;
@@ -30,7 +31,9 @@ class TalksController extends BaseController
     public function index(Request $request)
     {
         $talks = $this->sortTalks(
-            auth()->user()->talks()->active()->get(),
+            $request->input('filter') === 'submitted'
+                ? auth()->user()->talks()->submitted()->get()
+                : auth()->user()->talks()->active()->get(),
             $request->input('sort')
         );
 
@@ -135,10 +138,13 @@ class TalksController extends BaseController
 
         $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
 
+        $submissions = Submission::where('talk_revision_id', $current->id)->with('conference')->get();
+
         return view('talks.show', [
             'talk' => $talk,
             'showingRevision' => $request->filled('revision'),
             'current' => $current,
+            'submissions' => $submissions,
         ]);
     }
 

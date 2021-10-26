@@ -16,6 +16,11 @@
                 'route' => 'talks.archived.index',
                 'query' => ['filter' => 'archived'],
             ],
+            'submitted' => [
+                'label' => 'Submitted',
+                'route' => 'talks.index',
+                'query' => ['filter' => 'submitted'],
+            ],
         ]"
         :defaults="['filter' => 'active', 'sort' => 'alpha']"
     ></x-side-menu>
