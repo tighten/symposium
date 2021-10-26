@@ -46,7 +46,14 @@
 
         @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
             <div class="pl-3 lg:pl-0">
-                <div class="text-gray-500">CFP</div>
+                <div class="flex justify-between text-gray-500">
+                    <div>CFP</div>
+                    @if($conference->cfp_url)
+                        <a href="{{ $conference->cfp_url }}" target="_blank">
+                            @svg('link', 'w-4 fill-current inline')
+                        </a>
+                    @endif
+                </div>
                 <div>{{ $conference->cfpStartsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->cfpEndsAtDisplay() }}</div>
             </div>
         @endif

@@ -12,8 +12,8 @@ class CreateConferenceForm
     private $rules = [
         'title' => ['required'],
         'description' => ['required'],
-        'url' => ['required'],
-        'cfp_url' => [],
+        'url' => ['required', 'url'],
+        'cfp_url' => ['nullable', 'url'],
         'location' => [],
         'starts_at' => ['date'],
         'ends_at' => ['date', 'onOrAfter:starts_at'],
