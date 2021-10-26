@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use App\Acceptance;
 use App\Conference;
 use App\Rejection;
 use App\Submission;
@@ -80,35 +79,5 @@ class RejectionTest extends IntegrationTestCase
         $this->delete('rejections/' . $rejection->id);
 
         $this->assertFalse($submission->refresh()->isRejected());
-    }
-
-    /** @test */
-    function an_accepted_talk_cannot_be_rejected()
-    {
-        $user = factory(User::class)->create();
-        $this->be($user);
-
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
-        $talk->revisions()->save($revision);
-
-        $acceptance = factory(Acceptance::class)->create();
-
-        $submission = factory(Submission::class)->create([
-            'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id,
-            'acceptance_id' => $acceptance->id,
-        ]);
-
-        $response = $this->post('rejections', [
-            'submissionId' => $submission->id,
-        ]);
-
-        $response->seeStatusCode(403);
-        tap($submission->refresh(), function ($submission) {
-            $this->assertFalse($submission->isRejected());
-            $this->assertTrue($submission->isAccepted());
-        });
     }
 }
