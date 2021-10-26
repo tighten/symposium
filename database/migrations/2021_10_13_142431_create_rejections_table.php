@@ -20,16 +20,10 @@ class CreateRejectionsTable extends Migration
             $table->foreign('conference_id')->references('id')->on('conferences')->onUpdate('RESTRICT')->onDelete('CASCADE');
             $table->foreign('talk_revision_id')->references('id')->on('talk_revisions')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
-
     }
 
     public function down()
     {
-        Schema::table('rejections', function (Blueprint $table) {
-            $table->dropForeign('acceptances_conference_id_foreign');
-            $table->dropForeign('acceptances_talk_revision_id_foreign');
-        });
-
         Schema::dropIfExists('rejections');
     }
 }

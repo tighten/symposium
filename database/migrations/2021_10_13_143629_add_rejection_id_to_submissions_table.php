@@ -12,4 +12,11 @@ class AddRejectionIdToSubmissionsTable extends Migration
             $table->string('rejection_id', 36)->nullable()->index('submissions_rejection_id_foreign');
         });
     }
+
+    public function down()
+    {
+        Schema::table('submissions', function (Blueprint $table) {
+            $table->dropColumn('rejection_id');
+        });
+    }
 }
