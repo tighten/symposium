@@ -16,6 +16,22 @@
             </li>
         </ul>
 
+        <div class="mt-4 text-gray-500">Talks rejected from this conference:</div>
+        <ul class="pl-0 list-none">
+            <li v-for="talk in talksRejected" v-cloak>
+                <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
+                <a class="inline-block px-1 mt-4 text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer" @click.prevent="undoRejection(talk)">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-indigo-300"></loading-spinner>
+                        Undo
+                    </div>
+                </a>
+            </li>
+            <li v-if="talksRejected.length === 0" v-cloak>
+                None
+            </li>
+        </ul>
+
         <div class="mt-8 text-gray-500">Applied to speak at this conference:</div>
         <ul class="pl-0 list-none">
             <li v-for="talk in talksSubmitted" v-cloak>
@@ -24,6 +40,12 @@
                     <div class="flex items-center">
                         <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-white"></loading-spinner>
                         Mark Accepted
+                    </div>
+                </a>
+                <a class="inline-block px-1 mt-4 text-center text-white bg-red-500 rounded cursor-pointer" @click.prevent="markRejected(talk)">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-red-800 border-white"></loading-spinner>
+                        Mark Rejected
                     </div>
                 </a>
                 <a class="inline-block px-1 mt-4 ml-2 text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer" @click.prevent="unsubmit(talk)">
@@ -76,9 +98,10 @@ export default {
         };
     },
     computed: {
-        talksSubmitted: function(){ return this.talks.filter(({ submitted, accepted }) => submitted && !accepted) },
+        talksSubmitted: function(){ return this.talks.filter(({ submitted, accepted, rejected }) => submitted && !accepted && !rejected) },
         talksAccepted: function(){ return this.talks.filter(({ accepted }) => accepted ) },
-        talksNotSubmitted: function(){ return this.talks.filter(({ accepted, submitted }) => !accepted && !submitted) },
+        talksRejected: function(){ return this.talks.filter(({ rejected }) => rejected ) },
+        talksNotSubmitted: function(){ return this.talks.filter(({ accepted, rejected, submitted }) => !accepted && !rejected && !submitted) },
     },
     methods: {
         updateSubmission: function (talk, status) {
@@ -138,6 +161,31 @@ export default {
             axios.delete(`/acceptances/${talk.acceptanceId}`, { submissionId: talk.submissionId })
                 .then(() => {
                     talk.accepted = false;
+                    talk.submitted = true;
+                    talk.loading = false;
+                })
+                .catch(() => {
+                    alert('Something went wrong.');
+                    talk.loading = false;
+                });
+        },
+        markRejected: function (talk) {
+            axios.post('/rejections', { submissionId: talk.submissionId })
+                .then((response) => {
+                    talk.rejected = true;
+                    talk.submitted = false;
+                    talk.loading = false;
+                    talk.rejectionId = response.data.rejectionId;
+                })
+                .catch(() => {
+                    alert('Something went wrong.');
+                    talk.loading = false;
+                });
+        },
+        undoRejection: function (talk) {
+            axios.delete(`/rejections/${talk.rejectionId}`, { submissionId: talk.submissionId })
+                .then(() => {
+                    talk.rejected = false;
                     talk.submitted = true;
                     talk.loading = false;
                 })

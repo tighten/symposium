@@ -13,6 +13,7 @@ class TalkForConferenceTransformer
 
         $submission = $talk->getMySubmissionForConference($conference);
         $acceptance = $submission ? $submission->acceptance : null;
+        $rejection = $submission ? $submission->rejection : null;
 
         return [
             'id' => $talk->id,
@@ -22,6 +23,8 @@ class TalkForConferenceTransformer
             'submissionId' => $submission ? $submission->id : null,
             'accepted' =>  (bool) $acceptance,
             'acceptanceId' => $acceptance ? $acceptance->id : null,
+            'rejected' =>  (bool) $rejection,
+            'rejectionId' => $rejection ? $rejection->id : null,
         ];
     }
 }

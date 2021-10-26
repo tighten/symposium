@@ -118,3 +118,14 @@ $factory->define(App\Acceptance::class, function () {
         },
     ];
 });
+
+$factory->define(App\Rejection::class, function () {
+    return [
+        'talk_revision_id' => function () {
+            return factory(App\TalkRevision::class)->create()->id;
+        },
+        'conference_id' => function () {
+            return factory(App\Conference::class)->create()->id;
+        },
+    ];
+});
