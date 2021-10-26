@@ -69,4 +69,22 @@
             <a href="{{ $current->slides }}" class="hover:text-indigo-500">{{ $current->slides }}</a>
         @endif
     </x-panel>
+
+    @if (count($submissions))
+        <x-panel size="md" title="Submissions">
+            @foreach ($submissions as $submission)
+                <div class="pr-3 lg:pr-0">
+                    <h3 class="mt-4 text-lg font-normal text-gray-500">
+                        <a class="hover:text-indigo-500" href="{{ route('conferences.show', $submission->conference->id) }}">
+                            {{ $submission->conference->title }}
+                        </a>
+                        @if ($submission->isAccepted())
+                            <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">Accepted</span>
+                        @endif
+                    </h3>
+                    <div>{{ $submission->conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $submission->conference->endsAtDisplay() }}</div>
+                </div>
+            @endforeach
+        </x-panel>
+    @endif
 @endsection
