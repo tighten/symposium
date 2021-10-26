@@ -11,6 +11,14 @@ use Throwable;
 
 class IntegrationTestCase extends TestCase
 {
+    /** @before */
+    function prepareSessionAndDatabase()
+    {
+        parent::setUp();
+        Session::start();
+        Artisan::call('migrate');
+    }
+
     function assertHasError($key, ValidationException $exception)
     {
         $this->assertContains($key, $exception->errors()->keys());
@@ -38,12 +46,5 @@ class IntegrationTestCase extends TestCase
                 throw $exception;
             }
         });
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Session::start();
-        Artisan::call('migrate');
     }
 }
