@@ -76,22 +76,7 @@ class Talk extends UuidBase
 
     public function scopeSubmitted($query)
     {
-        return $query->whereRaw(
-            'EXISTS
-                (SELECT 1 
-                    FROM (
-                        SELECT talk_revisions.* 
-                        FROM talk_revisions 
-                        WHERE EXISTS (
-                            SELECT 1 
-                            FROM submissions 
-                            WHERE submissions.talk_revision_id = talk_revisions.id
-                            )
-                    ) AS tr
-                    WHERE tr.talk_id = talks.id
-                )
-           '
-        );
+        $query->has('submissions');
     }
 
     public function getMySubmissionForConference(Conference $conference)
