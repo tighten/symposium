@@ -18,7 +18,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventStub;
 
     /** @before */
-    function setUpEventStub()
+    function prepareEventStub()
     {
         parent::setUp();
 
