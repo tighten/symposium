@@ -17,6 +17,14 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
     private $eventStub;
 
+    /** @before */
+    function setUpEventStub()
+    {
+        parent::setUp();
+
+        $this->eventStub = $this->stubEvent();
+    }
+
     function stubEvent()
     {
         $_rel = new stdClass;
@@ -49,13 +57,6 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         app()->instance(Client::class, $mockClient);
 
         return $mockClient;
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->eventStub = $this->stubEvent();
     }
 
     /** @test */
