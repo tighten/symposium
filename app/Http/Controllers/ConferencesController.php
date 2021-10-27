@@ -20,7 +20,7 @@ class ConferencesController extends BaseController
         'location' => [],
         'cfp_url' => ['nullable', 'url'],
         'starts_at' => ['date'],
-        'ends_at' => ['date', 'onOrAfter:starts_at'],
+        'ends_at' => ['date', 'after_or_equal:starts_at'],
         'cfp_starts_at' => ['date', 'before:starts_at'],
         'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
     ];
