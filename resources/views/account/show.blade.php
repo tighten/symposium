@@ -70,7 +70,7 @@
                     href="{{ route('conferences.show', ['id' => $conference->id]) }}"
                     class="hover:text-indigo-500"
                 >
-                    {{  $conference->title }}
+                    {{ $conference->title }}
                 </a>
             </div>
         @empty

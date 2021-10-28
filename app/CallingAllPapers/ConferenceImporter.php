@@ -17,6 +17,15 @@ class ConferenceImporter
         $this->authorId = $authorId ?: auth()->user()->id;
     }
 
+    private static function carbonFromIso($dateFromApi)
+    {
+        if (! $dateFromApi || $dateFromApi == '1970-01-01T00:00:00+00:00') {
+            return null;
+        }
+
+        return Carbon::createFromFormat(DateTime::ISO8601, $dateFromApi);
+    }
+
     public function import(Event $event)
     {
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
@@ -38,14 +47,5 @@ class ConferenceImporter
         $conference->cfp_starts_at = self::carbonFromIso($event->dateCfpStart);
         $conference->cfp_ends_at = self::carbonFromIso($event->dateCfpEnd);
         $conference->author_id = $this->authorId;
-    }
-
-    private static function carbonFromIso($dateFromApi)
-    {
-        if (! $dateFromApi || $dateFromApi == '1970-01-01T00:00:00+00:00') {
-            return null;
-        }
-
-        return Carbon::createFromFormat(DateTime::ISO8601, $dateFromApi);
     }
 }

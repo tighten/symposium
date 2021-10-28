@@ -6,7 +6,6 @@ use App\Conference;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;

@@ -144,12 +144,14 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create();
-        $bio->public = false;
-        $user->bios()->save($bio);
+        $bio = factory(Bio::class)->create([
+            'user_id' => $user->id,
+            'nickname' => 'Private Bio',
+            'public' => false,
+        ]);
 
         $this->visit(route('speakers-public.show', [$user->profile_slug]));
-        $this->dontSee($bio->nickname);
+        $this->dontSee('Private Bio');
     }
 
     /** @test */
