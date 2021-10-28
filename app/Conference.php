@@ -49,6 +49,16 @@ class Conference extends UuidBase
         'cfp_url' => Url::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // only approve conferences that are new imports
+        self::creating(function ($conference) {
+            $conference->is_approved = true;
+        });
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
