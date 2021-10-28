@@ -50,6 +50,27 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
+    function a_conference_cannot_end_before_it_begins()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->post('/conferences', [
+                'title' => 'JediCon',
+                'description' => 'The force is strong here',
+                'url' => 'https://jedicon.com',
+                'starts_at' => Carbon::parse('+3 days')->toDateString(),
+                'ends_at' => Carbon::parse('+2 days')->toDateString(),
+            ]);
+
+        $this->seeStatusCode(302);
+        $this->assertRedirectedTo('/conferences/create');
+        $this->dontSeeInDatabase('conferences', [
+            'title' => 'JediCon',
+        ]);
+    }
+
+    /** @test */
     function user_can_edit_conference()
     {
         $this->disableExceptionHandling();
@@ -78,6 +99,31 @@ class ConferenceTest extends IntegrationTestCase
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
         ]);
+    }
+
+    /** @test */
+    function a_conference_cannot_be_updated_to_end_before_it_begins()
+    {
+        $user = factory(User::class)->create();
+
+        $conference = factory(Conference::class)->create([
+            'author_id' => $user->id,
+            'title' => 'Rubycon',
+            'description' => 'A conference about Ruby',
+            'is_approved' => true,
+            'starts_at' => Carbon::parse('+3 days')->toDateString(),
+            'ends_at' => Carbon::parse('+4 days')->toDateString(),
+        ]);
+
+        $this->actingAs($user)
+            ->visit("/conferences/{$conference->id}/edit")
+            ->type(Carbon::parse('+2 days')->toDateString(), '#ends_at')
+            ->press('Update');
+
+        $this->assertEquals(
+            Carbon::parse('+4 days')->toDateString(),
+            $conference->fresh()->ends_at->toDateString(),
+        );
     }
 
     /** @test */

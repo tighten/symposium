@@ -34,6 +34,3 @@ Response::macro('jsonApi', function ($value) {
 
     return $response;
 });
-
-Validator::extend('onOrAfter', 'App\Validators\OnOrAfterValidator@validate');
-Validator::replacer('onOrAfter', 'App\Validators\OnOrAfterValidator@message');
