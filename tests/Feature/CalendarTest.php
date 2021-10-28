@@ -12,7 +12,7 @@ class CalendarTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function unapproved_conferences_do_not_appear_on_the_calendar()
+    public function unapproved_conferences_do_not_appear_on_the_calendar()
     {
         $user = factory(User::class)->create();
 

@@ -12,7 +12,7 @@ use App\User;
 class RejectionTest extends IntegrationTestCase
 {
     /** @test */
-    function can_create_from_submission()
+    public function can_create_from_submission()
     {
         $user = factory(User::class)->create();
         $this->be($user);
@@ -36,7 +36,7 @@ class RejectionTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_mark_talks_as_rejected_via_http()
+    public function user_can_mark_talks_as_rejected_via_http()
     {
         $user = factory(User::class)->create();
         $this->be($user);
@@ -58,7 +58,7 @@ class RejectionTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_remove_rejection_via_http()
+    public function user_can_remove_rejection_via_http()
     {
         $user = factory(User::class)->create();
         $this->be($user);
@@ -76,7 +76,7 @@ class RejectionTest extends IntegrationTestCase
             'rejection_id' => $rejection->id,
         ]);
 
-        $this->delete('rejections/' . $rejection->id);
+        $this->delete('rejections/'.$rejection->id);
 
         $this->assertFalse($submission->refresh()->isRejected());
     }

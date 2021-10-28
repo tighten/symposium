@@ -91,7 +91,7 @@ class ConferencesController extends BaseController
 
         Session::flash('success-message', 'Successfully created new conference.');
 
-        return redirect('conferences/' . $conference->id);
+        return redirect('conferences/'.$conference->id);
     }
 
     public function show($id)
@@ -121,7 +121,7 @@ class ConferencesController extends BaseController
         $conference = Conference::findOrFail($id);
 
         if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
-            Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
+            Log::error('User '.auth()->user()->id." tried to edit a conference they don't own.");
 
             return redirect('/');
         }
@@ -139,7 +139,7 @@ class ConferencesController extends BaseController
         $conference = Conference::findOrFail($id);
 
         if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
-            Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
+            Log::error('User '.auth()->user()->id." tried to edit a conference they don't own.");
 
             return redirect('/');
         }
@@ -160,7 +160,7 @@ class ConferencesController extends BaseController
 
         Session::flash('success-message', 'Successfully edited conference.');
 
-        return redirect('conferences/' . $conference->id);
+        return redirect('conferences/'.$conference->id);
     }
 
     public function destroy($id)
@@ -168,7 +168,7 @@ class ConferencesController extends BaseController
         try {
             $conference = auth()->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
-            Log::error('User ' . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
+            Log::error('User '.auth()->user()->id." tried to delete a conference that doesn't exist or they don't own.");
 
             return redirect('/');
         }

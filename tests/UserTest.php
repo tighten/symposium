@@ -7,7 +7,7 @@ use App\User;
 class UserTest extends IntegrationTestCase
 {
     /** @test */
-    function it_checks_if_user_is_admin()
+    public function it_checks_if_user_is_admin()
     {
         $user = factory(User::class)->create();
         $this->assertEquals(0, $user->role);
@@ -19,7 +19,7 @@ class UserTest extends IntegrationTestCase
     }
 
     /** @test */
-    function it_returns_all_users_subscribed_to_notifications()
+    public function it_returns_all_users_subscribed_to_notifications()
     {
         factory(User::class)->create();
         factory(User::class)->states('wantsNotifications')->create();

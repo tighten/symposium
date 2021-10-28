@@ -11,7 +11,7 @@ use DateTime;
 class CreateConferenceFormTest extends IntegrationTestCase
 {
     /** @test */
-    function conference_title_is_required()
+    public function conference_title_is_required()
     {
         $this->withoutExceptionHandling();
 
@@ -25,6 +25,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('title', $e);
+
             return;
         }
 
@@ -32,7 +33,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_description_is_required()
+    public function conference_description_is_required()
     {
         $this->withoutExceptionHandling();
 
@@ -46,6 +47,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('description', $e);
+
             return;
         }
 
@@ -53,7 +55,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_url_is_required()
+    public function conference_url_is_required()
     {
         $this->withoutExceptionHandling();
 
@@ -67,6 +69,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('url', $e);
+
             return;
         }
 
@@ -74,7 +77,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_start_date_must_be_a_valid_date()
+    public function conference_start_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -90,6 +93,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('starts_at', $e);
+
             return;
         }
 
@@ -97,7 +101,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_end_date_must_be_a_valid_date()
+    public function conference_end_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -113,6 +117,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('ends_at', $e);
+
             return;
         }
 
@@ -120,7 +125,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_end_date_must_not_be_before_start_date()
+    public function conference_end_date_must_not_be_before_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -137,6 +142,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('ends_at', $e);
+
             return;
         }
 
@@ -144,7 +150,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_can_be_a_single_day_conference()
+    public function conference_can_be_a_single_day_conference()
     {
         $conferenceCount = Conference::count();
         $input = [
@@ -162,7 +168,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_cfp_start_date_must_be_a_valid_date()
+    public function conference_cfp_start_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -178,6 +184,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_starts_at', $e);
+
             return;
         }
 
@@ -185,7 +192,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_cfp_end_date_must_be_a_valid_date()
+    public function conference_cfp_end_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -201,6 +208,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_ends_at', $e);
+
             return;
         }
 
@@ -208,7 +216,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_cfp_end_date_must_not_be_before_cfp_start_date()
+    public function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -224,15 +232,16 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
             $form->complete();
         } catch (ValidationException $e) {
-             $this->assertHasError('cfp_ends_at', $e);
-             return;
+            $this->assertHasError('cfp_ends_at', $e);
+
+            return;
         }
 
         $this->validationErrorNotThrown('cfp_ends_at');
     }
 
     /** @test */
-    function conference_cfp_start_date_must_be_before_the_conference_start_date()
+    public function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -250,6 +259,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_starts_at', $e);
+
             return;
         }
 
@@ -257,7 +267,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_cfp_end_date_must_be_before_the_conference_start_date()
+    public function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -275,6 +285,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_ends_at', $e);
+
             return;
         }
 
@@ -282,7 +293,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function it_creates_a_conference_with_the_minimum_required_input()
+    public function it_creates_a_conference_with_the_minimum_required_input()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -300,7 +311,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_dates_are_saved_if_provided()
+    public function conference_dates_are_saved_if_provided()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -323,7 +334,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function conference_cfp_url_is_saved_if_provided()
+    public function conference_cfp_url_is_saved_if_provided()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -340,7 +351,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function empty_dates_are_treated_as_null()
+    public function empty_dates_are_treated_as_null()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -363,7 +374,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function error_messages_are_available_if_creating_a_conference_fails()
+    public function error_messages_are_available_if_creating_a_conference_fails()
     {
         $form = CreateConferenceForm::fillOut([], factory(User::class)->create());
 
@@ -375,7 +386,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    function completing_a_form_returns_the_new_conference()
+    public function completing_a_form_returns_the_new_conference()
     {
         $input = [
             'title' => 'AwesomeConf 2015',

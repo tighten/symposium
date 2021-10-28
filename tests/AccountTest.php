@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Notification;
 class AccountTest extends IntegrationTestCase
 {
     /** @test */
-    function users_can_sign_up()
+    public function users_can_sign_up()
     {
         $this->markTestSkipped('Disable email registration');
 
@@ -32,7 +32,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function invalid_signups_dont_proceed()
+    public function invalid_signups_dont_proceed()
     {
         $this->markTestSkipped('Disable email registration');
 
@@ -46,7 +46,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function users_can_log_in()
+    public function users_can_log_in()
     {
         $user = factory(User::class)->create(['password' => Hash::make('super-secret')]);
 
@@ -58,7 +58,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function logging_in_with_invalid_credentials()
+    public function logging_in_with_invalid_credentials()
     {
         $user = factory(User::class)->create();
 
@@ -70,7 +70,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_update_their_profile()
+    public function user_can_update_their_profile()
     {
         $user = factory(User::class)->create();
 
@@ -99,9 +99,9 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_update_their_profile_picture()
+    public function user_can_update_their_profile_picture()
     {
-        $image = __DIR__ . '/stubs/test.jpg';
+        $image = __DIR__.'/stubs/test.jpg';
         $user = factory(User::class)->create();
 
         $this->actingAs($user->fresh())
@@ -113,7 +113,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function password_reset_emails_are_sent_for_valid_users()
+    public function password_reset_emails_are_sent_for_valid_users()
     {
         Notification::fake();
         $user = factory(User::class)->create();
@@ -126,7 +126,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_reset_their_password_from_email_link()
+    public function user_can_reset_their_password_from_email_link()
     {
         $this->disableExceptionHandling();
 
@@ -167,7 +167,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function users_can_delete_their_accounts()
+    public function users_can_delete_their_accounts()
     {
         $user = factory(User::class)->create();
 
@@ -183,7 +183,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function deleting_a_user_deletes_its_associated_entities()
+    public function deleting_a_user_deletes_its_associated_entities()
     {
         $user = factory(User::class)->create();
         $talk = factory(Talk::class)->create(['author_id' => $user->id]);
@@ -235,7 +235,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function users_can_dismiss_a_conference()
+    public function users_can_dismiss_a_conference()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create();
@@ -251,7 +251,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function users_can_undismiss_a_conference()
+    public function users_can_undismiss_a_conference()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create();
@@ -275,7 +275,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function users_can_favorite_a_conference()
+    public function users_can_favorite_a_conference()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create();
@@ -291,7 +291,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    function users_can_unfavorite_a_conference()
+    public function users_can_unfavorite_a_conference()
     {
         $user = factory(User::class)->create();
         $conference = factory(Conference::class)->create();

@@ -12,7 +12,7 @@ use App\User;
 class AcceptanceTest extends IntegrationTestCase
 {
     /** @test */
-    function can_create_from_submission()
+    public function can_create_from_submission()
     {
         $user = factory(User::class)->create();
         $this->be($user);
@@ -36,7 +36,7 @@ class AcceptanceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_mark_talks_as_accepted_via_http()
+    public function user_can_mark_talks_as_accepted_via_http()
     {
         $user = factory(User::class)->create();
         $this->be($user);
@@ -58,7 +58,7 @@ class AcceptanceTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_remove_acceptance_via_http()
+    public function user_can_remove_acceptance_via_http()
     {
         $user = factory(User::class)->create();
         $this->be($user);
@@ -76,7 +76,7 @@ class AcceptanceTest extends IntegrationTestCase
             'acceptance_id' => $acceptance->id,
         ]);
 
-        $this->delete('acceptances/' . $acceptance->id);
+        $this->delete('acceptances/'.$acceptance->id);
 
         $this->assertFalse($submission->refresh()->isAccepted());
     }

@@ -8,7 +8,7 @@ class RejectionSeeder extends Seeder
 {
     public function run()
     {
-        Submission::all()->filter(function($submission) {
+        Submission::all()->filter(function ($submission) {
             return ! $submission->isAccepted();
         })->each(function ($submission) {
             if (mt_rand(0, 1)) {
