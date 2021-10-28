@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Rejection;
 use App\Submission;
 use Illuminate\Database\Seeder;

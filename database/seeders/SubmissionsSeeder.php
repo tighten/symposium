@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Conference;
 use App\Submission;
 use App\TalkRevision;

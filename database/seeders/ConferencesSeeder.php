@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Conference;
 use Illuminate\Database\Seeder;
 

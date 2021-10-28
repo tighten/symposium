@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Talk;
 use App\TalkRevision;
 use App\User;
