@@ -31,9 +31,7 @@ class TalksController extends BaseController
     public function index(Request $request)
     {
         $talks = $this->sortTalks(
-            $request->input('filter') === 'submitted'
-                ? auth()->user()->talks()->submitted()->get()
-                : auth()->user()->talks()->active()->get(),
+            $this->filterTalks($request->input('filter')),
             $request->input('sort')
         );
 
@@ -186,6 +184,21 @@ class TalksController extends BaseController
         Session::flash('success-message', 'Successfully restored talk.');
 
         return redirect('archive');
+    }
+
+    private function filterTalks($filter)
+    {
+        switch ($filter) {
+            case 'submitted':
+                return auth()->user()->talks()->submitted()->get();
+                break;
+            case 'accepted':
+                return auth()->user()->talks()->accepted()->get();
+                break;
+            default:
+                return auth()->user()->talks()->active()->get();
+                break;
+        }
     }
 
     private function sortTalks($talks, $sort)

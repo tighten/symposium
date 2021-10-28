@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Acceptance;
 use App\Conference;
 use App\Submission;
 use App\Talk;
@@ -154,5 +155,28 @@ class TalkTest extends IntegrationTestCase
 
         $this->assertContains($talkRevisionA->talk_id, $submittedTalkIds);
         $this->assertNotContains($talkRevisionB->talk_id, $submittedTalkIds);
+    }
+
+    /** @test */
+    function scoping_talks_where_accepted()
+    {
+        [$talkRevisionA, $talkRevisionB] = factory(TalkRevision::class, 2)->create();
+        $conference = factory(Conference::class)->create();
+        TalkRevision::all()->each(function ($talkRevision) use ($conference) {
+            factory(Submission::class)->create([
+                'talk_revision_id' => $talkRevision->id,
+                'conference_id' => $conference->id,
+            ]);
+        });
+
+        factory(Acceptance::class)->create([
+            'talk_revision_id' => $talkRevisionA->id,
+            'conference_id' => $conference->id,
+        ]);
+
+        $acceptedTalkIds = Talk::accepted()->get()->pluck('id');
+
+        $this->assertContains($talkRevisionA->talk_id, $acceptedTalkIds);
+        $this->assertNotContains($talkRevisionB->talk_id, $acceptedTalkIds);
     }
 }
