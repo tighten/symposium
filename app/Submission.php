@@ -1,9 +1,12 @@
 <?php
 
 namespace App;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Submission extends UuidBase
 {
+    use HasFactory;
+
     protected $table = 'submissions';
 
     protected $primaryKey = 'id';

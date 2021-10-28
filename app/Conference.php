@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Casts\Url;
 use Carbon\Carbon;
 
 class Conference extends UuidBase
 {
+    use HasFactory;
+
     protected $table = 'conferences';
 
     protected $guarded = [

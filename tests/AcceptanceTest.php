@@ -14,15 +14,15 @@ class AcceptanceTest extends IntegrationTestCase
     /** @test */
     public function can_create_from_submission()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->be($user);
 
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
-        $submission = factory(Submission::class)->create([
+        $submission = Submission::factory()->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
         ]);
@@ -38,14 +38,14 @@ class AcceptanceTest extends IntegrationTestCase
     /** @test */
     public function user_can_mark_talks_as_accepted_via_http()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->be($user);
 
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
-        $submission = factory(Submission::class)->create([
+        $submission = Submission::factory()->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
         ]);
@@ -60,17 +60,17 @@ class AcceptanceTest extends IntegrationTestCase
     /** @test */
     public function user_can_remove_acceptance_via_http()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->be($user);
 
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
-        $acceptance = factory(Acceptance::class)->create();
+        $acceptance = Acceptance::factory()->create();
 
-        $submission = factory(Submission::class)->create([
+        $submission = Submission::factory()->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
             'acceptance_id' => $acceptance->id,

@@ -15,15 +15,15 @@ class AcceptedRejectedTest extends IntegrationTestCase
     /** @test */
     public function an_accepted_submission_cannot_be_rejected()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->be($user);
 
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
-        $submission = factory(Submission::class)->create([
+        $submission = Submission::factory()->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
         ]);
@@ -45,15 +45,15 @@ class AcceptedRejectedTest extends IntegrationTestCase
     /** @test */
     public function a_rejected_submission_cannot_be_accepted()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->be($user);
 
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
-        $submission = factory(Submission::class)->create([
+        $submission = Submission::factory()->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
         ]);

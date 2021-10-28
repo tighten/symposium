@@ -24,7 +24,7 @@ class ConferencesSeeder extends Seeder
         ]);
 
         foreach ($conferenceNames as $name) {
-            factory(Conference::class)->create([
+            Conference::factory()->create([
                 'title' => $name,
                 'is_featured' => rand(0, 1),
                 'is_approved' => true,

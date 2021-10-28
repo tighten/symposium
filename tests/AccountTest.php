@@ -48,7 +48,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function users_can_log_in()
     {
-        $user = factory(User::class)->create(['password' => Hash::make('super-secret')]);
+        $user = User::factory()->create(['password' => Hash::make('super-secret')]);
 
         $this->visit('login')
             ->type($user->email, '#email')
@@ -60,7 +60,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function logging_in_with_invalid_credentials()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->visit('login')
             ->type($user->email, '#email')
@@ -72,7 +72,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function user_can_update_their_profile()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->visit('/account/edit')
@@ -102,7 +102,7 @@ class AccountTest extends IntegrationTestCase
     public function user_can_update_their_profile_picture()
     {
         $image = __DIR__.'/stubs/test.jpg';
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user->fresh())
             ->visit('/account/edit')
@@ -116,7 +116,7 @@ class AccountTest extends IntegrationTestCase
     public function password_reset_emails_are_sent_for_valid_users()
     {
         Notification::fake();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->visit('/password/reset')
             ->type($user->email, '#email')
@@ -132,7 +132,7 @@ class AccountTest extends IntegrationTestCase
 
         Notification::fake();
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = null;
 
         $this->post('/password/email', [
@@ -169,7 +169,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function users_can_delete_their_accounts()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
              ->visit('account/delete')
@@ -185,21 +185,21 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function deleting_a_user_deletes_its_associated_entities()
     {
-        $user = factory(User::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $talkRevision = factory(TalkRevision::class)->create();
-        $bio = factory(Bio::class)->create();
-        $conferenceA = factory(Conference::class)->create();
-        $conferenceB = factory(Conference::class)->create();
+        $user = User::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talkRevision = TalkRevision::factory()->create();
+        $bio = Bio::factory()->create();
+        $conferenceA = Conference::factory()->create();
+        $conferenceB = Conference::factory()->create();
 
         $user->talks()->save($talk);
         $talk->revisions()->save($talkRevision);
         $user->bios()->save($bio);
         $user->conferences()->saveMany([$conferenceA, $conferenceB]);
 
-        $otherUser = factory(User::class)->create();
-        $dismissedConference = factory(Conference::class)->create();
-        $favoriteConference = factory(Conference::class)->create();
+        $otherUser = User::factory()->create();
+        $dismissedConference = Conference::factory()->create();
+        $favoriteConference = Conference::factory()->create();
 
         $otherUser->conferences()->saveMany([$conferenceA, $conferenceB]);
         $user->dismissedConferences()->save($dismissedConference);
@@ -237,8 +237,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function users_can_dismiss_a_conference()
     {
-        $user = factory(User::class)->create();
-        $conference = factory(Conference::class)->create();
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -253,8 +253,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function users_can_undismiss_a_conference()
     {
-        $user = factory(User::class)->create();
-        $conference = factory(Conference::class)->create();
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -277,8 +277,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function users_can_favorite_a_conference()
     {
-        $user = factory(User::class)->create();
-        $conference = factory(Conference::class)->create();
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -293,8 +293,8 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     public function users_can_unfavorite_a_conference()
     {
-        $user = factory(User::class)->create();
-        $conference = factory(Conference::class)->create();
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)

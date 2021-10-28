@@ -12,7 +12,7 @@ class RejectionSeeder extends Seeder
             return ! $submission->isAccepted();
         })->each(function ($submission) {
             if (mt_rand(0, 1)) {
-                $rejection = factory(Rejection::class)->create([
+                $rejection = Rejection::factory()->create([
                     'talk_revision_id' => $submission->talk_revision_id,
                     'conference_id' => $submission->conference_id,
                 ]);

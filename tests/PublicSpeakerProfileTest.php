@@ -19,7 +19,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function non_public_speakers_are_not_listed_on_the_public_speaker_page()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'enable_profile' => false,
         ]);
 
@@ -30,7 +30,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function public_speakers_are_listed_on_the_public_speaker_page()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'mattstauffer',
             'enable_profile' => true,
         ]);
@@ -42,7 +42,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function non_public_speakers_do_not_have_public_speaker_profile_pages()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'mattstauffer',
             'enable_profile' => false,
         ]);
@@ -54,7 +54,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function public_speakers_have_public_speaker_profile_pages()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'abrahamlincoln',
             'enable_profile' => true,
         ]);
@@ -66,15 +66,15 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function talks_marked_not_public_are_not_listed_publicly()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'tonimorrison',
             'enable_profile' => true,
         ]);
 
-        $talk = factory(Talk::class)->create();
+        $talk = Talk::factory()->create();
         $talk->public = false;
         $user->talks()->save($talk);
-        $talkRevision = factory(TalkRevision::class)->create();
+        $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
         $this->get(route('speakers-public.show', [$user->profile_slug]));
@@ -85,15 +85,15 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function talks_marked_not_public_do_not_have_public_pages()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'jamesandthegiantpeach',
             'enable_profile' => true,
         ]);
 
-        $talk = factory(Talk::class)->create();
+        $talk = Talk::factory()->create();
         $talk->public = false;
         $user->talks()->save($talk);
-        $talkRevision = factory(TalkRevision::class)->create();
+        $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
         $this->get(route('speakers-public.talks.show', [$user->profile_slug, $talk->id]));
@@ -103,15 +103,15 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function talks_marked_public_are_listed_publicly()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'zipporah',
             'enable_profile' => true,
         ]);
 
-        $talk = factory(Talk::class)->create();
+        $talk = Talk::factory()->create();
         $talk->public = true;
         $user->talks()->save($talk);
-        $talkRevision = factory(TalkRevision::class)->create();
+        $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
         $this->get(route('speakers-public.show', [$user->profile_slug]));
@@ -122,12 +122,12 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function bios_marked_public_are_listed_publicly()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'esther',
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create();
+        $bio = Bio::factory()->create();
         $bio->public = false;
         $user->bios()->save($bio);
 
@@ -139,12 +139,12 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function bios_marked_not_public_do_not_have_public_pages()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'kuntakinte',
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create([
+        $bio = Bio::factory()->create([
             'user_id' => $user->id,
             'nickname' => 'Private Bio',
             'public' => false,
@@ -157,12 +157,12 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function bios_marked_public_have_public_pages()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'mydearauntsally',
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create();
+        $bio = Bio::factory()->create();
         $bio->public = true;
         $user->bios()->save($bio);
 
@@ -173,7 +173,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function public_profile_page_is_off_by_default()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'jimmybob',
         ]);
 
@@ -186,7 +186,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $this->withoutMiddleware();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'jimmybob',
             'enable_profile' => true,
             'allow_profile_contact' => false,
@@ -207,7 +207,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     {
         $this->disableExceptionHandling();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'jimmybob',
             'enable_profile' => true,
             'allow_profile_contact' => true,
@@ -228,12 +228,12 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         Mail::fake();
         app()->instance(Captcha::class, new FakeCaptcha);
 
-        $userA = factory(User::class)->create([
+        $userA = User::factory()->create([
             'profile_slug' => 'smithy',
             'enable_profile' => true,
             'allow_profile_contact' => true,
         ]);
-        $userB = factory(User::class)->create();
+        $userB = User::factory()->create();
 
         $this->actingAs($userB)
             ->visit(route('speakers-public.email', [$userA->profile_slug]))
@@ -251,7 +251,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function disabled_profile_user_cannot_be_contacted()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'alphabetsoup',
             'enable_profile' => false,
             'allow_profile_contact' => true,
@@ -267,22 +267,22 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function public_profile_pages_do_not_show_talks_for_other_users()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'jinkerjanker',
             'email' => 'a@b.com',
             'enable_profile' => true,
         ]);
 
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->create([
             'profile_slug' => 'alcatraz',
             'email' => 'c@d.com',
             'enable_profile' => true,
         ]);
 
-        $talk = factory(Talk::class)->create();
+        $talk = Talk::factory()->create();
         $talk->public = true;
         $user2->talks()->save($talk);
-        $talkRevision = factory(TalkRevision::class)->create();
+        $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
         $this->visit(route('speakers-public.show', [$user->profile_slug]))
@@ -292,19 +292,19 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     public function public_profile_pages_do_not_show_bios_for_other_users()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'profile_slug' => 'stampede',
             'email' => 'a@b.com',
             'enable_profile' => true,
         ]);
 
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->create([
             'profile_slug' => 'cruising',
             'email' => 'c@d.com',
             'enable_profile' => true,
         ]);
 
-        $bio = factory(Bio::class)->create(['nickname' => 'test bio']);
+        $bio = Bio::factory()->create(['nickname' => 'test bio']);
         $bio->public = true;
         $user2->bios()->save($bio);
 

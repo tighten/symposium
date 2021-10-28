@@ -14,14 +14,14 @@ class CalendarTest extends TestCase
     /** @test */
     public function unapproved_conferences_do_not_appear_on_the_calendar()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        factory(Conference::class)->create([
+        Conference::factory()->create([
             'title' => 'Unapproved conference',
             'is_approved' => false,
         ]);
 
-        factory(Conference::class)->create([
+        Conference::factory()->create([
             'title' => 'Approved conference',
             'is_approved' => true,
         ]);

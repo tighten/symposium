@@ -15,10 +15,10 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function it_shows_the_talk_title_on_its_page()
     {
-        $user = factory(User::class)->create();
-        $conference = factory(Conference::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create();
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
@@ -29,13 +29,13 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function user_talks_are_sorted_alphabetically()
     {
-        $user = factory(User::class)->create();
-        $talk1 = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision1 = factory(TalkRevision::class)->create(['title' => 'zyxwv']);
+        $user = User::factory()->create();
+        $talk1 = Talk::factory()->create(['author_id' => $user->id]);
+        $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision2 = factory(TalkRevision::class)->create(['title' => 'abcde']);
+        $talk2 = Talk::factory()->create(['author_id' => $user->id]);
+        $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
         $talks = $user->talks;
@@ -47,14 +47,14 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function user_talks_json_encode_without_keys()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $talk1 = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision1 = factory(TalkRevision::class)->create(['title' => 'zyxwv']);
+        $talk1 = Talk::factory()->create(['author_id' => $user->id]);
+        $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision2 = factory(TalkRevision::class)->create(['title' => 'abcde']);
+        $talk2 = Talk::factory()->create(['author_id' => $user->id]);
+        $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
         $json = json_encode($user->talks);
@@ -65,7 +65,7 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function user_can_create_a_talk()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->visit('/talks/create')
@@ -98,9 +98,9 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function user_can_delete_a_talk()
     {
-        $user = factory(User::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        factory(TalkRevision::class)->create([
+        $user = User::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        TalkRevision::factory()->create([
             'title' => 'zyxwv',
             'talk_id' => $talk->id,
         ]);
@@ -116,9 +116,9 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function user_can_save_a_new_revision_of_a_talk()
     {
-        $user = factory(User::class)->create();
-        $talk = factory(Talk::class)->create(['author_id' => $user->id]);
-        $revision = factory(TalkRevision::class)->create([
+        $user = User::factory()->create();
+        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $revision = TalkRevision::factory()->create([
             'title' => 'old title',
             'created_at' => Carbon::now()->subMinute(),
         ]);
@@ -144,9 +144,9 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function scoping_talks_where_submitted()
     {
-        [$talkRevisionA, $talkRevisionB] = factory(TalkRevision::class, 2)->create();
-        $conference = factory(Conference::class)->create();
-        factory(Submission::class)->create([
+        [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
+        $conference = Conference::factory()->create();
+        Submission::factory()->create([
             'talk_revision_id' => $talkRevisionA->id,
             'conference_id' => $conference->id,
         ]);
@@ -160,16 +160,16 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     public function scoping_talks_where_accepted()
     {
-        [$talkRevisionA, $talkRevisionB] = factory(TalkRevision::class, 2)->create();
-        $conference = factory(Conference::class)->create();
+        [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
+        $conference = Conference::factory()->create();
         TalkRevision::all()->each(function ($talkRevision) use ($conference) {
-            factory(Submission::class)->create([
+            Submission::factory()->create([
                 'talk_revision_id' => $talkRevision->id,
                 'conference_id' => $conference->id,
             ]);
         });
 
-        factory(Acceptance::class)->create([
+        Acceptance::factory()->create([
             'talk_revision_id' => $talkRevisionA->id,
             'conference_id' => $conference->id,
         ]);

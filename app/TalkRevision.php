@@ -1,9 +1,12 @@
 <?php
 
 namespace App;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TalkRevision extends UuidBase
 {
+    use HasFactory;
+
     public static $rules = [];
 
     protected $title;

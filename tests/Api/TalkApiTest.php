@@ -21,7 +21,7 @@ class TalkApiTest extends ApiTestCase
     public function all_talks_doesnt_return_archived_talks()
     {
         $toBeArchivedTalk = $this->user->talks()->create([]);
-        $toBeArchivedTalk->revisions()->save(factory(TalkRevision::class)->create());
+        $toBeArchivedTalk->revisions()->save(TalkRevision::factory()->create());
 
         $response = $this->call('GET', 'api/user/1/talks');
         $data = json_decode($response->getContent());

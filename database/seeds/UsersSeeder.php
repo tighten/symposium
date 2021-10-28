@@ -9,12 +9,12 @@ class UsersSeeder extends Seeder
     {
         User::truncate();
 
-        factory(App\User::class)->create([
+        \App\User::factory()->create([
             'name' => 'Matt Stauffer',
             'email' => 'matt@savemyproposals.com',
         ]);
 
-        factory(App\User::class)->create([
+        \App\User::factory()->create([
             'is_featured' => rand(0, 1),
         ], 10);
     }

@@ -21,7 +21,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('title', $e);
@@ -43,7 +43,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('description', $e);
@@ -65,7 +65,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('url', $e);
@@ -89,7 +89,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('starts_at', $e);
@@ -113,7 +113,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('ends_at', $e);
@@ -138,7 +138,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('ends_at', $e);
@@ -161,7 +161,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'ends_at' => '2015-02-04',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
         $form->complete();
 
         $this->assertCount($conferenceCount + 1, Conference::all());
@@ -180,7 +180,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_starts_at', $e);
@@ -204,7 +204,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_ends_at', $e);
@@ -229,7 +229,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_ends_at', $e);
@@ -255,7 +255,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_starts_at', $e);
@@ -281,7 +281,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
         ];
 
         try {
-            $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
             $form->complete();
         } catch (ValidationException $e) {
             $this->assertHasError('cfp_ends_at', $e);
@@ -301,7 +301,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'url' => 'http://example.com',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
         $form->complete();
 
         $conference = Conference::first();
@@ -323,7 +323,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_ends_at' => '2015-01-18',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
         $form->complete();
 
         $conference = Conference::first();
@@ -343,7 +343,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_url' => 'http://example.com/cfp',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
         $form->complete();
 
         $conference = Conference::first();
@@ -363,7 +363,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'cfp_ends_at' => '',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
         $form->complete();
 
         $conference = Conference::first();
@@ -376,7 +376,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     /** @test */
     public function error_messages_are_available_if_creating_a_conference_fails()
     {
-        $form = CreateConferenceForm::fillOut([], factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut([], User::factory()->create());
 
         try {
             $form->complete();
@@ -394,7 +394,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
             'url' => 'http://example.com',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, factory(User::class)->create());
+        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
         $conference = $form->complete();
 
         $this->assertInstanceOf(Conference::class, $conference);
