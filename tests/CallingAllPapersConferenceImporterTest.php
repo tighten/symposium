@@ -6,7 +6,6 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Conference;
-use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
 use stdClass;
@@ -18,7 +17,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
     private $eventStub;
 
-    protected function setUp(): void
+    /** @before */
+    function prepareEventStub()
     {
         parent::setUp();
 

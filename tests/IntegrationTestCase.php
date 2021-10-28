@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Exceptions\Handler;
 use App\Exceptions\ValidationException;
-use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
@@ -12,7 +11,8 @@ use Throwable;
 
 class IntegrationTestCase extends TestCase
 {
-    protected function setUp(): void
+    /** @before */
+    function prepareSessionAndDatabase()
     {
         parent::setUp();
         Session::start();
@@ -29,7 +29,7 @@ class IntegrationTestCase extends TestCase
         $this->fail("A validation error for {$key} was expected but not thrown");
     }
 
-    protected function disableExceptionHandling()
+    function disableExceptionHandling()
     {
         $this->app->instance(ExceptionHandler::class, new class extends Handler {
             public function __construct()

@@ -22,6 +22,26 @@ class User extends Authenticatable
 
     protected $fillable = ['email', 'password', 'name'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Cascade deletes
+        static::deleting(function ($user) {
+            $user->talks()->delete();
+            // $user->conferences()->delete(); // Not sure if we want to do this.
+            $user->bios()->delete();
+
+            if ($user->profile_picture && strpos($user->profile_picture, '/') === false) {
+                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
+            }
+
+            DB::table('favorites')->where('user_id', $user->id)->delete();
+            DB::table('dismissed_conferences')->where('user_id', $user->id)->delete();
+        });
+    }
+
     public function scopeWantsNotifications($query)
     {
         return $query->where('wants_notifications', true);
@@ -117,26 +137,6 @@ class User extends Authenticatable
             'state' => $this->state,
             'country' => $this->country,
         ];
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Cascade deletes
-        static::deleting(function ($user) {
-            $user->talks()->delete();
-            // $user->conferences()->delete(); // Not sure if we want to do this.
-            $user->bios()->delete();
-
-            if ($user->profile_picture && strpos($user->profile_picture, '/') === false) {
-                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
-                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
-            }
-
-            DB::table('favorites')->where('user_id', $user->id)->delete();
-            DB::table('dismissed_conferences')->where('user_id', $user->id)->delete();
-        });
     }
 
     public function social()
