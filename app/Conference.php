@@ -31,23 +31,20 @@ class Conference extends UuidBase
         'calling_all_papers_id',
     ];
 
-    protected $dates = [
-        'starts_at',
-        'ends_at',
-        'cfp_starts_at',
-        'cfp_ends_at',
-    ];
 
     /**
      * The attributes that should be cast to native types.
      */
     protected $casts = [
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+        'cfp_starts_at' => 'datetime',
+        'cfp_ends_at' => 'datetime',
         'is_approved' => 'boolean',
         'is_shared' => 'boolean',
         'author_id' => 'integer',
         'url' => Url::class,
-        'cfp_url' => Url::class,
-    ];
+        'cfp_url' => Url::class,    ];
 
     public static function boot()
     {
