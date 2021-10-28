@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Casts\Url;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Conference extends UuidBase
 {
@@ -33,7 +33,6 @@ class Conference extends UuidBase
         'is_shared',
         'calling_all_papers_id',
     ];
-
 
     /**
      * The attributes that should be cast to native types.

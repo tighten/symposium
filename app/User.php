@@ -14,7 +14,6 @@ use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 class User extends Authenticatable
 {
     use HasFactory;
-
     use HasApiTokens, Notifiable, Searchable;
 
     const ADMIN_ROLE = 1;
