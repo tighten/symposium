@@ -18,10 +18,12 @@ class ConferencesController extends BaseController
         'url' => ['required', 'url'],
         'location' => [],
         'cfp_url' => ['nullable', 'url'],
-        'starts_at' => ['date'],
-        'ends_at' => ['date', 'after_or_equal:starts_at'],
-        'cfp_starts_at' => ['date', 'before:starts_at'],
-        'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
+        'starts_at' => ['nullable', 'date'],
+        'ends_at' => ['nullable', 'date', 'after_or_equal:starts_at'],
+        'cfp_starts_at' => ['nullable', 'date', 'before:starts_at'],
+        'cfp_ends_at' => ['nullable', 'date', 'after:cfp_starts_at', 'before:starts_at'],
+        'latitude' => ['nullable'],
+        'longitude' => ['nullable'],
     ];
 
     public function index(Request $request)
@@ -133,7 +135,7 @@ class ConferencesController extends BaseController
 
     public function update($id, Request $request)
     {
-        $this->validate($request, $this->conference_rules);
+        $validated = $this->validate($request, $this->conference_rules);
 
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
@@ -145,11 +147,7 @@ class ConferencesController extends BaseController
         }
 
         // Save
-        $conference->fill($request->all(['title', 'description', 'location', 'url', 'cfp_url']));
-
-        foreach (['starts_at', 'ends_at', 'cfp_starts_at', 'cfp_ends_at'] as $col) {
-            $conference->$col = $request->input($col) ?: null;
-        }
+        $conference->fill($validated);
 
         if (auth()->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');

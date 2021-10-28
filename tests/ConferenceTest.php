@@ -102,6 +102,28 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
+    function location_coordinates_can_be_updated()
+    {
+        $user = factory(User::class)->create();
+        $conference = factory(Conference::class)->create([
+            'author_id' => $user->id,
+        ]);
+
+        $this->actingAs($user)
+            ->put("/conferences/{$conference->id}", array_merge($conference->toArray(), [
+                'title' => 'Updated JediCon',
+                'latitude' => '37.7991531',
+                'longitude' => '-122.45050129999998',
+            ]));
+
+        $this->seeInDatabase('conferences', [
+            'title' => 'Updated JediCon',
+            'latitude' => '37.7991531',
+            'longitude' => '-122.45050129999998',
+        ]);
+    }
+
+    /** @test */
     function a_conference_cannot_be_updated_to_end_before_it_begins()
     {
         $user = factory(User::class)->create();
