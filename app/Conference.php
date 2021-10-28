@@ -49,6 +49,38 @@ class Conference extends UuidBase
         'cfp_url' => Url::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // only approve conferences that are new imports
+        self::creating(function ($conference) {
+            if ($conference->calling_all_papers_id) {
+                $conference->is_approved = true;
+            }
+        });
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+    public function acceptances()
+    {
+        return $this->hasMany(Acceptance::class);
+    }
+
+    public function usersDismissed()
+    {
+        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
+    }
+
     // @todo: Deprecate?
     public static function closingSoonest()
     {
@@ -75,26 +107,6 @@ class Conference extends UuidBase
             ->merge($hasExpiredCfp);
 
         return $return;
-    }
-
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'author_id');
-    }
-
-    public function submissions()
-    {
-        return $this->hasMany(Submission::class);
-    }
-
-    public function acceptances()
-    {
-        return $this->hasMany(Acceptance::class);
-    }
-
-    public function usersDismissed()
-    {
-        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
     public function scopeCfpOpeningToday($query)

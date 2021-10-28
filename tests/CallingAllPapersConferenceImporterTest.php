@@ -250,4 +250,21 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($updatedEvent->description, $updatedConference->description);
         $this->assertEquals($updatedEvent->eventUri, $updatedConference->url);
     }
+
+    /** @test */
+    function updating_existing_unapproved_conferences_leaves_them_unapproved()
+    {
+        $this->mockClient();
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($this->eventStub);
+
+        $conference = Conference::first();
+        $conference->update(['is_approved' => false]);
+
+        $updatedEvent = clone $this->eventStub;
+        $importer->import($updatedEvent);
+
+        $this->assertFalse(Conference::first()->is_approved);
+    }
 }
