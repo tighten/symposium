@@ -109,26 +109,6 @@ class Conference extends UuidBase
         return $return;
     }
 
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'author_id');
-    }
-
-    public function submissions()
-    {
-        return $this->hasMany(Submission::class);
-    }
-
-    public function acceptances()
-    {
-        return $this->hasMany(Acceptance::class);
-    }
-
-    public function usersDismissed()
-    {
-        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
-    }
-
     public function scopeCfpOpeningToday($query)
     {
         return $query
