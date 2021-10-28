@@ -27,6 +27,11 @@ class Talk extends UuidBase
         return $this->hasManyThrough(Submission::class, TalkRevision::class);
     }
 
+    public function acceptances()
+    {
+        return $this->hasManyThrough(Acceptance::class, TalkRevision::class);
+    }
+
     public function current()
     {
         return $this->revisions()->orderBy('created_at', 'DESC')->first();
@@ -77,6 +82,11 @@ class Talk extends UuidBase
     public function scopeSubmitted($query)
     {
         $query->has('submissions');
+    }
+
+    public function scopeAccepted($query)
+    {
+        $query->has('acceptances');
     }
 
     public function getMySubmissionForConference(Conference $conference)

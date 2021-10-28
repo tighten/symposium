@@ -21,6 +21,11 @@
                 'route' => 'talks.index',
                 'query' => ['filter' => 'submitted'],
             ],
+            'accepted' => [
+                'label' => 'Accepted',
+                'route' => 'talks.index',
+                'query' => ['filter' => 'accepted'],
+            ],
         ]"
         :defaults="['filter' => 'active', 'sort' => 'alpha']"
     ></x-side-menu>
