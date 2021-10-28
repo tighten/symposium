@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::middleware('auth:api')->group(function () {
     Route::get('me', 'MeController@index');
     Route::get('bios/{bioId}', 'BiosController@show');
     Route::get('user/{userId}/bios', 'UserBiosController@index');

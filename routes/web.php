@@ -3,60 +3,36 @@
 /**
  * Public
  */
-Route::get('/', [
-    'as' => 'home',
-    'uses' => 'HomeController@show',
-]);
+Route::get('/', 'HomeController@show')->name('home');
 
 Route::get('what-is-this', function () {
     return view('what-is-this');
 });
 
-Route::get('speakers', [
-    'as' => 'speakers-public.index',
-    'uses' => 'PublicProfileController@index',
-]);
-Route::post('speakers', [
-    'as' => 'speakers-public.search',
-    'uses' => 'PublicProfileController@search',
-]);
-Route::get('u/{profileSlug}', [
-    'as' => 'speakers-public.show',
-    'uses' => 'PublicProfileController@show',
-]);
-Route::get('u/{profileSlug}/talks/{talkId}', [
-    'as' => 'speakers-public.talks.show',
-    'uses' => 'PublicProfileController@showTalk',
-]);
-Route::get('u/{profileSlug}/bios/{bioId}', [
-    'as' => 'speakers-public.bios.show',
-    'uses' => 'PublicProfileController@showBio',
-]);
-Route::get('u/{profileSlug}/email', [
-    'as' => 'speakers-public.email',
-    'uses' => 'PublicProfileController@getEmail',
-]);
-Route::post('u/{profileSlug}/email', [
-    'as' => 'speakers-public.email.send',
-    'uses' => 'PublicProfileController@postEmail',
-]);
+Route::get('speakers', 'PublicProfileController@index')->name('speakers-public.index');
+Route::post('speakers', 'PublicProfileController@search')->name('speakers-public.search');
+Route::get('u/{profileSlug}', 'PublicProfileController@show')->name('speakers-public.show');
+Route::get('u/{profileSlug}/talks/{talkId}', 'PublicProfileController@showTalk')->name('speakers-public.talks.show');
+Route::get('u/{profileSlug}/bios/{bioId}', 'PublicProfileController@showBio')->name('speakers-public.bios.show');
+Route::get('u/{profileSlug}/email', 'PublicProfileController@getEmail')->name('speakers-public.email');
+Route::post('u/{profileSlug}/email', 'PublicProfileController@postEmail')->name('speakers-public.email.send');
 
 /*
  * App
  */
-Route::get('log-out', ['as' => 'log-out', 'uses' => 'Auth\LoginController@logout']);
+Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
 
 // Disable email registration
 Auth::routes(['register' => false]);
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('account', ['as' => 'account.show', 'uses' => 'AccountController@show']);
-    Route::get('account/edit', ['as' => 'account.edit', 'uses' => 'AccountController@edit']);
+Route::middleware('auth')->group(function () {
+    Route::get('account', 'AccountController@show')->name('account.show');
+    Route::get('account/edit', 'AccountController@edit')->name('account.edit');
     Route::put('account/edit', 'AccountController@update');
-    Route::get('account/delete', ['as' => 'account.delete', 'uses' => 'AccountController@delete']);
+    Route::get('account/delete', 'AccountController@delete')->name('account.delete');
     Route::post('account/delete', 'AccountController@destroy')->name('account.delete.confirm');
-    Route::get('account/export', ['as' => 'account.export', 'uses' => 'AccountController@export']);
-    Route::get('account/oauth-settings', ['as' => 'account.oauth-settings', 'uses' => 'AccountController@oauthSettings']);
+    Route::get('account/export', 'AccountController@export')->name('account.export');
+    Route::get('account/oauth-settings', 'AccountController@oauthSettings')->name('account.oauth-settings');
 
     Route::post('acceptances', 'AcceptancesController@store');
     Route::delete('acceptances/{acceptance}', 'AcceptancesController@destroy');
@@ -73,29 +49,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('conferences/{id}/dismiss', 'ConferencesController@dismiss');
     Route::get('conferences/{id}/undismiss', 'ConferencesController@undismiss');
 
-    Route::get('calendar', ['as' => 'calendar.index', 'uses' => 'CalendarController@index']);
+    Route::get('calendar', 'CalendarController@index')->name('calendar.index');
 
     // Necessary for GET-friendly delete because lazy
-    Route::get('talks/{id}/delete', ['as' => 'talks.delete', 'uses' => 'TalksController@destroy']);
-    Route::get('conferences/{id}/delete', ['as' => 'conferences.delete', 'uses' => 'ConferencesController@destroy']);
-    Route::get('bios/{id}/delete', ['as' => 'bios.delete', 'uses' => 'BiosController@destroy']);
+    Route::get('talks/{id}/delete', 'TalksController@destroy')->name('talks.delete');
+    Route::get('conferences/{id}/delete', 'ConferencesController@destroy')->name('conferences.delete');
+    Route::get('bios/{id}/delete', 'BiosController@destroy')->name('bios.delete');
 
-    Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
-    Route::get('archive', ['as' =>'talks.archived.index', 'uses' => 'TalksController@archiveIndex']);
-    Route::get('talks/{id}/archive', ['as' => 'talks.archive', 'uses' => 'TalksController@archive']);
-    Route::get('talks/{id}/restore', ['as' => 'talks.restore', 'uses' => 'TalksController@restore']);
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('archive', 'TalksController@archiveIndex')->name('talks.archived.index');
+    Route::get('talks/{id}/archive', 'TalksController@archive')->name('talks.archive');
+    Route::get('talks/{id}/restore', 'TalksController@restore')->name('talks.restore');
     Route::resource('talks', 'TalksController');
-    Route::resource('conferences', 'ConferencesController', [
-        'except' => ['index', 'show'],
-    ]);
+    Route::resource('conferences', 'ConferencesController')->except('index', 'show');
     Route::resource('bios', 'BiosController');
 });
 
-Route::get('conferences', ['as' => 'conferences.index', 'uses' => 'ConferencesController@index']);
-Route::get('conferences/{id}', ['as' => 'conferences.show', 'uses' => 'ConferencesController@show']);
+Route::get('conferences', 'ConferencesController@index')->name('conferences.index');
+Route::get('conferences/{id}', 'ConferencesController@show')->name('conferences.show');
 
 // Social logins routes
-Route::group(['middleware' => ['social', 'guest']], function () {
+Route::middleware('social', 'guest')->group(function () {
     Route::get('login/{service}', 'Auth\SocialLoginController@redirect');
     Route::get('login/{service}/callback', 'Auth\SocialLoginController@callback');
 });
