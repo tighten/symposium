@@ -11,7 +11,7 @@ use DateTime;
 class CreateConferenceFormTest extends IntegrationTestCase
 {
     /** @test */
-    public function conference_title_is_required()
+    function conference_title_is_required()
     {
         $this->withoutExceptionHandling();
 
@@ -33,7 +33,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_description_is_required()
+    function conference_description_is_required()
     {
         $this->withoutExceptionHandling();
 
@@ -55,7 +55,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_url_is_required()
+    function conference_url_is_required()
     {
         $this->withoutExceptionHandling();
 
@@ -77,7 +77,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_start_date_must_be_a_valid_date()
+    function conference_start_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -101,7 +101,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_end_date_must_be_a_valid_date()
+    function conference_end_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -125,7 +125,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_end_date_must_not_be_before_start_date()
+    function conference_end_date_must_not_be_before_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -150,7 +150,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_can_be_a_single_day_conference()
+    function conference_can_be_a_single_day_conference()
     {
         $conferenceCount = Conference::count();
         $input = [
@@ -168,7 +168,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_cfp_start_date_must_be_a_valid_date()
+    function conference_cfp_start_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -192,7 +192,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_cfp_end_date_must_be_a_valid_date()
+    function conference_cfp_end_date_must_be_a_valid_date()
     {
         $this->withoutExceptionHandling();
 
@@ -216,7 +216,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_cfp_end_date_must_not_be_before_cfp_start_date()
+    function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -241,7 +241,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_cfp_start_date_must_be_before_the_conference_start_date()
+    function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -267,7 +267,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_cfp_end_date_must_be_before_the_conference_start_date()
+    function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {
         $this->withoutExceptionHandling();
 
@@ -293,7 +293,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function it_creates_a_conference_with_the_minimum_required_input()
+    function it_creates_a_conference_with_the_minimum_required_input()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -311,7 +311,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_dates_are_saved_if_provided()
+    function conference_dates_are_saved_if_provided()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -334,7 +334,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conference_cfp_url_is_saved_if_provided()
+    function conference_cfp_url_is_saved_if_provided()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -351,7 +351,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function empty_dates_are_treated_as_null()
+    function empty_dates_are_treated_as_null()
     {
         $input = [
             'title' => 'AwesomeConf 2015',
@@ -374,7 +374,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function error_messages_are_available_if_creating_a_conference_fails()
+    function error_messages_are_available_if_creating_a_conference_fails()
     {
         $form = CreateConferenceForm::fillOut([], User::factory()->create());
 
@@ -386,7 +386,7 @@ class CreateConferenceFormTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function completing_a_form_returns_the_new_conference()
+    function completing_a_form_returns_the_new_conference()
     {
         $input = [
             'title' => 'AwesomeConf 2015',

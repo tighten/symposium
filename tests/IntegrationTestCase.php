@@ -12,24 +12,24 @@ use Throwable;
 class IntegrationTestCase extends TestCase
 {
     /** @before */
-    public function prepareSessionAndDatabase()
+    function prepareSessionAndDatabase()
     {
         parent::setUp();
         Session::start();
         Artisan::call('migrate');
     }
 
-    public function assertHasError($key, ValidationException $exception)
+    function assertHasError($key, ValidationException $exception)
     {
         $this->assertContains($key, $exception->errors()->keys());
     }
 
-    public function validationErrorNotThrown($key)
+    function validationErrorNotThrown($key)
     {
         $this->fail("A validation error for {$key} was expected but not thrown");
     }
 
-    public function disableExceptionHandling()
+    function disableExceptionHandling()
     {
         $this->app->instance(ExceptionHandler::class, new class extends Handler {
             public function __construct()

@@ -13,7 +13,7 @@ use App\User;
 class AcceptedRejectedTest extends IntegrationTestCase
 {
     /** @test */
-    public function an_accepted_submission_cannot_be_rejected()
+    function an_accepted_submission_cannot_be_rejected()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -43,7 +43,7 @@ class AcceptedRejectedTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function a_rejected_submission_cannot_be_accepted()
+    function a_rejected_submission_cannot_be_accepted()
     {
         $user = User::factory()->create();
         $this->be($user);

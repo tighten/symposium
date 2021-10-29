@@ -11,7 +11,7 @@ use App\User;
 class SubmissionTest extends IntegrationTestCase
 {
     /** @test */
-    public function user_can_submit_talks_via_http()
+    function user_can_submit_talks_via_http()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -30,7 +30,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_unsubmit_talks_via_http()
+    function user_can_unsubmit_talks_via_http()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -45,13 +45,13 @@ class SubmissionTest extends IntegrationTestCase
             'conference_id' => $conference->id,
         ]);
 
-        $this->delete('submissions/'.$submission->id);
+        $this->delete("submissions/{$submission->id}");
 
         $this->assertTrue($conference->submissions->isEmpty());
     }
 
     /** @test */
-    public function user_cannot_submit_other_users_talk()
+    function user_cannot_submit_other_users_talk()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -75,7 +75,7 @@ class SubmissionTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_cannot_unsubmit_other_users_talk()
+    function user_cannot_unsubmit_other_users_talk()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -96,7 +96,7 @@ class SubmissionTest extends IntegrationTestCase
             'conference_id' => $conference->id,
         ]);
 
-        $this->delete('submissions/'.$submission->id);
+        $this->delete("submissions/{$submission->id}");
 
         $this->assertEquals(1, $conference->submissions->count());
         $this->assertTrue($conference->submissions->contains($submission));

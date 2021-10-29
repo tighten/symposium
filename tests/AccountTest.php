@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Notification;
 class AccountTest extends IntegrationTestCase
 {
     /** @test */
-    public function users_can_sign_up()
+    function users_can_sign_up()
     {
         $this->markTestSkipped('Disable email registration');
 
@@ -32,7 +32,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function invalid_signups_dont_proceed()
+    function invalid_signups_dont_proceed()
     {
         $this->markTestSkipped('Disable email registration');
 
@@ -46,7 +46,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function users_can_log_in()
+    function users_can_log_in()
     {
         $user = User::factory()->create(['password' => Hash::make('super-secret')]);
 
@@ -58,7 +58,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function logging_in_with_invalid_credentials()
+    function logging_in_with_invalid_credentials()
     {
         $user = User::factory()->create();
 
@@ -70,7 +70,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_update_their_profile()
+    function user_can_update_their_profile()
     {
         $user = User::factory()->create();
 
@@ -99,9 +99,9 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_update_their_profile_picture()
+    function user_can_update_their_profile_picture()
     {
-        $image = __DIR__.'/stubs/test.jpg';
+        $image = __DIR__ . '/stubs/test.jpg';
         $user = User::factory()->create();
 
         $this->actingAs($user->fresh())
@@ -113,7 +113,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function password_reset_emails_are_sent_for_valid_users()
+    function password_reset_emails_are_sent_for_valid_users()
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -126,7 +126,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_reset_their_password_from_email_link()
+    function user_can_reset_their_password_from_email_link()
     {
         $this->disableExceptionHandling();
 
@@ -167,7 +167,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function users_can_delete_their_accounts()
+    function users_can_delete_their_accounts()
     {
         $user = User::factory()->create();
 
@@ -183,7 +183,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function deleting_a_user_deletes_its_associated_entities()
+    function deleting_a_user_deletes_its_associated_entities()
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
@@ -235,7 +235,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function users_can_dismiss_a_conference()
+    function users_can_dismiss_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -251,7 +251,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function users_can_undismiss_a_conference()
+    function users_can_undismiss_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -275,7 +275,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function users_can_favorite_a_conference()
+    function users_can_favorite_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -291,7 +291,7 @@ class AccountTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function users_can_unfavorite_a_conference()
+    function users_can_unfavorite_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();

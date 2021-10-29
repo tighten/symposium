@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 class NotificationTest extends IntegrationTestCase
 {
     /** @test */
-    public function command_will_trigger_notification_for_approved_and_not_shared_conference()
+    function command_will_trigger_notification_for_approved_and_not_shared_conference()
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
@@ -24,7 +24,7 @@ class NotificationTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_unapproved_conference()
+    function command_will_not_trigger_notification_for_unapproved_conference()
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -36,7 +36,7 @@ class NotificationTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_already_shared_conference()
+    function command_will_not_trigger_notification_for_already_shared_conference()
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -51,7 +51,7 @@ class NotificationTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_closed_cfp()
+    function command_will_not_trigger_notification_for_closed_cfp()
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
@@ -63,7 +63,7 @@ class NotificationTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_if_no_cfp_dates_given()
+    function command_will_not_trigger_notification_if_no_cfp_dates_given()
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
@@ -75,7 +75,7 @@ class NotificationTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_opt_out_user()
+    function command_will_not_trigger_notification_for_opt_out_user()
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -86,7 +86,7 @@ class NotificationTest extends IntegrationTestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    public function assertUserNotifiedOfCfp($user, $conference)
+    function assertUserNotifiedOfCfp($user, $conference)
     {
         Notification::assertSentTo($user, CFPsAreOpen::class, function ($notification) use ($conference) {
             return $notification->conferences->pluck('id')->contains($conference->id);

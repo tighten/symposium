@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class TalkTest extends IntegrationTestCase
 {
     /** @test */
-    public function it_shows_the_talk_title_on_its_page()
+    function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -22,12 +22,12 @@ class TalkTest extends IntegrationTestCase
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
-             ->visit('talks/'.$talk->id)
+             ->visit("talks/{$talk->id}")
              ->see($revision->title);
     }
 
     /** @test */
-    public function user_talks_are_sorted_alphabetically()
+    function user_talks_are_sorted_alphabetically()
     {
         $user = User::factory()->create();
         $talk1 = Talk::factory()->create(['author_id' => $user->id]);
@@ -45,7 +45,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_talks_json_encode_without_keys()
+    function user_talks_json_encode_without_keys()
     {
         $user = User::factory()->create();
 
@@ -63,7 +63,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_create_a_talk()
+    function user_can_create_a_talk()
     {
         $user = User::factory()->create();
 
@@ -90,13 +90,13 @@ class TalkTest extends IntegrationTestCase
 
         $talk = Talk::first();
 
-        $this->visit('talks/'.$talk->id)
+        $this->visit("talks/{$talk->id}")
             ->see('Your Best Talk Now')
             ->see('No, really.');
     }
 
     /** @test */
-    public function user_can_delete_a_talk()
+    function user_can_delete_a_talk()
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
@@ -107,14 +107,14 @@ class TalkTest extends IntegrationTestCase
 
         $this->be($user);
 
-        $this->visit('talks/'.$talk->id.'/delete');
+        $this->visit("talks/{$talk->id}/delete");
 
         $this->assertEquals(0, Talk::count());
         $this->assertEquals(0, TalkRevision::count());
     }
 
     /** @test */
-    public function user_can_save_a_new_revision_of_a_talk()
+    function user_can_save_a_new_revision_of_a_talk()
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
@@ -125,7 +125,7 @@ class TalkTest extends IntegrationTestCase
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
-            ->visit('/talks/'.$talk->id.'/edit')
+            ->visit("/talks/{$talk->id}/edit")
             ->type('New', '#title')
             ->select($revision->type, '#type')
             ->select($revision->level, '#level')
@@ -142,7 +142,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function scoping_talks_where_submitted()
+    function scoping_talks_where_submitted()
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();
@@ -158,7 +158,7 @@ class TalkTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function scoping_talks_where_accepted()
+    function scoping_talks_where_accepted()
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();

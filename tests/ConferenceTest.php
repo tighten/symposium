@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class ConferenceTest extends IntegrationTestCase
 {
     /** @test */
-    public function user_can_create_conference()
+    function user_can_create_conference()
     {
         $user = User::factory()->create();
 
@@ -27,7 +27,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function a_conference_can_include_location_coordinates()
+    function a_conference_can_include_location_coordinates()
     {
         $user = User::factory()->create();
 
@@ -50,7 +50,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function a_conference_cannot_end_before_it_begins()
+    function a_conference_cannot_end_before_it_begins()
     {
         $user = User::factory()->create();
 
@@ -71,7 +71,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function user_can_edit_conference()
+    function user_can_edit_conference()
     {
         $this->disableExceptionHandling();
 
@@ -85,7 +85,7 @@ class ConferenceTest extends IntegrationTestCase
         ]);
 
         $this->actingAs($user)
-            ->visit('/conferences/'.$conference->id.'/edit')
+            ->visit("/conferences/{$conference->id}/edit")
             ->type('Laracon', '#title')
             ->type('A conference about Laravel', '#description')
             ->press('Update');
@@ -102,7 +102,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function a_conference_cannot_be_updated_to_end_before_it_begins()
+    function a_conference_cannot_be_updated_to_end_before_it_begins()
     {
         $user = User::factory()->create();
 
@@ -127,7 +127,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conferences_accept_proposals_during_the_call_for_papers()
+    function conferences_accept_proposals_during_the_call_for_papers()
     {
         $conference = Conference::factory()->create([
             'cfp_starts_at' => Carbon::yesterday(),
@@ -138,7 +138,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
+    function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
     {
         $conference = Conference::factory()->create([
             'cfp_starts_at' => Carbon::tomorrow(),
@@ -156,7 +156,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
+    function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
     {
         $conference = Conference::factory()->create([
             'cfp_starts_at' => null,
@@ -167,7 +167,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function non_owners_can_view_conference()
+    function non_owners_can_view_conference()
     {
         $user = User::factory()->create();
 
@@ -176,12 +176,12 @@ class ConferenceTest extends IntegrationTestCase
         $otherUser->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit('conferences/'.$conference->id)
+            ->visit("conferences/{$conference->id}")
             ->see($conference->title);
     }
 
     /** @test */
-    public function guests_can_view_conference()
+    function guests_can_view_conference()
     {
         $user = User::factory()->create();
 
@@ -189,12 +189,12 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()
             ->save($conference);
 
-        $this->visit('conferences/'.$conference->id)
+        $this->visit("conferences/{$conference->id}")
             ->see($conference->title);
     }
 
     /** @test */
-    public function guests_can_view_conference_list()
+    function guests_can_view_conference_list()
     {
         $user = User::factory()->create();
 
@@ -208,14 +208,14 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function guests_cannot_create_conference()
+    function guests_cannot_create_conference()
     {
         $this->visit('conferences/create')
             ->seePageIs('login');
     }
 
     /** @test */
-    public function it_can_pull_only_approved_conferences()
+    function it_can_pull_only_approved_conferences()
     {
         Conference::factory()->create();
         Conference::factory()->create(['is_approved' => true]);
@@ -224,7 +224,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function it_can_pull_only_not_shared_conferences()
+    function it_can_pull_only_not_shared_conferences()
     {
         Conference::factory()->create();
         Conference::factory()->create(['is_shared' => true]);
@@ -233,7 +233,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
+    function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
     {
         $nullCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => null,
@@ -258,7 +258,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function cfp_by_date_list_sorts_by_date()
+    function cfp_by_date_list_sorts_by_date()
     {
         $conferenceA = Conference::factory()->approved()->create([
             'starts_at' => Carbon::now()->subDay(),
@@ -276,7 +276,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function guests_cannot_dismiss_conference()
+    function guests_cannot_dismiss_conference()
     {
         $user = User::factory()->create();
 
@@ -288,7 +288,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function dismissed_conferences_do_not_show_up_in_conference_list()
+    function dismissed_conferences_do_not_show_up_in_conference_list()
     {
         $user = User::factory()->create();
 
@@ -312,7 +312,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function filtering_by_dismissed_shows_dismissed_conferences()
+    function filtering_by_dismissed_shows_dismissed_conferences()
     {
         $user = User::factory()->create();
 
@@ -331,7 +331,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function filtering_by_dismissed_does_not_show_undismissed_conferences()
+    function filtering_by_dismissed_does_not_show_undismissed_conferences()
     {
         $user = User::factory()->create();
 
@@ -345,7 +345,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function filtering_by_favorites_shows_favorite_conferences()
+    function filtering_by_favorites_shows_favorite_conferences()
     {
         $user = User::factory()->create();
 
@@ -364,7 +364,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function filtering_by_favorites_does_not_show_nonfavorite_conferences()
+    function filtering_by_favorites_does_not_show_nonfavorite_conferences()
     {
         $user = User::factory()->create();
 
@@ -378,7 +378,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function a_favorited_conference_cannot_be_dismissed()
+    function a_favorited_conference_cannot_be_dismissed()
     {
         $user = User::factory()->create();
 
@@ -397,7 +397,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function a_dismissed_conference_cannot_be_favorited()
+    function a_dismissed_conference_cannot_be_favorited()
     {
         $user = User::factory()->create();
 
@@ -416,7 +416,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function displaying_event_dates_with_no_dates_set()
+    function displaying_event_dates_with_no_dates_set()
     {
         $conference = Conference::factory()->make([
             'starts_at' => null,
@@ -427,7 +427,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function displaying_event_dates_with_a_start_date_and_no_end_date()
+    function displaying_event_dates_with_a_start_date_and_no_end_date()
     {
         $conference = Conference::factory()->make([
             'starts_at' => '2020-01-01 09:00:00',
@@ -438,7 +438,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function displaying_event_dates_with_an_end_date_and_no_start_date()
+    function displaying_event_dates_with_an_end_date_and_no_start_date()
     {
         $conference = Conference::factory()->make([
             'starts_at' => null,
@@ -449,7 +449,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function displaying_event_dates_with_the_same_start_and_end_dates()
+    function displaying_event_dates_with_the_same_start_and_end_dates()
     {
         $conference = Conference::factory()->make([
             'starts_at' => '2020-01-01 09:00:00',
@@ -460,7 +460,7 @@ class ConferenceTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function displaying_event_dates_with_the_different_start_and_end_dates()
+    function displaying_event_dates_with_the_different_start_and_end_dates()
     {
         $conference = Conference::factory()->make([
             'starts_at' => '2020-01-01 09:00:00',
@@ -470,7 +470,7 @@ class ConferenceTest extends IntegrationTestCase
         $this->assertEquals('Jan 1 2020 - Jan 3 2020', $conference->event_dates_display);
     }
 
-    public function assertConferenceSort($conferences)
+    function assertConferenceSort($conferences)
     {
         foreach ($conferences as $sortPosition => $conference) {
             $sortedConference = $this->response->original->getData()['conferences']->values()[$sortPosition];

@@ -11,7 +11,7 @@ use Thujohn\Twitter\Twitter;
 class TweetImportantCFPDatesTest extends IntegrationTestCase
 {
     /** @test */
-    public function cfps_opening_today_should_be_tweeted()
+    function cfps_opening_today_should_be_tweeted()
     {
         // starts today, ends next week
         Conference::factory()->create([
@@ -26,7 +26,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function cfps_closing_tomorrow_should_be_tweeted()
+    function cfps_closing_tomorrow_should_be_tweeted()
     {
         // started last week, ends tomorrow
         Conference::factory()->create([
@@ -41,7 +41,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function cfps_not_opening_today_nor_closing_tomorrow_should_not_be_tweeted()
+    function cfps_not_opening_today_nor_closing_tomorrow_should_not_be_tweeted()
     {
         // started last week, ends next week
         Conference::factory()->create([
@@ -56,7 +56,7 @@ class TweetImportantCFPDatesTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function cfps_that_open_and_close_same_day_should_not_be_tweeted()
+    function cfps_that_open_and_close_same_day_should_not_be_tweeted()
     {
         Conference::factory()->create([
             'cfp_starts_at' => Carbon::now(),

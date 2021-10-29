@@ -7,7 +7,7 @@ use App\Bio;
 class BioApiTest extends ApiTestCase
 {
     /** @test */
-    public function can_fetch_all_user_bios()
+    function can_fetch_all_user_bios()
     {
         $response = $this->call('GET', '/api/user/1/bios');
         $data = json_decode($response->getContent());
@@ -17,10 +17,10 @@ class BioApiTest extends ApiTestCase
     }
 
     /** @test */
-    public function can_fetch_one_user_bio()
+    function can_fetch_one_user_bio()
     {
         $bioId = Bio::first()->id;
-        $response = $this->call('GET', 'api/bios/'.$bioId);
+        $response = $this->call('GET', "api/bios/{$bioId}");
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -28,7 +28,7 @@ class BioApiTest extends ApiTestCase
     }
 
     /** @test */
-    public function cannot_fetch_all_bios_for_other_user()
+    function cannot_fetch_all_bios_for_other_user()
     {
         $response = $this->call('GET', 'api/user/2/bios');
 
@@ -36,10 +36,10 @@ class BioApiTest extends ApiTestCase
     }
 
     /** @test */
-    public function cannot_fetch_one_bio_for_other_user()
+    function cannot_fetch_one_bio_for_other_user()
     {
         $bioId = Bio::where('user_id', 2)->first()->id;
-        $response = $this->call('GET', 'api/bios/'.$bioId);
+        $response = $this->call('GET', "api/bios/{$bioId}");
 
         $this->assertEquals(404, $response->getStatusCode());
     }

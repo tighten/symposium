@@ -18,14 +18,14 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     private $eventStub;
 
     /** @before */
-    public function prepareEventStub()
+    function prepareEventStub()
     {
         parent::setUp();
 
         $this->eventStub = $this->stubEvent();
     }
 
-    public function stubEvent()
+    function stubEvent()
     {
         $_rel = new stdClass;
         $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
@@ -45,7 +45,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         return Event::createFromApiObject($event);
     }
 
-    public function mockClient($event = null)
+    function mockClient($event = null)
     {
         if (! $event) {
             $event = $this->eventStub;
@@ -60,7 +60,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_the_id_from_the_rel_link()
+    function it_gets_the_id_from_the_rel_link()
     {
         $this->mockClient();
 
@@ -74,7 +74,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
+    function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
     {
         $this->mockClient();
 
@@ -90,7 +90,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_imports_basic_text_fields()
+    function it_imports_basic_text_fields()
     {
         $this->mockClient();
 
@@ -106,7 +106,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_imports_dates_if_we_dont_care_about_time_zones()
+    function it_imports_dates_if_we_dont_care_about_time_zones()
     {
         $event = $this->eventStub;
 
@@ -156,7 +156,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function imported_dates_are_adjusted_for_daylight_saving_time_changes()
+    function imported_dates_are_adjusted_for_daylight_saving_time_changes()
     {
         $this->mockClient();
 
@@ -180,7 +180,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_imports_null_dates_as_null()
+    function it_imports_null_dates_as_null()
     {
         $event = $this->eventStub;
 
@@ -197,7 +197,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_imports_Jan_1_1970_dates_as_null()
+    function it_imports_Jan_1_1970_dates_as_null()
     {
         $event = $this->eventStub;
 
@@ -214,7 +214,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function imported_conferences_are_approved()
+    function imported_conferences_are_approved()
     {
         $this->mockClient();
 
@@ -225,7 +225,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_updates_data_for_existing_conferences()
+    function it_updates_data_for_existing_conferences()
     {
         $this->mockClient();
 
@@ -252,7 +252,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function updating_existing_unapproved_conferences_leaves_them_unapproved()
+    function updating_existing_unapproved_conferences_leaves_them_unapproved()
     {
         $this->mockClient();
 

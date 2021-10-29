@@ -8,7 +8,7 @@ use App\User;
 class AdminTest extends IntegrationTestCase
 {
     /** @test */
-    public function admins_can_edit_other_peoples_conferences()
+    function admins_can_edit_other_peoples_conferences()
     {
         $user = User::factory()->create();
         $user->conferences()->save($conference = Conference::factory()->make());
@@ -28,7 +28,7 @@ class AdminTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function admins_can_see_edit_button_for_other_peoples_conferences()
+    function admins_can_see_edit_button_for_other_peoples_conferences()
     {
         $admin = User::factory()->admin()->create();
         $conference = Conference::factory()->create();
@@ -39,7 +39,7 @@ class AdminTest extends IntegrationTestCase
     }
 
     /** @test */
-    public function only_admins_can_change_conference_status()
+    function only_admins_can_change_conference_status()
     {
         $user = User::factory()->create();
         $user->conferences()->save($conference = Conference::factory()->make([
