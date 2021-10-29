@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AcceptancesController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Auth;
 use App\Http\Controllers\BiosController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConferencesController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\RejectionController;
 use App\Http\Controllers\SubmissionsController;
 use App\Http\Controllers\TalksController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /**
