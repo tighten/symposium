@@ -41,7 +41,7 @@ class BiosController extends BaseController
 
         Session::flash('success-message', 'Successfully created new bio.');
 
-        return redirect('/bios/'.$bio->id);
+        return redirect('/bios/' . $bio->id);
     }
 
     public function show($id)
@@ -79,7 +79,7 @@ class BiosController extends BaseController
 
         Session::flash('success-message', 'Successfully edited bio.');
 
-        return redirect('bios/'.$bio->id);
+        return redirect('bios/' . $bio->id);
     }
 
     public function destroy($id)

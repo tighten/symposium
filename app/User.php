@@ -35,8 +35,8 @@ class User extends Authenticatable
             $user->bios()->delete();
 
             if ($user->profile_picture && strpos($user->profile_picture, '/') === false) {
-                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH.$user->profile_picture);
-                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH.$user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
             }
 
             DB::table('favorites')->where('user_id', $user->id)->delete();
@@ -116,7 +116,7 @@ class User extends Authenticatable
             return Gravatar::src($this->email, 50);
         }
 
-        return asset('/storage/'.self::PROFILE_PICTURE_THUMB_PATH.$this->profile_picture);
+        return asset('/storage/' . self::PROFILE_PICTURE_THUMB_PATH . $this->profile_picture);
     }
 
     public function getProfilePictureHiresAttribute()
@@ -125,7 +125,7 @@ class User extends Authenticatable
             return Gravatar::src($this->email, 500);
         }
 
-        return asset('/storage/'.self::PROFILE_PICTURE_HIRES_PATH.$this->profile_picture);
+        return asset('/storage/' . self::PROFILE_PICTURE_HIRES_PATH . $this->profile_picture);
     }
 
     public function toSearchableArray()
