@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AcceptancesController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BiosController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConferencesController;
@@ -34,7 +35,7 @@ Route::post('u/{profileSlug}/email', [PublicProfileController::class, 'postEmail
 /*
  * App
  */
-Route::get('log-out', [Auth\LoginController::class, 'logout'])->name('log-out');
+Route::get('log-out', [LoginController::class, 'logout'])->name('log-out');
 
 // Disable email registration
 Auth::routes(['register' => false]);
