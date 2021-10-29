@@ -2,29 +2,19 @@
 
 namespace Database\Factories;
 
+use App\Conference;
 use App\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class ConferenceFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = \App\Conference::class;
+    protected $model = Conference::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
             'author_id' => function () {
-                return \App\User::factory()->create()->id;
+                return User::factory()->create()->id;
             },
             'title' => 'Dummy Conference',
             'description' => $this->faker->sentence,

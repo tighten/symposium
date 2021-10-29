@@ -2,24 +2,14 @@
 
 namespace Database\Factories;
 
-use App\User;
+use App\Talk;
+use App\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class TalkRevisionFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = \App\TalkRevision::class;
+    protected $model = TalkRevision::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
@@ -31,7 +21,7 @@ class TalkRevisionFactory extends Factory
             'description' => 'The best talk ever!',
             'organizer_notes' => 'No really.',
             'talk_id' => function () {
-                return \App\Talk::factory()->create()->id;
+                return Talk::factory()->create()->id;
             },
         ];
     }
