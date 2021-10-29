@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.4",
         "algolia/algoliasearch-client-php": "^3.1",
-        "blade-ui-kit/blade-icons": "^1.1",
+        "blade-ui-kit/blade-icons": "^0.4.5",
         "bugsnag/bugsnag-laravel": "^2.22",
         "doctrine/dbal": "^3.1",
         "erusev/parsedown": "^1.7",
