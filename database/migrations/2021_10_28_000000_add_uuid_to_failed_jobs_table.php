@@ -8,11 +8,6 @@ use Illuminate\Support\Str;
 
 class AddUuidToFailedJobsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('failed_jobs', function (Blueprint $table) {
@@ -26,11 +21,6 @@ class AddUuidToFailedJobsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('failed_jobs', function (Blueprint $table) {
