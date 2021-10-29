@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Conference;
 use App\User;
 use Carbon\Carbon;
+use Tests\IntegrationTestCase;
 
 class ConferenceTest extends IntegrationTestCase
 {

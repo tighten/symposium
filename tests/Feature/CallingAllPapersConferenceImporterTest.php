@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
@@ -9,6 +9,7 @@ use App\Conference;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
 use stdClass;
+use Tests\TestCase;
 
 class CallingAllPapersConferenceImporterTest extends TestCase
 {

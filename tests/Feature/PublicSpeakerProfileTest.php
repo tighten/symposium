@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Bio;
 use App\Mail\ContactRequest;
@@ -11,6 +11,7 @@ use App\User;
 use Captcha\Captcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
+use Tests\IntegrationTestCase;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {

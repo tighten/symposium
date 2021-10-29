@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Bio;
 use App\Conference;
@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Tests\IntegrationTestCase;
 
 class AccountTest extends IntegrationTestCase
 {

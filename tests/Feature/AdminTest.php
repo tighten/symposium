@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Conference;
 use App\User;
+use Tests\IntegrationTestCase;
 
 class AdminTest extends IntegrationTestCase
 {

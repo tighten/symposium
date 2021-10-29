@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Conference;
 use App\Submission;
 use App\Talk;
 use App\TalkRevision;
 use App\User;
+use Tests\IntegrationTestCase;
 
 class SubmissionTest extends IntegrationTestCase
 {

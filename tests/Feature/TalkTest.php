@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Acceptance;
 use App\Conference;
@@ -9,6 +9,7 @@ use App\Talk;
 use App\TalkRevision;
 use App\User;
 use Carbon\Carbon;
+use Tests\IntegrationTestCase;
 
 class TalkTest extends IntegrationTestCase
 {

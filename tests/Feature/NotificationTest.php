@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Conference;
 use App\Notifications\CFPsAreOpen;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
+use Tests\IntegrationTestCase;
 
 class NotificationTest extends IntegrationTestCase
 {

@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Bio;
 use App\User;
+use Tests\IntegrationTestCase;
 
 class BiosTest extends IntegrationTestCase
 {

@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feature;
 
 use App\Conference;
 use App\Exceptions\ValidationException;
 use App\Services\CreateConferenceForm;
 use App\User;
 use DateTime;
+use Tests\IntegrationTestCase;
 
 class CreateConferenceFormTest extends IntegrationTestCase
 {
