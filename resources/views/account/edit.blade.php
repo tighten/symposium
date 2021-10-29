@@ -137,6 +137,6 @@
 @endsection
 
 @push('scripts')
-<script src="{{ elixir('js/location.js') }}"></script>
+<script src="{{ mix('js/location.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places&callback=initAutocomplete" async defer></script>
 @endpush
