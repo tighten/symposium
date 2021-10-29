@@ -102,7 +102,7 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function user_can_update_their_profile_picture()
     {
-        $image = __DIR__ . '/stubs/test.jpg';
+        $image = __DIR__ . '/../stubs/test.jpg';
         $user = User::factory()->create();
 
         $this->actingAs($user->fresh())
