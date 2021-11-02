@@ -479,4 +479,44 @@ class ConferenceTest extends IntegrationTestCase
             $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
         }
     }
+
+    /** @test */
+    function scopping_conferences_queries_where_has_dates()
+    {
+        $conferenceA = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => Carbon::parse('tomorrow')]);
+        $conferenceB = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => null]);
+        $conferenceC = Conference::factory()->create(['starts_at' => null, 'ends_at' => Carbon::parse('tomorrow')]);
+        $conferenceD = Conference::factory()->create(['starts_at' => null, 'ends_at' => null]);
+
+        $conferenceIds = Conference::whereHasDates()->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertNotContains($conferenceC->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scopping_conferences_queries_where_has_cfp_start_date()
+    {
+        $conferenceA = Conference::factory()->create(['cfp_starts_at' => Carbon::parse('yesterday')]);
+        $conferenceB = Conference::factory()->create(['cfp_starts_at' => null]);
+
+        $conferenceIds = Conference::whereHasCfpStart()->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scopping_conferences_queries_where_has_cfp_end_date()
+    {
+        $conferenceA = Conference::factory()->create(['cfp_ends_at' => Carbon::parse('yesterday')]);
+        $conferenceB = Conference::factory()->create(['cfp_ends_at' => null]);
+
+        $conferenceIds = Conference::whereHasCfpEnd()->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
 }

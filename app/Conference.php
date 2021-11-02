@@ -164,6 +164,21 @@ class Conference extends UuidBase
         return $query->where('is_featured', true);
     }
 
+    public function scopeWhereHasDates($query)
+    {
+        $query->whereNotNull(['starts_at', 'ends_at']);
+    }
+
+    public function scopeWhereHasCfpStart($query)
+    {
+        $query->whereNotNull('cfp_starts_at');
+    }
+
+    public function scopeWhereHasCfpEnd($query)
+    {
+        $query->whereNotNull('cfp_ends_at');
+    }
+
     /**
      * Whether CFP is currently open
      *
