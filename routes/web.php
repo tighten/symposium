@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcceptancesController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\BiosController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConferencesController;
@@ -85,6 +86,6 @@ Route::get('conferences/{id}', [ConferencesController::class, 'show'])->name('co
 
 // Social logins routes
 Route::middleware('social', 'guest')->group(function () {
-    Route::get('login/{service}', [Auth\SocialLoginController::class, 'redirect']);
-    Route::get('login/{service}/callback', [Auth\SocialLoginController::class, 'callback']);
+    Route::get('login/{service}', [SocialLoginController::class, 'redirect']);
+    Route::get('login/{service}/callback', [SocialLoginController::class, 'callback']);
 });
