@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CalendarEventCollection;
 use App\Models\Conference;
+use Carbon\Carbon;
 
 class CalendarController extends BaseController
 {
@@ -11,9 +12,9 @@ class CalendarController extends BaseController
     {
         return view('calendar', [
             'events' => CalendarEventCollection::make([])
-                ->addConferences(Conference::approved()->whereHasDates()->get())
-                ->addCfpOpenings(Conference::approved()->whereHasCfpStart()->get())
-                ->addCfpClosings(Conference::approved()->whereHasCfpEnd()->get())
+                ->addConferences(Conference::approved()->whereAfter(Carbon::now()->subYear())->whereHasDates()->get())
+                ->addCfpOpenings(Conference::approved()->whereAfter(Carbon::now()->subYear())->whereHasCfpStart()->get())
+                ->addCfpClosings(Conference::approved()->whereAfter(Carbon::now()->subYear())->whereHasCfpEnd()->get())
                 ->toJson(),
         ]);
     }

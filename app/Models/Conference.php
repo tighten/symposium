@@ -134,6 +134,11 @@ class Conference extends UuidBase
             ->where('starts_at', '>', Carbon::now());
     }
 
+    public function scopeWhereAfter($query, Carbon $date)
+    {
+        $query->where('starts_at', '>', $date);
+    }
+
     public function scopeOpenCfp($query)
     {
         return $query
