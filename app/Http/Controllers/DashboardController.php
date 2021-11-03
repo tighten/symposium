@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Talk;
+use App\Models\Talk;
 
 class DashboardController extends Controller
 {

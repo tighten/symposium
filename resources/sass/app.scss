@@ -75,37 +75,27 @@
 
 #calendar {
     button {
-        background-image: none;
-        @apply bg-indigo-500 text-white;
-        padding: 0 .6em;
-        text-shadow: none;
+        @apply bg-indigo-500 text-white h-auto shadow-none;
     }
 
     .fc-button-group {
-        border-radius: 4px;
-        overflow: hidden;
+        @apply rounded overflow-hidden;
 
         button {
-            border-radius: 0;
-            @apply bg-indigo;
+            @apply bg-indigo rounded-none;
 
-            &:not(:first-child) {
-                border-left: 1px solid #161f29;
-            }
-
-            &.fc-state-active {
+            &.fc-button-active {
                 @apply bg-indigo-900;
             }
         }
     }
 
-    .fc-content {
-        padding: 3px;
-        white-space: normal;
+    .fc-event-title {
+        @apply p-1;
     }
 
-    .fc-day-header {
-        font-family: 'Oswald', 'Trebuchet MS', 'Open Sans', arial, sans-serif;
+    .fc-popover-close:after {
+        @apply hidden;
     }
 }
 

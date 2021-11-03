@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Conference;
-use App\User;
+use App\Models\Conference;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,14 +14,14 @@ class CalendarTest extends TestCase
     /** @test */
     function unapproved_conferences_do_not_appear_on_the_calendar()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        factory(Conference::class)->create([
+        Conference::factory()->create([
             'title' => 'Unapproved conference',
             'is_approved' => false,
         ]);
 
-        factory(Conference::class)->create([
+        Conference::factory()->create([
             'title' => 'Approved conference',
             'is_approved' => true,
         ]);

@@ -48,7 +48,7 @@
             <div class="pl-3 lg:pl-0">
                 <div class="flex justify-between text-gray-500">
                     <div>CFP</div>
-                    @if($conference->cfp_url)
+                    @if ($conference->cfp_url)
                         <a href="{{ $conference->cfp_url }}" target="_blank">
                             @svg('link', 'w-4 fill-current inline')
                         </a>

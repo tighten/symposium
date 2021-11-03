@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Rejection;
-use App\Submission;
+use App\Models\Rejection;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class RejectionController extends Controller

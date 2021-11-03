@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use App\Bio;
+use App\Models\Bio;
 
 class BioApiTest extends ApiTestCase
 {
@@ -20,7 +20,7 @@ class BioApiTest extends ApiTestCase
     function can_fetch_one_user_bio()
     {
         $bioId = Bio::first()->id;
-        $response = $this->call('GET', 'api/bios/' . $bioId);
+        $response = $this->call('GET', "api/bios/{$bioId}");
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -39,7 +39,7 @@ class BioApiTest extends ApiTestCase
     function cannot_fetch_one_bio_for_other_user()
     {
         $bioId = Bio::where('user_id', 2)->first()->id;
-        $response = $this->call('GET', 'api/bios/' . $bioId);
+        $response = $this->call('GET', "api/bios/{$bioId}");
 
         $this->assertEquals(404, $response->getStatusCode());
     }

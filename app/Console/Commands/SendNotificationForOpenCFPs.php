@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Conference;
+use App\Models\Conference;
+use App\Models\User;
 use App\Notifications\CFPsAreOpen;
-use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 

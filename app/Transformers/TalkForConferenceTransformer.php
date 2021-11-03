@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-use App\Conference;
-use App\Talk;
+use App\Models\Conference;
+use App\Models\Talk;
 
 class TalkForConferenceTransformer
 {

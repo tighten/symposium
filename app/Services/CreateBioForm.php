@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Bio;
 use App\Exceptions\ValidationException;
+use App\Models\Bio;
 use Illuminate\Support\Facades\Validator;
 
 class CreateBioForm

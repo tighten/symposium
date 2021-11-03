@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Passport\Passport;
