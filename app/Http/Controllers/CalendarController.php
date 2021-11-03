@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Conference;
 use App\Http\Resources\CalendarEventCollection;
+use App\Models\Conference;
 
 class CalendarController extends BaseController
 {

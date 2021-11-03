@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Bio;
-use App\Conference;
-use App\Talk;
-use App\TalkRevision;
-use App\User;
+use App\Models\Bio;
+use App\Models\Conference;
+use App\Models\Talk;
+use App\Models\TalkRevision;
+use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;

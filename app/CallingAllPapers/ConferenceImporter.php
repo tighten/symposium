@@ -2,7 +2,7 @@
 
 namespace App\CallingAllPapers;
 
-use App\Conference;
+use App\Models\Conference;
 use Carbon\Carbon;
 use DateTime;
 

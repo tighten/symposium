@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Bio;
-use App\User;
+use App\Models\Bio;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BioFactory extends Factory

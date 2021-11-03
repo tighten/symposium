@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Acceptance extends UuidBase
+class Rejection extends UuidBase
 {
     use HasFactory;
 
-    protected $table = 'acceptances';
+    protected $table = 'rejections';
 
     protected $primaryKey = 'id';
 
@@ -23,21 +23,21 @@ class Acceptance extends UuidBase
 
     public static function createFromSubmission(Submission $submission)
     {
-        $acceptance = self::create([
+        $rejection = self::create([
             'talk_revision_id' => $submission->talkRevision->id,
             'conference_id' => $submission->conference->id,
         ]);
 
-        $submission->recordAcceptance($acceptance);
+        $submission->recordRejection($rejection);
 
-        return $acceptance;
+        return $rejection;
     }
 
     protected static function boot()
     {
         parent::boot();
-        static::deleting(function (self $acceptance) {
-            $acceptance->submission->removeAcceptance();
+        static::deleting(function (self $rejection) {
+            $rejection->submission->removeRejection();
         });
     }
 

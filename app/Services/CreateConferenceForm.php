@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Conference;
 use App\Exceptions\ValidationException;
+use App\Models\Conference;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
 

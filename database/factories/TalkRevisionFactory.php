@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Talk;
-use App\TalkRevision;
+use App\Models\Talk;
+use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TalkRevisionFactory extends Factory

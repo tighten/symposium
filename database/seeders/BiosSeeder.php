@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Bio;
-use App\User;
+use App\Models\Bio;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class BiosSeeder extends Seeder

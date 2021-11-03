@@ -2,8 +2,8 @@
 
 namespace Tests\Console\Commands;
 
-use App\Conference;
 use App\Console\Commands\TweetImportantCFPDates;
+use App\Models\Conference;
 use Carbon\Carbon;
 use Tests\IntegrationTestCase;
 use Thujohn\Twitter\Twitter;

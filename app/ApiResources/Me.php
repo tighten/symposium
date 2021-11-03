@@ -2,7 +2,7 @@
 
 namespace App\ApiResources;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Me implements Arrayable

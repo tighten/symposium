@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Conference;
-use App\Submission;
-use App\TalkRevision;
+use App\Models\Conference;
+use App\Models\Submission;
+use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubmissionFactory extends Factory

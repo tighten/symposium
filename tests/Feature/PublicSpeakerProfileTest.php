@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Bio;
 use App\Mail\ContactRequest;
+use App\Models\Bio;
+use App\Models\Talk;
+use App\Models\TalkRevision;
+use App\Models\User;
 use App\Services\FakeCaptcha;
-use App\Talk;
-use App\TalkRevision;
-use App\User;
 use Captcha\Captcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactRequest;
-use App\User;
+use App\Models\User;
 use Captcha\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

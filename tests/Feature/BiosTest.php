@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Bio;
-use App\User;
+use App\Models\Bio;
+use App\Models\User;
 use Tests\IntegrationTestCase;
 
 class BiosTest extends IntegrationTestCase

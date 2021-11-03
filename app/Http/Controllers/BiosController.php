@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Bio;
 use App\Exceptions\ValidationException;
+use App\Models\Bio;
 use App\Services\CreateBioForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;

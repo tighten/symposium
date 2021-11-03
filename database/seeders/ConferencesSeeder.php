@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Conference;
+use App\Models\Conference;
 use Illuminate\Database\Seeder;
 
 class ConferencesSeeder extends Seeder

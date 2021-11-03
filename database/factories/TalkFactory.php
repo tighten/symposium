@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Talk;
-use App\User;
+use App\Models\Talk;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TalkFactory extends Factory

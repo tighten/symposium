@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Conference;
+use App\Models\Conference;
+use App\Models\User;
 use App\Notifications\CFPsAreOpen;
-use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
 use Tests\IntegrationTestCase;

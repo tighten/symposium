@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Talk;
-use App\TalkRevision;
+use App\Models\Talk;
+use App\Models\TalkRevision;
 
 class TalkApiTest extends ApiTestCase
 {

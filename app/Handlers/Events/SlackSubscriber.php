@@ -2,9 +2,9 @@
 
 namespace App\Handlers\Events;
 
+use App\Models\TightenSlack;
 use App\Notifications\NewConference;
 use App\Notifications\NewUser;
-use App\TightenSlack;
 use Illuminate\Support\Facades\App;
 
 class SlackSubscriber

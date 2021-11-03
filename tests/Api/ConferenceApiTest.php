@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use App\Conference;
+use App\Models\Conference;
 
 class ConferenceApiTest extends ApiTestCase
 {

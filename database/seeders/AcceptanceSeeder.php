@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Acceptance;
-use App\Submission;
+use App\Models\Acceptance;
+use App\Models\Submission;
 use Illuminate\Database\Seeder;
 
 class AcceptanceSeeder extends Seeder

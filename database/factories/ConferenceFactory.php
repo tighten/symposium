@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Conference;
-use App\User;
+use App\Models\Conference;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ConferenceFactory extends Factory

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Conference;
-use App\Rejection;
-use App\TalkRevision;
+use App\Models\Conference;
+use App\Models\Rejection;
+use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RejectionFactory extends Factory

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
-use App\Conference;
+use App\Models\Conference;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
 use stdClass;

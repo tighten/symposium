@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use App\Bio;
+use App\Models\Bio;
 
 class BioApiTest extends ApiTestCase
 {
