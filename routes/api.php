@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\BiosController;
-use App\Http\Controllers\ConferencesController;
-use App\Http\Controllers\MeController;
-use App\Http\Controllers\TalksController;
-use App\Http\Controllers\UserBiosController;
-use App\Http\Controllers\UserTalksController;
+use App\Http\Controllers\Api\BiosController;
+use App\Http\Controllers\Api\ConferencesController;
+use App\Http\Controllers\Api\MeController;
+use App\Http\Controllers\Api\TalksController;
+use App\Http\Controllers\Api\UserBiosController;
+use App\Http\Controllers\Api\UserTalksController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function () {
