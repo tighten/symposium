@@ -21,13 +21,13 @@ class DatabaseSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         }
 
-        $this->call('UsersSeeder');
-        $this->call('TalksSeeder');
-        $this->call('BiosSeeder');
-        $this->call('ConferencesSeeder');
-        $this->call('SubmissionsSeeder');
-        $this->call('AcceptanceSeeder');
-        $this->call('RejectionSeeder');
+        $this->call(UsersSeeder::class);
+        $this->call(TalksSeeder::class);
+        $this->call(BiosSeeder::class);
+        $this->call(ConferencesSeeder::class);
+        $this->call(SubmissionsSeeder::class);
+        $this->call(AcceptanceSeeder::class);
+        $this->call(RejectionSeeder::class);
 
         if (! app()->environment('testing')) {
             DB::statement('SET FOREIGN_KEY_CHECKS = 1');
