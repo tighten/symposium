@@ -52,10 +52,15 @@ class Conference extends UuidBase
     {
         parent::boot();
 
-        // only approve conferences that are new imports
         self::creating(function ($conference) {
+            // only approve conferences that are new imports
             if ($conference->calling_all_papers_id) {
                 $conference->is_approved = true;
+            }
+
+            // mark conferences with invalid cfp end dates as unapproved
+            if ($conference->cfp_ends_at && $conference->cfp_ends_at->isAfter($conference->starts_at)) {
+                $conference->is_approved = false;
             }
         });
     }

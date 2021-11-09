@@ -30,12 +30,8 @@ class ConferenceImporter
     {
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
-        $conference->save();
 
-        if ($conference->cfp_ends_at && $conference->cfp_ends_at->isAfter($conference->starts_at)) {
-            $conference->is_approved = 0;
-            $conference->save();
-        }
+        $conference->save();
     }
 
     private function updateConferenceFromCallingAllPapersEvent(Conference $conference, Event $event)
