@@ -268,4 +268,19 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $this->assertFalse(Conference::first()->is_approved);
     }
+
+    /** @test */
+    function conferences_with_cfp_end_after_conference_start_are_marked_unapproved()
+    {
+        $this->mockClient();
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->dateEventStart = '2017-09-01T00:00:00-04:00';
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertFalse($conference->is_approved);
+    }
 }
