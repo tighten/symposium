@@ -32,7 +32,7 @@ class ConferenceImporter
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
         $conference->save();
 
-        if ($conference->cfp_ends_at->isAfter($conference->starts_at)) {
+        if ($conference->cfp_ends_at && $conference->cfp_ends_at->isAfter($conference->starts_at)) {
             $conference->is_approved = 0;
             $conference->save();
         }
