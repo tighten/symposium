@@ -5,6 +5,7 @@ namespace App\CallingAllPapers;
 use App\Models\Conference;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\Validator;
 
 class ConferenceImporter
 {
@@ -28,6 +29,17 @@ class ConferenceImporter
 
     public function import(Event $event)
     {
+        $validator = Validator::make([
+            'cfp_ends_at' => $event->dateCfpEnd,
+            'starts_at' => $event->dateEventStart,
+        ], [
+            'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
+        ]);
+
+        if ($validator->fails()) {
+            return response($validator->errors(), 403);
+        }
+
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
