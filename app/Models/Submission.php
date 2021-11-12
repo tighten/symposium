@@ -8,6 +8,11 @@ class Submission extends UuidBase
 {
     use HasFactory;
 
+    const RESPONSES = [
+        'acceptance' => Acceptance::class,
+        'rejection' => Rejection::class,
+    ];
+
     protected $table = 'submissions';
 
     protected $primaryKey = 'id';

@@ -18,6 +18,6 @@ class UsersSeeder extends Seeder
 
         User::factory()->create([
             'is_featured' => rand(0, 1),
-        ], 10);
+        ]);
     }
 }

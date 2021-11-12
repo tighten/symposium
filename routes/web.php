@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('submissions', [SubmissionsController::class, 'store']);
     Route::delete('submissions/{submission}', [SubmissionsController::class, 'destroy']);
+    Route::put('submissions/{submission}', [SubmissionsController::class, 'update'])->name('submission.update');
 
     Route::get('conferences/{id}/favorite', [ConferencesController::class, 'favorite']);
     Route::get('conferences/{id}/unfavorite', [ConferencesController::class, 'unfavorite']);
