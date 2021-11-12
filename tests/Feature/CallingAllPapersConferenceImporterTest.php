@@ -215,6 +215,65 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
+    public function it_imports_zero_in_latitude_or_longitude_as_null()
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+
+        $this->mockClient($event);
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertNull($conference->latitude);
+        $this->assertNull($conference->longitude);
+    }
+
+    /** @test */
+    public function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
+
+        $this->mockClient($event);
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertSame('38.8921062', $conference->latitude);
+        $this->assertSame('-77.0259036', $conference->longitude);
+    }
+
+    /** @test */
+    public function it_keeps_lat_long_values_null_if_no_results()
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = 'Not a Valid Location';
+
+        $this->mockClient($event);
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertNull($conference->latitude);
+        $this->assertNull($conference->longitude);
+    }
+
+    /** @test */
     function imported_conferences_are_approved()
     {
         $this->mockClient();

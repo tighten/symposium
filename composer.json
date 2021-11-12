@@ -31,7 +31,8 @@
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "thujohn/twitter": "~3.1"
+        "thujohn/twitter": "~3.1",
+        "toin0u/geocoder-laravel": "^4.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
@@ -61,11 +62,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "@php artisan clear-compiled"
+            "@php artisan clear-compiled",
+            "@php artisan cache:clear"
         ],
         "post-update-cmd": [
             "@php artisan clear-compiled",
-            "@php artisan vendor:publish --tag=laravel-assets --ansi"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi",
+            "@php artisan cache:clear"
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
