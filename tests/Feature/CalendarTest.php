@@ -30,7 +30,5 @@ class CalendarTest extends TestCase
             ->assertResponseOk()
             ->see('Approved conference')
             ->dontSee('Unapproved conference');
-
-        $this->assertTrue(true);
     }
 }
