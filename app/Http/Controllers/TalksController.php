@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Submission;
-use App\Talk;
-use App\TalkRevision;
+use App\Models\Submission;
+use App\Models\Talk;
+use App\Models\TalkRevision;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;

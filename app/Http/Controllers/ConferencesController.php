@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Conference;
 use App\Exceptions\ValidationException;
+use App\Models\Conference;
 use App\Services\CreateConferenceForm;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Illuminate\Http\Request;

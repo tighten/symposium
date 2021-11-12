@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Talk;
-use App\TalkRevision;
+use App\Models\Talk;
+use App\Models\TalkRevision;
 
 class TalkApiTest extends ApiTestCase
 {
@@ -21,7 +21,7 @@ class TalkApiTest extends ApiTestCase
     function all_talks_doesnt_return_archived_talks()
     {
         $toBeArchivedTalk = $this->user->talks()->create([]);
-        $toBeArchivedTalk->revisions()->save(factory(TalkRevision::class)->create());
+        $toBeArchivedTalk->revisions()->save(TalkRevision::factory()->create());
 
         $response = $this->call('GET', 'api/user/1/talks');
         $data = json_decode($response->getContent());
@@ -52,7 +52,7 @@ class TalkApiTest extends ApiTestCase
     function can_fetch_one_talk()
     {
         $talkId = Talk::first()->id;
-        $response = $this->call('GET', 'api/talks/' . $talkId);
+        $response = $this->call('GET', "api/talks/{$talkId}");
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -71,7 +71,7 @@ class TalkApiTest extends ApiTestCase
     function cannot_fetch_one_talk_for_other_users()
     {
         $talkId = Talk::where('author_id', 2)->first()->id;
-        $response = $this->call('GET', 'api/talks/' . $talkId);
+        $response = $this->call('GET', "api/talks/{$talkId}");
 
         $this->assertEquals(404, $response->getStatusCode());
     }

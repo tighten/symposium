@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use App\Conference;
+use App\Models\Conference;
 
 class ConferenceApiTest extends ApiTestCase
 {
@@ -20,7 +20,7 @@ class ConferenceApiTest extends ApiTestCase
     function can_fetch_one_conference()
     {
         $conferenceId = Conference::first()->id;
-        $response = $this->call('GET', 'api/conferences/' . $conferenceId);
+        $response = $this->call('GET', "api/conferences/{$conferenceId}");
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -37,7 +37,7 @@ class ConferenceApiTest extends ApiTestCase
             'url' => 'http://awesome.com',
             'cfp_url' => 'http://awesome.com/cfp',
         ]);
-        $response = $this->call('GET', 'api/conferences/' . $conference->id);
+        $response = $this->call('GET', "api/conferences/{$conference->id}");
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -53,7 +53,7 @@ class ConferenceApiTest extends ApiTestCase
             'description' => 'Awesome Conference',
             'url' => 'http://awesome.com',
         ]);
-        $response = $this->call('GET', 'api/conferences/' . $conference->id);
+        $response = $this->call('GET', "api/conferences/{$conference->id}");
         $data = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Conference;
-use App\Submission;
-use App\Talk;
+use App\Models\Conference;
+use App\Models\Submission;
+use App\Models\Talk;
 use Illuminate\Http\Request;
 
 class SubmissionsController extends Controller

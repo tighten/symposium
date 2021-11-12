@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Conference;
-use App\User;
+use App\Models\Conference;
+use App\Models\User;
 
 class HomeController extends BaseController
 {

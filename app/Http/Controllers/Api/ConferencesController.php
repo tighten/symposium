@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Conference;
-use App\Conference as EloquentConference;
+use App\Models\Conference as EloquentConference;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

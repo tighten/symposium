@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Acceptance;
-use App\Submission;
+use App\Models\Acceptance;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class AcceptancesController extends Controller

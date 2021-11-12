@@ -2,7 +2,7 @@
 
 namespace App\ApiResources;
 
-use App\Bio as EloquentBio;
+use App\Models\Bio as EloquentBio;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Bio implements Arrayable

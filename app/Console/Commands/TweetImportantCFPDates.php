@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Conference;
+use App\Models\Conference;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;

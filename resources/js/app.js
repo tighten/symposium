@@ -38,6 +38,11 @@ Vue.component(
     require('./components/MainHeader.vue').default
 );
 
+Vue.component(
+    'conference-calendar',
+    require('./components/ConferenceCalendar.vue').default
+);
+
 new Vue({
     el: "#app",
 });
