@@ -105,8 +105,8 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function location_coordinates_can_be_updated()
     {
-        $user = factory(User::class)->create();
-        $conference = factory(Conference::class)->create([
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create([
             'author_id' => $user->id,
         ]);
 
