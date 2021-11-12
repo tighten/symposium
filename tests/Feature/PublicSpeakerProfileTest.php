@@ -9,14 +9,11 @@ use App\Models\TalkRevision;
 use App\Models\User;
 use App\Services\FakeCaptcha;
 use Captcha\Captcha;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\IntegrationTestCase;
 
 class PublicSpeakerProfileTest extends IntegrationTestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function non_public_speakers_are_not_listed_on_the_public_speaker_page()
     {
