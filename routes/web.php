@@ -50,10 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::get('account/export', [AccountController::class, 'export'])->name('account.export');
     Route::get('account/oauth-settings', [AccountController::class, 'oauthSettings'])->name('account.oauth-settings');
 
-    Route::post('acceptances', [AcceptancesController::class, 'store']);
     Route::delete('acceptances/{acceptance}', [AcceptancesController::class, 'destroy']);
 
-    Route::post('rejections', [RejectionController::class, 'store']);
     Route::delete('rejections/{rejection}', [RejectionController::class, 'destroy']);
 
     Route::post('submissions', [SubmissionsController::class, 'store']);
