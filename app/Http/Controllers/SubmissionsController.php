@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\Submission;
 use App\Models\Talk;

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acceptance;
-use App\Models\Submission;
-use Illuminate\Http\Request;
 
 class AcceptancesController extends Controller
 {
@@ -16,6 +14,6 @@ class AcceptancesController extends Controller
 
         $acceptance->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'Talk un-marked as accepted.']);
+        return response()->json(['status' => 'successs', 'message' => 'Talk un-marked as accepted.']);
     }
 }
