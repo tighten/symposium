@@ -2,15 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AcceptanceFactory extends Factory
 {
-    protected $model = Acceptance::class;
-
     public function definition()
     {
         return [
