@@ -174,10 +174,6 @@ class SubmissionTest extends IntegrationTestCase
         $this->put(route('submission.update', $submission), [
             'response' => 'indifference',
         ])->assertSessionHasErrors();
-
-        $this->put(route('submission.update', $submission), [
-            'response' => 'rejection,',
-        ])->assertSessionHasErrors();
     }
 
     /** @test */
