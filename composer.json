@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.4",
         "algolia/algoliasearch-client-php": "^3.1",
-        "blade-ui-kit/blade-icons": "^0.4.5",
+        "blade-ui-kit/blade-icons": "^1.1",
         "bugsnag/bugsnag-laravel": "^2.22",
         "doctrine/dbal": "^3.1",
         "erusev/parsedown": "^1.7",
@@ -18,20 +18,20 @@
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
-        "laravel/framework": "^8.68",
-        "laravel/passport": "^10.1",
+        "laravel/framework": "^8.70",
+        "laravel/passport": "^10.2",
         "laravel/scout": "^9.3",
         "laravel/slack-notification-channel": "^2.3",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
-        "lcobucci/jwt": "^3.4",
+        "lcobucci/jwt": "^4.1",
         "pragmarx/firewall": "~2.0",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "thujohn/twitter": "~2.0"
+        "thujohn/twitter": "~3.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
