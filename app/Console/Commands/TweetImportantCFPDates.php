@@ -3,10 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Models\Conference;
+use Atymic\Twitter\Twitter;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDates extends Command
 {
