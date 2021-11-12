@@ -26,7 +26,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
-        "lcobucci/jwt": "^3.4",
+        "lcobucci/jwt": "^4.1",
         "pragmarx/firewall": "~2.0",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
