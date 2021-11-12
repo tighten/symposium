@@ -36,6 +36,13 @@
         <ul class="pl-0 list-none">
             <li v-for="talk in talksSubmitted" v-cloak>
                 <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
+                <a class="inline-block px-1 mt-4 text-center text-white bg-indigo-500 rounded cursor-pointer" :href="`/submissions/${talk.submissionId}`">
+                    <div class="flex items-center">
+                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-white"></loading-spinner>
+                        Edit
+                    </div>
+                </a>
+
                 <a class="inline-block px-1 mt-4 text-center text-white bg-indigo-500 rounded cursor-pointer" @click.prevent="markAccepted(talk)">
                     <div class="flex items-center">
                         <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-white"></loading-spinner>

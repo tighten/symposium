@@ -31,6 +31,14 @@ class SubmissionsController extends Controller
         ]);
     }
 
+    public function edit(Submission $submission)
+    {
+        return view('submissions.edit', [
+            'submission' => $submission,
+            'conference' => $submission->conference,
+        ]);
+    }
+
     public function update(Submission $submission, Request $request)
     {
         if (auth()->user()->id != $submission->talkRevision->talk->author_id) {
