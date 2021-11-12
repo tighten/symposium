@@ -4,9 +4,9 @@ namespace Tests\Console\Commands;
 
 use App\Console\Commands\TweetImportantCFPDates;
 use App\Models\Conference;
+use Atymic\Twitter\ApiV1\Service\Twitter;
 use Carbon\Carbon;
 use Tests\IntegrationTestCase;
-use Thujohn\Twitter\Twitter;
 
 class TweetImportantCFPDatesTest extends IntegrationTestCase
 {
