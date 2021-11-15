@@ -14,6 +14,6 @@ class AcceptancesController extends Controller
 
         $acceptance->delete();
 
-        return response()->json(['status' => 'successs', 'message' => 'Talk un-marked as accepted.']);
+        return response()->json(['status' => 'success', 'message' => 'Talk un-marked as accepted.']);
     }
 }
