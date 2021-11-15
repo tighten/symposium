@@ -4,10 +4,10 @@
         <ul class="pl-0 list-none">
             <li v-for="talk in talksAccepted" v-cloak>
                 <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
-                <a class="inline-block px-1 mt-4 text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer" @click.prevent="undoAcceptance(talk)">
-                    <div class="flex items-center">
+                <a class="inline-flex" @click.prevent="undoAcceptance(talk)">
+                    <div class="flex items-center text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer w-6 p-1 ml-2">
                         <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-indigo-300"></loading-spinner>
-                        Undo
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z" class="fill-current inline"/></svg>
                     </div>
                 </a>
             </li>
@@ -20,10 +20,9 @@
         <ul class="pl-0 list-none">
             <li v-for="talk in talksRejected" v-cloak>
                 <a :href="talk.url" class="hover:text-indigo-500">{{ talk.title }}</a>
-                <a class="inline-block px-1 mt-4 text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer" @click.prevent="undoRejection(talk)">
-                    <div class="flex items-center">
-                        <loading-spinner v-show="talk.loading" class="w-4 h-4 mr-1 text-indigo-800 border-indigo-300"></loading-spinner>
-                        Undo
+                <a class="inline-flex" @click.prevent="undoRejection(talk)">
+                    <div class="flex items-center text-center text-indigo-800 bg-white border border-indigo-500 rounded cursor-pointer w-6 p-1 ml-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z" class="fill-current inline"/></svg>
                     </div>
                 </a>
             </li>
