@@ -89,4 +89,10 @@ class Submission extends UuidBase
     {
         return $this->rejection_id !== null;
     }
+
+    public function getReasonAttribute()
+    {
+        return data_get($this, 'acceptance.reason') ??
+            data_get($this, 'rejection.reason');
+    }
 }
