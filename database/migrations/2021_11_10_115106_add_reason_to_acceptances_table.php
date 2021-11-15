@@ -9,14 +9,14 @@ class AddReasonToAcceptancesTable extends Migration
     public function up()
     {
         Schema::table('acceptances', function (Blueprint $table) {
-            $table->string('reason')->nullable();
+            $table->string('reason')->after('conference_id')->nullable();
         });
     }
 
     public function down()
     {
         Schema::table('acceptances', function (Blueprint $table) {
-            $table->removeColumn('reason');
+            $table->dropColumn('reason');
         });
     }
 }
