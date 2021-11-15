@@ -3,13 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Talk;
-use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TalkRevisionFactory extends Factory
 {
-    protected $model = TalkRevision::class;
-
     public function definition()
     {
         return [

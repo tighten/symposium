@@ -3,14 +3,11 @@
 namespace Database\Factories;
 
 use App\Models\Conference;
-use App\Models\Rejection;
 use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RejectionFactory extends Factory
 {
-    protected $model = Rejection::class;
-
     public function definition()
     {
         return [
