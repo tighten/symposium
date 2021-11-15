@@ -6,15 +6,12 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Models\Conference;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
 use stdClass;
 use Tests\TestCase;
 
 class CallingAllPapersConferenceImporterTest extends TestCase
 {
-    use RefreshDatabase;
-
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
     private $eventStub;
 
