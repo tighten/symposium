@@ -99,8 +99,6 @@ class TalkTest extends IntegrationTestCase
     /** @test */
     function user_can_delete_a_talk()
     {
-        $this->withoutExceptionHandling();
-
         $user = User::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
         TalkRevision::factory()->create([
