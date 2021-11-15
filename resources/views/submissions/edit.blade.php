@@ -21,7 +21,7 @@
         class="mt-8"
     ></x-input.radios>
 
-    <x-input.text
+    <x-input.textarea
         name="reason"
         label="Reason"
         type="text"
@@ -29,7 +29,7 @@
         autofocus="autofocus"
         maxlength="255"
         class="mt-8"
-    ></x-input.text>
+    ></x-input.textarea>
 
     <x-button.primary
         type="submit"
