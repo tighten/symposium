@@ -136,7 +136,9 @@ class TalksController extends BaseController
 
         $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
 
-        $submissions = Submission::where('talk_revision_id', $current->id)->with('conference')->get();
+        $submissions = Submission::where('talk_revision_id', $current->id)
+            ->with(['conference', 'acceptance', 'rejection'])
+            ->get();
 
         return view('talks.show', [
             'talk' => $talk,

@@ -82,6 +82,9 @@
                             <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">Accepted</span>
                         @endif
                     </h3>
+                    @if ($submission->reason)
+                        <div>{{ $submission->reason }}</div>
+                    @endif
                     <div>{{ $submission->conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $submission->conference->endsAtDisplay() }}</div>
                 </div>
             @endforeach

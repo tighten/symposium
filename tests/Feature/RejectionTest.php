@@ -37,28 +37,6 @@ class RejectionTest extends IntegrationTestCase
     }
 
     /** @test */
-    function user_can_mark_talks_as_rejected_via_http()
-    {
-        $user = User::factory()->create();
-        $this->be($user);
-
-        $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
-        $revision = TalkRevision::factory()->create();
-        $talk->revisions()->save($revision);
-        $submission = Submission::factory()->create([
-            'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id,
-        ]);
-
-        $this->post('rejections', [
-            'submissionId' => $submission->id,
-        ]);
-
-        $this->assertTrue($submission->refresh()->isRejected());
-    }
-
-    /** @test */
     function user_can_remove_rejection_via_http()
     {
         $user = User::factory()->create();
