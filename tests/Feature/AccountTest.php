@@ -17,38 +17,6 @@ use Tests\IntegrationTestCase;
 class AccountTest extends IntegrationTestCase
 {
     /** @test */
-    function users_can_sign_up()
-    {
-        $this->markTestSkipped('Disable email registration');
-
-        $this->visit('register')
-            ->type('email@email.com', '#email')
-            ->type('schmassword', '#password')
-            ->type('Joe Schmoe', '#name')
-            ->press('Sign up')
-            ->seePageIs('dashboard');
-
-        $this->seeInDatabase('users', [
-            'email' => 'email@email.com',
-            'name' => 'Joe Schmoe',
-        ]);
-    }
-
-    /** @test */
-    function invalid_signups_dont_proceed()
-    {
-        $this->markTestSkipped('Disable email registration');
-
-        $this->visit('register')
-            ->press('Sign up')
-            ->see('The name field is required')
-            ->see('The password field is required')
-            ->see('The email field is required');
-
-        $this->assertEquals(0, User::all()->count());
-    }
-
-    /** @test */
     function users_can_log_in()
     {
         $user = User::factory()->create(['password' => Hash::make('super-secret')]);
