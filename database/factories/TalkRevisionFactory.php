@@ -17,7 +17,7 @@ class TalkRevisionFactory extends Factory
             'slides' => 'http://speakerdeck.com/mattstauffer/the-best-talk-ever',
             'description' => 'The best talk ever!',
             'organizer_notes' => 'No really.',
-            'talk_id' => Talk::factory()->create(),
+            'talk_id' => Talk::factory(),
         ];
     }
 }

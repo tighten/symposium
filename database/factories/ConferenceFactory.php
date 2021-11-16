@@ -10,7 +10,7 @@ class ConferenceFactory extends Factory
     public function definition()
     {
         return [
-            'author_id' => User::factory()->create(),
+            'author_id' => User::factory(),
             'title' => 'Dummy Conference',
             'description' => $this->faker->sentence,
             'url' => $this->faker->url,

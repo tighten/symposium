@@ -11,8 +11,8 @@ class SubmissionFactory extends Factory
     public function definition()
     {
         return [
-            'talk_revision_id' => TalkRevision::factory()->create(),
-            'conference_id' => Conference::factory()->create(),
+            'talk_revision_id' => TalkRevision::factory(),
+            'conference_id' => Conference::factory(),
         ];
     }
 }
