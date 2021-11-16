@@ -111,7 +111,7 @@ class TalkTest extends TestCase
 
         $this->get("talks/{$talk->id}/delete");
 
-        $this->notSeeInDatabase('talks', $talk->toArray());
+        $this->assertDatabaseMissing('talks', $talk->toArray());
         $this->assertEquals(0, TalkRevision::count());
     }
 
