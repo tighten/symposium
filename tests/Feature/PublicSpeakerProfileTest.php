@@ -21,8 +21,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => false,
         ]);
 
-        $this->visit(route('speakers-public.index'))
-            ->dontSee($user->name);
+        $this->get(route('speakers-public.index'))
+            ->assertDontSee($user->name);
     }
 
     /** @test */
@@ -33,8 +33,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => true,
         ]);
 
-        $this->visit(route('speakers-public.index'))
-            ->see($user->name);
+        $this->get(route('speakers-public.index'))
+            ->assertSee($user->name);
     }
 
     /** @test */
@@ -45,8 +45,9 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => false,
         ]);
 
-        $this->get(route('speakers-public.show', [$user->profile_slug]));
-        $this->assertResponseStatus(404);
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertNotFound();
     }
 
     /** @test */
@@ -57,8 +58,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'enable_profile' => true,
         ]);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->see($user->name);
+        $this->get(route('speakers-public.show', [$user->profile_slug]))
+            ->assertSee($user->name);
     }
 
     /** @test */
@@ -75,9 +76,10 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.show', [$user->profile_slug]));
-        $this->assertResponseOk();
-        $this->dontSee($talkRevision->title);
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertSuccessful();
+        $response->assertDontSee($talkRevision->title);
     }
 
     /** @test */
@@ -94,8 +96,12 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.talks.show', [$user->profile_slug, $talk->id]));
-        $this->assertResponseStatus(404);
+        $response = $this->get(route('speakers-public.talks.show', [
+            $user->profile_slug,
+            $talk->id,
+        ]));
+
+        $response->assertNotFound();
     }
 
     /** @test */
@@ -112,9 +118,10 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
-        $this->get(route('speakers-public.show', [$user->profile_slug]));
-        $this->assertResponseOk();
-        $this->see($talkRevision->title);
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertSuccessful();
+        $response->assertSee($talkRevision->title);
     }
 
     /** @test */
@@ -129,9 +136,10 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $bio->public = false;
         $user->bios()->save($bio);
 
-        $this->get(route('speakers-public.show', [$user->profile_slug]));
-        $this->assertResponseOk();
-        $this->see($bio->title);
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertSuccessful();
+        $response->assertSee($bio->title);
     }
 
     /** @test */
@@ -148,8 +156,9 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'public' => false,
         ]);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]));
-        $this->dontSee('Private Bio');
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertDontSee('Private Bio');
     }
 
     /** @test */
@@ -164,8 +173,9 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $bio->public = true;
         $user->bios()->save($bio);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]));
-        $this->see($bio->nickname);
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertSee($bio->nickname);
     }
 
     /** @test */
@@ -175,8 +185,9 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'profile_slug' => 'jimmybob',
         ]);
 
-        $this->get(route('speakers-public.show', [$user->profile_slug]));
-        $this->assertResponseStatus(404);
+        $response = $this->get(route('speakers-public.show', [$user->profile_slug]));
+
+        $response->assertNotFound();
     }
 
     /** @test */
@@ -190,14 +201,14 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'allow_profile_contact' => false,
         ]);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->dontSee("Contact {$user->name}");
+        $this->get(route('speakers-public.show', [$user->profile_slug]))
+            ->assertDontSee("Contact {$user->name}");
 
         $this->get(route('speakers-public.email', [$user->profile_slug]))
-            ->assertResponseStatus(404);
+            ->assertNotFound();
 
         $this->post(route('speakers-public.email', [$user->profile_slug]))
-            ->assertResponseStatus(404);
+            ->assertNotFound();
     }
 
     /** @test */
@@ -211,11 +222,11 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
             'allow_profile_contact' => true,
         ]);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->see("Contact {$user->name}");
+        $this->get(route('speakers-public.show', [$user->profile_slug]))
+            ->assertSee("Contact {$user->name}");
 
-        $this->visit(route('speakers-public.email', [$user->profile_slug]))
-            ->assertResponseOk();
+        $this->get(route('speakers-public.email', [$user->profile_slug]))
+            ->assertSuccessful();
 
         //sending email in next test
     }
@@ -234,11 +245,11 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $userB = User::factory()->create();
 
         $this->actingAs($userB)
-            ->visit(route('speakers-public.email', [$userA->profile_slug]))
-            ->type($userB->email, '#email')
-            ->type($userB->name, '#name')
-            ->type('You are amazing', '#message')
-            ->press('Send');
+            ->post(route('speakers-public.email.send', [$userA->profile_slug]), [
+                'email' => $userB->email,
+                'name' => $userB->name,
+                'message' => 'You are amazing',
+            ]);
 
         Mail::assertSent(ContactRequest::class, function ($mail) use ($userA) {
             return $mail->hasTo($userA->email) &&
@@ -256,10 +267,10 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         ]);
 
         $this->get(route('speakers-public.email', [$user->profile_slug]))
-            ->assertResponseStatus(404);
+            ->assertNotFound();
 
         $this->post(route('speakers-public.email', [$user->profile_slug]), ['_token' => csrf_token()])
-            ->assertResponseStatus(404);
+            ->assertNotFound();
     }
 
     /** @test */
@@ -283,8 +294,8 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $talkRevision = TalkRevision::factory()->create();
         $talk->revisions()->save($talkRevision);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->dontSee($talk->current()->title);
+        $this->get(route('speakers-public.show', [$user->profile_slug]))
+            ->assertDontSee($talk->current()->title);
     }
 
     /** @test */
@@ -306,7 +317,7 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
         $bio->public = true;
         $user2->bios()->save($bio);
 
-        $this->visit(route('speakers-public.show', [$user->profile_slug]))
-            ->dontSee('test bio');
+        $this->get(route('speakers-public.show', [$user->profile_slug]))
+            ->assertDontSee('test bio');
     }
 }

@@ -35,8 +35,8 @@ class AdminTest extends IntegrationTestCase
         $conference = Conference::factory()->create();
 
         $this->actingAs($admin)
-            ->visit(route('conferences.show', $conference))
-            ->see('Edit');
+            ->get(route('conferences.show', $conference))
+            ->assertSee('Edit');
     }
 
     /** @test */
