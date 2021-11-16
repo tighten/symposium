@@ -10,9 +10,7 @@ class TalkFactory extends Factory
     public function definition()
     {
         return [
-            'author_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'author_id' => User::factory(),
         ];
     }
 }
