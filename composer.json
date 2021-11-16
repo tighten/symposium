@@ -18,7 +18,7 @@
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
-        "laravel/framework": "^8.70",
+        "laravel/framework": "^8.71",
         "laravel/passport": "^10.2",
         "laravel/scout": "^9.3",
         "laravel/slack-notification-channel": "^2.3",
@@ -31,7 +31,7 @@
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "thujohn/twitter": "~3.1"
+        "thujohn/twitter": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
