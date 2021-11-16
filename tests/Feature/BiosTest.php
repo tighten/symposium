@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Bio;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class BiosTest extends IntegrationTestCase
+class BiosTest extends TestCase
 {
     /** @test */
     function user_can_create_a_private_bio()

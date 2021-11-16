@@ -10,9 +10,9 @@ use App\Models\User;
 use App\Services\FakeCaptcha;
 use Captcha\Captcha;
 use Illuminate\Support\Facades\Mail;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class PublicSpeakerProfileTest extends IntegrationTestCase
+class PublicSpeakerProfileTest extends TestCase
 {
     /** @test */
     function non_public_speakers_are_not_listed_on_the_public_speaker_page()
@@ -214,8 +214,6 @@ class PublicSpeakerProfileTest extends IntegrationTestCase
     /** @test */
     function contactable_users_profile_pages_show_contact()
     {
-        $this->disableExceptionHandling();
-
         $user = User::factory()->create([
             'profile_slug' => 'jimmybob',
             'enable_profile' => true,

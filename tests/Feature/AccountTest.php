@@ -12,9 +12,9 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class AccountTest extends IntegrationTestCase
+class AccountTest extends TestCase
 {
     /** @test */
     function users_can_log_in()
@@ -110,8 +110,6 @@ class AccountTest extends IntegrationTestCase
     /** @test */
     function user_can_reset_their_password_from_email_link()
     {
-        $this->disableExceptionHandling();
-
         Notification::fake();
 
         $user = User::factory()->create();

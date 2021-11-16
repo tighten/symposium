@@ -5,9 +5,9 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\User;
 use Carbon\Carbon;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class ConferenceTest extends IntegrationTestCase
+class ConferenceTest extends TestCase
 {
     /** @test */
     function user_can_create_conference()

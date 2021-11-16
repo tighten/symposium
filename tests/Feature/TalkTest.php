@@ -9,9 +9,9 @@ use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
 use Carbon\Carbon;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class TalkTest extends IntegrationTestCase
+class TalkTest extends TestCase
 {
     /** @test */
     function it_shows_the_talk_title_on_its_page()

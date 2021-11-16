@@ -8,9 +8,9 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class RejectionTest extends IntegrationTestCase
+class RejectionTest extends TestCase
 {
     /** @test */
     function can_create_from_submission()

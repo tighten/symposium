@@ -6,9 +6,9 @@ use App\Console\Commands\TweetImportantCFPDates;
 use App\Models\Conference;
 use Atymic\Twitter\ApiV1\Service\Twitter;
 use Carbon\Carbon;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class TweetImportantCFPDatesTest extends IntegrationTestCase
+class TweetImportantCFPDatesTest extends TestCase
 {
     /** @test */
     function cfps_opening_today_should_be_tweeted()
