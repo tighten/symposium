@@ -31,7 +31,7 @@
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "thujohn/twitter": "~3.1"
+        "thujohn/twitter": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
