@@ -10,9 +10,7 @@ class BioFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id' => User::factory(),
             'nickname' => $this->faker->word,
             'body' => $this->faker->sentence(),
         ];
