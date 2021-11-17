@@ -80,7 +80,7 @@ class AccountTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->put('account/edit', [
+        $this->actingAs($user)->put('account/edit', [
             'name' => $user->name,
             'email' => $user->email,
             'enable_profile' => true,

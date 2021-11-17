@@ -14,7 +14,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)
+        $this->actingAs($user)
             ->post('conferences', [
                 'title' => 'Das Conf',
                 'description' => 'A very good conference about things',
@@ -82,7 +82,7 @@ class ConferenceTest extends TestCase
             'is_approved' => true,
         ]);
 
-        $response = $this->actingAs($user)
+        $this->actingAs($user)
             ->put("conferences/{$conference->id}", [
                 'title' => 'Laracon',
                 'description' => 'A conference about Laravel',

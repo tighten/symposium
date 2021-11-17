@@ -17,7 +17,7 @@ class TalkTest extends TestCase
     function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->create();
+        Conference::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);

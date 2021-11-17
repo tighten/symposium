@@ -150,7 +150,7 @@ class PublicSpeakerProfileTest extends TestCase
             'enable_profile' => true,
         ]);
 
-        $bio = Bio::factory()->create([
+        Bio::factory()->create([
             'user_id' => $user->id,
             'nickname' => 'Private Bio',
             'public' => false,
