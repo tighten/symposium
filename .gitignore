@@ -10,5 +10,6 @@
 /public/js/location.js
 /public/js/location.js.map
 /storage/debugbar
+/storage/framework/testing
 .phpunit.result.cache
 .idea/*

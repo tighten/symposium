@@ -5,23 +5,23 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\User;
 use Carbon\Carbon;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class ConferenceTest extends IntegrationTestCase
+class ConferenceTest extends TestCase
 {
     /** @test */
     function user_can_create_conference()
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)
-            ->visit('/conferences/create')
-            ->type('Das Conf', '#title')
-            ->type('A very good conference about things', '#description')
-            ->type('http://dasconf.org', '#url')
-            ->press('Create');
+        $response = $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'Das Conf',
+                'description' => 'A very good conference about things',
+                'url' => 'http://dasconf.org',
+            ]);
 
-        $this->seeInDatabase('conferences', [
+        $this->assertDatabaseHas('conferences', [
             'title' => 'Das Conf',
             'description' => 'A very good conference about things',
         ]);
@@ -33,7 +33,7 @@ class ConferenceTest extends IntegrationTestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('/conferences', [
+            ->post('conferences', [
                 'title' => 'JediCon',
                 'description' => 'The force is strong here',
                 'url' => 'https://jedicon.com',
@@ -41,7 +41,7 @@ class ConferenceTest extends IntegrationTestCase
                 'longitude' => '-122.45050129999998',
             ]);
 
-        $this->seeInDatabase('conferences', [
+        $this->assertDatabaseHas('conferences', [
             'title' => 'JediCon',
             'description' => 'The force is strong here',
             'url' => 'https://jedicon.com',
@@ -55,8 +55,8 @@ class ConferenceTest extends IntegrationTestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)
-            ->post('/conferences', [
+        $response = $this->actingAs($user)
+            ->post('conferences', [
                 'title' => 'JediCon',
                 'description' => 'The force is strong here',
                 'url' => 'https://jedicon.com',
@@ -64,9 +64,8 @@ class ConferenceTest extends IntegrationTestCase
                 'ends_at' => Carbon::parse('+2 days')->toDateString(),
             ]);
 
-        $this->seeStatusCode(302);
-        $this->assertRedirectedTo('/conferences/create');
-        $this->dontSeeInDatabase('conferences', [
+        $response->assertRedirect('conferences/create');
+        $this->assertDatabaseMissing('conferences', [
             'title' => 'JediCon',
         ]);
     }
@@ -74,8 +73,6 @@ class ConferenceTest extends IntegrationTestCase
     /** @test */
     function user_can_edit_conference()
     {
-        $this->disableExceptionHandling();
-
         $user = User::factory()->create();
 
         $conference = Conference::factory()->create([
@@ -85,18 +82,19 @@ class ConferenceTest extends IntegrationTestCase
             'is_approved' => true,
         ]);
 
-        $this->actingAs($user)
-            ->visit("/conferences/{$conference->id}/edit")
-            ->type('Laracon', '#title')
-            ->type('A conference about Laravel', '#description')
-            ->press('Update');
+        $response = $this->actingAs($user)
+            ->put("conferences/{$conference->id}", [
+                'title' => 'Laracon',
+                'description' => 'A conference about Laravel',
+                'url' => $conference->url,
+            ]);
 
-        $this->seeInDatabase('conferences', [
+        $this->assertDatabaseHas('conferences', [
             'title' => 'Laracon',
             'description' => 'A conference about Laravel',
         ]);
 
-        $this->missingFromDatabase('conferences', [
+        $this->assertDatabaseMissing('conferences', [
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
         ]);
@@ -117,7 +115,7 @@ class ConferenceTest extends IntegrationTestCase
                 'longitude' => '-122.45050129999998',
             ]));
 
-        $this->seeInDatabase('conferences', [
+        $this->assertDatabaseHas('conferences', [
             'title' => 'Updated JediCon',
             'latitude' => '37.7991531',
             'longitude' => '-122.45050129999998',
@@ -138,11 +136,12 @@ class ConferenceTest extends IntegrationTestCase
             'ends_at' => Carbon::parse('+4 days')->toDateString(),
         ]);
 
-        $this->actingAs($user)
-            ->visit("/conferences/{$conference->id}/edit")
-            ->type(Carbon::parse('+2 days')->toDateString(), '#ends_at')
-            ->press('Update');
+        $response = $this->actingAs($user)
+            ->put("conferences/{$conference->id}", array_merge($conference->toArray(), [
+                'ends_at' => Carbon::parse('+2 days')->toDateString(),
+            ]));
 
+        $response->assertSessionHasErrors('ends_at');
         $this->assertEquals(
             Carbon::parse('+4 days')->toDateString(),
             $conference->fresh()->ends_at->toDateString(),
@@ -199,21 +198,17 @@ class ConferenceTest extends IntegrationTestCase
         $otherUser->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit("conferences/{$conference->id}")
-            ->see($conference->title);
+            ->get("conferences/{$conference->id}")
+            ->assertSee($conference->title);
     }
 
     /** @test */
     function guests_can_view_conference()
     {
-        $user = User::factory()->create();
-
         $conference = Conference::factory()->create(['is_approved' => true]);
-        $user->conferences()
-            ->save($conference);
 
-        $this->visit("conferences/{$conference->id}")
-            ->see($conference->title);
+        $this->get("conferences/{$conference->id}")
+            ->assertSee($conference->title);
     }
 
     /** @test */
@@ -225,16 +220,15 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()
             ->save($conference);
 
-        $this->visit('conferences?filter=all')
-            ->seePageIs('conferences?filter=all')
-            ->see($conference->title);
+        $this->get('conferences?filter=all')
+            ->assertSee($conference->title);
     }
 
     /** @test */
     function guests_cannot_create_conference()
     {
-        $this->visit('conferences/create')
-            ->seePageIs('login');
+        $this->get('conferences/create')
+            ->assertRedirect('login');
     }
 
     /** @test */
@@ -271,13 +265,13 @@ class ConferenceTest extends IntegrationTestCase
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
 
-        $this->get('conferences');
+        $response = $this->get('conferences');
 
         $this->assertConferenceSort([
             $pastCfp,
             $futureCfp,
             $nullCfp,
-        ]);
+        ], $response);
     }
 
     /** @test */
@@ -290,12 +284,12 @@ class ConferenceTest extends IntegrationTestCase
             'starts_at' => Carbon::now()->addDay(),
         ]);
 
-        $this->get('conferences?filter=all&sort=date');
+        $response = $this->get('conferences?filter=all&sort=date');
 
         $this->assertConferenceSort([
             $conferenceA,
             $conferenceB,
-        ]);
+        ], $response);
     }
 
     /** @test */
@@ -306,8 +300,8 @@ class ConferenceTest extends IntegrationTestCase
         $conference = Conference::factory()->create();
         $user->conferences()->save($conference);
 
-        $this->visit("conferences/{$conference->id}/dismiss")
-            ->seePageIs('login');
+        $this->get("conferences/{$conference->id}/dismiss")
+            ->assertRedirect('login');
     }
 
     /** @test */
@@ -321,17 +315,15 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit('conferences?filter=all')
-            ->seePageIs('conferences?filter=all')
-            ->see($conference->title);
+            ->get('conferences?filter=all')
+            ->assertSee($conference->title);
 
         $this->actingAs($user)
-            ->visit("conferences/{$conference->id}/dismiss");
+            ->get("conferences/{$conference->id}/dismiss");
 
         $this->actingAs($user)
-            ->visit('conferences?filter=all')
-            ->seePageIs('conferences?filter=all')
-            ->dontSee($conference->title);
+            ->get('conferences?filter=all')
+            ->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -345,12 +337,11 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit("conferences/{$conference->id}/dismiss");
+            ->get("conferences/{$conference->id}/dismiss");
 
         $this->actingAs($user)
-            ->visit('conferences?filter=dismissed')
-            ->seePageIs('conferences?filter=dismissed')
-            ->see($conference->title);
+            ->get('conferences?filter=dismissed')
+            ->assertSee($conference->title);
     }
 
     /** @test */
@@ -362,9 +353,8 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit('conferences?filter=dismissed')
-            ->seePageIs('conferences?filter=dismissed')
-            ->dontSee($conference->title);
+            ->get('conferences?filter=dismissed')
+            ->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -378,12 +368,11 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit("conferences/{$conference->id}/favorite");
+            ->get("conferences/{$conference->id}/favorite");
 
         $this->actingAs($user)
-            ->visit('conferences?filter=favorites')
-            ->seePageIs('conferences?filter=favorites')
-            ->see($conference->title);
+            ->get('conferences?filter=favorites')
+            ->assertSee($conference->title);
     }
 
     /** @test */
@@ -395,9 +384,8 @@ class ConferenceTest extends IntegrationTestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit('conferences?filter=favorites')
-            ->seePageIs('conferences?filter=favorites')
-            ->dontSee($conference->title);
+            ->get('conferences?filter=favorites')
+            ->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -411,12 +399,11 @@ class ConferenceTest extends IntegrationTestCase
         $user->favoritedConferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit("conferences/{$conference->id}/dismiss");
+            ->get("conferences/{$conference->id}/dismiss");
 
         $this->actingAs($user)
-            ->visit('conferences?filter=dismissed')
-            ->seePageIs('conferences?filter=dismissed')
-            ->dontSee($conference->title);
+            ->get('conferences?filter=dismissed')
+            ->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -430,12 +417,11 @@ class ConferenceTest extends IntegrationTestCase
         $user->dismissedConferences()->save($conference);
 
         $this->actingAs($user)
-            ->visit("conferences/{$conference->id}/favorite");
+            ->get("conferences/{$conference->id}/favorite");
 
         $this->actingAs($user)
-            ->visit('conferences?filter=favorites')
-            ->seePageIs('conferences?filter=favorites')
-            ->dontSee($conference->title);
+            ->get('conferences?filter=favorites')
+            ->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -493,10 +479,10 @@ class ConferenceTest extends IntegrationTestCase
         $this->assertEquals('Jan 1 2020 - Jan 3 2020', $conference->event_dates_display);
     }
 
-    function assertConferenceSort($conferences)
+    function assertConferenceSort($conferences, $response)
     {
         foreach ($conferences as $sortPosition => $conference) {
-            $sortedConference = $this->response->original->getData()['conferences']->values()[$sortPosition];
+            $sortedConference = $response->original->getData()['conferences']->values()[$sortPosition];
 
             $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
         }

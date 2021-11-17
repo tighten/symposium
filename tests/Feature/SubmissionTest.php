@@ -8,9 +8,9 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class SubmissionTest extends IntegrationTestCase
+class SubmissionTest extends TestCase
 {
     /** @test */
     function user_can_submit_talks_via_http()

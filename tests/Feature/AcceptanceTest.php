@@ -8,8 +8,9 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
+use Tests\TestCase;
 
-class AcceptanceTest extends IntegrationTestCase
+class AcceptanceTest extends TestCase
 {
     /** @test */
     function can_create_from_submission()
@@ -33,28 +34,6 @@ class AcceptanceTest extends IntegrationTestCase
 
         $this->assertTrue($submission->isAccepted());
         $this->assertEquals($submission->id, $acceptance->submission->id);
-    }
-
-    /** @test */
-    function user_can_mark_talks_as_accepted_via_http()
-    {
-        $user = User::factory()->create();
-        $this->be($user);
-
-        $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
-        $revision = TalkRevision::factory()->create();
-        $talk->revisions()->save($revision);
-        $submission = Submission::factory()->create([
-            'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id,
-        ]);
-
-        $this->post('acceptances', [
-            'submissionId' => $submission->id,
-        ]);
-
-        $this->assertTrue($submission->refresh()->isAccepted());
     }
 
     /** @test */

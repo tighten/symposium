@@ -24,8 +24,8 @@ class CalendarTest extends TestCase
         ]);
 
         $this->actingAs($user)->get('calendar')
-            ->assertResponseOk()
-            ->see('Approved conference')
-            ->dontSee('Unapproved conference');
+            ->assertSuccessful()
+            ->assertSee('Approved conference')
+            ->assertDontSee('Unapproved conference');
     }
 }

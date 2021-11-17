@@ -37,10 +37,9 @@
         "barryvdh/laravel-debugbar": "^3.6",
         "beyondcode/laravel-dump-server": "^1.7",
         "filp/whoops": "^2.14",
-        "laravel/browser-kit-testing": "^6.2",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^5.10",
-        "phpunit/phpunit": "^9.5.10",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.3.3",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1"
     },

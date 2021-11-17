@@ -9,9 +9,9 @@ use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
 use Carbon\Carbon;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class TalkTest extends IntegrationTestCase
+class TalkTest extends TestCase
 {
     /** @test */
     function it_shows_the_talk_title_on_its_page()
@@ -22,9 +22,10 @@ class TalkTest extends IntegrationTestCase
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
-        $this->actingAs($user)
-             ->visit("talks/{$talk->id}")
-             ->see($revision->title);
+        $response = $this->actingAs($user)
+            ->get("talks/{$talk->id}");
+
+        $response->assertSee($revision->title);
     }
 
     /** @test */
@@ -69,17 +70,17 @@ class TalkTest extends IntegrationTestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->visit('/talks/create')
-            ->type('Your Best Talk Now', '#title')
-            ->select('keynote', '#type')
-            ->select('intermediate', '#level')
-            ->type('No, really.', '#description')
-            ->type('123', '#length')
-            ->type('http://www.google.com/slides', '#slides')
-            ->type("It'll be awesome!", '#organizer_notes')
-            ->press('Create');
+            ->post('talks', [
+                'title' => 'Your Best Talk Now',
+                'type' => 'keynote',
+                'level' => 'intermediate',
+                'description' => 'No, really.',
+                'length' => '123',
+                'slides' => 'http://www.google.com/slides',
+                'organizer_notes' => "It'll be awesome!",
+            ]);
 
-        $this->seeInDatabase('talk_revisions', [
+        $this->assertDatabaseHas('talk_revisions', [
             'title' => 'Your Best Talk Now',
             'type' => 'keynote',
             'level' => 'intermediate',
@@ -91,9 +92,9 @@ class TalkTest extends IntegrationTestCase
 
         $talk = Talk::first();
 
-        $this->visit("talks/{$talk->id}")
-            ->see('Your Best Talk Now')
-            ->see('No, really.');
+        $this->get("talks/{$talk->id}")
+            ->assertSee('Your Best Talk Now')
+            ->assertSee('No, really.');
     }
 
     /** @test */
@@ -108,9 +109,9 @@ class TalkTest extends IntegrationTestCase
 
         $this->be($user);
 
-        $this->visit("talks/{$talk->id}/delete");
+        $this->get("talks/{$talk->id}/delete");
 
-        $this->notSeeInDatabase('talks', $talk->toArray());
+        $this->assertDatabaseMissing('talks', $talk->toArray());
         $this->assertEquals(0, TalkRevision::count());
     }
 
@@ -126,15 +127,9 @@ class TalkTest extends IntegrationTestCase
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
-            ->visit("/talks/{$talk->id}/edit")
-            ->type('New', '#title')
-            ->select($revision->type, '#type')
-            ->select($revision->level, '#level')
-            ->type($revision->description, '#description')
-            ->type($revision->length, '#length')
-            ->type($revision->slides, '#slides')
-            ->type($revision->organizer_notes, '#organizer_notes')
-            ->press('Update');
+            ->put("/talks/{$talk->id}", array_merge($revision->toArray(), [
+                'title' => 'New',
+            ]));
 
         $talk = Talk::first();
 

@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class UserTest extends IntegrationTestCase
+class UserTest extends TestCase
 {
     /** @test */
     function it_checks_if_user_is_admin()
