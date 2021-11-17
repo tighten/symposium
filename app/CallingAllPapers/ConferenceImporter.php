@@ -32,8 +32,24 @@ class ConferenceImporter
         $validator = Validator::make([
             'cfp_ends_at' => $event->dateCfpEnd,
             'starts_at' => $event->dateEventStart,
+            'ends_at' => $event->dateEventEnd,
         ], [
-            'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
+            'cfp_ends_at' => [
+                'nullable',
+                'date',
+                'after:cfp_starts_at',
+                'before:starts_at',
+            ],
+            'ends_at' => [
+                'nullable',
+                'date',
+                'after_or_equal:start_date',
+                function ($attribute, $value, $fail) use ($event) {
+                    if (Carbon::parse($value)->greaterThan(Carbon::parse($event->dateEventStart)->addYears(2))) {
+                        $fail('Conference duration cannot be more than 2 years.');
+                    }
+                },
+            ],
         ]);
 
         if ($validator->fails()) {

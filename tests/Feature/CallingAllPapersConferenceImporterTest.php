@@ -74,21 +74,27 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
     }
 
-    /** @test */
-    function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
-    {
-        $this->mockClient();
+    /*
+    * The validation for cfp_ends_at requires that the cfp_end date be before start date
+    * which makes this test no longer necessary, since it won't be possible to have a cfp end date prior
+    * to 1970
+    */
 
-        $importer = new ConferenceImporter(1);
-        $event = $this->eventStub;
-        $event->dateEventStart = '1970-01-01T00:00:00+00:00';
-        $importer->import($event);
+    // /** @test */
+    // function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
+    // {
+    //     $this->mockClient();
 
-        $this->assertEquals(1, Conference::count());
-        $conference = Conference::first();
+    //     $importer = new ConferenceImporter(1);
+    //     $event = $this->eventStub;
+    //     $event->dateEventStart = '1970-01-01T00:00:00+00:00';
+    //     $importer->import($event);
 
-        $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
-    }
+    //     $this->assertEquals(1, Conference::count());
+    //     $conference = Conference::first();
+
+    //     $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
+    // }
 
     /** @test */
     function it_imports_basic_text_fields()
@@ -202,7 +208,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     {
         $event = $this->eventStub;
 
-        $event->dateCfpEnd = '1970-01-01T00:00:00+00:00';
+        $event->dateCfpStart = '1970-01-01T00:00:00+00:00';
 
         $this->mockClient($event);
 
@@ -211,7 +217,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $conference = Conference::first();
 
-        $this->assertNull($conference->cfp_ends_at);
+        $this->assertNull($conference->cfp_starts_at);
     }
 
     /** @test */
@@ -277,6 +283,20 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
         $event->dateEventStart = '2017-09-01T00:00:00-04:00';
+        $importer->import($event);
+
+        $this->assertEquals(0, Conference::count());
+    }
+
+    /** @test */
+    function conferences_with_over_2_year_duration_are_not_imported()
+    {
+        $this->mockClient();
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->dateEventStart = '2017-10-01T00:00:00-04:00';
+        $event->dateEventEnd = '2020-10-01T00:00:00-04:00';
         $importer->import($event);
 
         $this->assertEquals(0, Conference::count());
