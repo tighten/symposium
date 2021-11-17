@@ -62,7 +62,7 @@ class AccountTest extends TestCase
 
         $response->assertRedirect('account');
 
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseHas(User::class, [
             'name' => 'Kevin Bacon',
             'email' => 'KevinBacon@yahoo.com',
             'enable_profile' => 1,

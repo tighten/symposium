@@ -80,7 +80,7 @@ class TalkTest extends TestCase
                 'organizer_notes' => "It'll be awesome!",
             ]);
 
-        $this->assertDatabaseHas('talk_revisions', [
+        $this->assertDatabaseHas(TalkRevision::class, [
             'title' => 'Your Best Talk Now',
             'type' => 'keynote',
             'level' => 'intermediate',

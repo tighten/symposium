@@ -22,7 +22,7 @@ class BiosTest extends TestCase
 
         $response->assertRedirectContains('bios/');
 
-        $this->assertDatabaseHas('bios', [
+        $this->assertDatabaseHas(Bio::class, [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
             'public' => '0',
@@ -43,7 +43,7 @@ class BiosTest extends TestCase
 
         $response->assertRedirectContains('bios/');
 
-        $this->assertDatabaseHas('bios', [
+        $this->assertDatabaseHas(Bio::class, [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
             'public' => '1',

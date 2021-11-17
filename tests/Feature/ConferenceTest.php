@@ -21,7 +21,7 @@ class ConferenceTest extends TestCase
                 'url' => 'http://dasconf.org',
             ]);
 
-        $this->assertDatabaseHas('conferences', [
+        $this->assertDatabaseHas(Conference::class, [
             'title' => 'Das Conf',
             'description' => 'A very good conference about things',
         ]);
@@ -41,7 +41,7 @@ class ConferenceTest extends TestCase
                 'longitude' => '-122.45050129999998',
             ]);
 
-        $this->assertDatabaseHas('conferences', [
+        $this->assertDatabaseHas(Conference::class, [
             'title' => 'JediCon',
             'description' => 'The force is strong here',
             'url' => 'https://jedicon.com',
@@ -89,12 +89,12 @@ class ConferenceTest extends TestCase
                 'url' => $conference->url,
             ]);
 
-        $this->assertDatabaseHas('conferences', [
+        $this->assertDatabaseHas(Conference::class, [
             'title' => 'Laracon',
             'description' => 'A conference about Laravel',
         ]);
 
-        $this->assertDatabaseMissing('conferences', [
+        $this->assertDatabaseMissing(Conference::class, [
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
         ]);
@@ -115,7 +115,7 @@ class ConferenceTest extends TestCase
                 'longitude' => '-122.45050129999998',
             ]));
 
-        $this->assertDatabaseHas('conferences', [
+        $this->assertDatabaseHas(Conference::class, [
             'title' => 'Updated JediCon',
             'latitude' => '37.7991531',
             'longitude' => '-122.45050129999998',
