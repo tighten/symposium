@@ -50,14 +50,15 @@ Route::middleware('auth')->group(function () {
     Route::get('account/export', [AccountController::class, 'export'])->name('account.export');
     Route::get('account/oauth-settings', [AccountController::class, 'oauthSettings'])->name('account.oauth-settings');
 
-    Route::post('acceptances', [AcceptancesController::class, 'store']);
     Route::delete('acceptances/{acceptance}', [AcceptancesController::class, 'destroy']);
 
-    Route::post('rejections', [RejectionController::class, 'store']);
     Route::delete('rejections/{rejection}', [RejectionController::class, 'destroy']);
 
     Route::post('submissions', [SubmissionsController::class, 'store']);
     Route::delete('submissions/{submission}', [SubmissionsController::class, 'destroy']);
+    Route::put('submissions/{submission}', [SubmissionsController::class, 'update'])->name('submission.update');
+    Route::get('submissions/{submission}', [SubmissionsController::class, 'edit'])->name('submission.edit');
+
 
     Route::get('conferences/{id}/favorite', [ConferencesController::class, 'favorite']);
     Route::get('conferences/{id}/unfavorite', [ConferencesController::class, 'unfavorite']);

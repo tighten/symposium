@@ -8,6 +8,11 @@ class Submission extends UuidBase
 {
     use HasFactory;
 
+    const RESPONSES = [
+        'acceptance' => Acceptance::class,
+        'rejection' => Rejection::class,
+    ];
+
     protected $table = 'submissions';
 
     protected $primaryKey = 'id';
@@ -83,5 +88,11 @@ class Submission extends UuidBase
     public function isRejected()
     {
         return $this->rejection_id !== null;
+    }
+
+    public function getReasonAttribute()
+    {
+        return data_get($this, 'acceptance.reason') ??
+            data_get($this, 'rejection.reason');
     }
 }
