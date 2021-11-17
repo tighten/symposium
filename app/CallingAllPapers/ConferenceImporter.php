@@ -39,6 +39,11 @@ class ConferenceImporter
                 'date',
                 'after:cfp_starts_at',
                 'before:starts_at',
+                function ($attribute, $value, $fail) use ($event) {
+                    if (Carbon::parse($value)->greaterThan(Carbon::parse($event->dateCfpStart)->addYears(2))) {
+                        $fail('CFP duration cannot be more than 2 years.');
+                    }
+                },
             ],
             'ends_at' => [
                 'nullable',
