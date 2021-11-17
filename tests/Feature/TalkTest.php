@@ -102,7 +102,7 @@ class TalkTest extends TestCase
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
-        TalkRevision::factory()->create([
+        $talkRevision = TalkRevision::factory()->create([
             'title' => 'zyxwv',
             'talk_id' => $talk->id,
         ]);
@@ -111,8 +111,8 @@ class TalkTest extends TestCase
 
         $this->get("talks/{$talk->id}/delete");
 
-        $this->assertDatabaseMissing('talks', $talk->toArray());
-        $this->assertEquals(0, TalkRevision::count());
+        $this->assertDeleted($talk);
+        $this->assertDeleted($talkRevision);
     }
 
     /** @test */

@@ -95,10 +95,7 @@ class BiosTest extends TestCase
 
         $this->actingAs($user)->get("bios/{$bio->id}/delete");
 
-        $this->assertDatabaseMissing('bios', [
-            'nickname' => 'Jimmy Buffet',
-            'body' => '5 oclock somewhere',
-        ]);
+        $this->assertDeleted($bio);
     }
 
     /** @test */
@@ -117,9 +114,7 @@ class BiosTest extends TestCase
             ->delete("bios/{$bio->id}");
 
         $response->assertNotFound();
-        $this->assertDatabaseHas('bios', [
-            'nickname' => 'Jimmy Buffet',
-            'body' => '5 oclock somewhere',
-        ]);
+
+        $this->assertModelExists($bio);
     }
 }

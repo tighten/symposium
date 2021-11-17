@@ -49,6 +49,7 @@ class SubmissionTest extends TestCase
 
         $this->delete("submissions/{$submission->id}");
 
+        $this->assertDeleted($submission);
         $this->assertTrue($conference->submissions->isEmpty());
     }
 
@@ -100,6 +101,7 @@ class SubmissionTest extends TestCase
 
         $this->delete("submissions/{$submission->id}");
 
+        $this->assertModelExists($submission);
         $this->assertEquals(1, $conference->submissions->count());
         $this->assertTrue($conference->submissions->contains($submission));
     }
