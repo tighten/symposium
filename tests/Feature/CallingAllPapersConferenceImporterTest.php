@@ -74,27 +74,22 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
     }
 
-    /*
-    * The validation for cfp_ends_at requires that the cfp_end date be before start date
-    * which makes this test no longer necessary, since it won't be possible to have a cfp end date prior
-    * to 1970
-    */
+    /** @test */
+    function epoch_start_dates_are_nullified_prior_to_validation()
+    {
+        $this->mockClient();
 
-    // /** @test */
-    // function the_id_contains_the_cfp_end_year_when_the_conference_start_date_is_bad()
-    // {
-    //     $this->mockClient();
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->dateEventStart = '1970-01-01T00:00:00+00:00'; // Jan 1, 1970 is the unix epoch start
+        $importer->import($event);
 
-    //     $importer = new ConferenceImporter(1);
-    //     $event = $this->eventStub;
-    //     $event->dateEventStart = '1970-01-01T00:00:00+00:00';
-    //     $importer->import($event);
+        $this->assertEquals(1, Conference::count());
+        $conference = Conference::first();
 
-    //     $this->assertEquals(1, Conference::count());
-    //     $conference = Conference::first();
-
-    //     $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
-    // }
+        $this->assertNull($conference->date_start);
+        $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
+    }
 
     /** @test */
     function it_imports_basic_text_fields()
@@ -316,5 +311,37 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $importer->import($event);
 
         $this->assertEquals(0, Conference::count());
+    }
+
+    /** @test */
+    function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future()
+    {
+        $this->mockClient();
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->dateCfpStart = null;
+        $event->dateCfpEnd = now()->addMonths(23)->toIso8601String();
+        $event->dateEventStart = now()->addMonths(26)->toIso8601String();
+        $event->dateEventEnd = now()->addMonths(27)->toIso8601String();
+        $importer->import($event);
+
+        $this->assertEquals(1, Conference::count());
+    }
+
+    /** @test */
+    function conferences_with_null_start_are_valid_with_end_less_than_2_years_in_future()
+    {
+        $this->mockClient();
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->dateCfpStart = now()->toIso8601String();
+        $event->dateCfpEnd = now()->addMonths(2)->toIso8601String();
+        $event->dateEventStart = null;
+        $event->dateEventEnd = now()->addMonths(23)->toIso8601String();
+        $importer->import($event);
+
+        $this->assertEquals(1, Conference::count());
     }
 }

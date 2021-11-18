@@ -18,7 +18,7 @@ class ConferenceImporter
         $this->authorId = $authorId ?: auth()->user()->id;
     }
 
-    private static function carbonFromIso($dateFromApi)
+    private static function carbonFromIso(?string $dateFromApi)
     {
         if (! $dateFromApi || $dateFromApi == '1970-01-01T00:00:00+00:00') {
             return null;
@@ -29,31 +29,34 @@ class ConferenceImporter
 
     public function import(Event $event)
     {
+        // Ensure entities (i.e. tests) sharing this object are not affected by directly changing it
+        $event = clone $event;
+
+        $event->dateCfpStart = self::carbonFromIso($event->dateCfpStart);
+        $event->dateCfpEnd = self::carbonFromIso($event->dateCfpEnd);
+        $event->dateEventStart = self::carbonFromIso($event->dateEventStart);
+        $event->dateEventEnd = self::carbonFromIso($event->dateEventEnd);
+
         $validator = Validator::make([
+            'cfp_starts_at' => $event->dateCfpStart,
             'cfp_ends_at' => $event->dateCfpEnd,
             'starts_at' => $event->dateEventStart,
             'ends_at' => $event->dateEventEnd,
         ], [
+            'cfp_starts_at' => ['nullable', 'date'],
             'cfp_ends_at' => [
                 'nullable',
                 'date',
                 'after:cfp_starts_at',
-                'before:starts_at',
-                function ($attribute, $value, $fail) use ($event) {
-                    if (Carbon::parse($value)->greaterThan(Carbon::parse($event->dateCfpStart)->addYears(2))) {
-                        $fail('CFP duration cannot be more than 2 years.');
-                    }
-                },
+                $event->dateEventStart ? 'before:starts_at' : '',
+                'before:' . Carbon::parse($event->dateCfpStart)->addYears(2),
             ],
+            'starts_at' => ['nullable', 'date'],
             'ends_at' => [
                 'nullable',
                 'date',
                 'after_or_equal:start_date',
-                function ($attribute, $value, $fail) use ($event) {
-                    if (Carbon::parse($value)->greaterThan(Carbon::parse($event->dateEventStart)->addYears(2))) {
-                        $fail('Conference duration cannot be more than 2 years.');
-                    }
-                },
+                'before:' . Carbon::parse($event->dateEventStart)->addYears(2),
             ],
         ]);
 
@@ -76,10 +79,10 @@ class ConferenceImporter
         $conference->location = $event->location;
         $conference->latitude = $event->latitude;
         $conference->longitude = $event->longitude;
-        $conference->starts_at = self::carbonFromIso($event->dateEventStart);
-        $conference->ends_at = self::carbonFromIso($event->dateEventEnd);
-        $conference->cfp_starts_at = self::carbonFromIso($event->dateCfpStart);
-        $conference->cfp_ends_at = self::carbonFromIso($event->dateCfpEnd);
+        $conference->starts_at = $event->dateEventStart;
+        $conference->ends_at = $event->dateEventEnd;
+        $conference->cfp_starts_at = $event->dateCfpStart;
+        $conference->cfp_ends_at = $event->dateCfpEnd;
         $conference->author_id = $this->authorId;
     }
 }
