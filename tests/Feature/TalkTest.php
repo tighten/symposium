@@ -17,7 +17,7 @@ class TalkTest extends TestCase
     function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->create();
+        Conference::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
@@ -80,7 +80,7 @@ class TalkTest extends TestCase
                 'organizer_notes' => "It'll be awesome!",
             ]);
 
-        $this->assertDatabaseHas('talk_revisions', [
+        $this->assertDatabaseHas(TalkRevision::class, [
             'title' => 'Your Best Talk Now',
             'type' => 'keynote',
             'level' => 'intermediate',
@@ -102,7 +102,7 @@ class TalkTest extends TestCase
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->create(['author_id' => $user->id]);
-        TalkRevision::factory()->create([
+        $talkRevision = TalkRevision::factory()->create([
             'title' => 'zyxwv',
             'talk_id' => $talk->id,
         ]);
@@ -111,8 +111,8 @@ class TalkTest extends TestCase
 
         $this->get("talks/{$talk->id}/delete");
 
-        $this->assertDatabaseMissing('talks', $talk->toArray());
-        $this->assertEquals(0, TalkRevision::count());
+        $this->assertDeleted($talk);
+        $this->assertDeleted($talkRevision);
     }
 
     /** @test */

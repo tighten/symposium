@@ -62,7 +62,7 @@ class AccountTest extends TestCase
 
         $response->assertRedirect('account');
 
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseHas(User::class, [
             'name' => 'Kevin Bacon',
             'email' => 'KevinBacon@yahoo.com',
             'enable_profile' => 1,
@@ -80,7 +80,7 @@ class AccountTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->put('account/edit', [
+        $this->actingAs($user)->put('account/edit', [
             'name' => $user->name,
             'email' => $user->email,
             'enable_profile' => true,
@@ -157,9 +157,7 @@ class AccountTest extends TestCase
 
         $response->assertRedirect('/');
 
-        $this->assertDatabaseMissing('users', [
-            'email' => $user->email,
-        ]);
+        $this->assertDeleted($user);
     }
 
     /** @test */
@@ -189,17 +187,9 @@ class AccountTest extends TestCase
             ->post('account/delete')
             ->assertRedirect('/');
 
-        $this->assertDatabaseMissing('users', [
-            'email' => $user->email,
-        ]);
-
-        $this->assertDatabaseMissing('talks', [
-            'id' => $talk->id,
-        ]);
-
-        $this->assertDatabaseMissing('bios', [
-            'id' => $bio->id,
-        ]);
+        $this->assertDeleted($user);
+        $this->assertDeleted($talk);
+        $this->assertDeleted($bio);
 
         $this->assertDatabaseMissing('dismissed_conferences', [
             'user_id' => $user->id,
