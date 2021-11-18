@@ -16,7 +16,7 @@ class UsersSeeder extends Seeder
             'email' => 'matt@savemyproposals.com',
         ]);
 
-        User::factory()->times(10)->create([
+        User::factory()->count(10)->create([
             'is_featured' => rand(0, 1),
         ]);
     }

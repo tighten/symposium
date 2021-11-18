@@ -4,13 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Conference;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CalendarTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function unapproved_conferences_do_not_appear_on_the_calendar()
     {
@@ -27,10 +24,8 @@ class CalendarTest extends TestCase
         ]);
 
         $this->actingAs($user)->get('calendar')
-            ->assertResponseOk()
-            ->see('Approved conference')
-            ->dontSee('Unapproved conference');
-
-        $this->assertTrue(true);
+            ->assertSuccessful()
+            ->assertSee('Approved conference')
+            ->assertDontSee('Unapproved conference');
     }
 }

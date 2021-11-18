@@ -19,6 +19,8 @@ class CreateConferenceForm
         'ends_at' => ['date', 'after_or_equal:starts_at'],
         'cfp_starts_at' => ['date', 'before:starts_at'],
         'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
+        'latitude' => ['nullable'],
+        'longitude' => ['nullable'],
     ];
 
     private $input;
@@ -45,7 +47,7 @@ class CreateConferenceForm
             throw new ValidationException('Invalid input provided, see errors', $validation->errors());
         }
 
-        $conference = Conference::create(array_merge($this->input, [
+        $conference = Conference::create(array_merge($validation->validated(), [
             'author_id' => $this->user->id,
         ]));
         Event::dispatch('new-conference', [$conference]);

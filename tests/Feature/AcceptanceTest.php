@@ -1,20 +1,19 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\Models\Acceptance;
 use App\Models\Conference;
-use App\Models\Rejection;
 use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class AcceptedRejectedTest extends IntegrationTestCase
+class AcceptanceTest extends TestCase
 {
     /** @test */
-    function an_accepted_submission_cannot_be_rejected()
+    function can_create_from_submission()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -35,16 +34,10 @@ class AcceptedRejectedTest extends IntegrationTestCase
 
         $this->assertTrue($submission->isAccepted());
         $this->assertEquals($submission->id, $acceptance->submission->id);
-
-        $this->post('rejections', [
-            'submissionId' => $submission->id,
-        ])->assertResponseStatus(403);
-
-        $this->assertFalse($submission->refresh()->isRejected());
     }
 
     /** @test */
-    function a_rejected_submission_cannot_be_accepted()
+    function user_can_remove_acceptance_via_http()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -54,21 +47,15 @@ class AcceptedRejectedTest extends IntegrationTestCase
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
+        $acceptance = Acceptance::factory()->create();
+
         $submission = Submission::factory()->create([
             'talk_revision_id' => $revision->id,
             'conference_id' => $conference->id,
+            'acceptance_id' => $acceptance->id,
         ]);
 
-        $rejection = Rejection::createFromSubmission($submission);
-
-        $submission = $submission->refresh();
-
-        $this->assertTrue($submission->isRejected());
-        $this->assertEquals($submission->id, $rejection->submission->id);
-
-        $this->post('acceptances', [
-            'submissionId' => $submission->id,
-        ])->assertResponseStatus(403);
+        $this->delete("acceptances/{$acceptance->id}");
 
         $this->assertFalse($submission->refresh()->isAccepted());
     }

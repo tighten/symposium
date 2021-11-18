@@ -7,9 +7,9 @@ use App\Models\User;
 use App\Notifications\CFPsAreOpen;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class NotificationTest extends IntegrationTestCase
+class NotificationTest extends TestCase
 {
     /** @test */
     function command_will_trigger_notification_for_approved_and_not_shared_conference()

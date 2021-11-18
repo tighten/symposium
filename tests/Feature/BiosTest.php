@@ -4,24 +4,25 @@ namespace Tests\Feature;
 
 use App\Models\Bio;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class BiosTest extends IntegrationTestCase
+class BiosTest extends TestCase
 {
     /** @test */
     function user_can_create_a_private_bio()
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)
-            ->visit('/bios/create')
-            ->type('Some Nickname', '#nickname')
-            ->type('A big chunk of bio-friendly text', '#body')
-            ->select('0', '#public')
-            ->press('Create');
-        //->seePageIs('bios'); //not sure how to test the string /bios/x
+        $response = $this->actingAs($user)
+            ->post('bios', [
+                'nickname' => 'Some Nickname',
+                'body' => 'A big chunk of bio-friendly text',
+                'public' => '0',
+            ]);
 
-        $this->seeInDatabase('bios', [
+        $response->assertRedirectContains('bios/');
+
+        $this->assertDatabaseHas(Bio::class, [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
             'public' => '0',
@@ -33,15 +34,16 @@ class BiosTest extends IntegrationTestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)
-            ->visit('/bios/create')
-            ->type('Some Nickname', '#nickname')
-            ->type('A big chunk of bio-friendly text', '#body')
-            ->select('1', '#public')
-            ->press('Create');
-        //->seePageIs('bios'); //not sure how to test the string /bios/x
+        $response = $this->actingAs($user)
+            ->post('bios', [
+                'nickname' => 'Some Nickname',
+                'body' => 'A big chunk of bio-friendly text',
+                'public' => '1',
+            ]);
 
-        $this->seeInDatabase('bios', [
+        $response->assertRedirectContains('bios/');
+
+        $this->assertDatabaseHas(Bio::class, [
             'nickname' => 'Some Nickname',
             'body' => 'A big chunk of bio-friendly text',
             'public' => '1',
@@ -56,13 +58,13 @@ class BiosTest extends IntegrationTestCase
         $user->bios()->save($bio);
 
         $this->actingAs($user)
-            ->visit("/bios/{$bio->id}/edit")
-            ->type('Fresh Prince', '#nickname')
-            ->type('Born and raised in West Philidelphia, I spend a large majority of my time on the playground.', '#body')
-            ->select('1', '#public')
-            ->press('Update');
+            ->put("bios/{$bio->id}", [
+                'nickname' => 'Fresh Prince',
+                'body' => 'Born and raised in West Philidelphia, I spend a large majority of my time on the playground.',
+                'public' => '1',
+            ]);
 
-        $this->seeInDatabase('bios', [
+        $this->assertDatabaseHas('bios', [
             'nickname' => 'Fresh Prince',
             'body' => 'Born and raised in West Philidelphia, I spend a large majority of my time on the playground.',
         ]);
@@ -76,8 +78,8 @@ class BiosTest extends IntegrationTestCase
 
         $bio = Bio::factory()->create(['user_id' => $userA->id]);
 
-        $responseGet = $this->actingAs($userB)->get("/bios/{$bio->id}/edit");
-        $responseGet->assertResponseStatus(404); //gives 404, should this be a 403?
+        $response = $this->actingAs($userB)->get("/bios/{$bio->id}/edit");
+        $response->assertNotFound();
     }
 
     /** @test */
@@ -91,11 +93,9 @@ class BiosTest extends IntegrationTestCase
             'public' => 0,
         ]);
 
-        $this->actingAs($user)->visit("/bios/{$bio->id}/delete");
-        $this->missingFromDatabase('bios', [
-            'nickname' => 'Jimmy Buffet',
-            'body' => '5 oclock somewhere',
-        ]);
+        $this->actingAs($user)->get("bios/{$bio->id}/delete");
+
+        $this->assertDeleted($bio);
     }
 
     /** @test */
@@ -110,10 +110,11 @@ class BiosTest extends IntegrationTestCase
             'public' => 0,
         ]);
 
-        $this->actingAs($userB)->call('delete', "/bios/{$bio->id}");
-        $this->seeInDatabase('bios', [
-            'nickname' => 'Jimmy Buffet',
-            'body' => '5 oclock somewhere',
-        ]);
+        $response = $this->actingAs($userB)
+            ->delete("bios/{$bio->id}");
+
+        $response->assertNotFound();
+
+        $this->assertModelExists($bio);
     }
 }

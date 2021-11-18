@@ -2,20 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Conference;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ConferenceFactory extends Factory
 {
-    protected $model = Conference::class;
-
     public function definition()
     {
         return [
-            'author_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'author_id' => User::factory(),
             'title' => 'Dummy Conference',
             'description' => $this->faker->sentence,
             'url' => $this->faker->url,

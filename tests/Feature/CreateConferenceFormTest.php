@@ -7,9 +7,9 @@ use App\Models\Conference;
 use App\Models\User;
 use App\Services\CreateConferenceForm;
 use DateTime;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class CreateConferenceFormTest extends IntegrationTestCase
+class CreateConferenceFormTest extends TestCase
 {
     /** @test */
     function conference_title_is_required()
