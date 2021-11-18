@@ -22,21 +22,31 @@ class UserFactory extends Factory
         ];
     }
 
-    public function wantsNotifications()
-    {
-        return $this->state(function () {
-            return [
-                'wants_notifications' => true,
-            ];
-        });
-    }
-
     public function admin()
     {
-        return $this->state(function () {
-            return [
-                'role' => User::ADMIN_ROLE,
-            ];
-        });
+        return $this->state([
+            'role' => User::ADMIN_ROLE,
+        ]);
+    }
+
+    public function wantsNotifications()
+    {
+        return $this->state([
+            'wants_notifications' => true,
+        ]);
+    }
+
+    public function enableProfile()
+    {
+        return $this->state([
+            'enable_profile' => true,
+        ]);
+    }
+
+    public function disableProfile()
+    {
+        return $this->state([
+            'enable_profile' => false,
+        ]);
     }
 }

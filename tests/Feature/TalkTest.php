@@ -18,7 +18,7 @@ class TalkTest extends TestCase
     {
         $user = User::factory()->create();
         Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user->id)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -32,11 +32,11 @@ class TalkTest extends TestCase
     function user_talks_are_sorted_alphabetically()
     {
         $user = User::factory()->create();
-        $talk1 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk1 = Talk::factory()->author($user->id)->create();
         $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk2 = Talk::factory()->author($user->id)->create();
         $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
@@ -51,11 +51,11 @@ class TalkTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $talk1 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk1 = Talk::factory()->author($user->id)->create();
         $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk2 = Talk::factory()->author($user->id)->create();
         $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
@@ -101,7 +101,7 @@ class TalkTest extends TestCase
     function user_can_delete_a_talk()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user->id)->create();
         $talkRevision = TalkRevision::factory()->create([
             'title' => 'zyxwv',
             'talk_id' => $talk->id,
@@ -119,7 +119,7 @@ class TalkTest extends TestCase
     function user_can_save_a_new_revision_of_a_talk()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user->id)->create();
         $revision = TalkRevision::factory()->create([
             'title' => 'old title',
             'created_at' => Carbon::now()->subMinute(),

@@ -19,7 +19,7 @@ class AcceptanceTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user->id)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -43,7 +43,7 @@ class AcceptanceTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user->id)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 

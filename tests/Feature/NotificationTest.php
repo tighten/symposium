@@ -16,7 +16,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
-        $conference = Conference::factory()->create(['is_approved' => true, 'is_shared' => false]);
+        $conference = Conference::factory()->approved()->notShared()->create();
 
         Artisan::call('symposium:notifyCfps');
 
@@ -29,7 +29,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->create();
-        Conference::factory()->create(['is_approved' => false]);
+        Conference::factory()->notApproved()->create();
 
         Artisan::call('symposium:notifyCfps');
 
@@ -41,10 +41,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->create();
-        Conference::factory()->create([
-            'is_approved' => false,
-            'is_shared' => false,
-        ]);
+        Conference::factory()->notApproved()->notShared()->create();
 
         Artisan::call('symposium:notifyCfps');
 
@@ -56,7 +53,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
-        Conference::factory()->closedCFP()->create(['is_approved' => true]);
+        Conference::factory()->approved()->closedCFP()->create();
 
         Artisan::call('symposium:notifyCfps');
 
@@ -68,7 +65,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
-        Conference::factory()->noCFPDates()->create(['is_approved' => true]);
+        Conference::factory()->approved()->noCFPDates()->create();
 
         Artisan::call('symposium:notifyCfps');
 
@@ -80,7 +77,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->create();
-        Conference::factory()->create(['is_approved' => true]);
+        Conference::factory()->approved()->create();
 
         Artisan::call('symposium:notifyCfps');
 
