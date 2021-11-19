@@ -56,6 +56,7 @@ class ConferenceTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
+            ->from('conferences/create')
             ->post('conferences', [
                 'title' => 'JediCon',
                 'description' => 'The force is strong here',
@@ -65,9 +66,305 @@ class ConferenceTest extends TestCase
             ]);
 
         $response->assertRedirect('conferences/create');
+        $response->assertSessionHasErrors('ends_at');
         $this->assertDatabaseMissing('conferences', [
             'title' => 'JediCon',
         ]);
+    }
+
+    /** @test */
+    function conference_title_is_required()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+        ]);
+
+        $response->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    function conference_description_is_required()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'url' => 'http://example.com',
+        ]);
+
+        $response->assertSessionHasErrors('description');
+    }
+
+    /** @test */
+    function conference_url_is_required()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+        ]);
+
+        $response->assertSessionHasErrors('url');
+    }
+
+    /** @test */
+    function conference_start_date_must_be_a_valid_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => 'potato',
+        ]);
+
+        $response->assertSessionHasErrors('starts_at');
+    }
+
+    /** @test */
+    function conference_end_date_must_be_a_valid_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'ends_at' => 'potato',
+        ]);
+
+        $response->assertSessionHasErrors('ends_at');
+    }
+
+    /** @test */
+    function conference_end_date_must_not_be_before_start_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-01',
+        ]);
+
+        $response->assertSessionHasErrors('ends_at');
+    }
+
+    /** @test */
+    function conference_can_be_a_single_day_conference()
+    {
+        $user = User::factory()->create();
+
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04 00:00:00',
+            'ends_at' => '2015-02-04 00:00:00',
+        ];
+
+        $this->actingAs($user)->post('conferences', $input);
+
+        $this->assertDatabaseHas(Conference::class, $input);
+    }
+
+    /** @test */
+    function conference_cfp_start_date_must_be_a_valid_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'cfp_starts_at' => 'potato',
+        ]);
+
+        $response->assertSessionHasErrors('cfp_starts_at');
+    }
+
+    /** @test */
+    function conference_cfp_end_date_must_be_a_valid_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'cfp_ends_at' => 'potato',
+        ]);
+
+        $response->assertSessionHasErrors('cfp_ends_at');
+    }
+
+    /** @test */
+    function conference_cfp_end_date_must_not_be_before_cfp_start_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'cfp_starts_at' => '2015-01-18',
+            'cfp_ends_at' => '2015-01-15',
+        ]);
+
+        $response->assertSessionHasErrors('cfp_ends_at');
+    }
+
+    /** @test */
+    function conference_cfp_start_date_must_be_before_the_conference_start_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-05',
+            'cfp_starts_at' => '2015-02-06',
+        ]);
+
+        $response->assertSessionHasErrors('cfp_starts_at');
+    }
+
+    /** @test */
+    function conference_cfp_end_date_must_be_before_the_conference_start_date()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('conferences', [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-04',
+            'ends_at' => '2015-02-05',
+            'cfp_ends_at' => '2015-02-06',
+        ]);
+
+        $response->assertSessionHasErrors('cfp_ends_at');
+    }
+
+    /** @test */
+    function it_creates_a_conference_with_the_minimum_required_input()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+        ];
+
+        $this->actingAs($user)->post('conferences', $input);
+
+        $this->assertDatabaseHas(Conference::class, $input);
+    }
+
+    /** @test */
+    function conference_dates_are_saved_if_provided()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '2015-02-01 00:00:00',
+            'ends_at' => '2015-02-04 00:00:00',
+            'cfp_starts_at' => '2015-01-15 00:00:00',
+            'cfp_ends_at' => '2015-01-18 00:00:00',
+        ];
+
+        $this->actingAs($user)->post('conferences', $input);
+
+        $this->assertDatabaseHas(Conference::class, $input);
+    }
+
+    /** @test */
+    function conference_cfp_url_is_saved_if_provided()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'cfp_url' => 'http://example.com/cfp',
+        ];
+
+        $this->actingAs($user)->post('conferences', $input);
+
+        $this->assertDatabaseHas(Conference::class, $input);
+    }
+
+    /** @test */
+    function empty_dates_are_treated_as_null()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => '',
+            'ends_at' => '',
+            'cfp_starts_at' => '',
+            'cfp_ends_at' => '',
+        ];
+
+        $this->actingAs($user)->post('conferences', $input);
+
+        $this->assertDatabaseHas(Conference::class, [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => null,
+            'ends_at' => null,
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+        ]);
+    }
+
+    /** @test */
+    function non_admins_cannot_submit_admin_only_fields()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'is_approved' => true,
+            'is_shared' => true,
+        ];
+
+        $response = $this->actingAs($user)->post('conferences', $input);
+
+        $conference = Conference::firstWhere(['title' => 'AwesomeConf 2015']);
+        $this->assertFalse($conference->is_approved);
+        $this->assertFalse($conference->is_shared);
+    }
+
+    /** @test */
+    function creating_a_conference_redirects_to_the_new_conference()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+        ];
+
+        $response = $this->actingAs($user)->post('conferences', $input);
+
+        $conference = Conference::firstWhere($input);
+        $response->assertRedirect("conferences/{$conference->id}");
     }
 
     /** @test */

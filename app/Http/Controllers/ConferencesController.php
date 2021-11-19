@@ -2,30 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\ValidationException;
+use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
-use App\Services\CreateConferenceForm;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class ConferencesController extends BaseController
 {
-    protected $conference_rules = [
-        'title' => ['required'],
-        'description' => ['required'],
-        'url' => ['required', 'url'],
-        'location' => [],
-        'cfp_url' => ['nullable', 'url'],
-        'starts_at' => ['nullable', 'date'],
-        'ends_at' => ['nullable', 'date', 'after_or_equal:starts_at'],
-        'cfp_starts_at' => ['nullable', 'date', 'before:starts_at'],
-        'cfp_ends_at' => ['nullable', 'date', 'after:cfp_starts_at', 'before:starts_at'],
-        'latitude' => ['nullable'],
-        'longitude' => ['nullable'],
-    ];
-
     public function index(Request $request)
     {
         switch ($request->input('filter')) {
@@ -79,18 +65,13 @@ class ConferencesController extends BaseController
         ]);
     }
 
-    public function store(Request $request)
+    public function store(SaveConferenceRequest $request)
     {
-        $form = CreateConferenceForm::fillOut($request->all(), auth()->user());
+        $conference = Conference::create(array_merge($request->validated(), [
+            'author_id' => auth()->user()->id,
+        ]));
 
-        try {
-            $conference = $form->complete();
-        } catch (ValidationException $e) {
-            return redirect('conferences/create')
-                ->withErrors($e->errors())
-                ->withInput();
-        }
-
+        Event::dispatch('new-conference', [$conference]);
         Session::flash('success-message', 'Successfully created new conference.');
 
         return redirect('conferences/' . $conference->id);
@@ -133,10 +114,8 @@ class ConferencesController extends BaseController
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, SaveConferenceRequest $request)
     {
-        $validated = $this->validate($request, $this->conference_rules);
-
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
 
@@ -147,7 +126,7 @@ class ConferencesController extends BaseController
         }
 
         // Save
-        $conference->fill($validated);
+        $conference->fill($request->validated());
 
         if (auth()->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');
