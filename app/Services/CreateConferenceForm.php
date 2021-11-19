@@ -15,10 +15,10 @@ class CreateConferenceForm
         'url' => ['required', 'url'],
         'cfp_url' => ['nullable', 'url'],
         'location' => [],
-        'starts_at' => ['date'],
-        'ends_at' => ['date', 'after_or_equal:starts_at'],
-        'cfp_starts_at' => ['date', 'before:starts_at'],
-        'cfp_ends_at' => ['date', 'after:cfp_starts_at', 'before:starts_at'],
+        'starts_at' => ['nullable', 'date'],
+        'ends_at' => ['nullable', 'date', 'after_or_equal:starts_at'],
+        'cfp_starts_at' => ['nullable', 'date', 'before:starts_at'],
+        'cfp_ends_at' => ['nullable', 'date', 'after:cfp_starts_at', 'before:starts_at'],
         'latitude' => ['nullable'],
         'longitude' => ['nullable'],
     ];
@@ -30,8 +30,6 @@ class CreateConferenceForm
     {
         $this->input = $input;
         $this->user = $user;
-        $this->guardAdminFields();
-        $this->removeEmptyFields();
     }
 
     public static function fillOut($input, $user)
@@ -53,18 +51,5 @@ class CreateConferenceForm
         Event::dispatch('new-conference', [$conference]);
 
         return $conference;
-    }
-
-    private function guardAdminFields()
-    {
-        if (! $this->user->isAdmin()) {
-            unset($this->input['is_approved']);
-            unset($this->input['is_shared']);
-        }
-    }
-
-    private function removeEmptyFields()
-    {
-        $this->input = array_filter($this->input);
     }
 }

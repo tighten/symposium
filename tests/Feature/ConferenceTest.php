@@ -331,6 +331,25 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    function non_admins_cannot_submit_admin_only_fields()
+    {
+        $user = User::factory()->create();
+        $input = [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'is_approved' => true,
+            'is_shared' => true,
+        ];
+
+        $response = $this->actingAs($user)->post('conferences', $input);
+
+        $conference = Conference::firstWhere(['title' => 'AwesomeConf 2015']);
+        $this->assertFalse($conference->is_approved);
+        $this->assertFalse($conference->is_shared);
+    }
+
+    /** @test */
     function creating_a_conference_redirects_to_the_new_conference()
     {
         $user = User::factory()->create();
