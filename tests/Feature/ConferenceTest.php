@@ -2,12 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Exceptions\ValidationException;
 use App\Models\Conference;
 use App\Models\User;
-use App\Services\CreateConferenceForm;
 use Carbon\Carbon;
-use DateTime;
 use Tests\TestCase;
 
 class ConferenceTest extends TestCase
@@ -76,329 +73,224 @@ class ConferenceTest extends TestCase
     /** @test */
     function conference_title_is_required()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('title', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('title');
+        $response->assertSessionHasErrors('title');
     }
 
     /** @test */
     function conference_description_is_required()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'url' => 'http://example.com',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('description', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('description');
+        $response->assertSessionHasErrors('description');
     }
 
     /** @test */
     function conference_url_is_required()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('url', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('url');
+        $response->assertSessionHasErrors('url');
     }
 
     /** @test */
     function conference_start_date_must_be_a_valid_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'starts_at' => 'potato',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('starts_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('starts_at');
+        $response->assertSessionHasErrors('starts_at');
     }
 
     /** @test */
     function conference_end_date_must_be_a_valid_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'ends_at' => 'potato',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('ends_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('ends_at');
+        $response->assertSessionHasErrors('ends_at');
     }
 
     /** @test */
     function conference_end_date_must_not_be_before_start_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'starts_at' => '2015-02-04',
             'ends_at' => '2015-02-01',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('ends_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('ends_at');
+        $response->assertSessionHasErrors('ends_at');
     }
 
     /** @test */
     function conference_can_be_a_single_day_conference()
     {
-        $conferenceCount = Conference::count();
+        $user = User::factory()->create();
+
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
-            'starts_at' => '2015-02-04',
-            'ends_at' => '2015-02-04',
+            'starts_at' => '2015-02-04 00:00:00',
+            'ends_at' => '2015-02-04 00:00:00',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-        $form->complete();
+        $this->actingAs($user)->post('conferences', $input);
 
-        $this->assertCount($conferenceCount + 1, Conference::all());
+        $this->assertDatabaseHas(Conference::class, $input);
     }
 
     /** @test */
     function conference_cfp_start_date_must_be_a_valid_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'cfp_starts_at' => 'potato',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('cfp_starts_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('cfp_starts_at');
+        $response->assertSessionHasErrors('cfp_starts_at');
     }
 
     /** @test */
     function conference_cfp_end_date_must_be_a_valid_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'cfp_ends_at' => 'potato',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('cfp_ends_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('cfp_ends_at');
+        $response->assertSessionHasErrors('cfp_ends_at');
     }
 
     /** @test */
     function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'cfp_starts_at' => '2015-01-18',
             'cfp_ends_at' => '2015-01-15',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('cfp_ends_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('cfp_ends_at');
+        $response->assertSessionHasErrors('cfp_ends_at');
     }
 
     /** @test */
     function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'starts_at' => '2015-02-04',
             'ends_at' => '2015-02-05',
             'cfp_starts_at' => '2015-02-06',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('cfp_starts_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('cfp_starts_at');
+        $response->assertSessionHasErrors('cfp_starts_at');
     }
 
     /** @test */
     function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
 
-        $input = [
+        $response = $this->actingAs($user)->post('conferences', [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
             'starts_at' => '2015-02-04',
             'ends_at' => '2015-02-05',
             'cfp_ends_at' => '2015-02-06',
-        ];
+        ]);
 
-        try {
-            $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertHasError('cfp_ends_at', $e);
-
-            return;
-        }
-
-        $this->validationErrorNotThrown('cfp_ends_at');
+        $response->assertSessionHasErrors('cfp_ends_at');
     }
 
     /** @test */
     function it_creates_a_conference_with_the_minimum_required_input()
     {
+        $user = User::factory()->create();
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-        $form->complete();
+        $this->actingAs($user)->post('conferences', $input);
 
-        $conference = Conference::first();
-        $this->assertEquals('AwesomeConf 2015', $conference->title);
-        $this->assertEquals('The best conference in the world!', $conference->description);
-        $this->assertEquals('http://example.com', $conference->url);
+        $this->assertDatabaseHas(Conference::class, $input);
     }
 
     /** @test */
     function conference_dates_are_saved_if_provided()
     {
+        $user = User::factory()->create();
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
-            'starts_at' => '2015-02-01',
-            'ends_at' => '2015-02-04',
-            'cfp_starts_at' => '2015-01-15',
-            'cfp_ends_at' => '2015-01-18',
+            'starts_at' => '2015-02-01 00:00:00',
+            'ends_at' => '2015-02-04 00:00:00',
+            'cfp_starts_at' => '2015-01-15 00:00:00',
+            'cfp_ends_at' => '2015-01-18 00:00:00',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-        $form->complete();
+        $this->actingAs($user)->post('conferences', $input);
 
-        $conference = Conference::first();
-        $this->assertEquals(new DateTime('2015-02-01'), $conference->starts_at);
-        $this->assertEquals(new DateTime('2015-02-04'), $conference->ends_at);
-        $this->assertEquals(new DateTime('2015-01-15'), $conference->cfp_starts_at);
-        $this->assertEquals(new DateTime('2015-01-18'), $conference->cfp_ends_at);
+        $this->assertDatabaseHas(Conference::class, $input);
     }
 
     /** @test */
     function conference_cfp_url_is_saved_if_provided()
     {
+        $user = User::factory()->create();
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -406,16 +298,15 @@ class ConferenceTest extends TestCase
             'cfp_url' => 'http://example.com/cfp',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-        $form->complete();
+        $this->actingAs($user)->post('conferences', $input);
 
-        $conference = Conference::first();
-        $this->assertEquals('http://example.com/cfp', $conference->cfp_url);
+        $this->assertDatabaseHas(Conference::class, $input);
     }
 
     /** @test */
     function empty_dates_are_treated_as_null()
     {
+        $user = User::factory()->create();
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
@@ -426,42 +317,33 @@ class ConferenceTest extends TestCase
             'cfp_ends_at' => '',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-        $form->complete();
+        $this->actingAs($user)->post('conferences', $input);
 
-        $conference = Conference::first();
-        $this->assertNull($conference->starts_at);
-        $this->assertNull($conference->ends_at);
-        $this->assertNull($conference->cfp_starts_at);
-        $this->assertNull($conference->cfp_ends_at);
+        $this->assertDatabaseHas(Conference::class, [
+            'title' => 'AwesomeConf 2015',
+            'description' => 'The best conference in the world!',
+            'url' => 'http://example.com',
+            'starts_at' => null,
+            'ends_at' => null,
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+        ]);
     }
 
     /** @test */
-    function error_messages_are_available_if_creating_a_conference_fails()
+    function creating_a_conference_redirects_to_the_new_conference()
     {
-        $form = CreateConferenceForm::fillOut([], User::factory()->create());
-
-        try {
-            $form->complete();
-        } catch (ValidationException $e) {
-            $this->assertNotEmpty($e->errors());
-        }
-    }
-
-    /** @test */
-    function completing_a_form_returns_the_new_conference()
-    {
+        $user = User::factory()->create();
         $input = [
             'title' => 'AwesomeConf 2015',
             'description' => 'The best conference in the world!',
             'url' => 'http://example.com',
         ];
 
-        $form = CreateConferenceForm::fillOut($input, User::factory()->create());
-        $conference = $form->complete();
+        $response = $this->actingAs($user)->post('conferences', $input);
 
-        $this->assertInstanceOf(Conference::class, $conference);
-        $this->assertNotNull($conference->id);
+        $conference = Conference::firstWhere($input);
+        $response->assertRedirect("conferences/{$conference->id}");
     }
 
     /** @test */
