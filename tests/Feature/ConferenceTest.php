@@ -56,6 +56,7 @@ class ConferenceTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
+            ->from('conferences/create')
             ->post('conferences', [
                 'title' => 'JediCon',
                 'description' => 'The force is strong here',
@@ -65,6 +66,7 @@ class ConferenceTest extends TestCase
             ]);
 
         $response->assertRedirect('conferences/create');
+        $response->assertSessionHasErrors('ends_at');
         $this->assertDatabaseMissing('conferences', [
             'title' => 'JediCon',
         ]);
