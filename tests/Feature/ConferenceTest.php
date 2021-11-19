@@ -75,11 +75,9 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'author_id' => $user->id,
+        $conference = Conference::factory()->author($user)->approved()->create([
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
-            'is_approved' => true,
         ]);
 
         $this->actingAs($user)
@@ -104,9 +102,7 @@ class ConferenceTest extends TestCase
     function location_coordinates_can_be_updated()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->create([
-            'author_id' => $user->id,
-        ]);
+        $conference = Conference::factory()->author($user)->create();
 
         $this->actingAs($user)
             ->put("/conferences/{$conference->id}", array_merge($conference->toArray(), [
@@ -127,11 +123,9 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'author_id' => $user->id,
+        $conference = Conference::factory()->author($user)->approved()->create([
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
-            'is_approved' => true,
             'starts_at' => Carbon::parse('+3 days')->toDateString(),
             'ends_at' => Carbon::parse('+4 days')->toDateString(),
         ]);
@@ -205,7 +199,7 @@ class ConferenceTest extends TestCase
     /** @test */
     function guests_can_view_conference()
     {
-        $conference = Conference::factory()->create(['is_approved' => true]);
+        $conference = Conference::factory()->approved()->create();
 
         $this->get("conferences/{$conference->id}")
             ->assertSee($conference->title);
@@ -216,7 +210,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create(['is_approved' => true]);
+        $conference = Conference::factory()->approved()->create();
         $user->conferences()
             ->save($conference);
 
@@ -235,7 +229,7 @@ class ConferenceTest extends TestCase
     function it_can_pull_only_approved_conferences()
     {
         Conference::factory()->create();
-        Conference::factory()->create(['is_approved' => true]);
+        Conference::factory()->approved()->create();
 
         $this->assertEquals(1, Conference::approved()->count());
     }
@@ -244,7 +238,7 @@ class ConferenceTest extends TestCase
     function it_can_pull_only_not_shared_conferences()
     {
         Conference::factory()->create();
-        Conference::factory()->create(['is_shared' => true]);
+        Conference::factory()->shared()->create();
 
         $this->assertEquals(1, Conference::notShared()->count());
     }
@@ -309,9 +303,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'is_approved' => true,
-        ]);
+        $conference = Conference::factory()->approved()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -331,9 +323,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'is_approved' => true,
-        ]);
+        $conference = Conference::factory()->approved()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -362,9 +352,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'is_approved' => true,
-        ]);
+        $conference = Conference::factory()->approved()->create();
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
@@ -393,9 +381,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'is_approved' => true,
-        ]);
+        $conference = Conference::factory()->approved()->create();
         $user->favoritedConferences()->save($conference);
 
         $this->actingAs($user)
@@ -411,9 +397,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->create([
-            'is_approved' => true,
-        ]);
+        $conference = Conference::factory()->approved()->create();
         $user->dismissedConferences()->save($conference);
 
         $this->actingAs($user)

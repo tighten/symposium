@@ -24,30 +24,50 @@ class ConferenceFactory extends Factory
 
     public function closedCFP()
     {
-        return $this->state(function () {
-            return [
-                'cfp_starts_at' => $this->faker->dateTimeBetween('-9 days', '-4 day'),
-                'cfp_ends_at' => $this->faker->dateTimeBetween('-3 days', '-1 days'),
-            ];
-        });
+        return $this->state([
+            'cfp_starts_at' => $this->faker->dateTimeBetween('-9 days', '-4 day'),
+            'cfp_ends_at' => $this->faker->dateTimeBetween('-3 days', '-1 days'),
+        ]);
     }
 
     public function noCFPDates()
     {
-        return $this->state(function () {
-            return [
-                'cfp_starts_at' => null,
-                'cfp_ends_at' => null,
-            ];
-        });
+        return $this->state([
+            'cfp_starts_at' => null,
+            'cfp_ends_at' => null,
+        ]);
     }
 
     public function approved()
     {
-        return $this->state(function () {
-            return [
-                'is_approved' => true,
-            ];
-        });
+        return $this->state([
+            'is_approved' => true,
+        ]);
+    }
+
+    public function notApproved()
+    {
+        return $this->state([
+            'is_approved' => false,
+        ]);
+    }
+
+    public function shared()
+    {
+        return $this->state([
+            'is_shared' => true,
+        ]);
+    }
+
+    public function notShared()
+    {
+        return $this->state([
+            'is_shared' => false,
+        ]);
+    }
+
+    public function author($author)
+    {
+        return $this->for($author, 'author');
     }
 }

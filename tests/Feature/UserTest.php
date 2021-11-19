@@ -14,7 +14,7 @@ class UserTest extends TestCase
         $this->assertEquals(0, $user->role);
         $this->assertFalse($user->isAdmin());
 
-        $admin = User::factory()->create(['role' => 1]);
+        $admin = User::factory()->admin()->create();
         $this->assertEquals(1, $admin->role);
         $this->assertTrue($admin->isAdmin());
     }

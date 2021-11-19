@@ -43,9 +43,7 @@ class AdminTest extends TestCase
     function only_admins_can_change_conference_status()
     {
         $user = User::factory()->create();
-        $user->conferences()->save($conference = Conference::factory()->make([
-            'is_approved' => false,
-        ]));
+        $user->conferences()->save($conference = Conference::factory()->notApproved()->make());
 
         $admin = User::factory()->admin()->create();
 

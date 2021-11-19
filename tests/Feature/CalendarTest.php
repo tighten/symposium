@@ -13,14 +13,12 @@ class CalendarTest extends TestCase
     {
         $user = User::factory()->create();
 
-        Conference::factory()->create([
+        Conference::factory()->notApproved()->create([
             'title' => 'Unapproved conference',
-            'is_approved' => false,
         ]);
 
-        Conference::factory()->create([
+        Conference::factory()->approved()->create([
             'title' => 'Approved conference',
-            'is_approved' => true,
         ]);
 
         $this->actingAs($user)->get('calendar')
