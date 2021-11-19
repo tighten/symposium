@@ -164,7 +164,7 @@ class AccountTest extends TestCase
     function deleting_a_user_deletes_its_associated_entities()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $talkRevision = TalkRevision::factory()->create();
         $bio = Bio::factory()->create();
         $conferenceA = Conference::factory()->create();

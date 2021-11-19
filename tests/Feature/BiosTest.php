@@ -54,7 +54,7 @@ class BiosTest extends TestCase
     function user_can_edit_their_bio()
     {
         $user = User::factory()->create();
-        $bio = Bio::factory()->user($user->id)->create();
+        $bio = Bio::factory()->for($user)->create();
         $user->bios()->save($bio);
 
         $this->actingAs($user)
@@ -76,7 +76,7 @@ class BiosTest extends TestCase
         $userA = User::factory()->create();
         $userB = User::factory()->create();
 
-        $bio = Bio::factory()->user($userA->id)->create();
+        $bio = Bio::factory()->for($userA)->create();
 
         $response = $this->actingAs($userB)->get("/bios/{$bio->id}/edit");
         $response->assertNotFound();
@@ -86,7 +86,7 @@ class BiosTest extends TestCase
     function user_can_delete_their_bio()
     {
         $user = User::factory()->create();
-        $bio = Bio::factory()->user($user->id)->create([
+        $bio = Bio::factory()->for($user)->create([
             'nickname' => 'Jimmy Buffet',
             'body' => '5 oclock somewhere',
             'public' => 0,

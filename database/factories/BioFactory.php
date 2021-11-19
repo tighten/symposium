@@ -16,13 +16,6 @@ class BioFactory extends Factory
         ];
     }
 
-    public function user($user)
-    {
-        return $this->state([
-            'user_id' => $user,
-        ]);
-    }
-
     public function public()
     {
         return $this->state([

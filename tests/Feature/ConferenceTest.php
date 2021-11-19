@@ -75,7 +75,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->author($user->id)->approved()->create([
+        $conference = Conference::factory()->author($user)->approved()->create([
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
         ]);
@@ -102,7 +102,7 @@ class ConferenceTest extends TestCase
     function location_coordinates_can_be_updated()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->author($user->id)->create();
+        $conference = Conference::factory()->author($user)->create();
 
         $this->actingAs($user)
             ->put("/conferences/{$conference->id}", array_merge($conference->toArray(), [
@@ -123,7 +123,7 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->author($user->id)->approved()->create([
+        $conference = Conference::factory()->author($user)->approved()->create([
             'title' => 'Rubycon',
             'description' => 'A conference about Ruby',
             'starts_at' => Carbon::parse('+3 days')->toDateString(),

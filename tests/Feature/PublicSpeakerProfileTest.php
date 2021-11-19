@@ -140,7 +140,7 @@ class PublicSpeakerProfileTest extends TestCase
             'profile_slug' => 'kuntakinte',
         ]);
 
-        Bio::factory()->user($user->id)->private()->create([
+        Bio::factory()->for($user)->private()->create([
             'nickname' => 'Private Bio',
         ]);
 

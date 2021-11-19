@@ -19,7 +19,7 @@ class SubmissionTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -38,7 +38,7 @@ class SubmissionTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -63,7 +63,7 @@ class SubmissionTest extends TestCase
         ]);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($otherUser->id)->create();
+        $talk = Talk::factory()->author($otherUser)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -85,7 +85,7 @@ class SubmissionTest extends TestCase
         ]);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($otherUser->id)->create();
+        $talk = Talk::factory()->author($otherUser)->create();
         $revision = TalkRevision::factory()->create([
             'talk_id' => $talk->id,
         ]);
@@ -109,7 +109,7 @@ class SubmissionTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
@@ -135,7 +135,7 @@ class SubmissionTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
@@ -161,7 +161,7 @@ class SubmissionTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
@@ -181,7 +181,7 @@ class SubmissionTest extends TestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user->id)->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
