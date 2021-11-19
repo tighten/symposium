@@ -68,6 +68,6 @@ class ConferenceFactory extends Factory
 
     public function author($author)
     {
-        return  $this->for($author, 'author');
+        return $this->for($author, 'author');
     }
 }
