@@ -15,12 +15,12 @@ class ConferencesController extends BaseController
         'title' => ['required'],
         'description' => ['required'],
         'url' => ['required', 'url'],
-        'location' => [],
         'cfp_url' => ['nullable', 'url'],
         'starts_at' => ['nullable', 'date'],
         'ends_at' => ['nullable', 'date', 'after_or_equal:starts_at'],
         'cfp_starts_at' => ['nullable', 'date', 'before:starts_at'],
         'cfp_ends_at' => ['nullable', 'date', 'after:cfp_starts_at', 'before:starts_at'],
+        'location' => ['nullable'],
         'latitude' => ['nullable'],
         'longitude' => ['nullable'],
     ];
@@ -80,19 +80,7 @@ class ConferencesController extends BaseController
 
     public function store(Request $request)
     {
-        $validInput = $this->validate($request, [
-            'title' => ['required'],
-            'description' => ['required'],
-            'url' => ['required', 'url'],
-            'cfp_url' => ['nullable', 'url'],
-            'location' => [],
-            'starts_at' => ['nullable', 'date'],
-            'ends_at' => ['nullable', 'date', 'after_or_equal:starts_at'],
-            'cfp_starts_at' => ['nullable', 'date', 'before:starts_at'],
-            'cfp_ends_at' => ['nullable', 'date', 'after:cfp_starts_at', 'before:starts_at'],
-            'latitude' => ['nullable'],
-            'longitude' => ['nullable'],
-        ]);
+        $validInput = $this->validate($request, $this->conference_rules);
 
         $conference = Conference::create(array_merge($validInput, [
             'author_id' => auth()->user()->id,
