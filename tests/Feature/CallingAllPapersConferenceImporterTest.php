@@ -278,6 +278,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
         $event->dateEventStart = '2017-09-01T00:00:00-04:00';
+        $event->dateCfpEnd = '2017-09-02T00:00:00-04:00';
         $importer->import($event);
 
         $this->assertEquals(0, Conference::count());
