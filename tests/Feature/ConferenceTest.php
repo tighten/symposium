@@ -273,9 +273,11 @@ class ConferenceTest extends TestCase
     {
         $conferenceA = Conference::factory()->approved()->create([
             'starts_at' => Carbon::now()->subDay(),
+            'cfp_ends_at' => Carbon::now()->subDays(2),
         ]);
         $conferenceB = Conference::factory()->approved()->create([
             'starts_at' => Carbon::now()->addDay(),
+            'cfp_ends_at' => Carbon::now(),
         ]);
 
         $response = $this->get('conferences?filter=all&sort=date');
