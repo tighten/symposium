@@ -423,6 +423,29 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    function conferences_marked_no_cfp_must_not_include_cfp_fields()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'Das Conf',
+                'description' => 'A very good conference about things',
+                'url' => 'http://dasconf.org',
+                'starts_at' => Carbon::now()->addDays(2)->toDateString(),
+                'ends_at' => Carbon::now()->addDays(3)->toDateString(),
+                'has_cfp' => false,
+                'cfp_url' => 'https://example.com',
+                'cfp_starts_at' => Carbon::now()->toDateString(),
+                'cfp_ends_at' => Carbon::now()->addDay()->toDateString(),
+            ]);
+
+        $response->assertSessionHasErrors('cfp_url');
+        $response->assertSessionHasErrors('cfp_starts_at');
+        $response->assertSessionHasErrors('cfp_ends_at');
+    }
+
+    /** @test */
     function user_can_edit_conference()
     {
         $user = User::factory()->create();
