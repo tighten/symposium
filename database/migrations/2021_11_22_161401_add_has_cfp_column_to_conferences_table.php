@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddHasCfpColumnToConferencesTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('conferences', function (Blueprint $table) {
+            $table->boolean('has_cfp')
+                ->default(true)
+                ->after('ends_at');
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('conferences', function (Blueprint $table) {
+            $table->dropColumn('has_cfp');
+        });
+    }
+}

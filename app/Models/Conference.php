@@ -32,6 +32,7 @@ class Conference extends UuidBase
         'is_approved',
         'is_shared',
         'calling_all_papers_id',
+        'has_cfp',
     ];
 
     /**
