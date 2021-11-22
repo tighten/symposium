@@ -17,6 +17,10 @@ export default {
     },
     methods: {
         lookup(input) {
+            if (process.env.MIX_DISABLE_LOCATION_LOOKUP) {
+                return;
+            }
+
             const dropdown = new google.maps.places.Autocomplete(input.target);
 
             dropdown.addListener('place_changed', () => {
