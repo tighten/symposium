@@ -47,7 +47,15 @@
 </x-panel>
 
 <x-panel class="mt-4">
-    <h2 class="text-4xl">CFP</h2>
+    <div class="flex items-center justify-between">
+        <h2 class="text-4xl">CFP</h2>
+
+        <x-input.toggle
+            name="has_cfp"
+            label="Has CFP"
+            :value="$conference->has_cfp"
+        ></x-input.toggle>
+    </div>
 
     <x-input.text
         name="cfp_url"
