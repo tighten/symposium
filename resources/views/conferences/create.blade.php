@@ -9,9 +9,7 @@
 </ul>
 
 <x-form :action="route('conferences.store')">
-    <x-panel>
-        @include('conferences.form')
-    </x-panel>
+    @include('conferences.form')
 
     <x-button.primary
         type="submit"
