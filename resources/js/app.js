@@ -43,6 +43,11 @@ Vue.component(
     require('./components/ConferenceCalendar.vue').default
 );
 
+Vue.component(
+    'cfp-fields',
+    require('./components/CfpFields.vue').default
+);
+
 new Vue({
     el: "#app",
 });

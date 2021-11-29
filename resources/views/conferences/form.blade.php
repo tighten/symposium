@@ -47,34 +47,47 @@
 </x-panel>
 
 <x-panel class="mt-4">
-    <div class="flex items-center justify-between">
-        <h2 class="text-4xl">CFP</h2>
+    <cfp-fields :data="{{ json_encode([
+        'hasCfp' => $conference->has_cfp,
+        'cfpUrl' => $conference->cfp_url,
+        'cfpStartsAt' => $conference->cfp_starts_at ? $conference->cfp_starts_at->format('Y-m-d') : '',
+        'cfpEndsAt' => $conference->cfp_ends_at ? $conference->cfp_ends_at->format('Y-m-d') : '',
+    ]) }}">
+        <template #default="{ form }">
+            <div>
+                <div class="flex items-center justify-between">
+                    <h2 class="text-4xl">CFP</h2>
 
-        <x-input.toggle
-            name="has_cfp"
-            label="Has CFP"
-            :value="$conference->has_cfp"
-        ></x-input.toggle>
-    </div>
+                    <x-input.toggle
+                        name="has_cfp"
+                        label="Has CFP"
+                        v-model="form.hasCfp"
+                    ></x-input.toggle>
+                </div>
 
-    <x-input.text
-        name="cfp_url"
-        label="URL to CFP page"
-        :value="$conference->cfp_url"
-        class="mt-8"
-    ></x-input.text>
+                <div v-show="form.hasCfp">
+                    <x-input.text
+                        name="cfp_url"
+                        label="URL to CFP page"
+                        v-model="form.cfpUrl"
+                        class="mt-8"
+                    ></x-input.text>
 
-    <x-input.date
-        name="cfp_starts_at"
-        label="CFP Open Date"
-        :value="$conference->cfpStartsAtSet() ? $conference->cfp_starts_at->format('Y-m-d') : ''"
-        class="mt-8"
-    ></x-input.date>
+                    <x-input.date
+                        name="cfp_starts_at"
+                        label="CFP Open Date"
+                        v-model="form.cfpStartsAt"
+                        class="mt-8"
+                    ></x-input.date>
 
-    <x-input.date
-        name="cfp_ends_at"
-        label="CFP Close Date"
-        :value="$conference->cfpEndsAtSet() ? $conference->cfp_ends_at->format('Y-m-d') : ''"
-        class="mt-8"
-    ></x-input.date>
+                    <x-input.date
+                        name="cfp_ends_at"
+                        label="CFP Close Date"
+                        v-model="form.cfpEndsAt"
+                        class="mt-8"
+                    ></x-input.date>
+                </div>
+            </div>
+        </template>
+    </cfp-fields>
 </x-panel>

@@ -14,6 +14,7 @@
             @if ((string) old($name, $value) === "1") checked @endif
             value="1"
             class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-indigo-900"
+            {{ $attributes->except(['class']) }}
         />
         <label
             for="{{ $name }}"
