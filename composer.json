@@ -18,7 +18,7 @@
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
-        "laravel/framework": "^8.73",
+        "laravel/framework": "^8.75",
         "laravel/passport": "^10.2",
         "laravel/scout": "^9.3",
         "laravel/slack-notification-channel": "^2.3",
