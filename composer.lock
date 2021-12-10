@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc94f5d57de0d6dde2f4f5c59b499613",
+    "content-hash": "28d68a361b9704dea723635aefea7d81",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -4977,16 +4977,16 @@
         },
         {
             "name": "php-http/curl-client",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/curl-client.git",
-                "reference": "15b11b7c2f39fe61ef6a70e0c247b4a84e845cdb"
+                "reference": "2ed4245a817d859dd0c1d51c7078cdb343cf5233"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/curl-client/zipball/15b11b7c2f39fe61ef6a70e0c247b4a84e845cdb",
-                "reference": "15b11b7c2f39fe61ef6a70e0c247b4a84e845cdb",
+                "url": "https://api.github.com/repos/php-http/curl-client/zipball/2ed4245a817d859dd0c1d51c7078cdb343cf5233",
+                "reference": "2ed4245a817d859dd0c1d51c7078cdb343cf5233",
                 "shasum": ""
             },
             "require": {
@@ -4997,7 +4997,7 @@
                 "php-http/message": "^1.2",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
-                "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0"
+                "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0 || ^6.0"
             },
             "provide": {
                 "php-http/async-client-implementation": "1.0",
@@ -5040,9 +5040,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/curl-client/issues",
-                "source": "https://github.com/php-http/curl-client/tree/2.2.0"
+                "source": "https://github.com/php-http/curl-client/tree/2.2.1"
             },
-            "time": "2020-12-14T08:36:51+00:00"
+            "time": "2021-12-10T18:02:07+00:00"
         },
         {
             "name": "php-http/discovery",
