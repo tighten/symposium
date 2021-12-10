@@ -15,4 +15,18 @@ class BioFactory extends Factory
             'body' => $this->faker->sentence(),
         ];
     }
+
+    public function public()
+    {
+        return $this->state([
+            'public' => true,
+        ]);
+    }
+
+    public function private()
+    {
+        return $this->state([
+            'public' => false,
+        ]);
+    }
 }

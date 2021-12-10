@@ -8,9 +8,9 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class SubmissionTest extends IntegrationTestCase
+class SubmissionTest extends TestCase
 {
     /** @test */
     function user_can_submit_talks_via_http()
@@ -19,7 +19,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -38,7 +38,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -49,6 +49,7 @@ class SubmissionTest extends IntegrationTestCase
 
         $this->delete("submissions/{$submission->id}");
 
+        $this->assertDeleted($submission);
         $this->assertTrue($conference->submissions->isEmpty());
     }
 
@@ -62,9 +63,7 @@ class SubmissionTest extends IntegrationTestCase
         ]);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create([
-            'author_id' => $otherUser->id,
-        ]);
+        $talk = Talk::factory()->author($otherUser)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -86,9 +85,7 @@ class SubmissionTest extends IntegrationTestCase
         ]);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create([
-            'author_id' => $otherUser->id,
-        ]);
+        $talk = Talk::factory()->author($otherUser)->create();
         $revision = TalkRevision::factory()->create([
             'talk_id' => $talk->id,
         ]);
@@ -100,6 +97,7 @@ class SubmissionTest extends IntegrationTestCase
 
         $this->delete("submissions/{$submission->id}");
 
+        $this->assertModelExists($submission);
         $this->assertEquals(1, $conference->submissions->count());
         $this->assertTrue($conference->submissions->contains($submission));
     }
@@ -111,7 +109,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
@@ -137,7 +135,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
@@ -163,7 +161,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([
@@ -183,7 +181,7 @@ class SubmissionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
         $submission = Submission::factory()->create([

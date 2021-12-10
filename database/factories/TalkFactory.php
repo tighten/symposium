@@ -13,4 +13,9 @@ class TalkFactory extends Factory
             'author_id' => User::factory(),
         ];
     }
+
+    public function author($author)
+    {
+        return $this->for($author, 'author');
+    }
 }

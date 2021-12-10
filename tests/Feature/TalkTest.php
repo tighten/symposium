@@ -9,33 +9,34 @@ use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
 use Carbon\Carbon;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class TalkTest extends IntegrationTestCase
+class TalkTest extends TestCase
 {
     /** @test */
     function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        Conference::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
-        $this->actingAs($user)
-             ->visit("talks/{$talk->id}")
-             ->see($revision->title);
+        $response = $this->actingAs($user)
+            ->get("talks/{$talk->id}");
+
+        $response->assertSee($revision->title);
     }
 
     /** @test */
     function user_talks_are_sorted_alphabetically()
     {
         $user = User::factory()->create();
-        $talk1 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk1 = Talk::factory()->author($user)->create();
         $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk2 = Talk::factory()->author($user)->create();
         $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
@@ -50,11 +51,11 @@ class TalkTest extends IntegrationTestCase
     {
         $user = User::factory()->create();
 
-        $talk1 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk1 = Talk::factory()->author($user)->create();
         $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
         $talk1->revisions()->save($revision1);
 
-        $talk2 = Talk::factory()->create(['author_id' => $user->id]);
+        $talk2 = Talk::factory()->author($user)->create();
         $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
         $talk2->revisions()->save($revision2);
 
@@ -69,17 +70,17 @@ class TalkTest extends IntegrationTestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->visit('/talks/create')
-            ->type('Your Best Talk Now', '#title')
-            ->select('keynote', '#type')
-            ->select('intermediate', '#level')
-            ->type('No, really.', '#description')
-            ->type('123', '#length')
-            ->type('http://www.google.com/slides', '#slides')
-            ->type("It'll be awesome!", '#organizer_notes')
-            ->press('Create');
+            ->post('talks', [
+                'title' => 'Your Best Talk Now',
+                'type' => 'keynote',
+                'level' => 'intermediate',
+                'description' => 'No, really.',
+                'length' => '123',
+                'slides' => 'http://www.google.com/slides',
+                'organizer_notes' => "It'll be awesome!",
+            ]);
 
-        $this->seeInDatabase('talk_revisions', [
+        $this->assertDatabaseHas(TalkRevision::class, [
             'title' => 'Your Best Talk Now',
             'type' => 'keynote',
             'level' => 'intermediate',
@@ -91,34 +92,34 @@ class TalkTest extends IntegrationTestCase
 
         $talk = Talk::first();
 
-        $this->visit("talks/{$talk->id}")
-            ->see('Your Best Talk Now')
-            ->see('No, really.');
+        $this->get("talks/{$talk->id}")
+            ->assertSee('Your Best Talk Now')
+            ->assertSee('No, really.');
     }
 
     /** @test */
     function user_can_delete_a_talk()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
-        TalkRevision::factory()->create([
+        $talk = Talk::factory()->author($user)->create();
+        $talkRevision = TalkRevision::factory()->create([
             'title' => 'zyxwv',
             'talk_id' => $talk->id,
         ]);
 
         $this->be($user);
 
-        $this->visit("talks/{$talk->id}/delete");
+        $this->get("talks/{$talk->id}/delete");
 
-        $this->notSeeInDatabase('talks', $talk->toArray());
-        $this->assertEquals(0, TalkRevision::count());
+        $this->assertDeleted($talk);
+        $this->assertDeleted($talkRevision);
     }
 
     /** @test */
     function user_can_save_a_new_revision_of_a_talk()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create([
             'title' => 'old title',
             'created_at' => Carbon::now()->subMinute(),
@@ -126,15 +127,9 @@ class TalkTest extends IntegrationTestCase
         $talk->revisions()->save($revision);
 
         $this->actingAs($user)
-            ->visit("/talks/{$talk->id}/edit")
-            ->type('New', '#title')
-            ->select($revision->type, '#type')
-            ->select($revision->level, '#level')
-            ->type($revision->description, '#description')
-            ->type($revision->length, '#length')
-            ->type($revision->slides, '#slides')
-            ->type($revision->organizer_notes, '#organizer_notes')
-            ->press('Update');
+            ->put("/talks/{$talk->id}", array_merge($revision->toArray(), [
+                'title' => 'New',
+            ]));
 
         $talk = Talk::first();
 

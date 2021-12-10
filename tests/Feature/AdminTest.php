@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Conference;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class AdminTest extends IntegrationTestCase
+class AdminTest extends TestCase
 {
     /** @test */
     function admins_can_edit_other_peoples_conferences()
@@ -35,17 +35,15 @@ class AdminTest extends IntegrationTestCase
         $conference = Conference::factory()->create();
 
         $this->actingAs($admin)
-            ->visit(route('conferences.show', $conference))
-            ->see('Edit');
+            ->get(route('conferences.show', $conference))
+            ->assertSee('Edit');
     }
 
     /** @test */
     function only_admins_can_change_conference_status()
     {
         $user = User::factory()->create();
-        $user->conferences()->save($conference = Conference::factory()->make([
-            'is_approved' => false,
-        ]));
+        $user->conferences()->save($conference = Conference::factory()->notApproved()->make());
 
         $admin = User::factory()->admin()->create();
 

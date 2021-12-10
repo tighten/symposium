@@ -8,9 +8,9 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class RejectionTest extends IntegrationTestCase
+class RejectionTest extends TestCase
 {
     /** @test */
     function can_create_from_submission()
@@ -19,7 +19,7 @@ class RejectionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 
@@ -43,7 +43,7 @@ class RejectionTest extends IntegrationTestCase
         $this->be($user);
 
         $conference = Conference::factory()->create();
-        $talk = Talk::factory()->create(['author_id' => $user->id]);
+        $talk = Talk::factory()->author($user)->create();
         $revision = TalkRevision::factory()->create();
         $talk->revisions()->save($revision);
 

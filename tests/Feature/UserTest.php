@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Tests\IntegrationTestCase;
+use Tests\TestCase;
 
-class UserTest extends IntegrationTestCase
+class UserTest extends TestCase
 {
     /** @test */
     function it_checks_if_user_is_admin()
@@ -14,7 +14,7 @@ class UserTest extends IntegrationTestCase
         $this->assertEquals(0, $user->role);
         $this->assertFalse($user->isAdmin());
 
-        $admin = User::factory()->create(['role' => 1]);
+        $admin = User::factory()->admin()->create();
         $this->assertEquals(1, $admin->role);
         $this->assertTrue($admin->isAdmin());
     }

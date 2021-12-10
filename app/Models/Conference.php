@@ -52,8 +52,8 @@ class Conference extends UuidBase
     {
         parent::boot();
 
-        // only approve conferences that are new imports
         self::creating(function ($conference) {
+            // only approve conferences that are new imports
             if ($conference->calling_all_papers_id) {
                 $conference->is_approved = true;
             }
