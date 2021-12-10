@@ -212,7 +212,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_imports_zero_in_latitude_or_longitude_as_null()
+    function it_imports_zero_in_latitude_or_longitude_as_null()
     {
         $event = $this->eventStub;
 
@@ -231,7 +231,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
+    function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
     {
         $event = $this->eventStub;
 
@@ -251,7 +251,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function it_keeps_lat_long_values_null_if_no_results()
+    function it_keeps_lat_long_values_null_if_no_results()
     {
         $event = $this->eventStub;
 
