@@ -3,6 +3,7 @@
 namespace App\CallingAllPapers;
 
 use App\Models\Conference;
+use App\Services\Geocoder;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
@@ -11,11 +12,13 @@ class ConferenceImporter
 {
     private $client;
     private $authorId;
+    private $geocoder;
 
     public function __construct(int $authorId = null, Client $client = null)
     {
         $this->client = $client ?: new Client;
         $this->authorId = $authorId ?: auth()->user()->id;
+        $this->geocoder = app(Geocoder::class);
     }
 
     private static function carbonFromIso(?string $dateFromApi)
@@ -67,11 +70,7 @@ class ConferenceImporter
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
-        if (config('services.google.maps.key')
-            && ! $conference->latitude
-            && ! $conference->longitude
-            && $conference->location
-        ) {
+        if (! $conference->latitude && ! $conference->longitude && $conference->location) {
             $this->geocodeLatLongFromLocation($conference);
         }
 
@@ -101,7 +100,7 @@ class ConferenceImporter
 
     private function geocodeLatLongFromLocation(Conference $conference): Conference
     {
-        $response = app('geocoder')->geocode($conference->location)->get();
+        $response = $this->geocoder->geocode($conference->location);
 
         if ($response->count()) {
             $conference->latitude = $response[0]->toArray()['latitude'];

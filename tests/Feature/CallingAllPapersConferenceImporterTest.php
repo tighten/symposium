@@ -6,6 +6,7 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Models\Conference;
+use App\Services\Geocoder;
 use Mockery as m;
 use stdClass;
 use Tests\TestCase;
@@ -244,14 +245,23 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
 
         $this->mockClient($event);
+        $this->mock(Geocoder::class, function ($mock) {
+            $mock->shouldReceive('geocode')
+                ->andReturn(collect([
+                    collect([
+                        'latitude' => '38.8921062',
+                        'longitude' => '-77.0259036',
+                    ]),
+                ]));
+        });
 
         $importer = new ConferenceImporter(1);
         $importer->import($event);
 
         $conference = Conference::first();
 
-        $this->assertSame('38.8921062', $conference->latitude);
-        $this->assertSame('-77.0259036', $conference->longitude);
+        $this->assertEquals('38.8921062', $conference->latitude);
+        $this->assertEquals('-77.0259036', $conference->longitude);
     }
 
     /** @test */
@@ -264,6 +274,10 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->location = 'Not a Valid Location';
 
         $this->mockClient($event);
+        $this->mock(Geocoder::class, function ($mock) {
+            $mock->shouldReceive('geocode')
+                ->andReturn(collect([]));
+        });
 
         $importer = new ConferenceImporter(1);
         $importer->import($event);
