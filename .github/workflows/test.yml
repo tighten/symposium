@@ -21,7 +21,7 @@ jobs:
                   coverage: none
 
             - name: Install dependencies
-              run: composer update --prefer-stable --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs
+              run: composer install --prefer-stable --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs
 
             - name: Generate key
               run: |
