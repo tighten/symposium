@@ -9,7 +9,7 @@
     "type": "project",
     "require": {
         "php": "^7.4",
-        "algolia/algoliasearch-client-php": "^3.1",
+        "algolia/algoliasearch-client-php": "^3.2",
         "blade-ui-kit/blade-icons": "^1.1",
         "bugsnag/bugsnag-laravel": "^2.22",
         "doctrine/dbal": "^3.2",
@@ -18,7 +18,7 @@
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
-        "laravel/framework": "^8.75",
+        "laravel/framework": "^8.78",
         "laravel/passport": "^10.2",
         "laravel/scout": "^9.3",
         "laravel/slack-notification-channel": "^2.3",
@@ -31,7 +31,7 @@
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "thujohn/twitter": "~3.1",
+        "thujohn/twitter": "^3.1",
         "toin0u/geocoder-laravel": "^4.4"
     },
     "require-dev": {
