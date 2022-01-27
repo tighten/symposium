@@ -61,7 +61,7 @@ class TalksController extends BaseController
             // Save
             $talk = Talk::create([
                 'author_id' => auth()->user()->id,
-                'public' => $request->input('public') == 'yes',
+                'public' => $request->input('public') == '1',
             ]);
 
             $revision = TalkRevision::create([
