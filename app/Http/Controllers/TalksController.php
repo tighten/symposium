@@ -20,7 +20,7 @@ class TalksController extends BaseController
         'slides' => 'nullable|url',
         'organizer_notes' => 'required',
         'description' => 'required',
-        'public' => '',
+        'public' => 'required',
     ];
 
     protected $messages = [
