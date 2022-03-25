@@ -4,10 +4,10 @@
 >
     <x-slot name="header">
         @if ($conference->cfpIsOpen())
-            <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">CFP OPEN</span>
+            <x-tag>CFP OPEN</x-tag>
         @endif
         @if (auth()->check() && $conference->appliedTo())
-            <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">Already Sent Proposal</span>
+            <x-tag>Already Sent Proposal</x-tag>
         @endif
     </x-slot>
     <x-slot name="actions">

@@ -79,7 +79,7 @@
                             {{ $submission->conference->title }}
                         </a>
                         @if ($submission->isAccepted())
-                            <span class="px-1 ml-4 text-xs font-semibold text-white bg-indigo-500 rounded">Accepted</span>
+                            <x-tag>Accepted</x-tag>
                         @endif
                     </h3>
                     @if ($submission->reason)
