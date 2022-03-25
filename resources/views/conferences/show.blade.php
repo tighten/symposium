@@ -43,7 +43,7 @@
             {{ $conference->url }}
         </a>
 
-        @if ($conference->cfp_url)
+        @if ($conference->has_cfp && $conference->cfp_url)
             <div class="mt-4 text-gray-500">URL for CFP page:</div>
             <a
                 href="{{ $conference->cfp_url }}"
