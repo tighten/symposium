@@ -44,7 +44,7 @@
             <div>{{ $conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->endsAtDisplay() }}</div>
         </div>
 
-        @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
+        @if ($conference->has_cfp && $conference->cfp_starts_at && $conference->cfp_ends_at)
             <div class="pl-3 lg:pl-0">
                 <div class="flex justify-between text-gray-500">
                     <div>CFP</div>
