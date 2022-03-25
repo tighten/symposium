@@ -6,6 +6,9 @@
         @if ($conference->cfpIsOpen())
             <x-tag>CFP OPEN</x-tag>
         @endif
+        @if (! $conference->has_cfp)
+            <x-tag>No CFP</x-tag>
+        @endif
         @if (auth()->check() && $conference->appliedTo())
             <x-tag>Already Sent Proposal</x-tag>
         @endif
