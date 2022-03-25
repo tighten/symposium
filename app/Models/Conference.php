@@ -48,9 +48,12 @@ class Conference extends UuidBase
         'author_id' => 'integer',
         'url' => Url::class,
         'cfp_url' => Url::class,
+        'has_cfp' => 'boolean',
     ];
 
-    public $has_cfp = true;
+    protected $attributes = [
+        'has_cfp' => true,
+    ];
 
     public static function boot()
     {
