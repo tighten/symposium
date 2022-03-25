@@ -3,6 +3,7 @@
 namespace App\CallingAllPapers;
 
 use App\Models\Conference;
+use App\Services\Geocoder;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
@@ -11,11 +12,13 @@ class ConferenceImporter
 {
     private $client;
     private $authorId;
+    private $geocoder;
 
     public function __construct(int $authorId = null, Client $client = null)
     {
         $this->client = $client ?: new Client;
         $this->authorId = $authorId ?: auth()->user()->id;
+        $this->geocoder = app(Geocoder::class);
     }
 
     private static function carbonFromIso(?string $dateFromApi)
@@ -67,6 +70,10 @@ class ConferenceImporter
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
+        if (! $conference->latitude && ! $conference->longitude && $conference->location) {
+            $this->geocodeLatLongFromLocation($conference);
+        }
+
         $conference->save();
     }
 
@@ -77,12 +84,29 @@ class ConferenceImporter
         $conference->url = trim($event->eventUri);
         $conference->cfp_url = $event->uri;
         $conference->location = $event->location;
-        $conference->latitude = $event->latitude;
-        $conference->longitude = $event->longitude;
+        $conference->latitude = $this->nullifyInvalidLatLong($event->latitude, $event->longitude);
+        $conference->longitude = $this->nullifyInvalidLatLong($event->longitude, $event->latitude);
         $conference->starts_at = $event->dateEventStart;
         $conference->ends_at = $event->dateEventEnd;
         $conference->cfp_starts_at = $event->dateCfpStart;
         $conference->cfp_ends_at = $event->dateCfpEnd;
         $conference->author_id = $this->authorId;
+    }
+
+    private function nullifyInvalidLatLong($primary, $secondary)
+    {
+        return (float) $primary && (float) $secondary ? $primary : null;
+    }
+
+    private function geocodeLatLongFromLocation(Conference $conference): Conference
+    {
+        $response = $this->geocoder->geocode($conference->location);
+
+        if ($response->count()) {
+            $conference->latitude = $response[0]->toArray()['latitude'];
+            $conference->longitude = $response[0]->toArray()['longitude'];
+        }
+
+        return $conference;
     }
 }

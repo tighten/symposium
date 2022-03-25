@@ -78,6 +78,7 @@ class TalkTest extends TestCase
                 'length' => '123',
                 'slides' => 'http://www.google.com/slides',
                 'organizer_notes' => "It'll be awesome!",
+                'public' => '1',
             ]);
 
         $this->assertDatabaseHas(TalkRevision::class, [
@@ -91,6 +92,8 @@ class TalkTest extends TestCase
         ]);
 
         $talk = Talk::first();
+
+        $this->assertTrue($talk->public);
 
         $this->get("talks/{$talk->id}")
             ->assertSee('Your Best Talk Now')
@@ -119,7 +122,9 @@ class TalkTest extends TestCase
     function user_can_save_a_new_revision_of_a_talk()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->author($user)->create();
+        $talk = Talk::factory()->author($user)->create([
+            'public' => false,
+        ]);
         $revision = TalkRevision::factory()->create([
             'title' => 'old title',
             'created_at' => Carbon::now()->subMinute(),
@@ -129,10 +134,12 @@ class TalkTest extends TestCase
         $this->actingAs($user)
             ->put("/talks/{$talk->id}", array_merge($revision->toArray(), [
                 'title' => 'New',
+                'public' => '1',
             ]));
 
         $talk = Talk::first();
 
+        $this->assertTrue($talk->public);
         $this->assertEquals('New', $talk->current()->title);
         $this->assertEquals('old title', $talk->revisions->last()->title);
     }

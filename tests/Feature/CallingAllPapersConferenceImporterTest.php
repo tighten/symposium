@@ -6,6 +6,7 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Models\Conference;
+use App\Services\Geocoder;
 use Mockery as m;
 use stdClass;
 use Tests\TestCase;
@@ -213,6 +214,78 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $conference = Conference::first();
 
         $this->assertNull($conference->cfp_starts_at);
+    }
+
+    /** @test */
+    function it_imports_zero_in_latitude_or_longitude_as_null()
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+
+        $this->mockClient($event);
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertNull($conference->latitude);
+        $this->assertNull($conference->longitude);
+    }
+
+    /** @test */
+    function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
+
+        $this->mockClient($event);
+        $this->mock(Geocoder::class, function ($mock) {
+            $mock->shouldReceive('geocode')
+                ->andReturn(collect([
+                    collect([
+                        'latitude' => '38.8921062',
+                        'longitude' => '-77.0259036',
+                    ]),
+                ]));
+        });
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertEquals('38.8921062', $conference->latitude);
+        $this->assertEquals('-77.0259036', $conference->longitude);
+    }
+
+    /** @test */
+    function it_keeps_lat_long_values_null_if_no_results()
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = 'Not a Valid Location';
+
+        $this->mockClient($event);
+        $this->mock(Geocoder::class, function ($mock) {
+            $mock->shouldReceive('geocode')
+                ->andReturn(collect([]));
+        });
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertNull($conference->latitude);
+        $this->assertNull($conference->longitude);
     }
 
     /** @test */

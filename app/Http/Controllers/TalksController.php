@@ -20,6 +20,7 @@ class TalksController extends BaseController
         'slides' => 'nullable|url',
         'organizer_notes' => 'required',
         'description' => 'required',
+        'public' => 'required',
     ];
 
     protected $messages = [
@@ -60,7 +61,7 @@ class TalksController extends BaseController
             // Save
             $talk = Talk::create([
                 'author_id' => auth()->user()->id,
-                'public' => $request->input('public') == 'yes',
+                'public' => $request->input('public') == '1',
             ]);
 
             $revision = TalkRevision::create([
@@ -107,7 +108,7 @@ class TalksController extends BaseController
 
         if ($validator->passes()) {
             $talk = auth()->user()->talks()->findOrFail($id);
-            $talk->update(['public' => $request->input('public') == 'yes']);
+            $talk->update(['public' => $request->input('public') == 1]);
 
             $revision = TalkRevision::create([
                 'title' => $request->input('title'),
