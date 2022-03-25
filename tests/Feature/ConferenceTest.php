@@ -696,6 +696,21 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    function filtering_by_cfp_open_hides_non_cfp_conferences()
+    {
+        $user = User::factory()->create();
+
+        $conference = Conference::factory()->approved()->create([
+            'has_cfp' => false,
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->get('conferences?filter=open_cfp')
+            ->assertDontSee($conference->title);
+    }
+
+    /** @test */
     function filtering_by_dismissed_shows_dismissed_conferences()
     {
         $user = User::factory()->create();
