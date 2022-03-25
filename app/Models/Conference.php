@@ -132,6 +132,7 @@ class Conference extends UuidBase
     public function scopeUnclosedCfp($query)
     {
         return $query
+            ->where('has_cfp', true)
             ->where('cfp_ends_at', '>', Carbon::now());
     }
 
