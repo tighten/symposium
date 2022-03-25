@@ -48,10 +48,10 @@
 
 <x-panel class="mt-4">
     <cfp-fields :data="{{ json_encode([
-        'hasCfp' => $conference->has_cfp,
-        'cfpUrl' => $conference->cfp_url,
-        'cfpStartsAt' => $conference->cfp_starts_at ? $conference->cfp_starts_at->format('Y-m-d') : '',
-        'cfpEndsAt' => $conference->cfp_ends_at ? $conference->cfp_ends_at->format('Y-m-d') : '',
+        'hasCfp' => old('has_cfp', $conference->has_cfp),
+        'cfpUrl' => old('cfp_url', $conference->cfp_url),
+        'cfpStartsAt' => old('cfp_starts_at', $conference->cfp_starts_at ? $conference->cfp_starts_at->format('Y-m-d') : ''),
+        'cfpEndsAt' => old('cfp_ends_at', $conference->cfp_ends_at ? $conference->cfp_ends_at->format('Y-m-d') : ''),
     ]) }}">
         <template #default="{ form }">
             <div>
