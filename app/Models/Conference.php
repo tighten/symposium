@@ -32,6 +32,7 @@ class Conference extends UuidBase
         'is_approved',
         'is_shared',
         'calling_all_papers_id',
+        'has_cfp',
     ];
 
     /**
@@ -46,7 +47,13 @@ class Conference extends UuidBase
         'is_shared' => 'boolean',
         'author_id' => 'integer',
         'url' => Url::class,
-        'cfp_url' => Url::class,    ];
+        'cfp_url' => Url::class,
+        'has_cfp' => 'boolean',
+    ];
+
+    protected $attributes = [
+        'has_cfp' => true,
+    ];
 
     public static function boot()
     {
@@ -125,6 +132,7 @@ class Conference extends UuidBase
     public function scopeUnclosedCfp($query)
     {
         return $query
+            ->where('has_cfp', true)
             ->where('cfp_ends_at', '>', Carbon::now());
     }
 
@@ -142,6 +150,7 @@ class Conference extends UuidBase
     public function scopeOpenCfp($query)
     {
         return $query
+            ->where('has_cfp', true)
             ->where('cfp_starts_at', '<=', Carbon::now())
             ->where('cfp_ends_at', '>', Carbon::now());
     }

@@ -43,7 +43,7 @@
             {{ $conference->url }}
         </a>
 
-        @if ($conference->cfp_url)
+        @if ($conference->has_cfp && $conference->cfp_url)
             <div class="mt-4 text-gray-500">URL for CFP page:</div>
             <a
                 href="{{ $conference->cfp_url }}"
@@ -63,7 +63,7 @@
             <div class="text-gray-500">Dates</div>
             <div>{{ $conference->startsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->endsAtDisplay() }}</div>
         </div>
-        @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
+        @if ($conference->has_cfp && $conference->cfp_starts_at && $conference->cfp_ends_at)
             <div>
                 <div class="text-gray-500">CFP</div>
                 <div>{{ $conference->cfpStartsAtDisplay() }} <span class="text-gray-500">to</span> {{ $conference->cfpEndsAtDisplay() }}</div>

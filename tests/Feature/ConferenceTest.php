@@ -368,6 +368,84 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    function a_conference_has_cfp_by_default()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'Das Conf',
+                'description' => 'A very good conference about things',
+                'url' => 'http://dasconf.org',
+            ]);
+
+        $this->assertDatabaseHas(Conference::class, [
+            'title' => 'Das Conf',
+            'description' => 'A very good conference about things',
+            'has_cfp' => true,
+        ]);
+    }
+
+    /** @test */
+    function a_conference_can_be_marked_no_cfp()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'Das Conf',
+                'description' => 'A very good conference about things',
+                'url' => 'http://dasconf.org',
+                'has_cfp' => false,
+            ]);
+
+        $this->assertDatabaseHas(Conference::class, [
+            'title' => 'Das Conf',
+            'description' => 'A very good conference about things',
+            'has_cfp' => false,
+        ]);
+    }
+
+    /** @test */
+    function has_cfp_must_be_a_boolean()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'Das Conf',
+                'description' => 'A very good conference about things',
+                'url' => 'http://dasconf.org',
+                'has_cfp' => 'yes',
+            ]);
+
+        $response->assertSessionHasErrors('has_cfp');
+    }
+
+    /** @test */
+    function conferences_marked_no_cfp_must_not_include_cfp_fields()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'Das Conf',
+                'description' => 'A very good conference about things',
+                'url' => 'http://dasconf.org',
+                'starts_at' => Carbon::now()->addDays(2)->toDateString(),
+                'ends_at' => Carbon::now()->addDays(3)->toDateString(),
+                'has_cfp' => false,
+                'cfp_url' => 'https://example.com',
+                'cfp_starts_at' => Carbon::now()->toDateString(),
+                'cfp_ends_at' => Carbon::now()->addDay()->toDateString(),
+            ]);
+
+        $response->assertSessionHasErrors('cfp_url');
+        $response->assertSessionHasErrors('cfp_starts_at');
+        $response->assertSessionHasErrors('cfp_ends_at');
+    }
+
+    /** @test */
     function user_can_edit_conference()
     {
         $user = User::factory()->create();
@@ -614,6 +692,36 @@ class ConferenceTest extends TestCase
 
         $this->actingAs($user)
             ->get('conferences?filter=all')
+            ->assertDontSee($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_open_cfp_hides_non_cfp_conferences()
+    {
+        $user = User::factory()->create();
+
+        $conference = Conference::factory()->approved()->create([
+            'has_cfp' => false,
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->get('conferences?filter=open_cfp')
+            ->assertDontSee($conference->title);
+    }
+
+    /** @test */
+    function filtering_by_unclosed_cfp_hides_non_cfp_conferences()
+    {
+        $user = User::factory()->create();
+
+        $conference = Conference::factory()->approved()->create([
+            'has_cfp' => false,
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->get('conferences?filter=unclosed_cfp')
             ->assertDontSee($conference->title);
     }
 

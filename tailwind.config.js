@@ -41,6 +41,8 @@ module.exports = {
     variants: {
         margin: ['responsive', 'first', 'last'],
         borderWidth: ['responsive', 'first', 'last'],
+        inset: ['checked'],
+        borderColor: ['checked'],
     },
     plugins: [
         require('@tailwindcss/custom-forms'),

@@ -133,3 +133,7 @@
         &:after { transform: translateY(calc(-50% - 4px)) rotate(-45deg); }
     }
 }
+
+.toggle-checkbox:checked + .toggle-label {
+    @apply text-indigo-900 bg-indigo-900;
+}
