@@ -14,7 +14,6 @@
         "bugsnag/bugsnag-laravel": "^2.23",
         "doctrine/dbal": "^3.3",
         "erusev/parsedown": "^1.7",
-        "fruitcake/laravel-cors": "^2.0",
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
