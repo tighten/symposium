@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOauthAuthCodesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -21,4 +21,4 @@ class CreateOauthAuthCodesTable extends Migration
     {
         Schema::drop('oauth_auth_codes');
     }
-}
+};

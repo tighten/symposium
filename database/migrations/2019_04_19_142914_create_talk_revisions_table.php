@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTalkRevisionsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -25,4 +25,4 @@ class CreateTalkRevisionsTable extends Migration
     {
         Schema::drop('talk_revisions');
     }
-}
+};

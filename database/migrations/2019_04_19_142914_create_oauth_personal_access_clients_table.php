@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOauthPersonalAccessClientsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,4 +18,4 @@ class CreateOauthPersonalAccessClientsTable extends Migration
     {
         Schema::drop('oauth_personal_access_clients');
     }
-}
+};

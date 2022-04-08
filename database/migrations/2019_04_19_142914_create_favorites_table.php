@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFavoritesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,4 +18,4 @@ class CreateFavoritesTable extends Migration
     {
         Schema::drop('favorites');
     }
-}
+};

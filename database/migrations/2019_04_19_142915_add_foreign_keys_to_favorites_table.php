@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToFavoritesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -20,4 +20,4 @@ class AddForeignKeysToFavoritesTable extends Migration
             $table->dropForeign('favorites_user_id_foreign');
         });
     }
-}
+};

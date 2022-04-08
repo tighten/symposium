@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToUsersSocialTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,4 +18,4 @@ class AddForeignKeysToUsersSocialTable extends Migration
             $table->dropForeign('users_social_user_id_foreign');
         });
     }
-}
+};

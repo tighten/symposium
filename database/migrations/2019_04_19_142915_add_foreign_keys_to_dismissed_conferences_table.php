@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToDismissedConferencesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -20,4 +20,4 @@ class AddForeignKeysToDismissedConferencesTable extends Migration
             $table->dropForeign('dismissed_conferences_user_id_foreign');
         });
     }
-}
+};

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDismissedConferencesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,4 +18,4 @@ class CreateDismissedConferencesTable extends Migration
     {
         Schema::drop('dismissed_conferences');
     }
-}
+};

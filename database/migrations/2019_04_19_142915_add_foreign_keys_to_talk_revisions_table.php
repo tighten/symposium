@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToTalkRevisionsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,4 +18,4 @@ class AddForeignKeysToTalkRevisionsTable extends Migration
             $table->dropForeign('talk_revisions_talk_id_foreign');
         });
     }
-}
+};
