@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@tailwindcss/custom-forms": "^0.2.1",
-        "axios": ">=0.18.1",
+        "axios": ">=0.26.1",
         "bootstrap-sass": ">=3.4.1",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
