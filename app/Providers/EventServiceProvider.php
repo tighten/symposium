@@ -12,4 +12,15 @@ class EventServiceProvider extends ServiceProvider
     protected $subscribe = [
         SlackSubscriber::class,
     ];
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     *
+     * @return bool
+     */
+    public function shouldDiscoverEvents()
+    {
+        return false;
+    }
 }
+
