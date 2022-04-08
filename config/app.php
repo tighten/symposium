@@ -167,7 +167,7 @@ return [
          */
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class,
         Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
         App\Providers\CaptchaServiceProvider::class,
@@ -190,7 +190,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Bugsnag'   => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
         'Firewall'  => PragmaRX\Firewall\Vendor\Laravel\Facade::class,
-        'Gravatar'  => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'Gravatar'  => Creativeorange\Gravatar\Facades\Gravatar::class,
         'HTML'      => Collective\Html\HtmlFacade::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Input'     => Illuminate\Support\Facades\Input::class,

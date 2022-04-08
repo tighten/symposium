@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
-use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
@@ -115,7 +115,7 @@ class User extends Authenticatable
     public function getProfilePictureThumbAttribute()
     {
         if (! $this->profile_picture) {
-            return Gravatar::src($this->email, 50);
+            return Gravatar::get($this->email, 50);
         }
 
         return asset('/storage/'.self::PROFILE_PICTURE_THUMB_PATH.$this->profile_picture);
@@ -124,7 +124,7 @@ class User extends Authenticatable
     public function getProfilePictureHiresAttribute()
     {
         if (! $this->profile_picture) {
-            return Gravatar::src($this->email, 500);
+            return Gravatar::get($this->email, 500);
         }
 
         return asset('/storage/'.self::PROFILE_PICTURE_HIRES_PATH.$this->profile_picture);
