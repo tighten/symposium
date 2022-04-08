@@ -13,7 +13,7 @@ use Tests\TestCase;
 class SubmissionTest extends TestCase
 {
     /** @test */
-    function user_can_submit_talks_via_http()
+    public function user_can_submit_talks_via_http()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -32,7 +32,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function user_can_unsubmit_talks_via_http()
+    public function user_can_unsubmit_talks_via_http()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -54,7 +54,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function user_cannot_submit_other_users_talk()
+    public function user_cannot_submit_other_users_talk()
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -76,7 +76,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function user_cannot_unsubmit_other_users_talk()
+    public function user_cannot_unsubmit_other_users_talk()
     {
         $user = User::factory()->create();
         $this->be($user);

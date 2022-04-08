@@ -8,7 +8,7 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
     /** @test */
-    function it_checks_if_user_is_admin()
+    public function it_checks_if_user_is_admin()
     {
         $user = User::factory()->create();
         $this->assertEquals(0, $user->role);
@@ -20,7 +20,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_returns_all_users_subscribed_to_notifications()
+    public function it_returns_all_users_subscribed_to_notifications()
     {
         User::factory()->create();
         User::factory()->wantsNotifications()->create();

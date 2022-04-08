@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class NewUser extends Notification
 {
     protected $user;
+
     protected $ip;
 
     public function __construct($user, $ip)

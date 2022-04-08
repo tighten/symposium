@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Validator;
 class ConferenceImporter
 {
     private $client;
+
     private $authorId;
+
     private $geocoder;
 
     public function __construct(int $authorId = null, Client $client = null)
@@ -52,14 +54,14 @@ class ConferenceImporter
                 'date',
                 'after:cfp_starts_at',
                 $event->dateEventStart ? 'before:starts_at' : '',
-                'before:' . Carbon::parse($event->dateCfpStart)->addYears(2),
+                'before:'.Carbon::parse($event->dateCfpStart)->addYears(2),
             ],
             'starts_at' => ['nullable', 'date'],
             'ends_at' => [
                 'nullable',
                 'date',
                 'after_or_equal:start_date',
-                'before:' . Carbon::parse($event->dateEventStart)->addYears(2),
+                'before:'.Carbon::parse($event->dateEventStart)->addYears(2),
             ],
         ]);
 
