@@ -94,7 +94,7 @@ class BiosTest extends TestCase
 
         $this->actingAs($user)->get("bios/{$bio->id}/delete");
 
-        $this->assertDeleted($bio);
+        $this->assertModelMissing($bio);
     }
 
     /** @test */

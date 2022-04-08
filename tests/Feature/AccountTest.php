@@ -157,7 +157,7 @@ class AccountTest extends TestCase
 
         $response->assertRedirect('/');
 
-        $this->assertDeleted($user);
+        $this->assertModelMissing($user);
     }
 
     /** @test */
@@ -187,9 +187,9 @@ class AccountTest extends TestCase
             ->post('account/delete')
             ->assertRedirect('/');
 
-        $this->assertDeleted($user);
-        $this->assertDeleted($talk);
-        $this->assertDeleted($bio);
+        $this->assertModelMissing($user);
+        $this->assertModelMissing($talk);
+        $this->assertModelMissing($bio);
 
         $this->assertDatabaseMissing('dismissed_conferences', [
             'user_id' => $user->id,

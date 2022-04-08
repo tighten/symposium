@@ -114,8 +114,8 @@ class TalkTest extends TestCase
 
         $this->get("talks/{$talk->id}/delete");
 
-        $this->assertDeleted($talk);
-        $this->assertDeleted($talkRevision);
+        $this->assertModelMissing($talk);
+        $this->assertModelMissing($talkRevision);
     }
 
     /** @test */

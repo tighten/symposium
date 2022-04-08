@@ -49,7 +49,7 @@ class SubmissionTest extends TestCase
 
         $this->delete("submissions/{$submission->id}");
 
-        $this->assertDeleted($submission);
+        $this->assertModelMissing($submission);
         $this->assertTrue($conference->submissions->isEmpty());
     }
 
