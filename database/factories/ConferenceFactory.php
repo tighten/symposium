@@ -12,8 +12,8 @@ class ConferenceFactory extends Factory
         return [
             'author_id' => User::factory(),
             'title' => 'Dummy Conference',
-            'description' => $this->faker->sentence,
-            'url' => $this->faker->url,
+            'description' => $this->faker->sentence(),
+            'url' => $this->faker->url(),
             'starts_at' => $this->faker->dateTimeBetween('+3 days', '+10 days'),
             'ends_at' => $this->faker->dateTimeBetween('+11 days', '+20 days'),
             'cfp_starts_at' => $this->faker->dateTimeBetween('-9 days', '-1 day'),

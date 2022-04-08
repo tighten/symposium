@@ -11,7 +11,7 @@ class BioFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'nickname' => $this->faker->word,
+            'nickname' => $this->faker->word(),
             'body' => $this->faker->sentence(),
         ];
     }

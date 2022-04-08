@@ -14,11 +14,11 @@ class UserFactory extends Factory
         static $password;
 
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'password' => $password ?: $password = Hash::make('password'),
             'remember_token' => Str::random(10),
-            'profile_slug' => $this->faker->word,
+            'profile_slug' => $this->faker->word(),
         ];
     }
 
