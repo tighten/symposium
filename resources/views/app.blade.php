@@ -9,6 +9,11 @@
     <title>Symposium for Speakers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta property="og:title" content="{{ config('app.name') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://symposiumapp.com/">
+    <meta property="og:image" content="{{ url('./symposium-banner.png') }}">
+    
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://symposiumapp.com/">
     <meta property="twitter:title" content="{{ config('app.name') }}">
