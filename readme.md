@@ -60,6 +60,16 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     ```
 12. Run tests with `composer test`.
 
+## Contributing
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security
+If you discover any security related issues, please email matt@tighten.co instead of using the issue tracker.
+
+## Credits
+- [Matt Stauffer](https://github.com/mattstauffer)
+- [All Contributors](https://github.com/tighten/symposium/graphs/contributors)
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
