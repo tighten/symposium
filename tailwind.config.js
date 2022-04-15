@@ -1,14 +1,48 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    purge: [
-    './resources/**/*.blade.php',
-    './resources/**/*.js',
-    './resources/**/*.vue',
+    content: [
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
     ],
     theme: {
+        colors: {
+            current: 'currentColor',
+            black: '#000',
+            white: '#fff',
+            indigo: {
+                DEFAULT: '#4b72D9',
+                100: '#F6F9FC',
+                150: '#EAF0FF',
+                300: '#a3bffa',
+                500: '#6A96FE',
+                800: '#4B72D9',
+                900: '#4C51BF',
+            },
+            gray: {
+                100: '#f7fafc',
+                200: '#edf2f7',
+                300: '#D8D8D8',
+                400: '#cbd5e0',
+                500: '#9B9B9B',
+                600: '#828080',
+                700: '#4a5568',
+            },
+            red: {
+                500: '#f56565',
+            },
+        },
         fontSize: {
-            ...defaultTheme.fontSize,
+            xs: '0.75rem',
+            sm: '0.875rem',
+            base: '1rem',
+            lg: '1.125rem',
+            xl: '1.25rem',
+            '2xl': '1.5rem',
+            '3xl': '1.875rem',
+            '4xl': '2.25rem',
+            '5xl': '3rem',
             '6xl': '4.3rem',
         },
         fontFamily: {
@@ -18,34 +52,13 @@ module.exports = {
             ],
         },
         extend: {
-            colors: {
-                indigo: {
-                    default: '#4b72D9',
-                    '100': '#F6F9FC',
-                    '150': '#EAF0FF',
-                    '500': '#6A96FE',
-                    '800': '#4B72D9',
-                    '900': '#4C51BF',
-                },
-                gray: {
-                    '300': '#D8D8D8',
-                    '500': '#9B9B9B',
-                    '600': '#828080',
-                },
-            },
             spacing: {
                 '0.5': '2px',
             },
         },
     },
-    variants: {
-        margin: ['responsive', 'first', 'last'],
-        borderWidth: ['responsive', 'first', 'last'],
-        inset: ['checked'],
-        borderColor: ['checked'],
-    },
     plugins: [
-        require('@tailwindcss/custom-forms'),
+        require('@tailwindcss/forms'),
         function ({ addComponents }) {
             const buttons = {
                 '.btn-github-login': {

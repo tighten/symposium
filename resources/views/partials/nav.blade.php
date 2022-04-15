@@ -86,7 +86,7 @@
                 <a class="px-4 py-1 hover:bg-indigo-100 hover:text-indigo-500" href="{{ route('account.show') }}">Account</a>
                 @if (auth()->user()->enable_profile)
                     <a
-                        class="px-4 py-1 whitespace-no-wrap hover:bg-indigo-100 hover:text-indigo-500"
+                        class="px-4 py-1 whitespace-nowrap hover:bg-indigo-100 hover:text-indigo-500"
                         href="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
                     >
                         Public Speaker Profile

@@ -70,7 +70,7 @@
 
                                 <input type="hidden" name="state" value="{{ $request->state }}">
                                 <input type="hidden" name="client_id" value="{{ $client->id }}">
-                                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-teal-lightest bg-teal-dark hover:bg-grey-darker btn-approve">Authorize</button>
+                                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-nowrap py-2 px-4 rounded text-base leading-normal no-underline text-teal-lightest bg-teal-dark hover:bg-grey-darker btn-approve">Authorize</button>
                             </form>
 
                             <!-- Cancel Button -->
@@ -80,7 +80,7 @@
 
                                 <input type="hidden" name="state" value="{{ $request->state }}">
                                 <input type="hidden" name="client_id" value="{{ $client->id }}">
-                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-white bg-red-dark hover:bg-grey-darker">Cancel</button>
+                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-nowrap py-2 px-4 rounded text-base leading-normal no-underline text-white bg-red-dark hover:bg-grey-darker">Cancel</button>
                             </form>
                         </div>
                     </div>
