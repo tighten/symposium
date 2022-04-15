@@ -8,6 +8,13 @@
 <head>
     <title>Symposium for Speakers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://symposiumapp.com/">
+    <meta property="twitter:title" content="{{ config('app.name') }}">
+    <meta property="twitter:description" content="A web app for conference speakers to track talks, bios, and conferences.">
+    <meta property="twitter:image" content="{{ url('./symposium-banner.png') }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
     <link href="{{ url('/css/app.css') }}" rel="stylesheet">
