@@ -59,3 +59,7 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     php -S localhost:8080 -t public
     ```
 12. Run tests with `composer test`.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
