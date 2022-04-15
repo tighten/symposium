@@ -13,3 +13,4 @@
 /storage/framework/testing
 .phpunit.result.cache
 .idea/*
+phpunit.xml
