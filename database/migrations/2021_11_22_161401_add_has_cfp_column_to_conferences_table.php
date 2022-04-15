@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddHasCfpColumnToConferencesTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
@@ -21,4 +20,4 @@ class AddHasCfpColumnToConferencesTable extends Migration
             $table->dropColumn('has_cfp');
         });
     }
-}
+};

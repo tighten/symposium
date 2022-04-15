@@ -10,7 +10,7 @@ use Tests\TestCase;
 class ConferenceTest extends TestCase
 {
     /** @test */
-    function user_can_create_conference()
+    public function user_can_create_conference()
     {
         $user = User::factory()->create();
 
@@ -28,7 +28,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_conference_can_include_location_coordinates()
+    public function a_conference_can_include_location_coordinates()
     {
         $user = User::factory()->create();
 
@@ -51,7 +51,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_conference_cannot_end_before_it_begins()
+    public function a_conference_cannot_end_before_it_begins()
     {
         $user = User::factory()->create();
 
@@ -73,7 +73,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_title_is_required()
+    public function conference_title_is_required()
     {
         $user = User::factory()->create();
 
@@ -86,7 +86,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_description_is_required()
+    public function conference_description_is_required()
     {
         $user = User::factory()->create();
 
@@ -99,7 +99,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_url_is_required()
+    public function conference_url_is_required()
     {
         $user = User::factory()->create();
 
@@ -112,7 +112,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_start_date_must_be_a_valid_date()
+    public function conference_start_date_must_be_a_valid_date()
     {
         $user = User::factory()->create();
 
@@ -127,7 +127,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_end_date_must_be_a_valid_date()
+    public function conference_end_date_must_be_a_valid_date()
     {
         $user = User::factory()->create();
 
@@ -142,7 +142,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_end_date_must_not_be_before_start_date()
+    public function conference_end_date_must_not_be_before_start_date()
     {
         $user = User::factory()->create();
 
@@ -158,7 +158,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_can_be_a_single_day_conference()
+    public function conference_can_be_a_single_day_conference()
     {
         $user = User::factory()->create();
 
@@ -176,7 +176,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_cfp_start_date_must_be_a_valid_date()
+    public function conference_cfp_start_date_must_be_a_valid_date()
     {
         $user = User::factory()->create();
 
@@ -191,7 +191,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_cfp_end_date_must_be_a_valid_date()
+    public function conference_cfp_end_date_must_be_a_valid_date()
     {
         $user = User::factory()->create();
 
@@ -206,7 +206,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_cfp_end_date_must_not_be_before_cfp_start_date()
+    public function conference_cfp_end_date_must_not_be_before_cfp_start_date()
     {
         $user = User::factory()->create();
 
@@ -222,7 +222,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_cfp_start_date_must_be_before_the_conference_start_date()
+    public function conference_cfp_start_date_must_be_before_the_conference_start_date()
     {
         $user = User::factory()->create();
 
@@ -239,7 +239,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_cfp_end_date_must_be_before_the_conference_start_date()
+    public function conference_cfp_end_date_must_be_before_the_conference_start_date()
     {
         $user = User::factory()->create();
 
@@ -256,7 +256,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function it_creates_a_conference_with_the_minimum_required_input()
+    public function it_creates_a_conference_with_the_minimum_required_input()
     {
         $user = User::factory()->create();
         $input = [
@@ -271,7 +271,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_dates_are_saved_if_provided()
+    public function conference_dates_are_saved_if_provided()
     {
         $user = User::factory()->create();
         $input = [
@@ -290,7 +290,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conference_cfp_url_is_saved_if_provided()
+    public function conference_cfp_url_is_saved_if_provided()
     {
         $user = User::factory()->create();
         $input = [
@@ -306,7 +306,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function empty_dates_are_treated_as_null()
+    public function empty_dates_are_treated_as_null()
     {
         $user = User::factory()->create();
         $input = [
@@ -333,7 +333,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function non_admins_cannot_submit_admin_only_fields()
+    public function non_admins_cannot_submit_admin_only_fields()
     {
         $user = User::factory()->create();
         $input = [
@@ -352,7 +352,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function creating_a_conference_redirects_to_the_new_conference()
+    public function creating_a_conference_redirects_to_the_new_conference()
     {
         $user = User::factory()->create();
         $input = [
@@ -368,7 +368,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_conference_has_cfp_by_default()
+    public function a_conference_has_cfp_by_default()
     {
         $user = User::factory()->create();
 
@@ -387,7 +387,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_conference_can_be_marked_no_cfp()
+    public function a_conference_can_be_marked_no_cfp()
     {
         $user = User::factory()->create();
 
@@ -407,7 +407,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function has_cfp_must_be_a_boolean()
+    public function has_cfp_must_be_a_boolean()
     {
         $user = User::factory()->create();
 
@@ -423,7 +423,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conferences_marked_no_cfp_must_not_include_cfp_fields()
+    public function conferences_marked_no_cfp_must_not_include_cfp_fields()
     {
         $user = User::factory()->create();
 
@@ -446,7 +446,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function user_can_edit_conference()
+    public function user_can_edit_conference()
     {
         $user = User::factory()->create();
 
@@ -474,7 +474,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function location_coordinates_can_be_updated()
+    public function location_coordinates_can_be_updated()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->author($user)->create();
@@ -494,7 +494,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_conference_cannot_be_updated_to_end_before_it_begins()
+    public function a_conference_cannot_be_updated_to_end_before_it_begins()
     {
         $user = User::factory()->create();
 
@@ -518,7 +518,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conferences_accept_proposals_during_the_call_for_papers()
+    public function conferences_accept_proposals_during_the_call_for_papers()
     {
         $conference = Conference::factory()->create([
             'cfp_starts_at' => Carbon::yesterday(),
@@ -529,7 +529,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
+    public function conferences_dont_accept_proposals_outside_of_the_call_for_papers()
     {
         $conference = Conference::factory()->create([
             'cfp_starts_at' => Carbon::tomorrow(),
@@ -547,7 +547,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
+    public function conferences_that_havent_announced_their_cfp_are_not_accepting_proposals()
     {
         $conference = Conference::factory()->create([
             'cfp_starts_at' => null,
@@ -558,7 +558,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function non_owners_can_view_conference()
+    public function non_owners_can_view_conference()
     {
         $user = User::factory()->create();
 
@@ -572,7 +572,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function guests_can_view_conference()
+    public function guests_can_view_conference()
     {
         $conference = Conference::factory()->approved()->create();
 
@@ -581,7 +581,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function guests_can_view_conference_list()
+    public function guests_can_view_conference_list()
     {
         $user = User::factory()->create();
 
@@ -594,14 +594,14 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_create_conference()
+    public function guests_cannot_create_conference()
     {
         $this->get('conferences/create')
             ->assertRedirect('login');
     }
 
     /** @test */
-    function it_can_pull_only_approved_conferences()
+    public function it_can_pull_only_approved_conferences()
     {
         Conference::factory()->create();
         Conference::factory()->approved()->create();
@@ -610,7 +610,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function it_can_pull_only_not_shared_conferences()
+    public function it_can_pull_only_not_shared_conferences()
     {
         Conference::factory()->create();
         Conference::factory()->shared()->create();
@@ -619,7 +619,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
+    public function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
     {
         $nullCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => null,
@@ -644,7 +644,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function cfp_by_date_list_sorts_by_date()
+    public function cfp_by_date_list_sorts_by_date()
     {
         $conferenceA = Conference::factory()->approved()->create([
             'starts_at' => Carbon::now()->subDay(),
@@ -664,7 +664,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_dismiss_conference()
+    public function guests_cannot_dismiss_conference()
     {
         $user = User::factory()->create();
 
@@ -676,7 +676,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function dismissed_conferences_do_not_show_up_in_conference_list()
+    public function dismissed_conferences_do_not_show_up_in_conference_list()
     {
         $user = User::factory()->create();
 
@@ -696,7 +696,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function filtering_by_open_cfp_hides_non_cfp_conferences()
+    public function filtering_by_open_cfp_hides_non_cfp_conferences()
     {
         $user = User::factory()->create();
 
@@ -711,7 +711,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function filtering_by_unclosed_cfp_hides_non_cfp_conferences()
+    public function filtering_by_unclosed_cfp_hides_non_cfp_conferences()
     {
         $user = User::factory()->create();
 
@@ -726,7 +726,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function filtering_by_dismissed_shows_dismissed_conferences()
+    public function filtering_by_dismissed_shows_dismissed_conferences()
     {
         $user = User::factory()->create();
 
@@ -742,7 +742,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function filtering_by_dismissed_does_not_show_undismissed_conferences()
+    public function filtering_by_dismissed_does_not_show_undismissed_conferences()
     {
         $user = User::factory()->create();
 
@@ -755,7 +755,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function filtering_by_favorites_shows_favorite_conferences()
+    public function filtering_by_favorites_shows_favorite_conferences()
     {
         $user = User::factory()->create();
 
@@ -771,7 +771,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function filtering_by_favorites_does_not_show_nonfavorite_conferences()
+    public function filtering_by_favorites_does_not_show_nonfavorite_conferences()
     {
         $user = User::factory()->create();
 
@@ -784,7 +784,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_favorited_conference_cannot_be_dismissed()
+    public function a_favorited_conference_cannot_be_dismissed()
     {
         $user = User::factory()->create();
 
@@ -800,7 +800,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function a_dismissed_conference_cannot_be_favorited()
+    public function a_dismissed_conference_cannot_be_favorited()
     {
         $user = User::factory()->create();
 
@@ -816,7 +816,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function displaying_event_dates_with_no_dates_set()
+    public function displaying_event_dates_with_no_dates_set()
     {
         $conference = Conference::factory()->make([
             'starts_at' => null,
@@ -827,7 +827,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function displaying_event_dates_with_a_start_date_and_no_end_date()
+    public function displaying_event_dates_with_a_start_date_and_no_end_date()
     {
         $conference = Conference::factory()->make([
             'starts_at' => '2020-01-01 09:00:00',
@@ -838,7 +838,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function displaying_event_dates_with_an_end_date_and_no_start_date()
+    public function displaying_event_dates_with_an_end_date_and_no_start_date()
     {
         $conference = Conference::factory()->make([
             'starts_at' => null,
@@ -849,7 +849,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function displaying_event_dates_with_the_same_start_and_end_dates()
+    public function displaying_event_dates_with_the_same_start_and_end_dates()
     {
         $conference = Conference::factory()->make([
             'starts_at' => '2020-01-01 09:00:00',
@@ -860,7 +860,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function displaying_event_dates_with_the_different_start_and_end_dates()
+    public function displaying_event_dates_with_the_different_start_and_end_dates()
     {
         $conference = Conference::factory()->make([
             'starts_at' => '2020-01-01 09:00:00',
@@ -870,7 +870,7 @@ class ConferenceTest extends TestCase
         $this->assertEquals('Jan 1 2020 - Jan 3 2020', $conference->event_dates_display);
     }
 
-    function assertConferenceSort($conferences, $response)
+    public function assertConferenceSort($conferences, $response)
     {
         foreach ($conferences as $sortPosition => $conference) {
             $sortedConference = $response->original->getData()['conferences']->values()[$sortPosition];
@@ -880,7 +880,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conferences_queries_where_has_dates()
+    public function scopping_conferences_queries_where_has_dates()
     {
         $conferenceA = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => Carbon::parse('tomorrow')]);
         $conferenceB = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => null]);
@@ -896,7 +896,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conferences_queries_where_has_cfp_start_date()
+    public function scopping_conferences_queries_where_has_cfp_start_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_starts_at' => Carbon::parse('yesterday')]);
         $conferenceB = Conference::factory()->create(['cfp_starts_at' => null]);
@@ -908,7 +908,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conferences_queries_where_has_cfp_end_date()
+    public function scopping_conferences_queries_where_has_cfp_end_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_ends_at' => Carbon::parse('yesterday')]);
         $conferenceB = Conference::factory()->create(['cfp_ends_at' => null]);

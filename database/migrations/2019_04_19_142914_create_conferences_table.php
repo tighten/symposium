@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateConferencesTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('conferences', function (Blueprint $table) {
@@ -29,4 +28,4 @@ class CreateConferencesTable extends Migration
     {
         Schema::drop('conferences');
     }
-}
+};

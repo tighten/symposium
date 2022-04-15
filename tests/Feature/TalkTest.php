@@ -14,7 +14,7 @@ use Tests\TestCase;
 class TalkTest extends TestCase
 {
     /** @test */
-    function it_shows_the_talk_title_on_its_page()
+    public function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();
         Conference::factory()->create();
@@ -29,7 +29,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function user_talks_are_sorted_alphabetically()
+    public function user_talks_are_sorted_alphabetically()
     {
         $user = User::factory()->create();
         $talk1 = Talk::factory()->author($user)->create();
@@ -47,7 +47,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function user_talks_json_encode_without_keys()
+    public function user_talks_json_encode_without_keys()
     {
         $user = User::factory()->create();
 
@@ -65,7 +65,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function user_can_create_a_talk()
+    public function user_can_create_a_talk()
     {
         $user = User::factory()->create();
 
@@ -101,7 +101,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function user_can_delete_a_talk()
+    public function user_can_delete_a_talk()
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -114,12 +114,12 @@ class TalkTest extends TestCase
 
         $this->get("talks/{$talk->id}/delete");
 
-        $this->assertDeleted($talk);
-        $this->assertDeleted($talkRevision);
+        $this->assertModelMissing($talk);
+        $this->assertModelMissing($talkRevision);
     }
 
     /** @test */
-    function user_can_save_a_new_revision_of_a_talk()
+    public function user_can_save_a_new_revision_of_a_talk()
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create([
@@ -145,7 +145,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function scoping_talks_where_submitted()
+    public function scoping_talks_where_submitted()
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();
@@ -161,7 +161,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function scoping_talks_where_accepted()
+    public function scoping_talks_where_accepted()
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();

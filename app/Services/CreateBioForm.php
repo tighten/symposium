@@ -15,6 +15,7 @@ class CreateBioForm
     ];
 
     private $input;
+
     private $user;
 
     private function __construct($input, $user)

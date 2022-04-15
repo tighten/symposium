@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFailedJobsTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('failed_jobs', function (Blueprint $table) {
@@ -21,4 +20,4 @@ class CreateFailedJobsTable extends Migration
     {
         Schema::drop('failed_jobs');
     }
-}
+};

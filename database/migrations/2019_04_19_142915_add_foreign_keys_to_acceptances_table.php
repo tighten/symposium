@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToAcceptancesTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::table('acceptances', function (Blueprint $table) {
@@ -20,4 +19,4 @@ class AddForeignKeysToAcceptancesTable extends Migration
             $table->dropForeign('acceptances_talk_revision_id_foreign');
         });
     }
-}
+};

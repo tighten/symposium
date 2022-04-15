@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRejectionsTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('rejections', function (Blueprint $table) {
@@ -26,4 +25,4 @@ class CreateRejectionsTable extends Migration
     {
         Schema::dropIfExists('rejections');
     }
-}
+};

@@ -5,7 +5,7 @@ namespace Tests\Api;
 class MeApiTest extends ApiTestCase
 {
     /** @test */
-    function can_fetch_my_info()
+    public function can_fetch_my_info()
     {
         $response = $this->call('GET', 'api/me');
         $data = json_decode($response->getContent());

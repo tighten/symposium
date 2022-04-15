@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
-use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 
 class User extends Authenticatable
 {
@@ -17,7 +17,9 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable, Searchable;
 
     const ADMIN_ROLE = 1;
+
     const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
+
     const PROFILE_PICTURE_HIRES_PATH = 'profile_pictures/hires/';
 
     protected $hidden = ['password', 'remember_token'];
@@ -35,8 +37,8 @@ class User extends Authenticatable
             $user->bios()->delete();
 
             if ($user->profile_picture && strpos($user->profile_picture, '/') === false) {
-                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
-                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH.$user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH.$user->profile_picture);
             }
 
             DB::table('favorites')->where('user_id', $user->id)->delete();
@@ -113,19 +115,19 @@ class User extends Authenticatable
     public function getProfilePictureThumbAttribute()
     {
         if (! $this->profile_picture) {
-            return Gravatar::src($this->email, 50);
+            return Gravatar::get($this->email, 'profile');
         }
 
-        return asset('/storage/' . self::PROFILE_PICTURE_THUMB_PATH . $this->profile_picture);
+        return asset('/storage/'.self::PROFILE_PICTURE_THUMB_PATH.$this->profile_picture);
     }
 
     public function getProfilePictureHiresAttribute()
     {
         if (! $this->profile_picture) {
-            return Gravatar::src($this->email, 500);
+            return Gravatar::get($this->email, 'hire');
         }
 
-        return asset('/storage/' . self::PROFILE_PICTURE_HIRES_PATH . $this->profile_picture);
+        return asset('/storage/'.self::PROFILE_PICTURE_HIRES_PATH.$this->profile_picture);
     }
 
     public function toSearchableArray()
