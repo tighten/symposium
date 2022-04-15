@@ -22,7 +22,7 @@
         value="{{ old($name, $value) }}"
         {{ $attributes->except('class') }}
         class="
-            form-input
+            bg-white border-form-200 placeholder-form-400 rounded
             @unless ($inline) w-full @endunless
             @unless ($hideLabel) mt-1 @endunless
         "

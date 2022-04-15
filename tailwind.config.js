@@ -32,6 +32,10 @@ module.exports = {
             red: {
                 500: '#f56565',
             },
+            form: {
+                200: '#e2e8f0',
+                400: '#a0aec0',
+            },
         },
         fontSize: {
             xs: '0.75rem',
