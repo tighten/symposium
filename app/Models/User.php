@@ -115,7 +115,7 @@ class User extends Authenticatable
     public function getProfilePictureThumbAttribute()
     {
         if (! $this->profile_picture) {
-            return Gravatar::get($this->email, 50);
+            return Gravatar::get($this->email, 'profile');
         }
 
         return asset('/storage/'.self::PROFILE_PICTURE_THUMB_PATH.$this->profile_picture);
@@ -124,7 +124,7 @@ class User extends Authenticatable
     public function getProfilePictureHiresAttribute()
     {
         if (! $this->profile_picture) {
-            return Gravatar::get($this->email, 500);
+            return Gravatar::get($this->email, 'hire');
         }
 
         return asset('/storage/'.self::PROFILE_PICTURE_HIRES_PATH.$this->profile_picture);
