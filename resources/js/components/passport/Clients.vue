@@ -68,13 +68,13 @@
                 <input
                   id="name"
                   v-model="createForm.name"
-                  :class="{ 'border-red': createForm.errors.has('name') }"
+                  :class="{ 'border-red-500': createForm.errors.has('name') }"
                   class="block w-full h-full px-3 py-3 pr-3 text-gray-700 bg-gray-100 border rounded outline-none appearance-none focus:border-indigo-300 pl-9"
                   type="text"
                   placeholder="Something your users will recognize and trust."
                   @keyup.enter="store"
                 >
-                <has-error :form="createForm" class="text-red" field="name"/>
+                <has-error :form="createForm" class="text-red-500" field="name"/>
               </div>
               <div class="mb-6">
                 <label class="block mb-2 text-sm font-extrabold" for="redirecturl">Redirect Url</label>
@@ -87,7 +87,7 @@
                   placeholder="Your application's authorization callback URL."
                   @keyup.enter="store"
                 >
-                <has-error :form="createForm" class="text-red" field="redirect"/>
+                <has-error :form="createForm" class="text-red-500" field="redirect"/>
               </div>
               <div class="block flow-root">
                 <button
