@@ -12,13 +12,13 @@
     <meta property="og:title" content="{{ config('app.name') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://symposiumapp.com/">
-    <meta property="og:image" content="{{ url('./symposium-banner.png') }}">
+    <meta property="og:image" content="{{ asset('img/symposium-banner.png') }}">
     
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://symposiumapp.com/">
     <meta property="twitter:title" content="{{ config('app.name') }}">
     <meta property="twitter:description" content="A web app for conference speakers to track talks, bios, and conferences.">
-    <meta property="twitter:image" content="{{ url('./symposium-banner.png') }}">
+    <meta property="twitter:image" content="{{ asset('img/symposium-banner.png') }}">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
