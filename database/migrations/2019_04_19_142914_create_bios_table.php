@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBiosTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('bios', function (Blueprint $table) {
@@ -21,4 +20,4 @@ class CreateBiosTable extends Migration
     {
         Schema::drop('bios');
     }
-}
+};

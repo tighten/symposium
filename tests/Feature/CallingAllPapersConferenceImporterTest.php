@@ -14,17 +14,18 @@ use Tests\TestCase;
 class CallingAllPapersConferenceImporterTest extends TestCase
 {
     private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
+
     private $eventStub;
 
     /** @before */
-    function prepareEventStub()
+    public function prepareEventStub()
     {
         parent::setUp();
 
         $this->eventStub = $this->stubEvent();
     }
 
-    function stubEvent()
+    public function stubEvent()
     {
         $_rel = new stdClass;
         $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
@@ -44,7 +45,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         return Event::createFromApiObject($event);
     }
 
-    function mockClient($event = null)
+    public function mockClient($event = null)
     {
         if (! $event) {
             $event = $this->eventStub;
@@ -59,7 +60,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_gets_the_id_from_the_rel_link()
+    public function it_gets_the_id_from_the_rel_link()
     {
         $this->mockClient();
 
@@ -73,7 +74,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function epoch_start_dates_are_nullified_prior_to_validation()
+    public function epoch_start_dates_are_nullified_prior_to_validation()
     {
         $this->mockClient();
 
@@ -90,7 +91,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_basic_text_fields()
+    public function it_imports_basic_text_fields()
     {
         $this->mockClient();
 
@@ -106,7 +107,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_dates_if_we_dont_care_about_time_zones()
+    public function it_imports_dates_if_we_dont_care_about_time_zones()
     {
         $event = $this->eventStub;
 
@@ -156,7 +157,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function imported_dates_are_adjusted_for_daylight_saving_time_changes()
+    public function imported_dates_are_adjusted_for_daylight_saving_time_changes()
     {
         $this->mockClient();
 
@@ -180,7 +181,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_null_dates_as_null()
+    public function it_imports_null_dates_as_null()
     {
         $event = $this->eventStub;
 
@@ -197,7 +198,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_Jan_1_1970_dates_as_null()
+    public function it_imports_Jan_1_1970_dates_as_null()
     {
         $event = $this->eventStub;
 
@@ -217,7 +218,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_imports_zero_in_latitude_or_longitude_as_null()
+    public function it_imports_zero_in_latitude_or_longitude_as_null()
     {
         $event = $this->eventStub;
 
@@ -236,7 +237,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
+    public function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
     {
         $event = $this->eventStub;
 
@@ -265,7 +266,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_keeps_lat_long_values_null_if_no_results()
+    public function it_keeps_lat_long_values_null_if_no_results()
     {
         $event = $this->eventStub;
 
@@ -289,7 +290,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function imported_conferences_are_approved()
+    public function imported_conferences_are_approved()
     {
         $this->mockClient();
 
@@ -300,7 +301,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function it_updates_data_for_existing_conferences()
+    public function it_updates_data_for_existing_conferences()
     {
         $this->mockClient();
 
@@ -327,7 +328,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function updating_existing_unapproved_conferences_leaves_them_unapproved()
+    public function updating_existing_unapproved_conferences_leaves_them_unapproved()
     {
         $this->mockClient();
 
@@ -344,7 +345,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function conferences_with_cfp_end_after_conference_start_are_not_imported()
+    public function conferences_with_cfp_end_after_conference_start_are_not_imported()
     {
         $this->mockClient();
 
@@ -358,7 +359,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function conferences_with_over_2_year_duration_are_not_imported()
+    public function conferences_with_over_2_year_duration_are_not_imported()
     {
         $this->mockClient();
 
@@ -370,8 +371,9 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $this->assertEquals(0, Conference::count());
     }
+
     /** @test */
-    function conferences_with_cfp_duration_over_2_years_are_not_imported()
+    public function conferences_with_cfp_duration_over_2_years_are_not_imported()
     {
         $this->mockClient();
 
@@ -385,7 +387,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future()
+    public function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future()
     {
         $this->mockClient();
 
@@ -401,7 +403,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    function conferences_with_null_start_are_valid_with_end_less_than_2_years_in_future()
+    public function conferences_with_null_start_are_valid_with_end_less_than_2_years_in_future()
     {
         $this->mockClient();
 

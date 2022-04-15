@@ -11,11 +11,17 @@ class TalkRevision extends UuidBase
     public static $rules = [];
 
     protected $title;
+
     protected $type;
+
     protected $length;
+
     protected $level;
+
     protected $description;
+
     protected $slides;
+
     protected $organizer_notes;
 
     protected $table = 'talk_revisions';
@@ -31,7 +37,7 @@ class TalkRevision extends UuidBase
 
     public function getUrl()
     {
-        return '/talks/' . $this->talk->id . '/?revision=' . $this->id;
+        return '/talks/'.$this->talk->id.'/?revision='.$this->id;
     }
 
     public function getDescription()

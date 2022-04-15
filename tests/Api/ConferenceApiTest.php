@@ -7,7 +7,7 @@ use App\Models\Conference;
 class ConferenceApiTest extends ApiTestCase
 {
     /** @test */
-    function can_fetch_all_conferences()
+    public function can_fetch_all_conferences()
     {
         $response = $this->call('GET', 'api/conferences');
         $data = json_decode($response->getContent());
@@ -17,7 +17,7 @@ class ConferenceApiTest extends ApiTestCase
     }
 
     /** @test */
-    function can_fetch_one_conference()
+    public function can_fetch_one_conference()
     {
         $conferenceId = Conference::first()->id;
         $response = $this->call('GET', "api/conferences/{$conferenceId}");
@@ -28,7 +28,7 @@ class ConferenceApiTest extends ApiTestCase
     }
 
     /** @test */
-    function cfp_url_returns_if_set()
+    public function cfp_url_returns_if_set()
     {
         $conference = Conference::create([
             'author_id' => 1,
@@ -45,7 +45,7 @@ class ConferenceApiTest extends ApiTestCase
     }
 
     /** @test */
-    function cfp_url_returns_null_on_api_if_not_set()
+    public function cfp_url_returns_null_on_api_if_not_set()
     {
         $conference = Conference::create([
             'author_id' => 1,

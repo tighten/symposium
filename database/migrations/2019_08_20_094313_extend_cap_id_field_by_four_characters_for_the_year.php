@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ExtendCapIdFieldByFourCharactersForTheYear extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
@@ -19,4 +18,4 @@ class ExtendCapIdFieldByFourCharactersForTheYear extends Migration
             $table->string('calling_all_papers_id', 40)->nullable()->change();
         });
     }
-}
+};

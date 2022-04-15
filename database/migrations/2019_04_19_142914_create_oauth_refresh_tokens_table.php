@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOauthRefreshTokensTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('oauth_refresh_tokens', function (Blueprint $table) {
@@ -19,4 +18,4 @@ class CreateOauthRefreshTokensTable extends Migration
     {
         Schema::drop('oauth_refresh_tokens');
     }
-}
+};

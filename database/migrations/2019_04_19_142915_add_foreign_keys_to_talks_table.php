@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToTalksTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::table('talks', function (Blueprint $table) {
@@ -18,4 +17,4 @@ class AddForeignKeysToTalksTable extends Migration
             $table->dropForeign('talks_author_id_foreign');
         });
     }
-}
+};

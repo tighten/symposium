@@ -11,7 +11,9 @@ class ContactRequest extends Mailable
     use Queueable, SerializesModels;
 
     public $email;
+
     public $name;
+
     public $userMessage;
 
     /**

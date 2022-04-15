@@ -17,7 +17,7 @@ use Tests\TestCase;
 class AccountTest extends TestCase
 {
     /** @test */
-    function users_can_log_in()
+    public function users_can_log_in()
     {
         $user = User::factory()->create(['password' => Hash::make('super-secret')]);
 
@@ -31,7 +31,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function logging_in_with_invalid_credentials()
+    public function logging_in_with_invalid_credentials()
     {
         $user = User::factory()->create();
 
@@ -45,19 +45,19 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function user_can_update_their_profile()
+    public function user_can_update_their_profile()
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->put('account/edit', [
-           'name' => 'Kevin Bacon',
-           'email' => 'KevinBacon@yahoo.com',
-           'password' => 'haxTh1sn00b',
-           'enable_profile' => true,
-           'allow_profile_contact' => true,
-           'wants_notifications' => true,
-           'profile_slug' => 'kevin_rox',
-           'profile_intro' => 'It has been so long since I was in an X-Men movie',
+            'name' => 'Kevin Bacon',
+            'email' => 'KevinBacon@yahoo.com',
+            'password' => 'haxTh1sn00b',
+            'enable_profile' => true,
+            'allow_profile_contact' => true,
+            'wants_notifications' => true,
+            'profile_slug' => 'kevin_rox',
+            'profile_intro' => 'It has been so long since I was in an X-Men movie',
         ]);
 
         $response->assertRedirect('account');
@@ -74,7 +74,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function user_can_update_their_profile_picture()
+    public function user_can_update_their_profile_picture()
     {
         Storage::fake();
 
@@ -90,12 +90,12 @@ class AccountTest extends TestCase
         ]);
 
         $this->assertNotNull($user->fresh()->profile_picture);
-        Storage::disk()->assertExists(User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
-        Storage::disk()->assertExists(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
+        Storage::disk()->assertExists(User::PROFILE_PICTURE_THUMB_PATH.$user->profile_picture);
+        Storage::disk()->assertExists(User::PROFILE_PICTURE_HIRES_PATH.$user->profile_picture);
     }
 
     /** @test */
-    function password_reset_emails_are_sent_for_valid_users()
+    public function password_reset_emails_are_sent_for_valid_users()
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -108,7 +108,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function user_can_reset_their_password_from_email_link()
+    public function user_can_reset_their_password_from_email_link()
     {
         Notification::fake();
 
@@ -148,7 +148,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function users_can_delete_their_accounts()
+    public function users_can_delete_their_accounts()
     {
         $user = User::factory()->create();
 
@@ -157,11 +157,11 @@ class AccountTest extends TestCase
 
         $response->assertRedirect('/');
 
-        $this->assertDeleted($user);
+        $this->assertModelMissing($user);
     }
 
     /** @test */
-    function deleting_a_user_deletes_its_associated_entities()
+    public function deleting_a_user_deletes_its_associated_entities()
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -187,9 +187,9 @@ class AccountTest extends TestCase
             ->post('account/delete')
             ->assertRedirect('/');
 
-        $this->assertDeleted($user);
-        $this->assertDeleted($talk);
-        $this->assertDeleted($bio);
+        $this->assertModelMissing($user);
+        $this->assertModelMissing($talk);
+        $this->assertModelMissing($bio);
 
         $this->assertDatabaseMissing('dismissed_conferences', [
             'user_id' => $user->id,
@@ -203,7 +203,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function users_can_dismiss_a_conference()
+    public function users_can_dismiss_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -219,7 +219,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function users_can_undismiss_a_conference()
+    public function users_can_undismiss_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -243,7 +243,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function users_can_favorite_a_conference()
+    public function users_can_favorite_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -259,7 +259,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    function users_can_unfavorite_a_conference()
+    public function users_can_unfavorite_a_conference()
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();

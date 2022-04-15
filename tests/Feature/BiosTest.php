@@ -9,7 +9,7 @@ use Tests\TestCase;
 class BiosTest extends TestCase
 {
     /** @test */
-    function user_can_create_a_private_bio()
+    public function user_can_create_a_private_bio()
     {
         $user = User::factory()->create();
 
@@ -30,7 +30,7 @@ class BiosTest extends TestCase
     }
 
     /** @test */
-    function user_can_create_a_public_bio()
+    public function user_can_create_a_public_bio()
     {
         $user = User::factory()->create();
 
@@ -51,7 +51,7 @@ class BiosTest extends TestCase
     }
 
     /** @test */
-    function user_can_edit_their_bio()
+    public function user_can_edit_their_bio()
     {
         $user = User::factory()->create();
         $bio = Bio::factory()->for($user)->create();
@@ -71,7 +71,7 @@ class BiosTest extends TestCase
     }
 
     /** @test */
-    function user_cannot_edit_a_bio_that_they_do_not_own()
+    public function user_cannot_edit_a_bio_that_they_do_not_own()
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
@@ -83,7 +83,7 @@ class BiosTest extends TestCase
     }
 
     /** @test */
-    function user_can_delete_their_bio()
+    public function user_can_delete_their_bio()
     {
         $user = User::factory()->create();
         $bio = Bio::factory()->for($user)->create([
@@ -94,11 +94,11 @@ class BiosTest extends TestCase
 
         $this->actingAs($user)->get("bios/{$bio->id}/delete");
 
-        $this->assertDeleted($bio);
+        $this->assertModelMissing($bio);
     }
 
     /** @test */
-    function user_cannot_delete_a_bio_they_dont_own()
+    public function user_cannot_delete_a_bio_they_dont_own()
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
