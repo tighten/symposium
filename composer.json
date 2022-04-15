@@ -14,6 +14,7 @@
             "email": "matt.stauffer@tighten.co"
         }
     ],
+    "homepage": "https://symposiumapp.com/",
     "type": "project",
     "require": {
         "php": "^7.4|^8.0",
