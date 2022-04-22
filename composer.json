@@ -5,13 +5,17 @@
         "laravel",
         "conference",
         "speakers",
-        "talks"    
+        "talks"
     ],
     "license": "MIT",
     "authors": [
         {
             "name": "Matt Stauffer",
-            "email": "matt.stauffer@tighten.co"
+            "email": "matt@tighten.co"
+        },
+        {
+            "name": "Andrew Morgan",
+            "email": "andrew.morgan@tighten.co"
         }
     ],
     "homepage": "https://symposiumapp.com/",
