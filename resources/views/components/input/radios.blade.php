@@ -24,6 +24,7 @@
                 type="radio"
                 name="{{ $name }}"
                 value="{{ $option }}"
+                class="bg-white border-form-200 form-radio"
                 @if ($option == old($name, $value)) checked @endif
             >
             <span class="ml-2 mr-6">{{ $label }}</span>
