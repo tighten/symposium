@@ -1,11 +1,24 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "tighten/symposium",
+    "description": "A web app for conference speakers to track talks, bios, and conferences.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "conference",
+        "speakers",
+        "talks"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Matt Stauffer",
+            "email": "matt@tighten.co"
+        },
+        {
+            "name": "Andrew Morgan",
+            "email": "andrew.morgan@tighten.co"
+        }
+    ],
+    "homepage": "https://symposiumapp.com/",
     "type": "project",
     "require": {
         "php": "^7.4|^8.0",
