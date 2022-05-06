@@ -13,7 +13,7 @@
             Log in with <strong>GitHub</strong>
             @svg('github', 'inline-block align-top h-6 w-6')
         </a>
-        <p class="text-gray-400 text-base my-2">or</p>
+        <p class="text-base my-2">or</p>
     </div>
     @include('partials.log-in-form')
 </x-panel>

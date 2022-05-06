@@ -62,7 +62,7 @@
 
     @if (auth()->guest())
         <div class="flex my-4 sm:ml-2 lg:mb-0 lg:mt-0 lg:block">
-            <a class="inline-block px-8 py-2 mt-4 text-indigo-800 transition duration-150 ease-in-out border rounded border-indigo hover:text-white hover:bg-indigo-800 md:ml-2 lg:ml-4 lg:block lg:ml-2 lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
+            <a class="inline-block px-8 py-2 mt-4 text-indigo-800 transition duration-150 ease-in-out border rounded border-indigo hover:text-white hover:bg-indigo-800 md:ml-2 lg:ml-4 lg:block lg:mt-0 lg:px-4" href="#" v-on:click="slotProps.toggleSignInDropdown">
                 Sign in
             </a>
             <div class="absolute z-50 flex flex-col py-1 mt-0 ml-32 bg-white border rounded lg:mr-4 lg:w-1/3 lg:right-0 lg:mx-0 lg:mt-2 border-indigo xl:right-0" :class="slotProps.showSignInDropdown ? 'block' : 'hidden'">
@@ -86,7 +86,7 @@
                 <a class="px-4 py-1 hover:bg-indigo-100 hover:text-indigo-500" href="{{ route('account.show') }}">Account</a>
                 @if (auth()->user()->enable_profile)
                     <a
-                        class="px-4 py-1 whitespace-no-wrap hover:bg-indigo-100 hover:text-indigo-500"
+                        class="px-4 py-1 whitespace-nowrap hover:bg-indigo-100 hover:text-indigo-500"
                         href="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
                     >
                         Public Speaker Profile

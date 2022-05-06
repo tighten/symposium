@@ -22,7 +22,7 @@
         rows="{{ $rows }}"
         {{ $attributes->except('class') }}
         class="
-            form-textarea w-full
+            bg-white border-form-200 form-input placeholder-form-400 rounded w-full
             @unless ($hideLabel) mt-1 @endunless
         "
     >{{ old($name, $value) }}</textarea>

@@ -96,7 +96,7 @@
 <div class="bg-indigo-800">
     <div class="flex flex-col max-w-md px-8 py-32 mx-auto sm:max-w-6xl">
         <h2 class="font-sans text-5xl text-center text-white">Conferences</h2>
-        <div class="flex flex-wrap justify-between mt-20 mb-16 lg:flex-no-wrap">
+        <div class="flex flex-wrap justify-between mt-20 mb-16 lg:flex-nowrap">
             @foreach ($conferences as $conference)
                 <div class="relative w-full px-8 pt-12 pb-24 mb-10 font-sans bg-white rounded-lg shadow lg:w-1/3 lg:first:mr-8 lg:last:ml-8 last:mb-0 lg:mb-0">
                     <div class="mb-12 text-2xl text-center text-indigo-800">{{ $conference->title }}</div>
