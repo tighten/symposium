@@ -23,7 +23,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "algolia/algoliasearch-client-php": "^3.2",
-        "blade-ui-kit/blade-icons": "^1.2",
+        "blade-ui-kit/blade-icons": "^1.3",
         "bugsnag/bugsnag-laravel": "^2.23",
         "creativeorange/gravatar": "^1.0",
         "doctrine/dbal": "^3.3",
