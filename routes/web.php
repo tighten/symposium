@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\RejectionController;
+use App\Http\Controllers\SubmissionReactionsController;
 use App\Http\Controllers\SubmissionsController;
 use App\Http\Controllers\TalksController;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('submissions/{submission}', [SubmissionsController::class, 'destroy']);
     Route::put('submissions/{submission}', [SubmissionsController::class, 'update'])->name('submission.update');
     Route::get('submissions/{submission}', [SubmissionsController::class, 'edit'])->name('submission.edit');
+
+    Route::post('submissions/{submission}/reactions', [SubmissionReactionsController::class, 'store'])->name('submissions.reactions.store');
 
     Route::get('conferences/{id}/favorite', [ConferencesController::class, 'favorite']);
     Route::get('conferences/{id}/unfavorite', [ConferencesController::class, 'unfavorite']);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TalkReaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Submission extends UuidBase
@@ -44,6 +45,11 @@ class Submission extends UuidBase
     public function rejection()
     {
         return $this->belongsTo(Rejection::class);
+    }
+
+    public function reactions()
+    {
+        return $this->hasMany(TalkReaction::class);
     }
 
     public function scopeAccepted($query)
@@ -94,5 +100,12 @@ class Submission extends UuidBase
     {
         return data_get($this, 'acceptance.reason') ??
             data_get($this, 'rejection.reason');
+    }
+
+    public function addReaction($url)
+    {
+        $this->reactions()->create([
+            'url' => $url,
+        ]);
     }
 }
