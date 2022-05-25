@@ -18,11 +18,39 @@ class TalkReactionsTest extends TestCase
 
         $response = $this->actingAs($talk->author)
             ->post(route('submissions.reactions.store', $submission), [
-                'url' => 'example.com',
+                'url' => 'https://example.com',
             ]);
 
         $response->assertSuccessful();
         $this->assertEquals(1, $submission->reactions()->count());
-        $this->assertEquals('example.com', $submission->reactions->first()->url);
+        $this->assertEquals('https://example.com', $submission->reactions->first()->url);
+    }
+
+    /** @test */
+    function a_url_is_required_when_creating_a_talk_reaction()
+    {
+        $talk = Talk::factory()->submitted()->create();
+        $submission = $talk->submissions->first();
+
+        $response = $this->actingAs($talk->author)
+            ->post(route('submissions.reactions.store', $submission));
+
+        $response->assertRedirect();
+        $this->assertEquals(0, $submission->reactions()->count());
+    }
+
+    /** @test */
+    function a_valid_url_is_required_when_creating_a_talk_reaction()
+    {
+        $talk = Talk::factory()->submitted()->create();
+        $submission = $talk->submissions->first();
+
+        $response = $this->actingAs($talk->author)
+            ->post(route('submissions.reactions.store', $submission), [
+                'url' => 'invalid',
+            ]);
+
+        $response->assertRedirect();
+        $this->assertEquals(0, $submission->reactions()->count());
     }
 }
