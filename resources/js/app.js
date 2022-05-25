@@ -48,6 +48,11 @@ Vue.component(
     require('./components/CfpFields.vue').default
 );
 
+Vue.component(
+    'ModalToggle',
+    require('./components/ModalToggle.vue').default
+);
+
 new Vue({
     el: "#app",
 });

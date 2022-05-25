@@ -8,7 +8,6 @@
     @endforeach
 </ul>
 
-
 <x-form :action="route('submission.update', $submission->id)" method="PUT">
     <x-input.radios
         name="response"
@@ -39,5 +38,7 @@
         Update
     </x-button.primary>
 </x-form>
+
+<x-modal.add-talk-reaction :submission="$submission"/>
 
 @endsection
