@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Talk;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class TalkRevisionFactory extends Factory
 {
@@ -18,6 +19,7 @@ class TalkRevisionFactory extends Factory
             'description' => 'The best talk ever!',
             'organizer_notes' => 'No really.',
             'talk_id' => Talk::factory(),
+            'created_at' => Carbon::now()->subMinutes(1),
         ];
     }
 }
