@@ -60,7 +60,7 @@ class SubmissionsController extends Controller
 
             Session::flash('success-message', 'Successfully updated submission.');
 
-            return redirect('conferences/'.$submission->conference->id);
+            return redirect()->route('talks.show', $submission->talkRevision->talk);
         }
 
         return redirect(route('submission.update', $submission))
