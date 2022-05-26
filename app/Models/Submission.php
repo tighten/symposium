@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Acceptance;
+use App\Models\Rejection;
 use App\Models\TalkReaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -66,7 +68,11 @@ class Submission extends UuidBase
     public function recordAcceptance(Acceptance $acceptance)
     {
         $this->acceptance_id = $acceptance->id;
+        $this->rejection_id = null;
         $this->save();
+
+        Rejection::where('talk_revision_id', $this->talk_revision_id)
+            ->delete();
     }
 
     public function isAccepted()
@@ -88,7 +94,11 @@ class Submission extends UuidBase
     public function recordRejection(Rejection $rejection)
     {
         $this->rejection_id = $rejection->id;
+        $this->acceptance_id = null;
         $this->save();
+
+        Acceptance::where('talk_revision_id', $this->talk_revision_id)
+            ->delete();
     }
 
     public function isRejected()
@@ -107,5 +117,10 @@ class Submission extends UuidBase
         $this->reactions()->create([
             'url' => $url,
         ]);
+    }
+
+    public function author()
+    {
+        return data_get($this, 'talkRevision.talk.author');
     }
 }

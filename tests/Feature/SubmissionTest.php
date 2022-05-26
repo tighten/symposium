@@ -196,4 +196,44 @@ class SubmissionTest extends TestCase
         $rejection = Rejection::where('talk_revision_id', $revision->id)->first();
         $this->assertSame($submission->talk_revision_id, $rejection->talk_revision_id);
     }
+
+    /** @test */
+    function toggling_submission_responses_from_accepted_to_rejected()
+    {
+        $submission = Submission::factory()->accepted()->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'rejection',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isRejected());
+            $this->assertFalse($submission->isAccepted());
+        });
+        $this->assertDatabaseMissing('acceptances', [
+            'talk_revision_id' => $submission->talk_revision_id,
+        ]);
+    }
+
+    /** @test */
+    function toggling_submission_responses_from_rejected_to_accepted()
+    {
+        $submission = Submission::factory()->rejected()->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isAccepted());
+            $this->assertFalse($submission->isRejected());
+        });
+        $this->assertDatabaseMissing('rejections', [
+            'talk_revision_id' => $submission->talk_revision_id,
+        ]);
+    }
 }
