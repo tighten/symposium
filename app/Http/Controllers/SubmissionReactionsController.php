@@ -14,5 +14,7 @@ class SubmissionReactionsController extends Controller
         ]);
 
         $submission->addReaction(request('url'));
+
+        return redirect()->route('submission.edit', $submission);
     }
 }

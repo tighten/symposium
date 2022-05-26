@@ -21,7 +21,7 @@ class TalkReactionsTest extends TestCase
                 'url' => 'https://example.com',
             ]);
 
-        $response->assertSuccessful();
+        $response->assertRedirect(route('submission.edit', $submission));
         $this->assertEquals(1, $submission->reactions()->count());
         $this->assertEquals('https://example.com', $submission->reactions->first()->url);
     }
