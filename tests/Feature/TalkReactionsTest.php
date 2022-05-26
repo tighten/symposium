@@ -36,6 +36,7 @@ class TalkReactionsTest extends TestCase
             ->post(route('submissions.reactions.store', $submission));
 
         $response->assertRedirect();
+        $response->assertSessionHasErrors('url');
         $this->assertEquals(0, $submission->reactions()->count());
     }
 
@@ -51,6 +52,7 @@ class TalkReactionsTest extends TestCase
             ]);
 
         $response->assertRedirect();
+        $response->assertSessionHasErrors('url');
         $this->assertEquals(0, $submission->reactions()->count());
     }
 }
