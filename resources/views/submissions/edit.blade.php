@@ -1,6 +1,26 @@
-@extends('app', ['title' => "Edit Submission for {$conference->title}"])
+@extends('layouts.index', ['title' => "Edit Submission for {$conference->title}"])
 
-@section('content')
+@section('sidebar')
+    <x-side-menu title="Reactions">
+        <x-slot:body>
+            @foreach ($submission->reactions as $reaction)
+                <a
+                    href="{{ $reaction->url }}"
+                    class="py-1 px-5 hover:bg-indigo-100"
+                    target="_blank"
+                >
+                    {{ $reaction->url }}
+                </a>
+            @endforeach
+        </x-slot:body>
+    </x-side-menu>
+@endsection
+
+@section('actions')
+    <x-modal.add-talk-reaction :submission="$submission"/>
+@endsection
+
+@section('list')
 
 <ul class="text-red-500">
     @foreach ($errors->all() as $message)
@@ -39,7 +59,5 @@
         Update
     </x-button.primary>
 </x-form>
-
-<x-modal.add-talk-reaction :submission="$submission"/>
 
 @endsection

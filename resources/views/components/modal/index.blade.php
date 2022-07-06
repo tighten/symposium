@@ -5,7 +5,7 @@
 <modal-toggle>
     <template #default="{ isVisible, toggleModal }">
         <div>
-            <x-button.primary @click="toggleModal">Add Talk Reaction</x-button.primary>
+            {{ $trigger }}
             <div v-if="isVisible" class="fixed inset-0 flex items-center">
                 <div class="fixed inset-0 z-10 bg-black opacity-75"></div>
 

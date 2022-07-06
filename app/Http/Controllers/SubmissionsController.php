@@ -35,6 +35,7 @@ class SubmissionsController extends Controller
         $submission->load([
             'acceptance',
             'rejection',
+            'reactions',
         ]);
 
         return view('submissions.edit', [
