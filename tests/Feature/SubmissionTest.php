@@ -236,4 +236,26 @@ class SubmissionTest extends TestCase
             'talk_revision_id' => $submission->talk_revision_id,
         ]);
     }
+
+    /** @test */
+    function submissions_with_an_acceptance_have_an_acceptance_response_and_reason()
+    {
+        $submission = Submission::factory()->accepted([
+            'reason' => 'it was a good talk',
+        ])->create();
+
+        $this->assertEquals('acceptance', $submission->response);
+        $this->assertEquals('it was a good talk', $submission->response_reason);
+    }
+
+    /** @test */
+    function submissions_with_a_rejection_have_a_rejection_response()
+    {
+        $submission = Submission::factory()->rejected([
+            'reason' => 'it was a bad talk',
+        ])->create();
+
+        $this->assertEquals('rejection', $submission->response);
+        $this->assertEquals('it was a bad talk', $submission->response_reason);
+    }
 }

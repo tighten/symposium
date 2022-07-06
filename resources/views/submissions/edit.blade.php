@@ -12,7 +12,7 @@
     <x-input.radios
         name="response"
         label="*Submission Response"
-        value="response"
+        :value="$submission->response"
         :options="[
             'Accepted' => 'acceptance',
             'Rejected' => 'rejection',
@@ -25,6 +25,7 @@
         label="Reason"
         type="text"
         placeholder=""
+        :value="$submission->response_reason"
         autofocus="autofocus"
         maxlength="255"
         class="mt-8"

@@ -123,4 +123,26 @@ class Submission extends UuidBase
     {
         return data_get($this, 'talkRevision.talk.author');
     }
+
+    public function getResponseAttribute()
+    {
+        if ($this->acceptance) {
+            return 'acceptance';
+        }
+
+        if ($this->rejection) {
+            return 'rejection';
+        }
+    }
+
+    public function getResponseReasonAttribute()
+    {
+        if ($this->acceptance) {
+            return $this->acceptance->reason;
+        }
+
+        if ($this->rejection) {
+            return $this->rejection->reason;
+        }
+    }
 }

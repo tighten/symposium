@@ -32,6 +32,11 @@ class SubmissionsController extends Controller
 
     public function edit(Submission $submission)
     {
+        $submission->load([
+            'acceptance',
+            'rejection',
+        ]);
+
         return view('submissions.edit', [
             'submission' => $submission,
             'conference' => $submission->conference,

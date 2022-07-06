@@ -19,26 +19,26 @@ class SubmissionFactory extends Factory
         ];
     }
 
-    public function accepted()
+    public function accepted($attributes = [])
     {
-        return $this->afterCreating(function (Submission $submission) {
+        return $this->afterCreating(function (Submission $submission) use ($attributes) {
             $acceptance = Acceptance::factory()
                 ->for($submission->talkRevision)
                 ->for($submission->conference)
-                ->create();
+                ->create($attributes);
 
             $submission->acceptance_id = $acceptance->id;
             $submission->save();
         });
     }
 
-    public function rejected()
+    public function rejected($attributes = [])
     {
-        return $this->afterCreating(function (Submission $submission) {
+        return $this->afterCreating(function (Submission $submission) use ($attributes) {
             $rejection = Rejection::factory()
                 ->for($submission->talkRevision)
                 ->for($submission->conference)
-                ->create();
+                ->create($attributes);
 
             $submission->rejection_id = $rejection->id;
             $submission->save();
