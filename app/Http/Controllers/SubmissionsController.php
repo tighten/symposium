@@ -49,7 +49,7 @@ class SubmissionsController extends Controller
             return response('', 401);
         }
 
-        $validator = Validator::make($request->only('response', 'reason'), [
+        request()->validate([
             'response' => [
                 'required',
                 Rule::in(array_keys(Submission::RESPONSES)),
@@ -57,20 +57,14 @@ class SubmissionsController extends Controller
             'reason' => 'nullable|max:255',
         ]);
 
-        if ($validator->passes()) {
-            $response = (Submission::RESPONSES[$request->input('response')])::createFromSubmission($submission);
+        $response = $submission->firstOrCreateResponse($request->input('response'));
 
-            $response->reason = $request->input('reason');
-            $response->save();
+        $response->reason = $request->input('reason');
+        $response->save();
 
-            Session::flash('success-message', 'Successfully updated submission.');
+        Session::flash('success-message', 'Successfully updated submission.');
 
-            return redirect()->route('talks.show', $submission->talkRevision->talk);
-        }
-
-        return redirect(route('submission.update', $submission))
-            ->withErrors($validator)
-            ->withInput();
+        return redirect()->route('talks.show', $submission->talkRevision->talk);
     }
 
     public function destroy(Submission $submission)

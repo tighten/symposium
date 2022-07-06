@@ -198,6 +198,46 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
+    function acceptance_reasons_can_be_updated()
+    {
+        $submission = Submission::factory()->accepted([
+            'reason' => 'great talk',
+        ])->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+                'reason' => 'awesome talk',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isAccepted());
+            $this->assertEquals('awesome talk', $submission->acceptance->reason);
+        });
+    }
+
+    /** @test */
+    function rejection_reasons_can_be_updated()
+    {
+        $submission = Submission::factory()->rejected([
+            'reason' => 'bad talk',
+        ])->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+                'reason' => 'terrible talk',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isAccepted());
+            $this->assertEquals('terrible talk', $submission->acceptance->reason);
+        });
+    }
+
+    /** @test */
     function toggling_submission_responses_from_accepted_to_rejected()
     {
         $submission = Submission::factory()->accepted()->create();

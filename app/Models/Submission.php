@@ -145,4 +145,10 @@ class Submission extends UuidBase
             return $this->rejection->reason;
         }
     }
+
+    public function firstOrCreateResponse($type)
+    {
+        return $this->$type ??
+            Submission::RESPONSES[$type]::createFromSubmission($this);
+    }
 }
