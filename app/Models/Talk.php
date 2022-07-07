@@ -95,11 +95,6 @@ class Talk extends UuidBase
         return $query->where('is_archived', true);
     }
 
-    public function scopeActive($query)
-    {
-        return $query->where('is_archived', false);
-    }
-
     public function scopeSubmitted($query)
     {
         $query->has('submissions');
