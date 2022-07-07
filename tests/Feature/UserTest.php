@@ -30,13 +30,13 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function archived_talks_are_not_included_in_active_talks_relationship()
+    function archived_talks_are_not_included_in_the_talks_relationship()
     {
         $user = User::factory()->create();
         $activeTalk = Talk::factory()->author($user)->create();
         $archivedTalk = Talk::factory()->author($user)->archived()->create();
 
-        $activeTalks = $user->activeTalks()->get();
+        $activeTalks = $user->talks()->get();
 
         $this->assertContains($activeTalk->id, $activeTalks->pluck('id'));
         $this->assertNotContains($archivedTalk->id, $activeTalks->pluck('id'));

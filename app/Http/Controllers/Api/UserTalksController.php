@@ -18,7 +18,7 @@ class UserTalksController extends BaseController
             App::abort(404);
         }
 
-        $return = auth()->guard('api')->user()->activeTalks->map(function ($talk) {
+        $return = auth()->guard('api')->user()->talks->map(function ($talk) {
             return new Talk($talk);
         })->values();
 

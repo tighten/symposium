@@ -66,11 +66,6 @@ class User extends Authenticatable
         return $this->hasMany(Talk::class, 'author_id');
     }
 
-    public function activeTalks()
-    {
-        return $this->hasMany(Talk::class, 'author_id');
-    }
-
     public function archivedTalks()
     {
         return $this->hasMany(Talk::class, 'author_id')
@@ -87,7 +82,7 @@ class User extends Authenticatable
 
     public function getActiveTalksAttribute()
     {
-        return $this->activeTalks()->get()->sortBy(function ($talk) {
+        return $this->talks()->get()->sortBy(function ($talk) {
             return strtolower($talk->current()->title);
         })->values();
     }
