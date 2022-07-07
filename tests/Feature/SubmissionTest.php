@@ -196,4 +196,106 @@ class SubmissionTest extends TestCase
         $rejection = Rejection::where('talk_revision_id', $revision->id)->first();
         $this->assertSame($submission->talk_revision_id, $rejection->talk_revision_id);
     }
+
+    /** @test */
+    function acceptance_reasons_can_be_updated()
+    {
+        $submission = Submission::factory()->accepted([
+            'reason' => 'great talk',
+        ])->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+                'reason' => 'awesome talk',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isAccepted());
+            $this->assertEquals('awesome talk', $submission->acceptance->reason);
+        });
+    }
+
+    /** @test */
+    function rejection_reasons_can_be_updated()
+    {
+        $submission = Submission::factory()->rejected([
+            'reason' => 'bad talk',
+        ])->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+                'reason' => 'terrible talk',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isAccepted());
+            $this->assertEquals('terrible talk', $submission->acceptance->reason);
+        });
+    }
+
+    /** @test */
+    function toggling_submission_responses_from_accepted_to_rejected()
+    {
+        $submission = Submission::factory()->accepted()->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'rejection',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isRejected());
+            $this->assertFalse($submission->isAccepted());
+        });
+        $this->assertDatabaseMissing('acceptances', [
+            'talk_revision_id' => $submission->talk_revision_id,
+        ]);
+    }
+
+    /** @test */
+    function toggling_submission_responses_from_rejected_to_accepted()
+    {
+        $submission = Submission::factory()->rejected()->create();
+
+        $response = $this->actingAs($submission->author())
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+            ]);
+
+        $response->assertRedirect();
+        tap($submission->fresh(), function ($submission) {
+            $this->assertTrue($submission->isAccepted());
+            $this->assertFalse($submission->isRejected());
+        });
+        $this->assertDatabaseMissing('rejections', [
+            'talk_revision_id' => $submission->talk_revision_id,
+        ]);
+    }
+
+    /** @test */
+    function submissions_with_an_acceptance_have_an_acceptance_response_and_reason()
+    {
+        $submission = Submission::factory()->accepted([
+            'reason' => 'it was a good talk',
+        ])->create();
+
+        $this->assertEquals('acceptance', $submission->response);
+        $this->assertEquals('it was a good talk', $submission->response_reason);
+    }
+
+    /** @test */
+    function submissions_with_a_rejection_have_a_rejection_response()
+    {
+        $submission = Submission::factory()->rejected([
+            'reason' => 'it was a bad talk',
+        ])->create();
+
+        $this->assertEquals('rejection', $submission->response);
+        $this->assertEquals('it was a bad talk', $submission->response_reason);
+    }
 }

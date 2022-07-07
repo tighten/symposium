@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Conference;
+use App\Models\Submission;
+use App\Models\TalkRevision;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -69,5 +72,15 @@ class ConferenceFactory extends Factory
     public function author($author)
     {
         return $this->for($author, 'author');
+    }
+
+    public function received(TalkRevision $revision)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($revision) {
+            Submission::factory()
+                ->for($conference)
+                ->for($revision)
+                ->create();
+        });
     }
 }
