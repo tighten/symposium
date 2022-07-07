@@ -36,6 +36,28 @@ class TalkTest extends TestCase
     }
 
     /** @test */
+    function active_talks_are_not_included_on_the_archived_index_page()
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my active talk'])
+            ->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my archived talk'])
+            ->archived()
+            ->create();
+
+        $response = $this->actingAs($user)
+            ->get('archive')
+            ->assertSuccessful();
+
+        $response->assertSee('my archived talk');
+        $response->assertDontSee('my active talk');
+    }
+
+    /** @test */
     public function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();

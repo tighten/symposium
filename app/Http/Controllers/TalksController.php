@@ -161,7 +161,7 @@ class TalksController extends BaseController
     public function archiveIndex(Request $request)
     {
         $talks = $this->sortTalks(
-            auth()->user()->talks()->archived()->get(),
+            auth()->user()->archivedTalks()->get(),
             $request->input('sort')
         );
 
