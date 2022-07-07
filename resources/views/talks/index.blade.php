@@ -1,7 +1,5 @@
 @extends('layouts.index', ['title' => 'My Talks'])
 
-@section('content')
-
 @section('sidebar')
     <x-side-menu
         title="Filter"

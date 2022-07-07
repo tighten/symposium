@@ -199,7 +199,7 @@ class TalksController extends BaseController
                 return auth()->user()->talks()->accepted()->get();
                 break;
             default:
-                return auth()->user()->talks()->active()->get();
+                return auth()->user()->talks()->get();
                 break;
         }
     }

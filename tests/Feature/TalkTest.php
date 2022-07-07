@@ -14,6 +14,28 @@ use Tests\TestCase;
 class TalkTest extends TestCase
 {
     /** @test */
+    function archived_talks_are_not_included_on_the_index_page()
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my active talk'])
+            ->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my archived talk'])
+            ->archived()
+            ->create();
+
+        $response = $this->actingAs($user)
+            ->get('talks')
+            ->assertSuccessful();
+
+        $response->assertSee('my active talk');
+        $response->assertDontSee('my archived talk');
+    }
+
+    /** @test */
     public function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();

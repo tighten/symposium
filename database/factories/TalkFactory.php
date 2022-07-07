@@ -2,8 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Talk;
+use App\Models\TalkRevision;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class TalkFactory extends Factory
 {
@@ -14,9 +17,9 @@ class TalkFactory extends Factory
         ];
     }
 
-    public function author($author)
+    public function author(User $user)
     {
-        return $this->for($author, 'author');
+        return $this->for($user, 'author');
     }
 
     public function archived()
@@ -24,5 +27,20 @@ class TalkFactory extends Factory
         return $this->state([
             'is_archived' => true,
         ]);
+    }
+
+    public function revised(array $revisions)
+    {
+        return $this->afterCreating(function (Talk $talk) use ($revisions) {
+            $this->revise(
+                $talk,
+                array_merge(['created_at' => Carbon::now()], $revisions),
+            );
+        });
+    }
+
+    private function revise(Talk $talk, $attributes = [])
+    {
+        TalkRevision::factory()->for($talk)->create($attributes);
     }
 }
