@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function activeTalks()
     {
-        return $this->hasMany(Talk::class, 'author_id')->where('is_archived', false);
+        return $this->hasMany(Talk::class, 'author_id');
     }
 
     public function getTalksAttribute()
