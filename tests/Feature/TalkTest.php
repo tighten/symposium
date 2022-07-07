@@ -182,4 +182,17 @@ class TalkTest extends TestCase
         $this->assertContains($talkRevisionA->talk_id, $acceptedTalkIds);
         $this->assertNotContains($talkRevisionB->talk_id, $acceptedTalkIds);
     }
+
+    /** @test */
+    function archived_talks_are_not_included_in_queries_by_default()
+    {
+        $talk = Talk::factory()->archived()->create();
+
+        $activeTalks = Talk::all();
+        $this->assertNotContains($talk->id, $activeTalks->pluck('id'));
+
+        // talk is included when excluding query scope
+        $allTalks = Talk::withoutGlobalScope('active')->get();
+        $this->assertContains($talk->id, $allTalks->pluck('id'));
+    }
 }

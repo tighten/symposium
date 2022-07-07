@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Talk extends UuidBase
@@ -27,6 +28,13 @@ class Talk extends UuidBase
 
         static::deleting(function (self $talk) {
             $talk->revisions()->delete();
+        });
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('active', function (Builder $builder) {
+            $builder->where('is_archived', false);
         });
     }
 

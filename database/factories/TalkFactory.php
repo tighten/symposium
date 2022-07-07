@@ -18,4 +18,11 @@ class TalkFactory extends Factory
     {
         return $this->for($author, 'author');
     }
+
+    public function archived()
+    {
+        return $this->state([
+            'is_archived' => true,
+        ]);
+    }
 }
