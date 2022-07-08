@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Conference;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
@@ -17,9 +18,11 @@ class TalkFactory extends Factory
         ];
     }
 
-    public function author(User $user)
+    public function configure()
     {
-        return $this->for($user, 'author');
+        return $this->afterCreating(function (Talk $talk) {
+            $this->revise($talk);
+        });
     }
 
     public function archived()
@@ -27,6 +30,18 @@ class TalkFactory extends Factory
         return $this->state([
             'is_archived' => true,
         ]);
+    }
+
+    public function author(User $user)
+    {
+        return $this->for($user, 'author');
+    }
+
+    public function submitted()
+    {
+        return $this->afterCreating(function (Talk $talk) {
+            Conference::factory()->received($talk->current())->create();
+        });
     }
 
     public function revised(array $revisions)

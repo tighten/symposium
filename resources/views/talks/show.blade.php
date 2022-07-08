@@ -74,14 +74,19 @@
         <x-panel size="md" title="Submissions">
             @foreach ($submissions as $submission)
                 <div class="pr-3 lg:pr-0">
-                    <h3 class="mt-4 text-lg font-normal text-gray-500">
-                        <a class="hover:text-indigo-500" href="{{ route('conferences.show', $submission->conference->id) }}">
-                            {{ $submission->conference->title }}
+                    <div class="flex content-center justify-between mt-4">
+                        <h3 class="text-lg font-normal text-gray-500">
+                            <a class="hover:text-indigo-500" href="{{ route('conferences.show', $submission->conference->id) }}">
+                                {{ $submission->conference->title }}
+                            </a>
+                            @if ($submission->isAccepted())
+                                <x-tag>Accepted</x-tag>
+                            @endif
+                        </h3>
+                        <a href="{{ route('submission.edit', $submission) }}" title="Edit Submission" class="text-indigo-800">
+                            @svg('compose', 'w-5 fill-current inline')
                         </a>
-                        @if ($submission->isAccepted())
-                            <x-tag>Accepted</x-tag>
-                        @endif
-                    </h3>
+                    </div>
                     @if ($submission->reason)
                         <div>{{ $submission->reason }}</div>
                     @endif

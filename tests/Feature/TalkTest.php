@@ -76,18 +76,11 @@ class TalkTest extends TestCase
     public function user_talks_are_sorted_alphabetically()
     {
         $user = User::factory()->create();
-        $talk1 = Talk::factory()->author($user)->create();
-        $revision1 = TalkRevision::factory()->create(['title' => 'zyxwv']);
-        $talk1->revisions()->save($revision1);
+        $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
+        $talk2 = Talk::factory()->author($user)->revised(['title' => 'abcde'])->create();
 
-        $talk2 = Talk::factory()->author($user)->create();
-        $revision2 = TalkRevision::factory()->create(['title' => 'abcde']);
-        $talk2->revisions()->save($revision2);
-
-        $talks = $user->talks;
-
-        $this->assertEquals('abcde', $talks->first()->current()->title);
-        $this->assertEquals('zyxwv', $talks->last()->current()->title);
+        $this->assertEquals('abcde', $user->talks->first()->current()->title);
+        $this->assertEquals('zyxwv', $user->talks->last()->current()->title);
     }
 
     /** @test */
@@ -166,17 +159,17 @@ class TalkTest extends TestCase
     public function user_can_save_a_new_revision_of_a_talk()
     {
         $user = User::factory()->create();
-        $talk = Talk::factory()->author($user)->create([
-            'public' => false,
-        ]);
-        $revision = TalkRevision::factory()->create([
-            'title' => 'old title',
-            'created_at' => Carbon::now()->subMinute(),
-        ]);
-        $talk->revisions()->save($revision);
+        $talk = Talk::factory()->author($user)
+            ->revised([
+                'title' => 'old title',
+                'created_at' => Carbon::now()->subMinutes(2),
+            ])
+            ->create([
+                'public' => false,
+            ]);
 
         $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($revision->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->current()->toArray(), [
                 'title' => 'New',
                 'public' => '1',
             ]));
