@@ -18,12 +18,20 @@ class UserTalksController extends BaseController
             App::abort(404);
         }
 
-        $return = auth()->guard('api')->user()->talks->map(function ($talk) {
-            return new Talk($talk);
-        })->values();
+        $talks = auth()->guard('api')
+            ->user()
+            ->talks()
+            ->when((boolean) request()->query('include-archived'), function ($query) {
+                $query->withoutGlobalScope('active');
+            })
+            ->get()
+            ->sortByTitle()
+            ->map(function ($talk) {
+                return new Talk($talk);
+            })->values();
 
         return response()->jsonApi([
-            'data' => $return,
+            'data' => $talks,
         ]);
     }
 }

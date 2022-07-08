@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Collections\TalksCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,6 +37,11 @@ class Talk extends UuidBase
         static::addGlobalScope('active', function (Builder $builder) {
             $builder->where('is_archived', false);
         });
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new TalksCollection($models);
     }
 
     public function author()
