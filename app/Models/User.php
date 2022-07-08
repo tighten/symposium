@@ -73,13 +73,6 @@ class User extends Authenticatable
             ->archived();
     }
 
-    public function getTalksAttribute()
-    {
-        return $this->talks()->get()->sortBy(function ($talk) {
-            return strtolower($talk->current()->title);
-        })->values();
-    }
-
     public function getActiveTalksAttribute()
     {
         return $this->talks()->get()->sortBy(function ($talk) {

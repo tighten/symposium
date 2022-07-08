@@ -45,11 +45,7 @@ class PublicProfileController extends Controller
     public function show($profile_slug)
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
-
-        $talks = $user->talks()->public()->get()->sortBy(function ($talk) {
-            return $talk->current()->title;
-        });
-
+        $talks = $user->talks()->public()->get()->sortByTitle();
         $bios = $user->bios()->public()->get();
 
         return view('account.public-profile.show', [

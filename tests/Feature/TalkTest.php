@@ -79,8 +79,8 @@ class TalkTest extends TestCase
         $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
         $talk2 = Talk::factory()->author($user)->revised(['title' => 'abcde'])->create();
 
-        $this->assertEquals('abcde', $user->talks->first()->current()->title);
-        $this->assertEquals('zyxwv', $user->talks->last()->current()->title);
+        $this->assertEquals('abcde', $user->talks->sortByTitle()->first()->current()->title);
+        $this->assertEquals('zyxwv', $user->talks->sortByTitle()->last()->current()->title);
     }
 
     /** @test */

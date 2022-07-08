@@ -8,9 +8,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $talks = auth()->user()->talks->sortBy(function (Talk $talk) {
-            return strtolower($talk->current()->title);
-        });
+        $talks = auth()->user()->talks->sortByTitle();
 
         $submissionsByConference = $talks->filter(function (Talk $talk) {
             return $talk->submissions()->exists();

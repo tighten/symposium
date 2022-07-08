@@ -131,7 +131,7 @@ class AccountController extends BaseController
         $tempName = sprintf('%d_export.json', $user->id);
         $exportName = sprintf('export_%s.json', date('Y_m_d'));
 
-        $export = ['talks' => $user->talks->toArray()];
+        $export = ['talks' => $user->talks->sortByTitle()->toArray()];
 
         $storage
             ->disk('local')
