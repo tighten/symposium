@@ -14,6 +14,50 @@ use Tests\TestCase;
 class TalkTest extends TestCase
 {
     /** @test */
+    function archived_talks_are_not_included_on_the_index_page()
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my active talk'])
+            ->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my archived talk'])
+            ->archived()
+            ->create();
+
+        $response = $this->actingAs($user)
+            ->get('talks')
+            ->assertSuccessful();
+
+        $response->assertSee('my active talk');
+        $response->assertDontSee('my archived talk');
+    }
+
+    /** @test */
+    function active_talks_are_not_included_on_the_archived_index_page()
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my active talk'])
+            ->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'my archived talk'])
+            ->archived()
+            ->create();
+
+        $response = $this->actingAs($user)
+            ->get('archive')
+            ->assertSuccessful();
+
+        $response->assertSee('my archived talk');
+        $response->assertDontSee('my active talk');
+    }
+
+    /** @test */
     public function it_shows_the_talk_title_on_its_page()
     {
         $user = User::factory()->create();
@@ -35,8 +79,8 @@ class TalkTest extends TestCase
         $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
         $talk2 = Talk::factory()->author($user)->revised(['title' => 'abcde'])->create();
 
-        $this->assertEquals('abcde', $user->talks->first()->current()->title);
-        $this->assertEquals('zyxwv', $user->talks->last()->current()->title);
+        $this->assertEquals('abcde', $user->talks->sortByTitle()->first()->current()->title);
+        $this->assertEquals('zyxwv', $user->talks->sortByTitle()->last()->current()->title);
     }
 
     /** @test */
@@ -174,5 +218,18 @@ class TalkTest extends TestCase
 
         $this->assertContains($talkRevisionA->talk_id, $acceptedTalkIds);
         $this->assertNotContains($talkRevisionB->talk_id, $acceptedTalkIds);
+    }
+
+    /** @test */
+    function archived_talks_are_not_included_in_queries_by_default()
+    {
+        $talk = Talk::factory()->archived()->create();
+
+        $activeTalks = Talk::all();
+        $this->assertNotContains($talk->id, $activeTalks->pluck('id'));
+
+        // talk is included when excluding query scope
+        $allTalks = Talk::withoutGlobalScope('active')->get();
+        $this->assertContains($talk->id, $allTalks->pluck('id'));
     }
 }

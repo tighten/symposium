@@ -37,6 +37,34 @@ class TalkApiTest extends ApiTestCase
     }
 
     /** @test */
+    public function including_archived_talks()
+    {
+        Talk::factory()
+            ->author($this->user)
+            ->archived()
+            ->revised(['title' => 'My Archived Talk'])
+            ->create();
+
+        $response = $this->json('GET', 'api/user/1/talks?include-archived=1');
+
+        $response->assertJsonFragment(['title' => 'My Archived Talk']);
+    }
+
+    /** @test */
+    public function excluding_archived_talks()
+    {
+        Talk::factory()
+            ->author($this->user)
+            ->archived()
+            ->revised(['title' => 'My Archived Talk'])
+            ->create();
+
+        $response = $this->json('GET', 'api/user/1/talks?include-archived=0');
+
+        $response->assertJsonMissing(['title' => 'My Archived Talk']);
+    }
+
+    /** @test */
     public function all_talks_return_alpha_sorted()
     {
         $response = $this->call('GET', 'api/user/1/talks');

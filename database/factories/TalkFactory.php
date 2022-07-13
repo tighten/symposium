@@ -25,9 +25,16 @@ class TalkFactory extends Factory
         });
     }
 
-    public function author($author)
+    public function archived()
     {
-        return $this->for($author, 'author');
+        return $this->state([
+            'is_archived' => true,
+        ]);
+    }
+
+    public function author(User $user)
+    {
+        return $this->for($user, 'author');
     }
 
     public function submitted()

@@ -161,7 +161,7 @@ class TalksController extends BaseController
     public function archiveIndex(Request $request)
     {
         $talks = $this->sortTalks(
-            auth()->user()->talks()->archived()->get(),
+            auth()->user()->archivedTalks()->get(),
             $request->input('sort')
         );
 
@@ -199,7 +199,7 @@ class TalksController extends BaseController
                 return auth()->user()->talks()->accepted()->get();
                 break;
             default:
-                return auth()->user()->talks()->active()->get();
+                return auth()->user()->talks()->get();
                 break;
         }
     }

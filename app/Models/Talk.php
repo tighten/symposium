@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Collections\TalksCollection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Talk extends UuidBase
@@ -28,6 +30,18 @@ class Talk extends UuidBase
         static::deleting(function (self $talk) {
             $talk->revisions()->delete();
         });
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('active', function (Builder $builder) {
+            $builder->where('is_archived', false);
+        });
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new TalksCollection($models);
     }
 
     public function author()
@@ -85,11 +99,6 @@ class Talk extends UuidBase
     public function scopeArchived($query)
     {
         return $query->where('is_archived', true);
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('is_archived', false);
     }
 
     public function scopeSubmitted($query)
