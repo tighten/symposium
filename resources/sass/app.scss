@@ -46,33 +46,6 @@
     border-left: 4px solid transparent;
 }
 
-%notice {
-    @extend .alert !optional;
-    right: 1em;
-    top: 8em;
-    position: fixed;
-    width: 20%;
-    min-width: 250px;
-    z-index: 200;
-    text-align: center;
-    cursor: pointer;
-}
-
-.notice-success {
-    @extend %notice;
-    @extend .alert-success !optional;
-}
-
-.notice-error {
-    @extend %notice;
-    @extend .alert-danger !optional;
-}
-
-.notice-info {
-    @extend %notice;
-    @extend .alert-info !optional;
-}
-
 #calendar {
     button {
         @apply bg-indigo-500 text-white h-auto shadow-none;
