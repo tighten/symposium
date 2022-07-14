@@ -1,0 +1,26 @@
+.mobileMenuBtn {
+    @apply relative flex justify-center items-center w-16 h-16;
+}
+
+.mobileMenuBtn:before, .mobileMenuBtn:after {
+    @apply absolute block w-6 h-0.5 bg-indigo-800 transition duration-75 ease-in-out;
+    content: '';
+}
+
+.mobileMenuBtn:before {
+    top: calc(50% - 6px);
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.mobileMenuBtn:after {
+    bottom: calc(50% - 8px);
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.mobileMenuBtn.isActive:before {
+    transform: translateY(calc(-50% + 8px)) rotate(45deg);
+}
+
+.mobileMenuBtn.isActive:after {
+    transform: translateY(calc(-50% - 4px)) rotate(-45deg);
+}

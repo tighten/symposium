@@ -4,7 +4,6 @@
 
 <x-panel class="w-full md:w-2/3 mx-auto">
     <h2 class="text-2xl text-center my-4">Log in</h2>
-    {!! $errors->first('auth', '<div class="alert alert-danger">:message</div>') !!}
     <div class="text-center">
         <a
             class="btn-github-login"
