@@ -43,7 +43,7 @@
                     alt="profile picture"
                 >
             </div>
-            @if (true || $user->profile_picture == null)
+            @if ($user->profile_picture == null)
                 <x-alert.warning>
                     <strong>Your current public profile picture is sourced from Gravatar.</strong><br>
                     Please upload a custom profile picture.
