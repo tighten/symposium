@@ -1,0 +1,23 @@
+#calendar button {
+    @apply bg-indigo-500 text-white h-auto shadow-none;
+}
+
+#calendar .fc-button-group {
+    @apply rounded overflow-hidden;
+}
+
+#calendar .fc-button-group button {
+    @apply bg-indigo rounded-none;
+}
+
+#calendar .fc-button-group button.fc-button-active {
+    @apply bg-indigo-900;
+}
+
+#calendar .fc-event-title {
+    @apply p-1;
+}
+
+#calendar .fc-popover-close:after {
+    @apply hidden;
+}

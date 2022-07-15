@@ -11,6 +11,10 @@ module.exports = {
             current: 'currentColor',
             black: '#000',
             white: '#fff',
+            success: '#18BC9C',
+            warning: '#F39C12',
+            danger: '#E74C3C',
+            info: '#3498DB',
             indigo: {
                 DEFAULT: '#4b72D9',
                 100: '#F6F9FC',

@@ -1,24 +1,17 @@
 @if (Session::has('success-message'))
-    <div class="notice notice-success" onClick="$(this).remove();" data-dismiss="timeout">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <x-notice.success>
         {{ Session::get('success-message', 'success') }}
-    </div>
+    </x-notice.success>
 @endif
+
 @if (Session::has('error-message'))
-    <div class="notice notice-error" onClick="$(this).remove();" data-dismiss="timeout">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <x-notice.error>
         {{ Session::get('error-message') }}
-    </div>
+    </x-notice.error>
 @endif
+
 @if (Session::has('message'))
-    <div class="notice notice-info" onClick="$(this).remove();" data-dismiss="timeout">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <x-notice.info>
         {{ Session::get('message') }}
-    </div>
+    </x-notice.info>
 @endif

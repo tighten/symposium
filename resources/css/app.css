@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./calendar";
+@import "./mobile-menu-button";
+
+[v-cloak] {
+    display: none;
+}
+
+.caret {
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    @apply text-indigo-900 bg-indigo-900;
+}
