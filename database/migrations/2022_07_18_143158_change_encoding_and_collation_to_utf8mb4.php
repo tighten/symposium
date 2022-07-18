@@ -43,7 +43,7 @@ return new class extends Migration
     private function changeAll($encoding, $collation)
     {
         DB::raw('SET FOREIGN_KEY_CHECKS=0;');
-        DB::raw('ALTER DATABASE ' . config('database.connections.mysql.database') . ' CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci');
+        DB::raw('ALTER DATABASE ' . config('database.connections.mysql.database') . " CHARACTER SET = {$encoding} COLLATE = {$collation}");
 
         foreach ($this->tables as $table) {
             DB::statement("ALTER TABLE {$table} CONVERT TO CHARACTER SET {$encoding} COLLATE {$collation};");
