@@ -46,7 +46,7 @@ return new class extends Migration
         DB::raw('ALTER DATABASE ' . config('database.connections.mysql.database') . ' CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci');
 
         foreach ($this->tables as $table) {
-            DB::statement('ALTER TABLE ' . $table . ' CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
+            DB::statement("ALTER TABLE {$table} CONVERT TO CHARACTER SET {$encoding} COLLATE {$collation};");
 
             // @todo: Get DBAL to get every column in the table for each, generate a create statement for it, and modify that stateent to be new collation/encoding
             // e.g. ALTER TABLE {$table} CHANGE {$column} {$column} {$columnDetails} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
