@@ -6,6 +6,30 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
+    protected $tables = [
+        'acceptances',
+        'bios',
+        'conferences',
+        'dismissed_conferences',
+        'failed_jobs',
+        'favorites',
+        'firewall',
+        'migrations',
+        'oauth_access_tokens',
+        'oauth_auth_codes',
+        'oauth_clients',
+        'oauth_personal_access_clients',
+        'oauth_refresh_tokens',
+        'password_resets',
+        'rejections',
+        'submissions',
+        'talk_reactions',
+        'talk_revisions',
+        'talks',
+        'users',
+        'users_social',
+    ];
+
     public function up()
     {
         $this->changeAll('utf8mb4', 'utf8mb4_unicode_ci');
@@ -21,33 +45,7 @@ return new class extends Migration
         DB::raw('SET FOREIGN_KEY_CHECKS=0;');
         DB::raw('ALTER DATABASE ' . config('database.connections.mysql.database') . ' CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci');
 
-        $tables = [
-            'bios',
-            'conferences',
-            'favorites',
-            'migrations',
-            'oauth_access_token_scopes',
-            'oauth_access_tokens',
-            'oauth_auth_code_scopes',
-            'oauth_auth_codes',
-            'oauth_client_endpoints',
-            'oauth_client_grants',
-            'oauth_client_scopes',
-            'oauth_clients',
-            'oauth_grant_scopes',
-            'oauth_grants',
-            'oauth_refresh_tokens',
-            'oauth_scopes',
-            'oauth_session_scopes',
-            'oauth_sessions',
-            'password_resets',
-            'submissions',
-            'talk_revisions',
-            'talks',
-            'users'
-        ];
-
-        foreach ($tables as $table) {
+        foreach ($this->tables as $table) {
             DB::statement('ALTER TABLE ' . $table . ' CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
 
             // @todo: Get DBAL to get every column in the table for each, generate a create statement for it, and modify that stateent to be new collation/encoding
