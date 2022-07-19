@@ -1,19 +1,17 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    protected $tables = [
+    private $tables = [
         'acceptances',
         'bios',
         'conferences',
         'dismissed_conferences',
         'failed_jobs',
         'favorites',
-        'firewall',
         'migrations',
         'oauth_access_tokens',
         'oauth_auth_codes',
@@ -30,28 +28,84 @@ return new class extends Migration
         'users_social',
     ];
 
+    private $enumColumns = [
+        'talk_revisions.level' => ['beginner', 'intermediate', 'advanced'],
+    ];
+
     public function up()
     {
+        $this->ignoreEnums();
         $this->changeAll('utf8mb4', 'utf8mb4_unicode_ci');
     }
 
     public function down()
     {
+        $this->ignoreEnums();
         $this->changeAll('utf8', 'utf8_unicode_ci');
     }
 
     private function changeAll($encoding, $collation)
     {
-        DB::raw('SET FOREIGN_KEY_CHECKS=0;');
-        DB::raw('ALTER DATABASE ' . config('database.connections.mysql.database') . " CHARACTER SET = {$encoding} COLLATE = {$collation}");
+        if (config('app.env') === 'testing') {
+            return;
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('ALTER DATABASE ' . config('database.connections.mysql.database') . " CHARACTER SET = {$encoding} COLLATE = {$collation}");
 
         foreach ($this->tables as $table) {
             DB::statement("ALTER TABLE {$table} CONVERT TO CHARACTER SET {$encoding} COLLATE {$collation};");
+            foreach (Schema::getColumnListing($table) as $column) {
+                $columnType = $this->columnType($table, $column);
+                if (collect(['string', 'text', 'enum'])->doesntContain($columnType)) {
+                    continue;
+                }
 
-            // @todo: Get DBAL to get every column in the table for each, generate a create statement for it, and modify that stateent to be new collation/encoding
-            // e.g. ALTER TABLE {$table} CHANGE {$column} {$column} {$columnDetails} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+                $dataType = $this->columnDataType($table, $column, $columnType);
+                DB::statement("ALTER TABLE {$table} MODIFY {$column} {$dataType} CHARACTER SET {$encoding} COLLATE $collation;");
+            }
         }
 
-        DB::raw('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
-}
+
+    /**
+     * Avoid errors due to DBAL not supporting a custom enum type
+     */
+    private function ignoreEnums()
+    {
+        DB::connection()
+            ->getDoctrineSchemaManager()
+            ->getDatabasePlatform()
+            ->registerDoctrineTypeMapping('enum', 'string');
+    }
+
+    private function columnType($table, $column)
+    {
+        if ($this->isEnum($table, $column)) {
+            return 'enum';
+        }
+
+        return Schema::getColumnType($table, $column);
+    }
+
+    private function columnDataType($table, $column, $columnType)
+    {
+        if ($columnType === 'text') {
+            return 'TEXT';
+        }
+
+        if ($this->isEnum($table, $column)) {
+            return "enum('" . implode("','", $this->enumColumns["{$table}.{$column}"]) . "')";
+        }
+
+        $length = DB::connection()->getDoctrineColumn($table, $column)->getLength();
+
+        return "VARCHAR({$length})";
+    }
+
+    private function isEnum($table, $column)
+    {
+        return array_key_exists("{$table}.{$column}", $this->enumColumns);
+    }
+};
