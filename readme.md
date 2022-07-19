@@ -11,6 +11,13 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 * [Api documentation](doc/api.md)
 * Chat about it on freenode IRC channel `#symposium`
 
+### Screenshots
+
+![screenshot: dashboard](/public/img/symposium-dashboard.png)
+
+![screenshot: talks page](/public/img/talks-page.png)
+
+![screenshot: conference page](/public/img/conference-list.png)   
 ### Requirements
 
 * PHP >= 5.5.9
@@ -59,6 +66,15 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     php -S localhost:8080 -t public
     ```
 12. Run tests with `composer test`.
+
+## Upgrading
+composer update tighten/symposium
+
+## Testing
+
+``` bash
+php artisan test
+```
 
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
