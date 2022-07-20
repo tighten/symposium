@@ -135,7 +135,3 @@
 </x-form>
 
 @endsection
-
-@push('scripts')
-<script src="{{ mix('js/location.js') }}"></script>
-@endpush
