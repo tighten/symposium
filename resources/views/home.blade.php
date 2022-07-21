@@ -101,7 +101,7 @@
                 <div class="relative w-full px-8 pt-12 pb-24 mb-10 font-sans bg-white rounded-lg shadow lg:w-1/3 lg:first:mr-8 lg:last:ml-8 last:mb-0 lg:mb-0">
                     <div class="mb-12 text-2xl text-center text-indigo-800">{{ $conference->title }}</div>
                     <div class="text-xl font-medium">{{ $conference->event_dates_display }}</div>
-                    <div class="mt-6 text-xl">{{ $conference->description }}</div>
+                    <div class="mt-6 text-xl">{{ str($conference->description)->limit(100) }}</div>
                     <div class="absolute bottom-0 block my-10">
                         <a
                             class="text-xl font-semibold text-indigo-800"

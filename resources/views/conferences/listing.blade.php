@@ -39,7 +39,7 @@
         @endif
     </x-slot>
     <x-slot name="body">
-        {{ mb_substr($conference->description, 0, 100) }}...
+        {{ str($conference->description)->limit(100) }}...
     </x-slot>
     <x-slot name="footer">
         <div class="pr-3 lg:pr-0">
