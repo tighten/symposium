@@ -13,7 +13,7 @@
         <a href="{{ $conference->url }}">{{ $conference->url }}</a>
 
         <div class="mt-4 text-gray-500">Description:</div>
-        {!! str_replace("\n", "<br>", $conference->description) !!}</p>
+        <p>{{ $conference->description }}</p>
     </div>
     <x-slot name="footer">
         <div>

@@ -54,8 +54,7 @@
         @endif
 
         <div class="mt-4 text-gray-500">Description:</div>
-        <!-- TODO: Figure out how we will be handling HTML/etc. -->
-        {!! str_replace("\n", "<br>", $conference->description) !!}</p>
+        <p>{{ $conference->description }}</p>
     </div>
 
     <x-slot name="footer">

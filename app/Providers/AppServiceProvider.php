@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::withoutDoubleEncoding();
+
         Blade::directive('sorted', function ($expression) {
             list($sorted_by, $query) = explode(',', $expression, 2);
 

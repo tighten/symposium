@@ -7,7 +7,7 @@
         <footer>
             <div class="flex flex-col justify-between px-8 text-center lg:flex-row xl:px-0 lg:text-left">
                 <div class="hover:underline">
-                    <a href="http://tighten.co/" target="_blank">&copy; Tighten Co. {{ date('Y') }}</a>
+                    <a href="http://tighten.com/" target="_blank">&copy; Tighten {{ date('Y') }}</a>
                 </div>
                 <div class="invisible lg:visible">|</div>
                 <div class="hover:underline">
