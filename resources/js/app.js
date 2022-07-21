@@ -53,6 +53,11 @@ Vue.component(
     require('./components/ModalToggle.vue').default
 );
 
+Vue.component(
+    'SpeakerPackage',
+    require('./components/SpeakerPackage.vue').default
+);
+
 new Vue({
     el: "#app",
 });

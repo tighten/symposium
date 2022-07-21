@@ -91,3 +91,9 @@
         </template>
     </cfp-fields>
 </x-panel>
+
+<x-panel class="mt-4">
+    <h2 class="text-4xl">Speaker Packages</h2>
+
+    <speaker-package :currencies='@json($currencies)'></speaker-package>
+</x-panel>
