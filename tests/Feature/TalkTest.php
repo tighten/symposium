@@ -244,4 +244,16 @@ class TalkTest extends TestCase
         $response->assertRedirect('archive');
         $this->assertFalse($talk->fresh()->isArchived());
     }
+
+    /** @test */
+    function archived_talks_can_be_deleted()
+    {
+        $talk = Talk::factory()->archived()->create();
+
+        $response = $this->actingAs($talk->author)
+            ->delete(route('talks.destroy', $talk));
+
+        $response->assertRedirect('talks');
+        $this->assertDatabaseMissing('talks', ['id' => $talk->id]);
+    }
 }

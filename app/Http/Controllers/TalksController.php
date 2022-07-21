@@ -151,7 +151,7 @@ class TalksController extends BaseController
 
     public function destroy($id)
     {
-        auth()->user()->talks()->findOrFail($id)->delete();
+        auth()->user()->talks()->withoutGlobalScope('active')->findOrFail($id)->delete();
 
         Session::flash('success-message', 'Successfully deleted talk.');
 
