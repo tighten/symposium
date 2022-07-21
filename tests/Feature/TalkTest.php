@@ -36,7 +36,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function active_talks_are_not_included_on_the_archived_index_page()
+    function actived_talks_are_not_included_on_the_archived_index_page()
     {
         $user = User::factory()->create();
         Talk::factory()
@@ -231,5 +231,17 @@ class TalkTest extends TestCase
         // talk is included when excluding query scope
         $allTalks = Talk::withoutGlobalScope('active')->get();
         $this->assertContains($talk->id, $allTalks->pluck('id'));
+    }
+
+    /** @test */
+    function archived_talks_can_be_restored()
+    {
+        $talk = Talk::factory()->archived()->create();
+
+        $response = $this->actingAs($talk->author)
+            ->get(route('talks.restore', $talk));
+
+        $response->assertRedirect('archive');
+        $this->assertFalse($talk->fresh()->isArchived());
     }
 }
