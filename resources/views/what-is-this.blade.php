@@ -31,7 +31,7 @@
     <h2 class="text-3xl text-indigo-800">Conference Organizers</h2>
     <x-slot name="body">
         <div class="bg-indigo-100 p-10">
-            <p>Symposium helps conference organizers receive submissions (by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium--right now we're working toward an OpenCFP integration).</p>
+            <p>Symposium helps conference organizers receive submissions (by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium).</p>
         </div>
     </x-slot>
 </x-panel>

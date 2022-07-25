@@ -64,7 +64,7 @@
         <div class="flex flex-col items-center">
             @svg('badge')
             <h2 class="mb-12 font-sans text-3xl text-indigo lg:text-5xl">Conference Organizers</h2>
-            <div class="max-w-3xl px-6 mx-auto font-sans text-xl text-center md:text-2xl lg:text-3xl">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium-right now we're working toward an OpenCFP integration.</div>
+            <div class="max-w-3xl px-6 mx-auto font-sans text-xl text-center md:text-2xl lg:text-3xl">Symposium helps conference organizers receive submissions by allowing speakers to submit to any conference powered by a CFP platform that's compatible with Symposium.</div>
         </div>
     </div>
     <div class="max-w-md mx-auto mt-20 sm:max-w-6xl">
