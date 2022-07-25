@@ -60,6 +60,18 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
     ```
 12. Run tests with `composer test`.
 
+## Upgrading
+
+    ```bash
+    composer update tighten/symposium
+    ```
+
+## Testing
+
+    ```bash
+    php artisan test
+    ```
+
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
@@ -73,3 +85,13 @@ If you discover any security related issues, please email matt@tighten.co instea
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+### Screenshots
+
+![screenshot of dashboard page](/.github/screenshots/symposium-dashboard.png)
+
+![screenshot of talks page](/.github/screenshots/talks-page.png)
+
+![screenshot of conference page](/.github/screenshots/conference-list.png)   
+
+![screenshot of calendar page](/.github/screenshots/symposium-calendar.png)   
