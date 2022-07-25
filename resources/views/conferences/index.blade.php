@@ -85,7 +85,7 @@
             icon="plus"
             class="block w-full"
         >
-            Add Conference
+            Suggest a Missing Conference
         </x-button.primary>
     @endsection
 @endif
