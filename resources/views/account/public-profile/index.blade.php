@@ -5,8 +5,8 @@
 <x-panel>
     <p class="mb-4">These are all the speakers who have a public profile on Symposium.</p>
 
-    <x-form :action="route('speakers-public.search')">
-        <div class="flex">
+    <update-query-string>
+        <div slot-scope="{ updateQueryString, queryValue }" class="flex">
             <x-input.text
                 name="query"
                 label="Query"
@@ -14,10 +14,13 @@
                 :hideLabel="true"
                 :inline="true"
                 class="mr-2"
+                v-model="queryValue"
             ></x-input.text>
-            <x-button.primary type="submit">Search</x-button.primary>
+            <x-button.primary type="submit" @click="updateQueryString('query', queryValue)">
+                Search
+            </x-button.primary>
         </div>
-    </x-form>
+    </update-query-string>
 
     <p class="mb-8 text-gray-500">
         @if (isset($query) && $query)
