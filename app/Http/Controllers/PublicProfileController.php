@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SpeakerSearchRequest;
 use App\Mail\ContactRequest;
 use App\Models\User;
 use Captcha\Captcha;
@@ -24,7 +25,7 @@ class PublicProfileController extends Controller
         ]);
     }
 
-    public function search(Request $request)
+    public function search(SpeakerSearchRequest $request)
     {
         $users = User::search($request->get('query'))
             ->orderBy('name', 'asc')->get();
