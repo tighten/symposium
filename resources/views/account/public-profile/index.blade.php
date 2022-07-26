@@ -6,19 +6,19 @@
     <p class="mb-4">These are all the speakers who have a public profile on Symposium.</p>
 
     <update-query-string>
-        <div slot-scope="{ updateQueryString, queryValue }" class="flex">
+        <div slot-scope="{ updateQueryString, clearQueryString, queryValue }" class="flex">
             <x-input.text
                 name="query"
                 label="Query"
                 placeholder="Search"
                 :hideLabel="true"
                 :inline="true"
-                class="mr-2"
                 v-model="queryValue"
             ></x-input.text>
-            <x-button.primary type="submit" @click="updateQueryString('query', queryValue)">
+            <x-button.primary class="ml-2" @click="updateQueryString('query', queryValue)">
                 Search
             </x-button.primary>
+            <x-button.secondary class="ml-2" @click="clearQueryString('query')">Reset</x-button.secondary>
         </div>
     </update-query-string>
 
