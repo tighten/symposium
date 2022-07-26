@@ -13,33 +13,16 @@ use Illuminate\Support\Facades\Session;
 
 class PublicProfileController extends Controller
 {
-    public function index()
+    public function index(SpeakerSearchRequest $request)
     {
-        $users = User::where('enable_profile', true)
-            ->whereNotNull('profile_slug')
+        $users = User::search($request->get('query'))
+            ->query(fn ($query) => $query->whereHasPublicProfile())
             ->orderBy('name', 'asc')
             ->get();
 
         return view('account.public-profile.index', [
             'speakers' => $users,
-        ]);
-    }
-
-    public function search(SpeakerSearchRequest $request)
-    {
-        $users = User::search($request->get('query'))
-            ->orderBy('name', 'asc')->get();
-
-        // Since Scout searches can only perform rudimentary where clauses,
-        // we must filter search results to only validly public profiles.
-        $filteredUsers = $users->filter(function ($user) {
-            return $user->enable_profile == true &&
-                ! is_null($user->profile_slug);
-        });
-
-        return view('account.public-profile.index', [
-            'speakers' => $filteredUsers,
-            'query' => $request->get('query'),
+            'query' => $request->query('query'),
         ]);
     }
 

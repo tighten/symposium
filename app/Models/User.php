@@ -46,6 +46,12 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeWhereHasPublicProfile($query)
+    {
+        $query->where('enable_profile', true)
+            ->whereNotNull('profile_slug');
+    }
+
     public function scopeWantsNotifications($query)
     {
         return $query->where('wants_notifications', true);

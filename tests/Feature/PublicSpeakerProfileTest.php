@@ -46,9 +46,9 @@ class PublicSpeakerProfileTest extends TestCase
             'state' => 'NY',
         ]);
 
-        $response = $this->post(route('speakers-public.search'), [
+        $response = $this->get(route('speakers-public.index', [
             'query' => 'MA',
-        ])->assertSuccessful();
+        ]))->assertSuccessful();
 
         $response->assertSee('Caleb Dume');
         $response->assertDontSee('Ezra Bridger');
@@ -66,9 +66,9 @@ class PublicSpeakerProfileTest extends TestCase
             'state' => 'NY',
         ]);
 
-        $response = $this->post(route('speakers-public.search'), [
+        $response = $this->get(route('speakers-public.index', [
             'query' => 'ma',
-        ])->assertSuccessful();
+        ]))->assertSuccessful();
 
         $response->assertSee('Caleb Dume');
         $response->assertDontSee('Ezra Bridger');
@@ -86,9 +86,9 @@ class PublicSpeakerProfileTest extends TestCase
             'state' => 'NY',
         ]);
 
-        $response = $this->post(route('speakers-public.search'), [
+        $response = $this->get(route('speakers-public.index', [
             'query' => 'Massachusetts',
-        ])->assertSuccessful();
+        ]))->assertSuccessful();
 
         $response->assertSee('Caleb Dume');
         $response->assertDontSee('Ezra Bridger');
@@ -106,9 +106,9 @@ class PublicSpeakerProfileTest extends TestCase
             'state' => 'NY',
         ]);
 
-        $response = $this->post(route('speakers-public.search'), [
+        $response = $this->get(route('speakers-public.index', [
             'query' => 'souTh caroLina',
-        ])->assertSuccessful();
+        ]))->assertSuccessful();
 
         $response->assertSee('Caleb Dume');
         $response->assertDontSee('Ezra Bridger');

@@ -21,7 +21,7 @@ class SpeakerSearchRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        optional(State::abbreviation($this->input('query')), function ($value) {
+        optional(State::abbreviation($this->query('query')), function ($value) {
             $this->merge(['query' => $value]);
         });
     }
