@@ -13,7 +13,9 @@ class SaveConferenceRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $speakerPackage = [];
+        $speakerPackage = [
+            'currency' => $this->speaker_package['currency'],
+        ];
 
         /*
         * Truncate decimal values to 2 places and 
