@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('conferences', function (Blueprint $table) {
-            $table->json('speaker_package');
+            $table->json('speaker_package')->nullable();
         });
     }
 
