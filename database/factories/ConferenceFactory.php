@@ -83,4 +83,19 @@ class ConferenceFactory extends Factory
                 ->create();
         });
     }
+
+    public function withSpeakerPackage()
+    {
+        $speakerPackage = [
+            'currency' => 'usd',
+            'travel' => 1000,
+            'food' => 1000,
+            'hotel' => 1000,
+        ];
+
+
+        return $this->state([
+            'speaker_package' => json_encode($speakerPackage),
+        ]);
+    }
 }
