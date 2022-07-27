@@ -13,8 +13,19 @@ class SaveConferenceRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        $speakerPackage = [];
+
+        /*
+        * Truncate decimal values to 2 places and 
+        * convert values to whole numbers for storage
+        */
+
+        $speakerPackage['travel'] = round($this->speaker_package['travel'], 2) * 100;
+        $speakerPackage['food'] = round($this->speaker_package['food'], 2) * 100;
+        $speakerPackage['hotel'] = round($this->speaker_package['hotel'], 2) * 100;
+
         $this->merge([
-            'speaker_package' => json_encode($this->speaker_package),
+            'speaker_package' => json_encode($speakerPackage),
         ]);
     }
 
@@ -46,5 +57,24 @@ class SaveConferenceRequest extends FormRequest
             'longitude' => ['nullable'],
             'speaker_package' => ['nullable'],
         ];
+    }
+
+    public function checkSpeakerPackage()
+    {
+        /* steps
+        * are these values numeric?
+        * are they of the right value for a given currency type
+        */
+        $speakerPackage = [];
+
+        // Convert any decimal values to whole numbers for storage
+        $speakerPackage['travel'] = round($this->speaker_package['travel'], 2) * 100;
+        $speakerPackage['food'] = round($this->speaker_package['food'], 2) * 100;
+        $speakerPackage['hotel'] = round($this->speaker_package['hotel'], 2) * 100;
+
+        $this->merge([
+            'speaker_package' => json_encode($this->speaker_package),
+        ]);
+        dd('here chekcing speaker package');
     }
 }
