@@ -28,37 +28,50 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 4. Copy [`.env.example`](https://github.com/tighten/symposium/blob/master/.env.example) to `.env` and modify its contents to reflect your local environment.
 5. Place your Algolia keys in the `.env` file. This is also required for running PHPUnit tests.
 	
-	```bash
-	ALGOLIA_APP_ID=your-app-id-key
-	ALGOLIA_SECRET=your-secret-key
-	```
+```bash
+ALGOLIA_APP_ID=your-app-id-key
+ALGOLIA_SECRET=your-secret-key
+```
     
 6. Generate an application key 
 
-    ```bash 
-    php artisan key:generate
-    ```
+```bash 
+php artisan key:generate
+```
     
 7. [Run database migrations](http://laravel.com/docs/5.1/migrations#running-migrations). If you want to include seed data, add a `--seed` flag.
 
-    ```bash
-    php artisan migrate --env=local
-    ```
+```bash
+php artisan migrate --env=local
+```
     
 8. (Optionally) Enable the API. This will output two client ID/secrets that you can use for testing
 
-    ```bash
-    php artisan passport:install
-    ```
+```bash
+php artisan passport:install
+```
     
 9. [Install frontend dependencies](https://docs.npmjs.com/cli/install) with `npm install`
 10. Build CSS with `npm run dev`
 11. Configure a web server, such as the [built-in PHP web server](http://php.net/manual/en/features.commandline.webserver.php), to use the `public` directory as the document root.
 
-    ```bash
-    php -S localhost:8080 -t public
-    ```
+```bash
+php -S localhost:8080 -t public
+```
+
 12. Run tests with `composer test`.
+
+## Upgrading
+
+```bash
+composer update tighten/symposium
+```
+
+## Testing
+
+```bash
+php artisan test
+```
 
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
@@ -73,3 +86,13 @@ If you discover any security related issues, please email matt@tighten.co instea
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+### Screenshots
+
+![screenshot of dashboard page](/.github/screenshots/symposium-dashboard.png)
+
+![screenshot of talks page](/.github/screenshots/talks-page.png)
+
+![screenshot of conference page](/.github/screenshots/conference-list.png)   
+
+![screenshot of calendar page](/.github/screenshots/symposium-calendar.png)   
