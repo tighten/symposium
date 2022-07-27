@@ -10,7 +10,7 @@
             <x-input.text
                 name="query"
                 label="Query"
-                placeholder="Search"
+                placeholder="Name or Location"
                 :hideLabel="true"
                 :inline="true"
                 v-model="queryValue"
