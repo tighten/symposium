@@ -14,6 +14,7 @@
                 :hideLabel="true"
                 :inline="true"
                 v-model="queryValue"
+                @keyup.enter="updateQueryString('query', queryValue)"
             ></x-input.text>
             <x-button.primary class="ml-2" @click="updateQueryString('query', queryValue)">
                 Search
