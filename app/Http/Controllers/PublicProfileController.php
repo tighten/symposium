@@ -15,8 +15,7 @@ class PublicProfileController extends Controller
 {
     public function index(SpeakerSearchRequest $request)
     {
-        $users = User::search($request->get('query'))
-            ->query(fn ($query) => $query->whereHasPublicProfile())
+        $users = User::searchPublicSpeakers($request->query('query'))
             ->orderBy('name', 'asc')
             ->get();
 
