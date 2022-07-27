@@ -11,26 +11,6 @@ class SaveConferenceRequest extends FormRequest
         return true;
     }
 
-    protected function prepareForValidation()
-    {
-        $speakerPackage = [
-            'currency' => $this->speaker_package['currency'],
-        ];
-
-        /*
-        * Truncate decimal values to 2 places and 
-        * convert values to whole numbers for storage
-        */
-
-        $speakerPackage['travel'] = round($this->speaker_package['travel'], 2) * 100;
-        $speakerPackage['food'] = round($this->speaker_package['food'], 2) * 100;
-        $speakerPackage['hotel'] = round($this->speaker_package['hotel'], 2) * 100;
-
-        $this->merge([
-            'speaker_package' => json_encode($speakerPackage),
-        ]);
-    }
-
     public function rules()
     {
         return [
@@ -58,25 +38,9 @@ class SaveConferenceRequest extends FormRequest
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
             'speaker_package' => ['nullable'],
+            'speaker_package.travel' => ['numeric'],
+            'speaker_package.food' => ['numeric'],
+            'speaker_package.hotel' => ['numeric'],
         ];
-    }
-
-    public function checkSpeakerPackage()
-    {
-        /* steps
-        * are these values numeric?
-        * are they of the right value for a given currency type
-        */
-        $speakerPackage = [];
-
-        // Convert any decimal values to whole numbers for storage
-        $speakerPackage['travel'] = round($this->speaker_package['travel'], 2) * 100;
-        $speakerPackage['food'] = round($this->speaker_package['food'], 2) * 100;
-        $speakerPackage['hotel'] = round($this->speaker_package['hotel'], 2) * 100;
-
-        $this->merge([
-            'speaker_package' => json_encode($this->speaker_package),
-        ]);
-        dd('here chekcing speaker package');
     }
 }

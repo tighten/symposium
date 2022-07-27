@@ -80,6 +80,7 @@ class ConferencesController extends BaseController
     {
         $conference = Conference::create(array_merge($request->validated(), [
             'author_id' => auth()->user()->id,
+            'speaker_package' => $this->formatSpeakerPackage($request->safe()->speaker_package),
         ]));
 
         Event::dispatch('new-conference', [$conference]);
@@ -138,6 +139,8 @@ class ConferencesController extends BaseController
 
         // Save
         $conference->fill($request->validated());
+
+        $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
 
         if (auth()->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');
@@ -211,5 +214,15 @@ class ConferencesController extends BaseController
         return view('conferences.showPublic', [
             'conference' => $conference,
         ]);
+    }
+
+    private function formatSpeakerPackage($package)
+    {
+        // Convert any decimal values to whole numbers for storage
+        $package['travel'] = round($package['travel'], 2) * 100;
+        $package['food'] = round($package['food'], 2) * 100;
+        $package['hotel'] = round($package['hotel'], 2) * 100;
+
+        return json_encode($package);
     }
 }
