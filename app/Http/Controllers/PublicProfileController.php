@@ -21,7 +21,7 @@ class PublicProfileController extends Controller
 
         return view('account.public-profile.index', [
             'speakers' => $users,
-            'query' => $request->query('query'),
+            'query' => $request->original,
         ]);
     }
 
