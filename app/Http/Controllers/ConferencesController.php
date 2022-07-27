@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\Intl\Currencies;
 
 class ConferencesController extends BaseController
 {
@@ -60,8 +61,18 @@ class ConferencesController extends BaseController
 
     public function create()
     {
+        $currencyList = collect(Currencies::getCurrencyCodes())
+            ->map(function ($code) {
+                return [
+                    'code' => $code,
+                    'symbol' => Currencies::getSymbol($code),
+                ];
+            })
+            ->toArray();
+
         return view('conferences.create', [
             'conference' => new Conference,
+            'currencies' => $currencyList
         ]);
     }
 
