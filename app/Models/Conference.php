@@ -33,6 +33,7 @@ class Conference extends UuidBase
         'is_shared',
         'calling_all_papers_id',
         'has_cfp',
+        'speaker_package',
     ];
 
     /**
@@ -211,7 +212,7 @@ class Conference extends UuidBase
      */
     public function isCurrentlyAcceptingProposals()
     {
-        if (! $this->hasAnnouncedCallForProposals()) {
+        if (!$this->hasAnnouncedCallForProposals()) {
             return false;
         }
 
@@ -225,15 +226,15 @@ class Conference extends UuidBase
 
     public function getEventDatesDisplayAttribute()
     {
-        if (! $this->starts_at) {
+        if (!$this->starts_at) {
             return null;
         }
 
-        if (! $this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
+        if (!$this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
             return $this->starts_at->format('M j Y');
         }
 
-        return $this->starts_at->format('M j Y').' - '.$this->ends_at->format('M j Y');
+        return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
     }
 
     public function isDismissed()
@@ -317,6 +318,6 @@ class Conference extends UuidBase
 
     private function hasAnnouncedCallForProposals()
     {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
+        return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
     }
 }

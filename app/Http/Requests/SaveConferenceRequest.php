@@ -11,6 +11,13 @@ class SaveConferenceRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'speaker_package' => json_encode($this->speaker_package),
+        ]);
+    }
+
     public function rules()
     {
         return [
@@ -37,6 +44,7 @@ class SaveConferenceRequest extends FormRequest
             'location' => ['nullable'],
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
+            'speaker_package' => ['nullable'],
         ];
     }
 }
