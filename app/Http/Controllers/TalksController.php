@@ -151,7 +151,7 @@ class TalksController extends BaseController
 
     public function destroy($id)
     {
-        auth()->user()->talks()->findOrFail($id)->delete();
+        auth()->user()->talks()->withoutGlobalScope('active')->findOrFail($id)->delete();
 
         Session::flash('success-message', 'Successfully deleted talk.');
 
@@ -182,7 +182,7 @@ class TalksController extends BaseController
 
     public function restore($id)
     {
-        auth()->user()->talks()->findOrFail($id)->restore();
+        auth()->user()->talks()->withoutGlobalScope('active')->findOrFail($id)->restore();
 
         Session::flash('success-message', 'Successfully restored talk.');
 
