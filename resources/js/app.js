@@ -53,6 +53,11 @@ Vue.component(
     require('./components/ModalToggle.vue').default
 );
 
+Vue.component(
+    'UpdateQueryString',
+    require('./components/UpdateQueryString.vue').default
+);
+
 new Vue({
     el: "#app",
 });
