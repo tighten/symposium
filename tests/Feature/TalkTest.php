@@ -36,7 +36,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function actived_talks_are_not_included_on_the_archived_index_page()
+    function active_talks_are_not_included_on_the_archived_index_page()
     {
         $user = User::factory()->create();
         Talk::factory()
