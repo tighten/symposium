@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Cknow\Money\Money;
 
 class SaveConferenceRequest extends FormRequest
 {
@@ -38,6 +39,11 @@ class SaveConferenceRequest extends FormRequest
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
             'speaker_package' => ['nullable'],
+            'speaker_package.currency' => function ($attribute, $value, $fail) {
+                if (!Money::isValidCurrency($value)) {
+                    $fail($attribute . ' must be a valid currency type.');
+                };
+            },
             'speaker_package.travel' => ['numeric'],
             'speaker_package.food' => ['numeric'],
             'speaker_package.hotel' => ['numeric'],

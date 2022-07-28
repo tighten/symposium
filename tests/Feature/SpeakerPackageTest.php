@@ -117,6 +117,31 @@ class SpeakerPackageTest extends TestCase
         $this->assertEquals(525, $conferencePackage->hotel);
     }
 
+    /** @test */
+    public function values_must_be_valid_currency()
+    {
+        $user = User::factory()->create();
+        $speakerPackage = [
+            'currency' => 'invalid-currency',
+            'travel' => 10,
+            'food' => 10,
+            'hotel' => 10,
+        ];
+
+        $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'New Conference',
+                'description' => 'My new conference',
+                'url' => 'https://my-conference.org',
+                'speaker_package' => $speakerPackage
+
+            ]);
+
+        $this->assertDatabaseMissing(Conference::class, [
+            'speaker_package' => $this->getFormattedSpeakerPackageValues($speakerPackage),
+        ]);
+    }
+
     public function getFormattedSpeakerPackageValues($package)
     {
         $speakerPackage = [
