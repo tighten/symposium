@@ -35,6 +35,86 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
+    function speakers_can_be_found_by_searching_state_abbreviation()
+    {
+        User::factory()->enableProfile()->create([
+            'name' => 'Caleb Dume',
+            'state' => 'MA',
+        ]);
+        User::factory()->enableProfile()->create([
+            'name' => 'Ezra Bridger',
+            'state' => 'NY',
+        ]);
+
+        $response = $this->get(route('speakers-public.index', [
+            'query' => 'MA',
+        ]))->assertSuccessful();
+
+        $response->assertSee('Caleb Dume');
+        $response->assertDontSee('Ezra Bridger');
+    }
+
+    /** @test */
+    function searching_by_state_abbreviation_is_case_insensitive()
+    {
+        User::factory()->enableProfile()->create([
+            'name' => 'Caleb Dume',
+            'state' => 'MA',
+        ]);
+        User::factory()->enableProfile()->create([
+            'name' => 'Ezra Bridger',
+            'state' => 'NY',
+        ]);
+
+        $response = $this->get(route('speakers-public.index', [
+            'query' => 'ma',
+        ]))->assertSuccessful();
+
+        $response->assertSee('Caleb Dume');
+        $response->assertDontSee('Ezra Bridger');
+    }
+
+    /** @test */
+    function speakers_can_be_found_by_searching_state_name()
+    {
+        User::factory()->enableProfile()->create([
+            'name' => 'Caleb Dume',
+            'state' => 'MA',
+        ]);
+        User::factory()->enableProfile()->create([
+            'name' => 'Ezra Bridger',
+            'state' => 'NY',
+        ]);
+
+        $response = $this->get(route('speakers-public.index', [
+            'query' => 'Massachusetts',
+        ]))->assertSuccessful();
+
+        $response->assertSee('Caleb Dume');
+        $response->assertDontSee('Ezra Bridger');
+    }
+
+    /** @test */
+    function searching_by_state_name_is_case_insensitive()
+    {
+        User::factory()->enableProfile()->create([
+            'name' => 'Caleb Dume',
+            'state' => 'SC',
+        ]);
+        User::factory()->enableProfile()->create([
+            'name' => 'Ezra Bridger',
+            'state' => 'NY',
+        ]);
+
+        $response = $this->get(route('speakers-public.index', [
+            'query' => 'souTh caroLina',
+        ]))->assertSuccessful();
+
+        $response->assertSee('Caleb Dume');
+        $response->assertDontSee('Ezra Bridger');
+    }
+
+    /** @test */
     public function non_public_speakers_do_not_have_public_speaker_profile_pages()
     {
         $user = User::factory()->disableProfile()->create([

@@ -27,7 +27,6 @@ Route::get('what-is-this', function () {
 });
 
 Route::get('speakers', [PublicProfileController::class, 'index'])->name('speakers-public.index');
-Route::post('speakers', [PublicProfileController::class, 'search'])->name('speakers-public.search');
 Route::get('u/{profileSlug}', [PublicProfileController::class, 'show'])->name('speakers-public.show');
 Route::get('u/{profileSlug}/talks/{talkId}', [PublicProfileController::class, 'showTalk'])->name('speakers-public.talks.show');
 Route::get('u/{profileSlug}/bios/{bioId}', [PublicProfileController::class, 'showBio'])->name('speakers-public.bios.show');

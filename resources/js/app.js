@@ -58,6 +58,11 @@ Vue.component(
     require('./components/SpeakerPackage.vue').default
 );
 
+Vue.component(
+    'UpdateQueryString',
+    require('./components/UpdateQueryString.vue').default
+);
+
 new Vue({
     el: "#app",
 });

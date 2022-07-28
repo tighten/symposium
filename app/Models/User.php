@@ -46,6 +46,22 @@ class User extends Authenticatable
         });
     }
 
+    public static function searchPublicSpeakers($query)
+    {
+        if (! $query) {
+            return static::whereHasPublicProfile();
+        }
+
+        return static::search($query)
+            ->query(fn ($query) => $query->whereHasPublicProfile());
+    }
+
+    public function scopeWhereHasPublicProfile($query)
+    {
+        $query->where('enable_profile', true)
+            ->whereNotNull('profile_slug');
+    }
+
     public function scopeWantsNotifications($query)
     {
         return $query->where('wants_notifications', true);

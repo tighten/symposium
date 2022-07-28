@@ -35,7 +35,7 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
-        <env name="SCOUT_DRIVER" value="null"/>
+        <env name="SCOUT_DRIVER" value="database"/>
         <env name="CAPTCHA_PUBLIC" value="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"/>
         <env name="CAPTCHA_PRIVATE" value="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"/>
     </php>
