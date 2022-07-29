@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
+use Cknow\Money\Money;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Symfony\Component\Intl\Currencies;
 
 class ConferencesController extends BaseController
@@ -218,11 +220,21 @@ class ConferencesController extends BaseController
 
     private function formatSpeakerPackage($package)
     {
-        // Convert any decimal values to whole numbers for storage
-        $package['travel'] = round($package['travel'], 2) * 100;
-        $package['food'] = round($package['food'], 2) * 100;
-        $package['hotel'] = round($package['hotel'], 2) * 100;
+        $speakerPackage = [
+            'currency' => $package['currency'],
+        ];
 
-        return json_encode($package);
+        // Since users have the ability to enter punctuation or not, then we want to 
+        // use the appropriate parser
+        $travelHasPunctuation = Str::of($package['travel'])->contains([',', '.']);
+        $hotelHasPunctuation = Str::of($package['hotel'])->contains([',', '.']);
+        $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
+
+
+        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, 'en_us')->getAmount();
+
+        return json_encode($speakerPackage);
     }
 }

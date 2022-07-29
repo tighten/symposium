@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Conference;
 use App\Models\User;
+use Cknow\Money\Money;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class SpeakerPackageTest extends TestCase
@@ -138,7 +140,7 @@ class SpeakerPackageTest extends TestCase
             ]);
 
         $this->assertDatabaseMissing(Conference::class, [
-            'speaker_package' => $this->getFormattedSpeakerPackageValues($speakerPackage),
+            'title' => 'New Conference',
         ]);
     }
 
@@ -148,9 +150,16 @@ class SpeakerPackageTest extends TestCase
             'currency' => $package['currency'],
         ];
 
-        $speakerPackage['travel'] = round($package['travel'], 2) * 100;
-        $speakerPackage['food'] = round($package['food'], 2) * 100;
-        $speakerPackage['hotel'] = round($package['hotel'], 2) * 100;
+        // Since users have the ability to enter punctuation or not, then we want to 
+        // use the appropriate parser
+        $travelHasPunctuation = Str::of($package['travel'])->contains([',', '.']);
+        $hotelHasPunctuation = Str::of($package['hotel'])->contains([',', '.']);
+        $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
+
+
+        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, 'en_us')->getAmount();
 
         return json_encode($speakerPackage);
     }
