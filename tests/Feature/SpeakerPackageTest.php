@@ -147,7 +147,6 @@ class SpeakerPackageTest extends TestCase
     /** @test */
     public function non_us_formats_are_stored_correctly()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create();
         $speakerPackage = [
             'currency' => 'eur',
@@ -166,6 +165,31 @@ class SpeakerPackageTest extends TestCase
             ]);
 
         $this->assertDatabaseHas(Conference::class, [
+            'title' => 'New Conference',
+        ]);
+    }
+
+    /** @test */
+    public function only_number_values_are_permissible()
+    {
+        $user = User::factory()->create();
+        $speakerPackage = [
+            'currency' => 'usd',
+            'travel' => '10.',
+            'food' => '10.?',
+            'hotel' => 'no-letters',
+        ];
+
+        $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'New Conference',
+                'description' => 'My new conference',
+                'url' => 'https://my-conference.org',
+                'speaker_package' => $speakerPackage
+
+            ]);
+
+        $this->assertDatabaseMissing(Conference::class, [
             'title' => 'New Conference',
         ]);
     }
