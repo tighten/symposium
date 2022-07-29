@@ -144,6 +144,32 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function non_us_formats_are_stored_correctly()
+    {
+        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
+        $speakerPackage = [
+            'currency' => 'eur',
+            'travel' => 1.033, 00,
+            'food' => 10, 00,
+            'hotel' => 5, 00,
+        ];
+
+        $this->actingAs($user)
+            ->post('conferences', [
+                'title' => 'New Conference',
+                'description' => 'My new conference',
+                'url' => 'https://my-conference.org',
+                'speaker_package' => $speakerPackage
+
+            ]);
+
+        $this->assertDatabaseHas(Conference::class, [
+            'title' => 'New Conference',
+        ]);
+    }
+
     public function getFormattedSpeakerPackageValues($package)
     {
         $speakerPackage = [
@@ -157,9 +183,9 @@ class SpeakerPackageTest extends TestCase
         $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
 
 
-        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, 'en_us')->getAmount();
-        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();
-        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation)->getAmount();
+        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation)->getAmount();
+        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation)->getAmount();
 
         return json_encode($speakerPackage);
     }
