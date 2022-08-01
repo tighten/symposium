@@ -1,5 +1,5 @@
 <template>
-<div>
+<div name="speaker_package">
     <div class="mt-8">
         <label
             for="currency"
@@ -9,7 +9,7 @@
         </label>
 
             <select
-                name="currency"
+                name="speaker_package[currency]"
                 id="currency"
                 :value="selectedCurrency"
                 @change="(e) => selectedCurrency = e.target.value"
@@ -22,17 +22,17 @@
 
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrency }}</span>
-        <input name="travel_budget" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[travel]" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
     
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrency }}</span>
-        <input name="hotel_budget" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[hotel]" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
     
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrency }}</span>
-        <input name="food_budget" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[food]" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
 </div>
 </template>
