@@ -50,6 +50,7 @@ class Conference extends UuidBase
         'url' => Url::class,
         'cfp_url' => Url::class,
         'has_cfp' => 'boolean',
+        'speaker_package' => 'json',
     ];
 
     protected $attributes = [

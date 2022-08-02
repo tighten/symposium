@@ -55,6 +55,21 @@
 
         <div class="mt-4 text-gray-500">Description:</div>
         <p>{{ $conference->description }}</p>
+
+        @if ($conference->speaker_package)
+            <div class="mt-4 text-gray-500">Speaker Package:</div>
+            <dl>
+            @foreach($package as $key => $item)
+            
+            @if($item != 0) 
+                <div class="flex">
+                    <dt class="capitalize mr-4">{{$key}}</dt>
+                    <dd>{{$item}}</dd>
+                </div>
+            @endif
+            @endforeach
+            </dl>
+        @endif
     </div>
 
     <x-slot name="footer">
