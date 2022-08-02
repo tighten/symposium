@@ -7,6 +7,8 @@ use App\Models\Conference;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Cknow\Money\Money;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -112,7 +114,7 @@ class ConferencesController extends BaseController
         $package = collect($package)->map(function ($item, $key) use ($conference) {
             $currency = $conference->speaker_package['currency'];
 
-            return $item > 0 ? Money::$currency($item)->formatByIntl() : null;
+            return $item > 0 ? Money::$currency($item)->formatByIntl(App::currentLocale()) : null;
         });
 
         return view('conferences.show', [
