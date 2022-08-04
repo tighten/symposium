@@ -126,8 +126,19 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
+        $currencyList = collect(Currencies::getCurrencyCodes())
+            ->map(function ($code) {
+                return [
+                    'code' => $code,
+                    'symbol' => Currencies::getSymbol($code),
+                ];
+            })
+            ->toArray();
+
         return view('conferences.edit', [
             'conference' => $conference,
+            'currencies' => $currencyList,
+            'package' => $conference->formattedSpeakerPackage,
         ]);
     }
 
@@ -238,6 +249,6 @@ class ConferencesController extends BaseController
         $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();
         $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, 'en_us')->getAmount();
 
-        return json_encode($speakerPackage);
+        return $speakerPackage;
     }
 }
