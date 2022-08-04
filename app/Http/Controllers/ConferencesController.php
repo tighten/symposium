@@ -66,6 +66,9 @@ class ConferencesController extends BaseController
     public function create()
     {
         $currencyList = collect(Currencies::getCurrencyCodes())
+            ->filter(function ($item) {
+                return Money::isValidCurrency($item);
+            })
             ->map(function ($code) {
                 return [
                     'code' => $code,
@@ -127,6 +130,9 @@ class ConferencesController extends BaseController
         }
 
         $currencyList = collect(Currencies::getCurrencyCodes())
+            ->filter(function ($item) {
+                return Money::isValidCurrency($item);
+            })
             ->map(function ($code) {
                 return [
                     'code' => $code,
