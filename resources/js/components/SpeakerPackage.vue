@@ -22,17 +22,17 @@
 
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrency }}</span>
-        <input name="speaker_package[travel]" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[travel]" :value="speakerPackage && speakerPackage.travel"  class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
     
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrency }}</span>
-        <input name="speaker_package[hotel]" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[hotel]" :value="speakerPackage && speakerPackage.hotel" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
     
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrency }}</span>
-        <input name="speaker_package[food]" type="number" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[food]" :value="speakerPackage && speakerPackage.food" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
 </div>
 </template>
@@ -43,6 +43,7 @@ export default {
     name: 'SpeakerPackage',
     props: {
         currencies: Array,
+        speakerPackage: Array,
     },
     data() {
         return {

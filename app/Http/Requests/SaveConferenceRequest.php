@@ -44,9 +44,9 @@ class SaveConferenceRequest extends FormRequest
                     $fail($attribute . ' must be a valid currency type.');
                 };
             },
-            'speaker_package.travel' => ['numeric'],
-            'speaker_package.food' => ['numeric'],
-            'speaker_package.hotel' => ['numeric'],
+            'speaker_package.travel' => ['regex:/\d+([.,]?\d*)*/'],
+            'speaker_package.food' => ['regex:/\d+([.,]?\d*)*/'],
+            'speaker_package.hotel' => ['regex:/\d+([.,]?\d*)*/'],
         ];
     }
 }
