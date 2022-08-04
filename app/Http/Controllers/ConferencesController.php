@@ -84,7 +84,7 @@ class ConferencesController extends BaseController
     {
         $conference = Conference::create(array_merge($request->validated(), [
             'author_id' => auth()->user()->id,
-            'speaker_package' => $this->formatSpeakerPackage($request->safe()->speaker_package),
+            'speaker_package' => $request->speaker_package ? $this->formatSpeakerPackage($request->safe()->speaker_package) : null,
         ]));
 
         Event::dispatch('new-conference', [$conference]);
@@ -156,7 +156,9 @@ class ConferencesController extends BaseController
         // Save
         $conference->fill($request->validated());
 
-        $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
+        if ($request->speaker_package) {
+            $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
+        }
 
         if (auth()->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');
