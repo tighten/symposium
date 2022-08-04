@@ -94,6 +94,5 @@
 
 <x-panel class="mt-4">
     <h2 class="text-4xl">Speaker Packages</h2>
-
-    <speaker-package :currencies='@json($currencies)'></speaker-package>
+    <speaker-package :currencies='@json($currencies)' :speaker-package='@json($package ?? null)'></speaker-package>
 </x-panel>
