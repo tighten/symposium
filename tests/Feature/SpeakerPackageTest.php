@@ -112,11 +112,11 @@ class SpeakerPackageTest extends TestCase
 
             ]);
 
-        $conferencePackage = json_decode(Conference::first()->speaker_package);
+        $conferencePackage = Conference::first()->speaker_package;
 
-        $this->assertEquals(1052, $conferencePackage->travel);
-        $this->assertEquals(1575, $conferencePackage->food);
-        $this->assertEquals(525, $conferencePackage->hotel);
+        $this->assertEquals(1052, $conferencePackage['travel']);
+        $this->assertEquals(1575, $conferencePackage['food']);
+        $this->assertEquals(525, $conferencePackage['hotel']);
     }
 
     /** @test */
@@ -207,9 +207,9 @@ class SpeakerPackageTest extends TestCase
         $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
 
 
-        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation)->getAmount();
-        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation)->getAmount();
-        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation)->getAmount();
+        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, 'en_us')->getAmount();
 
         return json_encode($speakerPackage);
     }
