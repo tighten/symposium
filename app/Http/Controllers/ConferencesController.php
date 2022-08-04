@@ -247,9 +247,9 @@ class ConferencesController extends BaseController
         $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
 
 
-        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, 'en_us')->getAmount();
-        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();
-        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, 'en_us')->getAmount();
+        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, App::getLocale())->getAmount();
+        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, App::getLocale())->getAmount();
+        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, App::getLocale())->getAmount();
 
         return $speakerPackage;
     }
