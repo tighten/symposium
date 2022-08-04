@@ -109,18 +109,10 @@ class ConferencesController extends BaseController
             return TalkTransformer::transform($talk, $conference);
         });
 
-        $package = Arr::except($conference->speaker_package, ['currency']);
-
-        $package = collect($package)->map(function ($item, $key) use ($conference) {
-            $currency = $conference->speaker_package['currency'];
-
-            return $item > 0 ? Money::$currency($item)->formatByIntl(App::currentLocale()) : null;
-        });
-
         return view('conferences.show', [
             'conference' => $conference,
             'talks' => $talks,
-            'package' => $package,
+            'package' => $conference->formattedSpeakerPackage,
         ]);
     }
 

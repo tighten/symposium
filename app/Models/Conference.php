@@ -3,8 +3,14 @@
 namespace App\Models;
 
 use App\Casts\Url;
+use App\Models\Acceptance;
+use App\Models\Submission;
+use App\Models\User;
+use App\Models\UuidBase;
 use Carbon\Carbon;
+use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Arr;
 
 class Conference extends UuidBase
 {
@@ -320,5 +326,19 @@ class Conference extends UuidBase
     private function hasAnnouncedCallForProposals()
     {
         return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
+    }
+
+    public function getFormattedSpeakerPackageAttribute()
+    {
+        if (!$this->speaker_package) {
+            return;
+        }
+
+        $package = Arr::except($this->speaker_package, ['currency']);
+        $currency = $this->speaker_package['currency'];
+
+        return collect($package)->map(function ($item) use ($currency) {
+            return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
+        });
     }
 }
