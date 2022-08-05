@@ -144,7 +144,7 @@ class ConferencesController extends BaseController
         return view('conferences.edit', [
             'conference' => $conference,
             'currencies' => $currencyList,
-            'package' => $conference->formattedSpeakerPackage,
+            'package' => $conference->decimalFormatSpeakerPackage,
         ]);
     }
 
