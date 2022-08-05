@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\User;
 use Cknow\Money\Money;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -145,14 +146,45 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function non_us_formats_are_stored_correctly()
+    public function non_us_formats_are_stored_correctly_for_non_us_locale()
     {
+        App::setLocale('de');
+
         $user = User::factory()->create();
         $speakerPackage = [
             'currency' => 'eur',
-            'travel' => 1.033, 00,
-            'food' => 10, 00,
-            'hotel' => 5, 00,
+            'food' => '10,00',
+            'hotel' => '5,00',
+            'travel' => null,
+        ];
+
+        $this->followingRedirects()
+            ->actingAs($user)
+            ->post('conferences', [
+                'title' => 'New Conference',
+                'description' => 'My new conference',
+                'url' => 'https://my-conference.org',
+                'speaker_package' => $speakerPackage
+
+            ])
+            ->assertSuccessful();
+
+        $this->assertDatabaseHas(Conference::class, [
+            'title' => 'New Conference',
+        ]);
+    }
+
+    /** @test */
+    public function non_us_formats_fail_validation_in_us_locale()
+    {
+        App::setLocale('en');
+
+        $user = User::factory()->create();
+        $speakerPackage = [
+            'currency' => 'eur',
+            'food' => '10,00',
+            'hotel' => '5,00',
+            'travel' => null,
         ];
 
         $this->actingAs($user)
@@ -162,9 +194,13 @@ class SpeakerPackageTest extends TestCase
                 'url' => 'https://my-conference.org',
                 'speaker_package' => $speakerPackage
 
+            ])
+            ->assertInvalid([
+                'speaker_package.food',
+                'speaker_package.hotel'
             ]);
 
-        $this->assertDatabaseHas(Conference::class, [
+        $this->assertDatabaseMissing(Conference::class, [
             'title' => 'New Conference',
         ]);
     }
