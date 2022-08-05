@@ -42,12 +42,13 @@
 export default {
     name: 'SpeakerPackage',
     props: {
-        currencies: Array,
-        speakerPackage: Array,
+        currencies: Object,
+        speakerPackage: Object,
+        initialCurrency: String
     },
     data() {
         return {
-            selectedCurrency: 'USD',
+            selectedCurrency: this.initialCurrency,
         };
     },
 }
