@@ -85,10 +85,14 @@ class ConferencesController extends BaseController
 
     public function store(SaveConferenceRequest $request)
     {
-        $conference = Conference::create(array_merge($request->validated(), [
-            'author_id' => auth()->user()->id,
-            'speaker_package' => $request->speaker_package ? $this->formatSpeakerPackage($request->safe()->speaker_package) : null,
-        ]));
+        try {
+            $conference = Conference::create(array_merge($request->validated(), [
+                'author_id' => auth()->user()->id,
+                'speaker_package' => $request->speaker_package ? $this->formatSpeakerPackage($request->safe()->speaker_package) : null,
+            ]));
+        } catch (ParserException $e) {
+            throw ValidationException::withMessages(['speaker_package' => 'Unable to parse speaker package amounts. Please check formatting and try again.']);
+        }
 
         Event::dispatch('new-conference', [$conference]);
         Session::flash('success-message', 'Successfully created new conference.');
@@ -163,7 +167,11 @@ class ConferencesController extends BaseController
         $conference->fill($request->validated());
 
         if ($request->speaker_package) {
-            $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
+            try {
+                $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
+            } catch (ParserException $e) {
+                throw ValidationException::withMessages(['speaker_package' => 'Unable to parse speaker package amounts. Please check formatting and try again.']);
+            }
         }
 
         if (auth()->user()->isAdmin()) {
