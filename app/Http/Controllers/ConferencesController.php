@@ -85,19 +85,15 @@ class ConferencesController extends BaseController
 
     public function store(SaveConferenceRequest $request)
     {
-        try {
-            $conference = Conference::create(array_merge($request->validated(), [
-                'author_id' => auth()->user()->id,
-                'speaker_package' => $request->speaker_package ? $this->formatSpeakerPackage($request->safe()->speaker_package) : null,
-            ]));
-        } catch (ParserException $e) {
-            throw ValidationException::withMessages(['speaker_package' => 'Unable to parse speaker package amounts. Please check formatting and try again.']);
-        }
+        $conference = Conference::create(array_merge($request->validated(), [
+            'author_id' => auth()->user()->id,
+            'speaker_package' => $request->speaker_package ? $this->formatSpeakerPackage($request->safe()->speaker_package) : null,
+        ]));
 
         Event::dispatch('new-conference', [$conference]);
         Session::flash('success-message', 'Successfully created new conference.');
 
-        return redirect('conferences/'.$conference->id);
+        return redirect('conferences/' . $conference->id);
     }
 
     public function show($id)
@@ -127,8 +123,8 @@ class ConferencesController extends BaseController
     {
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
-            Log::error('User '.auth()->user()->id." tried to edit a conference they don't own.");
+        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
+            Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');
         }
@@ -157,8 +153,8 @@ class ConferencesController extends BaseController
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
-            Log::error('User '.auth()->user()->id." tried to edit a conference they don't own.");
+        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
+            Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');
         }
@@ -167,11 +163,7 @@ class ConferencesController extends BaseController
         $conference->fill($request->validated());
 
         if ($request->speaker_package) {
-            try {
-                $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
-            } catch (ParserException $e) {
-                throw ValidationException::withMessages(['speaker_package' => 'Unable to parse speaker package amounts. Please check formatting and try again.']);
-            }
+            $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
         }
 
         if (auth()->user()->isAdmin()) {
@@ -183,7 +175,7 @@ class ConferencesController extends BaseController
 
         Session::flash('success-message', 'Successfully edited conference.');
 
-        return redirect('conferences/'.$conference->id);
+        return redirect('conferences/' . $conference->id);
     }
 
     public function destroy($id)
@@ -191,7 +183,7 @@ class ConferencesController extends BaseController
         try {
             $conference = auth()->user()->conferences()->findOrFail($id);
         } catch (Exception $e) {
-            Log::error('User '.auth()->user()->id." tried to delete a conference that doesn't exist or they don't own.");
+            Log::error('User ' . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
 
             return redirect('/');
         }

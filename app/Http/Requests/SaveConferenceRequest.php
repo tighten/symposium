@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidAmountForCurrentLocale;
 use Illuminate\Foundation\Http\FormRequest;
 use Cknow\Money\Money;
 
@@ -44,9 +45,18 @@ class SaveConferenceRequest extends FormRequest
                     $fail($attribute . ' must be a valid currency type.');
                 };
             },
-            'speaker_package.travel' => ['nullable', 'regex:/\d+([.,]?\d*)*/'],
-            'speaker_package.food' => ['nullable', 'regex:/\d+([.,]?\d*)*/'],
-            'speaker_package.hotel' => ['nullable', 'regex:/\d+([.,]?\d*)*/'],
+            'speaker_package.travel' => [
+                'nullable',
+                new ValidAmountForCurrentLocale(),
+            ],
+            'speaker_package.food' => [
+                'nullable',
+                new ValidAmountForCurrentLocale(),
+            ],
+            'speaker_package.hotel' => [
+                'nullable',
+                new ValidAmountForCurrentLocale(),
+            ],
         ];
     }
 }
