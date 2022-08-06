@@ -246,7 +246,7 @@ class ConferencesController extends BaseController
             'currency' => $package['currency'],
         ];
 
-        // Since users have the ability to enter punctuation or not, then we want to 
+        // Since users have the ability to enter punctuation or not, then we want to
         // use the appropriate parser
         $travelHasPunctuation = Str::of($package['travel'])->contains([',', '.']);
         $hotelHasPunctuation = Str::of($package['hotel'])->contains([',', '.']);
