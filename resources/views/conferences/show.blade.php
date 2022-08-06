@@ -61,15 +61,14 @@
             
             <table class="table-auto">
                 <tbody>
-                @foreach($package as $category => $amount)
-                
-                @if($amount != 0) 
-                    <tr>
-                        <td class="capitalize pr-4">{{ $category }}</td>
-                        <td>{{ $amount }}</td>
-                    </tr>
-                @endif
-                @endforeach
+                    @foreach($package as $category => $amount)
+                        @if($amount != 0) 
+                            <tr>
+                                <td class="capitalize pr-4">{{ $category }}</td>
+                                <td>{{ $amount }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
                 </tbody>
             </table>
         @endif

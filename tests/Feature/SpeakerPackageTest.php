@@ -28,7 +28,6 @@ class SpeakerPackageTest extends TestCase
                 'description' => 'A very good conference about things',
                 'url' => 'http://dasconf.org',
                 'speaker_package' => $speakerPackage,
-
             ]);
 
         $this->assertDatabaseHas(Conference::class, [
@@ -110,7 +109,6 @@ class SpeakerPackageTest extends TestCase
                 'description' => 'A very good conference about things',
                 'url' => 'http://dasconf.org',
                 'speaker_package' => $speakerPackage,
-
             ]);
 
         $conferencePackage = Conference::first()->speaker_package;
@@ -136,8 +134,7 @@ class SpeakerPackageTest extends TestCase
                 'title' => 'New Conference',
                 'description' => 'My new conference',
                 'url' => 'https://my-conference.org',
-                'speaker_package' => $speakerPackage
-
+                'speaker_package' => $speakerPackage,
             ]);
 
         $this->assertDatabaseMissing(Conference::class, [
@@ -164,8 +161,7 @@ class SpeakerPackageTest extends TestCase
                 'title' => 'New Conference',
                 'description' => 'My new conference',
                 'url' => 'https://my-conference.org',
-                'speaker_package' => $speakerPackage
-
+                'speaker_package' => $speakerPackage,
             ])
             ->assertSuccessful();
 
@@ -192,12 +188,11 @@ class SpeakerPackageTest extends TestCase
                 'title' => 'New Conference',
                 'description' => 'My new conference',
                 'url' => 'https://my-conference.org',
-                'speaker_package' => $speakerPackage
-
+                'speaker_package' => $speakerPackage,
             ])
             ->assertInvalid([
                 'speaker_package.food',
-                'speaker_package.hotel'
+                'speaker_package.hotel',
             ]);
 
         $this->assertDatabaseMissing(Conference::class, [
@@ -221,8 +216,7 @@ class SpeakerPackageTest extends TestCase
                 'title' => 'New Conference',
                 'description' => 'My new conference',
                 'url' => 'https://my-conference.org',
-                'speaker_package' => $speakerPackage
-
+                'speaker_package' => $speakerPackage,
             ]);
 
         $this->assertDatabaseMissing(Conference::class, [
@@ -236,12 +230,10 @@ class SpeakerPackageTest extends TestCase
             'currency' => $package['currency'],
         ];
 
-        // Since users have the ability to enter punctuation or not, then we want to 
-        // use the appropriate parser
+        // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
         $travelHasPunctuation = Str::of($package['travel'])->contains([',', '.']);
         $hotelHasPunctuation = Str::of($package['hotel'])->contains([',', '.']);
         $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
-
 
         $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, 'en_us')->getAmount();
         $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, 'en_us')->getAmount();

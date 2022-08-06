@@ -8,16 +8,16 @@
             Currency
         </label>
 
-            <select
-                name="speaker_package[currency]"
-                id="currency"
-                :value="selectedCurrency"
-                @change="(e) => updateSelectedCurrency(e.target.value)"
-            >
-                <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
-                    {{ currency.code }}
-                </option>
-            </select>
+        <select
+            name="speaker_package[currency]"
+            id="currency"
+            :value="selectedCurrency"
+            @change="(e) => updateSelectedCurrency(e.target.value)"
+        >
+            <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
+                {{ currency.code }}
+            </option>
+        </select>
     </div>
 
     <div class="flex mt-2">
@@ -43,8 +43,8 @@ export default {
     name: 'SpeakerPackage',
     props: {
         currencies: Object,
+        initialCurrency: String,
         speakerPackage: Object,
-        initialCurrency: String
     },
     data() {
         return {
