@@ -99,5 +99,5 @@
         :currencies='@json($currencies)'
         :initial-currency='@json($conference->speaker_package['currency'] ?? 'USD')'
         :speaker-package='@json($package ?? null)'
-        ></speaker-package>
+    ></speaker-package>
 </x-panel>

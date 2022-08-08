@@ -7,7 +7,6 @@ use App\Models\Conference;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Cknow\Money\Money;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -79,7 +78,7 @@ class ConferencesController extends BaseController
 
         return view('conferences.create', [
             'conference' => new Conference,
-            'currencies' => $currencyList
+            'currencies' => $currencyList,
         ]);
     }
 

@@ -22,7 +22,7 @@
 
     <div class="flex mt-2">
         <span class="p-2 bg-indigo-300 rounded-l-md">{{ selectedCurrencySymbol }}</span>
-        <input name="speaker_package[travel]" :value="speakerPackage && speakerPackage.travel"  class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+        <input name="speaker_package[travel]" :value="speakerPackage && speakerPackage.travel" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
     </div>
     
     <div class="flex mt-2">
