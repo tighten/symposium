@@ -219,7 +219,7 @@ class Conference extends UuidBase
      */
     public function isCurrentlyAcceptingProposals()
     {
-        if (!$this->hasAnnouncedCallForProposals()) {
+        if (! $this->hasAnnouncedCallForProposals()) {
             return false;
         }
 
@@ -233,11 +233,11 @@ class Conference extends UuidBase
 
     public function getEventDatesDisplayAttribute()
     {
-        if (!$this->starts_at) {
+        if (! $this->starts_at) {
             return null;
         }
 
-        if (!$this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
+        if (! $this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
             return $this->starts_at->format('M j Y');
         }
 
@@ -330,7 +330,7 @@ class Conference extends UuidBase
 
     public function getFormattedSpeakerPackageAttribute()
     {
-        if (!$this->speaker_package) {
+        if (! $this->speaker_package) {
             return;
         }
 
@@ -344,7 +344,7 @@ class Conference extends UuidBase
 
     public function getDecimalFormatSpeakerPackageAttribute()
     {
-        if (!$this->speaker_package) {
+        if (! $this->speaker_package) {
             return;
         }
 
