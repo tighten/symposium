@@ -224,7 +224,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    public function getFormattedSpeakerPackageValues($package)
+    private function getFormattedSpeakerPackageValues($package)
     {
         $speakerPackage = [
             'currency' => $package['currency'],
