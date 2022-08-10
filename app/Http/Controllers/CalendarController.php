@@ -12,10 +12,18 @@ class CalendarController extends BaseController
     {
         return view('calendar', [
             'events' => CalendarEventCollection::make([])
-                ->addConferences(Conference::approved()->undismissed()->whereAfter(Carbon::now()->subYear())->whereHasDates()->get())
-                ->addCfpOpenings(Conference::approved()->undismissed()->whereAfter(Carbon::now()->subYear())->whereHasCfpStart()->get())
-                ->addCfpClosings(Conference::approved()->undismissed()->whereAfter(Carbon::now()->subYear())->whereHasCfpEnd()->get())
+                ->addConferences($this->query()->whereHasDates()->get())
+                ->addCfpOpenings($this->query()->whereHasCfpStart()->get())
+                ->addCfpClosings($this->query()->whereHasCfpEnd()->get())
                 ->toJson(),
         ]);
+    }
+
+    private function query()
+    {
+        return Conference::query()
+            ->approved()
+            ->undismissed()
+            ->whereAfter(Carbon::now()->subYear());
     }
 }
