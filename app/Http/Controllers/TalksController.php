@@ -2,31 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveTalkRequest;
 use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class TalksController extends BaseController
 {
-    protected $rules = [
-        'title' => 'required',
-        'type' => 'required',
-        'level' => 'required',
-        'length' => 'required|integer|min:0',
-        'slides' => 'nullable|url',
-        'organizer_notes' => 'required',
-        'description' => 'required',
-        'public' => 'required',
-    ];
-
-    protected $messages = [
-        'slides.url' => 'Slides URL must contain a valid URL',
-    ];
-
     protected $sorted_by = 'alpha';
 
     public function index(Request $request)
@@ -53,36 +38,27 @@ class TalksController extends BaseController
         return view('talks.create', ['current' => $current, 'talk' => $talk]);
     }
 
-    public function store(Request $request)
+    public function store(SaveTalkRequest $request)
     {
-        $validator = Validator::make($request->all(), $this->rules, $this->messages);
+        $talk = Talk::create([
+            'author_id' => auth()->user()->id,
+            'public' => $request->input('public') == '1',
+        ]);
 
-        if ($validator->passes()) {
-            // Save
-            $talk = Talk::create([
-                'author_id' => auth()->user()->id,
-                'public' => $request->input('public') == '1',
-            ]);
+        TalkRevision::create([
+            'title' => $request->input('title'),
+            'type' => $request->input('type'),
+            'length' => $request->input('length'),
+            'level' => $request->input('level'),
+            'description' => $request->input('description'),
+            'slides' => $request->input('slides'),
+            'organizer_notes' => $request->input('organizer_notes'),
+            'talk_id' => $talk->id,
+        ]);
 
-            $revision = TalkRevision::create([
-                'title' => $request->input('title'),
-                'type' => $request->input('type'),
-                'length' => $request->input('length'),
-                'level' => $request->input('level'),
-                'description' => $request->input('description'),
-                'slides' => $request->input('slides'),
-                'organizer_notes' => $request->input('organizer_notes'),
-                'talk_id' => $talk->id,
-            ]);
+        Session::flash('success-message', 'Successfully created new talk.');
 
-            Session::flash('success-message', 'Successfully created new talk.');
-
-            return redirect('/talks/'.$talk->id);
-        }
-
-        return redirect('talks/create')
-            ->withErrors($validator)
-            ->withInput();
+        return redirect("/talks/{$talk->id}");
     }
 
     public function edit($id)
@@ -102,33 +78,25 @@ class TalksController extends BaseController
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, SaveTalkRequest $request)
     {
-        $validator = Validator::make($request->all(), $this->rules, $this->messages);
+        $talk = auth()->user()->talks()->findOrFail($id);
+        $talk->update(['public' => $request->input('public') == 1]);
 
-        if ($validator->passes()) {
-            $talk = auth()->user()->talks()->findOrFail($id);
-            $talk->update(['public' => $request->input('public') == 1]);
+        TalkRevision::create([
+            'title' => $request->input('title'),
+            'type' => $request->input('type'),
+            'length' => $request->input('length'),
+            'level' => $request->input('level'),
+            'description' => $request->input('description'),
+            'slides' => $request->input('slides'),
+            'organizer_notes' => $request->input('organizer_notes'),
+            'talk_id' => $talk->id,
+        ]);
 
-            $revision = TalkRevision::create([
-                'title' => $request->input('title'),
-                'type' => $request->input('type'),
-                'length' => $request->input('length'),
-                'level' => $request->input('level'),
-                'description' => $request->input('description'),
-                'slides' => $request->input('slides'),
-                'organizer_notes' => $request->input('organizer_notes'),
-                'talk_id' => $talk->id,
-            ]);
+        Session::flash('success-message', 'Successfully edited talk.');
 
-            Session::flash('success-message', 'Successfully edited talk.');
-
-            return redirect('talks/'.$talk->id);
-        }
-
-        return redirect('talks/'.$id.'/edit')
-            ->withErrors($validator)
-            ->withInput();
+        return redirect("/talks/{$talk->id}");
     }
 
     public function show($id, Request $request)
