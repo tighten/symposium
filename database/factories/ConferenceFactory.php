@@ -83,4 +83,11 @@ class ConferenceFactory extends Factory
                 ->create();
         });
     }
+
+    public function dismissedBy(User $user)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($user) {
+            $user->dismissedConferences()->attach($conference->id);
+        });
+    }
 }
