@@ -7,7 +7,6 @@ use App\Models\Submission;
 use App\Models\Talk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class SubmissionsController extends Controller
