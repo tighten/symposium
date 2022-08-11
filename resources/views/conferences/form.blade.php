@@ -97,7 +97,7 @@
 
     <currency-selection
         :currencies="{{ json_encode($currencies) }}"
-        :initial-currency="{{ json_encode($conference->speaker_package['currency'] ?? 'USD') }}"
+        initial-currency="{{ $conference->speaker_package->currency ?? 'USD' }}"
     >
         <template #default="{symbol, form}">
             <div>

@@ -16,14 +16,15 @@ class AdminTest extends TestCase
 
         $admin = User::factory()->admin()->create();
 
-        $this->actingAs($admin)
+        $this->followingRedirects()
+            ->actingAs($admin)
             ->patch(
                 route('conferences.update', $conference),
                 array_merge(
                     $conference->fresh()->toArray(),
                     ['title' => 'The New Name That Is Not The Old Name']
                 )
-            );
+            )->assertSuccessful();
 
         $this->assertEquals('The New Name That Is Not The Old Name', $conference->fresh()->title);
     }

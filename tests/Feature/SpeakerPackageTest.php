@@ -113,9 +113,9 @@ class SpeakerPackageTest extends TestCase
 
         $conferencePackage = Conference::first()->speaker_package;
 
-        $this->assertEquals(1052, $conferencePackage['travel']);
-        $this->assertEquals(1575, $conferencePackage['food']);
-        $this->assertEquals(525, $conferencePackage['hotel']);
+        $this->assertEquals(1052, $conferencePackage->travel);
+        $this->assertEquals(1575, $conferencePackage->food);
+        $this->assertEquals(525, $conferencePackage->hotel);
     }
 
     /** @test */

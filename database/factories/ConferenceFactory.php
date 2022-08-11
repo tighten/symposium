@@ -102,7 +102,7 @@ class ConferenceFactory extends Factory
 
 
         return $this->state([
-            'speaker_package' => json_encode($speakerPackage),
+            'speaker_package' => $speakerPackage,
         ]);
     }
 }

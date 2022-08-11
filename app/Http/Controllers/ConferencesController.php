@@ -102,7 +102,6 @@ class ConferencesController extends BaseController
         return view('conferences.show', [
             'conference' => $conference,
             'talks' => $talks,
-            'package' => $conference->formattedSpeakerPackage,
         ]);
     }
 
@@ -119,7 +118,7 @@ class ConferencesController extends BaseController
         return view('conferences.edit', [
             'conference' => $conference,
             'currencies' => Currency::all(),
-            'package' => $conference->decimalFormatSpeakerPackage,
+            'package' => $conference->speaker_package->toDecimal(),
         ]);
     }
 
