@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
+use App\Services\Currency;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
 use Cknow\Money\Money;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use Symfony\Component\Intl\Currencies;
 
 class ConferencesController extends BaseController
 {
@@ -64,21 +64,9 @@ class ConferencesController extends BaseController
 
     public function create()
     {
-        $currencyList = collect(Currencies::getCurrencyCodes())
-            ->filter(function ($item) {
-                return Money::isValidCurrency($item);
-            })
-            ->map(function ($code) {
-                return [
-                    'code' => $code,
-                    'symbol' => Currencies::getSymbol($code),
-                ];
-            })
-            ->toArray();
-
         return view('conferences.create', [
             'conference' => new Conference,
-            'currencies' => $currencyList,
+            'currencies' => Currency::all(),
         ]);
     }
 
@@ -128,21 +116,9 @@ class ConferencesController extends BaseController
             return redirect('/');
         }
 
-        $currencyList = collect(Currencies::getCurrencyCodes())
-            ->filter(function ($item) {
-                return Money::isValidCurrency($item);
-            })
-            ->map(function ($code) {
-                return [
-                    'code' => $code,
-                    'symbol' => Currencies::getSymbol($code),
-                ];
-            })
-            ->toArray();
-
         return view('conferences.edit', [
             'conference' => $conference,
-            'currencies' => $currencyList,
+            'currencies' => Currency::all(),
             'package' => $conference->decimalFormatSpeakerPackage,
         ]);
     }
