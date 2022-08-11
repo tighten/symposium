@@ -30,9 +30,7 @@ class SpeakerPackageTest extends TestCase
                 'speaker_package' => $speakerPackage,
             ]);
 
-        $this->assertDatabaseHas(Conference::class, [
-            'speaker_package' => $this->getFormattedSpeakerPackageValues($speakerPackage),
-        ]);
+        $this->assertDatabaseHasSpeakerPackage($speakerPackage);
     }
 
     /** @test */
@@ -60,9 +58,7 @@ class SpeakerPackageTest extends TestCase
                 'speaker_package' => $speakerPackage,
             ]));
 
-        $this->assertDatabaseHas(Conference::class, [
-            'speaker_package' => $this->getFormattedSpeakerPackageValues($speakerPackage),
-        ]);
+        $this->assertDatabaseHasSpeakerPackage($speakerPackage);
     }
 
     /** @test */
@@ -87,9 +83,7 @@ class SpeakerPackageTest extends TestCase
                 'speaker_package' => $updatedPackage,
             ]));
 
-        $this->assertDatabaseHas(Conference::class, [
-            'speaker_package' => $this->getFormattedSpeakerPackageValues($updatedPackage),
-        ]);
+        $this->assertDatabaseHasSpeakerPackage($updatedPackage);
     }
 
     /** @test */
@@ -224,7 +218,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    private function getFormattedSpeakerPackageValues($package)
+    private function assertDatabaseHasSpeakerPackage($package)
     {
         $speakerPackage = [
             'currency' => $package['currency'],
@@ -237,6 +231,8 @@ class SpeakerPackageTest extends TestCase
             $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
         }
 
-        return json_encode($speakerPackage);
+        $this->assertDatabaseHas(Conference::class, [
+            'speaker_package' => json_encode($speakerPackage),
+        ]);
     }
 }
