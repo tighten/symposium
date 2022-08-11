@@ -11,8 +11,7 @@
         <select
             name="speaker_package[currency]"
             id="currency"
-            :value="selectedCurrency"
-            @change="(e) => updateSelectedCurrency(e.target.value)"
+            v-model="selectedCurrency"
         >
             <option v-for="currency in currencies" :value="currency.code" :key="currency.code">
                 {{ currency.code }}
@@ -49,17 +48,12 @@ export default {
     data() {
         return {
             selectedCurrency: this.initialCurrency,
-            selectedCurrencySymbol: this.initialCurrency,
         };
     },
-    mounted() {
-        this.selectedCurrencySymbol = Object.values(this.currencies).find(({code}) => code == this.initialCurrency).symbol
-    },
-    methods: {
-        updateSelectedCurrency(e) {
-            this.selectedCurrency = e;
-            this.selectedCurrencySymbol = Object.values(this.currencies).find(({code}) => code == e).symbol;
-        }
+    computed: {
+        selectedCurrencySymbol() {
+            return Object.values(this.currencies).find(({code}) => code == this.selectedCurrency).symbol;
+        },
     },
 }
 </script>
