@@ -222,14 +222,11 @@ class ConferencesController extends BaseController
         ];
 
         // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-        $travelHasPunctuation = Str::of($package['travel'])->contains([',', '.']);
-        $hotelHasPunctuation = Str::of($package['hotel'])->contains([',', '.']);
-        $foodHasPunctuation = Str::of($package['food'])->contains([',', '.']);
+        foreach (['travel', 'food', 'hotel'] as $item) {
+            $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
 
-
-        $speakerPackage['travel'] = Money::parse($package['travel'], $package['currency'], !$travelHasPunctuation, App::currentLocale())->getAmount();
-        $speakerPackage['food'] = Money::parse($package['food'], $package['currency'], !$foodHasPunctuation, App::currentLocale())->getAmount();
-        $speakerPackage['hotel'] = Money::parse($package['hotel'], $package['currency'], !$hotelHasPunctuation, App::currentLocale())->getAmount();
+            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], !$itemHasPunctuation, App::currentLocale())->getAmount();
+        }
 
         return $speakerPackage;
     }
