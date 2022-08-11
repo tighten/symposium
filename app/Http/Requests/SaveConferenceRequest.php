@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Rules\ValidAmountForCurrentLocale;
-use Illuminate\Foundation\Http\FormRequest;
 use Cknow\Money\Money;
+use Illuminate\Foundation\Http\FormRequest;
 
 class SaveConferenceRequest extends FormRequest
 {
@@ -41,7 +41,7 @@ class SaveConferenceRequest extends FormRequest
             'longitude' => ['nullable'],
             'speaker_package' => ['nullable'],
             'speaker_package.currency' => function ($attribute, $value, $fail) {
-                if (!Money::isValidCurrency($value)) {
+                if (! Money::isValidCurrency($value)) {
                     $fail($attribute . ' must be a valid currency type.');
                 };
             },

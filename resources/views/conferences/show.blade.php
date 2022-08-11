@@ -61,8 +61,8 @@
             
             <table class="table-auto">
                 <tbody>
-                    @foreach($package as $category => $amount)
-                        @if($amount != 0) 
+                    @foreach ($package as $category => $amount)
+                        @if ($amount != 0) 
                             <tr>
                                 <td class="capitalize pr-4">{{ $category }}</td>
                                 <td>{{ $amount }}</td>

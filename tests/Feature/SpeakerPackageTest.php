@@ -234,7 +234,7 @@ class SpeakerPackageTest extends TestCase
         foreach (['travel', 'food', 'hotel'] as $item) {
             $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
 
-            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], !$itemHasPunctuation, App::currentLocale())->getAmount();
+            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
         }
 
         return json_encode($speakerPackage);
