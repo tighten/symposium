@@ -54,8 +54,8 @@ Vue.component(
 );
 
 Vue.component(
-    'SpeakerPackage',
-    require('./components/SpeakerPackage.vue').default
+    'CurrencySelection',
+    require('./components/CurrencySelection.vue').default
 );
 
 Vue.component(
