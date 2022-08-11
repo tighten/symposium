@@ -96,8 +96,8 @@
     <h2 class="text-4xl">Speaker Packages</h2>
     
     <speaker-package
-        :currencies='@json($currencies)'
-        :initial-currency='@json($conference->speaker_package['currency'] ?? 'USD')'
-        :speaker-package='@json($package ?? null)'
+        :currencies="{{ json_encode($currencies) }}"
+        :initial-currency="{{ json_encode($conference->speaker_package['currency'] ?? 'USD') }}"
+        :speaker-package="{{ json_encode($package) ?? null }}"
     ></speaker-package>
 </x-panel>
