@@ -55,6 +55,23 @@
 
         <div class="mt-4 text-gray-500">Description:</div>
         <p>{{ $conference->description }}</p>
+
+        @if ($conference->speaker_package->count())
+            <div class="mt-4 text-gray-500">Speaker Package:</div>
+            
+            <table class="table-auto">
+                <tbody>
+                    @foreach ($conference->speaker_package->toDisplay() as $category => $amount)
+                        @if ($amount != 0) 
+                            <tr>
+                                <td class="capitalize pr-4">{{ $category }}</td>
+                                <td>{{ $amount }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
 
     <x-slot name="footer">

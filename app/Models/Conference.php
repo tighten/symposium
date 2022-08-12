@@ -3,8 +3,14 @@
 namespace App\Models;
 
 use App\Casts\Url;
+use App\Models\Acceptance;
+use App\Models\Submission;
+use App\Models\User;
+use App\Models\UuidBase;
 use Carbon\Carbon;
+use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Arr;
 
 class Conference extends UuidBase
 {
@@ -33,6 +39,7 @@ class Conference extends UuidBase
         'is_shared',
         'calling_all_papers_id',
         'has_cfp',
+        'speaker_package',
     ];
 
     /**
@@ -49,6 +56,7 @@ class Conference extends UuidBase
         'url' => Url::class,
         'cfp_url' => Url::class,
         'has_cfp' => 'boolean',
+        'speaker_package' => SpeakerPackage::class,
     ];
 
     protected $attributes = [
@@ -233,7 +241,7 @@ class Conference extends UuidBase
             return $this->starts_at->format('M j Y');
         }
 
-        return $this->starts_at->format('M j Y').' - '.$this->ends_at->format('M j Y');
+        return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
     }
 
     public function isDismissed()
@@ -317,6 +325,34 @@ class Conference extends UuidBase
 
     private function hasAnnouncedCallForProposals()
     {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
+        return (!is_null($this->cfp_starts_at)) && (!is_null($this->cfp_ends_at));
+    }
+
+    public function getFormattedSpeakerPackageAttribute()
+    {
+        if (! $this->speaker_package) {
+            return;
+        }
+
+        $package = Arr::except($this->speaker_package, ['currency']);
+        $currency = $this->speaker_package['currency'];
+
+        return collect($package)->map(function ($item) use ($currency) {
+            return $item > 0 ? Money::$currency($item)->formatByIntl() : null;
+        });
+    }
+
+    public function getDecimalFormatSpeakerPackageAttribute()
+    {
+        if (! $this->speaker_package) {
+            return;
+        }
+
+        $package = Arr::except($this->speaker_package, ['currency']);
+        $currency = $this->speaker_package['currency'];
+
+        return collect($package)->map(function ($item) use ($currency) {
+            return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
+        });
     }
 }
