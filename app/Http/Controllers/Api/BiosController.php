@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Bio;
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Support\Facades\App;
 
-class BiosController extends BaseController
+class BiosController extends Controller
 {
     public function show($id)
     {
