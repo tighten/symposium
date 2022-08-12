@@ -54,6 +54,11 @@ Vue.component(
 );
 
 Vue.component(
+    'CurrencySelection',
+    require('./components/CurrencySelection.vue').default
+);
+
+Vue.component(
     'UpdateQueryString',
     require('./components/UpdateQueryString.vue').default
 );

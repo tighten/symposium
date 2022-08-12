@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidAmountForCurrentLocale;
+use Cknow\Money\Money;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveConferenceRequest extends FormRequest
@@ -37,6 +39,24 @@ class SaveConferenceRequest extends FormRequest
             'location' => ['nullable'],
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
+            'speaker_package' => ['nullable'],
+            'speaker_package.currency' => function ($attribute, $value, $fail) {
+                if (! Money::isValidCurrency($value)) {
+                    $fail($attribute . ' must be a valid currency type.');
+                };
+            },
+            'speaker_package.travel' => [
+                'nullable',
+                new ValidAmountForCurrentLocale(),
+            ],
+            'speaker_package.food' => [
+                'nullable',
+                new ValidAmountForCurrentLocale(),
+            ],
+            'speaker_package.hotel' => [
+                'nullable',
+                new ValidAmountForCurrentLocale(),
+            ],
         ];
     }
 }
