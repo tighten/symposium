@@ -6,7 +6,7 @@ use App\Http\Resources\CalendarEventCollection;
 use App\Models\Conference;
 use Carbon\Carbon;
 
-class CalendarController extends BaseController
+class CalendarController extends Controller
 {
     public function index()
     {

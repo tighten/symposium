@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-class ConferencesController extends BaseController
+class ConferencesController extends Controller
 {
     public function index(Request $request)
     {

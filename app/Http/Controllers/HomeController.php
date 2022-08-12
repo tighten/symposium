@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conference;
 use App\Models\User;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
     public function show()
     {

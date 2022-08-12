@@ -8,7 +8,7 @@ use App\Services\CreateBioForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class BiosController extends BaseController
+class BiosController extends Controller
 {
     public function index()
     {

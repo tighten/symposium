@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-class AccountController extends BaseController
+class AccountController extends Controller
 {
     const THUMB_SIZE = 250;
 

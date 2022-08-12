@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
-class TalksController extends BaseController
+class TalksController extends Controller
 {
     protected $sorted_by = 'alpha';
 
