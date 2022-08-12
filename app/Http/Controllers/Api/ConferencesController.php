@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Conference;
+use App\Http\Controllers\Controller;
 use App\Models\Conference as EloquentConference;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ConferencesController extends BaseController
+class ConferencesController extends Controller
 {
     public function index(Request $request)
     {

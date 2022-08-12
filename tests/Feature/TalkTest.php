@@ -138,6 +138,61 @@ class TalkTest extends TestCase
     }
 
     /** @test */
+    function new_talks_must_include_required_fields()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('talks', []);
+
+        $response->assertInvalid([
+            'title',
+            'type',
+            'level',
+            'length',
+            'organizer_notes',
+            'description',
+            'public',
+        ]);
+    }
+
+    /** @test */
+    function new_talks_must_include_a_valid_length()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('talks', [
+            'title' => 'My invalid talk',
+            'type' => 'keynote',
+            'level' => 'intermediate',
+            'length' => 'invalid',
+            'organizer_notes' => "It'll be awesome!",
+            'description' => 'No, really.',
+            'public' => '1',
+        ]);
+
+        $response->assertInvalid(['length']);
+    }
+
+    /** @test */
+    function new_talks_with_slides_must_include_a_valid_slides_url()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('talks', [
+            'title' => 'My invalid talk',
+            'type' => 'keynote',
+            'level' => 'intermediate',
+            'length' => '123',
+            'organizer_notes' => "It'll be awesome!",
+            'description' => 'No, really.',
+            'public' => '1',
+            'slides' => 'invalid url',
+        ]);
+
+        $response->assertInvalid(['slides']);
+    }
+
+    /** @test */
     public function user_can_delete_a_talk()
     {
         $user = User::factory()->create();
@@ -179,6 +234,53 @@ class TalkTest extends TestCase
         $this->assertTrue($talk->public);
         $this->assertEquals('New', $talk->current()->title);
         $this->assertEquals('old title', $talk->revisions->last()->title);
+    }
+
+    /** @test */
+    function revised_talks_must_include_required_fields()
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)->put("/talks/{$talk->id}", []);
+
+        $response->assertInvalid([
+            'title',
+            'type',
+            'level',
+            'length',
+            'organizer_notes',
+            'description',
+            'public',
+        ]);
+    }
+
+    /** @test */
+    function revised_talks_must_include_a_valid_length()
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)
+            ->put("/talks/{$talk->id}", array_merge($talk->current()->toArray(), [
+                'length' => 'invalid',
+            ]));
+
+        $response->assertInvalid(['length']);
+    }
+
+    /** @test */
+    function revised_talks_with_slides_must_include_a_valid_slides_url()
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)
+            ->put("/talks/{$talk->id}", array_merge($talk->current()->toArray(), [
+                'slides' => 'invalid url',
+            ]));
+
+        $response->assertInvalid(['slides']);
     }
 
     /** @test */

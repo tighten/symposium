@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Bio;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 
-class UserBiosController extends BaseController
+class UserBiosController extends Controller
 {
     /**
      * Display all of the given user's bios

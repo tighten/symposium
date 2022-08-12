@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Talk;
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Support\Facades\App;
 
-class TalksController extends BaseController
+class TalksController extends Controller
 {
     public function show($id)
     {

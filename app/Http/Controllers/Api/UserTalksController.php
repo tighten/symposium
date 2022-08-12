@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Talk;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 
-class UserTalksController extends BaseController
+class UserTalksController extends Controller
 {
     /**
      * Display all of the given user's talks

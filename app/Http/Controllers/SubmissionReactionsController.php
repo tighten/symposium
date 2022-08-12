@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Submission;
-use Illuminate\Http\Request;
 
 class SubmissionReactionsController extends Controller
 {
-    public function store(Request $request, Submission $submission)
+    public function store(Submission $submission)
     {
-        $request->validate([
+        request()->validate([
             'url' => 'required|url',
         ]);
 
