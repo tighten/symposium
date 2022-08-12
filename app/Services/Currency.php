@@ -5,7 +5,6 @@ namespace App\Services;
 use Cknow\Money\Money;
 use Symfony\Component\Intl\Currencies;
 
-
 class Currency
 {
     public static function all()
