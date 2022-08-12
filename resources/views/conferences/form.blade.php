@@ -91,3 +91,51 @@
         </template>
     </cfp-fields>
 </x-panel>
+
+<x-panel class="mt-4">
+    <h2 class="text-4xl">Speaker Packages</h2>
+
+    <currency-selection
+        :currencies="{{ json_encode($currencies) }}"
+        initial-currency="{{ $conference->speaker_package->currency ?? 'USD' }}"
+    >
+        <template #default="{symbol, form}">
+            <div>
+                <div class="mt-8">
+                    <label
+                        for="currency"
+                        class="font-extrabold text-indigo-900"
+                    >
+                        Currency
+                    </label>
+
+                    <select
+                        name="speaker_package[currency]"
+                        v-model="form.selectedCurrency"
+                    >
+                        @foreach ($currencies as $currency)
+                            <option value="{{ $currency['code'] }}">
+                                {{ $currency['code'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="flex mt-2">
+                    <span class="p-2 bg-indigo-300 rounded-l-md" v-text="symbol"></span>
+                    <input name="speaker_package[travel]" value="{{ $package['travel'] ?? 0 }}" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+                </div>
+
+                <div class="flex mt-2">
+                    <span class="p-2 bg-indigo-300 rounded-l-md" v-text="symbol"></span>
+                    <input name="speaker_package[hotel]" value="{{ $package['hotel'] ?? 0 }}" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+                </div>
+                
+                <div class="flex mt-2">
+                    <span class="p-2 bg-indigo-300 rounded-l-md" v-text="symbol"></span>
+                    <input name="speaker_package[food]" value="{{ $package['food'] ?? 0 }}" class="bg-white border-form-200 form-input placeholder-form-400 rounded-r-md">
+                </div>
+            </div>
+        </template>
+    </currency-selection>
+</x-panel>

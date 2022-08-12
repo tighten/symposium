@@ -90,4 +90,19 @@ class ConferenceFactory extends Factory
             $user->dismissedConferences()->attach($conference->id);
         });
     }
+
+    public function withSpeakerPackage()
+    {
+        $speakerPackage = [
+            'currency' => 'usd',
+            'travel' => 1000,
+            'food' => 1000,
+            'hotel' => 1000,
+        ];
+
+
+        return $this->state([
+            'speaker_package' => $speakerPackage,
+        ]);
+    }
 }
