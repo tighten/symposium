@@ -26,7 +26,7 @@ class NewUser extends Notification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
+        return (new SlackMessage())
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title('New user signup')

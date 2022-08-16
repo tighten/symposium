@@ -27,10 +27,10 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
     public function stubEvent()
     {
-        $_rel = new stdClass;
+        $_rel = new stdClass();
         $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
 
-        $event = new stdClass;
+        $event = new stdClass();
 
         $event->_rel = $_rel;
         $event->name = 'ABC conference';

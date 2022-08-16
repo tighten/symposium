@@ -15,7 +15,7 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
 
     public function __invoke($attribute, $value, $fail)
     {
-        if (! preg_match("/\d+([.,]?\d*)*/", $value)) {
+        if (! preg_match('/\d+([.,]?\d*)*/', $value)) {
             $fail($attribute . ' amount is invalid. Please check formatting and try again.');
         }
 

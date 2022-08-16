@@ -21,7 +21,7 @@ class SyncCallingAllPapersEvents extends Command
     {
         parent::__construct();
 
-        $this->client = new Client;
+        $this->client = new Client();
         $this->importer = new ConferenceImporter($adminUserId = 1);
     }
 

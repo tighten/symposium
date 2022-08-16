@@ -65,7 +65,7 @@ class ConferencesController extends Controller
     public function create()
     {
         return view('conferences.create', [
-            'conference' => new Conference,
+            'conference' => new Conference(),
             'currencies' => Currency::all(),
         ]);
     }
@@ -127,7 +127,7 @@ class ConferencesController extends Controller
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
 
-        if ($conference->author_id !== auth()->id() && !auth()->user()->isAdmin()) {
+        if ($conference->author_id !== auth()->id() && ! auth()->user()->isAdmin()) {
             Log::error('User ' . auth()->user()->id . " tried to edit a conference they don't own.");
 
             return redirect('/');
@@ -224,7 +224,7 @@ class ConferencesController extends Controller
         foreach (['travel', 'food', 'hotel'] as $item) {
             $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
 
-            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], !$itemHasPunctuation, App::currentLocale())->getAmount();
+            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
         }
 
         return $speakerPackage;

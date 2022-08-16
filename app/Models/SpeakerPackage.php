@@ -19,7 +19,6 @@ class SpeakerPackage implements Arrayable, Castable
 
         $this->categories = Arr::except($package, ['currency']);
         $this->currency = $package['currency'] ?? null;
-
     }
 
     public function __get($value)
@@ -48,7 +47,7 @@ class SpeakerPackage implements Arrayable, Castable
             }
         };
     }
-    
+
     public function toDisplay()
     {
         if (! $this->currency) {
@@ -64,7 +63,7 @@ class SpeakerPackage implements Arrayable, Castable
 
     public function toDecimal()
     {
-        if (!$this->currency) {
+        if (! $this->currency) {
             return collect();
         };
 

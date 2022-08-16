@@ -34,12 +34,12 @@ class AccountController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'email|required|unique:users,email,'.auth()->user()->id,
+            'email' => 'email|required|unique:users,email,' . auth()->user()->id,
             'wants_notifications' => '',
             'enable_profile' => '',
             'allow_profile_contact' => '',
             'profile_intro' => '',
-            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,'.auth()->user()->id,
+            'profile_slug' => 'alpha_dash|required_if:enable_profile,1|unique:users,profile_slug,' . auth()->user()->id,
             'profile_picture' => 'image|max:5000',
         ], [
             'profile_picture.max' => 'Profile picture cannot be larger than 5mb',
@@ -91,14 +91,14 @@ class AccountController extends Controller
         // Delete the previous profile pictures
         if ($user->profile_picture != null) {
             Storage::delete([
-                User::PROFILE_PICTURE_THUMB_PATH.$user->profile_picture,
-                User::PROFILE_PICTURE_HIRES_PATH.$user->profile_picture,
+                User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture,
+                User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture,
             ]);
         }
 
         // Store the new profile pictures
-        Storage::put(User::PROFILE_PICTURE_THUMB_PATH.$picture->hashName(), $thumb->stream());
-        Storage::put(User::PROFILE_PICTURE_HIRES_PATH.$picture->hashName(), $hires->stream());
+        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . $picture->hashName(), $thumb->stream());
+        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . $picture->hashName(), $hires->stream());
 
         // Save the updated filename to the user
         $user->updateProfilePicture($picture->hashName());
@@ -137,10 +137,10 @@ class AccountController extends Controller
             ->disk('local')
             ->put($tempName, json_encode($export));
 
-        $path = storage_path().'/app/';
+        $path = storage_path() . '/app/';
 
         return response()
-            ->download($path.$tempName, $exportName, $headers)
+            ->download($path . $tempName, $exportName, $headers)
             ->deleteFileAfterSend(true);
     }
 

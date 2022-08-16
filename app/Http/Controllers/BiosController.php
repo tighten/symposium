@@ -22,7 +22,7 @@ class BiosController extends Controller
     public function create()
     {
         return view('bios.create', [
-            'bio' => new Bio,
+            'bio' => new Bio(),
         ]);
     }
 
@@ -41,7 +41,7 @@ class BiosController extends Controller
 
         Session::flash('success-message', 'Successfully created new bio.');
 
-        return redirect('/bios/'.$bio->id);
+        return redirect('/bios/' . $bio->id);
     }
 
     public function show($id)
@@ -79,7 +79,7 @@ class BiosController extends Controller
 
         Session::flash('success-message', 'Successfully edited bio.');
 
-        return redirect('bios/'.$bio->id);
+        return redirect('bios/' . $bio->id);
     }
 
     public function destroy($id)
