@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Cknow\Money\Money;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
 class SpeakerPackage implements Arrayable, Castable
 {
     private $categories;
+
     private $currency;
 
     public function __construct($package)
@@ -19,15 +20,6 @@ class SpeakerPackage implements Arrayable, Castable
 
         $this->categories = Arr::except($package, ['currency']);
         $this->currency = $package['currency'] ?? null;
-    }
-
-    public function __get($value)
-    {
-        if ($value === 'currency') {
-            return $this->currency;
-        }
-
-        return $this->categories[$value] ?? null;
     }
 
     public static function castUsing(array $arguments)
@@ -86,5 +78,14 @@ class SpeakerPackage implements Arrayable, Castable
     public function count()
     {
         return count($this->categories);
+    }
+
+    public function __get($value)
+    {
+        if ($value === 'currency') {
+            return $this->currency;
+        }
+
+        return $this->categories[$value] ?? null;
     }
 }

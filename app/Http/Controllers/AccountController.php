@@ -12,9 +12,9 @@ use Intervention\Image\Facades\Image;
 
 class AccountController extends Controller
 {
-    const THUMB_SIZE = 250;
+    public const THUMB_SIZE = 250;
 
-    const HIRES_SIZE = 1250;
+    public const HIRES_SIZE = 1250;
 
     public function show()
     {
@@ -32,7 +32,7 @@ class AccountController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate($request, [
+        request()->validate([
             'name' => 'required',
             'email' => 'email|required|unique:users,email,' . auth()->user()->id,
             'wants_notifications' => '',

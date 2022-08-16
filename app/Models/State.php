@@ -4,7 +4,7 @@ namespace App\Models;
 
 class State
 {
-    const INDEX = [
+    public const INDEX = [
         'AL' => 'ALABAMA',
         'AK' => 'ALASKA',
         'AS' => 'AMERICAN SAMOA',

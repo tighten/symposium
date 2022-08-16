@@ -64,7 +64,7 @@ class BiosController extends Controller
 
     public function update($id, Request $request)
     {
-        $this->validate($request, [
+        request()->validate([
             'nickname' => 'required',
             'body' => 'required',
             'public' => '',

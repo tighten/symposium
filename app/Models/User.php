@@ -18,15 +18,25 @@ class User extends Authenticatable
     use Notifiable;
     use Searchable;
 
-    const ADMIN_ROLE = 1;
+    public const ADMIN_ROLE = 1;
 
-    const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
+    public const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
 
-    const PROFILE_PICTURE_HIRES_PATH = 'profile_pictures/hires/';
+    public const PROFILE_PICTURE_HIRES_PATH = 'profile_pictures/hires/';
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $fillable = ['email', 'password', 'name'];
+
+    public static function searchPublicSpeakers($query)
+    {
+        if (! $query) {
+            return static::whereHasPublicProfile();
+        }
+
+        return static::search($query)
+            ->query(fn ($query) => $query->whereHasPublicProfile());
+    }
 
     protected static function boot()
     {
@@ -46,16 +56,6 @@ class User extends Authenticatable
             DB::table('favorites')->where('user_id', $user->id)->delete();
             DB::table('dismissed_conferences')->where('user_id', $user->id)->delete();
         });
-    }
-
-    public static function searchPublicSpeakers($query)
-    {
-        if (! $query) {
-            return static::whereHasPublicProfile();
-        }
-
-        return static::search($query)
-            ->query(fn ($query) => $query->whereHasPublicProfile());
     }
 
     public function scopeWhereHasPublicProfile($query)
