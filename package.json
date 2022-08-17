@@ -15,12 +15,17 @@
         "axios": ">=0.26.1",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
+        "husky": "^8.0.1",
         "jquery": "^3.4",
         "laravel-mix": "^6.0.25",
         "laravel-mix-purgecss": "^6.0.0",
+        "lint-staged": "^13.0.3",
         "lodash": "^4.17.15",
         "postcss": "^8.4.12",
+        "prettier": "^2.7.1",
         "resolve-url-loader": "^4.0.0",
+        "stylelint": "^14.10.0",
+        "stylelint-config-standard": "^27.0.0",
         "tailwindcss": "^3.0.24",
         "vue": "^2.6.7",
         "vue-loader": "^15.9.7",
@@ -32,5 +37,21 @@
         "@fullcalendar/vue": "^5.10.0",
         "cross-env": "^7.0.3",
         "vform": "^1.0.0"
+    },
+    "lint-staged": {
+        "*.php": [
+            "vendor/bin/php-cs-fixer fix --config=.php_cs.dist"
+        ],
+        "*.(css|scss)": [
+            "stylelint"
+        ],
+        "resources/**/*.(js|ts|tsx|css|vue)": [
+            "node_modules/.bin/prettier --write"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged && vendor/bin/tlint lint --diff"
+        }
     }
 }
