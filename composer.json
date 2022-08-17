@@ -27,7 +27,7 @@
         "bugsnag/bugsnag-laravel": "^2.24",
         "cknow/laravel-money": "^7.0",
         "creativeorange/gravatar": "^1.0",
-        "doctrine/dbal": "^3.3",
+        "doctrine/dbal": "^3.4",
         "erusev/parsedown": "^1.7",
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.2",
