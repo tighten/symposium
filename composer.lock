@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0e837355402d066f02084307e6e5264",
+    "content-hash": "648d01582fb49c2c70fdecc87b0a1132",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -132,16 +132,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.233.0",
+            "version": "3.233.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2aabbc276b61515ae1897f037fc34ad56028d744"
+                "reference": "4f29c8f14e7833f6e9885d0d82ea98525f1bac1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2aabbc276b61515ae1897f037fc34ad56028d744",
-                "reference": "2aabbc276b61515ae1897f037fc34ad56028d744",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4f29c8f14e7833f6e9885d0d82ea98525f1bac1e",
+                "reference": "4f29c8f14e7833f6e9885d0d82ea98525f1bac1e",
                 "shasum": ""
             },
             "require": {
@@ -218,9 +218,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.233.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.233.4"
             },
-            "time": "2022-08-11T18:15:54+00:00"
+            "time": "2022-08-17T18:17:58+00:00"
         },
         {
             "name": "blade-ui-kit/blade-icons",
@@ -1051,16 +1051,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "118a360e9437e88d49024f36283c8bcbd76105f5"
+                "reference": "94e016428884227245fb1219e0de7d8b86ca16d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/118a360e9437e88d49024f36283c8bcbd76105f5",
-                "reference": "118a360e9437e88d49024f36283c8bcbd76105f5",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/94e016428884227245fb1219e0de7d8b86ca16d7",
+                "reference": "94e016428884227245fb1219e0de7d8b86ca16d7",
                 "shasum": ""
             },
             "require": {
@@ -1142,7 +1142,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.4.0"
+                "source": "https://github.com/doctrine/dbal/tree/3.4.1"
             },
             "funding": [
                 {
@@ -1158,7 +1158,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-06T20:35:57+00:00"
+            "time": "2022-08-16T18:37:46+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -2810,16 +2810,16 @@
         },
         {
             "name": "kamermans/guzzle-oauth2-subscriber",
-            "version": "v1.0.11",
+            "version": "v1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kamermans/guzzle-oauth2-subscriber.git",
-                "reference": "0849d1b3f221fc98eba8b6ac2f0c35c39671bc5b"
+                "reference": "e1f3a78155fb37410f0103ef57b51fbd4fafd806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kamermans/guzzle-oauth2-subscriber/zipball/0849d1b3f221fc98eba8b6ac2f0c35c39671bc5b",
-                "reference": "0849d1b3f221fc98eba8b6ac2f0c35c39671bc5b",
+                "url": "https://api.github.com/repos/kamermans/guzzle-oauth2-subscriber/zipball/e1f3a78155fb37410f0103ef57b51fbd4fafd806",
+                "reference": "e1f3a78155fb37410f0103ef57b51fbd4fafd806",
                 "shasum": ""
             },
             "require": {
@@ -2849,22 +2849,22 @@
             ],
             "support": {
                 "issues": "https://github.com/kamermans/guzzle-oauth2-subscriber/issues",
-                "source": "https://github.com/kamermans/guzzle-oauth2-subscriber/tree/v1.0.11"
+                "source": "https://github.com/kamermans/guzzle-oauth2-subscriber/tree/v1.0.12"
             },
-            "time": "2021-08-11T22:33:53+00:00"
+            "time": "2022-08-17T13:15:21+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v9.24.0",
+            "version": "v9.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "053840f579cf01d353d81333802afced79b1c0af"
+                "reference": "e8af8c2212e3717757ea7f459a655a2e9e771109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/053840f579cf01d353d81333802afced79b1c0af",
-                "reference": "053840f579cf01d353d81333802afced79b1c0af",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e8af8c2212e3717757ea7f459a655a2e9e771109",
+                "reference": "e8af8c2212e3717757ea7f459a655a2e9e771109",
                 "shasum": ""
             },
             "require": {
@@ -3031,7 +3031,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-08-09T13:43:22+00:00"
+            "time": "2022-08-16T16:36:05+00:00"
         },
         {
             "name": "laravel/passport",
@@ -3951,16 +3951,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "ed0ecc7f9b5c2f4a9872185846974a808a3b052a"
+                "reference": "81aea9e5217084c7850cd36e1587ee4aad721c6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/ed0ecc7f9b5c2f4a9872185846974a808a3b052a",
-                "reference": "ed0ecc7f9b5c2f4a9872185846974a808a3b052a",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/81aea9e5217084c7850cd36e1587ee4aad721c6b",
+                "reference": "81aea9e5217084c7850cd36e1587ee4aad721c6b",
                 "shasum": ""
             },
             "require": {
@@ -4021,7 +4021,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.2.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.2.1"
             },
             "funding": [
                 {
@@ -4037,7 +4037,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-26T07:26:36+00:00"
+            "time": "2022-08-14T20:48:34+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
