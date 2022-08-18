@@ -90,8 +90,8 @@ class AccountTest extends TestCase
         ]);
 
         $this->assertNotNull($user->fresh()->profile_picture);
-        Storage::disk()->assertExists(User::PROFILE_PICTURE_THUMB_PATH.$user->profile_picture);
-        Storage::disk()->assertExists(User::PROFILE_PICTURE_HIRES_PATH.$user->profile_picture);
+        Storage::disk()->assertExists(User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
+        Storage::disk()->assertExists(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
     }
 
     /** @test */

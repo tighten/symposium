@@ -14,17 +14,29 @@ use Laravel\Scout\Searchable;
 class User extends Authenticatable
 {
     use HasFactory;
-    use HasApiTokens, Notifiable, Searchable;
+    use HasApiTokens;
+    use Notifiable;
+    use Searchable;
 
-    const ADMIN_ROLE = 1;
+    public const ADMIN_ROLE = 1;
 
-    const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
+    public const PROFILE_PICTURE_THUMB_PATH = 'profile_pictures/thumbs/';
 
-    const PROFILE_PICTURE_HIRES_PATH = 'profile_pictures/hires/';
+    public const PROFILE_PICTURE_HIRES_PATH = 'profile_pictures/hires/';
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $fillable = ['email', 'password', 'name'];
+
+    public static function searchPublicSpeakers($query)
+    {
+        if (! $query) {
+            return static::whereHasPublicProfile();
+        }
+
+        return static::search($query)
+            ->query(fn ($query) => $query->whereHasPublicProfile());
+    }
 
     protected static function boot()
     {
@@ -37,23 +49,13 @@ class User extends Authenticatable
             $user->bios()->delete();
 
             if ($user->profile_picture && strpos($user->profile_picture, '/') === false) {
-                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH.$user->profile_picture);
-                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH.$user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
+                Storage::delete(self::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
             }
 
             DB::table('favorites')->where('user_id', $user->id)->delete();
             DB::table('dismissed_conferences')->where('user_id', $user->id)->delete();
         });
-    }
-
-    public static function searchPublicSpeakers($query)
-    {
-        if (! $query) {
-            return static::whereHasPublicProfile();
-        }
-
-        return static::search($query)
-            ->query(fn ($query) => $query->whereHasPublicProfile());
     }
 
     public function scopeWhereHasPublicProfile($query)
@@ -122,7 +124,7 @@ class User extends Authenticatable
             return Gravatar::get($this->email, 'profile');
         }
 
-        return asset('/storage/'.self::PROFILE_PICTURE_THUMB_PATH.$this->profile_picture);
+        return asset('/storage/' . self::PROFILE_PICTURE_THUMB_PATH . $this->profile_picture);
     }
 
     public function getProfilePictureHiresAttribute()
@@ -131,7 +133,7 @@ class User extends Authenticatable
             return Gravatar::get($this->email, 'hire');
         }
 
-        return asset('/storage/'.self::PROFILE_PICTURE_HIRES_PATH.$this->profile_picture);
+        return asset('/storage/' . self::PROFILE_PICTURE_HIRES_PATH . $this->profile_picture);
     }
 
     public function toSearchableArray()

@@ -41,7 +41,7 @@ class CFPsAreOpen extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('New Open CFPs')
             ->markdown('emails.open-cfps', [
                 'conferences' => $this->conferences,

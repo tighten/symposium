@@ -24,7 +24,7 @@ class Bio extends UuidBase
 
     public function getPreviewAttribute()
     {
-        return substr($this->getAttribute('body'), 0, 100).'...';
+        return substr($this->getAttribute('body'), 0, 100) . '...';
     }
 
     public function scopePublic($query)

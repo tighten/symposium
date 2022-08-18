@@ -17,9 +17,6 @@ use App\Http\Controllers\TalksController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/**
- * Public
- */
 Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('what-is-this', function () {

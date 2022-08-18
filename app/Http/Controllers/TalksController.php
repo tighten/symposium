@@ -33,7 +33,7 @@ class TalksController extends Controller
             'type' => 'seminar',
             'level' => 'beginner',
         ]);
-        $talk = new Talk;
+        $talk = new Talk();
 
         return view('talks.create', ['current' => $current, 'talk' => $talk]);
     }
