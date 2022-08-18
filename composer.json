@@ -54,12 +54,13 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
         "beyondcode/laravel-dump-server": "^1.8",
+        "fakerphp/faker": "^1.9.1",
         "filp/whoops": "^2.14",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "fakerphp/faker": "^1.9.1",
-        "spatie/laravel-ignition": "^1.1"
+        "spatie/laravel-ignition": "^1.1",
+        "tightenco/duster": "^0.3.2"
     },
     "autoload": {
         "psr-4": {
@@ -98,7 +99,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
         "laravel": {

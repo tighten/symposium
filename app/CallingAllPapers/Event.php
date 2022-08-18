@@ -49,7 +49,7 @@ class Event
 
     public static function createFromApiObject(stdClass $object)
     {
-        $event = new self;
+        $event = new self();
         $event->id = self::generateIdWithYear($object);
 
         foreach (get_object_vars($event) as $property => $unused) {
@@ -76,7 +76,7 @@ class Event
         // The end of the CFP URI contains a SHA-1 of the URI of conference's homepage
         // Some conferences use the same URI from year to year, so we append the date
         // to this URI in order to ensure each year's conference is represented separately
-        return $matches[1].self::conferenceYear($eventObject);
+        return $matches[1] . self::conferenceYear($eventObject);
     }
 
     private static function conferenceYear($eventObject)

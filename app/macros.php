@@ -4,8 +4,10 @@ HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = nul
 
     // This only works if we pass a single param.
     $key = key($parameters);
-    if (request($key) === $parameters[$key] ||
-        ! request()->has($key) && $parameters[$key] === $keysWithDefaults[$key]) {
+    if (
+        request($key) === $parameters[$key] ||
+        ! request()->has($key) && $parameters[$key] === $keysWithDefaults[$key]
+    ) {
         $cssClass = isset($attributes['class']) ? $attributes['class'] : '';
         $cssClass .= " {$activeClass}";
         $attributes['class'] = $cssClass;

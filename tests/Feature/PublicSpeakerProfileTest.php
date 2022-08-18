@@ -298,7 +298,7 @@ class PublicSpeakerProfileTest extends TestCase
     public function user_can_be_contacted_from_profile()
     {
         Mail::fake();
-        app()->instance(Captcha::class, new FakeCaptcha);
+        app()->instance(Captcha::class, new FakeCaptcha());
 
         $userA = User::factory()->enableProfile()->create([
             'profile_slug' => 'smithy',

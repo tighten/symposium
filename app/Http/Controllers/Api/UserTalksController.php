@@ -22,7 +22,7 @@ class UserTalksController extends Controller
         $talks = auth()->guard('api')
             ->user()
             ->talks()
-            ->when((boolean) request()->query('include-archived'), function ($query) {
+            ->when((bool) request()->query('include-archived'), function ($query) {
                 $query->withoutGlobalScope('active');
             })
             ->get()

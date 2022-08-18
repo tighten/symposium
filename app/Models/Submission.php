@@ -11,7 +11,7 @@ class Submission extends UuidBase
 {
     use HasFactory;
 
-    const RESPONSES = [
+    public const RESPONSES = [
         'acceptance' => Acceptance::class,
         'rejection' => Rejection::class,
     ];
