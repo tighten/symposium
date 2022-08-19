@@ -7,6 +7,7 @@ window.axios.defaults.headers.common = {
 };
 
 import Vue from 'vue';
+import Dismiss from './directives/Dismiss';
 
 Vue.component(
     'passport-clients',
@@ -63,21 +64,14 @@ Vue.component(
     require('./components/UpdateQueryString.vue').default
 );
 
+Vue.directive('dismiss', Dismiss);
+
 new Vue({
     el: "#app",
 });
 
 // jQuery bindings
 $(function() {
-    $('[data-dismiss=timeout]').each(function() {
-        var timeout_len = 2000,
-            $dismiss_target = $(this);
-
-        setTimeout(function() {
-            $dismiss_target.slideToggle()
-        }, timeout_len);
-    });
-
     $('input[type=date]').pickadate({
         format: 'yyyy-mm-dd'
     });
