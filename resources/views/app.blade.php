@@ -56,7 +56,6 @@
         @include('partials.footer', ['is_home' => $is_home])
     </div>
 
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places"></script>
     <script src="{{ ('/js/app.js') }}"></script>
     @stack('scripts')
