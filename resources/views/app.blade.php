@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
     <link href="{{ url('/css/app.css') }}" rel="stylesheet">
-    <link href="{{ url('/js/vendor/pickadate/default.css') }}" rel="stylesheet">
-    <link href="{{ url('/js/vendor/pickadate/default.date.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -58,10 +56,7 @@
         @include('partials.footer', ['is_home' => $is_home])
     </div>
 
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places"></script>
-    <script src="{{ ('/js/vendor/pickadate/picker.js') }}"></script>
-    <script src="{{ ('/js/vendor/pickadate/picker.date.js') }}"></script>
     <script src="{{ ('/js/app.js') }}"></script>
     @stack('scripts')
 
