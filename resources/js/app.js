@@ -7,7 +7,10 @@ window.axios.defaults.headers.common = {
 };
 
 import Vue from 'vue';
+import VCalendar from 'v-calendar';
 import Dismiss from './directives/Dismiss';
+
+Vue.use(VCalendar);
 
 Vue.component(
     'passport-clients',
@@ -68,11 +71,4 @@ Vue.directive('dismiss', Dismiss);
 
 new Vue({
     el: "#app",
-});
-
-// jQuery bindings
-$(function() {
-    $('input[type=date]').pickadate({
-        format: 'yyyy-mm-dd'
-    });
 });
