@@ -20,6 +20,8 @@ class ConferenceIssuesController extends Controller
             request('note'),
         );
 
-        return redirect()->route('conferences.issues.create', $conference);
+        return redirect()
+            ->route('conferences.issues.create', $conference)
+            ->with(['success-message' => 'Thank you for reporting this issue!']);
     }
 }
