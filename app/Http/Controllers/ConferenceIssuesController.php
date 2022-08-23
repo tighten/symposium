@@ -20,13 +20,9 @@ class ConferenceIssuesController extends Controller
             'note' => 'required',
         ]);
 
-        $conference->reportIssue(
-            request('reason'),
-            request('note'),
-        );
+        $conference->reportIssue(request('reason'), request('note'));
 
-        return redirect()
-            ->route('conferences.show', $conference)
+        return redirect()->route('conferences.show', $conference)
             ->with(['success-message' => 'Thank you for reporting this issue!']);
     }
 }
