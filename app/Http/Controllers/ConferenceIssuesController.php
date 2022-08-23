@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conference;
+use App\Models\ConferenceIssue;
+use Illuminate\Validation\Rule;
 
 class ConferenceIssuesController extends Controller
 {
@@ -16,7 +18,10 @@ class ConferenceIssuesController extends Controller
     public function store(Conference $conference)
     {
         request()->validate([
-            'reason' => 'required',
+            'reason' => [
+                'required',
+                Rule::in(ConferenceIssue::REASONS),
+            ],
             'note' => 'required',
         ]);
 

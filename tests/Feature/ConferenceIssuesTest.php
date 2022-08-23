@@ -47,4 +47,22 @@ class ConferenceIssuesTest extends TestCase
             'conference_id' => $conference->id,
         ]);
     }
+
+    /** @test */
+    function conference_issue_reasons_must_be_an_expected_value()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post(route('conferences.issues.store', $conference), [
+                'reason' => 'dislike',
+                'note' => 'I just dislike it',
+            ]);
+
+        $response->assertInvalid(['reason']);
+        $this->assertDatabaseMissing('conference_issues', [
+            'conference_id' => $conference->id,
+        ]);
+    }
 }

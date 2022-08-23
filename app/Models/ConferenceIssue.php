@@ -9,5 +9,12 @@ class ConferenceIssue extends Model
 {
     use HasFactory;
 
+    public const REASONS = [
+        'duplicate',
+        'incorrect',
+        'spam',
+        'other',
+    ];
+
     protected $guarded = [];
 }
