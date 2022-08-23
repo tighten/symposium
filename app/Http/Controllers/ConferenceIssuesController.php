@@ -12,4 +12,14 @@ class ConferenceIssuesController extends Controller
             'conference' => $conference,
         ]);
     }
+
+    public function store(Conference $conference)
+    {
+        $conference->reportIssue(
+            request('reason'),
+            request('note'),
+        );
+
+        return redirect()->route('conferences.issues.create', $conference);
+    }
 }

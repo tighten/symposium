@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\Url;
 use App\Models\Acceptance;
+use App\Models\ConferenceIssue;
 use App\Models\Submission;
 use App\Models\User;
 use App\Models\UuidBase;
@@ -93,6 +94,11 @@ class Conference extends UuidBase
     public function usersDismissed()
     {
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
+    }
+
+    public function issues()
+    {
+        return $this->hasMany(ConferenceIssue::class);
     }
 
     // @todo: Deprecate?
@@ -354,5 +360,13 @@ class Conference extends UuidBase
         return collect($package)->map(function ($item) use ($currency) {
             return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
         });
+    }
+
+    public function reportIssue($reason, $note)
+    {
+        $this->issues()->create([
+            'reason' => $reason,
+            'note' => $note,
+        ]);
     }
 }

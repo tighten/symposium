@@ -25,7 +25,7 @@
 
 <x-panel :title='"Report an issue for {$conference->title}"'>
     <x-input.select
-            name="reason"
+        name="reason"
         label="Reason"
         :options="$options"
         option-text="text"
@@ -33,7 +33,7 @@
     ></x-input.select>
 
     <x-input.textarea
-        name="notes"
+        name="note"
         label="Notes"
         class="mt-8"
     ></x-input.textarea>
