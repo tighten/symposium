@@ -24,7 +24,7 @@ class ConferenceIssuesTest extends TestCase
             ]);
 
         $response->assertRedirect(
-            route('conferences.issues.create', $conference),
+            route('conferences.show', $conference),
         );
         $this->assertDatabaseHas('conference_issues', [
             'reason' => 'spam',
