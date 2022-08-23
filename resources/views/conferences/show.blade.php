@@ -92,6 +92,12 @@
     </x-slot>
 </x-panel>
 
+<div class="flex flex-col items-end mt-6">
+    <x-button.secondary :href="route('conferences.issues.create', $conference)">
+        Report an Issue
+    </x-button.secondary>
+</div>
+
 <x-panel title="My Talks" class="mt-6">
     <talks-on-conference-page conference-id="{{ $conference->id }}"></talks-on-conference-page>
 </x-panel>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\BiosController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ConferenceIssuesController;
 use App\Http\Controllers\ConferencesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -77,6 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::get('talks/{id}/restore', [TalksController::class, 'restore'])->name('talks.restore');
     Route::resource('talks', TalksController::class);
     Route::resource('conferences', ConferencesController::class)->except('index', 'show');
+    Route::get('conferences/{conference}/issues/create', [ConferenceIssuesController::class, 'create'])
+        ->name('conferences.issues.create');
     Route::resource('bios', BiosController::class);
 });
 
