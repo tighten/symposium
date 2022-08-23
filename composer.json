@@ -40,7 +40,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
-        "lcobucci/jwt": "^4.1",
+        "lcobucci/jwt": "^4.2",
         "league/flysystem-aws-s3-v3": "^3.0",
         "pragmarx/firewall": "^2.3",
         "predis/predis": "^1.1",
