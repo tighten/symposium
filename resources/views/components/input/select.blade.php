@@ -40,8 +40,8 @@
             "
         >
             @foreach ($options as $option)
-                <option value="{{ $option[$optionText] }}">
-                    {{ $option[$optionValue] }}
+                <option value="{{ $option[$optionValue] }}">
+                    {{ $option[$optionText] }}
                 </option>
             @endforeach
         </select>
