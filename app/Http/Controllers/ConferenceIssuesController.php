@@ -15,6 +15,11 @@ class ConferenceIssuesController extends Controller
 
     public function store(Conference $conference)
     {
+        request()->validate([
+            'reason' => 'required',
+            'note' => 'required',
+        ]);
+
         $conference->reportIssue(
             request('reason'),
             request('note'),
