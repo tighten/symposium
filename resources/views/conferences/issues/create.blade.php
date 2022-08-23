@@ -3,6 +3,10 @@
 @php
     $options = [
         [
+            'text' => '',
+            'value' => '',
+        ],
+        [
             'text' => 'This is a duplicate conference',
             'value' => 'duplicate',
         ],
