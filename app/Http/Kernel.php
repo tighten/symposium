@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
         'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
         'social' => \App\Http\Middleware\Social::class,
+        'admin' => \App\Http\Middleware\RequireAdmin::class,
     ];
 }

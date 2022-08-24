@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Conference;
+use App\Models\ConferenceIssue;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -64,5 +65,21 @@ class ConferenceIssuesTest extends TestCase
         $this->assertDatabaseMissing('conference_issues', [
             'conference_id' => $conference->id,
         ]);
+    }
+
+    /** @test */
+    function only_admins_can_view_conference_issues()
+    {
+        $user = User::factory()->create();
+        $admin = User::factory()->admin()->create();
+        $issue = ConferenceIssue::factory()->create();
+
+        $this->actingAs($admin)
+            ->get(route('conferences.issues.show', $issue))
+            ->assertSuccessful();
+
+        $this->actingAs($user)
+            ->get(route('conferences.issues.show', $issue))
+            ->assertNotFound();
     }
 }

@@ -2,7 +2,7 @@
     'conference',
 ])
 
-<x-panel>
+<x-panel {{ $attributes }}>
     <x-slot name="title">
         {{ $conference->title }}
         @if (! $conference->is_approved)

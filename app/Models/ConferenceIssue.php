@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Conference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +27,15 @@ class ConferenceIssue extends Model
                 'text' => __("conference.issues.{$reason}"),
             ];
         });
+    }
+
+    public function conference()
+    {
+        return $this->belongsTo(Conference::class);
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return __("conference.issues.{$this->reason}");
     }
 }
