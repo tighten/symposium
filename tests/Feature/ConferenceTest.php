@@ -918,4 +918,15 @@ class ConferenceTest extends TestCase
         $this->assertContains($conferenceA->id, $conferenceIds);
         $this->assertNotContains($conferenceB->id, $conferenceIds);
     }
+
+    /** @test */
+    function conferences_with_reported_issues_are_flagged()
+    {
+        $conference = Conference::factory()->create();
+        $this->assertFalse($conference->isFlagged());
+
+        $conference->reportIssue('spam', 'Conference has spam');
+
+        $this->assertTrue($conference->isFlagged());
+    }
 }

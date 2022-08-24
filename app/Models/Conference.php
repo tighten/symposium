@@ -260,6 +260,11 @@ class Conference extends UuidBase
         return auth()->user()->favoritedConferences->contains($this->id);
     }
 
+    public function isFlagged()
+    {
+        return $this->issues()->exists();
+    }
+
     /**
      * Return all talks from this user that were submitted to this conference
      */
