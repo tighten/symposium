@@ -12,6 +12,7 @@ class ConferenceIssuesController extends Controller
     {
         return view('conferences.issues.create', [
             'conference' => $conference,
+            'reasonOptions' => ConferenceIssue::reasonOptions(),
         ]);
     }
 

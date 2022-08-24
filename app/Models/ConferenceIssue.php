@@ -17,4 +17,14 @@ class ConferenceIssue extends Model
     ];
 
     protected $guarded = [];
+
+    public static function reasonOptions()
+    {
+        return collect(static::REASONS)->map(function ($reason) {
+            return [
+                'value' => $reason,
+                'text' => __("conference.issues.{$reason}"),
+            ];
+        });
+    }
 }

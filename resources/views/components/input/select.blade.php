@@ -6,6 +6,7 @@
     'optionValue' => '',
     'hideLabel' => false,
     'inline' => false,
+    'include-empty' => false,
 ])
 
 @php
@@ -39,6 +40,9 @@
                 @unless ($hideLabel) mt-1 @endunless
             "
         >
+            @if ($includeEmpty)
+                <option value=""></option>
+            @endif
             @foreach ($options as $option)
                 <option value="{{ $option[$optionValue] }}">
                     {{ $option[$optionText] }}
