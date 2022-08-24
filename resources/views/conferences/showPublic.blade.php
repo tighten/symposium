@@ -37,4 +37,10 @@
     </x-slot>
 </x-panel>
 
+<div class="flex flex-col items-end mt-6">
+    <x-button.secondary :href="route('conferences.issues.create', $conference)">
+        Report an Issue
+    </x-button.secondary>
+</div>
+
 @endsection
