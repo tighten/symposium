@@ -17,4 +17,13 @@ class ConferenceIssueFactory extends Factory
             'note' => $this->faker->sentence,
         ];
     }
+
+    public function closed()
+    {
+        return $this->state(function () {
+            return [
+                'closed_at' => $this->faker->dateTime,
+            ];
+        });
+    }
 }

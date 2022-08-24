@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignUuid('conference_id');
             $table->string('reason');
             $table->text('note');
+            $table->timestamp('closed_at')->nullable();
             $table->timestamps();
         });
     }

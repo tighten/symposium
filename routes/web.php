@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\BiosController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ClosedIssuesController;
 use App\Http\Controllers\ConferenceIssuesController;
 use App\Http\Controllers\ConferencesController;
 use App\Http\Controllers\DashboardController;
@@ -87,6 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('conference-issues/{issue}', [ConferenceIssuesController::class, 'show'])
             ->name('conferences.issues.show');
+        Route::post('closed-issues/{issue}', [ClosedIssuesController::class, 'store'])
+            ->name('closed-issues.store');
     });
 });
 

@@ -6,6 +6,7 @@ use App\Models\Conference;
 use App\Models\ConferenceIssue;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class ConferenceIssuesTest extends TestCase
@@ -81,5 +82,45 @@ class ConferenceIssuesTest extends TestCase
         $this->actingAs($user)
             ->get(route('conferences.issues.show', $issue))
             ->assertNotFound();
+    }
+
+    /** @test */
+    function admins_can_close_issues()
+    {
+        $user = User::factory()->admin()->create();
+        $issue = ConferenceIssue::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post(route('closed-issues.store', $issue));
+
+        $response->assertRedirect(route('conferences.show', $issue->conference));
+        $this->assertNotNull($issue->fresh()->closed_at);
+    }
+
+    /** @test */
+    function issues_cannot_be_reclosed()
+    {
+        $user = User::factory()->admin()->create();
+        $issue = ConferenceIssue::factory()->closed()->create();
+        $closingDate = Carbon::create($issue->closed_at);
+
+        $response = $this->actingAs($user)
+            ->post(route('closed-issues.store', $issue));
+
+        $response->assertSessionHasErrors('issue');
+        $this->assertEquals((string) $closingDate, $issue->fresh()->closed_at);
+    }
+
+    /** @test */
+    function non_admins_cannot_close_issues()
+    {
+        $user = User::factory()->create();
+        $issue = ConferenceIssue::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post(route('closed-issues.store', $issue));
+
+        $response->assertNotFound();
+        $this->assertNull($issue->fresh()->closed_at);
     }
 }
