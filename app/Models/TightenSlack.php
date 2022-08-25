@@ -8,6 +8,11 @@ class TightenSlack
 {
     use NotifiableTrait;
 
+    public function getKey()
+    {
+        return 1;
+    }
+
     /**
      * @return string|null
      */
