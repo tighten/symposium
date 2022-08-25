@@ -262,7 +262,7 @@ class Conference extends UuidBase
 
     public function isFlagged()
     {
-        return $this->issues()->exists();
+        return $this->issues()->whereOpen()->exists();
     }
 
     /**

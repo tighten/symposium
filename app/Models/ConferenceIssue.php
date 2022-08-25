@@ -34,6 +34,11 @@ class ConferenceIssue extends Model
         return $this->belongsTo(Conference::class);
     }
 
+    public function scopeWhereOpen($query)
+    {
+        $query->whereNull('closed_at');
+    }
+
     public function getDescriptionAttribute()
     {
         return __("conference.issues.{$this->reason}");

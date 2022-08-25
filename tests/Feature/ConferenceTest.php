@@ -929,4 +929,12 @@ class ConferenceTest extends TestCase
 
         $this->assertTrue($conference->isFlagged());
     }
+
+    /** @test */
+    function conferences_with_closed_issues_are_not_flagged()
+    {
+        $conference = Conference::factory()->withClosedIssue()->create();
+
+        $this->assertFalse($conference->isFlagged());
+    }
 }
