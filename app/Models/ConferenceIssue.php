@@ -43,4 +43,9 @@ class ConferenceIssue extends Model
     {
         return __("conference.issues.{$this->reason}");
     }
+
+    public function isOpen()
+    {
+        return ! $this->closed_at;
+    }
 }

@@ -123,4 +123,18 @@ class ConferenceIssuesTest extends TestCase
         $response->assertNotFound();
         $this->assertNull($issue->fresh()->closed_at);
     }
+
+    /** @test */
+    function issues_that_have_not_been_closed_are_open()
+    {
+        $openIssue = ConferenceIssue::factory()->create([
+            'closed_at' => null,
+        ]);
+        $closedIssue = ConferenceIssue::factory()->create([
+            'closed_at' => now(),
+        ]);
+
+        $this->assertTrue($openIssue->isOpen());
+        $this->assertFalse($closedIssue->isOpen());
+    }
 }
