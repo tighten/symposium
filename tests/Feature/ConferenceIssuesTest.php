@@ -44,6 +44,7 @@ class ConferenceIssuesTest extends TestCase
     /** @test */
     function conference_issues_must_contain_a_reason_and_note()
     {
+        Notification::fake();
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
 
@@ -54,11 +55,13 @@ class ConferenceIssuesTest extends TestCase
         $this->assertDatabaseMissing('conference_issues', [
             'conference_id' => $conference->id,
         ]);
+        Notification::assertNothingSent();
     }
 
     /** @test */
     function conference_issue_reasons_must_be_an_expected_value()
     {
+        Notification::fake();
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
 
@@ -72,6 +75,7 @@ class ConferenceIssuesTest extends TestCase
         $this->assertDatabaseMissing('conference_issues', [
             'conference_id' => $conference->id,
         ]);
+        Notification::assertNothingSent();
     }
 
     /** @test */
