@@ -13,11 +13,13 @@ use App\Notifications\ConferenceIssueReported;
 use Carbon\Carbon;
 use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 
 class Conference extends UuidBase
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'conferences';
 
