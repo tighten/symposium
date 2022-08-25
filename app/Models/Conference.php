@@ -369,9 +369,10 @@ class Conference extends UuidBase
         });
     }
 
-    public function reportIssue($reason, $note)
+    public function reportIssue($reason, $note, User $user)
     {
         $issue = $this->issues()->create([
+            'user_id' => $user->id,
             'reason' => $reason,
             'note' => $note,
         ]);

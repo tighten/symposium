@@ -922,10 +922,11 @@ class ConferenceTest extends TestCase
     /** @test */
     function conferences_with_reported_issues_are_flagged()
     {
+        $user = User::factory()->create();
         $conference = Conference::factory()->create();
         $this->assertFalse($conference->isFlagged());
 
-        $conference->reportIssue('spam', 'Conference has spam');
+        $conference->reportIssue('spam', 'Conference has spam', $user);
 
         $this->assertTrue($conference->isFlagged());
     }

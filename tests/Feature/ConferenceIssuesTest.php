@@ -35,6 +35,7 @@ class ConferenceIssuesTest extends TestCase
         );
         $this->assertDatabaseHas('conference_issues', [
             'conference_id' => $conference->id,
+            'user_id' => $user->id,
             'reason' => 'spam',
             'note' => 'this conference is spam',
         ]);
