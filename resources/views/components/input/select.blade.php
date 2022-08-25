@@ -6,7 +6,7 @@
     'optionValue' => '',
     'hideLabel' => false,
     'inline' => false,
-    'include-empty' => false,
+    'includeEmpty' => false,
 ])
 
 @php
