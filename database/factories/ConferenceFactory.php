@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Conference;
+use App\Models\ConferenceIssue;
 use App\Models\Submission;
 use App\Models\TalkRevision;
 use App\Models\User;
@@ -104,5 +105,16 @@ class ConferenceFactory extends Factory
         return $this->state([
             'speaker_package' => $speakerPackage,
         ]);
+    }
+
+    public function withClosedIssue()
+    {
+        return $this->afterCreating(function ($conference) {
+            ConferenceIssue::factory()
+                ->closed()
+                ->create([
+                    'conference_id' => $conference->id,
+                ]);
+        });
     }
 }

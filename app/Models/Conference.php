@@ -4,17 +4,22 @@ namespace App\Models;
 
 use App\Casts\Url;
 use App\Models\Acceptance;
+use App\Models\ConferenceIssue;
 use App\Models\Submission;
+use App\Models\TightenSlack;
 use App\Models\User;
 use App\Models\UuidBase;
+use App\Notifications\ConferenceIssueReported;
 use Carbon\Carbon;
 use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 
 class Conference extends UuidBase
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'conferences';
 
@@ -93,6 +98,11 @@ class Conference extends UuidBase
     public function usersDismissed()
     {
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
+    }
+
+    public function issues()
+    {
+        return $this->hasMany(ConferenceIssue::class);
     }
 
     // @todo: Deprecate?
@@ -254,6 +264,11 @@ class Conference extends UuidBase
         return auth()->user()->favoritedConferences->contains($this->id);
     }
 
+    public function isFlagged()
+    {
+        return $this->issues()->whereOpen()->exists();
+    }
+
     /**
      * Return all talks from this user that were submitted to this conference
      */
@@ -354,5 +369,16 @@ class Conference extends UuidBase
         return collect($package)->map(function ($item) use ($currency) {
             return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
         });
+    }
+
+    public function reportIssue($reason, $note, User $user)
+    {
+        $issue = $this->issues()->create([
+            'user_id' => $user->id,
+            'reason' => $reason,
+            'note' => $note,
+        ]);
+
+        (new TightenSlack())->notify(new ConferenceIssueReported($issue));
     }
 }
