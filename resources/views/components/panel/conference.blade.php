@@ -48,7 +48,7 @@
         @endif
 
         <div class="mt-4 text-gray-500">Description:</div>
-        <p>{{ $conference->description }}</p>
+        <p>{!! $conference->formatted_description !!}</p>
 
         @if ($conference->speaker_package->count())
             <div class="mt-4 text-gray-500">Speaker Package:</div>

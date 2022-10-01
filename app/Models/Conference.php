@@ -371,6 +371,13 @@ class Conference extends UuidBase
         });
     }
 
+    public function getFormattedDescriptionAttribute()
+    {
+        $description = str_replace("&#13;", "<br />", $this->description);
+
+        return linkify($description);
+    }
+
     public function reportIssue($reason, $note, User $user)
     {
         $issue = $this->issues()->create([
