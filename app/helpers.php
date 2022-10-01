@@ -10,7 +10,7 @@ if (! function_exists('markdown')) {
 if (! function_exists('linkify')) {
     function linkify($text)
     {
-        if (!$text) {
+        if (! $text) {
             return '';
         }
 

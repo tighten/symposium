@@ -373,7 +373,7 @@ class Conference extends UuidBase
 
     public function getFormattedDescriptionAttribute()
     {
-        $description = str_replace("&#13;", "<br />", $this->description);
+        $description = str_replace('&#13;', '<br />', $this->description);
 
         return linkify($description);
     }
