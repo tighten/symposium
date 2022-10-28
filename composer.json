@@ -59,7 +59,7 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.3",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.4",
+        "spatie/laravel-ignition": "^1.5",
         "tightenco/duster": "^0.3.2"
     },
     "autoload": {
