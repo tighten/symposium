@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
-use App\Models\TightenSlack;
 use App\Models\User;
 use App\Notifications\ConferenceIssueReported;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,7 +21,6 @@ class ConferenceIssuesTest extends TestCase
         Notification::fake();
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
-        $tightenSlack = new TightenSlack();
 
         $response = $this->actingAs($user)
             ->post(route('conferences.issues.store', $conference), [
@@ -39,7 +37,7 @@ class ConferenceIssuesTest extends TestCase
             'reason' => 'spam',
             'note' => 'this conference is spam',
         ]);
-        Notification::assertSentTo($tightenSlack, ConferenceIssueReported::class);
+        Notification::assertSentToTightenSlack(ConferenceIssueReported::class);
     }
 
     /** @test */
