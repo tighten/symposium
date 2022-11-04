@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
+use App\Models\TightenSlack;
+use App\Notifications\ConferenceImporterStarted;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -28,6 +30,7 @@ class SyncCallingAllPapersEvents extends Command
     public function handle()
     {
         $this->info('Syncing events...');
+        (new TightenSlack())->notify(new ConferenceImporterStarted());
 
         try {
             $events = $this->client->getEvents();

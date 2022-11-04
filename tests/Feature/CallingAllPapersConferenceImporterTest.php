@@ -2,61 +2,22 @@
 
 namespace Tests\Feature;
 
-use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
-use App\CallingAllPapers\Event;
 use App\Models\Conference;
 use App\Services\Geocoder;
-use Mockery as m;
-use stdClass;
+use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 
 class CallingAllPapersConferenceImporterTest extends TestCase
 {
-    private $eventId = 'abcdef1234567890abcdef1234567890abcdef122017';
-
-    private $eventStub;
+    use MocksCallingAllPapers;
 
     /** @before */
     public function prepareEventStub()
     {
         parent::setUp();
 
-        $this->eventStub = $this->stubEvent();
-    }
-
-    public function stubEvent()
-    {
-        $_rel = new stdClass();
-        $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
-
-        $event = new stdClass();
-
-        $event->_rel = $_rel;
-        $event->name = 'ABC conference';
-        $event->description = 'The greatest conference ever.';
-        $event->eventUri = 'https://www.example.com/';
-        $event->uri = 'https://cfp.example.com/';
-        $event->dateCfpStart = '2017-08-20T00:00:00-04:00';
-        $event->dateCfpEnd = '2017-09-22T00:00:00-04:00';
-        $event->dateEventStart = '2017-10-20T00:00:00-04:00';
-        $event->dateEventEnd = '2017-12-22T00:00:00-04:00';
-
-        return Event::createFromApiObject($event);
-    }
-
-    public function mockClient($event = null)
-    {
-        if (! $event) {
-            $event = $this->eventStub;
-        }
-
-        $mockClient = m::mock(Client::class);
-
-        $mockClient->shouldReceive('getEvents')->andReturn([$event]);
-        app()->instance(Client::class, $mockClient);
-
-        return $mockClient;
+        $this->stubEvent();
     }
 
     /** @test */
