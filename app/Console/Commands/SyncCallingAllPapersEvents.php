@@ -16,18 +16,18 @@ class SyncCallingAllPapersEvents extends Command
 
     protected $description = 'Pull down CallingAllPapers events';
 
-    protected $slack;
-
     protected $client;
+
+    protected $slack;
 
     private $importer;
 
-    public function __construct(TightenSlack $slack)
+    public function __construct(Client $client, TightenSlack $slack)
     {
         parent::__construct();
 
+        $this->client = $client;
         $this->slack = $slack;
-        $this->client = new Client();
         $this->importer = new ConferenceImporter($adminUserId = 1);
     }
 

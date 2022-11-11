@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\CallingAllPapers\Client;
 use App\Handlers\Events\SlackSubscriber;
 use Collective\Html\FormBuilder;
 use Exception;
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -75,5 +77,19 @@ class AppServiceProvider extends ServiceProvider
                 csrf_token()
             );
         });
+
+        $this->registerCallingAllPapersClient();
+    }
+
+    public function registerCallingAllPapersClient()
+    {
+        $this->app->when(Client::class)
+            ->needs(GuzzleClient::class)
+            ->give(function () {
+                return new GuzzleClient([
+                    'headers'  => ['User-Agent' => 'Symposium CLI'],
+                    'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
+                ]);
+            });
     }
 }

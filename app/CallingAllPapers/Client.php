@@ -12,10 +12,7 @@ class Client
 
     public function __construct(GuzzleClient $client = null)
     {
-        $this->guzzle = $client ?: new GuzzleClient([
-            'headers'  => ['User-Agent' => 'Symposium CLI'],
-            'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
-        ]);
+        $this->guzzle = $client;
     }
 
     public function getEvents()
