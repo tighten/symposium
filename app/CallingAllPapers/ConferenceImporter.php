@@ -71,12 +71,11 @@ class ConferenceImporter
 
         if ($validator->fails()) {
             $conference->rejected_at = now();
-            $conference->save();
-
-            return;
         }
 
         $conference->save();
+
+        return $conference;
     }
 
     private function updateConferenceFromCallingAllPapersEvent(Conference $conference, Event $event)
