@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\CallingAllPapers\Client;
 use App\CallingAllPapers\Event;
+use Exception;
 use Mockery;
 use stdClass;
 
@@ -22,6 +23,17 @@ trait MocksCallingAllPapers
         $mockClient = Mockery::mock(Client::class);
 
         $mockClient->shouldReceive('getEvents')->andReturn([$event]);
+        app()->instance(Client::class, $mockClient);
+
+        return $mockClient;
+    }
+
+    public function mockClientWithError()
+    {
+        $mockClient = Mockery::mock(Client::class);
+
+        $mockClient->shouldReceive('getEvents')
+            ->andThrow(Exception::class, 'Test exception');
         app()->instance(Client::class, $mockClient);
 
         return $mockClient;

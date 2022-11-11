@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\Models\TightenSlack;
+use App\Notifications\ConferenceImporterError;
 use App\Notifications\ConferenceImporterFinished;
 use App\Notifications\ConferenceImporterStarted;
 use Exception;
@@ -40,6 +41,7 @@ class SyncCallingAllPapersEvents extends Command
             $events = $this->client->getEvents();
         } catch (Exception $exception) {
             $this->error("Unable to sync Calling All Papers events. Message: {$exception->getMessage()}");
+            $this->slack->notify(new ConferenceImporterError($exception));
 
             return;
         }
