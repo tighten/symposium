@@ -317,8 +317,9 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->dateCfpEnd = '2017-09-02T00:00:00-04:00';
         $importer->import($event);
 
-        $this->assertEquals(1, Conference::count());
-        $conference = Conference::where('calling_all_papers_id', 'fake-cfp-id')->first();
+        $conference = Conference::withoutGlobalScope('notRejected')
+            ->where('calling_all_papers_id', 'fake-cfp-id')
+            ->first();
         $this->assertNotNull($conference);
         $this->assertNotNull($conference->rejected_at);
     }
@@ -335,8 +336,9 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->dateEventEnd = '2020-10-01T00:00:00-04:00';
         $importer->import($event);
 
-        $this->assertEquals(1, Conference::count());
-        $conference = Conference::where('calling_all_papers_id', 'fake-cfp-id')->first();
+        $conference = Conference::withoutGlobalScope('notRejected')
+            ->where('calling_all_papers_id', 'fake-cfp-id')
+            ->first();
         $this->assertNotNull($conference);
         $this->assertNotNull($conference->rejected_at);
     }
@@ -353,8 +355,9 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->dateCfpEnd = '2017-06-01T00:00:00-04:00';
         $importer->import($event);
 
-        $this->assertEquals(1, Conference::count());
-        $conference = Conference::where('calling_all_papers_id', 'fake-cfp-id')->first();
+        $conference = Conference::withoutGlobalScope('notRejected')
+            ->where('calling_all_papers_id', 'fake-cfp-id')
+            ->first();
         $this->assertNotNull($conference);
         $this->assertNotNull($conference->rejected_at);
     }

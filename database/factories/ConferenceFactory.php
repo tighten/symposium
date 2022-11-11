@@ -49,6 +49,13 @@ class ConferenceFactory extends Factory
         ]);
     }
 
+    public function rejected()
+    {
+        return $this->state([
+            'rejected_at' => $this->faker->dateTime,
+        ]);
+    }
+
     public function notApproved()
     {
         return $this->state([

@@ -78,6 +78,10 @@ class Conference extends UuidBase
                 $conference->is_approved = true;
             }
         });
+
+        static::addGlobalScope('notRejected', function ($builder) {
+            $builder->whereNull('rejected_at');
+        });
     }
 
     public function author()
