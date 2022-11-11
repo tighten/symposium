@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Notifications\ConferenceImporterFinished;
 use App\Notifications\ConferenceImporterStarted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
@@ -26,5 +27,6 @@ class SyncCallingAllPapersEventsTest extends TestCase
         Artisan::call('callingallpapers:sync');
 
         Notification::assertSentToTightenSlack(ConferenceImporterStarted::class);
+        Notification::assertSentToTightenSlack(ConferenceImporterFinished::class);
     }
 }

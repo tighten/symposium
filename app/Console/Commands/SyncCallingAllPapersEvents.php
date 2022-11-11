@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\Models\TightenSlack;
+use App\Notifications\ConferenceImporterFinished;
 use App\Notifications\ConferenceImporterStarted;
 use Exception;
 use Illuminate\Console\Command;
@@ -15,14 +16,17 @@ class SyncCallingAllPapersEvents extends Command
 
     protected $description = 'Pull down CallingAllPapers events';
 
+    protected $slack;
+
     protected $client;
 
     private $importer;
 
-    public function __construct()
+    public function __construct(TightenSlack $slack)
     {
         parent::__construct();
 
+        $this->slack = $slack;
         $this->client = new Client();
         $this->importer = new ConferenceImporter($adminUserId = 1);
     }
@@ -30,7 +34,7 @@ class SyncCallingAllPapersEvents extends Command
     public function handle()
     {
         $this->info('Syncing events...');
-        (new TightenSlack())->notify(new ConferenceImporterStarted());
+        $this->slack->notify(new ConferenceImporterStarted());
 
         try {
             $events = $this->client->getEvents();
@@ -46,5 +50,6 @@ class SyncCallingAllPapersEvents extends Command
         }
 
         $this->info('Events synced.');
+        $this->slack->notify(new ConferenceImporterFinished());
     }
 }
