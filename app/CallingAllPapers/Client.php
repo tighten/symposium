@@ -10,7 +10,7 @@ class Client
 {
     private $guzzle;
 
-    public function __construct(GuzzleClient $client = null)
+    public function __construct(GuzzleClient $client)
     {
         $this->guzzle = $client;
     }
