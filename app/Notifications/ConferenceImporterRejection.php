@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Models\Conference;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
 
 class ConferenceImporterRejection extends Notification
 {
