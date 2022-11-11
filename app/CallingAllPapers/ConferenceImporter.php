@@ -10,15 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ConferenceImporter
 {
-    private $client;
-
     private $authorId;
 
     private $geocoder;
 
-    public function __construct(int $authorId = null, Client $client = null)
+    public function __construct(int $authorId = null)
     {
-        $this->client = $client ?: new Client();
         $this->authorId = $authorId ?: auth()->user()->id;
         $this->geocoder = app(Geocoder::class);
     }
