@@ -306,45 +306,57 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
-    public function conferences_with_cfp_end_after_conference_start_are_not_imported()
+    public function conferences_with_cfp_end_after_conference_start_are_rejected()
     {
         $this->mockClient();
 
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
+        $event->id = 'fake-cfp-id';
         $event->dateEventStart = '2017-09-01T00:00:00-04:00';
         $event->dateCfpEnd = '2017-09-02T00:00:00-04:00';
         $importer->import($event);
 
-        $this->assertEquals(0, Conference::count());
+        $this->assertEquals(1, Conference::count());
+        $conference = Conference::where('calling_all_papers_id', 'fake-cfp-id')->first();
+        $this->assertNotNull($conference);
+        $this->assertNotNull($conference->rejected_at);
     }
 
     /** @test */
-    public function conferences_with_over_2_year_duration_are_not_imported()
+    public function conferences_with_over_2_year_duration_are_rejected()
     {
         $this->mockClient();
 
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
+        $event->id = 'fake-cfp-id';
         $event->dateEventStart = '2017-10-01T00:00:00-04:00';
         $event->dateEventEnd = '2020-10-01T00:00:00-04:00';
         $importer->import($event);
 
-        $this->assertEquals(0, Conference::count());
+        $this->assertEquals(1, Conference::count());
+        $conference = Conference::where('calling_all_papers_id', 'fake-cfp-id')->first();
+        $this->assertNotNull($conference);
+        $this->assertNotNull($conference->rejected_at);
     }
 
     /** @test */
-    public function conferences_with_cfp_duration_over_2_years_are_not_imported()
+    public function conferences_with_cfp_duration_over_2_years_are_rejected()
     {
         $this->mockClient();
 
         $importer = new ConferenceImporter(1);
         $event = $this->eventStub;
+        $event->id = 'fake-cfp-id';
         $event->dateCfpStart = '2014-06-01T00:00:00-04:00';
         $event->dateCfpEnd = '2017-06-01T00:00:00-04:00';
         $importer->import($event);
 
-        $this->assertEquals(0, Conference::count());
+        $this->assertEquals(1, Conference::count());
+        $conference = Conference::where('calling_all_papers_id', 'fake-cfp-id')->first();
+        $this->assertNotNull($conference);
+        $this->assertNotNull($conference->rejected_at);
     }
 
     /** @test */

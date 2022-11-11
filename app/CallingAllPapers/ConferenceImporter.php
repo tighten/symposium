@@ -62,15 +62,18 @@ class ConferenceImporter
             ],
         ]);
 
-        if ($validator->fails()) {
-            return response($validator->errors(), 403);
-        }
-
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
         if (! $conference->latitude && ! $conference->longitude && $conference->location) {
             $this->geocodeLatLongFromLocation($conference);
+        }
+
+        if ($validator->fails()) {
+            $conference->rejected_at = now();
+            $conference->save();
+
+            return;
         }
 
         $conference->save();
