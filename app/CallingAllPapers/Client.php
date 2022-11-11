@@ -2,20 +2,17 @@
 
 namespace App\CallingAllPapers;
 
+use App\CallingAllPapers\Event;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\json_decode;
-use Illuminate\Support\Facades\Event;
 
 class Client
 {
     private $guzzle;
 
-    public function __construct(GuzzleClient $client = null)
+    public function __construct(GuzzleClient $client)
     {
-        $this->guzzle = $client ?: new GuzzleClient([
-            'headers'  => ['User-Agent' => 'Symposium CLI'],
-            'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
-        ]);
+        $this->guzzle = $client;
     }
 
     public function getEvents()

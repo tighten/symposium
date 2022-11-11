@@ -90,7 +90,11 @@ class ConferencesController extends Controller
         }
 
         try {
-            $conference = Conference::findOrFail($id);
+            if (auth()->user()->isAdmin()) {
+                $conference = Conference::withoutGlobalScope('notRejected')->findOrFail($id);
+            } else {
+                $conference = Conference::findOrFail($id);
+            }
         } catch (Exception $e) {
             return redirect('/');
         }

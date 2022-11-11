@@ -10,15 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ConferenceImporter
 {
-    private $client;
-
     private $authorId;
 
     private $geocoder;
 
-    public function __construct(int $authorId = null, Client $client = null)
+    public function __construct(int $authorId = null)
     {
-        $this->client = $client ?: new Client();
         $this->authorId = $authorId ?: auth()->user()->id;
         $this->geocoder = app(Geocoder::class);
     }
@@ -65,10 +62,6 @@ class ConferenceImporter
             ],
         ]);
 
-        if ($validator->fails()) {
-            return response($validator->errors(), 403);
-        }
-
         $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
@@ -76,7 +69,13 @@ class ConferenceImporter
             $this->geocodeLatLongFromLocation($conference);
         }
 
+        if ($validator->fails()) {
+            $conference->rejected_at = now();
+        }
+
         $conference->save();
+
+        return $conference;
     }
 
     private function updateConferenceFromCallingAllPapersEvent(Conference $conference, Event $event)

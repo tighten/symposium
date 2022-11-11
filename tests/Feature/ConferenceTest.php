@@ -938,4 +938,26 @@ class ConferenceTest extends TestCase
 
         $this->assertFalse($conference->isFlagged());
     }
+
+    /** @test */
+    function rejected_conferences_are_not_found()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->rejected()->create();
+
+        $response = $this->actingAs($user)->get($conference->link);
+
+        $response->assertNotFound();
+    }
+
+    /** @test */
+    function admins_can_see_rejected_conferences()
+    {
+        $user = User::factory()->admin()->create();
+        $conference = Conference::factory()->rejected()->create();
+
+        $response = $this->actingAs($user)->get($conference->link);
+
+        $response->assertSuccessful();
+    }
 }
