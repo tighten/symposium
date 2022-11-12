@@ -30,7 +30,7 @@ class ConferenceImporterRejection extends Notification
             ->attachment(function ($attachment) {
                 $attachment
                     ->title('Conference importer rejected a conference')
-                    ->action($conference->title, $conference->link)
+                    ->action($this->conference->title, $this->conference->link)
                     ->timestamp(Carbon::now());
             });
     }
