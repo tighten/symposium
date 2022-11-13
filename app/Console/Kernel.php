@@ -15,8 +15,8 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('callingallpapers:sync')
-            ->hourly();
+        // $schedule->command('callingallpapers:sync')
+        //     ->hourly();
 
         // $schedule->command('tweet:cfpDates')
         //      ->dailyAt('08:00')
