@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class ConferenceTest extends TestCase
@@ -922,6 +923,8 @@ class ConferenceTest extends TestCase
     /** @test */
     function conferences_with_reported_issues_are_flagged()
     {
+        Notification::fake();
+
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
         $this->assertFalse($conference->isFlagged());
