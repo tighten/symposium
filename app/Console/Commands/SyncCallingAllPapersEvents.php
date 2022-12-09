@@ -7,7 +7,6 @@ use App\CallingAllPapers\ConferenceImporter;
 use App\Models\TightenSlack;
 use App\Notifications\ConferenceImporterError;
 use App\Notifications\ConferenceImporterFinished;
-use App\Notifications\ConferenceImporterRejection;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -48,10 +47,6 @@ class SyncCallingAllPapersEvents extends Command
         foreach ($events as $event) {
             $this->info("Creating/updating event {$event->name}");
             $conference = $this->importer->import($event);
-
-            if ($conference->rejected_at) {
-                $this->slack->notify(new ConferenceImporterRejection($conference));
-            }
         }
 
         $this->info('Events synced.');
