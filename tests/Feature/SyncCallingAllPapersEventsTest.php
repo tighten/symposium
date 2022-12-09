@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Notifications\ConferenceImporterError;
 use App\Notifications\ConferenceImporterFinished;
 use App\Notifications\ConferenceImporterRejection;
-use App\Notifications\ConferenceImporterStarted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
@@ -28,7 +27,6 @@ class SyncCallingAllPapersEventsTest extends TestCase
 
         Artisan::call('callingallpapers:sync');
 
-        Notification::assertSentToTightenSlack(ConferenceImporterStarted::class);
         Notification::assertSentToTightenSlack(ConferenceImporterFinished::class);
     }
 
@@ -41,7 +39,6 @@ class SyncCallingAllPapersEventsTest extends TestCase
 
         Artisan::call('callingallpapers:sync');
 
-        Notification::assertSentToTightenSlack(ConferenceImporterStarted::class);
         Notification::assertSentToTightenSlack(ConferenceImporterError::class);
         Notification::assertNotSentToTightenSlack(ConferenceImporterFinished::class);
     }
@@ -57,7 +54,6 @@ class SyncCallingAllPapersEventsTest extends TestCase
 
         Artisan::call('callingallpapers:sync');
 
-        Notification::assertSentToTightenSlack(ConferenceImporterStarted::class);
         Notification::assertSentToTightenSlack(ConferenceImporterRejection::class);
         Notification::assertSentToTightenSlack(ConferenceImporterFinished::class);
     }
