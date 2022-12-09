@@ -6,7 +6,6 @@ use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\Models\TightenSlack;
 use App\Notifications\ConferenceImporterError;
-use App\Notifications\ConferenceImporterFinished;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -50,6 +49,6 @@ class SyncCallingAllPapersEvents extends Command
         }
 
         $this->info('Events synced.');
-        $this->slack->notify(new ConferenceImporterFinished());
+        cache(['conference_importer_last_ran_at' => now()->toDateTimeString()]);
     }
 }
