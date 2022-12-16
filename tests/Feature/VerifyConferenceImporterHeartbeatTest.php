@@ -20,7 +20,7 @@ class VerifyConferenceImporterHeartbeatTest extends TestCase
     }
 
     /** @test */
-    function slack_is_not_notified_when_the_importer_has_run_withinin_24_hours()
+    function slack_is_not_notified_when_the_importer_has_run_within_24_hours()
     {
         Notification::fake();
         cache(['conference_importer_last_ran_at' => now()->subHours(23)->toDateTimeString()]);
