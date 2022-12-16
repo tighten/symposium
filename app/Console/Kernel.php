@@ -25,6 +25,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('symposium:notifyCfps')
             ->dailyAt('08:00')
             ->environments('production');
+
+        $schedule->command('verify-conference-importer-heartbeat')
+            ->dailyAt('10:00')
+            ->environments('production');
     }
 
     /**
