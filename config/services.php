@@ -48,6 +48,7 @@ return [
     'google' => [
         'maps' => [
             'key' => env('GOOGLE_MAPS_API_KEY'),
+            'frontend_key' => env('GOOGLE_MAPS_API_FRONTEND_KEY'),
         ],
         'captcha' => [
             'public' => env('CAPTCHA_PUBLIC'),
