@@ -56,7 +56,7 @@
         @include('partials.footer', ['is_home' => $is_home])
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.key') }}&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.frontend_key') }}&libraries=places"></script>
     <script src="{{ ('/js/app.js') }}"></script>
     @stack('scripts')
 
