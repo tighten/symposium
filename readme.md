@@ -1,6 +1,6 @@
 ![Symposium_banner](https://raw.githubusercontent.com/tighten/symposium/develop/symposium-banner.png)
 # Symposium
-[![Actions Status](https://img.shields.io/github/workflow/status/tighten/symposium/Test)](https://github.com/tighten/symposium/actions)
+[![Actions Status](https://img.shields.io/github/actions/workflow/status/tighten/symposium/test.yml)](https://github.com/tighten/symposium/actions)
 
 A web app for conference speakers to track talks, bios, and conferences. Free, available online at [Symposiumapp.com](http://symposiumapp.com/).
 
