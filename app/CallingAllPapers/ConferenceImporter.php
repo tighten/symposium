@@ -7,7 +7,6 @@ use App\Models\Conference;
 use App\Services\Geocoder;
 use Carbon\Carbon;
 use DateTime;
-use Exception;
 use Illuminate\Support\Facades\Validator;
 
 class ConferenceImporter
