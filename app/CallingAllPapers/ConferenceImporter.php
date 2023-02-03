@@ -2,6 +2,7 @@
 
 namespace App\CallingAllPapers;
 
+use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
 use App\Services\Geocoder;
 use Carbon\Carbon;
@@ -103,14 +104,10 @@ class ConferenceImporter
     private function geocodeLatLongFromLocation(Conference $conference): Conference
     {
         try {
-            $response = $this->geocoder->geocode($conference->location);
-        } catch (Exception $e) {
-            return $conference;
-        }
-
-        if ($response->count()) {
-            $conference->latitude = $response[0]->toArray()['latitude'];
-            $conference->longitude = $response[0]->toArray()['longitude'];
+            $conference->setCoordinates(
+                $this->geocoder->geocode($conference->location)
+            );
+        } catch (InvalidAddressGeocodingException $e) {
         }
 
         return $conference;

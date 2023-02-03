@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use App\CallingAllPapers\ConferenceImporter;
+use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
+use App\Services\Coordinates;
 use App\Services\Geocoder;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
@@ -209,12 +211,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->mockClient($event);
         $this->mock(Geocoder::class, function ($mock) {
             $mock->shouldReceive('geocode')
-                ->andReturn(collect([
-                    collect([
-                        'latitude' => '38.8921062',
-                        'longitude' => '-77.0259036',
-                    ]),
-                ]));
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'));
         });
 
         $importer = new ConferenceImporter(1);
@@ -238,7 +235,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->mockClient($event);
         $this->mock(Geocoder::class, function ($mock) {
             $mock->shouldReceive('geocode')
-                ->andReturn(collect([]));
+                ->andThrow(new InvalidAddressGeocodingException());
         });
 
         $importer = new ConferenceImporter(1);

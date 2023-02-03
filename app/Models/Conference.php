@@ -10,6 +10,7 @@ use App\Models\TightenSlack;
 use App\Models\User;
 use App\Models\UuidBase;
 use App\Notifications\ConferenceIssueReported;
+use App\Services\Coordinates;
 use Carbon\Carbon;
 use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -373,6 +374,12 @@ class Conference extends UuidBase
         return collect($package)->map(function ($item) use ($currency) {
             return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
         });
+    }
+
+    public function setCoordinates(Coordinates $coordinates)
+    {
+        $this->latitude = $coordinates->getLatitude();
+        $this->longitude = $coordinates->getLongitude();
     }
 
     public function reportIssue($reason, $note, User $user)
