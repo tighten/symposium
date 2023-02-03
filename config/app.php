@@ -191,7 +191,6 @@ return [
         App\Providers\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Geocoder\Laravel\Providers\GeocoderService::class,
     ],
 
     /*
