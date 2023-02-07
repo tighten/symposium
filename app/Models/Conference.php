@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Coordinates;
 use App\Casts\Url;
 use App\Models\Acceptance;
 use App\Models\ConferenceIssue;
@@ -373,6 +374,12 @@ class Conference extends UuidBase
         return collect($package)->map(function ($item) use ($currency) {
             return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
         });
+    }
+
+    public function setCoordinates(Coordinates $coordinates)
+    {
+        $this->latitude = $coordinates->getLatitude();
+        $this->longitude = $coordinates->getLongitude();
     }
 
     public function reportIssue($reason, $note, User $user)
