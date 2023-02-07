@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Coordinates;
 use App\Casts\Url;
 use App\Models\Acceptance;
 use App\Models\ConferenceIssue;
@@ -10,7 +11,6 @@ use App\Models\TightenSlack;
 use App\Models\User;
 use App\Models\UuidBase;
 use App\Notifications\ConferenceIssueReported;
-use App\Services\Coordinates;
 use Carbon\Carbon;
 use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

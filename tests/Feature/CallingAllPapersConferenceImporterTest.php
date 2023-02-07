@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\CallingAllPapers\ConferenceImporter;
+use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Coordinates;
 use App\Services\Geocoder;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;

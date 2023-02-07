@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
-use App\Services\Coordinates;
 use Illuminate\Support\Facades\Http;
 
 class Geocoder
