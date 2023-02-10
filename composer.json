@@ -21,7 +21,7 @@
     "homepage": "https://symposiumapp.com/",
     "type": "project",
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.1",
         "algolia/algoliasearch-client-php": "^3.3",
         "blade-ui-kit/blade-icons": "^1.4",
         "bugsnag/bugsnag-laravel": "^2.24",
