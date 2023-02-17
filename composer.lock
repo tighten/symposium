@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69247f31f8e849adbe6883d5899ed6a0",
+    "content-hash": "e38b7317c47bd49326df3164c9bcf050",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -132,16 +132,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.258.9",
+            "version": "3.258.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1d42f8170ecc775a85e0efa96476caa2d4be13ae"
+                "reference": "43ee875456822ee7772cfc51da57bfa558ccb30c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1d42f8170ecc775a85e0efa96476caa2d4be13ae",
-                "reference": "1d42f8170ecc775a85e0efa96476caa2d4be13ae",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/43ee875456822ee7772cfc51da57bfa558ccb30c",
+                "reference": "43ee875456822ee7772cfc51da57bfa558ccb30c",
                 "shasum": ""
             },
             "require": {
@@ -220,22 +220,22 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.12"
             },
-            "time": "2023-02-13T19:21:26+00:00"
+            "time": "2023-02-16T19:21:12+00:00"
         },
         {
             "name": "blade-ui-kit/blade-icons",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blade-ui-kit/blade-icons.git",
-                "reference": "8e936041fcb016ad0344169d057d5a2f1a178091"
+                "reference": "b2a80ff2a26641f64bfee48ad0d2a922ce781228"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blade-ui-kit/blade-icons/zipball/8e936041fcb016ad0344169d057d5a2f1a178091",
-                "reference": "8e936041fcb016ad0344169d057d5a2f1a178091",
+                "url": "https://api.github.com/repos/blade-ui-kit/blade-icons/zipball/b2a80ff2a26641f64bfee48ad0d2a922ce781228",
+                "reference": "b2a80ff2a26641f64bfee48ad0d2a922ce781228",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-11T08:34:15+00:00"
+            "time": "2023-02-15T16:30:12+00:00"
         },
         {
             "name": "brick/math",
@@ -425,28 +425,28 @@
         },
         {
             "name": "bugsnag/bugsnag-laravel",
-            "version": "v2.25.1",
+            "version": "v2.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bugsnag/bugsnag-laravel.git",
-                "reference": "f8aac58beb904a0e31f73b0ea6db5248b772d336"
+                "reference": "333a912e38ead3e02724381093778b271168c8a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/f8aac58beb904a0e31f73b0ea6db5248b772d336",
-                "reference": "f8aac58beb904a0e31f73b0ea6db5248b772d336",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/333a912e38ead3e02724381093778b271168c8a3",
+                "reference": "333a912e38ead3e02724381093778b271168c8a3",
                 "shasum": ""
             },
             "require": {
                 "bugsnag/bugsnag": "^3.29.0",
                 "bugsnag/bugsnag-psr-logger": "^1.4|^2.0",
-                "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0|^9.0",
-                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0",
+                "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
                 "monolog/monolog": "^1.12|^2.0|^3.0",
                 "php": ">=5.5"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.1|^4.0|^5.0|^6.0|^7.0",
+                "orchestra/testbench": "^3.1|^4.0|^5.0|^6.0|^7.0|^8.0",
                 "phpunit/phpunit": "^4.8.36|^6.3.1|^7.5.15|^8.3.5|^9.3.10"
             },
             "type": "library",
@@ -482,9 +482,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bugsnag/bugsnag-laravel/issues",
-                "source": "https://github.com/bugsnag/bugsnag-laravel/tree/v2.25.1"
+                "source": "https://github.com/bugsnag/bugsnag-laravel/tree/v2.26.0"
             },
-            "time": "2023-01-17T09:38:15+00:00"
+            "time": "2023-02-16T08:48:39+00:00"
         },
         {
             "name": "bugsnag/bugsnag-psr-logger",
@@ -3411,16 +3411,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.8",
+            "version": "2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47"
+                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c493585c130544c4e91d2e0e131e6d35cb0cbc47",
-                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c1e114f74e518daca2729ea8c4bf1167038fa4b5",
+                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5",
                 "shasum": ""
             },
             "require": {
@@ -3513,7 +3513,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-10T16:02:17+00:00"
+            "time": "2023-02-15T14:07:24+00:00"
         },
         {
             "name": "league/config",
@@ -4016,16 +4016,16 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "8.3.6",
+            "version": "8.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "28c5441716c10d0c936bd731860dc385d0f6d1a8"
+                "reference": "539f4340c14eca8d44578fd118f6bdc0ad16d1ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/28c5441716c10d0c936bd731860dc385d0f6d1a8",
-                "reference": "28c5441716c10d0c936bd731860dc385d0f6d1a8",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/539f4340c14eca8d44578fd118f6bdc0ad16d1ce",
+                "reference": "539f4340c14eca8d44578fd118f6bdc0ad16d1ce",
                 "shasum": ""
             },
             "require": {
@@ -4092,7 +4092,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/oauth2-server/issues",
-                "source": "https://github.com/thephpleague/oauth2-server/tree/8.3.6"
+                "source": "https://github.com/thephpleague/oauth2-server/tree/8.4.0"
             },
             "funding": [
                 {
@@ -4100,7 +4100,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-14T19:42:00+00:00"
+            "time": "2023-02-15T16:08:35+00:00"
         },
         {
             "name": "league/uri",
@@ -5526,16 +5526,16 @@
         },
         {
             "name": "pragmarx/firewall",
-            "version": "v2.3.1",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/firewall.git",
-                "reference": "1f5263a219273594fa683f2a986bf0b6abf8972d"
+                "reference": "6b3575a7b5977e223620d8281423e5175c875ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/firewall/zipball/1f5263a219273594fa683f2a986bf0b6abf8972d",
-                "reference": "1f5263a219273594fa683f2a986bf0b6abf8972d",
+                "url": "https://api.github.com/repos/antonioribeiro/firewall/zipball/6b3575a7b5977e223620d8281423e5175c875ea7",
+                "reference": "6b3575a7b5977e223620d8281423e5175c875ea7",
                 "shasum": ""
             },
             "require": {
@@ -5545,8 +5545,8 @@
             },
             "require-dev": {
                 "geoip2/geoip2": "~2.0",
-                "orchestra/testbench": "3.4.*|3.5.*|3.6.*|3.7.*|3.8.*|4.*",
-                "phpunit/phpunit": "~7|~8"
+                "orchestra/testbench": "3.8.*|4.*|5.*|6.*|7.*|8.*",
+                "phpunit/phpunit": "~7|~8|~9"
             },
             "suggest": {
                 "geoip/geoip": "~1.14",
@@ -5592,26 +5592,26 @@
             ],
             "support": {
                 "issues": "https://github.com/antonioribeiro/firewall/issues",
-                "source": "https://github.com/antonioribeiro/firewall/tree/v2.3.1"
+                "source": "https://github.com/antonioribeiro/firewall/tree/v2.3.2"
             },
-            "time": "2022-03-09T08:14:55+00:00"
+            "time": "2023-02-17T12:06:12+00:00"
         },
         {
             "name": "pragmarx/support",
-            "version": "v0.9.4",
+            "version": "v0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/support.git",
-                "reference": "df3714de795d06e6b68c66f9a8b80bab50f9b6ef"
+                "reference": "397ba74efb8a46a98766cc0b974818d8e89f9444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/support/zipball/df3714de795d06e6b68c66f9a8b80bab50f9b6ef",
-                "reference": "df3714de795d06e6b68c66f9a8b80bab50f9b6ef",
+                "url": "https://api.github.com/repos/antonioribeiro/support/zipball/397ba74efb8a46a98766cc0b974818d8e89f9444",
+                "reference": "397ba74efb8a46a98766cc0b974818d8e89f9444",
                 "shasum": ""
             },
             "require": {
-                "illuminate/filesystem": "~4.0|~5.0|~6.0|~7.0|~8.0|~9.0",
+                "illuminate/filesystem": "~4.0|~5.0|~6.0|~7.0|~8.0|~9.0|~10.0",
                 "php": ">=5.4.0",
                 "symfony/var-dumper": "~2.6|~3.0|~4.0|~5.0|~6.0"
             },
@@ -5651,9 +5651,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antonioribeiro/support/issues",
-                "source": "https://github.com/antonioribeiro/support/tree/v0.9.4"
+                "source": "https://github.com/antonioribeiro/support/tree/v0.9.5"
             },
-            "time": "2022-03-08T18:08:43+00:00"
+            "time": "2023-02-17T12:02:19+00:00"
         },
         {
             "name": "predis/predis",
@@ -9919,27 +9919,27 @@
         },
         {
             "name": "thujohn/twitter",
-            "version": "3.1.15",
+            "version": "3.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/atymic/twitter.git",
-                "reference": "0cfc76c1b049cd85845caa14ade929979b09c8b0"
+                "reference": "2c4140ae65d3a24a158a1926d8dacc75819d1c9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atymic/twitter/zipball/0cfc76c1b049cd85845caa14ade929979b09c8b0",
-                "reference": "0cfc76c1b049cd85845caa14ade929979b09c8b0",
+                "url": "https://api.github.com/repos/atymic/twitter/zipball/2c4140ae65d3a24a158a1926d8dacc75819d1c9d",
+                "reference": "2c4140ae65d3a24a158a1926d8dacc75819d1c9d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.4 || ^7.0",
                 "guzzlehttp/oauth-subscriber": "^0.6",
-                "illuminate/support": "6 - 9",
+                "illuminate/support": "^7.0 || ^8.0 || ^9.0 || ^10.0",
                 "kamermans/guzzle-oauth2-subscriber": "^1.0",
                 "league/oauth2-client": "^2.6",
                 "nesbot/carbon": "^1.2 || ^2.26",
-                "php": "^7.4 || ^8.0",
+                "php": "^8.0",
                 "php-di/php-di": "^6.2",
                 "phpoption/phpoption": "^1.7",
                 "psr/log": "^1.1 || ^2.0 || ^3.0",
@@ -9949,7 +9949,7 @@
             "require-dev": {
                 "orchestra/testbench": "3.8 - 7",
                 "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "^8.3 || ^9.1"
+                "phpunit/phpunit": "^8.3 || ^9.1 || ^10.0"
             },
             "type": "library",
             "extra": {
@@ -9986,13 +9986,11 @@
             "description": "Twitter API for PHP & Laravel",
             "keywords": [
                 "laravel",
-                "laravel5",
-                "laravel6",
                 "twitter"
             ],
             "support": {
                 "issues": "https://github.com/atymic/twitter/issues",
-                "source": "https://github.com/atymic/twitter/tree/3.1.15"
+                "source": "https://github.com/atymic/twitter/tree/3.1.16"
             },
             "funding": [
                 {
@@ -10005,7 +10003,7 @@
                 }
             ],
             "abandoned": "atymic/twitter",
-            "time": "2022-02-13T23:16:47+00:00"
+            "time": "2023-02-15T10:57:24+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -10364,22 +10362,22 @@
         },
         {
             "name": "beyondcode/laravel-dump-server",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beyondcode/laravel-dump-server.git",
-                "reference": "33a19c632655c1d4f16c0bc67ce6ba0504116b8a"
+                "reference": "1f2452617afc64e47b3cf49978beb7beeef084df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beyondcode/laravel-dump-server/zipball/33a19c632655c1d4f16c0bc67ce6ba0504116b8a",
-                "reference": "33a19c632655c1d4f16c0bc67ce6ba0504116b8a",
+                "url": "https://api.github.com/repos/beyondcode/laravel-dump-server/zipball/1f2452617afc64e47b3cf49978beb7beeef084df",
+                "reference": "1f2452617afc64e47b3cf49978beb7beeef084df",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
-                "illuminate/http": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
-                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "illuminate/console": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/http": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
                 "php": ">=7.2.5",
                 "symfony/var-dumper": "^5.0|^6.0"
             },
@@ -10423,9 +10421,9 @@
             ],
             "support": {
                 "issues": "https://github.com/beyondcode/laravel-dump-server/issues",
-                "source": "https://github.com/beyondcode/laravel-dump-server/tree/1.8.0"
+                "source": "https://github.com/beyondcode/laravel-dump-server/tree/1.9.0"
             },
-            "time": "2022-02-12T12:37:34+00:00"
+            "time": "2023-02-15T10:29:26+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -13111,7 +13109,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^8.1"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
