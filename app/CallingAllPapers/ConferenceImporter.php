@@ -6,6 +6,7 @@ use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
 use App\Services\Geocoder;
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,7 +28,11 @@ class ConferenceImporter
             return null;
         }
 
-        return Carbon::createFromFormat(DateTime::ISO8601, $dateFromApi);
+        try {
+            return Carbon::createFromFormat(DateTime::ISO8601, $dateFromApi);
+        } catch (InvalidFormatException $e) {
+            return null;
+        }
     }
 
     public function import(Event $event)
