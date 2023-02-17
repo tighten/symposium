@@ -181,6 +181,29 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
+    public function invalid_dates_are_ignored()
+    {
+        $event = $this->eventStub;
+
+        $event->dateCfpStart = 'invalid';
+        $event->dateCfpEnd = 'invalid';
+        $event->dateEventStart = 'invalid';
+        $event->dateEventEnd = 'invalid';
+
+        $this->mockClient($event);
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertNull($conference->starts_at);
+        $this->assertNull($conference->ends_at);
+        $this->assertNull($conference->cfp_starts_at);
+        $this->assertNull($conference->cfp_ends_at);
+    }
+
+    /** @test */
     public function it_imports_zero_in_latitude_or_longitude_as_null()
     {
         $event = $this->eventStub;
