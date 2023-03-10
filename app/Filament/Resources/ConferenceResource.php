@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\TernaryFilter;
@@ -53,6 +54,7 @@ class ConferenceResource extends Resource
                 TextColumn::make('ends_at')->date()->sortable(),
                 TextColumn::make('cfp_starts_at')->date()->sortable(),
                 TextColumn::make('cfp_ends_at')->date()->sortable(),
+                ToggleColumn::make('is_featured'),
             ])
             ->filters([
                 Filter::make('future')
