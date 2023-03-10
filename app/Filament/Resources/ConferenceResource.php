@@ -13,6 +13,8 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Layout;
+use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class ConferenceResource extends Resource
 {
@@ -58,6 +60,10 @@ class ConferenceResource extends Resource
                     ->default(),
                 Filter::make('featured')
                     ->query(fn ($query) => $query->whereFeatured()),
+                TernaryFilter::make('rejected_at')
+                    ->label('Rejected')
+                    ->nullable()
+                    ->default(0),
             ], Layout::AboveContent)
             ->actions([
                 EditAction::make()
@@ -80,5 +86,13 @@ class ConferenceResource extends Resource
         return [
             'index' => ListConferences::route('/'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                'notRejected',
+            ]);
     }
 }
