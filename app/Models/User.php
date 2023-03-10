@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Creativeorange\Gravatar\Facades\Gravatar;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory;
     use HasApiTokens;
@@ -77,6 +78,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role == self::ADMIN_ROLE;
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->isAdmin();
     }
 
     public function talks()
