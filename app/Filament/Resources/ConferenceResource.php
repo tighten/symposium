@@ -11,6 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\Layout;
 
 class ConferenceResource extends Resource
 {
@@ -51,8 +53,10 @@ class ConferenceResource extends Resource
                 TextColumn::make('cfp_ends_at')->date()->sortable(),
             ])
             ->filters([
-                //
-            ])
+                Filter::make('future')
+                    ->query(fn ($query) => $query->Future())
+                    ->default(),
+            ], Layout::AboveContent)
             ->actions([
                 EditAction::make()
                     ->modalHeading(fn($record) => "Edit {$record->title}"),
