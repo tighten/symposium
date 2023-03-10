@@ -56,6 +56,8 @@ class ConferenceResource extends Resource
                 Filter::make('future')
                     ->query(fn ($query) => $query->Future())
                     ->default(),
+                Filter::make('featured')
+                    ->query(fn ($query) => $query->whereFeatured()),
             ], Layout::AboveContent)
             ->actions([
                 EditAction::make()
