@@ -56,29 +56,6 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Create a Symfony response for the given exception.
-     *
-     * @param \Throwable $e
-     *
-     * @return mixed
-     */
-    protected function convertExceptionToResponse(Throwable $e)
-    {
-        if (config('app.debug')) {
-            $whoops = new \Whoops\Run();
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
-
-            return response()->make(
-                $whoops->handleException($e),
-                method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
-                method_exists($e, 'getHeaders') ? $e->getHeaders() : []
-            );
-        }
-
-        return parent::convertExceptionToResponse($e);
-    }
-
-    /**
      * Convert an authentication exception into an unauthenticated response.
      *
      * @param  \Illuminate\Http\Request  $request
