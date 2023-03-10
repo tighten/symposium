@@ -29,6 +29,7 @@
         "creativeorange/gravatar": "^1.0",
         "doctrine/dbal": "^3.6",
         "erusev/parsedown": "^1.7",
+        "filament/filament": "^2.0",
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
@@ -42,6 +43,7 @@
         "laravelcollective/html": "^6.4",
         "lcobucci/jwt": "^4.3",
         "league/flysystem-aws-s3-v3": "^3.12",
+        "livewire/livewire": "^2.12",
         "pragmarx/firewall": "^2.3",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
@@ -84,7 +86,8 @@
         "post-update-cmd": [
             "@php artisan clear-compiled",
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan cache:clear"
+            "@php artisan cache:clear",
+            "@php artisan filament:upgrade"
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
