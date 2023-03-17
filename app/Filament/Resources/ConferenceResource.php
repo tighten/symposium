@@ -49,7 +49,7 @@ class ConferenceResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->sortable(),
+                TextColumn::make('title')->sortable()->searchable(),
                 TextColumn::make('starts_at')->date()->sortable(),
                 TextColumn::make('ends_at')->date()->sortable(),
                 TextColumn::make('cfp_starts_at')->date()->sortable(),
