@@ -66,7 +66,7 @@ class ConferenceResource extends Resource
                     ->label('Rejected')
                     ->nullable()
                     ->default(0),
-            ], Layout::AboveContent)
+            ])
             ->actions([
                 EditAction::make()
                     ->modalHeading(fn($record) => "Edit {$record->title}"),
