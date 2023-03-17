@@ -23,6 +23,7 @@
     "require": {
         "php": "^8.1",
         "algolia/algoliasearch-client-php": "^3.3",
+        "awcodes/drop-in-action": "^0.2.0",
         "blade-ui-kit/blade-icons": "^1.5",
         "bugsnag/bugsnag-laravel": "^2.25",
         "cknow/laravel-money": "^7.0",

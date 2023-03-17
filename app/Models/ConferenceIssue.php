@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Conference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ConferenceIssue extends Model
 {
@@ -31,7 +32,13 @@ class ConferenceIssue extends Model
 
     public function conference()
     {
-        return $this->belongsTo(Conference::class);
+        return $this->belongsTo(Conference::class)
+            ->withoutGlobalScope(SoftDeletingScope::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeWhereOpen($query)

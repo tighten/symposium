@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "031186dc576f1489e691c1d3ff97e5c5",
+    "content-hash": "e91da9cebe5da485d82a5c089c398036",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -148,6 +148,83 @@
                 "source": "https://github.com/algolia/algoliasearch-client-php/tree/3.3.2"
             },
             "time": "2022-09-22T08:21:13+00:00"
+        },
+        {
+            "name": "awcodes/drop-in-action",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/awcodes/drop-in-action.git",
+                "reference": "6cc71e6fe90c8e55a48c8a258bf67ca948c30857"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/awcodes/drop-in-action/zipball/6cc71e6fe90c8e55a48c8a258bf67ca948c30857",
+                "reference": "6cc71e6fe90c8e55a48c8a258bf67ca948c30857",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^2.0",
+                "illuminate/contracts": "^9.0|^10.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.13.5"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0|^7.0",
+                "orchestra/testbench": "^7.0|^8.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "pestphp/pest-plugin-livewire": "^1.0",
+                "pestphp/pest-plugin-parallel": "^0.3",
+                "phpunit/phpunit": "^9.5|^10.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Awcodes\\DropInAction\\DropInActionServiceProvider"
+                    ],
+                    "aliases": {
+                        "DropInAction": "Awcodes\\DropInAction\\Facades\\DropInAction"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Awcodes\\DropInAction\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "awcodes",
+                    "email": "awcodes1@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A form component for Filamentphp allowing actions inside of forms.",
+            "homepage": "https://github.com/awcodes/drop-in-action",
+            "keywords": [
+                "awcodes",
+                "drop-in-action",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/awcodes/drop-in-action/issues",
+                "source": "https://github.com/awcodes/drop-in-action/tree/v0.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/awcodes",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-16T13:55:01+00:00"
         },
         {
             "name": "aws/aws-crt-php",
