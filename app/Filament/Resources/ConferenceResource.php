@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\ConferenceResource\Pages\EditConference;
 use App\Filament\Resources\ConferenceResource\Pages\ListConferences;
 use App\Models\Conference;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -26,20 +29,17 @@ class ConferenceResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()->columnSpan(1)->schema([
-                    Placeholder::make('description')
-                        ->content(fn($record) => $record->description),
-                ]),
-                Card::make()->columnSpan(1)->schema([
-                    Placeholder::make('Conference Dates')
-                        ->content(function ($record) {
-                            return $record->startsAtDisplay() . ' to ' . $record->endsAtDisplay();
-                        }),
-                    Placeholder::make('CFP Dates')
-                        ->label('CFP dates')
-                        ->content(function ($record) {
-                            return $record->cfpStartsAtDisplay() . ' to ' . $record->cfpEndsAtDisplay();
-                        }),
+                Grid::make(1)->schema([
+                    TextInput::make('title'),
+                    Grid::make()->schema([
+                        DatePicker::make('starts_at'),
+                        DatePicker::make('ends_at'),
+                    ]),
+                    Grid::make()->schema([
+                        DatePicker::make('cfp_starts_at'),
+                        DatePicker::make('cfp_ends_at'),
+                    ]),
+                    Textarea::make('description'),
                 ]),
             ]);
     }
@@ -67,8 +67,7 @@ class ConferenceResource extends Resource
                     ->default(0),
             ])
             ->actions([
-                EditAction::make()
-                    ->modalHeading(fn($record) => "Edit {$record->title}"),
+                EditAction::make(),
             ])
             ->bulkActions([
                 //
@@ -86,6 +85,7 @@ class ConferenceResource extends Resource
     {
         return [
             'index' => ListConferences::route('/'),
+            'edit' => EditConference::route('/{record}'),
         ];
     }
 
