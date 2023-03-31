@@ -84,11 +84,6 @@ Route::middleware('auth')->group(function () {
     Route::post('conferences/{conference}/issues', [ConferenceIssuesController::class, 'store'])
         ->name('conferences.issues.store');
     Route::resource('bios', BiosController::class);
-
-    Route::middleware('admin')->group(function () {
-        Route::post('closed-issues/{issue}', [ClosedIssuesController::class, 'store'])
-            ->name('closed-issues.store');
-    });
 });
 
 Route::get('conferences', [ConferencesController::class, 'index'])->name('conferences.index');

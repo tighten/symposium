@@ -78,46 +78,6 @@ class ConferenceIssuesTest extends TestCase
     }
 
     /** @test */
-    function admins_can_close_issues()
-    {
-        $user = User::factory()->admin()->create();
-        $issue = ConferenceIssue::factory()->create();
-
-        $response = $this->actingAs($user)
-            ->post(route('closed-issues.store', $issue));
-
-        $response->assertRedirect(route('conferences.show', $issue->conference));
-        $this->assertNotNull($issue->fresh()->closed_at);
-    }
-
-    /** @test */
-    function issues_cannot_be_reclosed()
-    {
-        $user = User::factory()->admin()->create();
-        $issue = ConferenceIssue::factory()->closed()->create();
-        $closingDate = Carbon::create($issue->closed_at);
-
-        $response = $this->actingAs($user)
-            ->post(route('closed-issues.store', $issue));
-
-        $response->assertSessionHasErrors('issue');
-        $this->assertEquals((string) $closingDate, $issue->fresh()->closed_at);
-    }
-
-    /** @test */
-    function non_admins_cannot_close_issues()
-    {
-        $user = User::factory()->create();
-        $issue = ConferenceIssue::factory()->create();
-
-        $response = $this->actingAs($user)
-            ->post(route('closed-issues.store', $issue));
-
-        $response->assertNotFound();
-        $this->assertNull($issue->fresh()->closed_at);
-    }
-
-    /** @test */
     function issues_that_have_not_been_closed_are_open()
     {
         $openIssue = ConferenceIssue::factory()->create([
