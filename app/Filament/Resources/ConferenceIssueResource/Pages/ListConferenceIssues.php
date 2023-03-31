@@ -5,7 +5,7 @@ namespace App\Filament\Resources\ConferenceIssueResource\Pages;
 use App\Filament\Resources\ConferenceIssueResource;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManageConferenceIssues extends ManageRecords
+class ListConferenceIssues extends ManageRecords
 {
     protected static string $resource = ConferenceIssueResource::class;
 

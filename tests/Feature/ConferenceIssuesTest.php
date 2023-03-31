@@ -146,4 +146,20 @@ class ConferenceIssuesTest extends TestCase
         $this->assertTrue($openIssue->isOpen());
         $this->assertFalse($closedIssue->isOpen());
     }
+
+    /** @test */
+    function closing_an_issue()
+    {
+        $user = User::factory()->create();
+        $issue = ConferenceIssue::factory()->create();
+        $this->assertTrue($issue->isOpen());
+
+        $issue->close($user, 'This conference is spam');
+
+        tap($issue->fresh(), function ($issue) use ($user) {
+            $this->assertEquals($user->id, $issue->closed_by);
+            $this->assertEquals('This conference is spam', $issue->admin_note);
+            $this->assertNotNull($issue->closed_at);
+        });
+    }
 }

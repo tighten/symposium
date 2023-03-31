@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Conference;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -59,5 +60,14 @@ class ConferenceIssue extends Model
     public function isOpen()
     {
         return ! $this->closed_at;
+    }
+
+    public function close(User $by, $note)
+    {
+        $this->update([
+            'closed_by' => $by->id,
+            'admin_note' => $note,
+            'closed_at' => now(),
+        ]);
     }
 }
