@@ -78,22 +78,6 @@ class ConferenceIssuesTest extends TestCase
     }
 
     /** @test */
-    function only_admins_can_view_conference_issues()
-    {
-        $user = User::factory()->create();
-        $admin = User::factory()->admin()->create();
-        $issue = ConferenceIssue::factory()->create();
-
-        $this->actingAs($admin)
-            ->get(route('conferences.issues.show', $issue))
-            ->assertSuccessful();
-
-        $this->actingAs($user)
-            ->get(route('conferences.issues.show', $issue))
-            ->assertNotFound();
-    }
-
-    /** @test */
     function admins_can_close_issues()
     {
         $user = User::factory()->admin()->create();

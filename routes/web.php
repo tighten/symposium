@@ -86,8 +86,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('bios', BiosController::class);
 
     Route::middleware('admin')->group(function () {
-        Route::get('conference-issues/{issue}', [ConferenceIssuesController::class, 'show'])
-            ->name('conferences.issues.show');
         Route::post('closed-issues/{issue}', [ClosedIssuesController::class, 'store'])
             ->name('closed-issues.store');
     });

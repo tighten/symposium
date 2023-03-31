@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Resources\ConferenceIssueResource;
 use App\Models\Conference;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,7 +55,7 @@ class ConferenceIssue extends Model
 
     public function getLinkAttribute()
     {
-        return route('conferences.issues.show', $this);
+        return ConferenceIssueResource::getUrl('view', $this);
     }
 
     public function isOpen()
