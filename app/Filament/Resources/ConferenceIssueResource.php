@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ConferenceIssueResource\Pages\ManageConferenceIssues;
+use App\Filament\Resources\ConferenceResource;
 use App\Models\ConferenceIssue;
 use Awcodes\DropInAction\Forms\Components\DropInAction;
 use Filament\Forms\Components\Actions\Action;
@@ -10,6 +11,7 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Pages\Actions\Modal\Actions\Action as ModalAction;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -88,7 +90,14 @@ class ConferenceIssueResource extends Resource
                 //
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->extraModalActions(function ($record) {
+                        return [
+                            ModalAction::make('View conference')
+                                ->icon('heroicon-o-arrow-circle-right')
+                                ->url(ConferenceResource::getUrl('edit', [$record->conference])),
+                        ];
+                    }),
             ])
             ->bulkActions([
                 //
