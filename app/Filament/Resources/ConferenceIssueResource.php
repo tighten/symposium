@@ -33,7 +33,7 @@ class ConferenceIssueResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('conference')->columns(2)->schema([
+                Section::make('Conference')->columns(2)->schema([
                     Grid::make()->schema([
                         TextInput::make('name')
                             ->formatStateUsing(fn($record) => $record->conference->title),
@@ -45,7 +45,7 @@ class ConferenceIssueResource extends Resource
                             TextInput::make('url')
                                 ->columnSpan(2)
                                 ->formatStateUsing(fn($record) => $record->conference->url),
-                            DropInAction::make('test')
+                            DropInAction::make('Conference URL')
                                 ->columnSpan(1)
                                 ->disableLabel()
                                 ->execute(function ($record) {
