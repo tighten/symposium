@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\BiosController;
 use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\ClosedIssuesController;
 use App\Http\Controllers\ConferenceIssuesController;
 use App\Http\Controllers\ConferencesController;
 use App\Http\Controllers\DashboardController;

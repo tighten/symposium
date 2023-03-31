@@ -7,7 +7,6 @@ use App\Models\ConferenceIssue;
 use App\Models\User;
 use App\Notifications\ConferenceIssueReported;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
