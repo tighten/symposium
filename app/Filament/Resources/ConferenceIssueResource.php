@@ -113,4 +113,9 @@ class ConferenceIssueResource extends Resource
                 'user',
             ]);
     }
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getEloquentQuery()->count();
+    }
 }
