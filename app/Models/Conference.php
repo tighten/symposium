@@ -344,11 +344,6 @@ class Conference extends UuidBase
         return $this->cfp_ends_at;
     }
 
-    private function hasAnnouncedCallForProposals()
-    {
-        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
-    }
-
     public function getFormattedSpeakerPackageAttribute()
     {
         if (! $this->speaker_package) {
@@ -396,5 +391,10 @@ class Conference extends UuidBase
                 'longitude' => $coordinates->getLongitude(),
             ],
         );
+    }
+
+    private function hasAnnouncedCallForProposals()
+    {
+        return (! is_null($this->cfp_starts_at)) && (! is_null($this->cfp_ends_at));
     }
 }
