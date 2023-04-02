@@ -108,9 +108,7 @@ class ConferenceImporter
     private function geocodeLatLongFromLocation(Conference $conference): Conference
     {
         try {
-            $conference->setCoordinates(
-                $this->geocoder->geocode($conference->location)
-            );
+            $conference->coordinates = $this->geocoder->geocode($conference->location);
         } catch (InvalidAddressGeocodingException $e) {
         }
 

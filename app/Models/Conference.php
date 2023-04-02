@@ -13,6 +13,7 @@ use App\Models\UuidBase;
 use App\Notifications\ConferenceIssueReported;
 use Carbon\Carbon;
 use Cknow\Money\Money;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
@@ -376,12 +377,6 @@ class Conference extends UuidBase
         });
     }
 
-    public function setCoordinates(Coordinates $coordinates)
-    {
-        $this->latitude = $coordinates->getLatitude();
-        $this->longitude = $coordinates->getLongitude();
-    }
-
     public function reportIssue($reason, $note, User $user)
     {
         $issue = $this->issues()->create([
@@ -391,5 +386,15 @@ class Conference extends UuidBase
         ]);
 
         (new TightenSlack())->notify(new ConferenceIssueReported($issue));
+    }
+
+    protected function coordinates(): Attribute
+    {
+        return Attribute::make(
+            set: fn (Coordinates $coordinates) => [
+                'latitude' => $coordinates->getLatitude(),
+                'longitude' => $coordinates->getLongitude(),
+            ],
+        );
     }
 }

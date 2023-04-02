@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class Geocoder
 {
-    public function geocode(string $address)
+    public function geocode(string $address): Coordinates
     {
         if ($this->isInvalidAddress($address)) {
             throw new InvalidAddressGeocodingException();
