@@ -38,7 +38,7 @@ jobs:
                 GITHUB_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
             - name: Integration Tests
-              run: vendor/bin/phpunit tests/integration
+              run: vendor/bin/phpunit ./tests/integration
               env:
                 GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
                 GITHUB_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
