@@ -113,11 +113,16 @@
                 ></x-input.select>
 
                 @foreach ($conference::SPEAKER_PACKAGE_ITEMS as $item)
-                    <x-input.group v-text="symbol">
+                    <x-input.group
+                        :name='"speaker_package[{$item}]"'
+                        :label="str($item)->title()"
+                        v-text="symbol"
+                    >
                         <x-input.text
                             :name='"speaker_package[{$item}]"'
                             :value="data_get($conference, 'speaker_package.' . $item)"
                             :hide-label="true"
+                            rounded-class="rounded-r"
                         ></x-input.text>
                     </x-input.group>
                 @endforeach
