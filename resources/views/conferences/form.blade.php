@@ -115,7 +115,7 @@
                 <x-input.group class="mt-2" v-text="symbol">
                     <x-input.text
                         name="speaker_package[travel]"
-                        value="{{ $package['travel'] ?? 0 }}"
+                        value="{{ old('speaker_package.travel', $package['travel'] ?? 0) }}"
                         :hide-label="true"
                     ></x-input.text>
                 </x-input.group>
@@ -123,7 +123,7 @@
                 <x-input.group class="mt-2" v-text="symbol">
                     <x-input.text
                         name="speaker_package[hotel]"
-                        value="{{ $package['hotel'] ?? 0 }}"
+                        value="{{ old('speaker_package.hotel', $package['hotel'] ?? 0) }}"
                         :hide-label="true"
                     ></x-input.text>
                 </x-input.group>
@@ -131,7 +131,7 @@
                 <x-input.group class="mt-2" v-text="symbol">
                     <x-input.text
                         name="speaker_package[food]"
-                        value="{{ $package['food'] ?? 0 }}"
+                        value="{{ old('speaker_package.food', $package['food'] ?? 0) }}"
                         :hide-label="true"
                     ></x-input.text>
                 </x-input.group>
