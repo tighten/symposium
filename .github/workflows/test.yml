@@ -39,6 +39,7 @@ jobs:
 
             - name: Integration Tests
               run: pwd
+              working-directory: ./tests
               env:
                 GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
                 GITHUB_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
