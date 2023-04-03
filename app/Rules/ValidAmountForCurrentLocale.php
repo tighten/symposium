@@ -23,7 +23,12 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
         $valueHasPunctuation = Str::of($value)->contains([',', '.']);
 
         try {
-            Money::parse($value, $this->data['speaker_package']['currency'], ! $valueHasPunctuation, App::currentLocale())->getAmount();
+            Money::parse(
+                $value,
+                $this->data['speaker_package']['currency'],
+                ! $valueHasPunctuation,
+                App::currentLocale(),
+            )->getAmount();
         } catch (ParserException $e) {
             $fail($this->formatErrorMessage($attribute));
         }
