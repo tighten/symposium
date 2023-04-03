@@ -16,7 +16,8 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
     public function __invoke($attribute, $value, $fail)
     {
         if (! preg_match('/\d+([.,]?\d*)*/', $value)) {
-            $fail($attribute . ' amount is invalid. Please check formatting and try again.');
+            $fail($this->formatErrorMessage($attribute));
+            return;
         }
 
         $valueHasPunctuation = Str::of($value)->contains([',', '.']);
@@ -24,7 +25,7 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
         try {
             Money::parse($value, $this->data['speaker_package']['currency'], ! $valueHasPunctuation, App::currentLocale())->getAmount();
         } catch (ParserException $e) {
-            $fail($attribute . ' amount is invalid. Please check formatting and try again.');
+            $fail($this->formatErrorMessage($attribute));
         }
     }
 
@@ -33,5 +34,14 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
         $this->data = $data;
 
         return $this;
+    }
+
+    private function formatErrorMessage($attribute)
+    {
+        return str('{attribute} amount is invalid. Please update formatting and try again.')
+            ->replace(
+                '{attribute}',
+                str($attribute)->replace('.', '_')->headline(),
+            );
     }
 }
