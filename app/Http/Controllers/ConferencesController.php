@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Casts\SpeakerPackage;
 use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
@@ -224,10 +225,10 @@ class ConferencesController extends Controller
         ];
 
         // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-        foreach (['travel', 'food', 'hotel'] as $item) {
-            $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
+        foreach (SpeakerPackage::CATEGORIES as $category) {
+            $itemHasPunctuation = Str::of($package[$category])->contains([',', '.']);
 
-            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
+            $speakerPackage[$category] = Money::parse($package[$category], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
         }
 
         return $speakerPackage;
