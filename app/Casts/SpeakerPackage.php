@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Casts;
 
 use Cknow\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\Castable;
@@ -10,6 +10,12 @@ use Illuminate\Support\Arr;
 
 class SpeakerPackage implements Arrayable, Castable
 {
+    public const CATEGORIES = [
+        'travel',
+        'hotel',
+        'food',
+    ];
+
     private $categories;
 
     private $currency;

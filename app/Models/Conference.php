@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Coordinates;
+use App\Casts\SpeakerPackage;
 use App\Casts\Url;
 use App\Models\Acceptance;
 use App\Models\ConferenceIssue;
@@ -21,12 +22,6 @@ class Conference extends UuidBase
 {
     use HasFactory;
     use SoftDeletes;
-
-    public const SPEAKER_PACKAGE_ITEMS = [
-        'travel',
-        'hotel',
-        'food',
-    ];
 
     protected $table = 'conferences';
 

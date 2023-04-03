@@ -112,15 +112,15 @@
                     v-model="form.selectedCurrency"
                 ></x-input.select>
 
-                @foreach ($conference::SPEAKER_PACKAGE_ITEMS as $item)
+                @foreach (App\Casts\SpeakerPackage::CATEGORIES as $category)
                     <x-input.group
-                        :name='"speaker_package[{$item}]"'
-                        :label="str($item)->title()"
+                        :name='"speaker_package[{$category}]"'
+                        :label="str($category)->title()"
                         v-text="symbol"
                     >
                         <x-input.text
-                            :name='"speaker_package[{$item}]"'
-                            :value="data_get($conference, 'speaker_package.' . $item)"
+                            :name='"speaker_package[{$category}]"'
+                            :value="data_get($conference, 'speaker_package.' . $category)"
                             :hide-label="true"
                             rounded-class="rounded-r"
                         ></x-input.text>
