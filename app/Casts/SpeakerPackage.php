@@ -11,9 +11,9 @@ use Illuminate\Support\Arr;
 class SpeakerPackage implements Arrayable, Castable
 {
     public const CATEGORIES = [
-        'travel',
-        'hotel',
         'food',
+        'hotel',
+        'travel',
     ];
 
     private $categories;
