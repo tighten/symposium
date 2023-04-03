@@ -22,6 +22,12 @@ class Conference extends UuidBase
     use HasFactory;
     use SoftDeletes;
 
+    public const SPEAKER_PACKAGE_ITEMS = [
+        'travel',
+        'hotel',
+        'food',
+    ];
+
     protected $table = 'conferences';
 
     protected $guarded = [

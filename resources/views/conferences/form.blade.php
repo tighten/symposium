@@ -100,7 +100,7 @@
         initial-currency="{{ $conference->speaker_package->currency ?? 'USD' }}"
     >
         <template #default="{symbol, form}">
-            <div class="w-full md:w-1/3">
+            <div class="w-full md:w-1/3 space-y-4">
                 <x-input.select
                     name="speaker_package[currency]"
                     label="Currency"
@@ -112,29 +112,15 @@
                     v-model="form.selectedCurrency"
                 ></x-input.select>
 
-                <x-input.group class="mt-2" v-text="symbol">
-                    <x-input.text
-                        name="speaker_package[travel]"
-                        value="{{ old('speaker_package.travel', $package['travel'] ?? 0) }}"
-                        :hide-label="true"
-                    ></x-input.text>
-                </x-input.group>
-
-                <x-input.group class="mt-2" v-text="symbol">
-                    <x-input.text
-                        name="speaker_package[hotel]"
-                        value="{{ old('speaker_package.hotel', $package['hotel'] ?? 0) }}"
-                        :hide-label="true"
-                    ></x-input.text>
-                </x-input.group>
-
-                <x-input.group class="mt-2" v-text="symbol">
-                    <x-input.text
-                        name="speaker_package[food]"
-                        value="{{ old('speaker_package.food', $package['food'] ?? 0) }}"
-                        :hide-label="true"
-                    ></x-input.text>
-                </x-input.group>
+                @foreach ($conference::SPEAKER_PACKAGE_ITEMS as $item)
+                    <x-input.group v-text="symbol">
+                        <x-input.text
+                            :name='"speaker_package[{$item}]"'
+                            :value="data_get($conference, 'speaker_package.' . $item)"
+                            :hide-label="true"
+                        ></x-input.text>
+                    </x-input.group>
+                @endforeach
             </div>
         </template>
     </currency-selection>
