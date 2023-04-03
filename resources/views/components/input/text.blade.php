@@ -16,10 +16,14 @@
         {{ $label }}
     </label>
 
+    @php
+        $valueName = str($name)->replace('[', '.')->replace(']', '');
+    @endphp
+
     <input
         name="{{ $name }}"
         type="{{ $type }}"
-        value="{{ old($name, $value) }}"
+        value="{{ old((string) $valueName, $value) }}"
         {{ $attributes->except('class') }}
         class="
             bg-white border-form-200 form-input placeholder-form-400 rounded
