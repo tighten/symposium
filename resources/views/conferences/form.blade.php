@@ -120,7 +120,7 @@
                     >
                         <x-input.text
                             :name='"speaker_package[{$category}]"'
-                            :value="data_get($conference, 'speaker_package.' . $category)"
+                            :value="$conference->speaker_package->toDecimal($category)"
                             :hide-label="true"
                             rounded-class="rounded-r"
                         ></x-input.text>

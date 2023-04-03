@@ -122,7 +122,6 @@ class ConferencesController extends Controller
         return view('conferences.edit', [
             'conference' => $conference,
             'currencies' => Currency::all(),
-            'package' => $conference->speaker_package->toDecimal(),
         ]);
     }
 

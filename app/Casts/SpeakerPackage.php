@@ -59,16 +59,20 @@ class SpeakerPackage implements Arrayable, Castable
         });
     }
 
-    public function toDecimal()
+    public function toDecimal($category)
     {
-        if (! $this->currency) {
-            return collect();
+        if (! $this->currency || ! array_key_exists($category, $this->categories)) {
+            return;
         };
 
-        return collect($this->categories)->map(function ($item) {
+        return with($this->categories[$category], function ($amount) {
+            if (! $amount > 0) {
+                return;
+            }
+
             $currency = $this->currency;
 
-            return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
+            return Money::$currency($amount)->formatByDecimal();
         });
     }
 
