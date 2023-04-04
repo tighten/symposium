@@ -5,9 +5,7 @@ namespace Tests\Feature;
 use App\Casts\SpeakerPackage;
 use App\Models\Conference;
 use App\Models\User;
-use Cknow\Money\Money;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class SpeakerPackageTest extends TestCase
@@ -223,19 +221,10 @@ class SpeakerPackageTest extends TestCase
 
     private function assertDatabaseHasSpeakerPackage($package)
     {
-        $speakerPackage = [
-            'currency' => $package['currency'],
-        ];
-
-        // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-        foreach (SpeakerPackage::CATEGORIES as $item) {
-            $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
-
-            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
-        }
-
         $this->assertDatabaseHas(Conference::class, [
-            'speaker_package' => json_encode($speakerPackage),
+            'speaker_package' => json_encode(
+                (new SpeakerPackage($package))->toDatabase()
+            ),
         ]);
     }
 }

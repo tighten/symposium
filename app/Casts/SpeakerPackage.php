@@ -41,18 +41,7 @@ class SpeakerPackage implements Arrayable, Castable
 
             public function set($model, $key, $value, $attributes)
             {
-                $speakerPackage = [
-                    'currency' => $value->currency,
-                ];
-
-                // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-                foreach (SpeakerPackage::CATEGORIES as $category) {
-                    $itemHasPunctuation = Str::of($value->$category)->contains([',', '.']);
-
-                    $speakerPackage[$category] = Money::parse($value->$category, $value->currency, ! $itemHasPunctuation, App::currentLocale())->getAmount();
-                }
-
-                return json_encode($speakerPackage);
+                return json_encode($value->toDatabase());
             }
         };
     }
@@ -93,12 +82,28 @@ class SpeakerPackage implements Arrayable, Castable
             return [];
         };
 
-        return array_merge($this->categories, ['currency' => $this->currency]);
+        return array_merge(['currency' => $this->currency], $this->categories);
     }
 
     public function count()
     {
         return count($this->categories);
+    }
+
+    public function toDatabase()
+    {
+        $speakerPackage = [
+            'currency' => $this->currency,
+        ];
+
+        // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
+        foreach (SpeakerPackage::CATEGORIES as $category) {
+            $itemHasPunctuation = Str::of($this->$category)->contains([',', '.']);
+
+            $speakerPackage[$category] = Money::parse($this->$category, $this->currency, ! $itemHasPunctuation, App::currentLocale())->getAmount();
+        }
+
+        return $speakerPackage;
     }
 
     public function __get($value)
