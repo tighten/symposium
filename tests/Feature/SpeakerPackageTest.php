@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Casts\SpeakerPackage;
 use App\Models\Conference;
 use App\Models\User;
 use Cknow\Money\Money;
@@ -225,7 +226,7 @@ class SpeakerPackageTest extends TestCase
         ];
 
         // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-        foreach (['travel', 'food', 'hotel'] as $item) {
+        foreach (SpeakerPackage::CATEGORIES as $item) {
             $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
 
             $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
