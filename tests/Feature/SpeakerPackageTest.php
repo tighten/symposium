@@ -95,6 +95,26 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
+    public function speaker_package_can_be_removed()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()
+            ->author($user)
+            ->withSpeakerPackage()
+            ->create();
+
+        $this->actingAs($user)
+            ->put("/conferences/{$conference->id}", array_merge($conference->toArray(), [
+                'speaker_package' => [],
+            ]));
+
+        tap($conference->fresh(), function ($conference) {
+            $this->assertNull($conference->speaker_package->currency);
+            $this->assertEquals(0, $conference->speaker_package->count());
+        });
+    }
+
+    /** @test */
     public function decimal_values_are_stored_as_whole_numbers()
     {
         $user = User::factory()->create();

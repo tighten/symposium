@@ -41,6 +41,10 @@ class SpeakerPackage implements Arrayable, Castable
 
             public function set($model, $key, $value, $attributes)
             {
+                if (! $value) {
+                    return null;
+                }
+
                 return json_encode($value->toDatabase());
             }
         };
