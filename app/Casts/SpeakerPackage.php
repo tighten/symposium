@@ -7,6 +7,8 @@ use Illuminate\Contracts\Database\Eloquent\Castable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 
 class SpeakerPackage implements Arrayable, Castable
 {
@@ -22,8 +24,6 @@ class SpeakerPackage implements Arrayable, Castable
 
     public function __construct($package)
     {
-        $package = json_decode($package, true) ?? [];
-
         $this->categories = Arr::except($package, ['currency']);
         $this->currency = $package['currency'] ?? null;
     }
@@ -35,13 +35,24 @@ class SpeakerPackage implements Arrayable, Castable
             public function get($model, $key, $value, $attributes)
             {
                 return new SpeakerPackage(
-                    $value,
+                    json_decode($value, true) ?? [],
                 );
             }
 
             public function set($model, $key, $value, $attributes)
             {
-                return json_encode($value);
+                $speakerPackage = [
+                    'currency' => $value->currency,
+                ];
+
+                // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
+                foreach (SpeakerPackage::CATEGORIES as $category) {
+                    $itemHasPunctuation = Str::of($value->$category)->contains([',', '.']);
+
+                    $speakerPackage[$category] = Money::parse($value->$category, $value->currency, ! $itemHasPunctuation, App::currentLocale())->getAmount();
+                }
+
+                return json_encode($speakerPackage);
             }
         };
     }

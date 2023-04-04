@@ -23,13 +23,15 @@ class SpeakerPackageTest extends TestCase
             'hotel' => 10,
         ];
 
-        $this->actingAs($user)
+        $this->followingRedirects()
+            ->actingAs($user)
             ->post('conferences', [
                 'title' => 'Das Conf',
                 'description' => 'A very good conference about things',
                 'url' => 'http://dasconf.org',
                 'speaker_package' => $speakerPackage,
-            ]);
+            ])
+            ->assertSuccessful();
 
         $this->assertDatabaseHasSpeakerPackage($speakerPackage);
     }

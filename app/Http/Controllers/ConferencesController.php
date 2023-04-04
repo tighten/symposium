@@ -7,13 +7,10 @@ use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
-use Cknow\Money\Money;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class ConferencesController extends Controller
 {
@@ -75,7 +72,7 @@ class ConferencesController extends Controller
     {
         $conference = Conference::create(array_merge($request->validated(), [
             'author_id' => auth()->user()->id,
-            'speaker_package' => $request->speaker_package ? $this->formatSpeakerPackage($request->safe()->speaker_package) : null,
+            'speaker_package' => new SpeakerPackage($request->speaker_package ? $request->safe()->speaker_package : null),
         ]));
 
         Event::dispatch('new-conference', [$conference]);
@@ -138,11 +135,12 @@ class ConferencesController extends Controller
         }
 
         // Save
-        $conference->fill($request->validated());
-
-        if ($request->speaker_package) {
-            $conference->speaker_package = $this->formatSpeakerPackage($request->safe()->speaker_package);
-        }
+        $conference->fill(array_merge(
+            $request->validated(),
+            [
+                'speaker_package' => new SpeakerPackage($request->safe()->speaker_package),
+            ],
+        ));
 
         if (auth()->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');
@@ -216,21 +214,5 @@ class ConferencesController extends Controller
         return view('conferences.showPublic', [
             'conference' => $conference,
         ]);
-    }
-
-    private function formatSpeakerPackage($package)
-    {
-        $speakerPackage = [
-            'currency' => $package['currency'],
-        ];
-
-        // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-        foreach (SpeakerPackage::CATEGORIES as $category) {
-            $itemHasPunctuation = Str::of($package[$category])->contains([',', '.']);
-
-            $speakerPackage[$category] = Money::parse($package[$category], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
-        }
-
-        return $speakerPackage;
     }
 }
