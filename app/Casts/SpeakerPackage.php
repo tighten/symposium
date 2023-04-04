@@ -96,11 +96,17 @@ class SpeakerPackage implements Arrayable, Castable
             'currency' => $this->currency,
         ];
 
-        // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
+        // Since users have the ability to enter punctuation or not,
+        // then we want to use the appropriate parser
         foreach (SpeakerPackage::CATEGORIES as $category) {
             $itemHasPunctuation = Str::of($this->$category)->contains([',', '.']);
 
-            $speakerPackage[$category] = Money::parse($this->$category, $this->currency, ! $itemHasPunctuation, App::currentLocale())->getAmount();
+            $speakerPackage[$category] = Money::parse(
+                $this->$category,
+                $this->currency,
+                ! $itemHasPunctuation,
+                App::currentLocale()
+            )->getAmount();
         }
 
         return $speakerPackage;
