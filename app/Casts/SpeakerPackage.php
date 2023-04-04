@@ -104,13 +104,16 @@ class SpeakerPackage implements Arrayable, Castable
         // then we want to use the appropriate parser
         foreach (SpeakerPackage::CATEGORIES as $category) {
             $itemHasPunctuation = Str::of($this->$category)->contains([',', '.']);
-
-            $speakerPackage[$category] = Money::parse(
+            $amount = Money::parse(
                 $this->$category,
                 $this->currency,
                 ! $itemHasPunctuation,
-                App::currentLocale()
+                App::currentLocale(),
             )->getAmount();
+
+            if ($amount > 0) {
+                $speakerPackage[$category] = $amount;
+            }
         }
 
         return $speakerPackage;
