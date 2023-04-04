@@ -46,18 +46,15 @@ class SaveConferenceRequest extends FormRequest
                     $fail($attribute . ' must be a valid currency type.');
                 };
             },
-            'speaker_package.travel' => [
-                'nullable',
-                new ValidAmountForCurrentLocale(),
-            ],
-            'speaker_package.food' => [
-                'nullable',
-                new ValidAmountForCurrentLocale(),
-            ],
-            'speaker_package.hotel' => [
-                'nullable',
-                new ValidAmountForCurrentLocale(),
-            ],
+            ...collect(SpeakerPackage::CATEGORIES)
+                ->mapWithKeys(function ($category) {
+                    return [
+                        "speaker_package.{$category}" => [
+                            'nullable',
+                            new ValidAmountForCurrentLocale(),
+                        ],
+                    ];
+                }),
         ];
     }
 
