@@ -22,7 +22,7 @@ class SpeakerPackage implements Arrayable, Castable
 
     private $currency;
 
-    public function __construct($package)
+    public function __construct(array $package)
     {
         $this->categories = Arr::except($package, ['currency']);
         $this->currency = $package['currency'] ?? null;

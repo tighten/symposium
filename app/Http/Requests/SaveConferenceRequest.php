@@ -66,7 +66,7 @@ class SaveConferenceRequest extends FormRequest
     private function withSpeakerPackage()
     {
         $speakerPackage = new SpeakerPackage(
-            parent::validated('speaker_package'),
+            parent::validated('speaker_package') ?? [],
         );
 
         return array_merge($this->validator->validated(), [
