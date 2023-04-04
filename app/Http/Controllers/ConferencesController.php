@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Casts\SpeakerPackage;
 use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
@@ -72,7 +71,6 @@ class ConferencesController extends Controller
     {
         $conference = Conference::create(array_merge($request->validated(), [
             'author_id' => auth()->user()->id,
-            'speaker_package' => new SpeakerPackage($request->speaker_package ? $request->safe()->speaker_package : null),
         ]));
 
         Event::dispatch('new-conference', [$conference]);
@@ -134,13 +132,7 @@ class ConferencesController extends Controller
             return redirect('/');
         }
 
-        // Save
-        $conference->fill(array_merge(
-            $request->validated(),
-            [
-                'speaker_package' => new SpeakerPackage($request->safe()->speaker_package),
-            ],
-        ));
+        $conference->fill($request->validated());
 
         if (auth()->user()->isAdmin()) {
             $conference->is_shared = $request->input('is_shared');

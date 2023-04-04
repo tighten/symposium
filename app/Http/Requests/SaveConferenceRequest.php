@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Casts\SpeakerPackage;
 use App\Rules\ValidAmountForCurrentLocale;
 use Cknow\Money\Money;
 use Illuminate\Foundation\Http\FormRequest;
@@ -58,5 +59,19 @@ class SaveConferenceRequest extends FormRequest
                 new ValidAmountForCurrentLocale(),
             ],
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        return data_get($this->withSpeakerPackage(), $key, $default);
+    }
+
+    private function withSpeakerPackage()
+    {
+        return array_merge($this->validator->validated(), [
+            'speaker_package' => new SpeakerPackage(
+                parent::validated('speaker_package'),
+            ),
+        ]);
     }
 }
