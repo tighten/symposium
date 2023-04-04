@@ -31,7 +31,11 @@ class SpeakerPackageTest extends TestCase
             ])
             ->assertSuccessful();
 
-        $this->assertDatabaseHasSpeakerPackage($speakerPackage);
+        $this->assertDatabaseHasSpeakerPackage($speakerPackage, [
+            'title' => 'Das Conf',
+            'description' => 'A very good conference about things',
+            'url' => 'http://dasconf.org',
+        ]);
     }
 
     /** @test */
@@ -59,7 +63,10 @@ class SpeakerPackageTest extends TestCase
                 'speaker_package' => $speakerPackage,
             ]));
 
-        $this->assertDatabaseHasSpeakerPackage($speakerPackage);
+        $this->assertDatabaseHasSpeakerPackage($speakerPackage, [
+            'title' => 'My updated conference',
+            'description' => 'Conference has been changed a bit.',
+        ]);
     }
 
     /** @test */
@@ -219,12 +226,12 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    private function assertDatabaseHasSpeakerPackage($package)
+    private function assertDatabaseHasSpeakerPackage($package, $data = [])
     {
-        $this->assertDatabaseHas(Conference::class, [
+        $this->assertDatabaseHas(Conference::class, array_merge($data, [
             'speaker_package' => json_encode(
                 (new SpeakerPackage($package))->toDatabase()
             ),
-        ]);
+        ]));
     }
 }
