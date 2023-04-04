@@ -1,10 +1,16 @@
+@props([
+    'name' => null,
+    'label' => null,
+    'labelClass' => null,
+])
+
 <div
     {{ $attributes->except('v-text')->class('flex items-center') }}
 >
     @if (isset($name) && isset($label))
         <label
             for="{{ $name }}"
-            class="font-extrabold text-indigo-900 mr-2"
+            class="font-extrabold text-indigo-900 mr-2 {{ $labelClass }}"
         >
             {{ $label }}
         </label>

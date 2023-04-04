@@ -104,6 +104,7 @@
                 <x-input.select
                     name="speaker_package[currency]"
                     label="Currency"
+                    label-class="w-20 text-right"
                     :options="$currencies"
                     option-text="code"
                     option-value="code"
@@ -116,6 +117,7 @@
                     <x-input.group
                         :name='"speaker_package[{$category}]"'
                         :label="str($category)->title()"
+                        label-class="w-20 text-right"
                         v-text="symbol"
                     >
                         <x-input.text
