@@ -3,10 +3,6 @@
         <slot
             :show-nav="showNav"
             :toggleNav="toggleNav"
-            :show-account-dropdown="showAccountDropdown"
-            :toggle-account-dropdown="toggleAccountDropdown"
-            :show-sign-in-dropdown="showSignInDropdown"
-            :toggle-sign-in-dropdown="toggleSignInDropdown"
         ></slot>
     </header>
 </template>
@@ -19,8 +15,6 @@
                 if (e.target === this.$el || this.$el.contains(e.target)) {
                     return
                 }
-                this.showSignInDropdown = false;
-                this.showAccountDropdown = false;
             }
             document.addEventListener('click', listener);
             this.$once('hook:beforeDestroy', () => {
@@ -30,8 +24,6 @@
         data() {
             return {
                 showNav: false,
-                showAccountDropdown: false,
-                showSignInDropdown: false,
             };
         },
         methods: {
@@ -44,12 +36,6 @@
                 } else {
                     menuBtn.classList.remove('isActive');
                 }
-            },
-            toggleAccountDropdown() {
-                this.showAccountDropdown = !this.showAccountDropdown;
-            },
-            toggleSignInDropdown() {
-                this.showSignInDropdown = !this.showSignInDropdown;
             },
         },
     }

@@ -53,6 +53,11 @@ Vue.component(
 );
 
 Vue.component(
+    'MenuToggle',
+    require('./components/MenuToggle.vue').default
+);
+
+Vue.component(
     'ModalToggle',
     require('./components/ModalToggle.vue').default
 );
