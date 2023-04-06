@@ -1,9 +1,9 @@
 .mobileMenuBtn {
-    @apply relative flex justify-center items-center w-16 h-16;
+    @apply relative flex justify-center items-center p-4;
 }
 
 .mobileMenuBtn:before, .mobileMenuBtn:after {
-    @apply absolute block w-6 h-0.5 bg-indigo-800 transition duration-75 ease-in-out;
+    @apply absolute block w-6 h-0.5 bg-white transition duration-75 ease-in-out;
     content: '';
 }
 
