@@ -38,11 +38,6 @@ Vue.component(
 );
 
 Vue.component(
-    'main-header',
-    require('./components/MainHeader.vue').default
-);
-
-Vue.component(
     'conference-calendar',
     require('./components/ConferenceCalendar.vue').default
 );
