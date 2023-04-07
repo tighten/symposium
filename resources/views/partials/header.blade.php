@@ -2,15 +2,15 @@
 <header class="bg-indigo-600">
     <nav class="max-w-xl h-16 px-2 sm:px-0 mx-auto sm:max-w-7xl flex items-center justify-between">
         <menu-toggle>
-            <div slot-scope="slotProps" class="flex items-center justify-between">
+            <div slot-scope="{show, toggle}" class="flex items-center justify-between">
                 <div
                     class="bg-indigo-600 block gap-4 text-sm text-white lg:flex lg:items-center"
-                    :class="slotProps.show ? 'absolute w-full top-4' : ''"
+                    :class="show ? 'absolute w-full top-4' : ''"
                 >
                     <a
                         href="{{ auth()->check() ? route('dashboard') : url('/') }}"
                         class="block px-4"
-                        :class="slotProps.show ? 'pb-4' : ''"
+                        :class="show ? 'pb-4' : ''"
                     >
                         @svg('logo')
                     </a>

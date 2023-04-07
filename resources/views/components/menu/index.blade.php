@@ -1,15 +1,15 @@
 <div class="relative">
     <menu-toggle>
-        <div slot-scope="slotProps">
+        <div slot-scope="{show, toggle}">
             <button
-                v-on:click="slotProps.toggle"
+                v-on:click="toggle"
                 {{ $trigger->attributes }}
             >
                 {{ $trigger }}
             </button>
             <div
                 class="bg-white border border-indigo-600 flex flex-col py-1 mt-6 right-0 rounded text-indigo-600 z-50"
-                :class="slotProps.show ? 'absolute' : 'hidden'"
+                :class="show ? 'absolute' : 'hidden'"
             >
                 {{ $items }}
             </div>
