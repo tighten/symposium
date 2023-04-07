@@ -20,10 +20,20 @@
                         <x-nav-item route="conferences.index">Conferences</x-nav-item>
                         <x-nav-item route="calendar.index">Calendar</x-nav-item>
                         <x-nav-item route="talks.index">Talks</x-nav-item>
+                        <x-mobile-nav-item route="account.show">Account</x-mobile-nav-item>
+                        <x-mobile-nav-item
+                            url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
+                            :show="auth()->user()->enable_profile"
+                        >
+                            Public Speaker Profile
+                        </x-mobile-nav-item>
+                        <x-mobile-nav-item route="log-out">Log out</x-mobile-nav-item>
                     @else
                         <x-nav-item route="what-is-this">How it Works</x-nav-item>
                         <x-nav-item route="speakers-public.index">Our speakers</x-nav-item>
                         <x-nav-item route="conferences.index">Conferences</x-nav-item>
+                        <x-mobile-nav-item route="login">Sign in with email</x-mobile-nav-item>
+                        <x-mobile-nav-item url="login/github">Sign in with GitHub</x-mobile-nav-item>
                     @endif
                 </div>
                 <x-button.mobile-nav/>
@@ -31,10 +41,10 @@
         </menu-toggle>
 
         @if (auth()->guest())
-            <x-menu>
+            <x-menu class="mr-4">
                 <x-slot
                     name="trigger"
-                    class="bg-indigo-700 border border-white px-3 py-2 rounded text-sm text-white"
+                    class="hidden lg:block bg-indigo-700 border border-white px-3 py-2 rounded text-sm text-white"
                 >
                     Sign in
                 </x-slot>
@@ -44,8 +54,8 @@
                 </x-slot>
             </x-menu>
         @else
-            <x-menu>
-                <x-slot name="trigger" class="pr-4">
+            <x-menu class="mr-4">
+                <x-slot name="trigger">
                     <img
                         src="{{ auth()->user()->profile_picture_thumb }}"
                         class="hidden inline rounded-full w-8 lg:block"

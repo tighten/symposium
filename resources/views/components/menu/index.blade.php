@@ -1,4 +1,4 @@
-<div class="relative">
+<div {{ $attributes->merge(['class' => 'relative']) }}>
     <menu-toggle>
         <div slot-scope="{show, toggle}">
             <button
