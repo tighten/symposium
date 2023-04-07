@@ -4,7 +4,10 @@
 
 <a
     href="{{ route($route) }}"
-    :class="show ? 'block py-4' : 'hidden lg:block py-2'"
+    :class="{
+        'block py-4': show,
+        'hidden lg:block py-2': !show,
+    }"
     class="px-3 rounded hover:underline
     @if (request()->isContainedBy($route)) bg-indigo-700 @endif"
 >
