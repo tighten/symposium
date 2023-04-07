@@ -1,6 +1,6 @@
 @include('partials.flash-messages')
 <header class="bg-indigo-600">
-    <nav class="max-w-xl h-16 px-2 sm:px-0 mx-auto sm:max-w-7xl flex items-center justify-between">
+    <nav class="flex h-16 items-center justify-between mx-auto w-full sm:max-w-7xl">
         <menu-toggle>
             <div slot-scope="{show, toggle}" class="flex items-center justify-between">
                 <div
