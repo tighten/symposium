@@ -34,6 +34,7 @@ module.exports = {
                 500: '#9B9B9B',
                 600: '#828080',
                 700: '#4a5568',
+                900: '#111827',
             },
             red: {
                 500: '#f56565',
@@ -57,7 +58,7 @@ module.exports = {
         },
         fontFamily: {
             sans: [
-                'Work Sans',
+                'Inter var',
                 ...defaultTheme.fontFamily.sans,
             ],
         },

@@ -75,14 +75,3 @@
         @endif
     </nav>
 </header>
-
-@if ($title)
-    @php
-        $app_header = $is_conferences ? 'sm:max-w-5xl' : 'sm:max-w-3xl'
-    @endphp
-    <div class="max-w-md mx-auto mt-3 border-t border-gray-300 sm:max-w-6xl">
-        <div class="mx-auto {{ $app_header }}">
-            <h2 class="mt-3 font-sans text-2xl text-black">{{ $title }}</h2>
-        </div>
-    </div>
-@endif
