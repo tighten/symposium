@@ -254,7 +254,7 @@ class Conference extends UuidBase
         }
 
         if (! $this->ends_at || $this->starts_at->isSameDay($this->ends_at)) {
-            return $this->starts_at->format('M j Y');
+            return $this->starts_at->format('F j, Y');
         }
 
         return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');

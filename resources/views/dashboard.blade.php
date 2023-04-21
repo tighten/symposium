@@ -20,52 +20,48 @@
 @endsection
 
 @section('list')
-    <x-panel size="md" title="Talks">
-        <x-slot name="actions">
-            <a href="{{ route('talks.create') }}" class="flex items-center text-indigo-800 hover:text-indigo-500">
-                @svg('plus', 'w-3 fill-current inline')
-                <span class="ml-1">Add Talk</span>
-            </a>
-        </x-slot>
-        <div class="-mb-4">
-            @forelse ($talks as $talk)
-                <div class="flex flex-row content-center justify-between px-4 py-2 -mx-4 bg-indigo-100 border-b last:border-b-0">
-                    <div>
-                        <h3 class="font-sans text-lg font-semibold hover:text-indigo-500">
-                            <a href="{{ route('talks.show', $talk) }}">
-                                {{ $talk->current()->title }}
-                            </a>
-                        </h3>
-                        <p>
-                            {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
-                        </p>
-                    </div>
-                </div>
-            @empty
-                <p class="pb-4">No Talks</p>
-            @endforelse
-        </div>
-    </x-panel>
-
-    <x-panel size="md" title="Bios">
-        <x-slot name="actions">
-            <a href="{{ route('bios.create') }}" class="flex items-center text-indigo-800 hover:text-indigo-500">
-                @svg('plus', 'w-3 fill-current inline')
-                <span class="ml-1">Add Bio</span>
-            </a>
-        </x-slot>
-        <div class="-mb-4">
-            @forelse ($bios as $bio)
-                <div class="px-4 py-2 -mx-4 bg-indigo-100 border-b last:border-b-0">
-                    <h3 class="font-sans text-lg font-semibold hover:text-indigo-500">
-                        <a href="{{ route('bios.show', $bio) }}">
-                            {{ $bio->nickname }}
+    <x-panel size="md" title="Stared Conferences">
+        @forelse ($conferences as $conference)
+            <div class="border-b p-6 last:border-b-0">
+                <div class="flex justify-between">
+                    <h3 class="flex-1 font-semibold text-indigo-600">
+                        <a href="{{ route('conferences.show', $conference) }}">
+                            {{ $conference->title }}
                         </a>
                     </h3>
+                    @if ($conference->appliedTo())
+                        <div class="flex-1 text-right">
+                            <x-tag.success>Subitted</x-tag.success>
+                        </div>
+                    @endif
                 </div>
-            @empty
-                <p class="pb-4">No Talks</p>
-            @endforelse
-        </div>
+                <div class="flex justify-between mt-4">
+                    <div class="space-y-3">
+                        <span class="text-gray-500 text-sm flex">
+                            @svg('user-group', 'inline w-4 mr-1')
+                            {{ $conference->event_dates_display }}
+                        </span>
+                        <span class="text-gray-500 text-sm flex">
+                            @svg('map-pin', 'inline w-4 mr-1')
+                            {{ $conference->location }}
+                        </span>
+                    </div>
+                    <div class="space-y-3">
+                        @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
+                            <span class="text-gray-500 text-sm flex">
+                                @svg('calendar', 'inline w-4 mr-1')
+                                Opens {{ $conference->cfp_starts_at->toFormattedDateString() }}
+                            </span>
+                            <span class="text-gray-500 text-sm flex">
+                                @svg('calendar', 'inline w-4 mr-1')
+                                Closes {{ $conference->cfp_ends_at->toFormattedDateString() }}
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        @empty
+            <p class="pb-4">No favorited conferences</p>
+        @endforelse
     </x-panel>
 @endsection

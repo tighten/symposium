@@ -6,21 +6,21 @@
 @php
     $styles = [
         'sm' => 'p-0',
-        'md' => 'p-4',
+        'md' => 'p-0',
         'lg' => 'p-10 max-w-md mx-auto sm:max-w-3xl',
     ];
 @endphp
 
 <div
-    {{ $attributes->merge([
-        'class' => "shadow-md bg-white rounded",
-    ]) }}
+    {{ $attributes }}
 >
     <div class="{{ $styles[$size] }}">
         @isset ($title)
             <div class="flex content-center justify-between pb-4">
                 <div>
-                    <h2 class="font-sans text-xl text-gray-500 uppercase">{{ $title }}</h2>
+                    <h2 class="font-sans text-xl text-gray-900">
+                        {{ $title }}
+                    </h2>
 
                     @isset ($subtitle)
                         {{ $subtitle }}
@@ -32,6 +32,9 @@
                 @endisset
             </div>
         @endisset
+    </div>
+
+    <div class="bg-white rounded shadow">
         {{ $slot }}
     </div>
 
