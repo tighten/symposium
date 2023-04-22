@@ -19,10 +19,9 @@
                         Applied on {{ $submission->created_at->format('F j, Y') }}
                     </span>
                     @if ($submission->acceptance)
-                        <span class="flex items-center mt-1 text-green-500">
-                            @svg('check-circle', 'inline w-4 mr-1 fill-current')
-                            <span class="text-sm text-gray-500">Accepted</span>
-                        </span>
+                        <x-info icon="check-circle" class="mt-1" color="text-green-500">
+                            <x-info>Accepted</x-info>
+                        </x-info>
                     @endif
                 </div>
             </div>
