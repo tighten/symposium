@@ -6,8 +6,15 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        auth()->user()->load([
+            'favoritedConferences',
+            'submissions.conference',
+            'submissions.acceptance',
+        ]);
+
         return view('dashboard', [
             'conferences' => auth()->user()->favoritedConferences,
+            'submissions' => auth()->user()->submissions,
         ]);
     }
 }

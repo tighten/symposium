@@ -41,6 +41,7 @@ module.exports = {
             },
             green: {
                 100: '#D1FAE5',
+                500: '#10B981',
                 800: '#065F46',
             },
             form: {

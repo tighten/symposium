@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Conference;
 use App\Models\Talk;
 use App\Models\User;
 use Tests\TestCase;
@@ -40,5 +41,24 @@ class UserTest extends TestCase
 
         $this->assertContains($activeTalk->id, $activeTalks->pluck('id'));
         $this->assertNotContains($archivedTalk->id, $activeTalks->pluck('id'));
+    }
+
+    /** @test */
+    function getting_conference_submissions()
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+        $conference = Conference::factory()->create();
+
+        $conference->submissions()->create([
+            'talk_revision_id' => $talk->current()->id,
+        ]);
+
+        $this->assertEquals(1, $user->talkRevisions()->count());
+        $this->assertEquals(1, $user->submissions()->count());
+        $this->assertEquals(
+            $talk->current()->id,
+            $user->submissions->first()->talk_revision_id,
+        );
     }
 }

@@ -1,26 +1,36 @@
-@extends('layouts.index', ['title' => 'Dashboard'])
+@extends('app')
 
-@section('sidebar')
-    <x-panel size="sm" class="w-full">
-        <div class="flex justify-center h-16">
-            <div class="w-24 h-24 p-1 mt-4 bg-white border-2 border-indigo-800 rounded-full">
-                <div class="w-full h-full rounded-full">
-                    <img
-                        src="{{ auth()->user()->profile_picture_hires }}"
-                        class="rounded-full"
-                        alt="profile picture"
-                    >
+@section('content')
+
+<h2 class="font-sans text-2xl text-gray-900">Dashboard</h2>
+
+<div class="flex justify-between gap-6 mt-8">
+    <x-panel size="md" title="Conference Submissions" class="flex-1">
+        @forelse ($submissions as $submission)
+            <div class="border-b flex justify-between p-6 gap-10 last:border-b-0">
+                <h3 class="flex-1 font-semibold text-indigo-600">
+                    <a href="{{ route('conferences.show', $submission->conference) }}">
+                        {{ $submission->conference->title }}
+                    </a>
+                </h3>
+                <div class="flex-shrink text-right">
+                    <span class="text-sm text-gray-900">
+                        Applied on {{ $submission->created_at->format('F j, Y') }}
+                    </span>
+                    @if ($submission->acceptance)
+                        <span class="flex items-center mt-1 text-green-500">
+                            @svg('check-circle', 'inline w-4 mr-1 fill-current')
+                            <span class="text-sm text-gray-500">Accepted</span>
+                        </span>
+                    @endif
                 </div>
             </div>
-        </div>
-        <div class="p-4 pt-12 text-center bg-indigo-100">
-            <h2 class="text-xl">{{ auth()->user()->name }}</h2>
-        </div>
+        @empty
+            <p class="pb-4">No conference submissions</p>
+        @endforelse
     </x-panel>
-@endsection
 
-@section('list')
-    <x-panel size="md" title="Stared Conferences">
+    <x-panel size="md" title="Stared Conferences" class="flex-1">
         @forelse ($conferences as $conference)
             <div class="border-b p-6 last:border-b-0">
                 <div class="flex justify-between">
@@ -64,4 +74,6 @@
             <p class="pb-4">No favorited conferences</p>
         @endforelse
     </x-panel>
+</div>
+
 @endsection

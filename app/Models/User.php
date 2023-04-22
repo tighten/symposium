@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TalkRevision;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable
 {
@@ -17,6 +19,7 @@ class User extends Authenticatable
     use HasApiTokens;
     use Notifiable;
     use Searchable;
+    use HasRelationships;
 
     public const ADMIN_ROLE = 1;
 
@@ -82,6 +85,23 @@ class User extends Authenticatable
     public function talks()
     {
         return $this->hasMany(Talk::class, 'author_id');
+    }
+
+    public function talkRevisions()
+    {
+        return $this->hasManyThrough(
+            TalkRevision::class,
+            Talk::class,
+            'author_id',
+        );
+    }
+
+    public function submissions()
+    {
+        return $this->hasManyDeepFromRelations(
+            $this->talkRevisions(),
+            (new TalkRevision())->submissions(),
+        );
     }
 
     public function archivedTalks()

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Submission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TalkRevision extends UuidBase
@@ -33,6 +34,11 @@ class TalkRevision extends UuidBase
     public function talk()
     {
         return $this->belongsTo(Talk::class);
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
     }
 
     public function getUrl()
