@@ -312,4 +312,20 @@ class SubmissionTest extends TestCase
         $this->assertContains($submissionB->id, $submissionIds);
         $this->assertNotContains($submissionC->id, $submissionIds);
     }
+
+    /** @test */
+    function scoping_sumissions_where_future()
+    {
+        $submissionA = Submission::factory()
+            ->forConference(['starts_at' => now()->addDay()])
+            ->create();
+        $submissionB = Submission::factory()
+            ->forConference(['starts_at' => now()->subDay()])
+            ->create();
+
+        $submissionIds = Submission::whereFuture()->get()->pluck('id');
+
+        $this->assertContains($submissionA->id, $submissionIds);
+        $this->assertNotContains($submissionB->id, $submissionIds);
+    }
 }

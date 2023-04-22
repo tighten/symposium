@@ -7,9 +7,9 @@ class DashboardController extends Controller
     public function index()
     {
         auth()->user()->load([
-            'favoritedConferences',
+            'favoritedConferences' => fn ($query) => $query->future(),
             'submissions' => function ($query) {
-                $query->whereNotRejected();
+                $query->whereNotRejected()->whereFuture();
             },
             'submissions.conference',
             'submissions.acceptance',

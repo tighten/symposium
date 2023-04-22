@@ -26,7 +26,7 @@
                 </div>
             </div>
         @empty
-            <p class="pb-4">No conference submissions</p>
+            <p class="p-4">No conference submissions</p>
         @endforelse
     </x-panel>
 
@@ -71,7 +71,7 @@
                 </div>
             </div>
         @empty
-            <p class="pb-4">No favorited conferences</p>
+            <p class="p-4">No starred conferences</p>
         @endforelse
     </x-panel>
 </div>

@@ -90,6 +90,13 @@ class Submission extends UuidBase
         $query->whereNull('rejection_id');
     }
 
+    public function scopeWhereFuture($query)
+    {
+        $query->whereHas('conference', function ($query) {
+            $query->future();
+        });
+    }
+
     public function removeRejection()
     {
         $this->rejection_id = null;
