@@ -4,16 +4,16 @@
 
 <h2 class="font-sans text-2xl text-gray-900">Dashboard</h2>
 
-<div class="flex justify-between gap-6 mt-8">
+<div class="flex justify-between flex-col md:flex-row gap-6 mt-8">
     <x-panel size="md" title="Conference Submissions" class="flex-1">
         @forelse ($submissions as $submission)
-            <div class="border-b flex justify-between p-6 gap-10 last:border-b-0">
+            <div class="border-b flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between p-6 gap-2 sm:gap-10 md:gap-2 lg:gap-10 last:border-b-0">
                 <h3 class="flex-1 font-semibold text-indigo-600">
                     <a href="{{ route('conferences.show', $submission->conference) }}">
                         {{ $submission->conference->title }}
                     </a>
                 </h3>
-                <div class="flex-shrink text-right">
+                <div class="flex-shrink lg:text-right">
                     <span class="text-sm text-gray-900">
                         Applied on {{ $submission->created_at->format('F j, Y') }}
                     </span>
@@ -33,19 +33,19 @@
     <x-panel size="md" title="Stared Conferences" class="flex-1">
         @forelse ($conferences as $conference)
             <div class="border-b p-6 last:border-b-0">
-                <div class="flex justify-between">
+                <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between">
                     <h3 class="flex-1 font-semibold text-indigo-600">
                         <a href="{{ route('conferences.show', $conference) }}">
                             {{ $conference->title }}
                         </a>
                     </h3>
                     @if ($conference->appliedTo())
-                        <div class="flex-1 text-right">
+                        <div class="flex-1 sm:text-right md:text-left lg:text-right">
                             <x-tag.success>Subitted</x-tag.success>
                         </div>
                     @endif
                 </div>
-                <div class="flex justify-between mt-4">
+                <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between mt-4">
                     <div class="space-y-3">
                         <span class="text-gray-500 text-sm flex">
                             @svg('user-group', 'inline w-4 mr-1')
@@ -56,7 +56,7 @@
                             {{ $conference->location }}
                         </span>
                     </div>
-                    <div class="space-y-3">
+                    <div class="space-y-3 mt-3 lg:mt-0">
                         @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
                             <span class="text-gray-500 text-sm flex">
                                 @svg('calendar', 'inline w-4 mr-1')
