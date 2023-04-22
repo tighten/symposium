@@ -8,7 +8,7 @@
     $styles = [
         'sm' => 'p-0',
         'md' => 'p-0',
-        'lg' => 'p-10 max-w-md mx-auto sm:max-w-3xl',
+        'lg' => 'max-w-md mx-auto sm:max-w-3xl',
     ];
 @endphp
 
@@ -35,7 +35,7 @@
         @endisset
     </div>
 
-    <div class="bg-white rounded shadow @if ($padding) p-4 @endif">
+    <div class="{{ $styles[$size] }} bg-white rounded shadow @if ($padding) p-4 @endif">
         {{ $slot }}
     </div>
 
@@ -44,7 +44,7 @@
     @endisset
 
     @isset ($footer)
-        <div class="bg-indigo-150 py-3 font-sans flex justify-between {{ $styles[$size] }}">
+        <div class="bg-indigo-150 py-3 px-4 font-sans flex justify-between {{ $styles[$size] }}">
             {{ $footer }}
         </div>
     @endisset
