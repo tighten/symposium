@@ -8,6 +8,9 @@ class DashboardController extends Controller
     {
         auth()->user()->load([
             'favoritedConferences',
+            'submissions' => function ($query) {
+                $query->whereNotRejected();
+            },
             'submissions.conference',
             'submissions.acceptance',
         ]);
