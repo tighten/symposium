@@ -1,5 +1,6 @@
 @props([
     'size' => 'lg',
+    'padding' => true,
     'title',
 ])
 
@@ -34,7 +35,7 @@
         @endisset
     </div>
 
-    <div class="bg-white rounded shadow">
+    <div class="bg-white rounded shadow @if ($padding) p-4 @endif">
         {{ $slot }}
     </div>
 

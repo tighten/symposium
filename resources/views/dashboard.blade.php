@@ -5,7 +5,7 @@
 <h2 class="font-sans text-2xl text-gray-900">Dashboard</h2>
 
 <div class="flex justify-between flex-col md:flex-row gap-6 mt-8">
-    <x-panel size="md" title="Conference Submissions" class="flex-1">
+    <x-panel size="md" :padding="false" title="Conference Submissions" class="flex-1">
         @forelse ($submissions as $submission)
             <div class="border-b flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between p-6 gap-2 sm:gap-10 md:gap-2 lg:gap-10 last:border-b-0">
                 <h3 class="flex-1 font-semibold text-indigo-600">
@@ -30,7 +30,7 @@
         @endforelse
     </x-panel>
 
-    <x-panel size="md" title="Stared Conferences" class="flex-1">
+    <x-panel size="md" :padding="false" title="Stared Conferences" class="flex-1">
         @forelse ($conferences as $conference)
             <div class="border-b p-6 last:border-b-0">
                 <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between">
