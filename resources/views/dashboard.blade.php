@@ -48,15 +48,19 @@
                 </div>
                 <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between mt-4">
                     <div class="space-y-3">
-                        <x-info icon="user-group">{{ $conference->event_dates_display }}</x-info>
-                        <x-info icon="map-pin">{{ $conference->location }}</x-info>
+                        <x-info icon="user-group" icon-color="text-gray-400">
+                            {{ $conference->event_dates_display }}
+                        </x-info>
+                        <x-info icon="map-pin" icon-color="text-gray-400">
+                            {{ $conference->location }}
+                        </x-info>
                     </div>
                     <div class="space-y-3 mt-3 lg:mt-0">
                         @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
-                            <x-info icon="calendar">
+                            <x-info icon="calendar" icon-color="text-gray-400">
                                 Opens {{ $conference->cfp_starts_at->toFormattedDateString() }}
                             </x-info>
-                            <x-info icon="calendar">
+                            <x-info icon="calendar" icon-color="text-gray-400">
                                 Closes {{ $conference->cfp_ends_at->toFormattedDateString() }}
                             </x-info>
                         @endif
