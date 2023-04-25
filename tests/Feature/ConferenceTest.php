@@ -835,7 +835,7 @@ class ConferenceTest extends TestCase
             'ends_at' => null,
         ]);
 
-        $this->assertEquals('Jan 1 2020', $conference->event_dates_display);
+        $this->assertEquals('January 1, 2020', $conference->event_dates_display);
     }
 
     /** @test */
@@ -857,7 +857,7 @@ class ConferenceTest extends TestCase
             'ends_at' => '2020-01-01 16:00:00',
         ]);
 
-        $this->assertEquals('Jan 1 2020', $conference->event_dates_display);
+        $this->assertEquals('January 1, 2020', $conference->event_dates_display);
     }
 
     /** @test */
