@@ -55,7 +55,7 @@ class ConferencesController extends Controller
         }
 
         return view('conferences.index', [
-            'conferences' => $query->paginate(10)->withQueryString(),
+            'conferences' => $query->get(),
         ]);
     }
 

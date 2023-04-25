@@ -69,14 +69,14 @@
         @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
     </x-panel>
 
-    {{ $conferences->links() }}
-
     @if (auth()->user())
-        <x-button.primary
-            :href="route('conferences.create')"
-            icon="plus"
-        >
-            Suggest a Missing Conference
-        </x-button.primary>
+        <div class="mt-4 text-right">
+            <x-button.primary
+                :href="route('conferences.create')"
+                icon="plus"
+            >
+                Suggest a Missing Conference
+            </x-button.primary>
+        </div>
     @endif
 @endsection
