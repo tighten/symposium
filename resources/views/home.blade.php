@@ -2,12 +2,6 @@
 
 @section('content')
 
-<div class="flex justify-start">
-    <div>01</div>
-    <div>02</div>
-    <div>03</div>
-</div>
-
 <div class="flex flex-col items-center justify-around max-w-md px-8 pt-0 pb-6 mx-auto md:flex-row md:py-12 sm:max-w-6xl pm-12 sm:mt-3">
     <div class="space-y-8">
         <h1 class="font-sans text-5xl leading-none text-black">Connecting<br>Speakers<br>&amp; Conferences</h1>
