@@ -1,4 +1,4 @@
-@extends('layouts.index', ['title' => 'Conferences'])
+@extends('app', ['title' => 'Conferences'])
 
 @php
     $filterLinks = [
@@ -64,34 +64,19 @@
     ];
 @endphp
 
-@section('sidebar')
-    <x-side-menu
-        title="Filter"
-        :links="$filterLinks"
-        :defaults="['filter' => 'future', 'sort' => 'closing_next']"
-    ></x-side-menu>
+@section('content')
+    <x-panel size="xl">
+        @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
+    </x-panel>
 
-    <x-side-menu
-        title="Sort"
-        :links="$sortLinks"
-        :defaults="['filter' => 'future', 'sort' => 'closing_next']"
-    ></x-side-menu>
-@endsection
+    {{ $conferences->links() }}
 
-@if (auth()->user())
-    @section('actions')
+    @if (auth()->user())
         <x-button.primary
             :href="route('conferences.create')"
             icon="plus"
-            class="block w-full"
         >
             Suggest a Missing Conference
         </x-button.primary>
-    @endsection
-@endif
-
-
-@section('list')
-    @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
-    {{ $conferences->links() }}
+    @endif
 @endsection

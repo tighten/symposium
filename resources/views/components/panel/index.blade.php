@@ -9,6 +9,7 @@
         'sm' => 'p-0',
         'md' => 'p-0',
         'lg' => 'max-w-md mx-auto sm:max-w-3xl',
+        'xl' => 'w-full'
     ];
 @endphp
 
