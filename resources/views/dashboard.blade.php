@@ -19,8 +19,8 @@
                         Applied on {{ $submission->created_at->format('F j, Y') }}
                     </span>
                     @if ($submission->acceptance)
-                        <x-info icon="check-circle" class="mt-1" color="text-green-500">
-                            <x-info>Accepted</x-info>
+                        <x-info icon="check-circle" class="mt-1" icon-color="text-green-500">
+                            Accepted
                         </x-info>
                     @endif
                 </div>
