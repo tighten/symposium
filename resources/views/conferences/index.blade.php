@@ -88,7 +88,7 @@
             ])"
         />
     </div>
-    <x-panel size="xl" class="mt-5">
+    <x-panel size="xl" :padding="false" class="mt-5">
         @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
     </x-panel>
 
