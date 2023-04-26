@@ -27,6 +27,14 @@ class ConferenceFactory extends Factory
         ];
     }
 
+    public function dates($start, $end = null)
+    {
+        return $this->state([
+            'starts_at' => $start,
+            'ends_at' => $end ?? $start,
+        ]);
+    }
+
     public function closedCFP()
     {
         return $this->state([

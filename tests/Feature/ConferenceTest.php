@@ -921,6 +921,36 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    function scopping_conference_queries_by_event_year()
+    {
+        $conferenceA = Conference::factory()->dates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->dates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->dates('2022-12-31', '2023-01-31')->create();
+
+        $conferenceIds = Conference::whereEventDuring(2023)->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertContains($conferenceC->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scopping_conference_queries_by_event_year_and_month()
+    {
+        $conferenceA = Conference::factory()->dates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->dates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->dates('2022-12-31', '2023-01-31')->create();
+        $conferenceD = Conference::factory()->dates('2022-12-31', '2023-02-01')->create();
+
+        $conferenceIds = Conference::whereEventDuring(2023, 1)->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertContains($conferenceC->id, $conferenceIds);
+        $this->assertContains($conferenceD->id, $conferenceIds);
+    }
+
+    /** @test */
     function conferences_with_reported_issues_are_flagged()
     {
         Notification::fake();

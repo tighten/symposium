@@ -207,6 +207,26 @@ class Conference extends UuidBase
         $query->whereNotNull(['starts_at', 'ends_at']);
     }
 
+    public function scopeWhereEventYear($query, $year)
+    {
+        tap(now()->year($year), function ($date) use ($query) {
+            $query->whereDate('starts_at', '<=', $date->endOfYear())
+                ->whereDate('ends_at', '>=', $date->startOfYear());
+        });
+    }
+
+    public function scopeWhereEventDuring($query, $year, $month = null)
+    {
+        if (! $month) {
+            return $query->whereEventYear($year);
+        }
+
+        tap(now()->year($year)->month($month), function ($date) use ($query) {
+            $query->whereDate('starts_at', '<=', $date->endOfMonth())
+                ->whereDate('ends_at', '>=', $date->startOfMonth());
+        });
+    }
+
     public function scopeWhereHasCfpStart($query)
     {
         $query->whereNotNull('cfp_starts_at');
