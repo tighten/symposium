@@ -275,6 +275,11 @@ class Conference extends UuidBase
         return $this->issues()->whereOpen()->exists();
     }
 
+    public function isRejected()
+    {
+        return (bool) $this->rejected_at;
+    }
+
     /**
      * Return all talks from this user that were submitted to this conference
      */
@@ -381,6 +386,18 @@ class Conference extends UuidBase
         ]);
 
         (new TightenSlack())->notify(new ConferenceIssueReported($issue));
+    }
+
+    public function reject()
+    {
+        $this->rejected_at = now();
+        $this->save();
+    }
+
+    public function restore()
+    {
+        $this->rejected_at = null;
+        $this->save();
     }
 
     protected function coordinates(): Attribute

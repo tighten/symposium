@@ -41,4 +41,14 @@ class UserTest extends TestCase
         $this->assertContains($activeTalk->id, $activeTalks->pluck('id'));
         $this->assertNotContains($archivedTalk->id, $activeTalks->pluck('id'));
     }
+
+    /** @test */
+    function only_admins_can_access_filament()
+    {
+        $user = User::factory()->create();
+        $admin = User::factory()->admin()->create();
+
+        $this->assertFalse($user->canAccessFilament());
+        $this->assertTrue($admin->canAccessFilament());
+    }
 }
