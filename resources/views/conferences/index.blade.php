@@ -1,42 +1,16 @@
 @extends('app', ['title' => 'Conferences'])
 
 @php
-    $filterLinks = [
-        'future' => [
-            'label' => 'Future',
-            'route' => 'conferences.index',
-            'query' => ['filter' => 'future'],
-        ],
-        'open_cfp' => [
-            'label' => 'CFP is Open',
-            'route' => 'conferences.index',
-            'query' => ['filter' => 'open_cfp'],
-        ],
-        'unclosed_cfp' => [
-            'label' => 'Unclosed CFP',
-            'route' => 'conferences.index',
-            'query' => ['filter' => 'unclosed_cfp'],
-        ],
+    $filterOptions = [
+        ['label' => 'All', 'value' => 'all'],
+        ['label' => 'CFP is Open', 'value' => 'open_cfp'],
+        ['label' => 'Unclosed CFP', 'value' => 'unclosed_cfp'],
     ];
 
     if (auth()->check()) {
-        $filterLinks['favorites'] = [
-            'label' => 'Favorites',
-            'route' => 'conferences.index',
-            'query' => ['filter' => 'favorites'],
-        ];
-        $filterLinks['dismissed'] = [
-            'label' => 'Dismissed',
-            'route' => 'conferences.index',
-            'query' => ['filter' => 'dismissed'],
-        ];
+        $filterOptions[] = ['label' => 'Favorites', 'value' => 'favorites'];
+        $filterOptions[] = ['label' => 'Dismissed', 'value' => 'dismissed'];
     }
-
-    $filterLinks['all'] = [
-        'label' => 'All time',
-        'route' => 'conferences.index',
-        'query' => ['filter' => 'all'],
-    ];
 @endphp
 
 @php
@@ -88,6 +62,13 @@
             ])"
         />
     </div>
+    <x-input.select
+        name="filter"
+        label="Filter by"
+        option-text="label"
+        option-value="value"
+        :options="$filterOptions"
+    />
     <x-panel size="xl" :padding="false" class="mt-5">
         @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
     </x-panel>
