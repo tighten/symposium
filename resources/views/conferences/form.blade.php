@@ -100,10 +100,11 @@
         initial-currency="{{ $conference->speaker_package->currency ?? 'USD' }}"
     >
         <template #default="{symbol, form}">
-            <div class="w-full md:w-1/3">
+            <div class="w-full md:w-1/3 space-y-4">
                 <x-input.select
                     name="speaker_package[currency]"
                     label="Currency"
+                    label-class="w-20 text-right"
                     :options="$currencies"
                     option-text="code"
                     option-value="code"
@@ -112,29 +113,21 @@
                     v-model="form.selectedCurrency"
                 ></x-input.select>
 
-                <x-input.group class="mt-2" v-text="symbol">
-                    <x-input.text
-                        name="speaker_package[travel]"
-                        value="{{ $package['travel'] ?? 0 }}"
-                        :hide-label="true"
-                    ></x-input.text>
-                </x-input.group>
-
-                <x-input.group class="mt-2" v-text="symbol">
-                    <x-input.text
-                        name="speaker_package[hotel]"
-                        value="{{ $package['hotel'] ?? 0 }}"
-                        :hide-label="true"
-                    ></x-input.text>
-                </x-input.group>
-
-                <x-input.group class="mt-2" v-text="symbol">
-                    <x-input.text
-                        name="speaker_package[food]"
-                        value="{{ $package['food'] ?? 0 }}"
-                        :hide-label="true"
-                    ></x-input.text>
-                </x-input.group>
+                @foreach (App\Casts\SpeakerPackage::CATEGORIES as $category)
+                    <x-input.group
+                        :name='"speaker_package[{$category}]"'
+                        :label="str($category)->title()"
+                        label-class="w-20 text-right"
+                        v-text="symbol"
+                    >
+                        <x-input.text
+                            :name='"speaker_package[{$category}]"'
+                            :value="$conference->speaker_package->toDecimal($category)"
+                            :hide-label="true"
+                            rounded-class="rounded-r"
+                        ></x-input.text>
+                    </x-input.group>
+                @endforeach
             </div>
         </template>
     </currency-selection>

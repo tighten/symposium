@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Coordinates;
+use App\Casts\SpeakerPackage;
 use App\Casts\Url;
 use App\Models\Acceptance;
 use App\Models\ConferenceIssue;

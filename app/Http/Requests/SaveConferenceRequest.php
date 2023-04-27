@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Casts\SpeakerPackage;
 use App\Rules\ValidAmountForCurrentLocale;
 use Cknow\Money\Money;
 use Illuminate\Foundation\Http\FormRequest;
@@ -45,18 +46,31 @@ class SaveConferenceRequest extends FormRequest
                     $fail($attribute . ' must be a valid currency type.');
                 };
             },
-            'speaker_package.travel' => [
-                'nullable',
-                new ValidAmountForCurrentLocale(),
-            ],
-            'speaker_package.food' => [
-                'nullable',
-                new ValidAmountForCurrentLocale(),
-            ],
-            'speaker_package.hotel' => [
-                'nullable',
-                new ValidAmountForCurrentLocale(),
-            ],
+            ...collect(SpeakerPackage::CATEGORIES)
+                ->mapWithKeys(function ($category) {
+                    return [
+                        "speaker_package.{$category}" => [
+                            'nullable',
+                            new ValidAmountForCurrentLocale(),
+                        ],
+                    ];
+                }),
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        return data_get($this->withSpeakerPackage(), $key, $default);
+    }
+
+    private function withSpeakerPackage()
+    {
+        $speakerPackage = new SpeakerPackage(
+            parent::validated('speaker_package') ?? [],
+        );
+
+        return array_merge($this->validator->validated(), [
+            'speaker_package' => $speakerPackage->count() ? $speakerPackage : null,
+        ]);
     }
 }

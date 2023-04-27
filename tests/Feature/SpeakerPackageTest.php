@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Casts\SpeakerPackage;
 use App\Models\Conference;
 use App\Models\User;
-use Cknow\Money\Money;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class SpeakerPackageTest extends TestCase
@@ -22,15 +21,21 @@ class SpeakerPackageTest extends TestCase
             'hotel' => 10,
         ];
 
-        $this->actingAs($user)
+        $this->followingRedirects()
+            ->actingAs($user)
             ->post('conferences', [
                 'title' => 'Das Conf',
                 'description' => 'A very good conference about things',
                 'url' => 'http://dasconf.org',
                 'speaker_package' => $speakerPackage,
-            ]);
+            ])
+            ->assertSuccessful();
 
-        $this->assertDatabaseHasSpeakerPackage($speakerPackage);
+        $this->assertDatabaseHasSpeakerPackage($speakerPackage, [
+            'title' => 'Das Conf',
+            'description' => 'A very good conference about things',
+            'url' => 'http://dasconf.org',
+        ]);
     }
 
     /** @test */
@@ -58,7 +63,10 @@ class SpeakerPackageTest extends TestCase
                 'speaker_package' => $speakerPackage,
             ]));
 
-        $this->assertDatabaseHasSpeakerPackage($speakerPackage);
+        $this->assertDatabaseHasSpeakerPackage($speakerPackage, [
+            'title' => 'My updated conference',
+            'description' => 'Conference has been changed a bit.',
+        ]);
     }
 
     /** @test */
@@ -84,6 +92,26 @@ class SpeakerPackageTest extends TestCase
             ]));
 
         $this->assertDatabaseHasSpeakerPackage($updatedPackage);
+    }
+
+    /** @test */
+    public function speaker_package_can_be_removed()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()
+            ->author($user)
+            ->withSpeakerPackage()
+            ->create();
+
+        $this->actingAs($user)
+            ->put("/conferences/{$conference->id}", array_merge($conference->toArray(), [
+                'speaker_package' => [],
+            ]));
+
+        tap($conference->fresh(), function ($conference) {
+            $this->assertNull($conference->speaker_package->currency);
+            $this->assertEquals(0, $conference->speaker_package->count());
+        });
     }
 
     /** @test */
@@ -218,21 +246,12 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    private function assertDatabaseHasSpeakerPackage($package)
+    private function assertDatabaseHasSpeakerPackage($package, $data = [])
     {
-        $speakerPackage = [
-            'currency' => $package['currency'],
-        ];
-
-        // Since users have the ability to enter punctuation or not, then we want to use the appropriate parser
-        foreach (['travel', 'food', 'hotel'] as $item) {
-            $itemHasPunctuation = Str::of($package[$item])->contains([',', '.']);
-
-            $speakerPackage[$item] = Money::parse($package[$item], $package['currency'], ! $itemHasPunctuation, App::currentLocale())->getAmount();
-        }
-
-        $this->assertDatabaseHas(Conference::class, [
-            'speaker_package' => json_encode($speakerPackage),
-        ]);
+        $this->assertDatabaseHas(Conference::class, array_merge($data, [
+            'speaker_package' => json_encode(
+                (new SpeakerPackage($package))->toDatabase()
+            ),
+        ]));
     }
 }

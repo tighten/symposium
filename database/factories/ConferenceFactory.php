@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Casts\SpeakerPackage;
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
 use App\Models\Submission;
@@ -110,7 +111,7 @@ class ConferenceFactory extends Factory
 
 
         return $this->state([
-            'speaker_package' => $speakerPackage,
+            'speaker_package' => new SpeakerPackage($speakerPackage),
         ]);
     }
 
