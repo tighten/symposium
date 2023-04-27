@@ -963,4 +963,36 @@ class ConferenceTest extends TestCase
 
         $response->assertSuccessful();
     }
+
+    /** @test */
+    function rejecting_conferences()
+    {
+        $conference = Conference::factory()->create();
+        $this->assertNull($conference->rejected_at);
+
+        $conference->reject();
+
+        $this->assertNotNull($conference->fresh()->rejected_at);
+    }
+
+    /** @test */
+    function restoring_rejected_conferences()
+    {
+        $conference = Conference::factory()->rejected()->create();
+        $this->assertNotNull($conference->fresh()->rejected_at);
+
+        $conference->restore();
+
+        $this->assertNull($conference->rejected_at);
+    }
+
+    /** @test */
+    function checking_whether_a_conferences_is_rejected()
+    {
+        $conferenceA = Conference::factory()->create();
+        $conferenceB = Conference::factory()->rejected()->create();
+
+        $this->assertFalse($conferenceA->isRejected());
+        $this->assertTrue($conferenceB->isRejected());
+    }
 }
