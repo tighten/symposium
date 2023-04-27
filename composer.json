@@ -23,12 +23,14 @@
     "require": {
         "php": "^8.1",
         "algolia/algoliasearch-client-php": "^3.3",
+        "awcodes/drop-in-action": "^0.2.0",
         "blade-ui-kit/blade-icons": "^1.5",
         "bugsnag/bugsnag-laravel": "^2.26",
         "cknow/laravel-money": "^7.1",
         "creativeorange/gravatar": "^1.0",
         "doctrine/dbal": "^3.6",
         "erusev/parsedown": "^1.7",
+        "filament/filament": "^2.0",
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
@@ -42,6 +44,7 @@
         "laravelcollective/html": "^6.4",
         "lcobucci/jwt": "^4.3",
         "league/flysystem-aws-s3-v3": "^3.12",
+        "livewire/livewire": "^2.12",
         "pragmarx/firewall": "^2.3",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
@@ -55,7 +58,6 @@
         "barryvdh/laravel-debugbar": "^3.8",
         "beyondcode/laravel-dump-server": "^1.9",
         "fakerphp/faker": "^1.9.1",
-        "filp/whoops": "^2.15",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.3",
         "phpunit/phpunit": "^9.5.10",
@@ -85,7 +87,8 @@
         "post-update-cmd": [
             "@php artisan clear-compiled",
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan cache:clear"
+            "@php artisan cache:clear",
+            "@php artisan filament:upgrade"
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
