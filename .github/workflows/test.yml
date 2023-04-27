@@ -36,3 +36,10 @@ jobs:
               env:
                 GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
                 GITHUB_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+
+            - name: Integration Tests
+              run: vendor/bin/phpunit tests/Integration
+              env:
+                GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+                GITHUB_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+                GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
