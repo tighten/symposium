@@ -25,7 +25,7 @@ class ConferencesController extends Controller
             case 'unclosed_cfp':
                 // Pass through
             default:
-                $conferences = EloquentConference::unclosedCfp()->get();
+                $conferences = EloquentConference::cfpIsOpen()->get();
                 break;
         }
 

@@ -159,11 +159,12 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
     }
 
-    public function scopeUnclosedCfp($query)
+    public function scopeWhereCfpIsFuture($query)
     {
         return $query
             ->where('has_cfp', true)
-            ->where('cfp_ends_at', '>', Carbon::now());
+            ->where('cfp_starts_at', '>', now())
+            ->where('cfp_ends_at', '>', now());
     }
 
     public function scopeFuture($query)

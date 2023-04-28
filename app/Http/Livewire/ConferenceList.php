@@ -44,7 +44,7 @@ class ConferenceList extends Component
             ->where(fn ($query) => $this->applyFavoritesFilter($query))
             ->where(fn ($query) => $this->applyDismissedFilter($query))
             ->where(fn ($query) => $this->applyOpenCfpFilter($query))
-            ->where(fn ($query) => $this->applyUnclosedCfpFilter($query))
+            ->where(fn ($query) => $this->applyFutureCfpFilter($query))
             ->whereEventDuring(
                 $this->date->year,
                 $this->date->month,
@@ -57,7 +57,7 @@ class ConferenceList extends Component
         $filterOptions = [
             ['label' => 'All', 'value' => 'all'],
             ['label' => 'Open CFP', 'value' => 'open_cfp'],
-            ['label' => 'Unclosed CFP', 'value' => 'unclosed_cfp'],
+            ['label' => 'Future CFP', 'value' => 'future_cfp'],
         ];
 
         if (auth()->check()) {
@@ -111,11 +111,11 @@ class ConferenceList extends Component
         );
     }
 
-    private function applyUnclosedCfpFilter($query)
+    private function applyFutureCfpFilter($query)
     {
         $query->when(
-            $this->filter === 'unclosed_cfp',
-            fn ($q) => $q->unclosedCfp(),
+            $this->filter === 'future_cfp',
+            fn ($q) => $q->whereCfpIsFuture(),
         );
     }
 }
