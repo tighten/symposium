@@ -56,7 +56,7 @@ class ConferenceList extends Component
     {
         $filterOptions = [
             ['label' => 'All', 'value' => 'all'],
-            ['label' => 'CFP is Open', 'value' => 'open_cfp'],
+            ['label' => 'Open CFP', 'value' => 'open_cfp'],
             ['label' => 'Unclosed CFP', 'value' => 'unclosed_cfp'],
         ];
 
