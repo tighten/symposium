@@ -30,7 +30,7 @@
         @endforelse
     </x-panel>
 
-    <x-panel size="md" :padding="false" title="Stared Conferences" class="flex-1">
+    <x-panel size="md" :padding="false" title="Starred Conferences" class="flex-1">
         @forelse ($conferences as $conference)
             <div class="border-b p-6 last:border-b-0">
                 <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between">
