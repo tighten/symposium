@@ -298,4 +298,34 @@ class SubmissionTest extends TestCase
         $this->assertEquals('rejection', $submission->response);
         $this->assertEquals('it was a bad talk', $submission->response_reason);
     }
+
+    /** @test */
+    function scoping_submissions_where_not_rejected()
+    {
+        $submissionA = Submission::factory()->pending()->create();
+        $submissionB = Submission::factory()->accepted()->create();
+        $submissionC = Submission::factory()->rejected()->create();
+
+        $submissionIds = Submission::whereNotRejected()->get()->pluck('id');
+
+        $this->assertContains($submissionA->id, $submissionIds);
+        $this->assertContains($submissionB->id, $submissionIds);
+        $this->assertNotContains($submissionC->id, $submissionIds);
+    }
+
+    /** @test */
+    function scoping_sumissions_where_future()
+    {
+        $submissionA = Submission::factory()
+            ->forConference(['starts_at' => now()->addDay()])
+            ->create();
+        $submissionB = Submission::factory()
+            ->forConference(['starts_at' => now()->subDay()])
+            ->create();
+
+        $submissionIds = Submission::whereFuture()->get()->pluck('id');
+
+        $this->assertContains($submissionA->id, $submissionIds);
+        $this->assertNotContains($submissionB->id, $submissionIds);
+    }
 }

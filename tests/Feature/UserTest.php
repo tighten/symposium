@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Conference;
 use App\Models\Talk;
 use App\Models\User;
 use Tests\TestCase;
@@ -42,7 +43,6 @@ class UserTest extends TestCase
         $this->assertNotContains($archivedTalk->id, $activeTalks->pluck('id'));
     }
 
-    /** @test */
     function only_admins_can_access_filament()
     {
         $user = User::factory()->create();
@@ -50,5 +50,24 @@ class UserTest extends TestCase
 
         $this->assertFalse($user->canAccessFilament());
         $this->assertTrue($admin->canAccessFilament());
+    }
+
+    /** @test */
+    function getting_conference_submissions()
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+        $conference = Conference::factory()->create();
+
+        $conference->submissions()->create([
+            'talk_revision_id' => $talk->current()->id,
+        ]);
+
+        $this->assertEquals(1, $user->talkRevisions()->count());
+        $this->assertEquals(1, $user->submissions()->count());
+        $this->assertEquals(
+            $talk->current()->id,
+            $user->submissions->first()->talk_revision_id,
+        );
     }
 }

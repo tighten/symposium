@@ -19,6 +19,14 @@ class SubmissionFactory extends Factory
         ];
     }
 
+    public function pending()
+    {
+        return $this->state([
+            'acceptance_id' => null,
+            'rejection_id' => null,
+        ]);
+    }
+
     public function accepted($attributes = [])
     {
         return $this->afterCreating(function (Submission $submission) use ($attributes) {

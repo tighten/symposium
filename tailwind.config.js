@@ -21,6 +21,8 @@ module.exports = {
                 150: '#EAF0FF',
                 300: '#a3bffa',
                 500: '#6A96FE',
+                600: '#4F46E5',
+                700: '#4338CA',
                 800: '#4B72D9',
                 900: '#4C51BF',
             },
@@ -28,13 +30,19 @@ module.exports = {
                 100: '#f7fafc',
                 200: '#edf2f7',
                 300: '#D8D8D8',
-                400: '#cbd5e0',
-                500: '#9B9B9B',
+                400: '#9CA3AF',
+                500: '#6B7280',
                 600: '#828080',
                 700: '#4a5568',
+                900: '#111827',
             },
             red: {
                 500: '#f56565',
+            },
+            green: {
+                100: '#D1FAE5',
+                500: '#10B981',
+                800: '#065F46',
             },
             form: {
                 200: '#e2e8f0',
@@ -55,7 +63,7 @@ module.exports = {
         },
         fontFamily: {
             sans: [
-                'Work Sans',
+                'Inter var',
                 ...defaultTheme.fontFamily.sans,
             ],
         },

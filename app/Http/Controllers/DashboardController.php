@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Talk;
-
 class DashboardController extends Controller
 {
     public function index()
     {
-        $talks = auth()->user()->talks->sortByTitle();
-
-        $submissionsByConference = $talks->filter(function (Talk $talk) {
-            return $talk->submissions()->exists();
-        })->map(function ($talk) {
-            return $talk->submissions()->with('conference')->get();
-        })->flatten()->groupBy('conference_id');
+        auth()->user()->load([
+            'favoritedConferences' => fn ($query) => $query->future(),
+            'submissions' => function ($query) {
+                $query->whereNotRejected()->whereFuture();
+            },
+            'submissions.conference',
+            'submissions.acceptance',
+        ]);
 
         return view('dashboard', [
-            'bios' => auth()->user()->bios,
-            'submissionsByConference' => $submissionsByConference,
-            'talks' => $talks,
+            'conferences' => auth()->user()->favoritedConferences,
+            'submissions' => auth()->user()->submissions,
         ]);
     }
 }

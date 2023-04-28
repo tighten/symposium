@@ -1,71 +1,76 @@
-@extends('layouts.index', ['title' => 'Dashboard'])
+@extends('app')
 
-@section('sidebar')
-    <x-panel size="sm" class="w-full">
-        <div class="flex justify-center h-16">
-            <div class="w-24 h-24 p-1 mt-4 bg-white border-2 border-indigo-800 rounded-full">
-                <div class="w-full h-full rounded-full">
-                    <img
-                        src="{{ auth()->user()->profile_picture_hires }}"
-                        class="rounded-full"
-                        alt="profile picture"
-                    >
+@section('content')
+
+<h2 class="font-sans text-2xl text-gray-900">Dashboard</h2>
+
+<div class="flex justify-between flex-col md:flex-row gap-6 mt-8">
+    <x-panel size="md" :padding="false" title="Conference Submissions" class="flex-1">
+        @forelse ($submissions as $submission)
+            <div class="border-b flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between p-6 gap-2 sm:gap-10 md:gap-2 lg:gap-10 last:border-b-0">
+                <x-heading.list-item
+                    :href="route('conferences.show', $submission->conference)"
+                    class="flex-1"
+                >
+                    {{ $submission->conference->title }}
+                </x-heading.list-item>
+                <div class="flex-shrink lg:text-right">
+                    <span class="text-sm text-gray-900">
+                        Applied on {{ $submission->created_at->format('F j, Y') }}
+                    </span>
+                    @if ($submission->acceptance)
+                        <x-info icon="check-circle" class="mt-1" icon-color="text-green-500">
+                            Accepted
+                        </x-info>
+                    @endif
                 </div>
             </div>
-        </div>
-        <div class="p-4 pt-12 text-center bg-indigo-100">
-            <h2 class="text-xl">{{ auth()->user()->name }}</h2>
-        </div>
+        @empty
+            <p class="p-4">No conference submissions</p>
+        @endforelse
     </x-panel>
-@endsection
 
-@section('list')
-    <x-panel size="md" title="Talks">
-        <x-slot name="actions">
-            <a href="{{ route('talks.create') }}" class="flex items-center text-indigo-800 hover:text-indigo-500">
-                @svg('plus', 'w-3 fill-current inline')
-                <span class="ml-1">Add Talk</span>
-            </a>
-        </x-slot>
-        <div class="-mb-4">
-            @forelse ($talks as $talk)
-                <div class="flex flex-row content-center justify-between px-4 py-2 -mx-4 bg-indigo-100 border-b last:border-b-0">
-                    <div>
-                        <h3 class="font-sans text-lg font-semibold hover:text-indigo-500">
-                            <a href="{{ route('talks.show', $talk) }}">
-                                {{ $talk->current()->title }}
-                            </a>
-                        </h3>
-                        <p>
-                            {{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}
-                        </p>
+    <x-panel size="md" :padding="false" title="Starred Conferences" class="flex-1">
+        @forelse ($conferences as $conference)
+            <div class="border-b p-6 last:border-b-0">
+                <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between">
+                    <x-heading.list-item
+                        :href="route('conferences.show', $conference)"
+                        class="flex-1"
+                    >
+                        {{ $conference->title }}
+                    </x-heading.list-item>
+                    @if ($conference->appliedTo())
+                        <div class="flex-1 sm:text-right md:text-left lg:text-right">
+                            <x-tag.success>Submitted</x-tag.success>
+                        </div>
+                    @endif
+                </div>
+                <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between mt-4">
+                    <div class="space-y-3">
+                        <x-info icon="user-group" icon-color="text-gray-400">
+                            {{ $conference->event_dates_display }}
+                        </x-info>
+                        <x-info icon="map-pin" icon-color="text-gray-400">
+                            {{ $conference->location }}
+                        </x-info>
+                    </div>
+                    <div class="space-y-3 mt-3 lg:mt-0">
+                        @if ($conference->cfp_starts_at && $conference->cfp_ends_at)
+                            <x-info icon="calendar" icon-color="text-gray-400">
+                                Opens {{ $conference->cfp_starts_at->toFormattedDateString() }}
+                            </x-info>
+                            <x-info icon="calendar" icon-color="text-gray-400">
+                                Closes {{ $conference->cfp_ends_at->toFormattedDateString() }}
+                            </x-info>
+                        @endif
                     </div>
                 </div>
-            @empty
-                <p class="pb-4">No Talks</p>
-            @endforelse
-        </div>
+            </div>
+        @empty
+            <p class="p-4">No starred conferences</p>
+        @endforelse
     </x-panel>
+</div>
 
-    <x-panel size="md" title="Bios">
-        <x-slot name="actions">
-            <a href="{{ route('bios.create') }}" class="flex items-center text-indigo-800 hover:text-indigo-500">
-                @svg('plus', 'w-3 fill-current inline')
-                <span class="ml-1">Add Bio</span>
-            </a>
-        </x-slot>
-        <div class="-mb-4">
-            @forelse ($bios as $bio)
-                <div class="px-4 py-2 -mx-4 bg-indigo-100 border-b last:border-b-0">
-                    <h3 class="font-sans text-lg font-semibold hover:text-indigo-500">
-                        <a href="{{ route('bios.show', $bio) }}">
-                            {{ $bio->nickname }}
-                        </a>
-                    </h3>
-                </div>
-            @empty
-                <p class="pb-4">No Talks</p>
-            @endforelse
-        </div>
-    </x-panel>
 @endsection

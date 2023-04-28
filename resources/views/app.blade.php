@@ -20,6 +20,7 @@
     <meta property="twitter:description" content="A web app for conference speakers to track talks, bios, and conferences.">
     <meta property="twitter:image" content="{{ asset('img/symposium-banner.png') }}">
 
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
     <link href="{{ url('/css/app.css') }}" rel="stylesheet">
@@ -38,7 +39,6 @@
 <body class="h-full">
     @php
         $app_bg_color = $is_home ? 'bg-white' : 'bg-indigo-100';
-        $app_conferences = $is_conferences ? 'sm:max-w-5xl' : 'sm:max-w-3xl'
     @endphp
     <div id="app" class="min-h-full flex flex-col justify-between {{ $app_bg_color }}">
         <div class="flex-1">
@@ -46,10 +46,8 @@
             @if ($is_home)
                 @yield('content')
             @else
-                <div class="px-4 pb-8 bg-indigo-100 border-t-2 border-gray-200">
-                    <div class="max-w-md pt-4 mx-auto {{ $app_conferences }}">
-                        @yield('content')
-                    </div>
+                <div class="p-4 bg-indigo-100 mx-auto sm:max-w-7xl">
+                    @yield('content')
                 </div>
             @endif
         </div>

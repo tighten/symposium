@@ -48,6 +48,7 @@
         "pragmarx/firewall": "^2.3",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
+        "staudenmeir/eloquent-has-many-deep": "^1.7",
         "symfony/http-client": "^6.0",
         "symfony/intl": "^6.0",
         "symfony/mailgun-mailer": "^6.0",

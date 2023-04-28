@@ -1,26 +1,27 @@
 @props([
     'size' => 'lg',
+    'padding' => true,
     'title',
 ])
 
 @php
     $styles = [
         'sm' => 'p-0',
-        'md' => 'p-4',
-        'lg' => 'p-10 max-w-md mx-auto sm:max-w-3xl',
+        'md' => 'p-0',
+        'lg' => 'max-w-md mx-auto sm:max-w-3xl',
     ];
 @endphp
 
 <div
-    {{ $attributes->merge([
-        'class' => "shadow-md bg-white rounded",
-    ]) }}
+    {{ $attributes }}
 >
     <div class="{{ $styles[$size] }}">
         @isset ($title)
             <div class="flex content-center justify-between pb-4">
                 <div>
-                    <h2 class="font-sans text-xl text-gray-500 uppercase">{{ $title }}</h2>
+                    <h2 class="font-sans text-xl text-gray-900">
+                        {{ $title }}
+                    </h2>
 
                     @isset ($subtitle)
                         {{ $subtitle }}
@@ -32,6 +33,9 @@
                 @endisset
             </div>
         @endisset
+    </div>
+
+    <div class="{{ $styles[$size] }} bg-white rounded shadow @if ($padding) p-4 @endif">
         {{ $slot }}
     </div>
 
@@ -40,7 +44,7 @@
     @endisset
 
     @isset ($footer)
-        <div class="bg-indigo-150 py-3 font-sans flex justify-between {{ $styles[$size] }}">
+        <div class="bg-indigo-150 py-3 px-4 font-sans flex justify-between {{ $styles[$size] }}">
             {{ $footer }}
         </div>
     @endisset

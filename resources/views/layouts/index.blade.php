@@ -2,6 +2,10 @@
 
 @section('content')
 
+@isset ($title)
+    <h2 class="font-sans text-2xl text-gray-900">{{ $title }}</h2>
+@endisset
+
 <div class="flex flex-col w-full py-3 mx-auto md:flex-row">
     <div class="w-full space-y-6 md:w-1/2">
         @hasSection('sidebar')

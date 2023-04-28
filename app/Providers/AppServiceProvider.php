@@ -7,6 +7,7 @@ use App\Handlers\Events\SlackSubscriber;
 use Collective\Html\FormBuilder;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -56,6 +57,12 @@ class AppServiceProvider extends ServiceProvider
             return $blacklist->filter(function ($blacklistedDomain) use ($domain) {
                 return Str::contains($domain, $blacklistedDomain);
             })->isEmpty();
+        });
+
+        Request::macro('isContainedBy', function ($routeName) {
+            return str($this->path())->startsWith(
+                str(route($routeName, [], false))->ltrim('/'),
+            );
         });
     }
 

@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('what-is-this', function () {
     return view('what-is-this');
-});
+})->name('what-is-this');
 
 Route::get('speakers', [PublicProfileController::class, 'index'])->name('speakers-public.index');
 Route::get('u/{profileSlug}', [PublicProfileController::class, 'show'])->name('speakers-public.show');

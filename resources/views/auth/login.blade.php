@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-panel class="w-full md:w-2/3 mx-auto">
+<x-panel class="w-full md:w-1/2 mx-auto">
     <h2 class="text-2xl text-center my-4">Log in</h2>
     <div class="text-center">
         <a

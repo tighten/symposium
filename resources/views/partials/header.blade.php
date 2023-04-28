@@ -1,35 +1,77 @@
 @include('partials.flash-messages')
-<div class="bg-white">
-    <main-header class="max-w-xl px-4 py-6 mx-auto lg:pt-3 sm:max-w-6xl">
-        <template slot-scope="slotProps">
-            <div class="lg:flex lg:justify-between lg:items-center">
-                <div class="py-3 sm:px-4">
-                    <div class="flex items-center justify-between">
-                        <a href="{{ auth()->check() ? route('dashboard') : url('/') }}">
-                            <img class="h-10 sm:h-8 md:h-10" src="/img/symposium-logo.svg" alt="Symposium">
-                        </a>
-                        <div class="lg:hidden">
-                            <button v-on:click="slotProps.toggleNav" type="button" class="mobileMenuBtn focus:outline-none transform-gpu">
-                                <div :class="slotProps.showNav ? 'invisible h-0 bg-opacity-0' : 'visible w-6 h-0.5 bg-indigo-800 bg-opacity-100'"></div>
-                            </button>
-                        </div>
-                    </div>
+<header class="bg-indigo-600">
+    <nav class="flex h-16 items-center justify-between mx-auto w-full sm:max-w-7xl">
+        <menu-toggle>
+            <div slot-scope="{show, toggle}" class="flex items-center justify-between">
+                <div
+                    class="bg-indigo-600 block gap-4 text-sm text-white lg:flex lg:items-center"
+                    :class="{'absolute w-full top-4 lg:relative lg:top-auto': show}"
+                >
+                    <a
+                        href="{{ auth()->check() ? route('dashboard') : url('/') }}"
+                        class="block px-4"
+                        :class="{'pb-4 lg:pb-0': show}"
+                    >
+                        @svg('logo')
+                    </a>
+                    @if (auth()->check())
+                        <x-nav-item route="dashboard">Dashboard</x-nav-item>
+                        <x-nav-item route="bios.index">Bios</x-nav-item>
+                        <x-nav-item route="conferences.index">Conferences</x-nav-item>
+                        <x-nav-item route="calendar.index">Calendar</x-nav-item>
+                        <x-nav-item route="talks.index">Talks</x-nav-item>
+                        <x-mobile-nav-item route="account.show">Account</x-mobile-nav-item>
+                        <x-mobile-nav-item
+                            url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
+                            :show="auth()->user()->enable_profile"
+                        >
+                            Public Speaker Profile
+                        </x-mobile-nav-item>
+                        <x-mobile-nav-item route="log-out">Log out</x-mobile-nav-item>
+                    @else
+                        <x-nav-item route="what-is-this">How it Works</x-nav-item>
+                        <x-nav-item route="speakers-public.index">Our speakers</x-nav-item>
+                        <x-nav-item route="conferences.index">Conferences</x-nav-item>
+                        <x-mobile-nav-item route="login">Sign in with email</x-mobile-nav-item>
+                        <x-mobile-nav-item url="login/github">Sign in with GitHub</x-mobile-nav-item>
+                    @endif
                 </div>
-                @include('partials.nav')
+                <x-button.mobile-nav/>
             </div>
-            @if ($title)
-                @php
-                    $app_header = $is_conferences ? 'sm:max-w-5xl' : 'sm:max-w-3xl'
-                @endphp
-                <div class="max-w-md mx-auto mt-3 border-t border-gray-300 sm:max-w-6xl">
-                    <div class="mx-auto {{ $app_header }}">
-                        <h2 class="mt-3 font-sans text-2xl text-black">{{ $title }}</h2>
-                    </div>
-                </div>
-            @endif
-        </template>
-    </main-header>
-</div>
+        </menu-toggle>
 
-
-
+        @if (auth()->guest())
+            <x-menu class="mr-4">
+                <x-slot
+                    name="trigger"
+                    class="hidden lg:block bg-indigo-700 border border-white px-3 py-2 rounded text-sm text-white"
+                >
+                    Sign in
+                </x-slot>
+                <x-slot name="items">
+                    <x-menu.item route="login">Sign in with email</x-menu.item>
+                    <x-menu.item url="login/github">Sign in with GitHub</x-menu.item>
+                </x-slot>
+            </x-menu>
+        @else
+            <x-menu class="mr-4">
+                <x-slot name="trigger">
+                    <img
+                        src="{{ auth()->user()->profile_picture_thumb }}"
+                        class="hidden inline rounded-full w-8 lg:block"
+                    >
+                </x-slot>
+                <x-slot name="items">
+                    <x-menu.item route="account.show">Account</x-menu.item>
+                    <x-menu.item
+                        url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
+                        :show="auth()->user()->enable_profile"
+                    >
+                        Public Speaker Profile
+                    </x-menu.item>
+                    <x-menu.item route="log-out">Log out</x-menu.item>
+                </x-slot>
+            </x-menu>
+        @endif
+    </nav>
+</header>
