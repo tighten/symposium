@@ -65,7 +65,7 @@ class NotificationTest extends TestCase
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
-        Conference::factory()->approved()->noCFPDates()->create();
+        Conference::factory()->approved()->noCfpDates()->create();
 
         Artisan::call('symposium:notifyCfps');
 

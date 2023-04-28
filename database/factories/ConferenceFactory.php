@@ -51,7 +51,7 @@ class ConferenceFactory extends Factory
         ]);
     }
 
-    public function noCFPDates()
+    public function noCfpDates()
     {
         return $this->state([
             'cfp_starts_at' => null,
