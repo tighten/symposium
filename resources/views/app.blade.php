@@ -28,6 +28,7 @@
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    @livewireStyles
 
     <script>
         var Symposium = {
@@ -35,6 +36,7 @@
         };
     </script>
     @yield('headerScripts')
+    @livewireScripts
 </head>
 <body class="h-full">
     @php

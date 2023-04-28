@@ -61,7 +61,8 @@ class ConferencesController extends Controller
 
         return view('conferences.index', [
             'date' => $date,
-            'conferences' => $query->whereEventDuring($date->year, $date->month)->get(),
+            'year' => request('year', now()->year),
+            'month' => request('month', now()->month),
         ]);
     }
 
