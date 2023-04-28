@@ -177,12 +177,12 @@ class Conference extends UuidBase
         $query->where('starts_at', '>', $date);
     }
 
-    public function scopeOpenCfp($query)
+    public function scopeWhereCfpIsOpen($query)
     {
         return $query
             ->where('has_cfp', true)
-            ->where('cfp_starts_at', '<=', Carbon::now())
-            ->where('cfp_ends_at', '>', Carbon::now());
+            ->where('cfp_starts_at', '<=', now())
+            ->where('cfp_ends_at', '>', now());
     }
 
     public function scopeApproved($query)

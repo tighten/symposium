@@ -20,7 +20,7 @@ class ConferencesController extends Controller
                 $conferences = EloquentConference::future()->get();
                 break;
             case 'open_cfp':
-                $conferences = EloquentConference::openCfp()->get();
+                $conferences = EloquentConference::whereCfpIsOpen()->get();
                 break;
             case 'unclosed_cfp':
                 // Pass through

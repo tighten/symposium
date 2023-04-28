@@ -107,7 +107,7 @@ class ConferenceList extends Component
     {
         $query->when(
             $this->filter === 'open_cfp',
-            fn ($q) => $q->openCfp(),
+            fn ($q) => $q->whereCfpIsOpen(),
         );
     }
 

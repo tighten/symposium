@@ -948,6 +948,20 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function scopping_conferences_queries_where_cfp_is_open()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->cfpDates('2023-05-01', '2023-06-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2023-06-01', '2023-07-01')->create();
+
+        $conferenceIds = Conference::whereCfpIsOpen()->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
     public function scopping_conferences_queries_where_has_cfp_end_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_ends_at' => Carbon::parse('yesterday')]);
