@@ -71,16 +71,16 @@ class ConferenceList extends Component
     public function previous()
     {
         $this->date = $this->date->subMonth();
-        $this->updatedQueryString();
+        $this->updateQueryString();
     }
 
     public function next()
     {
         $this->date = $this->date->addMonth();
-        $this->updatedQueryString();
+        $this->updateQueryString();
     }
 
-    private function updatedQueryString()
+    private function updateQueryString()
     {
         $this->year = $this->date->year;
         $this->month = $this->date->month;
