@@ -107,6 +107,11 @@ class Conference extends UuidBase
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
+    public function usersFavorited()
+    {
+        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
+    }
+
     public function issues()
     {
         return $this->hasMany(ConferenceIssue::class);
@@ -185,12 +190,11 @@ class Conference extends UuidBase
         return $query->where('is_approved', true);
     }
 
-    public function scopeUndismissed($query)
+    public function scopeWhereNotDismissedBy($query, $user)
     {
-        return $query
-            ->whereDoesntHave('usersDismissed', function ($query) {
-                $query->where('id', auth()->id());
-            });
+        return $query->whereDoesntHave('usersDismissed', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        });
     }
 
     public function scopeNotShared($query)
@@ -236,6 +240,20 @@ class Conference extends UuidBase
     public function scopeWhereHasCfpEnd($query)
     {
         $query->whereNotNull('cfp_ends_at');
+    }
+
+    public function scopeWhereFavoritedBy($query, $user)
+    {
+        $query->whereHas('usersFavorited', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        });
+    }
+
+    public function scopeWhereDismissedBy($query, $user)
+    {
+        $query->whereHas('usersDismissed', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        });
     }
 
     /**

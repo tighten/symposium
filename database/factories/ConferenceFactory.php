@@ -101,6 +101,13 @@ class ConferenceFactory extends Factory
         });
     }
 
+    public function favoritedBy(User $user)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($user) {
+            $user->favoritedConferences()->attach($conference->id);
+        });
+    }
+
     public function dismissedBy(User $user)
     {
         return $this->afterCreating(function (Conference $conference) use ($user) {

@@ -909,6 +909,45 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function scopping_conferences_queries_where_favorited_by_user()
+    {
+        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->favoritedBy($user)->create();
+        $conferenceB = Conference::factory()->create();
+
+        $conferenceIds = Conference::whereFavoritedBy($user)->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scopping_conferences_queries_where_dismissed_by_user()
+    {
+        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->dismissedBy($user)->create();
+        $conferenceB = Conference::factory()->create();
+
+        $conferenceIds = Conference::whereDismissedBy($user)->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scopping_conferences_queries_where_not_dismissed_by_user()
+    {
+        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->dismissedBy($user)->create();
+        $conferenceB = Conference::factory()->create();
+
+        $conferenceIds = Conference::whereNotDismissedBy($user)->get()->pluck('id');
+
+        $this->assertNotContains($conferenceA->id, $conferenceIds);
+        $this->assertContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
     public function scopping_conferences_queries_where_has_cfp_end_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_ends_at' => Carbon::parse('yesterday')]);

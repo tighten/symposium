@@ -19,6 +19,7 @@ class ConferenceList extends Component
     protected $queryString = [
         'year',
         'month',
+        'filter',
     ];
 
     public function mount()
@@ -37,9 +38,13 @@ class ConferenceList extends Component
 
     public function getConferencesProperty()
     {
-        return Conference::undismissed()
+        return Conference::query()
             ->future()
             ->approved()
+            ->where(fn ($query) => $this->applyFavoritesFilter($query))
+            ->where(fn ($query) => $this->applyDismissedFilter($query))
+            ->where(fn ($query) => $this->applyOpenCfpFilter($query))
+            ->where(fn ($query) => $this->applyUnclosedCfpFilter($query))
             ->whereEventDuring(
                 $this->date->year,
                 $this->date->month,
@@ -63,11 +68,6 @@ class ConferenceList extends Component
         return $filterOptions;
     }
 
-    public function updatedFilter()
-    {
-        //
-    }
-
     public function previous()
     {
         $this->date = $this->date->subMonth();
@@ -84,5 +84,38 @@ class ConferenceList extends Component
     {
         $this->year = $this->date->year;
         $this->month = $this->date->month;
+    }
+
+    private function applyFavoritesFilter($query)
+    {
+        $query->when(
+            $this->filter === 'favorites',
+            fn ($q) => $q->whereFavoritedBy(auth()->user()),
+        );
+    }
+
+    private function applyDismissedFilter($query)
+    {
+        $query->when(
+            $this->filter === 'dismissed',
+            fn ($q) => $query->whereDismissedBy(auth()->user()),
+            fn ($q) => $query->whereNotDismissedBy(auth()->user()),
+        );
+    }
+
+    private function applyOpenCfpFilter($query)
+    {
+        $query->when(
+            $this->filter === 'open_cfp',
+            fn ($q) => $q->openCfp(),
+        );
+    }
+
+    private function applyUnclosedCfpFilter($query)
+    {
+        $query->when(
+            $this->filter === 'unclosed_cfp',
+            fn ($q) => $q->unclosedCfp(),
+        );
     }
 }

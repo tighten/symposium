@@ -18,7 +18,7 @@
     }
 @endphp
 
-<div {{ $attributes->except('v-model')->class($classList) }}>
+<div {{ $attributes->except(['v-model', 'wire:model'])->class($classList) }}>
     <label
         for="currency"
         class="
@@ -35,7 +35,7 @@
     ">
         <select
             name="{{ $name }}"
-            {{ $attributes->only('v-model') }}
+            {{ $attributes->only(['v-model', 'wire:model']) }}
             class="
                 border-form-200 form-input rounded w-full
                 @unless ($hideLabel) mt-1 @endunless
