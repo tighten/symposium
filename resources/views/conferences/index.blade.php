@@ -27,11 +27,7 @@
 
 @section('content')
     <div>
-        <livewire:conference-list
-            :date="$date"
-            :year="$year"
-            :month="$month"
-        />
+        <livewire:conference-list/>
     </div>
 
     @if (auth()->user())

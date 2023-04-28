@@ -7,6 +7,7 @@
             icon="chevron-left"
             aria-label="Previous"
             class="rounded-r-none ml-4"
+            wire:click.prevent="previous"
             :href="route('conferences.index', [
                 'year' => $date->subMonth()->year,
                 'month' => $date->subMonth()->month,
@@ -16,6 +17,7 @@
             icon="chevron-right"
             aria-label="Next"
             class="rounded-l-none border-l-0"
+            wire:click.prevent="next"
             :href="route('conferences.index', [
                 'year' => $date->addMonth()->year,
                 'month' => $date->addMonth()->month,

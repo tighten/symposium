@@ -6,7 +6,6 @@ use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
-use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -55,15 +54,7 @@ class ConferencesController extends Controller
                 break;
         }
 
-        $date = CarbonImmutable::now()
-            ->year(request('year', now()->year))
-            ->month(request('month', now()->month));
-
-        return view('conferences.index', [
-            'date' => $date,
-            'year' => request('year', now()->year),
-            'month' => request('month', now()->month),
-        ]);
+        return view('conferences.index');
     }
 
     public function create()

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Conference;
+use Carbon\CarbonImmutable;
 use Livewire\Component;
 
 class ConferenceList extends Component
@@ -15,11 +16,16 @@ class ConferenceList extends Component
 
     public $filter;
 
-    public function mount($date, $year, $month)
+    protected $queryString = [
+        'year',
+        'month',
+    ];
+
+    public function mount()
     {
-        $this->date = $date;
-        $this->year = $year;
-        $this->month = $month;
+        $this->date = CarbonImmutable::now()
+            ->year($this->year ?? now()->year)
+            ->month($this->month ?? now()->month);
     }
 
     public function render()
@@ -34,7 +40,10 @@ class ConferenceList extends Component
         return Conference::undismissed()
             ->future()
             ->approved()
-            ->whereEventDuring($this->year, $this->month)
+            ->whereEventDuring(
+                $this->date->year,
+                $this->date->month,
+            )
             ->get();
     }
 
@@ -57,5 +66,23 @@ class ConferenceList extends Component
     public function updatedFilter()
     {
         //
+    }
+
+    public function previous()
+    {
+        $this->date = $this->date->subMonth();
+        $this->updatedQueryString();
+    }
+
+    public function next()
+    {
+        $this->date = $this->date->addMonth();
+        $this->updatedQueryString();
+    }
+
+    private function updatedQueryString()
+    {
+        $this->year = $this->date->year;
+        $this->month = $this->date->month;
     }
 }
