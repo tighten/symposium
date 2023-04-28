@@ -42,7 +42,7 @@
                     </x-heading.list-item>
                     @if ($conference->appliedTo())
                         <div class="flex-1 sm:text-right md:text-left lg:text-right">
-                            <x-tag.success>Subitted</x-tag.success>
+                            <x-tag.success>Submitted</x-tag.success>
                         </div>
                     @endif
                 </div>
