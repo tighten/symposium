@@ -42,7 +42,6 @@ class ConferenceList extends Component
     public function getConferencesProperty()
     {
         return Conference::query()
-            ->future()
             ->approved()
             ->where(fn ($query) => $this->applyFavoritesFilter($query))
             ->where(fn ($query) => $this->applyDismissedFilter($query))
