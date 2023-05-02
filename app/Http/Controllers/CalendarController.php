@@ -23,7 +23,7 @@ class CalendarController extends Controller
     {
         return Conference::query()
             ->approved()
-            ->undismissed()
+            ->whereNotDismissedBy(auth()->user())
             ->whereAfter(Carbon::now()->subYear());
     }
 }
