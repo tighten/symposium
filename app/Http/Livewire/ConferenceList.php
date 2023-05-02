@@ -106,13 +106,17 @@ class ConferenceList extends Component
     private function applyFavoritesFilter($query)
     {
         $query->when(
-            $this->filter === 'favorites',
+            $this->filter === 'favorites' && auth()->user(),
             fn ($q) => $q->whereFavoritedBy(auth()->user()),
         );
     }
 
     private function applyDismissedFilter($query)
     {
+        if (! auth()->user()) {
+            return;
+        }
+
         $query->when(
             $this->filter === 'dismissed',
             fn ($q) => $query->whereDismissedBy(auth()->user()),
