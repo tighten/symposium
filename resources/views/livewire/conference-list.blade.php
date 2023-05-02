@@ -43,4 +43,15 @@
     <x-panel size="xl" :padding="false" class="mt-5">
         @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
     </x-panel>
+
+    @if (auth()->user())
+        <div class="mt-4 text-right">
+            <x-button.primary
+                :href="route('conferences.create')"
+                icon="plus"
+            >
+                Suggest a Missing Conference
+            </x-button.primary>
+        </div>
+    @endif
 </div>
