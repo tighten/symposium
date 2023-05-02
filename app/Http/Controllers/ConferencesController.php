@@ -6,18 +6,12 @@ use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class ConferencesController extends Controller
 {
-    public function index(Request $request)
-    {
-        return view('conferences.index');
-    }
-
     public function create()
     {
         return view('conferences.create', [

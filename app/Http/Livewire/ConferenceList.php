@@ -36,7 +36,7 @@ class ConferenceList extends Component
     {
         return view('livewire.conference-list', [
             'conferences' => $this->conferences,
-        ]);
+        ])->extends('app');
     }
 
     public function getConferencesProperty()
