@@ -32,6 +32,14 @@
         :options="$this->filter_options"
         wire:model="filter"
     />
+    <x-input.select
+        name="sort"
+        label="Sort by"
+        option-text="label"
+        option-value="value"
+        :options="$this->sort_options"
+        wire:model="sort"
+    />
     <x-panel size="xl" :padding="false" class="mt-5">
         @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
     </x-panel>

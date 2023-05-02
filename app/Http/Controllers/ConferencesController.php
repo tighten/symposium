@@ -15,23 +15,6 @@ class ConferencesController extends Controller
 {
     public function index(Request $request)
     {
-        switch ($request->input('sort')) {
-            case 'alpha':
-                // $query->orderBy('title');
-                break;
-            case 'date':
-                // $query->orderBy('starts_at');
-                break;
-            case 'opening_next':
-                // $query->orderByRaw('cfp_ends_at IS NULL, cfp_ends_at ASC');
-                break;
-            case 'closing_next':
-                // pass through
-            default:
-                // $query->orderByRaw('cfp_ends_at IS NULL, cfp_ends_at ASC');
-                break;
-        }
-
         return view('conferences.index');
     }
 
