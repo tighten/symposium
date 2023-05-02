@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\ConferenceList;
 use App\Models\Conference;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ConferenceTest extends TestCase
@@ -622,6 +624,8 @@ class ConferenceTest extends TestCase
     /** @test */
     public function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
     {
+        Carbon::setTestNow('2023-05-04');
+
         $nullCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
@@ -635,18 +639,22 @@ class ConferenceTest extends TestCase
             'cfp_ends_at' => Carbon::tomorrow(),
         ]);
 
-        $response = $this->get('conferences');
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'cfp_closing_next');
 
         $this->assertConferenceSort([
             $pastCfp,
             $futureCfp,
             $nullCfp,
-        ], $response);
+        ], $response->conferences);
     }
 
     /** @test */
     public function cfp_by_date_list_sorts_by_date()
     {
+        Carbon::setTestNow('2023-05-04');
+
         $conferenceA = Conference::factory()->approved()->create([
             'starts_at' => Carbon::now()->subDay(),
             'cfp_ends_at' => Carbon::now()->subDays(2),
@@ -656,12 +664,14 @@ class ConferenceTest extends TestCase
             'cfp_ends_at' => Carbon::now(),
         ]);
 
-        $response = $this->get('conferences?filter=all&sort=date');
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'date');
 
         $this->assertConferenceSort([
             $conferenceA,
             $conferenceB,
-        ], $response);
+        ], $response->conferences);
     }
 
     /** @test */
@@ -712,7 +722,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function filtering_by_unclosed_cfp_hides_non_cfp_conferences()
+    public function filtering_by_future_cfp_hides_non_cfp_conferences()
     {
         $user = User::factory()->create();
 
@@ -722,7 +732,7 @@ class ConferenceTest extends TestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->get('conferences?filter=unclosed_cfp')
+            ->get('conferences?filter=future_cfp')
             ->assertDontSee($conference->title);
     }
 
@@ -871,10 +881,10 @@ class ConferenceTest extends TestCase
         $this->assertEquals('Jan 1 2020 - Jan 3 2020', $conference->event_dates_display);
     }
 
-    public function assertConferenceSort($conferences, $response)
+    public function assertConferenceSort($expectedConferences, $conferences)
     {
-        foreach ($conferences as $sortPosition => $conference) {
-            $sortedConference = $response->original->getData()['conferences']->values()[$sortPosition];
+        foreach ($expectedConferences as $sortPosition => $conference) {
+            $sortedConference = $conferences->values()[$sortPosition];
 
             $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
         }
