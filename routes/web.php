@@ -60,12 +60,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('submissions/{submission}/reactions', [SubmissionReactionsController::class, 'store'])->name('submissions.reactions.store');
 
-    Route::get('conferences/{id}/favorite', [ConferencesController::class, 'favorite']);
-    Route::get('conferences/{id}/unfavorite', [ConferencesController::class, 'unfavorite']);
-
-    Route::get('conferences/{id}/dismiss', [ConferencesController::class, 'dismiss']);
-    Route::get('conferences/{id}/undismiss', [ConferencesController::class, 'undismiss']);
-
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
 
     // Necessary for GET-friendly delete because lazy

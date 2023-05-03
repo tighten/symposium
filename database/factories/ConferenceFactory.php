@@ -23,7 +23,7 @@ class ConferenceFactory extends Factory
             'ends_at' => $this->faker->dateTimeBetween('+11 days', '+20 days'),
             'cfp_starts_at' => $this->faker->dateTimeBetween('-9 days', '-1 day'),
             'cfp_ends_at' => $this->faker->dateTimeBetween('+1 days', '+2 days'),
-            'is_approved' => false,
+            'is_approved' => true,
         ];
     }
 

@@ -606,7 +606,7 @@ class ConferenceTest extends TestCase
     /** @test */
     public function it_can_pull_only_approved_conferences()
     {
-        Conference::factory()->create();
+        Conference::factory()->notApproved()->create();
         Conference::factory()->approved()->create();
 
         $this->assertEquals(1, Conference::approved()->count());
@@ -675,35 +675,14 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_dismiss_conference()
-    {
-        $user = User::factory()->create();
-
-        $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
-
-        $this->get("conferences/{$conference->id}/dismiss")
-            ->assertRedirect('login');
-    }
-
-    /** @test */
     public function dismissed_conferences_do_not_show_up_in_conference_list()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->dismissedBy($user)->create();
 
-        $conference = Conference::factory()->approved()->create();
-        $user->conferences()->save($conference);
+        $response = $this->actingAs($user)->get('conferences?filter=all');
 
-        $this->actingAs($user)
-            ->get('conferences?filter=all')
-            ->assertSee($conference->title);
-
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=all')
-            ->assertDontSee($conference->title);
+        $response->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -740,16 +719,11 @@ class ConferenceTest extends TestCase
     public function filtering_by_dismissed_shows_dismissed_conferences()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->dismissedBy($user)->create();
 
-        $conference = Conference::factory()->approved()->create();
-        $user->conferences()->save($conference);
+        $response = $this->actingAs($user)->get('conferences?filter=dismissed');
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=dismissed')
-            ->assertSee($conference->title);
+        $response->assertSee($conference->title);
     }
 
     /** @test */
@@ -769,29 +743,22 @@ class ConferenceTest extends TestCase
     public function filtering_by_favorites_shows_favorite_conferences()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->favoritedBy($user)->create();
 
-        $conference = Conference::factory()->approved()->create();
-        $user->conferences()->save($conference);
+        $response = $this->actingAs($user)->get('conferences?filter=favorites');
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/favorite");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=favorites')
-            ->assertSee($conference->title);
+        $response->assertSee($conference->title);
     }
 
     /** @test */
     public function filtering_by_favorites_does_not_show_nonfavorite_conferences()
     {
         $user = User::factory()->create();
-
         $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
 
-        $this->actingAs($user)
-            ->get('conferences?filter=favorites')
-            ->assertDontSee($conference->title);
+        $response = $this->actingAs($user)->get('conferences?filter=favorites');
+
+        $response->assertDontSee($conference->title);
     }
 
     /** @test */

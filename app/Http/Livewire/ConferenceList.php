@@ -96,6 +96,24 @@ class ConferenceList extends Component
         $this->updateQueryString();
     }
 
+    public function toggleFavorite(Conference $conference)
+    {
+        if (! auth()->user() || $conference->isDismissed()) {
+            return;
+        }
+
+        auth()->user()->favoritedConferences()->toggle($conference->id);
+    }
+
+    public function toggleDismissed(Conference $conference)
+    {
+        if (! auth()->user() || $conference->isFavorited()) {
+            return;
+        }
+
+        auth()->user()->dismissedConferences()->toggle($conference->id);
+    }
+
     private function updateQueryString()
     {
         $this->year = $this->date->year;

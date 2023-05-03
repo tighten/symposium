@@ -116,42 +116,6 @@ class ConferencesController extends Controller
         return redirect('conferences');
     }
 
-    public function dismiss($conferenceId)
-    {
-        if (Conference::findOrFail($conferenceId)->isFavorited()) {
-            return redirect()->back();
-        }
-
-        auth()->user()->dismissedConferences()->attach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function undismiss($conferenceId)
-    {
-        auth()->user()->dismissedConferences()->detach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function favorite($conferenceId)
-    {
-        if (Conference::findOrFail($conferenceId)->isDismissed()) {
-            return redirect()->back();
-        }
-
-        auth()->user()->favoritedConferences()->attach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function unfavorite($conferenceId)
-    {
-        auth()->user()->favoritedConferences()->detach($conferenceId);
-
-        return redirect()->back();
-    }
-
     private function showPublic($id)
     {
         $conference = Conference::approved()->findOrFail($id);
