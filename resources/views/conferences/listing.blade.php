@@ -7,7 +7,10 @@
                 {{ $conference->title }}
             </x-heading.list-item>
             @if ($conference->isFlagged())
-                <span class="text-danger" title="An issue has been reported for this conference.">
+                <span
+                    class="text-danger"
+                    title="An issue has been reported for this conference."
+                >
                     @svg('flag', 'cursor-pointer inline ml-4 w-5 fill-current')
                 </span>
             @endif
