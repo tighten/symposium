@@ -1,4 +1,10 @@
-<div class="border-b p-6 last:border-b-0">
+<div
+    class="border-b p-6 last:border-b-0"
+    x-data="{ show: true }"
+    x-show="show"
+    x-transition.origin.left:leave.duration.250ms
+    wire:key="{{ $conference->id }}"
+>
     <div class="flex items-center justify-between">
         <div class="flex items-center">
             <div class="leading-none w-8">
@@ -47,7 +53,13 @@
                         ? 'I am interested in this conference'
                         : 'I am not interested in this conference'
                     "
-                    wire:click="toggleDismissed('{{ $conference->id }}')"
+                    x-on:click="() => {
+                        show = false;
+                        setTimeout(
+                            () => $wire.toggleDismissed('{{ $conference->id }}'),
+                            250,
+                        );
+                    }"
                 />
             @endif
         </div>

@@ -37,6 +37,7 @@
     </script>
     @yield('headerScripts')
     @livewireScripts
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 <body class="h-full">
     @php
