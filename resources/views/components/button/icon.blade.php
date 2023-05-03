@@ -9,7 +9,7 @@
 
 <{{ $element }}
     @isset($href) href="{{ $href }}" @endisset
-    {{ $attributes }}
+    {{ $attributes->class('leading-none') }}
 >
     @svg($icon, 'fill-current inline w-5')
 </{{ $element }}>

@@ -1,6 +1,18 @@
 <div class="border-b p-6 last:border-b-0">
     <div class="flex items-center justify-between">
         <div class="flex items-center">
+            <div class="leading-none w-8">
+                @if (auth()->check() && !$conference->isDismissedBy(auth()->user()))
+                    <x-button.icon
+                        :icon="$conference->isFavoritedBy(auth()->user())
+                            ? 'star-full'
+                            : 'star-empty'
+                        "
+                        class="text-indigo-600"
+                        wire:click="toggleFavorite('{{ $conference->id }}')"
+                    />
+                @endif
+            </div>
             <x-heading.list-item
                 :href="route('conferences.show', $conference)"
             >
@@ -25,24 +37,12 @@
             @endif
         </div>
         <div class="text-indigo-600">
-            @if (auth()->check() && !$conference->isDismissedBy(auth()->user()))
-                <x-button.icon
-                    :icon="$conference->isFavoritedBy(auth()->user())
-                        ? 'star-full'
-                        : 'star-empty'
-                    "
-                    class="ml-3"
-                    wire:click="toggleFavorite('{{ $conference->id }}')"
-                />
-            @endif
-
             @if (auth()->check() && !$conference->isFavoritedBy(auth()->user()))
                 <x-button.icon
                     :icon="$conference->isDismissedBy(auth()->user())
                         ? 'plus'
                         : 'close'
                     "
-                    class="ml-3"
                     :title="$conference->isDismissedBy(auth()->user())
                         ? 'I am interested in this conference'
                         : 'I am not interested in this conference'
@@ -52,7 +52,7 @@
             @endif
         </div>
     </div>
-    <div class="mt-4 space-y-3">
+    <div class="mt-4 pl-8 space-y-3">
         <x-info icon="calendar" icon-color="text-gray-400">
             <span class="text-gray-400">Dates:</span>
             {{ $conference->starts_at->format('D M j, Y') ?? '[Date not set]' }}
