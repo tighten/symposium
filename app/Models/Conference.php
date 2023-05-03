@@ -300,14 +300,14 @@ class Conference extends UuidBase
         return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
     }
 
-    public function isDismissed()
+    public function isDismissedBy(User $user)
     {
-        return auth()->user()->dismissedConferences->contains($this->id);
+        return $user->dismissedConferences->contains($this->id);
     }
 
-    public function isFavorited()
+    public function isFavoritedBy(User $user)
     {
-        return auth()->user()->favoritedConferences->contains($this->id);
+        return $user->favoritedConferences->contains($this->id);
     }
 
     public function isFlagged()

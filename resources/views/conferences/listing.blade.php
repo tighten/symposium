@@ -25,19 +25,25 @@
             @endif
         </div>
         <div class="text-indigo-600">
-            @if (auth()->check() && !$conference->isDismissed())
+            @if (auth()->check() && !$conference->isDismissedBy(auth()->user()))
                 <x-button.icon
-                    :icon="$conference->isFavorited() ? 'star-full' : 'star-empty'"
+                    :icon="$conference->isFavoritedBy(auth()->user())
+                        ? 'star-full'
+                        : 'star-empty'
+                    "
                     class="ml-3"
                     wire:click="toggleFavorite('{{ $conference->id }}')"
                 />
             @endif
 
-            @if (auth()->check() && !$conference->isFavorited())
+            @if (auth()->check() && !$conference->isFavoritedBy(auth()->user()))
                 <x-button.icon
-                    :icon="$conference->isDismissed() ? 'plus' : 'close'"
+                    :icon="$conference->isDismissedBy(auth()->user())
+                        ? 'plus'
+                        : 'close'
+                    "
                     class="ml-3"
-                    :title="$conference->isDismissed()
+                    :title="$conference->isDismissedBy(auth()->user())
                         ? 'I am interested in this conference'
                         : 'I am not interested in this conference'
                     "

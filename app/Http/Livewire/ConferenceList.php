@@ -98,7 +98,7 @@ class ConferenceList extends Component
 
     public function toggleFavorite(Conference $conference)
     {
-        if (! auth()->user() || $conference->isDismissed()) {
+        if (! auth()->user() || $conference->isDismissedBy(auth()->user())) {
             return;
         }
 
@@ -107,7 +107,7 @@ class ConferenceList extends Component
 
     public function toggleDismissed(Conference $conference)
     {
-        if (! auth()->user() || $conference->isFavorited()) {
+        if (! auth()->user() || $conference->isFavoritedBy(auth()->user())) {
             return;
         }
 
