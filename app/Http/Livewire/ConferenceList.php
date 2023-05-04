@@ -17,7 +17,7 @@ class ConferenceList extends Component
 
     public $filter;
 
-    public $sort = 'title';
+    public $sort = 'date';
 
     public $search;
 
@@ -83,8 +83,8 @@ class ConferenceList extends Component
     public function getSortOptionsProperty()
     {
         return [
-            ['label' => 'Title', 'value' => 'title'],
             ['label' => 'Date', 'value' => 'date'],
+            ['label' => 'Title', 'value' => 'title'],
             ['label' => 'CFP Closing Next', 'value' => 'cfp_closing_next'],
             ['label' => 'CFP Opening Next', 'value' => 'cfp_opening_next'],
         ];
