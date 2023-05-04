@@ -18,11 +18,14 @@ class ConferenceList extends Component
 
     public $sort = 'title';
 
+    public $search;
+
     protected $queryString = [
         'year',
         'month',
         'filter',
         'sort',
+        'search',
     ];
 
     public function mount()
@@ -41,21 +44,21 @@ class ConferenceList extends Component
 
     public function getConferencesProperty()
     {
-        return Conference::query()
-            ->approved()
-            ->where(fn ($query) => $this->applyFavoritesFilter($query))
-            ->where(fn ($query) => $this->applyDismissedFilter($query))
-            ->where(fn ($query) => $this->applyOpenCfpFilter($query))
-            ->where(fn ($query) => $this->applyFutureCfpFilter($query))
-            ->when(fn ($query) => $this->sortByTitle($query))
-            ->when(fn ($query) => $this->sortByDate($query))
-            ->when(fn ($query) => $this->sortByCfpClosing($query))
-            ->when(fn ($query) => $this->sortByCfpOpening($query))
-            ->whereEventDuring(
-                $this->date->year,
-                $this->date->month,
-            )
-            ->get();
+        return Conference::search($this->search)->query(function ($query) {
+            $query->approved()
+                ->where(fn ($query) => $this->applyFavoritesFilter($query))
+                ->where(fn ($query) => $this->applyDismissedFilter($query))
+                ->where(fn ($query) => $this->applyOpenCfpFilter($query))
+                ->where(fn ($query) => $this->applyFutureCfpFilter($query))
+                ->when(fn ($query) => $this->sortByTitle($query))
+                ->when(fn ($query) => $this->sortByDate($query))
+                ->when(fn ($query) => $this->sortByCfpClosing($query))
+                ->when(fn ($query) => $this->sortByCfpOpening($query))
+                ->whereEventDuring(
+                    $this->date->year,
+                    $this->date->month,
+                );
+        })->get();
     }
 
     public function getFilterOptionsProperty()

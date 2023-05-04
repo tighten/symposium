@@ -18,11 +18,13 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Laravel\Scout\Searchable;
 
 class Conference extends UuidBase
 {
     use HasFactory;
     use SoftDeletes;
+    use Searchable;
 
     protected $table = 'conferences';
 
@@ -298,6 +300,14 @@ class Conference extends UuidBase
         }
 
         return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'location' => $this->location,
+        ];
     }
 
     public function isDismissedBy(User $user)
