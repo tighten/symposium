@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Conference;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class ConferenceList extends Component
@@ -44,16 +45,18 @@ class ConferenceList extends Component
 
     public function getConferencesProperty()
     {
+        Builder::mixin($this->queryScopes());
+
         return Conference::search($this->search)->query(function ($query) {
             $query->approved()
-                ->where(fn ($query) => $this->applyFavoritesFilter($query))
-                ->where(fn ($query) => $this->applyDismissedFilter($query))
-                ->where(fn ($query) => $this->applyOpenCfpFilter($query))
-                ->where(fn ($query) => $this->applyFutureCfpFilter($query))
-                ->when(fn ($query) => $this->sortByTitle($query))
-                ->when(fn ($query) => $this->sortByDate($query))
-                ->when(fn ($query) => $this->sortByCfpClosing($query))
-                ->when(fn ($query) => $this->sortByCfpOpening($query))
+                ->applyFavoritesFilter($this->filter)
+                ->applyDismissedFilter($this->filter)
+                ->applyOpenCfpFilter($this->filter)
+                ->applyFutureCfpFilter($this->filter)
+                ->sortByTitle($this->sort)
+                ->sortByDate($this->sort)
+                ->sortByCfpClosing($this->sort)
+                ->sortByCfpOpening($this->sort)
                 ->whereEventDuring(
                     $this->date->year,
                     $this->date->month,
@@ -123,76 +126,98 @@ class ConferenceList extends Component
         $this->month = $this->date->month;
     }
 
-    private function applyFavoritesFilter($query)
+    private function queryScopes()
     {
-        $query->when(
-            $this->filter === 'favorites' && auth()->user(),
-            fn ($q) => $q->whereFavoritedBy(auth()->user()),
-        );
-    }
+        return new class
+        {
+            public function applyFavoritesFilter()
+            {
+                return function ($filter) {
+                    return $this->when(
+                        $filter === 'favorites' && auth()->user(),
+                        fn ($q) => $q->whereFavoritedBy(auth()->user()),
+                    );
+                };
+            }
 
-    private function applyDismissedFilter($query)
-    {
-        if (! auth()->user()) {
-            return;
-        }
+            public function applyDismissedFilter()
+            {
+                return function ($filter) {
+                    if (! auth()->user()) {
+                        return $this;
+                    }
 
-        $query->when(
-            $this->filter === 'dismissed',
-            fn ($q) => $query->whereDismissedBy(auth()->user()),
-            fn ($q) => $query->whereNotDismissedBy(auth()->user()),
-        );
-    }
+                    return $this->when(
+                        $filter === 'dismissed',
+                        fn ($q) => $q->whereDismissedBy(auth()->user()),
+                        fn ($q) => $q->whereNotDismissedBy(auth()->user()),
+                    );
+                };
+            }
 
-    private function applyOpenCfpFilter($query)
-    {
-        $query->when(
-            $this->filter === 'open_cfp',
-            fn ($q) => $q->whereCfpIsOpen(),
-        );
-    }
+            public function applyOpenCfpFilter()
+            {
+                return function ($filter) {
+                    return $this->when(
+                        $filter === 'open_cfp',
+                        fn ($q) => $q->whereCfpIsOpen(),
+                    );
+                };
+            }
 
-    private function applyFutureCfpFilter($query)
-    {
-        $query->when(
-            $this->filter === 'future_cfp',
-            fn ($q) => $q->whereCfpIsFuture(),
-        );
-    }
+            public function applyFutureCfpFilter()
+            {
+                return function ($filter) {
+                    return $this->when(
+                        $filter === 'future_cfp',
+                        fn ($q) => $q->whereCfpIsFuture(),
+                    );
+                };
+            }
 
-    private function sortByTitle($query)
-    {
-        $query->when(
-            $this->sort === 'title',
-            fn ($query) => $query->orderBy('title'),
-        );
-    }
+            public function sortByTitle()
+            {
+                return function ($sort) {
+                    return $this->when(
+                        $sort === 'title',
+                        fn ($q) => $q->orderBy('title'),
+                    );
+                };
+            }
 
-    private function sortByDate($query)
-    {
-        $query->when(
-            $this->sort === 'date',
-            fn ($query) => $query->orderBy('starts_at'),
-        );
-    }
+            public function sortByDate()
+            {
+                return function ($sort) {
+                    return $this->when(
+                        $sort === 'date',
+                        fn ($q) => $q->orderBy('starts_at'),
+                    );
+                };
+            }
 
-    private function sortByCfpClosing($query)
-    {
-        $query->when(
-            $this->sort === 'cfp_closing_next',
-            fn ($query) => $query->orderByRaw(
-                'cfp_ends_at IS NULL, cfp_ends_at ASC',
-            ),
-        );
-    }
+            public function sortByCfpClosing()
+            {
+                return function ($sort) {
+                    return $this->when(
+                        $sort === 'cfp_closing_next',
+                        fn ($q) => $q->orderByRaw(
+                            'cfp_ends_at IS NULL, cfp_ends_at ASC',
+                        ),
+                    );
+                };
+            }
 
-    private function sortByCfpOpening($query)
-    {
-        $query->when(
-            $this->sort === 'cfp_opening_next',
-            fn ($query) => $query->orderByRaw(
-                'cfp_starts_at IS NULL, cfp_starts_at ASC',
-            ),
-        );
+            public function sortByCfpOpening()
+            {
+                return function ($sort) {
+                    return $this->when(
+                        $sort === 'cfp_opening_next',
+                        fn ($query) => $query->orderByRaw(
+                            'cfp_starts_at IS NULL, cfp_starts_at ASC',
+                        ),
+                    );
+                };
+            }
+        };
     }
 }
