@@ -67,9 +67,9 @@
     <div class="mt-4 pl-8 space-y-3">
         <x-info icon="calendar" icon-color="text-gray-400">
             <span class="text-gray-400">Dates:</span>
-            {{ $conference->starts_at->format('D M j, Y') ?? '[Date not set]' }}
+            {{ $conference->starts_at?->format('D M j, Y') ?? '[Date not set]' }}
             <span class="text-gray-400">to</span>
-            {{ $conference->ends_at->format('D M j, Y') ?? '[Date not set]' }}
+            {{ $conference->ends_at?->format('D M j, Y') ?? '[Date not set]' }}
         </x-info>
         <x-info icon="calendar" icon-color="text-gray-400">
             <span class="text-gray-400">CFP:</span>
