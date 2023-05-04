@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'relative']) }}>
+<div v-cloak {{ $attributes->merge(['class' => 'relative']) }}>
     <menu-toggle>
         <div slot-scope="{show, toggle}">
             <button
