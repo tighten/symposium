@@ -1,50 +1,61 @@
 <div>
-    <div class="flex">
-        <h2 class="text-2xl leading-8 font-semibold text-indigo-600 w-52">
-            {{ $date->format('F Y') }}
-        </h2>
-        <x-button.secondary
-            icon="chevron-left"
-            aria-label="Previous"
-            class="rounded-r-none ml-4"
-            wire:click.prevent="previous"
-            :href="route('conferences.index', [
-                'year' => $date->subMonth()->year,
-                'month' => $date->subMonth()->month,
-            ])"
+    <div class="flex space-x-10">
+        <x-input.text
+            name="search"
+            placeholder="Search conferences"
+            wire:model="search"
+            class="flex-1"
         />
-        <x-button.secondary
-            icon="chevron-right"
-            aria-label="Next"
-            class="rounded-l-none border-l-0"
-            wire:click.prevent="next"
-            :href="route('conferences.index', [
-                'year' => $date->addMonth()->year,
-                'month' => $date->addMonth()->month,
-            ])"
+        <x-input.select
+            :inline="true"
+            name="filter"
+            label="Filter by"
+            option-text="label"
+            option-value="value"
+            :options="$this->filter_options"
+            wire:model="filter"
+            class="w-1/4"
+            label-class="font-semibold text-gray-500"
+        />
+        <x-input.select
+            :inline="true"
+            name="sort"
+            label="Sort by"
+            option-text="label"
+            option-value="value"
+            :options="$this->sort_options"
+            wire:model="sort"
+            class="w-1/4"
+            label-class="font-semibold text-gray-500"
         />
     </div>
-    <x-input.select
-        name="filter"
-        label="Filter by"
-        option-text="label"
-        option-value="value"
-        :options="$this->filter_options"
-        wire:model="filter"
-    />
-    <x-input.select
-        name="sort"
-        label="Sort by"
-        option-text="label"
-        option-value="value"
-        :options="$this->sort_options"
-        wire:model="sort"
-    />
-    <x-input.text
-        name="search"
-        label="Search"
-        wire:model="search"
-    />
+    <div class="flex justify-between mt-8">
+        <h2 class="text-2xl leading-8 font-semibold text-indigo-600">
+            {{ $date->format('F Y') }}
+        </h2>
+        <div class="flex">
+            <x-button.secondary
+                icon="chevron-left"
+                aria-label="Previous"
+                class="rounded-r-none"
+                wire:click.prevent="previous"
+                :href="route('conferences.index', [
+                    'year' => $date->subMonth()->year,
+                    'month' => $date->subMonth()->month,
+                ])"
+            />
+            <x-button.secondary
+                icon="chevron-right"
+                aria-label="Next"
+                class="rounded-l-none border-l-0"
+                wire:click.prevent="next"
+                :href="route('conferences.index', [
+                    'year' => $date->addMonth()->year,
+                    'month' => $date->addMonth()->month,
+                ])"
+            />
+        </div>
+    </div>
     <x-panel size="xl" :padding="false" class="mt-5">
         @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
     </x-panel>

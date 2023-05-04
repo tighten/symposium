@@ -1,7 +1,7 @@
 @props([
     'name',
     'label' => null,
-    'labelClass' => null,
+    'labelClass' => 'font-extrabold text-indigo-900',
     'options' => [],
     'optionText' => '',
     'optionValue' => '',
@@ -22,7 +22,7 @@
     <label
         for="currency"
         class="
-            font-extrabold text-indigo-900 {{ $labelClass }}
+            {{ $labelClass }}
             @unless ($inline) block @endunless
         "
     >
