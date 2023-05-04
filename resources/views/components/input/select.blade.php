@@ -8,6 +8,7 @@
     'hideLabel' => false,
     'inline' => false,
     'includeEmpty' => false,
+    'inputClass' => '',
 ])
 
 @php
@@ -39,6 +40,7 @@
             class="
                 border-form-200 form-input rounded w-full
                 @unless ($hideLabel) mt-1 @endunless
+                {{ $inputClass }}
             "
         >
             @if ($includeEmpty)

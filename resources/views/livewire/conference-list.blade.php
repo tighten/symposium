@@ -16,6 +16,7 @@
             wire:model="filter"
             class="w-1/4"
             label-class="font-semibold text-gray-500"
+            input-class="font-semibold text-indigo-600"
         />
         <x-input.select
             :inline="true"
@@ -27,6 +28,7 @@
             wire:model="sort"
             class="w-1/4"
             label-class="font-semibold text-gray-500"
+            input-class="font-semibold text-indigo-600"
         />
     </div>
     <div class="flex justify-between mt-8">
