@@ -765,32 +765,28 @@ class ConferenceTest extends TestCase
     public function a_favorited_conference_cannot_be_dismissed()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->favoritedBy($user)->create();
+        $this->assertFalse($conference->isDismissedBy($user));
 
-        $conference = Conference::factory()->approved()->create();
-        $user->favoritedConferences()->save($conference);
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleDismissed', $conference);
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=dismissed')
-            ->assertDontSee($conference->title);
+        $this->assertFalse($conference->isDismissedBy($user->fresh()));
     }
 
     /** @test */
     public function a_dismissed_conference_cannot_be_favorited()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->dismissedBy($user)->create();
+        $this->assertFalse($conference->isFavoritedBy($user));
 
-        $conference = Conference::factory()->approved()->create();
-        $user->dismissedConferences()->save($conference);
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleFavorite', $conference);
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/favorite");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=favorites')
-            ->assertDontSee($conference->title);
+        $this->assertFalse($conference->isFavoritedBy($user->fresh()));
     }
 
     /** @test */
