@@ -31,9 +31,6 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@fullcalendar/core": "^5.10.0",
-        "@fullcalendar/daygrid": "^5.10.0",
-        "@fullcalendar/vue": "^5.10.0",
         "cross-env": "^7.0.3",
         "v-calendar": "^2.4.1",
         "vform": "^1.0.0"

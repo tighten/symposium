@@ -38,11 +38,6 @@ Vue.component(
 );
 
 Vue.component(
-    'conference-calendar',
-    require('./components/ConferenceCalendar.vue').default
-);
-
-Vue.component(
     'cfp-fields',
     require('./components/CfpFields.vue').default
 );
