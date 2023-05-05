@@ -49,10 +49,10 @@ class ConferenceList extends Component
 
         return Conference::search($this->search)->query(function ($query) {
             $query->approved()
-                ->applyFavoritesFilter($this->filter)
-                ->applyDismissedFilter($this->filter)
-                ->applyOpenCfpFilter($this->filter)
-                ->applyFutureCfpFilter($this->filter)
+                ->filterByFavorites($this->filter)
+                ->filterByDismissed($this->filter)
+                ->filterByOpenCfp($this->filter)
+                ->filterByFutureCfp($this->filter)
                 ->sortByTitle($this->sort)
                 ->sortByDate($this->sort)
                 ->sortByCfpClosing($this->sort)
@@ -130,7 +130,7 @@ class ConferenceList extends Component
     {
         return new class
         {
-            public function applyFavoritesFilter()
+            public function filterByFavorites()
             {
                 return function ($filter) {
                     return $this->when(
@@ -140,7 +140,7 @@ class ConferenceList extends Component
                 };
             }
 
-            public function applyDismissedFilter()
+            public function filterByDismissed()
             {
                 return function ($filter) {
                     if (! auth()->user()) {
@@ -155,7 +155,7 @@ class ConferenceList extends Component
                 };
             }
 
-            public function applyOpenCfpFilter()
+            public function filterByOpenCfp()
             {
                 return function ($filter) {
                     return $this->when(
@@ -165,7 +165,7 @@ class ConferenceList extends Component
                 };
             }
 
-            public function applyFutureCfpFilter()
+            public function filterByFutureCfp()
             {
                 return function ($filter) {
                     return $this->when(
