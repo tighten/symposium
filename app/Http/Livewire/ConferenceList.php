@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Conference;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ConferenceList extends Component
@@ -49,6 +50,7 @@ class ConferenceList extends Component
 
         return Conference::search($this->search)->query(function ($query) {
             $query->approved()
+                ->filterByAll($this->filter, $this->date)
                 ->filterByFuture($this->filter)
                 ->filterByFavorites($this->filter)
                 ->filterByDismissed($this->filter)
@@ -58,11 +60,8 @@ class ConferenceList extends Component
                 ->sortByDate($this->sort)
                 ->sortByCfpClosing($this->sort)
                 ->sortByCfpOpening($this->sort)
-                ->whereEventDuring(
-                    $this->date->year,
-                    $this->date->month,
-                );
-        })->get();
+                ->selectMonth();
+        })->get()->groupBy('month');
     }
 
     public function getFilterOptionsProperty()
@@ -132,6 +131,19 @@ class ConferenceList extends Component
     {
         return new class
         {
+            public function filterByAll()
+            {
+                return function ($filter, $date) {
+                    return $this->when(
+                        $filter === 'all',
+                        fn ($q) => $q->whereEventDuring(
+                            $date->year,
+                            $date->month,
+                        ),
+                    );
+                };
+            }
+
             public function filterByFuture()
             {
                 return function ($filter) {
@@ -227,6 +239,16 @@ class ConferenceList extends Component
                         fn ($query) => $query->orderByRaw(
                             'cfp_starts_at IS NULL, cfp_starts_at ASC',
                         ),
+                    );
+                };
+            }
+
+            public function selectMonth()
+            {
+                return function () {
+                    return $this->select(
+                        '*',
+                        DB::raw("DATE_FORMAT(starts_at, '%Y-%m') month")
                     );
                 };
             }
