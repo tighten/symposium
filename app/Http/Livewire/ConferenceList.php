@@ -15,7 +15,7 @@ class ConferenceList extends Component
 
     public $month;
 
-    public $filter;
+    public $filter = 'future';
 
     public $sort = 'date';
 
@@ -49,6 +49,7 @@ class ConferenceList extends Component
 
         return Conference::search($this->search)->query(function ($query) {
             $query->approved()
+                ->filterByFuture($this->filter)
                 ->filterByFavorites($this->filter)
                 ->filterByDismissed($this->filter)
                 ->filterByOpenCfp($this->filter)
@@ -68,6 +69,7 @@ class ConferenceList extends Component
     {
         $filterOptions = [
             ['label' => 'All', 'value' => 'all'],
+            ['label' => 'Future', 'value' => 'future'],
             ['label' => 'Open CFP', 'value' => 'open_cfp'],
             ['label' => 'Future CFP', 'value' => 'future_cfp'],
         ];
@@ -130,6 +132,16 @@ class ConferenceList extends Component
     {
         return new class
         {
+            public function filterByFuture()
+            {
+                return function ($filter) {
+                    return $this->when(
+                        $filter === 'future',
+                        fn ($q) => $q->Future(),
+                    );
+                };
+            }
+
             public function filterByFavorites()
             {
                 return function ($filter) {

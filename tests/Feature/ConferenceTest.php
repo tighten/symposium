@@ -716,6 +716,24 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function filtering_by_future_shows_future_conferences()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => now()->addDay(),
+            'title' => 'Conference A',
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => now()->subDay(),
+            'title' => 'Conference B',
+        ]);
+
+        $response = $this->get('conferences?filter=future');
+
+        $response->assertSee('Conference A');
+        $response->assertDontSee('Conference B');
+    }
+
+    /** @test */
     public function filtering_by_dismissed_shows_dismissed_conferences()
     {
         $user = User::factory()->create();
