@@ -43,9 +43,7 @@ class ConferenceList extends Component
 
     public function mount()
     {
-        $this->date = CarbonImmutable::now()
-            ->year($this->year ?? now()->year)
-            ->month($this->month ?? now()->month);
+        $this->initDate();
     }
 
     public function render()
@@ -99,6 +97,13 @@ class ConferenceList extends Component
         ];
     }
 
+    public function updatedFilter()
+    {
+        $this->initDate();
+        $this->month = $this->filter === 'all' ? $this->date->month : null;
+        $this->year = $this->filter === 'all' ? $this->date->year : null;
+    }
+
     public function previous()
     {
         $this->date = $this->date->subMonth();
@@ -127,6 +132,13 @@ class ConferenceList extends Component
         }
 
         auth()->user()->dismissedConferences()->toggle($conference->id);
+    }
+
+    private function initDate()
+    {
+        $this->date = CarbonImmutable::now()
+            ->year($this->year ?? now()->year)
+            ->month($this->month ?? now()->month);
     }
 
     private function updateQueryString()
