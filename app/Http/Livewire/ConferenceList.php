@@ -84,10 +84,10 @@ class ConferenceList extends Component
     public function getSortOptionsProperty()
     {
         return [
-            ['label' => 'Date', 'value' => 'date'],
             ['label' => 'Title', 'value' => 'title'],
-            ['label' => 'CFP Closing Next', 'value' => 'cfp_closing_next'],
-            ['label' => 'CFP Opening Next', 'value' => 'cfp_opening_next'],
+            ['label' => 'Event Date', 'value' => 'date'],
+            ['label' => 'CFP Closing Date', 'value' => 'cfp_closing_next'],
+            ['label' => 'CFP Opening Date', 'value' => 'cfp_opening_next'],
         ];
     }
 
