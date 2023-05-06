@@ -651,7 +651,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function cfp_by_date_list_sorts_by_date()
+    public function sorting_by_event_date()
     {
         Carbon::setTestNow('2023-05-04');
 
@@ -667,6 +667,52 @@ class ConferenceTest extends TestCase
         $response = Livewire::test(ConferenceList::class)
             ->set('filter', 'all')
             ->set('sort', 'date');
+
+        $this->assertConferenceSort([
+            $conferenceA,
+            $conferenceB,
+        ], $response->conferences);
+    }
+
+    /** @test */
+    public function sorting_by_cfp_opening_date()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addMonth(),
+            'cfp_starts_at' => Carbon::now()->addDay(),
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addWeek(),
+            'cfp_starts_at' => Carbon::now()->addDays(2),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'future')
+            ->set('sort', 'cfp_opening_next');
+
+        $this->assertConferenceSort([
+            $conferenceA,
+            $conferenceB,
+        ], $response->conferences);
+    }
+
+    /** @test */
+    public function sorting_by_cfp_closing_date()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addMonth(),
+            'cfp_starts_at' => Carbon::now()->subDay(),
+            'cfp_ends_at' => Carbon::now()->addDay(),
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addWeek(),
+            'cfp_starts_at' => Carbon::now()->subDay(),
+            'cfp_ends_at' => Carbon::now()->addDays(2),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'future')
+            ->set('sort', 'cfp_closing_next');
 
         $this->assertConferenceSort([
             $conferenceA,
@@ -728,6 +774,48 @@ class ConferenceTest extends TestCase
         ]);
 
         $response = $this->get('conferences?filter=future');
+
+        $response->assertSee('Conference A');
+        $response->assertDontSee('Conference B');
+    }
+
+    /** @test */
+    public function filtering_by_future_shows_future_cfp_openings_when_sorting_by_cfp_opening()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_starts_at' => now()->addDay(),
+            'title' => 'Conference A',
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_ends_at' => now()->subDay(),
+            'title' => 'Conference B',
+        ]);
+
+        $response = $this->get('conferences?filter=future&sort=cfp_opening_next');
+
+        $response->assertSee('Conference A');
+        $response->assertDontSee('Conference B');
+    }
+
+    /** @test */
+    public function filtering_by_future_shows_future_cfp_closings_when_sorting_by_cfp_closing()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_starts_at' => now()->subWeek(),
+            'cfp_ends_at' => now()->addDay(),
+            'title' => 'Conference A',
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_ends_at' => now()->subWeek(),
+            'cfp_ends_at' => now()->subDay(),
+            'title' => 'Conference B',
+        ]);
+
+        $response = $this->get('conferences?filter=future&sort=cfp_closing_next');
 
         $response->assertSee('Conference A');
         $response->assertDontSee('Conference B');

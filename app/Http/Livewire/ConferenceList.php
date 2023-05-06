@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Conference;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class ConferenceList extends Component
@@ -30,6 +30,17 @@ class ConferenceList extends Component
         'search',
     ];
 
+    public function boot()
+    {
+        Builder::mixin($this->queryScopes());
+
+        Collection::macro('groupByMonth', function ($column) {
+            return $this->groupBy(function ($item) use ($column) {
+                $item->getAttribute($column)?->format('Y-m');
+            });
+        });
+    }
+
     public function mount()
     {
         $this->date = CarbonImmutable::now()
@@ -46,12 +57,10 @@ class ConferenceList extends Component
 
     public function getConferencesProperty()
     {
-        Builder::mixin($this->queryScopes());
-
         return Conference::search($this->search)->query(function ($query) {
             $query->approved()
                 ->filterByAll($this->filter, $this->date)
-                ->filterByFuture($this->filter)
+                ->filterByFuture($this->filter, $this->dateColumn())
                 ->filterByFavorites($this->filter)
                 ->filterByDismissed($this->filter)
                 ->filterByOpenCfp($this->filter)
@@ -60,9 +69,7 @@ class ConferenceList extends Component
                 ->sortByDate($this->sort)
                 ->sortByCfpClosing($this->sort)
                 ->sortByCfpOpening($this->sort);
-        })->get()->groupBy(function ($conference) {
-            return $conference->starts_at?->format('Y-m');
-        });
+        })->get()->groupByMonth($this->dateColumn());
     }
 
     public function getFilterOptionsProperty()
@@ -128,6 +135,15 @@ class ConferenceList extends Component
         $this->month = $this->date->month;
     }
 
+    private function dateColumn()
+    {
+        return data_get([
+            'date' => 'starts_at',
+            'cfp_opening_next' => 'cfp_starts_at',
+            'cfp_closing_next' => 'cfp_ends_at',
+        ], $this->sort, 'date');
+    }
+
     private function queryScopes()
     {
         return new class
@@ -147,10 +163,10 @@ class ConferenceList extends Component
 
             public function filterByFuture()
             {
-                return function ($filter) {
+                return function ($filter, $column) {
                     return $this->when(
                         $filter === 'future',
-                        fn ($q) => $q->Future(),
+                        fn ($q) => $q->where($column, '>', now())
                     );
                 };
             }
