@@ -865,7 +865,7 @@ class ConferenceTest extends TestCase
     public function assertConferenceSort($expectedConferences, $conferences)
     {
         foreach ($expectedConferences as $sortPosition => $conference) {
-            $sortedConference = $conferences->values()[$sortPosition];
+            $sortedConference = $conferences->flatten()->values()[$sortPosition];
 
             $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
         }

@@ -59,9 +59,10 @@ class ConferenceList extends Component
                 ->sortByTitle($this->sort)
                 ->sortByDate($this->sort)
                 ->sortByCfpClosing($this->sort)
-                ->sortByCfpOpening($this->sort)
-                ->selectMonth();
-        })->get()->groupBy('month');
+                ->sortByCfpOpening($this->sort);
+        })->get()->groupBy(function ($conference) {
+            return $conference->starts_at?->format('Y-m');
+        });
     }
 
     public function getFilterOptionsProperty()
@@ -239,16 +240,6 @@ class ConferenceList extends Component
                         fn ($query) => $query->orderByRaw(
                             'cfp_starts_at IS NULL, cfp_starts_at ASC',
                         ),
-                    );
-                };
-            }
-
-            public function selectMonth()
-            {
-                return function () {
-                    return $this->select(
-                        '*',
-                        DB::raw("DATE_FORMAT(starts_at, '%Y-%m') month")
                     );
                 };
             }
