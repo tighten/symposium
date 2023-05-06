@@ -43,11 +43,11 @@ class ConferenceFactory extends Factory
         ]);
     }
 
-    public function cfpDates($start, $end)
+    public function cfpDates($start, $end = null)
     {
         return $this->state([
             'cfp_starts_at' => $start,
-            'cfp_ends_at' => $end,
+            'cfp_ends_at' => $end ?? $start,
         ]);
     }
 

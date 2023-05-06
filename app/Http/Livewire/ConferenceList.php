@@ -59,7 +59,7 @@ class ConferenceList extends Component
     {
         return Conference::search($this->search)->query(function ($query) {
             $query->approved()
-                ->filterByAll($this->filter, $this->date)
+                ->filterByAll($this->filter, $this->date, $this->dateColumn())
                 ->filterByFuture($this->filter, $this->dateColumn())
                 ->filterByFavorites($this->filter)
                 ->filterByDismissed($this->filter)
@@ -94,8 +94,8 @@ class ConferenceList extends Component
         return [
             ['label' => 'Title', 'value' => 'title'],
             ['label' => 'Event Date', 'value' => 'date'],
-            ['label' => 'CFP Closing Date', 'value' => 'cfp_closing_next'],
             ['label' => 'CFP Opening Date', 'value' => 'cfp_opening_next'],
+            ['label' => 'CFP Closing Date', 'value' => 'cfp_closing_next'],
         ];
     }
 
@@ -150,12 +150,13 @@ class ConferenceList extends Component
         {
             public function filterByAll()
             {
-                return function ($filter, $date) {
+                return function ($filter, $date, $dateColumn) {
                     return $this->when(
                         $filter === 'all',
-                        fn ($q) => $q->whereEventDuring(
+                        fn ($q) => $q->whereDateDuring(
                             $date->year,
                             $date->month,
+                            $dateColumn,
                         ),
                     );
                 };

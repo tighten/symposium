@@ -215,23 +215,11 @@ class Conference extends UuidBase
         $query->whereNotNull(['starts_at', 'ends_at']);
     }
 
-    public function scopeWhereEventYear($query, $year)
+    public function scopeWhereDateDuring($query, $year, $month, $dateColumn)
     {
-        tap(now()->year($year), function ($date) use ($query) {
-            $query->whereDate('starts_at', '<=', $date->endOfYear())
-                ->whereDate('ends_at', '>=', $date->startOfYear());
-        });
-    }
-
-    public function scopeWhereEventDuring($query, $year, $month = null)
-    {
-        if (! $month) {
-            return $query->whereEventYear($year);
-        }
-
-        tap(now()->year($year)->month($month), function ($date) use ($query) {
-            $query->whereDate('starts_at', '<=', $date->endOfMonth())
-                ->whereDate('ends_at', '>=', $date->startOfMonth());
+        tap(now()->year($year)->month($month), function ($date) use ($query, $dateColumn) {
+            $query->whereDate($dateColumn, '<=', $date->endOfMonth())
+                ->whereDate($dateColumn, '>=', $date->startOfMonth());
         });
     }
 

@@ -622,32 +622,33 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
+    public function sorting_by_cfp_filters_out_null_cfp()
     {
         Carbon::setTestNow('2023-05-04');
 
         $nullCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
+            'title' => 'Null CFP',
         ]);
         $pastCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
+            'title' => 'Past CFP',
         ]);
         $futureCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
+            'title' => 'Future CFP',
         ]);
 
         $response = Livewire::test(ConferenceList::class)
             ->set('filter', 'all')
             ->set('sort', 'cfp_closing_next');
 
-        $this->assertConferenceSort([
-            $pastCfp,
-            $futureCfp,
-            $nullCfp,
-        ], $response->conferences);
+        $response->assertSee($pastCfp->title);
+        $response->assertSee($futureCfp->title);
+        $response->assertDontSee($nullCfp->title);
     }
 
     /** @test */
@@ -1067,20 +1068,6 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conference_queries_by_event_year()
-    {
-        $conferenceA = Conference::factory()->dates('2023-01-01')->create();
-        $conferenceB = Conference::factory()->dates('2022-12-01')->create();
-        $conferenceC = Conference::factory()->dates('2022-12-31', '2023-01-31')->create();
-
-        $conferenceIds = Conference::whereEventDuring(2023)->get()->pluck('id');
-
-        $this->assertContains($conferenceA->id, $conferenceIds);
-        $this->assertNotContains($conferenceB->id, $conferenceIds);
-        $this->assertContains($conferenceC->id, $conferenceIds);
-    }
-
-    /** @test */
     function scopping_conference_queries_by_event_year_and_month()
     {
         $conferenceA = Conference::factory()->dates('2023-01-01')->create();
@@ -1088,12 +1075,44 @@ class ConferenceTest extends TestCase
         $conferenceC = Conference::factory()->dates('2022-12-31', '2023-01-31')->create();
         $conferenceD = Conference::factory()->dates('2022-12-31', '2023-02-01')->create();
 
-        $conferenceIds = Conference::whereEventDuring(2023, 1)->get()->pluck('id');
+        $conferenceIds = Conference::whereDateDuring(2023, 1, 'starts_at')->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertNotContains($conferenceC->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scopping_conference_queries_by_cfp_start_year_and_month()
+    {
+        $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->cfpDates('2022-12-31', '2023-01-31')->create();
+        $conferenceD = Conference::factory()->cfpDates('2022-12-31', '2023-02-01')->create();
+
+        $conferenceIds = Conference::whereDateDuring(2023, 1, 'cfp_starts_at')->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertNotContains($conferenceC->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scopping_conference_queries_by_cfp_end_year_and_month()
+    {
+        $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->cfpDates('2022-12-31', '2023-01-31')->create();
+        $conferenceD = Conference::factory()->cfpDates('2022-12-31', '2023-02-01')->create();
+
+        $conferenceIds = Conference::whereDateDuring(2023, 1, 'cfp_ends_at')->get()->pluck('id');
 
         $this->assertContains($conferenceA->id, $conferenceIds);
         $this->assertNotContains($conferenceB->id, $conferenceIds);
         $this->assertContains($conferenceC->id, $conferenceIds);
-        $this->assertContains($conferenceD->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
     }
 
     /** @test */
