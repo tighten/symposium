@@ -36,7 +36,7 @@ class ConferenceList extends Component
 
         Collection::macro('groupByMonth', function ($column) {
             return $this->groupBy(function ($item) use ($column) {
-                $item->getAttribute($column)?->format('Y-m');
+                return $item->getAttribute($column)?->format('Y-m');
             });
         });
     }
