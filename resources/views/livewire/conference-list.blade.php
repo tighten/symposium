@@ -31,7 +31,7 @@
             input-class="font-semibold text-indigo-600"
         />
     </div>
-    @foreach ($conferences as $month => $conferences)
+    @forelse ($conferences as $month => $conferences)
         <div class="flex justify-between mt-8">
             <h2 class="text-2xl leading-8 font-semibold text-indigo-600">
                 {{ Carbon\Carbon::parse($month)->format('F Y') }}
@@ -64,7 +64,11 @@
         <x-panel size="xl" :padding="false" class="mt-5">
             @each('conferences.listing', $conferences, 'conference', 'conferences.listing-empty')
         </x-panel>
-    @endforeach
+    @empty
+        <x-panel size="xl" :padding="false" class="mt-5">
+            @include('conferences.listing-empty')
+        </x-panel>
+    @endforelse
 
     @if (auth()->user())
         <div class="mt-4 text-right">
