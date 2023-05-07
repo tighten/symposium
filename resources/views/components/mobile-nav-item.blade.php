@@ -13,7 +13,7 @@
     <a
         href="{{ $url ?? route($route) }}"
         :class="{
-            'block py-4': show,
+            'block py-4 lg:hidden': show,
             'hidden py-2': !show,
         }"
         class="px-3 rounded hover:underline

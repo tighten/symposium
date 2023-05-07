@@ -5,12 +5,12 @@
             <div slot-scope="{show, toggle}" class="flex items-center justify-between">
                 <div
                     class="bg-indigo-600 block gap-4 text-sm text-white lg:flex lg:items-center"
-                    :class="{'absolute w-full top-4': show}"
+                    :class="{'absolute w-full top-4 lg:relative lg:top-auto': show}"
                 >
                     <a
                         href="{{ auth()->check() ? route('dashboard') : url('/') }}"
                         class="block px-4"
-                        :class="{'pb-4': show}"
+                        :class="{'pb-4 lg:pb-0': show}"
                     >
                         @svg('logo')
                     </a>
