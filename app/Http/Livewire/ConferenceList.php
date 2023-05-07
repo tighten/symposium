@@ -69,15 +69,19 @@ class ConferenceList extends Component
                 ->filterByFutureCfp($this->filter)
                 ->sortByTitle($this->sort)
                 ->sortByDate($this->sort)
-                ->sortByCfpClosing($this->sort)
-                ->sortByCfpOpening($this->sort);
+                ->sortByCfpOpening($this->sort)
+                ->sortByCfpClosing($this->sort);
         })
             ->get()
             ->groupByMonth($this->dateColumn())
             ->sortKeys()
-            ->else(collect([
-                "{$this->date->year}-{$this->date->month}" => collect(),
-            ]));
+            ->else(
+                // Display the month/year header for months
+                // without conferences when filtering by all
+                $this->filter !== 'all' ? collect() : collect([
+                    "{$this->date->year}-{$this->date->month}" => collect(),
+                ]),
+            );
     }
 
     public function getFilterOptionsProperty()
