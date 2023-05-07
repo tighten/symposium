@@ -153,7 +153,7 @@ class ConferenceList extends Component
             'date' => 'starts_at',
             'cfp_opening_next' => 'cfp_starts_at',
             'cfp_closing_next' => 'cfp_ends_at',
-        ], $this->sort, 'date');
+        ], $this->sort, 'starts_at');
     }
 
     private function queryScopes()
