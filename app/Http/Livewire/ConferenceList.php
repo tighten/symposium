@@ -39,10 +39,6 @@ class ConferenceList extends Component
                 return $item->getAttribute($column)?->format('Y-m');
             });
         });
-
-        Collection::macro('else', function ($value) {
-            return $this->isNotEmpty() ? $this : $value;
-        });
     }
 
     public function mount()
@@ -75,13 +71,13 @@ class ConferenceList extends Component
             ->get()
             ->groupByMonth($this->dateColumn())
             ->sortKeys()
-            ->else(
+            ->whenEmpty(function () {
                 // Display the month/year header for months
                 // without conferences when filtering by all
-                $this->filter !== 'all' ? collect() : collect([
+                return $this->filter !== 'all' ? collect() : collect([
                     "{$this->date->year}-{$this->date->month}" => collect(),
-                ]),
-            );
+                ]);
+            });
     }
 
     public function getFilterOptionsProperty()
