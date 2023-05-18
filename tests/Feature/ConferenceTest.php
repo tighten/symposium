@@ -961,7 +961,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_has_dates()
+    public function scoping_conferences_queries_where_has_dates()
     {
         $conferenceA = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => Carbon::parse('tomorrow')]);
         $conferenceB = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => null]);
@@ -977,7 +977,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_has_cfp_start_date()
+    public function scoping_conferences_queries_where_has_cfp_start_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_starts_at' => Carbon::parse('yesterday')]);
         $conferenceB = Conference::factory()->create(['cfp_starts_at' => null]);
@@ -989,7 +989,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_favorited_by_user()
+    public function scoping_conferences_queries_where_favorited_by_user()
     {
         $user = User::factory()->create();
         $conferenceA = Conference::factory()->favoritedBy($user)->create();
@@ -1002,7 +1002,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_dismissed_by_user()
+    public function scoping_conferences_queries_where_dismissed_by_user()
     {
         $user = User::factory()->create();
         $conferenceA = Conference::factory()->dismissedBy($user)->create();
@@ -1015,7 +1015,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_not_dismissed_by_user()
+    public function scoping_conferences_queries_where_not_dismissed_by_user()
     {
         $user = User::factory()->create();
         $conferenceA = Conference::factory()->dismissedBy($user)->create();
@@ -1028,7 +1028,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_cfp_is_open()
+    public function scoping_conferences_queries_where_cfp_is_open()
     {
         Carbon::setTestNow('2023-05-04');
 
@@ -1042,7 +1042,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_cfp_is_future()
+    public function scoping_conferences_queries_where_cfp_is_future()
     {
         Carbon::setTestNow('2023-05-04');
 
@@ -1056,7 +1056,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_has_cfp_end_date()
+    public function scoping_conferences_queries_where_has_cfp_end_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_ends_at' => Carbon::parse('yesterday')]);
         $conferenceB = Conference::factory()->create(['cfp_ends_at' => null]);
@@ -1068,7 +1068,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conference_queries_by_event_year_and_month()
+    function scoping_conference_queries_by_event_year_and_month()
     {
         $conferenceA = Conference::factory()->dates('2023-01-01')->create();
         $conferenceB = Conference::factory()->dates('2022-12-01')->create();
@@ -1084,7 +1084,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conference_queries_by_cfp_start_year_and_month()
+    function scoping_conference_queries_by_cfp_start_year_and_month()
     {
         $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
         $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
@@ -1100,7 +1100,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scopping_conference_queries_by_cfp_end_year_and_month()
+    function scoping_conference_queries_by_cfp_end_year_and_month()
     {
         $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
         $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
