@@ -9,7 +9,7 @@
 </ul>
 
 <x-form :action="route('account.edit', $user)" method="PUT" :upload="true">
-    <x-panel title="User">
+    <x-panel size="xl" title="User">
         <x-input.text
             name="email"
             label="Email Address"
@@ -69,7 +69,7 @@
         ></x-input.radios>
     </x-panel>
 
-    <x-panel title="Public Profile" class="mt-6">
+    <x-panel size="xl" title="Public Profile" class="mt-6">
         <x-input.radios
             name="enable_profile"
             label="Show Public Speaker Profile?"

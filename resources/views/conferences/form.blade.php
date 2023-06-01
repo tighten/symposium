@@ -1,4 +1,4 @@
-<x-panel>
+<x-panel size="xl">
     <x-input.text
         name="title"
         label="*Title"
@@ -46,7 +46,7 @@
     ></x-input.date>
 </x-panel>
 
-<x-panel class="mt-4">
+<x-panel size="xl" class="mt-4">
     <cfp-fields :data="{{ json_encode([
         'hasCfp' => old('has_cfp', $conference->has_cfp),
         'cfpUrl' => old('cfp_url', $conference->cfp_url),
@@ -92,7 +92,7 @@
     </cfp-fields>
 </x-panel>
 
-<x-panel class="mt-4">
+<x-panel size="xl" class="mt-4">
     <h2 class="text-4xl">Speaker Package</h2>
 
     <currency-selection

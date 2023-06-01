@@ -9,7 +9,7 @@
 </ul>
 
 <x-form :action="route('talks.store')">
-    <x-panel>
+    <x-panel size="xl">
         @include('talks.form')
     </x-panel>
 

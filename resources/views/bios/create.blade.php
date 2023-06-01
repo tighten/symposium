@@ -9,7 +9,7 @@
 </ul>
 
 <x-form :action="route('bios.store')">
-    <x-panel>
+    <x-panel size="xl">
         @include('bios.form')
     </x-panel>
 

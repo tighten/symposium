@@ -9,7 +9,7 @@
 </ul>
 
 <x-form :action="route('talks.update', $current->talk_id)" method="PUT">
-    <x-panel>
+    <x-panel size="xl">
         @include('talks.form')
     </x-panel>
 
