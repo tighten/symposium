@@ -188,6 +188,13 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '>', now());
     }
 
+    public function scopeWhereCfpIsUnclosed($query)
+    {
+        $query
+            ->where('has_cfp', true)
+            ->where('cfp_ends_at', '>', now());
+    }
+
     public function scopeApproved($query)
     {
         return $query->where('is_approved', true);
