@@ -63,6 +63,7 @@ class ConferenceList extends Component
                 ->filterByDismissed($this->filter)
                 ->filterByOpenCfp($this->filter)
                 ->filterByFutureCfp($this->filter)
+                ->filterByUnclosedCfp($this->filter)
                 ->sortByTitle($this->sort)
                 ->sortByDate($this->sort)
                 ->sortByCfpOpening($this->sort)
@@ -87,6 +88,7 @@ class ConferenceList extends Component
             ['label' => 'Future', 'value' => 'future'],
             ['label' => 'Open CFP', 'value' => 'open_cfp'],
             ['label' => 'Future CFP', 'value' => 'future_cfp'],
+            ['label' => 'Unclosed CFP', 'value' => 'unclosed_cfp'],
         ];
 
         if (auth()->check()) {
@@ -235,6 +237,16 @@ class ConferenceList extends Component
                     return $this->when(
                         $filter === 'future_cfp',
                         fn ($q) => $q->whereCfpIsFuture(),
+                    );
+                };
+            }
+
+            public function filterByUnclosedCfp()
+            {
+                return function ($filter) {
+                    return $this->when(
+                        $filter === 'unclosed_cfp',
+                        fn ($q) => $q->whereCfpIsUnclosed(),
                     );
                 };
             }

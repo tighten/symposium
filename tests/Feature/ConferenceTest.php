@@ -763,6 +763,28 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function filtering_by_unclosed_cfp_shows_open_and_future_cfp()
+    {
+        $user = User::factory()->create();
+        Conference::factory()
+            ->cfpDates(now()->subDay(), now()->addDay())
+            ->create(['title' => 'Open CFP Conference']);
+        Conference::factory()
+            ->cfpDates(now()->addDay(), now()->addDays(2))
+            ->create(['title' => 'Future CFP Conference']);
+        Conference::factory()->create([
+            'has_cfp' => false,
+            'title' => 'No CFP Conference',
+        ]);
+
+        $this->actingAs($user)
+            ->get('conferences?filter=unclosed_cfp')
+            ->assertSee('Open CFP Conference')
+            ->assertSee('Future CFP Conference')
+            ->assertDontSee('No CFP Conference');
+    }
+
+    /** @test */
     public function filtering_by_future_shows_future_conferences()
     {
         $conferenceA = Conference::factory()->create([
