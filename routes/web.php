@@ -5,7 +5,6 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\BiosController;
-use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConferenceIssuesController;
 use App\Http\Controllers\ConferencesController;
 use App\Http\Controllers\DashboardController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\RejectionController;
 use App\Http\Controllers\SubmissionReactionsController;
 use App\Http\Controllers\SubmissionsController;
 use App\Http\Controllers\TalksController;
+use App\Http\Livewire\ConferenceList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -59,14 +59,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('submissions/{submission}/reactions', [SubmissionReactionsController::class, 'store'])->name('submissions.reactions.store');
 
-    Route::get('conferences/{id}/favorite', [ConferencesController::class, 'favorite']);
-    Route::get('conferences/{id}/unfavorite', [ConferencesController::class, 'unfavorite']);
-
-    Route::get('conferences/{id}/dismiss', [ConferencesController::class, 'dismiss']);
-    Route::get('conferences/{id}/undismiss', [ConferencesController::class, 'undismiss']);
-
-    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
-
     // Necessary for GET-friendly delete because lazy
     Route::get('talks/{id}/delete', [TalksController::class, 'destroy'])->name('talks.delete');
     Route::get('conferences/{id}/delete', [ConferencesController::class, 'destroy'])->name('conferences.delete');
@@ -85,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('bios', BiosController::class);
 });
 
-Route::get('conferences', [ConferencesController::class, 'index'])->name('conferences.index');
+Route::get('conferences', ConferenceList::class)->name('conferences.index');
 Route::get('conferences/{id}', [ConferencesController::class, 'show'])->name('conferences.show');
 
 // Social logins routes

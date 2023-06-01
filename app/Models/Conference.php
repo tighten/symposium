@@ -18,11 +18,13 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Laravel\Scout\Searchable;
 
 class Conference extends UuidBase
 {
     use HasFactory;
     use SoftDeletes;
+    use Searchable;
 
     protected $table = 'conferences';
 
@@ -107,6 +109,11 @@ class Conference extends UuidBase
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
     }
 
+    public function usersFavorited()
+    {
+        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
+    }
+
     public function issues()
     {
         return $this->hasMany(ConferenceIssue::class);
@@ -154,11 +161,12 @@ class Conference extends UuidBase
             ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
     }
 
-    public function scopeUnclosedCfp($query)
+    public function scopeWhereCfpIsFuture($query)
     {
         return $query
             ->where('has_cfp', true)
-            ->where('cfp_ends_at', '>', Carbon::now());
+            ->where('cfp_starts_at', '>', now())
+            ->where('cfp_ends_at', '>', now());
     }
 
     public function scopeFuture($query)
@@ -172,12 +180,19 @@ class Conference extends UuidBase
         $query->where('starts_at', '>', $date);
     }
 
-    public function scopeOpenCfp($query)
+    public function scopeWhereCfpIsOpen($query)
     {
         return $query
             ->where('has_cfp', true)
-            ->where('cfp_starts_at', '<=', Carbon::now())
-            ->where('cfp_ends_at', '>', Carbon::now());
+            ->where('cfp_starts_at', '<=', now())
+            ->where('cfp_ends_at', '>', now());
+    }
+
+    public function scopeWhereCfpIsUnclosed($query)
+    {
+        $query
+            ->where('has_cfp', true)
+            ->where('cfp_ends_at', '>', now());
     }
 
     public function scopeApproved($query)
@@ -185,12 +200,11 @@ class Conference extends UuidBase
         return $query->where('is_approved', true);
     }
 
-    public function scopeUndismissed($query)
+    public function scopeWhereNotDismissedBy($query, $user)
     {
-        return $query
-            ->whereDoesntHave('usersDismissed', function ($query) {
-                $query->where('id', auth()->id());
-            });
+        return $query->whereDoesntHave('usersDismissed', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        });
     }
 
     public function scopeNotShared($query)
@@ -208,6 +222,14 @@ class Conference extends UuidBase
         $query->whereNotNull(['starts_at', 'ends_at']);
     }
 
+    public function scopeWhereDateDuring($query, $year, $month, $dateColumn)
+    {
+        tap(now()->year($year)->month($month), function ($date) use ($query, $dateColumn) {
+            $query->whereDate($dateColumn, '<=', $date->endOfMonth())
+                ->whereDate($dateColumn, '>=', $date->startOfMonth());
+        });
+    }
+
     public function scopeWhereHasCfpStart($query)
     {
         $query->whereNotNull('cfp_starts_at');
@@ -216,6 +238,20 @@ class Conference extends UuidBase
     public function scopeWhereHasCfpEnd($query)
     {
         $query->whereNotNull('cfp_ends_at');
+    }
+
+    public function scopeWhereFavoritedBy($query, $user)
+    {
+        $query->whereHas('usersFavorited', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        });
+    }
+
+    public function scopeWhereDismissedBy($query, $user)
+    {
+        $query->whereHas('usersDismissed', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        });
     }
 
     /**
@@ -261,14 +297,22 @@ class Conference extends UuidBase
         return $this->starts_at->format('M j Y') . ' - ' . $this->ends_at->format('M j Y');
     }
 
-    public function isDismissed()
+    public function toSearchableArray()
     {
-        return auth()->user()->dismissedConferences->contains($this->id);
+        return [
+            'title' => $this->title,
+            'location' => $this->location,
+        ];
     }
 
-    public function isFavorited()
+    public function isDismissedBy(User $user)
     {
-        return auth()->user()->favoritedConferences->contains($this->id);
+        return $user->dismissedConferences->contains($this->id);
+    }
+
+    public function isFavoritedBy(User $user)
+    {
+        return $user->favoritedConferences->contains($this->id);
     }
 
     public function isFlagged()

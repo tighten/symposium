@@ -16,9 +16,8 @@
                     </a>
                     @if (auth()->check())
                         <x-nav-item route="dashboard">Dashboard</x-nav-item>
-                        <x-nav-item route="bios.index">Bios</x-nav-item>
                         <x-nav-item route="conferences.index">Conferences</x-nav-item>
-                        <x-nav-item route="calendar.index">Calendar</x-nav-item>
+                        <x-nav-item route="bios.index">Bios</x-nav-item>
                         <x-nav-item route="talks.index">Talks</x-nav-item>
                         <x-mobile-nav-item route="account.show">Account</x-mobile-nav-item>
                         <x-mobile-nav-item

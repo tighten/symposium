@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\ConferenceList;
 use App\Models\Bio;
 use App\Models\Conference;
 use App\Models\Talk;
@@ -12,6 +13,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class AccountTest extends TestCase
@@ -207,10 +209,10 @@ class AccountTest extends TestCase
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleDismissed', $conference);
 
         $this->assertDatabaseHas('dismissed_conferences', [
             'user_id' => $user->id,
@@ -222,19 +224,11 @@ class AccountTest extends TestCase
     public function users_can_undismiss_a_conference()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
+        $conference = Conference::factory()->dismissedBy($user)->create();
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->assertDatabaseHas('dismissed_conferences', [
-            'user_id' => $user->id,
-            'conference_id' => $conference->id,
-        ]);
-
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/undismiss");
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleDismissed', $conference);
 
         $this->assertDatabaseMissing('dismissed_conferences', [
             'user_id' => $user->id,
@@ -247,10 +241,10 @@ class AccountTest extends TestCase
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/favorite");
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleFavorite', $conference);
 
         $this->assertDatabaseHas('favorites', [
             'user_id' => $user->id,
@@ -262,21 +256,13 @@ class AccountTest extends TestCase
     public function users_can_unfavorite_a_conference()
     {
         $user = User::factory()->create();
-        $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
+        $conference = Conference::factory()->favoritedBy($user)->create();
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleFavorite', $conference);
 
-        $this->assertDatabaseHas('dismissed_conferences', [
-            'user_id' => $user->id,
-            'conference_id' => $conference->id,
-        ]);
-
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/undismiss");
-
-        $this->assertDatabaseMissing('dismissed_conferences', [
+        $this->assertDatabaseMissing('favorites', [
             'user_id' => $user->id,
             'conference_id' => $conference->id,
         ]);

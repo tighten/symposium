@@ -9,7 +9,7 @@
 </ul>
 
 <x-form :action="route('conferences.update', $conference->id)" method="PUT">
-    <x-panel>
+    <x-panel size="xl">
         @include('conferences.form')
 
         @if (auth()->user()->isAdmin())

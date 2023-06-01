@@ -59,4 +59,20 @@ class ConferenceApiTest extends ApiTestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNull($data->data->attributes->cfp_url);
     }
+
+    /** @test */
+    public function unclosed_cfp_returns_open_and_future_cfp()
+    {
+        Conference::factory()
+            ->cfpDates(now()->subDay(), now()->addDay())
+            ->create(['title' => 'Open CFP']);
+        Conference::factory()
+            ->cfpDates(now()->addDay(), now()->addDays(2))
+            ->create(['title' => 'Future CFP']);
+
+        $response = $this->call('GET', 'api/conferences?filter=unclosed_cfp');
+
+        $response->assertJsonFragment(['title' => 'Open CFP']);
+        $response->assertJsonFragment(['title' => 'Future CFP']);
+    }
 }

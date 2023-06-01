@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\ConferenceList;
 use App\Models\Conference;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ConferenceTest extends TestCase
@@ -604,7 +606,7 @@ class ConferenceTest extends TestCase
     /** @test */
     public function it_can_pull_only_approved_conferences()
     {
-        Conference::factory()->create();
+        Conference::factory()->notApproved()->create();
         Conference::factory()->approved()->create();
 
         $this->assertEquals(1, Conference::approved()->count());
@@ -620,33 +622,40 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function cfp_closing_next_list_sorts_null_cfp_to_the_bottom()
+    public function sorting_by_cfp_filters_out_null_cfp()
     {
+        Carbon::setTestNow('2023-05-04');
+
         $nullCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
+            'title' => 'Null CFP',
         ]);
         $pastCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => Carbon::yesterday()->subDay(),
             'cfp_ends_at' => Carbon::yesterday(),
+            'title' => 'Past CFP',
         ]);
         $futureCfp = Conference::factory()->approved()->create([
             'cfp_starts_at' => Carbon::yesterday(),
             'cfp_ends_at' => Carbon::tomorrow(),
+            'title' => 'Future CFP',
         ]);
 
-        $response = $this->get('conferences');
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'cfp_closing_next');
 
-        $this->assertConferenceSort([
-            $pastCfp,
-            $futureCfp,
-            $nullCfp,
-        ], $response);
+        $response->assertSee($pastCfp->title);
+        $response->assertSee($futureCfp->title);
+        $response->assertDontSee($nullCfp->title);
     }
 
     /** @test */
-    public function cfp_by_date_list_sorts_by_date()
+    public function sorting_by_event_date()
     {
+        Carbon::setTestNow('2023-05-04');
+
         $conferenceA = Conference::factory()->approved()->create([
             'starts_at' => Carbon::now()->subDay(),
             'cfp_ends_at' => Carbon::now()->subDays(2),
@@ -656,44 +665,71 @@ class ConferenceTest extends TestCase
             'cfp_ends_at' => Carbon::now(),
         ]);
 
-        $response = $this->get('conferences?filter=all&sort=date');
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'date');
 
         $this->assertConferenceSort([
             $conferenceA,
             $conferenceB,
-        ], $response);
+        ], $response->conferences);
     }
 
     /** @test */
-    public function guests_cannot_dismiss_conference()
+    public function sorting_by_cfp_opening_date()
     {
-        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addMonth(),
+            'cfp_starts_at' => Carbon::now()->addDay(),
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addWeek(),
+            'cfp_starts_at' => Carbon::now()->addDays(2),
+        ]);
 
-        $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'future')
+            ->set('sort', 'cfp_opening_next');
 
-        $this->get("conferences/{$conference->id}/dismiss")
-            ->assertRedirect('login');
+        $this->assertConferenceSort([
+            $conferenceA,
+            $conferenceB,
+        ], $response->conferences);
+    }
+
+    /** @test */
+    public function sorting_by_cfp_closing_date()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addMonth(),
+            'cfp_starts_at' => Carbon::now()->subDay(),
+            'cfp_ends_at' => Carbon::now()->addDay(),
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => Carbon::now()->addWeek(),
+            'cfp_starts_at' => Carbon::now()->subDay(),
+            'cfp_ends_at' => Carbon::now()->addDays(2),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'future')
+            ->set('sort', 'cfp_closing_next');
+
+        $this->assertConferenceSort([
+            $conferenceA,
+            $conferenceB,
+        ], $response->conferences);
     }
 
     /** @test */
     public function dismissed_conferences_do_not_show_up_in_conference_list()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->dismissedBy($user)->create();
 
-        $conference = Conference::factory()->approved()->create();
-        $user->conferences()->save($conference);
+        $response = $this->actingAs($user)->get('conferences?filter=all');
 
-        $this->actingAs($user)
-            ->get('conferences?filter=all')
-            ->assertSee($conference->title);
-
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=all')
-            ->assertDontSee($conference->title);
+        $response->assertDontSee($conference->title);
     }
 
     /** @test */
@@ -712,7 +748,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function filtering_by_unclosed_cfp_hides_non_cfp_conferences()
+    public function filtering_by_future_cfp_hides_non_cfp_conferences()
     {
         $user = User::factory()->create();
 
@@ -722,24 +758,101 @@ class ConferenceTest extends TestCase
         $user->conferences()->save($conference);
 
         $this->actingAs($user)
-            ->get('conferences?filter=unclosed_cfp')
+            ->get('conferences?filter=future_cfp')
             ->assertDontSee($conference->title);
+    }
+
+    /** @test */
+    public function filtering_by_unclosed_cfp_shows_open_and_future_cfp()
+    {
+        $user = User::factory()->create();
+        Conference::factory()
+            ->cfpDates(now()->subDay(), now()->addDay())
+            ->create(['title' => 'Open CFP Conference']);
+        Conference::factory()
+            ->cfpDates(now()->addDay(), now()->addDays(2))
+            ->create(['title' => 'Future CFP Conference']);
+        Conference::factory()->create([
+            'has_cfp' => false,
+            'title' => 'No CFP Conference',
+        ]);
+
+        $this->actingAs($user)
+            ->get('conferences?filter=unclosed_cfp')
+            ->assertSee('Open CFP Conference')
+            ->assertSee('Future CFP Conference')
+            ->assertDontSee('No CFP Conference');
+    }
+
+    /** @test */
+    public function filtering_by_future_shows_future_conferences()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => now()->addDay(),
+            'title' => 'Conference A',
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => now()->subDay(),
+            'title' => 'Conference B',
+        ]);
+
+        $response = $this->get('conferences?filter=future');
+
+        $response->assertSee('Conference A');
+        $response->assertDontSee('Conference B');
+    }
+
+    /** @test */
+    public function filtering_by_future_shows_future_cfp_openings_when_sorting_by_cfp_opening()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_starts_at' => now()->addDay(),
+            'title' => 'Conference A',
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_ends_at' => now()->subDay(),
+            'title' => 'Conference B',
+        ]);
+
+        $response = $this->get('conferences?filter=future&sort=cfp_opening_next');
+
+        $response->assertSee('Conference A');
+        $response->assertDontSee('Conference B');
+    }
+
+    /** @test */
+    public function filtering_by_future_shows_future_cfp_closings_when_sorting_by_cfp_closing()
+    {
+        $conferenceA = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_starts_at' => now()->subWeek(),
+            'cfp_ends_at' => now()->addDay(),
+            'title' => 'Conference A',
+        ]);
+        $conferenceB = Conference::factory()->create([
+            'starts_at' => now()->addMonth(),
+            'cfp_ends_at' => now()->subWeek(),
+            'cfp_ends_at' => now()->subDay(),
+            'title' => 'Conference B',
+        ]);
+
+        $response = $this->get('conferences?filter=future&sort=cfp_closing_next');
+
+        $response->assertSee('Conference A');
+        $response->assertDontSee('Conference B');
     }
 
     /** @test */
     public function filtering_by_dismissed_shows_dismissed_conferences()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->dismissedBy($user)->create();
 
-        $conference = Conference::factory()->approved()->create();
-        $user->conferences()->save($conference);
+        $response = $this->actingAs($user)->get('conferences?filter=dismissed');
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=dismissed')
-            ->assertSee($conference->title);
+        $response->assertSee($conference->title);
     }
 
     /** @test */
@@ -759,61 +872,50 @@ class ConferenceTest extends TestCase
     public function filtering_by_favorites_shows_favorite_conferences()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->favoritedBy($user)->create();
 
-        $conference = Conference::factory()->approved()->create();
-        $user->conferences()->save($conference);
+        $response = $this->actingAs($user)->get('conferences?filter=favorites');
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/favorite");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=favorites')
-            ->assertSee($conference->title);
+        $response->assertSee($conference->title);
     }
 
     /** @test */
     public function filtering_by_favorites_does_not_show_nonfavorite_conferences()
     {
         $user = User::factory()->create();
-
         $conference = Conference::factory()->create();
-        $user->conferences()->save($conference);
 
-        $this->actingAs($user)
-            ->get('conferences?filter=favorites')
-            ->assertDontSee($conference->title);
+        $response = $this->actingAs($user)->get('conferences?filter=favorites');
+
+        $response->assertDontSee($conference->title);
     }
 
     /** @test */
     public function a_favorited_conference_cannot_be_dismissed()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->favoritedBy($user)->create();
+        $this->assertFalse($conference->isDismissedBy($user));
 
-        $conference = Conference::factory()->approved()->create();
-        $user->favoritedConferences()->save($conference);
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleDismissed', $conference);
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/dismiss");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=dismissed')
-            ->assertDontSee($conference->title);
+        $this->assertFalse($conference->isDismissedBy($user->fresh()));
     }
 
     /** @test */
     public function a_dismissed_conference_cannot_be_favorited()
     {
         $user = User::factory()->create();
+        $conference = Conference::factory()->dismissedBy($user)->create();
+        $this->assertFalse($conference->isFavoritedBy($user));
 
-        $conference = Conference::factory()->approved()->create();
-        $user->dismissedConferences()->save($conference);
+        Livewire::actingAs($user)
+            ->test(ConferenceList::class)
+            ->call('toggleFavorite', $conference);
 
-        $this->actingAs($user)
-            ->get("conferences/{$conference->id}/favorite");
-
-        $this->actingAs($user)
-            ->get('conferences?filter=favorites')
-            ->assertDontSee($conference->title);
+        $this->assertFalse($conference->isFavoritedBy($user->fresh()));
     }
 
     /** @test */
@@ -871,17 +973,17 @@ class ConferenceTest extends TestCase
         $this->assertEquals('Jan 1 2020 - Jan 3 2020', $conference->event_dates_display);
     }
 
-    public function assertConferenceSort($conferences, $response)
+    public function assertConferenceSort($expectedConferences, $conferences)
     {
-        foreach ($conferences as $sortPosition => $conference) {
-            $sortedConference = $response->original->getData()['conferences']->values()[$sortPosition];
+        foreach ($expectedConferences as $sortPosition => $conference) {
+            $sortedConference = $conferences->flatten()->values()[$sortPosition];
 
             $this->assertTrue($sortedConference->is($conference), "Conference ID {$conference->id} was expected in position {$sortPosition}, but {$sortedConference->id } was in position {$sortPosition}.");
         }
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_has_dates()
+    public function scoping_conferences_queries_where_has_dates()
     {
         $conferenceA = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => Carbon::parse('tomorrow')]);
         $conferenceB = Conference::factory()->create(['starts_at' => Carbon::parse('yesterday'), 'ends_at' => null]);
@@ -897,7 +999,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_has_cfp_start_date()
+    public function scoping_conferences_queries_where_has_cfp_start_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_starts_at' => Carbon::parse('yesterday')]);
         $conferenceB = Conference::factory()->create(['cfp_starts_at' => null]);
@@ -909,7 +1011,74 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    public function scopping_conferences_queries_where_has_cfp_end_date()
+    public function scoping_conferences_queries_where_favorited_by_user()
+    {
+        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->favoritedBy($user)->create();
+        $conferenceB = Conference::factory()->create();
+
+        $conferenceIds = Conference::whereFavoritedBy($user)->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scoping_conferences_queries_where_dismissed_by_user()
+    {
+        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->dismissedBy($user)->create();
+        $conferenceB = Conference::factory()->create();
+
+        $conferenceIds = Conference::whereDismissedBy($user)->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scoping_conferences_queries_where_not_dismissed_by_user()
+    {
+        $user = User::factory()->create();
+        $conferenceA = Conference::factory()->dismissedBy($user)->create();
+        $conferenceB = Conference::factory()->create();
+
+        $conferenceIds = Conference::whereNotDismissedBy($user)->get()->pluck('id');
+
+        $this->assertNotContains($conferenceA->id, $conferenceIds);
+        $this->assertContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scoping_conferences_queries_where_cfp_is_open()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->cfpDates('2023-05-01', '2023-06-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2023-06-01', '2023-07-01')->create();
+
+        $conferenceIds = Conference::whereCfpIsOpen()->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scoping_conferences_queries_where_cfp_is_future()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->cfpDates('2023-05-01', '2023-06-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2023-06-01', '2023-07-01')->create();
+
+        $conferenceIds = Conference::whereCfpIsFuture()->get()->pluck('id');
+
+        $this->assertNotContains($conferenceA->id, $conferenceIds);
+        $this->assertContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    public function scoping_conferences_queries_where_has_cfp_end_date()
     {
         $conferenceA = Conference::factory()->create(['cfp_ends_at' => Carbon::parse('yesterday')]);
         $conferenceB = Conference::factory()->create(['cfp_ends_at' => null]);
@@ -918,6 +1087,54 @@ class ConferenceTest extends TestCase
 
         $this->assertContains($conferenceA->id, $conferenceIds);
         $this->assertNotContains($conferenceB->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scoping_conference_queries_by_event_year_and_month()
+    {
+        $conferenceA = Conference::factory()->dates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->dates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->dates('2022-12-31', '2023-01-31')->create();
+        $conferenceD = Conference::factory()->dates('2022-12-31', '2023-02-01')->create();
+
+        $conferenceIds = Conference::whereDateDuring(2023, 1, 'starts_at')->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertNotContains($conferenceC->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scoping_conference_queries_by_cfp_start_year_and_month()
+    {
+        $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->cfpDates('2022-12-31', '2023-01-31')->create();
+        $conferenceD = Conference::factory()->cfpDates('2022-12-31', '2023-02-01')->create();
+
+        $conferenceIds = Conference::whereDateDuring(2023, 1, 'cfp_starts_at')->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertNotContains($conferenceC->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
+    }
+
+    /** @test */
+    function scoping_conference_queries_by_cfp_end_year_and_month()
+    {
+        $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
+        $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
+        $conferenceC = Conference::factory()->cfpDates('2022-12-31', '2023-01-31')->create();
+        $conferenceD = Conference::factory()->cfpDates('2022-12-31', '2023-02-01')->create();
+
+        $conferenceIds = Conference::whereDateDuring(2023, 1, 'cfp_ends_at')->get()->pluck('id');
+
+        $this->assertContains($conferenceA->id, $conferenceIds);
+        $this->assertNotContains($conferenceB->id, $conferenceIds);
+        $this->assertContains($conferenceC->id, $conferenceIds);
+        $this->assertNotContains($conferenceD->id, $conferenceIds);
     }
 
     /** @test */

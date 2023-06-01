@@ -6,59 +6,12 @@ use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
 use App\Transformers\TalkForConferenceTransformer as TalkTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class ConferencesController extends Controller
 {
-    public function index(Request $request)
-    {
-        switch ($request->input('filter')) {
-            case 'favorites':
-                $query = auth()->user()->favoritedConferences()->approved();
-                break;
-            case 'dismissed':
-                $query = auth()->user()->dismissedConferences()->approved();
-                break;
-            case 'open_cfp':
-                $query = Conference::undismissed()->openCfp()->approved();
-                break;
-            case 'unclosed_cfp':
-                $query = Conference::undismissed()->unclosedCfp()->approved();
-                break;
-            case 'all':
-                $query = Conference::undismissed()->approved();
-                break;
-            case 'future':
-                // Pass through
-            default:
-                $query = Conference::undismissed()->future()->approved();
-        }
-
-        switch ($request->input('sort')) {
-            case 'alpha':
-                $query->orderBy('title');
-                break;
-            case 'date':
-                $query->orderBy('starts_at');
-                break;
-            case 'opening_next':
-                $query->orderByRaw('cfp_ends_at IS NULL, cfp_ends_at ASC');
-                break;
-            case 'closing_next':
-                // pass through
-            default:
-                $query->orderByRaw('cfp_ends_at IS NULL, cfp_ends_at ASC');
-                break;
-        }
-
-        return view('conferences.index', [
-            'conferences' => $query->paginate(10)->withQueryString(),
-        ]);
-    }
-
     public function create()
     {
         return view('conferences.create', [
@@ -161,42 +114,6 @@ class ConferencesController extends Controller
         Session::flash('success-message', 'Conference successfully deleted.');
 
         return redirect('conferences');
-    }
-
-    public function dismiss($conferenceId)
-    {
-        if (Conference::findOrFail($conferenceId)->isFavorited()) {
-            return redirect()->back();
-        }
-
-        auth()->user()->dismissedConferences()->attach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function undismiss($conferenceId)
-    {
-        auth()->user()->dismissedConferences()->detach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function favorite($conferenceId)
-    {
-        if (Conference::findOrFail($conferenceId)->isDismissed()) {
-            return redirect()->back();
-        }
-
-        auth()->user()->favoritedConferences()->attach($conferenceId);
-
-        return redirect()->back();
-    }
-
-    public function unfavorite($conferenceId)
-    {
-        auth()->user()->favoritedConferences()->detach($conferenceId);
-
-        return redirect()->back();
     }
 
     private function showPublic($id)

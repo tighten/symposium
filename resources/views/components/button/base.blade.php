@@ -6,23 +6,21 @@
 
 @php
     $element = isset($href) ? 'a' : 'button';
-
-    $sizeClasses = [
-        'sm' => 'px-4',
-        'md' => 'font-semibold px-8 text-lg',
-    ];
 @endphp
 
 <{{ $element }}
     @isset($href) href="{{ $href }}" @endisset
-    {{ $attributes->merge([
-        'class' => "py-2 rounded {$sizeClasses[$size]}"
+    {{ $attributes->class([
+        "py-2 rounded inline-flex items-center justify-center space-x-2",
+        'px-2' => $size === 'sm' && $slot->isEmpty(),
+        'px-4' => $size === 'sm' && $slot->isNotEmpty(),
+        'font-semibold px-8 text-lg' => $size === 'md',
     ]) }}
 >
-    <span class="flex items-center justify-center">
-        @isset($icon)
-            @svg($icon, 'w-3 h-3 fill-current inline mr-2')
-        @endisset
-        {{ $slot }}
-    </span>
+    @isset($icon)
+        @svg($icon, 'w-3 h-3 fill-current inline')
+    @endisset
+    @if ($slot->isNotEmpty())
+        <span>{{ $slot }}</span>
+    @endif
 </{{ $element }}>

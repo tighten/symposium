@@ -40,6 +40,6 @@ class SendNotificationForOpenCFPs extends Command
 
     protected function conferencesToShare()
     {
-        return Conference::approved()->notShared()->openCFP();
+        return Conference::approved()->notShared()->whereCfpIsOpen();
     }
 }

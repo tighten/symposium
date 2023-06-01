@@ -23,8 +23,16 @@ class ConferenceFactory extends Factory
             'ends_at' => $this->faker->dateTimeBetween('+11 days', '+20 days'),
             'cfp_starts_at' => $this->faker->dateTimeBetween('-9 days', '-1 day'),
             'cfp_ends_at' => $this->faker->dateTimeBetween('+1 days', '+2 days'),
-            'is_approved' => false,
+            'is_approved' => true,
         ];
+    }
+
+    public function dates($start, $end = null)
+    {
+        return $this->state([
+            'starts_at' => $start,
+            'ends_at' => $end ?? $start,
+        ]);
     }
 
     public function closedCFP()
@@ -35,7 +43,15 @@ class ConferenceFactory extends Factory
         ]);
     }
 
-    public function noCFPDates()
+    public function cfpDates($start, $end = null)
+    {
+        return $this->state([
+            'cfp_starts_at' => $start,
+            'cfp_ends_at' => $end ?? $start,
+        ]);
+    }
+
+    public function noCfpDates()
     {
         return $this->state([
             'cfp_starts_at' => null,
@@ -90,6 +106,13 @@ class ConferenceFactory extends Factory
                 ->for($conference)
                 ->for($revision)
                 ->create();
+        });
+    }
+
+    public function favoritedBy(User $user)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($user) {
+            $user->favoritedConferences()->attach($conference->id);
         });
     }
 
