@@ -73,6 +73,15 @@ class Conference extends UuidBase
         'has_cfp' => true,
     ];
 
+    public static function searchQuery($search, $query)
+    {
+        if (! $search) {
+            return static::where($query);
+        }
+
+        return static::search($search)->query($query);
+    }
+
     public static function boot()
     {
         parent::boot();

@@ -588,7 +588,10 @@ class ConferenceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $conference = Conference::factory()->approved()->create();
+        $conference = Conference::factory()
+            ->dates(now())
+            ->approved()
+            ->create();
         $user->conferences()
             ->save($conference);
 

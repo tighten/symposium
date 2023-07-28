@@ -55,7 +55,7 @@ class ConferenceList extends Component
 
     public function getConferencesProperty()
     {
-        return Conference::search($this->search)->query(function ($query) {
+        return Conference::searchQuery($this->search, function ($query) {
             $query->approved()
                 ->filterByAll($this->filter, $this->date, $this->dateColumn())
                 ->filterByFuture($this->filter, $this->dateColumn())
