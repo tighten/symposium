@@ -2,64 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Repository\BiosRepository;
+use App\Exceptions\ValidationException;
 use App\Http\Requests\SaveBioRequest;
+use App\Http\Requests\UpdateBioRequest;
+use App\Models\Bio;
+use App\Services\CreateBioForm;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class BiosController extends Controller
 {
-    private $bioRepository;
-
-    public function __construct(BiosRepository $bioRepository)
-    {
-        $this->bioRepository = $bioRepository;
-    }
-
     public function index()
     {
+        $bios = auth()->user()->bios;
+
         return view('bios.index', [
-            'bios' => $this->bioRepository->getUserBio()
+            'bios' => $bios,
         ]);
     }
 
     public function create()
     {
         return view('bios.create', [
-            'bio' => $this->bioRepository->getModel()
+            'bio' => new Bio(),
         ]);
     }
 
     public function store(SaveBioRequest $request)
     {
-        $bio = $this->bioRepository->createUserBio($request->validated());
-        return redirect()->route('bios.show', $bio->id)
-            ->with('success-message', 'Successfully created new bio.');
+        $validatedData = $request->validated(); CreateBioForm::fillOut(request()->input(), auth()->user());
+
+        $bio = Bio::create(array_merge($validatedData, [
+            'user_id' => Auth::id(),
+        ]));
+
+        return redirect('/bios/' . $bio->id)->with('success-message', 'Successfully created new bio.');
     }
 
     public function show($id)
     {
+        $bio = auth()->user()->bios()->findOrFail($id);
+
         return view('bios.show', [
-            'bio' => $this->bioRepository->findUserBio($id),
+            'bio' => $bio,
         ]);
     }
 
     public function edit($id)
     {
+        $bio = auth()->user()->bios()->findOrFail($id);
+
         return view('bios.edit', [
-            'bio' => $this->bioRepository->findUserBio($id),
+            'bio' => $bio,
         ]);
     }
 
-    public function update(SaveBioRequest $request, $id)
+    public function update(UpdateBioRequest $request, $id)
     {
-        $this->bioRepository->updateUserBioById($request->validated(), $id);
-        return redirect()->route('bios.show', $id)
-            ->with('success-message', 'Successfully edited bio.');
+        $validatedData = $request->validated();
+
+        $bio = auth()->user()->bios()->findOrFail($id);
+
+        $bio->nickname = $validatedData['nickname'];
+        $bio->body = $validatedData['body'];
+        $bio->public = $validatedData['public'];
+        $bio->save();
+
+        return redirect('bios/' . $bio->id)->with('success-message', 'Successfully edited bio.');
     }
 
     public function destroy($id)
     {
-        $this->bioRepository->deleteUserBioById($id);
-        return redirect()->route('bios.index')
-            ->with('success-message', 'Bio successfully deleted.');
+        $bio = auth()->user()->bios()->findOrFail($id);
+
+        $bio->delete();
+
+        return redirect('bios')->with('success-message', 'Bio successfully deleted.');
     }
 }
