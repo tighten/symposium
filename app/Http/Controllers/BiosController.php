@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\ValidationException;
+use App\Models\Bio;
 use App\Http\Requests\SaveBioRequest;
 use App\Http\Requests\UpdateBioRequest;
-use App\Models\Bio;
-use App\Services\CreateBioForm;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class BiosController extends Controller
 {
@@ -31,11 +27,12 @@ class BiosController extends Controller
 
     public function store(SaveBioRequest $request)
     {
-        $validatedData = $request->validated(); CreateBioForm::fillOut(request()->input(), auth()->user());
+        $validatedData = $request->validated();
 
         $bio = Bio::create(array_merge($validatedData, [
-            'user_id' => Auth::id(),
-        ]));
+                'user_id' => Auth::id(),
+            ])
+        );
 
         return redirect('/bios/' . $bio->id)->with('success-message', 'Successfully created new bio.');
     }
