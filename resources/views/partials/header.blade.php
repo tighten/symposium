@@ -20,12 +20,14 @@
                         <x-nav-item route="bios.index">Bios</x-nav-item>
                         <x-nav-item route="talks.index">Talks</x-nav-item>
                         <x-mobile-nav-item route="account.show">Account</x-mobile-nav-item>
-                        <x-mobile-nav-item
-                            url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
-                            :show="auth()->user()->enable_profile"
-                        >
-                            Public Speaker Profile
-                        </x-mobile-nav-item>
+                        @if (auth()->user()->profile_slug)
+                            <x-mobile-nav-item
+                                url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
+                                :show="auth()->user()->enable_profile"
+                            >
+                                Public Speaker Profile
+                            </x-mobile-nav-item>
+                        @endif
                         <x-mobile-nav-item route="log-out">Log out</x-mobile-nav-item>
                     @else
                         <x-nav-item route="what-is-this">How it Works</x-nav-item>
@@ -62,12 +64,14 @@
                 </x-slot>
                 <x-slot name="items">
                     <x-menu.item route="account.show">Account</x-menu.item>
-                    <x-menu.item
-                        url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
-                        :show="auth()->user()->enable_profile"
-                    >
-                        Public Speaker Profile
-                    </x-menu.item>
+                    @if (auth()->user()->profile_slug)
+                        <x-menu.item
+                            url="{{ route('speakers-public.show', auth()->user()->profile_slug) }}"
+                            :show="auth()->user()->enable_profile"
+                        >
+                            Public Speaker Profile
+                        </x-menu.item>
+                    @endif
                     <x-menu.item route="log-out">Log out</x-menu.item>
                 </x-slot>
             </x-menu>
