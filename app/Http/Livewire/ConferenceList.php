@@ -226,7 +226,7 @@ class ConferenceList extends Component
                 return function ($filter) {
                     return $this->when(
                         $filter === 'open_cfp',
-                        fn ($q) => $q->whereCfpIsOpen(),
+                        fn ($q) => $q->whereCfpIsOpen()->future(),
                     );
                 };
             }
