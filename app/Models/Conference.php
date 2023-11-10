@@ -314,6 +314,7 @@ class Conference extends UuidBase
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'location' => $this->location,
         ];
