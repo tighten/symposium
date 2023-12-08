@@ -1215,4 +1215,16 @@ class ConferenceTest extends TestCase
         $this->assertFalse($conferenceA->isRejected());
         $this->assertTrue($conferenceB->isRejected());
     }
+
+    /** @test */
+    public function searching_conferences_by_name(): void
+    {
+        $conferenceA = Conference::factory()->create(['location' => 'Boston, MA']);
+        $conferenceB = Conference::factory()->create(['location' => 'New York, NY']);
+
+        $results = Conference::searchQuery('boston', fn ($query) => $query)->get();
+
+        $this->assertContains($conferenceA->id, $results->pluck('id'));
+        $this->assertNotContains($conferenceB->id, $results->pluck('id'));
+    }
 }

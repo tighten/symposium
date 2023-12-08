@@ -12,6 +12,8 @@ class UuidBase extends Eloquent
      */
     public $incrementing = false;
 
+    protected $keyType = 'string';
+
     /**
      * Boot function from laravel.
      */
