@@ -1227,4 +1227,24 @@ class ConferenceTest extends TestCase
         $this->assertContains($conferenceA->id, $results->pluck('id'));
         $this->assertNotContains($conferenceB->id, $results->pluck('id'));
     }
+
+    /** @test */
+    public function past_conferences_are_not_searchable(): void
+    {
+        $conferenceA = Conference::factory()->dates(now()->subDay())->create();
+        $conferenceB = Conference::factory()->dates(now()->addDay())->create();
+
+        $this->assertFalse($conferenceA->shouldBeSearchable());
+        $this->assertTrue($conferenceB->shouldBeSearchable());
+    }
+
+    /** @test */
+    public function rejected_conferences_are_not_searchable(): void
+    {
+        $conferenceA = Conference::factory()->create(['rejected_at' => now()]);
+        $conferenceB = Conference::factory()->create(['rejected_at' => null]);
+
+        $this->assertFalse($conferenceA->shouldBeSearchable());
+        $this->assertTrue($conferenceB->shouldBeSearchable());
+    }
 }

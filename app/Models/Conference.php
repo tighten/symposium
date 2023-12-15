@@ -265,7 +265,7 @@ class Conference extends UuidBase
 
     public function shouldBeSearchable(): bool
     {
-        return $this->starts_at > Carbon::now();
+        return $this->starts_at > Carbon::now() && ! $this->isRejected();
     }
 
     /**
