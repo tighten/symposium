@@ -72,6 +72,7 @@ class ConferenceImporter
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
         if (! $conference->latitude && ! $conference->longitude && $conference->location) {
+            Log::debug('Looking up geocode for conference ' . $conference->id . ' with location of ' . $conference->location);
             $this->geocodeLatLongFromLocation($conference);
         }
 
