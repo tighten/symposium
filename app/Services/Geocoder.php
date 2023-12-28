@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Geocoder
 {
@@ -17,6 +18,7 @@ class Geocoder
         $response = $this->requestGeocoding($address);
 
         if (! count($response['results'])) {
+            Log::debug('Caching address as invalid: [' . $address . ']');
             cache()->set('invalid-address::' . md5($address), true);
             throw new InvalidAddressGeocodingException();
         }
