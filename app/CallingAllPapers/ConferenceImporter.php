@@ -8,7 +8,6 @@ use App\Services\Geocoder;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTime;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ConferenceImporter
@@ -73,7 +72,6 @@ class ConferenceImporter
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
         if (! $conference->latitude && ! $conference->longitude && $conference->location) {
-            Log::debug('Looking up geocode for conference ' . $conference->id . ' with location of ' . $conference->location);
             $this->geocodeLatLongFromLocation($conference);
         }
 
@@ -88,13 +86,16 @@ class ConferenceImporter
 
     private function updateConferenceFromCallingAllPapersEvent(Conference $conference, Event $event)
     {
+        if ($event->location != $conference->location) {
+            $conference->latitude = $this->nullifyInvalidLatLong($event->latitude, $event->longitude);
+            $conference->longitude = $this->nullifyInvalidLatLong($event->longitude, $event->latitude);
+        }
+
         $conference->title = trim($event->name);
         $conference->description = trim($event->description);
         $conference->url = trim($event->eventUri);
         $conference->cfp_url = $event->uri;
         $conference->location = $event->location;
-        $conference->latitude = $this->nullifyInvalidLatLong($event->latitude, $event->longitude);
-        $conference->longitude = $this->nullifyInvalidLatLong($event->longitude, $event->latitude);
         $conference->starts_at = $event->dateEventStart;
         $conference->ends_at = $event->dateEventEnd;
         $conference->cfp_starts_at = $event->dateCfpStart;
