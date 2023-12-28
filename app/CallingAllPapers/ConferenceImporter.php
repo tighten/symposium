@@ -8,6 +8,7 @@ use App\Services\Geocoder;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTime;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ConferenceImporter
