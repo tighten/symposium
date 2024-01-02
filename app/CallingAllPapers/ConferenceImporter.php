@@ -79,7 +79,9 @@ class ConferenceImporter
             $conference->rejected_at = now();
         }
 
-        $conference->save();
+        if ($conference->isDirty()) {
+            $conference->save();
+        }
 
         return $conference;
     }
