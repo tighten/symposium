@@ -68,7 +68,9 @@ class ConferenceImporter
             ],
         ]);
 
-        $conference = Conference::firstOrNew(['calling_all_papers_id' => $event->id]);
+        $conference = Conference::query()
+            ->withoutGlobalScope('notRejected')
+            ->firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
         if (! $conference->latitude && ! $conference->longitude && $conference->location) {

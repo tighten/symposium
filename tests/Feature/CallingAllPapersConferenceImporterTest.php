@@ -383,6 +383,29 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     /** @test */
+    public function rejected_conferences_cannot_be_reimported()
+    {
+        $this->mockClient();
+
+        $conference = Conference::factory()->rejected()->create([
+            'calling_all_papers_id' => 'fake-cfp-id',
+        ]);
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->id = 'fake-cfp-id';
+        $event->dateCfpStart = '2014-06-01T00:00:00-04:00';
+        $event->dateCfpEnd = '2017-06-01T00:00:00-04:00';
+        $importer->import($event);
+
+        $conferenceCount = Conference::withoutGlobalScope('notRejected')
+            ->where('calling_all_papers_id', 'fake-cfp-id')
+            ->count();
+
+        $this->assertEquals(1, $conferenceCount);
+    }
+
+    /** @test */
     public function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future()
     {
         $this->mockClient();
