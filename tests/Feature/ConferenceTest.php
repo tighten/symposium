@@ -751,6 +751,25 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function filtering_by_open_cfp_hides_conferences_without_event_dates()
+    {
+        $user = User::factory()->create();
+
+        $conference = Conference::factory()->approved()->create([
+            'has_cfp' => true,
+            'cfp_starts_at' => now()->subDay(),
+            'cfp_ends_at' => now()->addDay(),
+            'starts_at' => now()->subDay(),
+            'ends_at' => now()->subDay(),
+        ]);
+        $user->conferences()->save($conference);
+
+        $this->actingAs($user)
+            ->get('conferences?filter=open_cfp')
+            ->assertDontSee($conference->title);
+    }
+
+    /** @test */
     public function filtering_by_future_cfp_hides_non_cfp_conferences()
     {
         $user = User::factory()->create();
