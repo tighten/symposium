@@ -16,8 +16,8 @@ class GeocoderTest extends TestCase
 
         $coordinates = $geocoder->geocode('1600 Pennsylvania Ave Washington, DC');
 
-        $this->assertEquals('38.8976633', $coordinates->getLatitude());
-        $this->assertEquals('-77.0365739', $coordinates->getLongitude());
+        $this->assertEquals('38.8976801', $coordinates->getLatitude());
+        $this->assertEquals('-77.0363304', $coordinates->getLongitude());
     }
 
     /** @test */
