@@ -31,7 +31,8 @@
 
         <div class="mt-4 text-gray-500">URL:</div>
         <a
-            href="{{ append_url($conference->url, ['rel' => 'nofollow']) }}"
+            href="{{ $conference->url }}"
+            rel="nofollow"
             class="hover:text-indigo-500"
         >
             {{ $conference->url }}
@@ -40,7 +41,8 @@
         @if ($conference->has_cfp && $conference->cfp_url)
             <div class="mt-4 text-gray-500">URL for CFP page:</div>
             <a
-                href="{{ append_url($conference->cfp_url, ['rel' => 'nofollow']) }}"
+                href="{{ $conference->cfp_url }}"
+                rel="nofollow"
                 class="hover:text-indigo-500"
             >
                 {{ $conference->cfp_url }}
