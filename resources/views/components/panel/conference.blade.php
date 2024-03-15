@@ -32,6 +32,7 @@
         <div class="mt-4 text-gray-500">URL:</div>
         <a
             href="{{ $conference->url }}"
+            rel="nofollow"
             class="hover:text-indigo-500"
         >
             {{ $conference->url }}
@@ -41,6 +42,7 @@
             <div class="mt-4 text-gray-500">URL for CFP page:</div>
             <a
                 href="{{ $conference->cfp_url }}"
+                rel="nofollow"
                 class="hover:text-indigo-500"
             >
                 {{ $conference->cfp_url }}
