@@ -9,11 +9,10 @@ A fun side project by some lovely folks at [Tighten Co.](http://tighten.co/).
 ### Additional resources
 
 * [Api documentation](doc/api.md)
-* Chat about it on freenode IRC channel `#symposium`
 
 ### Requirements
 
-* PHP >= 5.5.9
+* PHP >= 8.1
 * A [supported relational database](http://laravel.com/docs/5.1/database#introduction) and corresponding PHP extension
 * [Composer](https://getcomposer.org/download/)
 * [NPM](https://nodejs.org/)
@@ -81,6 +80,7 @@ If you discover any security related issues, please email matt@tighten.co instea
 
 ## Credits
 - [Matt Stauffer](https://github.com/mattstauffer)
+- [Andrew Morgan](https://github.com/andrewmile)
 - [All Contributors](https://github.com/tighten/symposium/graphs/contributors)
 
 ## License
