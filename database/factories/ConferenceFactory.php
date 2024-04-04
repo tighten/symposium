@@ -69,7 +69,7 @@ class ConferenceFactory extends Factory
     public function rejected()
     {
         return $this->state([
-            'rejected_at' => $this->faker->dateTime,
+            'rejected_at' => $this->faker->dateTime(),
         ]);
     }
 
