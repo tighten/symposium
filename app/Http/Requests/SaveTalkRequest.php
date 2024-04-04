@@ -6,12 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SaveTalkRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required',
@@ -25,7 +25,7 @@ class SaveTalkRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'slides.url' => 'Slides URL must contain a valid URL',

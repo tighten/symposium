@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class RejectionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Submission::all()->filter(function ($submission) {
             return ! $submission->isAccepted();

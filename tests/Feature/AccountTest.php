@@ -19,7 +19,7 @@ use Tests\TestCase;
 class AccountTest extends TestCase
 {
     /** @test */
-    public function users_can_log_in()
+    public function users_can_log_in(): void
     {
         $user = User::factory()->create(['password' => Hash::make('super-secret')]);
 
@@ -33,7 +33,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function logging_in_with_invalid_credentials()
+    public function logging_in_with_invalid_credentials(): void
     {
         $user = User::factory()->create();
 
@@ -47,7 +47,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function user_can_update_their_profile()
+    public function user_can_update_their_profile(): void
     {
         $user = User::factory()->create();
 
@@ -76,7 +76,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function user_can_update_their_profile_picture()
+    public function user_can_update_their_profile_picture(): void
     {
         Storage::fake();
 
@@ -97,7 +97,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function password_reset_emails_are_sent_for_valid_users()
+    public function password_reset_emails_are_sent_for_valid_users(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -110,7 +110,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function user_can_reset_their_password_from_email_link()
+    public function user_can_reset_their_password_from_email_link(): void
     {
         Notification::fake();
 
@@ -150,7 +150,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function users_can_delete_their_accounts()
+    public function users_can_delete_their_accounts(): void
     {
         $user = User::factory()->create();
 
@@ -163,7 +163,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function deleting_a_user_deletes_its_associated_entities()
+    public function deleting_a_user_deletes_its_associated_entities(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -205,7 +205,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function users_can_dismiss_a_conference()
+    public function users_can_dismiss_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -221,7 +221,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function users_can_undismiss_a_conference()
+    public function users_can_undismiss_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->dismissedBy($user)->create();
@@ -237,7 +237,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function users_can_favorite_a_conference()
+    public function users_can_favorite_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -253,7 +253,7 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function users_can_unfavorite_a_conference()
+    public function users_can_unfavorite_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->favoritedBy($user)->create();

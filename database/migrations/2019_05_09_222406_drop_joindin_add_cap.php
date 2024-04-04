@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
  * it with a calling_all_papers_id column.  Data loss will ensue.
  */
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->dropColumn('joindin_id');
@@ -19,7 +19,7 @@ return new class extends Migration {
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->dropColumn('calling_all_papers_id');

@@ -39,7 +39,7 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->renderable(function (ModelNotFoundException $e, $request) {
             return $this->render($request, new NotFoundHttpException($e->getMessage(), $e));

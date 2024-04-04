@@ -22,7 +22,7 @@ class TweetImportantCFPDates extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->tweetCfpsOpeningToday();
         $this->tweetCfpsClosingTomorrow();

@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 
 class ConferenceIssueFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id' => User::factory(),

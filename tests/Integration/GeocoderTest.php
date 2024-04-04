@@ -10,7 +10,7 @@ use Tests\TestCase;
 class GeocoderTest extends TestCase
 {
     /** @test */
-    function geocoding_an_address()
+    function geocoding_an_address(): void
     {
         $geocoder = app(Geocoder::class);
 
@@ -21,7 +21,7 @@ class GeocoderTest extends TestCase
     }
 
     /** @test */
-    function catching_invalid_addresses()
+    function catching_invalid_addresses(): void
     {
         $this->expectNotToPerformAssertions();
         $geocoder = app(Geocoder::class);
@@ -36,7 +36,7 @@ class GeocoderTest extends TestCase
     }
 
     /** @test */
-    function invalid_addresses_are_only_attempted_once()
+    function invalid_addresses_are_only_attempted_once(): void
     {
         $geocoder = app(Geocoder::class);
         $this->assertNull(cache('invalid-address::' . md5('The Death Star')));

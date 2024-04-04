@@ -16,7 +16,7 @@ class NewConference extends Notification
         $this->conference = $conference;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }

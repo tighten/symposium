@@ -14,7 +14,7 @@ use Tests\TestCase;
 class TalkTest extends TestCase
 {
     /** @test */
-    function archived_talks_are_not_included_on_the_index_page()
+    function archived_talks_are_not_included_on_the_index_page(): void
     {
         $user = User::factory()->create();
         Talk::factory()
@@ -36,7 +36,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function active_talks_are_not_included_on_the_archived_index_page()
+    function active_talks_are_not_included_on_the_archived_index_page(): void
     {
         $user = User::factory()->create();
         Talk::factory()
@@ -58,7 +58,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_the_talk_title_on_its_page()
+    public function it_shows_the_talk_title_on_its_page(): void
     {
         $user = User::factory()->create();
         Conference::factory()->create();
@@ -73,7 +73,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function user_talks_are_sorted_alphabetically()
+    public function user_talks_are_sorted_alphabetically(): void
     {
         $user = User::factory()->create();
         $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
@@ -84,7 +84,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function user_talks_json_encode_without_keys()
+    public function user_talks_json_encode_without_keys(): void
     {
         $user = User::factory()->create();
 
@@ -102,7 +102,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function user_can_create_a_talk()
+    public function user_can_create_a_talk(): void
     {
         $user = User::factory()->create();
 
@@ -138,7 +138,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function new_talks_must_include_required_fields()
+    function new_talks_must_include_required_fields(): void
     {
         $user = User::factory()->create();
 
@@ -156,7 +156,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function new_talks_must_include_a_valid_length()
+    function new_talks_must_include_a_valid_length(): void
     {
         $user = User::factory()->create();
 
@@ -174,7 +174,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function new_talks_with_slides_must_include_a_valid_slides_url()
+    function new_talks_with_slides_must_include_a_valid_slides_url(): void
     {
         $user = User::factory()->create();
 
@@ -193,7 +193,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function user_can_delete_a_talk()
+    public function user_can_delete_a_talk(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -211,7 +211,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function user_can_save_a_new_revision_of_a_talk()
+    public function user_can_save_a_new_revision_of_a_talk(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)
@@ -237,7 +237,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function revised_talks_must_include_required_fields()
+    function revised_talks_must_include_required_fields(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -256,7 +256,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function revised_talks_must_include_a_valid_length()
+    function revised_talks_must_include_a_valid_length(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -270,7 +270,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function revised_talks_with_slides_must_include_a_valid_slides_url()
+    function revised_talks_with_slides_must_include_a_valid_slides_url(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -284,7 +284,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function scoping_talks_where_submitted()
+    public function scoping_talks_where_submitted(): void
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();
@@ -300,7 +300,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    public function scoping_talks_where_accepted()
+    public function scoping_talks_where_accepted(): void
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();
@@ -323,7 +323,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function archived_talks_are_not_included_in_queries_by_default()
+    function archived_talks_are_not_included_in_queries_by_default(): void
     {
         $talk = Talk::factory()->archived()->create();
 
@@ -336,7 +336,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function archived_talks_can_be_restored()
+    function archived_talks_can_be_restored(): void
     {
         $talk = Talk::factory()->archived()->create();
 
@@ -348,7 +348,7 @@ class TalkTest extends TestCase
     }
 
     /** @test */
-    function archived_talks_can_be_deleted()
+    function archived_talks_can_be_deleted(): void
     {
         $talk = Talk::factory()->archived()->create();
 
