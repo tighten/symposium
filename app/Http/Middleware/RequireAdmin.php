@@ -10,7 +10,7 @@ class RequireAdmin
 {
     public function handle(Request $request, Closure $next)
     {
-        if (! optional($request->user())->isAdmin()) {
+        if (! $request->user()?->isAdmin()) {
             throw new NotFoundHttpException();
         }
 
