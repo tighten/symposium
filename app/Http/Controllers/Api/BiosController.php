@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Response;
 use App\ApiResources\Bio;
 use App\Http\Controllers\Controller;
 use Exception;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\App;
 
 class BiosController extends Controller
 {
-    public function show($id)
+    public function show($id): Response
     {
         try {
             $bio = auth()->guard('api')->user()->bios()->findOrFail($id);

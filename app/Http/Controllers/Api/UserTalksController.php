@@ -13,7 +13,7 @@ class UserTalksController extends Controller
      *
      * @return Response
      */
-    public function index($userId)
+    public function index($userId): Response
     {
         if ($userId != auth()->guard('api')->user()->id) {
             App::abort(404);

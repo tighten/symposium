@@ -34,7 +34,7 @@ class ContactRequest extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): static
     {
         return $this->subject('Contact from your Symposium public profile page')
                     ->view('emails.public-profile-contact');
