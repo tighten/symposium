@@ -10,8 +10,6 @@ class UserTalksController extends Controller
 {
     /**
      * Display all of the given user's talks
-     *
-     * @return Response
      */
     public function index($userId): Response
     {

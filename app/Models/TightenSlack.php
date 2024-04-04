@@ -13,9 +13,6 @@ class TightenSlack
         return 1;
     }
 
-    /**
-     * @return string|null
-     */
     public function routeNotificationForSlack(): ?string
     {
         return config('app.slack_endpoint');

@@ -274,7 +274,6 @@ class Conference extends UuidBase
      * Whether CFP is currently open
      *
      * @deprecated
-     * @return bool
      */
     public function cfpIsOpen(): bool
     {
@@ -283,8 +282,6 @@ class Conference extends UuidBase
 
     /**
      * Whether conference is currently accepted talk proposals
-     *
-     * @return bool
      */
     public function isCurrentlyAcceptingProposals(): bool
     {
