@@ -9,7 +9,8 @@ class TalkForConferenceTransformer
 {
     public static function transform(Talk $talk, Conference $conference)
     {
-        $currentTalk = $talk->currentRevision;
+        $currentRevision = $talk->currentRevision;
+        $currentRevision->setRelation('talk', $talk);
 
         $submission = $talk->getMySubmissionForConference($conference);
         $acceptance = $submission ? $submission->acceptance : null;
@@ -17,8 +18,8 @@ class TalkForConferenceTransformer
 
         return [
             'id' => $talk->id,
-            'title' => $currentTalk->title,
-            'url' => $currentTalk->getUrl(),
+            'title' => $currentRevision->title,
+            'url' => $currentRevision->getUrl(),
             'submitted' => (bool) $submission,
             'submissionId' => $submission ? $submission->id : null,
             'accepted' =>  (bool) $acceptance,
