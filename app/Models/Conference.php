@@ -128,6 +128,11 @@ class Conference extends UuidBase
         return $this->hasMany(ConferenceIssue::class);
     }
 
+    public function openIssues()
+    {
+        return $this->issues()->whereOpen();
+    }
+
     // @todo: Deprecate?
     public static function closingSoonest()
     {
@@ -332,7 +337,7 @@ class Conference extends UuidBase
 
     public function isFlagged()
     {
-        return $this->issues()->whereOpen()->exists();
+        return $this->openIssues->isNotEmpty();
     }
 
     public function isRejected()

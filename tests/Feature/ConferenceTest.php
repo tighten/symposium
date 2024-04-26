@@ -1170,6 +1170,7 @@ class ConferenceTest extends TestCase
 
         $conference->reportIssue('spam', 'Conference has spam', $user);
 
+        $conference->load('openIssues');
         $this->assertTrue($conference->isFlagged());
     }
 
@@ -1178,6 +1179,7 @@ class ConferenceTest extends TestCase
     {
         $conference = Conference::factory()->withClosedIssue()->create();
 
+        $conference->load('openIssues');
         $this->assertFalse($conference->isFlagged());
     }
 
