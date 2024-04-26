@@ -69,6 +69,7 @@ class ConferenceList extends Component
                 ->sortByCfpOpening($this->sort)
                 ->sortByCfpClosing($this->sort);
         })
+            ->when(auth()->user(), fn ($query) => $query->with('submissions'))
             ->withCount('openIssues')
             ->get()
             ->groupByMonth($this->dateColumn())
