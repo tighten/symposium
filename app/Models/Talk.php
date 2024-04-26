@@ -118,7 +118,7 @@ class Talk extends UuidBase
             'current_revision_id' => TalkRevision::select('id')
                 ->whereColumn('talk_id', 'talks.id')
                 ->latest()
-                ->take(1)
+                ->take(1),
         ])->with('currentRevision');
     }
 
