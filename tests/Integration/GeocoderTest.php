@@ -13,7 +13,7 @@ class GeocoderTest extends TestCase
     function geocoding_an_address()
     {
         $this->markTestSkipped('This test fails intermittently.');
-        
+
         $geocoder = app(Geocoder::class);
 
         $coordinates = $geocoder->geocode('1600 Pennsylvania Ave Washington, DC');
