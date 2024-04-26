@@ -52,6 +52,8 @@ class ConferencesController extends Controller
             return TalkTransformer::transform($talk, $conference);
         });
 
+        $conference->loadCount('openIssues');
+
         return view('conferences.show', [
             'conference' => $conference,
             'talks' => $talks,
@@ -119,6 +121,7 @@ class ConferencesController extends Controller
     private function showPublic($id)
     {
         $conference = Conference::approved()->findOrFail($id);
+        $conference->loadCount('openIssues');
 
         return view('conferences.showPublic', [
             'conference' => $conference,

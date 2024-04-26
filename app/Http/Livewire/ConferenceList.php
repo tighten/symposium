@@ -69,7 +69,7 @@ class ConferenceList extends Component
                 ->sortByCfpOpening($this->sort)
                 ->sortByCfpClosing($this->sort);
         })
-            ->with('openIssues')
+            ->withCount('openIssues')
             ->get()
             ->groupByMonth($this->dateColumn())
             ->sortKeys()

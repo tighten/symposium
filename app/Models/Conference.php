@@ -337,7 +337,7 @@ class Conference extends UuidBase
 
     public function isFlagged()
     {
-        return $this->openIssues->isNotEmpty();
+        return $this->open_issues_count > 0;
     }
 
     public function isRejected()
