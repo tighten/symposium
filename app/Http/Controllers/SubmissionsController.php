@@ -19,7 +19,7 @@ class SubmissionsController extends Controller
         }
 
         $conference = Conference::findOrFail($request->input('conferenceId'));
-        $talkRevision = $talk->current();
+        $talkRevision = $talk->loadCurrentRevision()->currentRevision;
         $submission = $conference->submissions()->create(['talk_revision_id' => $talkRevision->id]);
 
         return response()->json([

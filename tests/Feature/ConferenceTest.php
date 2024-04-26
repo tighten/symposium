@@ -1170,6 +1170,7 @@ class ConferenceTest extends TestCase
 
         $conference->reportIssue('spam', 'Conference has spam', $user);
 
+        $conference->loadCount('openIssues');
         $this->assertTrue($conference->isFlagged());
     }
 
@@ -1178,6 +1179,7 @@ class ConferenceTest extends TestCase
     {
         $conference = Conference::factory()->withClosedIssue()->create();
 
+        $conference->loadCount('openIssues');
         $this->assertFalse($conference->isFlagged());
     }
 
@@ -1265,5 +1267,39 @@ class ConferenceTest extends TestCase
 
         $this->assertFalse($conferenceA->shouldBeSearchable());
         $this->assertTrue($conferenceB->shouldBeSearchable());
+    }
+
+    /** @test */
+    public function conferences_with_open_issues_are_flagged_on_the_index_page(): void
+    {
+        $conference = Conference::factory()->withOpenIssue()->create();
+
+        $response = Livewire::test(ConferenceList::class);
+
+        tap($response->conferences->flatten(), function ($conferences) {
+            $this->assertEquals(1, $conferences->count());
+            $this->assertTrue($conferences->first()->isFlagged());
+        });
+    }
+
+    /** @test */
+    public function conferences_with_open_issues_are_flagged_on_the_show_page(): void
+    {
+        $conference = Conference::factory()->withOpenIssue()->create();
+
+        $response = $this->actingAs(User::factory()->create())
+            ->get(route('conferences.show', $conference));
+
+        $response->assertSee('An issue has been reported for this conference.');
+    }
+
+    /** @test */
+    public function conferences_with_open_issues_are_flagged_on_the_public_show_page(): void
+    {
+        $conference = Conference::factory()->withOpenIssue()->create();
+
+        $response = $this->get(route('conferences.show', $conference));
+
+        $response->assertSee('An issue has been reported for this conference.');
     }
 }

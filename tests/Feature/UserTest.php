@@ -60,13 +60,13 @@ class UserTest extends TestCase
         $conference = Conference::factory()->create();
 
         $conference->submissions()->create([
-            'talk_revision_id' => $talk->current()->id,
+            'talk_revision_id' => $talk->loadCurrentRevision()->currentRevision->id,
         ]);
 
         $this->assertEquals(1, $user->talkRevisions()->count());
         $this->assertEquals(1, $user->submissions()->count());
         $this->assertEquals(
-            $talk->current()->id,
+            $talk->currentRevision->id,
             $user->submissions->first()->talk_revision_id,
         );
     }

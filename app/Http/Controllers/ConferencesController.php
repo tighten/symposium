@@ -48,9 +48,11 @@ class ConferencesController extends Controller
             return redirect('/');
         }
 
-        $talks = auth()->user()->talks->sortByTitle()->map(function ($talk) use ($conference) {
+        $talks = auth()->user()->talks()->withCurrentRevision()->get()->sortByTitle()->map(function ($talk) use ($conference) {
             return TalkTransformer::transform($talk, $conference);
         });
+
+        $conference->loadCount('openIssues');
 
         return view('conferences.show', [
             'conference' => $conference,
@@ -119,6 +121,7 @@ class ConferencesController extends Controller
     private function showPublic($id)
     {
         $conference = Conference::approved()->findOrFail($id);
+        $conference->loadCount('openIssues');
 
         return view('conferences.showPublic', [
             'conference' => $conference,

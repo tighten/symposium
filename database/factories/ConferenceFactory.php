@@ -138,6 +138,17 @@ class ConferenceFactory extends Factory
         ]);
     }
 
+    public function withOpenIssue()
+    {
+        return $this->afterCreating(function ($conference) {
+            ConferenceIssue::factory()
+                ->open()
+                ->create([
+                    'conference_id' => $conference->id,
+                ]);
+        });
+    }
+
     public function withClosedIssue()
     {
         return $this->afterCreating(function ($conference) {

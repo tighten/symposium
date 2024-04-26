@@ -1,4 +1,4 @@
-<x-listing :title="$talk->current()->title" :href="route('talks.show', $talk)">
+<x-listing :title="$talk->currentRevision->title" :href="route('talks.show', $talk)">
     <x-slot name="actions">
         <a href="{{ route('talks.edit', $talk) }}" title="Edit">
             @svg('compose', 'w-5 fill-current inline')
@@ -22,7 +22,7 @@
             <div>{{ $talk->created_at->toFormattedDateString() }}</div>
         </div>
         <div class="flex items-end">
-            <div>{{ $talk->current()->length }}-minute {{ $talk->current()->level }} {{ $talk->current()->type }}</div>
+            <div>{{ $talk->currentRevision->length }}-minute {{ $talk->currentRevision->level }} {{ $talk->currentRevision->type }}</div>
         </div>
     </x-slot>
 </x-listing>

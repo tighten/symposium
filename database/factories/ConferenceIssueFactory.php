@@ -20,6 +20,15 @@ class ConferenceIssueFactory extends Factory
         ];
     }
 
+    public function open()
+    {
+        return $this->state(function () {
+            return [
+                'closed_at' => null,
+            ];
+        });
+    }
+
     public function closed()
     {
         return $this->state(function () {

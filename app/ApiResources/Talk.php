@@ -27,16 +27,16 @@ class Talk implements Arrayable
     public function attributes()
     {
         return [
-            'title' => $this->talk->current()->title,
-            'description' => $this->talk->current()->description,
-            'type' => $this->talk->current()->type,
-            'length' => $this->talk->current()->length,
-            'level' => $this->talk->current()->level,
-            'slides' => $this->talk->current()->slides,
+            'title' => $this->talk->currentRevision->title,
+            'description' => $this->talk->currentRevision->description,
+            'type' => $this->talk->currentRevision->type,
+            'length' => $this->talk->currentRevision->length,
+            'level' => $this->talk->currentRevision->level,
+            'slides' => $this->talk->currentRevision->slides,
             'public' => $this->talk->public,
-            'organizer_notes' => $this->talk->current()->organizer_notes,
-            'created_at' => (string) $this->talk->current()->created_at,
-            'updated_at' => (string) $this->talk->current()->updated_at,
+            'organizer_notes' => $this->talk->currentRevision->organizer_notes,
+            'created_at' => (string) $this->talk->currentRevision->created_at,
+            'updated_at' => (string) $this->talk->currentRevision->updated_at,
         ];
     }
 
