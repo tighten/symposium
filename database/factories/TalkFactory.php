@@ -40,7 +40,7 @@ class TalkFactory extends Factory
     public function submitted()
     {
         return $this->afterCreating(function (Talk $talk) {
-            Conference::factory()->received($talk->current())->create();
+            Conference::factory()->received($talk->currentRevision())->create();
         });
     }
 

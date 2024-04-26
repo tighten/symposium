@@ -354,7 +354,7 @@ class PublicSpeakerProfileTest extends TestCase
         $talk->revisions()->save($talkRevision);
 
         $this->get(route('speakers-public.show', [$user->profile_slug]))
-            ->assertDontSee($talk->current()->title);
+            ->assertDontSee($talk->currentRevision()->title);
     }
 
     /** @test */

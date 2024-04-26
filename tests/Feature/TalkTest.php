@@ -79,8 +79,8 @@ class TalkTest extends TestCase
         $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
         $talk2 = Talk::factory()->author($user)->revised(['title' => 'abcde'])->create();
 
-        $this->assertEquals('abcde', $user->talks->sortByTitle()->first()->current()->title);
-        $this->assertEquals('zyxwv', $user->talks->sortByTitle()->last()->current()->title);
+        $this->assertEquals('abcde', $user->talks->sortByTitle()->first()->currentRevision()->title);
+        $this->assertEquals('zyxwv', $user->talks->sortByTitle()->last()->currentRevision()->title);
     }
 
     /** @test */
@@ -224,7 +224,7 @@ class TalkTest extends TestCase
             ]);
 
         $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($talk->current()->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->currentRevision()->toArray(), [
                 'title' => 'New',
                 'public' => '1',
             ]));
@@ -232,7 +232,7 @@ class TalkTest extends TestCase
         $talk = Talk::first();
 
         $this->assertTrue($talk->public);
-        $this->assertEquals('New', $talk->current()->title);
+        $this->assertEquals('New', $talk->currentRevision()->title);
         $this->assertEquals('old title', $talk->revisions->last()->title);
     }
 
@@ -262,7 +262,7 @@ class TalkTest extends TestCase
         $talk = Talk::factory()->author($user)->create();
 
         $response = $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($talk->current()->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->currentRevision()->toArray(), [
                 'length' => 'invalid',
             ]));
 
@@ -276,7 +276,7 @@ class TalkTest extends TestCase
         $talk = Talk::factory()->author($user)->create();
 
         $response = $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($talk->current()->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->currentRevision()->toArray(), [
                 'slides' => 'invalid url',
             ]));
 

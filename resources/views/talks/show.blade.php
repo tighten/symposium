@@ -9,7 +9,7 @@
     <x-side-menu title="Revisions">
         <x-slot name="body">
             @foreach ($talk->revisions as $revision)
-                @if ($talk->current()->id == $revision->id)
+                @if ($talk->currentRevision()->id == $revision->id)
                     <a
                         href="/talks/{{ $talk->id }}"
                         class="{{ $baseLinkClasses }} {{ $revision->id == $current->id ? $activeLinkClasses : '' }}"

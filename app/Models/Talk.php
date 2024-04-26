@@ -59,7 +59,7 @@ class Talk extends UuidBase
         return $this->hasManyThrough(Acceptance::class, TalkRevision::class);
     }
 
-    public function current()
+    public function currentRevision()
     {
         return $this->revisions()->orderBy('created_at', 'DESC')->first();
     }

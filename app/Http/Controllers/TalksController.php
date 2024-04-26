@@ -74,7 +74,7 @@ class TalksController extends Controller
 
         return view('talks.edit', [
             'talk' => $talk,
-            'current' => $talk->current(),
+            'current' => $talk->currentRevision(),
         ]);
     }
 
@@ -103,7 +103,7 @@ class TalksController extends Controller
     {
         $talk = auth()->user()->talks()->findOrFail($id);
 
-        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->current();
+        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->currentRevision();
 
         $submissions = Submission::where('talk_revision_id', $current->id)
             ->with(['conference', 'acceptance', 'rejection'])
@@ -186,7 +186,7 @@ class TalksController extends Controller
                 $this->sorted_by = 'alpha';
 
                 return $talks->sortBy(function ($talk) {
-                    return strtolower($talk->current()->title);
+                    return strtolower($talk->currentRevision()->title);
                 });
                 break;
         }
