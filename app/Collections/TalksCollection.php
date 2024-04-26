@@ -10,7 +10,7 @@ class TalksCollection extends Collection
     public function sortByTitle()
     {
         return $this->sortBy(function (Talk $talk) {
-            return strtolower($talk->currentRevision()->title);
+            return strtolower($talk->currentRevision->title);
         })->values();
     }
 }

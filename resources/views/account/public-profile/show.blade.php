@@ -34,11 +34,11 @@
         @forelse ($talks as $talk)
             <h4 class="text-2xl text-indigo">
                 <a href="{{ route('speakers-public.talks.show', ['profileSlug' => $user->profile_slug, 'talkId' => $talk->id]) }}">
-                    {{ $talk->currentRevision()->title }}
+                    {{ $talk->currentRevision->title }}
                 </a>
             </h4>
             <span class="text-sm text-gray-500">
-                {{ $talk->currentRevision()->length }}-minute {{ $talk->currentRevision()->type }} talk at {{ $talk->currentRevision()->level }} level
+                {{ $talk->currentRevision->length }}-minute {{ $talk->currentRevision->type }} talk at {{ $talk->currentRevision->level }} level
             </span>
         @empty
             This speaker has not made any of their talks public yet.

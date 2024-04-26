@@ -74,7 +74,7 @@ class TalksController extends Controller
 
         return view('talks.edit', [
             'talk' => $talk,
-            'current' => $talk->currentRevision(),
+            'current' => $talk->currentRevision,
         ]);
     }
 
@@ -103,7 +103,7 @@ class TalksController extends Controller
     {
         $talk = auth()->user()->talks()->findOrFail($id);
 
-        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->currentRevision();
+        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->loadCurrentRevision()->currentRevision;
 
         $submissions = Submission::where('talk_revision_id', $current->id)
             ->with(['conference', 'acceptance', 'rejection'])
@@ -129,7 +129,7 @@ class TalksController extends Controller
     public function archiveIndex(Request $request)
     {
         $talks = $this->sortTalks(
-            auth()->user()->archivedTalks()->get(),
+            auth()->user()->archivedTalks()->withCurrentRevision()->get(),
             $request->input('sort')
         );
 
@@ -161,13 +161,13 @@ class TalksController extends Controller
     {
         switch ($filter) {
             case 'submitted':
-                return auth()->user()->talks()->submitted()->get();
+                return auth()->user()->talks()->withCurrentRevision()->submitted()->get();
                 break;
             case 'accepted':
-                return auth()->user()->talks()->accepted()->get();
+                return auth()->user()->talks()->withCurrentRevision()->accepted()->get();
                 break;
             default:
-                return auth()->user()->talks()->get();
+                return auth()->user()->talks()->withCurrentRevision()->get();
                 break;
         }
     }
@@ -186,7 +186,7 @@ class TalksController extends Controller
                 $this->sorted_by = 'alpha';
 
                 return $talks->sortBy(function ($talk) {
-                    return strtolower($talk->currentRevision()->title);
+                    return strtolower($talk->currentRevision->title);
                 });
                 break;
         }

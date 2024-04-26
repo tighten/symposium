@@ -12,7 +12,7 @@ class TalksController extends Controller
     public function show($id)
     {
         try {
-            $talk = auth()->guard('api')->user()->talks()->findOrFail($id);
+            $talk = auth()->guard('api')->user()->talks()->withCurrentRevision()->findOrFail($id);
         } catch (Exception $e) {
             App::abort(404);
         }

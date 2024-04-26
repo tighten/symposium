@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Collections\TalksCollection;
+use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -61,7 +62,7 @@ class Talk extends UuidBase
 
     public function currentRevision()
     {
-        return $this->revisions()->orderBy('created_at', 'DESC')->first();
+        return $this->belongsTo(TalkRevision::class);
     }
 
     public function revisions()
@@ -109,6 +110,24 @@ class Talk extends UuidBase
     public function scopeAccepted($query)
     {
         $query->has('acceptances');
+    }
+
+    public function scopeWithCurrentRevision($query)
+    {
+        $query->addSelect([
+            'current_revision_id' => TalkRevision::select('id')
+                ->whereColumn('talk_id', 'talks.id')
+                ->latest()
+                ->take(1)
+        ])->with('currentRevision');
+    }
+
+    public function loadCurrentRevision()
+    {
+        return $this->setRelation(
+            'currentRevision',
+            TalkRevision::where('talk_id', $this->id)->latest()->take(1)->first(),
+        );
     }
 
     public function getMySubmissionForConference(Conference $conference)

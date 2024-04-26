@@ -79,8 +79,10 @@ class TalkTest extends TestCase
         $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
         $talk2 = Talk::factory()->author($user)->revised(['title' => 'abcde'])->create();
 
-        $this->assertEquals('abcde', $user->talks->sortByTitle()->first()->currentRevision()->title);
-        $this->assertEquals('zyxwv', $user->talks->sortByTitle()->last()->currentRevision()->title);
+        $talks = $user->talks()->withCurrentRevision()->get();
+
+        $this->assertEquals('abcde', $talks->sortByTitle()->first()->currentRevision->title);
+        $this->assertEquals('zyxwv', $talks->sortByTitle()->last()->currentRevision->title);
     }
 
     /** @test */
@@ -224,7 +226,7 @@ class TalkTest extends TestCase
             ]);
 
         $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($talk->currentRevision()->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->loadCurrentRevision()->currentRevision->toArray(), [
                 'title' => 'New',
                 'public' => '1',
             ]));
@@ -232,7 +234,7 @@ class TalkTest extends TestCase
         $talk = Talk::first();
 
         $this->assertTrue($talk->public);
-        $this->assertEquals('New', $talk->currentRevision()->title);
+        $this->assertEquals('New', $talk->loadCurrentRevision()->currentRevision->title);
         $this->assertEquals('old title', $talk->revisions->last()->title);
     }
 
@@ -262,7 +264,7 @@ class TalkTest extends TestCase
         $talk = Talk::factory()->author($user)->create();
 
         $response = $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($talk->currentRevision()->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->loadCurrentRevision()->currentRevision->toArray(), [
                 'length' => 'invalid',
             ]));
 
@@ -276,7 +278,7 @@ class TalkTest extends TestCase
         $talk = Talk::factory()->author($user)->create();
 
         $response = $this->actingAs($user)
-            ->put("/talks/{$talk->id}", array_merge($talk->currentRevision()->toArray(), [
+            ->put("/talks/{$talk->id}", array_merge($talk->loadCurrentRevision()->currentRevision->toArray(), [
                 'slides' => 'invalid url',
             ]));
 

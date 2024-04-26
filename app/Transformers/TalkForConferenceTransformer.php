@@ -9,7 +9,7 @@ class TalkForConferenceTransformer
 {
     public static function transform(Talk $talk, Conference $conference)
     {
-        $currentTalk = $talk->currentRevision();
+        $currentTalk = $talk->currentRevision;
 
         $submission = $talk->getMySubmissionForConference($conference);
         $acceptance = $submission ? $submission->acceptance : null;

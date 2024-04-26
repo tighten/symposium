@@ -48,7 +48,7 @@ class ConferencesController extends Controller
             return redirect('/');
         }
 
-        $talks = auth()->user()->talks->sortByTitle()->map(function ($talk) use ($conference) {
+        $talks = auth()->user()->talks()->withCurrentRevision()->get()->sortByTitle()->map(function ($talk) use ($conference) {
             return TalkTransformer::transform($talk, $conference);
         });
 
