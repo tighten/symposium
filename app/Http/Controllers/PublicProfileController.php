@@ -42,7 +42,7 @@ class PublicProfileController extends Controller
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
-        $talk = $user->talks()->public()->findOrFail($talk_id);
+        $talk = $user->talks()->withCurrentRevision()->public()->findOrFail($talk_id);
 
         return view('talks.show-public', [
             'user' => $user,
