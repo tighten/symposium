@@ -56,21 +56,22 @@ class ConferenceList extends Component
     public function getConferencesProperty()
     {
         return Conference::searchQuery($this->search, function ($query) {
-            $query->approved()
+            $query
+                ->when(auth()->user(), fn ($query) => $query->with('submissions'))
+                ->withCount('openIssues')
+                ->approved()
                 ->filterByAll($this->filter, $this->date, $this->dateColumn())
                 ->filterByFuture($this->filter, $this->dateColumn())
                 ->filterByFavorites($this->filter)
                 ->filterByDismissed($this->filter)
                 ->filterByOpenCfp($this->filter)
                 ->filterByFutureCfp($this->filter)
-                ->filterByUnclosedCfp($this->filter);
+                ->filterByUnclosedCfp($this->filter)
+                ->sortByTitle($this->sort)
+                ->sortByDate($this->sort)
+                ->sortByCfpOpening($this->sort)
+                ->sortByCfpClosing($this->sort);
         })
-            ->when(auth()->user(), fn ($query) => $query->with('submissions'))
-            ->withCount('openIssues')
-            ->sortByTitle($this->sort)
-            ->sortByDate($this->sort)
-            ->sortByCfpOpening($this->sort)
-            ->sortByCfpClosing($this->sort)
             ->get()
             ->groupByMonth($this->dateColumn())
             ->sortKeys()
