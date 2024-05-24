@@ -1,3 +1,4 @@
+window.Vue = require('vue').default;
 window.axios = require('axios').default;
 
 window.axios.defaults.headers.common = {
@@ -8,9 +9,6 @@ window.axios.defaults.headers.common = {
 import Vue from 'vue';
 import VCalendar from 'v-calendar';
 import Dismiss from './directives/Dismiss';
-import 'livewire-vue'
-
-window.Vue = Vue;
 
 Vue.use(VCalendar);
 
