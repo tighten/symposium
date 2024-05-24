@@ -259,7 +259,9 @@ class ConferenceList extends Component
                 return function ($sort) {
                     return $this->when(
                         $sort === 'title',
-                        fn ($q) => $q->orderBy('title'),
+                        fn ($q) => $q->orderByRaw(
+                            'starts_at is null, DATE_FORMAT(starts_at, "%Y-%m")'
+                        )->orderBy('title'),
                     );
                 };
             }
