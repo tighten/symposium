@@ -70,6 +70,8 @@
         </x-panel>
     @endforelse
 
+    <div class="mt-4">{{ $conferenceQuery->links() }}</div>
+
     @if (auth()->user())
         <div class="mt-4 text-right">
             <x-button.primary
