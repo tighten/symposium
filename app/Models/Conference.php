@@ -76,7 +76,7 @@ class Conference extends UuidBase
     public static function searchQuery($search, $query)
     {
         if (! $search) {
-            return static::where($query);
+            return tap(static::query(), $query);
         }
 
         return static::search($search)->query($query);

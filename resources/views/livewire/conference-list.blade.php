@@ -34,7 +34,7 @@
     @forelse ($conferences as $month => $conferences)
         <div class="flex justify-between mt-8">
             <h2 class="text-2xl leading-8 font-semibold text-indigo-600">
-                {{ Carbon\Carbon::parse($month)->format('F Y') }}
+                {{ Carbon\Carbon::make($month)?->format('F Y') ?? 'Date Not Set' }}
             </h2>
             @if ($this->filter === 'all')
                 <div class="flex">
@@ -69,6 +69,8 @@
             @include('conferences.listing-empty')
         </x-panel>
     @endforelse
+
+    <div class="mt-4">{{ $conferenceQuery->links() }}</div>
 
     @if (auth()->user())
         <div class="mt-4 text-right">

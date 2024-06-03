@@ -7,9 +7,12 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ConferenceList extends Component
 {
+    use WithPagination;
+
     public $date;
 
     public $year;
@@ -50,13 +53,17 @@ class ConferenceList extends Component
     {
         return view('livewire.conference-list', [
             'conferences' => $this->conferences,
+            'conferenceQuery' => $this->conferenceQuery,
         ])->extends('app');
     }
 
-    public function getConferencesProperty()
+    public function getConferenceQueryProperty()
     {
         return Conference::searchQuery($this->search, function ($query) {
-            $query->approved()
+            $query
+                ->when(auth()->user(), fn ($query) => $query->with('submissions'))
+                ->withCount('openIssues')
+                ->approved()
                 ->filterByAll($this->filter, $this->date, $this->dateColumn())
                 ->filterByFuture($this->filter, $this->dateColumn())
                 ->filterByFavorites($this->filter)
@@ -68,12 +75,20 @@ class ConferenceList extends Component
                 ->sortByDate($this->sort)
                 ->sortByCfpOpening($this->sort)
                 ->sortByCfpClosing($this->sort);
-        })
-            ->when(auth()->user(), fn ($query) => $query->with('submissions'))
-            ->withCount('openIssues')
-            ->get()
+        })->paginate();
+    }
+
+    public function getConferencesProperty()
+    {
+        return $this->conferenceQuery
             ->groupByMonth($this->dateColumn())
-            ->sortKeys()
+            ->sortKeysUsing(function ($keyA, $keyB) {
+                if (! $keyB) {
+                    return -1;
+                }
+
+                return $keyA > $keyB;
+            })
             ->whenEmpty(function () {
                 // Display the month/year header for months
                 // without conferences when filtering by all
@@ -109,6 +124,21 @@ class ConferenceList extends Component
             ['label' => 'CFP Opening Date', 'value' => 'cfp_opening_next'],
             ['label' => 'CFP Closing Date', 'value' => 'cfp_closing_next'],
         ];
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSort()
+    {
+        $this->resetPage();
     }
 
     public function updatedFilter()
@@ -258,7 +288,9 @@ class ConferenceList extends Component
                 return function ($sort) {
                     return $this->when(
                         $sort === 'title',
-                        fn ($q) => $q->orderBy('title'),
+                        fn ($q) => $q->orderByRaw(
+                            'starts_at is null, DATE_FORMAT(starts_at, "%Y-%m")'
+                        )->orderBy('title'),
                     );
                 };
             }
