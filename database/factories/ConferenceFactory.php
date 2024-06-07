@@ -46,6 +46,7 @@ class ConferenceFactory extends Factory
     public function cfpDates($start, $end = null)
     {
         return $this->state([
+            'has_cfp' => true,
             'cfp_starts_at' => $start,
             'cfp_ends_at' => $end ?? $start,
         ]);
@@ -54,6 +55,7 @@ class ConferenceFactory extends Factory
     public function noCfpDates()
     {
         return $this->state([
+            'has_cfp' => false,
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
