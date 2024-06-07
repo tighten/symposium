@@ -360,4 +360,15 @@ class TalkTest extends TestCase
         $response->assertRedirect('talks');
         $this->assertDatabaseMissing('talks', ['id' => $talk->id]);
     }
+
+    /** @test */
+    public function editing_a_talk(): void
+    {
+        $talk = Talk::factory()->create();
+
+        $response = $this->actingAs($talk->author)
+            ->get(route('talks.edit', $talk));
+
+        $response->assertSuccessful();
+    }
 }
