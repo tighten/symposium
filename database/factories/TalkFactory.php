@@ -46,6 +46,15 @@ class TalkFactory extends Factory
         });
     }
 
+    public function accepted()
+    {
+        return $this->afterCreating(function (Talk $talk) {
+            Conference::factory()
+                ->accepted($talk->loadCurrentRevision()->currentRevision)
+                ->create();
+        });
+    }
+
     public function revised(array $revisions)
     {
         return $this->afterCreating(function (Talk $talk) use ($revisions) {

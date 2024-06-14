@@ -40,24 +40,13 @@ class AcceptanceTest extends TestCase
     public function user_can_remove_acceptance_via_http()
     {
         $user = User::factory()->create();
-        $this->be($user);
+        $talk = Talk::factory()->author($user)->accepted()->create();
 
-        $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user)->create();
-        $revision = TalkRevision::factory()->create();
-        $talk->revisions()->save($revision);
+        $this->actingAs($user)
+            ->delete("acceptances/{$talk->acceptances->first()->id}");
 
-        $acceptance = Acceptance::factory()->create();
-
-        $submission = Submission::factory()->create([
-            'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id,
-            'acceptance_id' => $acceptance->id,
-        ]);
-
-        $this->delete("acceptances/{$acceptance->id}");
-
-        $this->assertFalse($submission->refresh()->isAccepted());
+        $this->assertFalse($talk->submissions()->first()->isAccepted());
+        $this->assertEquals(0, $talk->acceptances()->count());
     }
 
     /** @test */
@@ -66,21 +55,13 @@ class AcceptanceTest extends TestCase
         $userA = User::factory()->create();
         $userB = User::factory()->create();
 
-        $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($userB)->create();
-        $revision = TalkRevision::factory()->create();
-        $talk->revisions()->save($revision);
-        $acceptance = Acceptance::factory()->create();
+        $talk = Talk::factory()->author($userB)->accepted()->create();
 
-        $submission = Submission::factory()->create([
-            'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id,
-            'acceptance_id' => $acceptance->id,
-        ]);
-
-        $response = $this->actingAs($userA)->delete("acceptances/{$acceptance->id}");
+        $response = $this->actingAs($userA)
+            ->delete("acceptances/{$talk->acceptances->first()->id}");
 
         $response->assertUnauthorized();
-        $this->assertTrue($submission->refresh()->isAccepted());
+        $this->assertTrue($talk->submissions()->first()->isAccepted());
+        $this->assertEquals(1, $talk->acceptances()->count());
     }
 }

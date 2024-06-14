@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Casts\SpeakerPackage;
+use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
 use App\Models\Submission;
@@ -107,6 +108,22 @@ class ConferenceFactory extends Factory
             Submission::factory()
                 ->for($conference)
                 ->for($revision)
+                ->create();
+        });
+    }
+
+    public function accepted(TalkRevision $revision)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($revision) {
+            $acceptance = Acceptance::factory()
+                ->for($conference)
+                ->for($revision)
+                ->create();
+
+            Submission::factory()
+                ->for($conference)
+                ->for($revision)
+                ->for($acceptance)
                 ->create();
         });
     }
