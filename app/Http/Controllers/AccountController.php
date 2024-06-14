@@ -129,7 +129,7 @@ class AccountController extends Controller
         $headers = ['Content-type' => 'application/json'];
 
         $tempName = sprintf('%d_export.json', $user->id);
-        $exportName = sprintf('export_%s.json', date('Y_m_d'));
+        $exportName = sprintf('export_%s.json', now()->format('Y_m_d'));
 
         $export = ['talks' => $user->talks->sortByTitle()->toArray()];
 

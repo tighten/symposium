@@ -10,6 +10,7 @@ use App\Models\TalkRevision;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -47,6 +48,26 @@ class AccountTest extends TestCase
     }
 
     /** @test */
+    public function users_can_view_their_profile(): void
+    {
+        $user = User::factory()->create(['name' => 'Luke Skywalker']);
+
+        $response = $this->actingAs($user)->get(route('account.show'));
+
+        $response->assertSee('Luke Skywalker');
+    }
+
+    /** @test */
+    public function users_can_edit_their_profile(): void
+    {
+        $user = User::factory()->create(['name' => 'Luke Skywalker']);
+
+        $response = $this->actingAs($user)->get(route('account.edit'));
+
+        $response->assertSee('Luke Skywalker');
+    }
+
+    /** @test */
     public function user_can_update_their_profile()
     {
         $user = User::factory()->create();
@@ -80,7 +101,9 @@ class AccountTest extends TestCase
     {
         Storage::fake();
 
-        $user = User::factory()->create();
+        $user = User::factory()->create(['profile_picture' => 'old.jpg']);
+        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . 'old.jpg', 'content');
+        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . 'old.jpg', 'content');
 
         $this->actingAs($user)->put('account/edit', [
             'name' => $user->name,
@@ -91,9 +114,14 @@ class AccountTest extends TestCase
             'profile_picture' => UploadedFile::fake()->image('test.jpg'),
         ]);
 
-        $this->assertNotNull($user->fresh()->profile_picture);
-        Storage::disk()->assertExists(User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
-        Storage::disk()->assertExists(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
+        tap($user->fresh(), function ($user) {
+            $this->assertNotEquals('old.jpg', $user->profile_picture);
+            $this->assertNotNull($user->profile_picture);
+            Storage::disk()->assertMissing(User::PROFILE_PICTURE_THUMB_PATH . 'old.jpg');
+            Storage::disk()->assertMissing(User::PROFILE_PICTURE_HIRES_PATH . 'old.jpg');
+            Storage::disk()->assertExists(User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture);
+            Storage::disk()->assertExists(User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture);
+        });
     }
 
     /** @test */
@@ -150,6 +178,26 @@ class AccountTest extends TestCase
     }
 
     /** @test */
+    public function confirming_account_deletion(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('account.delete'));
+
+        $response->assertSee('Are you sure you want to delete your account?');
+    }
+
+    /** @test */
+    public function viewing_oauth_settings(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('account.oauth-settings'));
+
+        $response->assertSuccessful();
+    }
+
+    /** @test */
     public function users_can_delete_their_accounts()
     {
         $user = User::factory()->create();
@@ -202,6 +250,19 @@ class AccountTest extends TestCase
             'user_id' => $user->id,
             'conference_id' => $favoriteConference->id,
         ]);
+    }
+
+    /** @test */
+    public function users_can_export_their_account()
+    {
+        Storage::fake();
+        Carbon::setTestNow('2024-05-04');
+
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('account.export'));
+
+        $response->assertDownload('export_2024_05_04.json');
     }
 
     /** @test */
