@@ -59,4 +59,28 @@ class AcceptanceTest extends TestCase
 
         $this->assertFalse($submission->refresh()->isAccepted());
     }
+
+    /** @test */
+    public function users_cannot_delete_acceptances_of_other_users(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+
+        $conference = Conference::factory()->create();
+        $talk = Talk::factory()->author($userB)->create();
+        $revision = TalkRevision::factory()->create();
+        $talk->revisions()->save($revision);
+        $acceptance = Acceptance::factory()->create();
+
+        $submission = Submission::factory()->create([
+            'talk_revision_id' => $revision->id,
+            'conference_id' => $conference->id,
+            'acceptance_id' => $acceptance->id,
+        ]);
+
+        $response = $this->actingAs($userA)->delete("acceptances/{$acceptance->id}");
+
+        $response->assertUnauthorized();
+        $this->assertTrue($submission->refresh()->isAccepted());
+    }
 }
