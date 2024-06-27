@@ -15,6 +15,18 @@ class ConferenceIssuesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function creating_a_conference_issue()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->get(route('conferences.issues.create', $conference));
+
+        $response->assertSuccessful();
+    }
+
+    /** @test */
     function saving_a_conference_issue()
     {
         Notification::fake();
