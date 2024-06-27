@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Livewire\ConferenceList;
 use App\Models\Conference;
+use App\Models\Talk;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
@@ -12,6 +13,16 @@ use Tests\TestCase;
 
 class ConferenceTest extends TestCase
 {
+    /** @test */
+    public function viewing_the_create_conference_form(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('conferences.create'));
+
+        $response->assertSuccessful();
+    }
+
     /** @test */
     public function user_can_create_conference()
     {
@@ -449,6 +460,48 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function viewing_the_edit_conference_form(): void
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)->get(route('conferences.edit', $conference));
+
+        $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function users_who_didnt_author_the_conference_cannot_view_the_edit_form(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $conference = Conference::factory()->author($userA)->create();
+
+        $response = $this->actingAs($userB)->get(route('conferences.edit', $conference));
+
+        $response->assertRedirect('/');
+    }
+
+    /** @test */
+    public function users_who_didnt_author_the_conference_cannot_update_it(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $conference = Conference::factory()->author($userA)->create([
+            'title' => 'My Conference',
+        ]);
+
+        $response = $this->actingAs($userB)
+            ->put(
+                route('conferences.update', $conference),
+                array_merge($conference->toArray(), ['title' => 'No, My Conference']),
+            );
+
+        $response->assertRedirect('/');
+        $this->assertEquals('My Conference', $conference->fresh()->title);
+    }
+
+    /** @test */
     public function user_can_edit_conference()
     {
         $user = User::factory()->create();
@@ -597,6 +650,20 @@ class ConferenceTest extends TestCase
 
         $this->get('conferences?filter=all')
             ->assertSee($conference->title);
+    }
+
+    /** @test */
+    public function viewing_a_conference_includes_user_talks(): void
+    {
+        $conference = Conference::factory()->create();
+        $user = User::factory()
+            ->has(Talk::factory()->revised(['title' => 'My Best Talk']))
+            ->create();
+
+        $response = $this->actingAs($user)->get(route('conferences.show', $conference));
+
+        $response->assertSuccessful();
+        $response->assertSee('My Best Talk');
     }
 
     /** @test */
@@ -1301,5 +1368,16 @@ class ConferenceTest extends TestCase
         $response = $this->get(route('conferences.show', $conference));
 
         $response->assertSee('An issue has been reported for this conference.');
+    }
+
+    /** @test */
+    public function deleting_a_conference()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)->delete(route('conferences.destroy', $conference));
+
+        $response->assertRedirect(route('conferences.index'));
     }
 }

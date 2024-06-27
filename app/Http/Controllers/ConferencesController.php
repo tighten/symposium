@@ -99,14 +99,7 @@ class ConferencesController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
-            Log::error('User ' . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
-
-            return redirect('/');
-        }
-
+        $conference = auth()->user()->conferences()->findOrFail($id);
         $conference->delete();
 
         Session::flash('success-message', 'Conference successfully deleted.');
