@@ -102,4 +102,22 @@ class SocialLoginTest extends TestCase
             $this->assertEquals(1234, $social->social_id);
         });
     }
+
+    /** @test */
+    public function authenticated_users_are_redirected_to_the_dashboard(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('login/github');
+
+        $response->assertRedirect(route('dashboard'));
+    }
+
+    /** @test */
+    public function specifying_an_undefined_social_service(): void
+    {
+        $response = $this->get('login/skynet');
+
+        $response->assertRedirect();
+    }
 }
