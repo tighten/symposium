@@ -157,6 +157,27 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
+    public function viewing_a_public_talk(): void
+    {
+        $user = User::factory()->enableProfile()->create([
+            'profile_slug' => 'the-dark-side',
+        ]);
+        $talk = Talk::factory()
+            ->author($user)
+            ->public()
+            ->revised(['title' => 'One with the Force'])
+            ->create();
+
+        $response = $this->get(route('speakers-public.talks.show', [
+            'the-dark-side',
+            $talk->id,
+        ]));
+
+        $response->assertSuccessful();
+        $response->assertSee('One with the Force');
+    }
+
+    /** @test */
     public function talks_marked_not_public_do_not_have_public_pages()
     {
         $user = User::factory()->enableProfile()->create([
@@ -246,6 +267,23 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
+    public function viewing_a_public_bio(): void
+    {
+        $user = User::factory()->enableProfile()->create([
+            'profile_slug' => 'the-dark-side',
+        ]);
+        $bio = Bio::factory()->for($user)->public()->create(['nickname' => 'My Origin Story']);
+
+        $response = $this->get(route('speakers-public.bios.show', [
+            'the-dark-side',
+            $bio->id,
+        ]));
+
+        $response->assertSuccessful();
+        $response->assertSee('My Origin Story');
+    }
+
+    /** @test */
     public function public_profile_page_is_off_by_default()
     {
         $user = User::factory()->create([
@@ -317,6 +355,28 @@ class PublicSpeakerProfileTest extends TestCase
             return $mail->hasTo($userA->email) &&
                        $mail->userMessage == 'You are amazing';
         });
+    }
+
+    /** @test */
+    public function contacting_users_requires_passing_the_captcha()
+    {
+        Mail::fake();
+        app()->instance(Captcha::class, FakeCaptcha::invalid());
+
+        $userA = User::factory()->enableProfile()->create([
+            'profile_slug' => 'smithy',
+            'allow_profile_contact' => true,
+        ]);
+        $userB = User::factory()->create();
+
+        $this->actingAs($userB)
+            ->post(route('speakers-public.email.send', [$userA->profile_slug]), [
+                'email' => $userB->email,
+                'name' => $userB->name,
+                'message' => 'You are amazing',
+            ]);
+
+        Mail::assertNotSent(ContactRequest::class);
     }
 
     /** @test */

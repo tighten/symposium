@@ -92,7 +92,8 @@ class PublicProfileController extends Controller
         $captchaResponse = $captcha->check();
         if (! $captchaResponse->isValid()) {
             Log::info('Captcha error on public speaker profile page ' . $request->url() . '; reason: ' . $captchaResponse->getError());
-            exit('You have not passed the captcha. Please try again.');
+            Session::flash('error-message', 'You have not passed the captcha. Please try again.');
+            return redirect()->back();
         }
 
         Mail::to($user->email)->send(new ContactRequest($request->get('email'), $request->get('name'), $request->get('message')));

@@ -25,6 +25,13 @@ class TalkFactory extends Factory
         });
     }
 
+    public function public()
+    {
+        return $this->state([
+            'public' => true,
+        ]);
+    }
+
     public function archived()
     {
         return $this->state([
