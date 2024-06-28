@@ -103,6 +103,21 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
+    public function viewing_the_edit_form(): void
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+        $conference = Conference::factory()
+            ->received($talk->revisions()->first())
+            ->create(['title' => 'JediCon']);
+
+        $response = $this->actingAs($user)->get(route('submission.edit', $talk->submissions()->first()));
+
+        $response->assertSuccessful();
+        $response->assertSee('JediCon');
+    }
+
+    /** @test */
     public function user_can_add_a_reason_for_acceptance()
     {
         $user = User::factory()->create();
@@ -273,6 +288,30 @@ class SubmissionTest extends TestCase
             $this->assertFalse($submission->isRejected());
         });
         $this->assertDatabaseMissing('rejections', [
+            'talk_revision_id' => $submission->talk_revision_id,
+        ]);
+    }
+
+    /** @test */
+    public function users_cannot_update_submissions_of_other_users(): void
+    {
+        $otherUser = User::factory()->create();
+        $submission = Submission::factory()->rejected()->create();
+
+        $response = $this->actingAs($otherUser)
+            ->put(route('submission.update', $submission), [
+                'response' => 'acceptance',
+            ]);
+
+        $response->assertStatus(401);
+        tap($submission->fresh(), function ($submission) {
+            $this->assertFalse($submission->isAccepted());
+            $this->assertTrue($submission->isRejected());
+        });
+        $this->assertDatabaseHas('rejections', [
+            'talk_revision_id' => $submission->talk_revision_id,
+        ]);
+        $this->assertDatabaseMissing('acceptances', [
             'talk_revision_id' => $submission->talk_revision_id,
         ]);
     }
