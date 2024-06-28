@@ -77,7 +77,7 @@ class Talk extends UuidBase
 
     public function isArchived()
     {
-        return $this->is_archived;
+        return (bool) $this->is_archived;
     }
 
     public function archive()

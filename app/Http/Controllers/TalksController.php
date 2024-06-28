@@ -63,14 +63,7 @@ class TalksController extends Controller
 
     public function edit($id)
     {
-        try {
-            $talk = auth()->user()->talks()->withCurrentRevision()->findOrFail($id);
-        } catch (Exception $e) {
-            Session::flash('error-message', 'Sorry, but that isn\'t a valid URL.');
-            Log::error($e);
-
-            return redirect('/');
-        }
+        $talk = auth()->user()->talks()->withCurrentRevision()->findOrFail($id);
 
         return view('talks.edit', [
             'talk' => $talk,
