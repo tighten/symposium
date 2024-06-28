@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Rejection;
 use App\Models\Submission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -39,6 +40,11 @@ class TalkRevision extends UuidBase
     public function submissions()
     {
         return $this->hasMany(Submission::class);
+    }
+
+    public function rejections()
+    {
+        return $this->hasMany(Rejection::class);
     }
 
     public function getUrl()

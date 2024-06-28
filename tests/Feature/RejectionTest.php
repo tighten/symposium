@@ -59,4 +59,21 @@ class RejectionTest extends TestCase
 
         $this->assertFalse($submission->refresh()->isRejected());
     }
+
+    /** @test */
+    public function users_cannot_delete_rejections_belonging_to_other_users()
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $talk = Talk::factory()->author($userA)->create();
+        $revision = $talk->revisions()->first();
+        $conference = Conference::factory()->rejectedTalk($revision)->create();
+        $this->assertEquals(1, $revision->rejections()->count());
+        $this->assertEquals(1, $revision->submissions()->count());
+
+        $this->actingAs($userB)->delete(route('rejections.delete', $revision->rejections->first()));
+
+        $this->assertTrue($revision->submissions->first()->isRejected());
+        $this->assertEquals(1, $revision->rejections()->count());
+    }
 }

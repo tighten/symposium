@@ -6,6 +6,7 @@ use App\Casts\SpeakerPackage;
 use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
+use App\Models\Rejection;
 use App\Models\Submission;
 use App\Models\TalkRevision;
 use App\Models\User;
@@ -130,6 +131,22 @@ class ConferenceFactory extends Factory
     {
         return $this->afterCreating(function (Conference $conference) use ($revision) {
             $acceptance = Acceptance::factory()
+                ->for($conference)
+                ->for($revision)
+                ->create();
+
+            Submission::factory()
+                ->for($conference)
+                ->for($revision)
+                ->for($acceptance)
+                ->create();
+        });
+    }
+
+    public function rejectedTalk(TalkRevision $revision)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($revision) {
+            $acceptance = Rejection::factory()
                 ->for($conference)
                 ->for($revision)
                 ->create();
