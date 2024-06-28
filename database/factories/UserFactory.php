@@ -49,4 +49,18 @@ class UserFactory extends Factory
             'enable_profile' => false,
         ]);
     }
+
+    public function featured()
+    {
+        return $this->state([
+            'is_featured' => true,
+        ]);
+    }
+
+    public function notFeatured()
+    {
+        return $this->state([
+            'is_featured' => false,
+        ]);
+    }
 }

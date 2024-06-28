@@ -97,6 +97,20 @@ class ConferenceFactory extends Factory
         ]);
     }
 
+    public function featured()
+    {
+        return $this->state([
+            'is_featured' => true,
+        ]);
+    }
+
+    public function notFeatured()
+    {
+        return $this->state([
+            'is_featured' => false,
+        ]);
+    }
+
     public function author($author)
     {
         return $this->for($author, 'author');
