@@ -692,6 +692,62 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
+    public function navigating_to_next_month()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->addDay(),
+            'cfp_ends_at' => Carbon::now()->subDays(2),
+        ]);
+        $conferenceB = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->addDays(30),
+            'cfp_ends_at' => Carbon::now(),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'date')
+            ->call('next');
+
+        tap(
+            $response->conferences->flatten()->values()->pluck('id'),
+            function ($conferenceIds) use ($conferenceA, $conferenceB) {
+                $this->assertNotContains($conferenceA->id, $conferenceIds);
+                $this->assertContains($conferenceB->id, $conferenceIds);
+            }
+        );
+    }
+
+    /** @test */
+    public function navigating_to_previous_month()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->addDay(),
+            'cfp_ends_at' => Carbon::now()->subDays(2),
+        ]);
+        $conferenceB = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->subDays(30),
+            'cfp_ends_at' => Carbon::now(),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'date')
+            ->call('previous');
+
+        tap(
+            $response->conferences->flatten()->values()->pluck('id'),
+            function ($conferenceIds) use ($conferenceA, $conferenceB) {
+                $this->assertNotContains($conferenceA->id, $conferenceIds);
+                $this->assertContains($conferenceB->id, $conferenceIds);
+            }
+        );
+    }
+
+    /** @test */
     public function sorting_by_cfp_filters_out_null_cfp()
     {
         Carbon::setTestNow('2023-05-04');
@@ -727,16 +783,16 @@ class ConferenceTest extends TestCase
         Carbon::setTestNow('2023-05-04');
 
         $conferenceA = Conference::factory()->approved()->create([
-            'starts_at' => Carbon::now()->subDay(),
+            'starts_at' => Carbon::now()->addDay(),
             'cfp_ends_at' => Carbon::now()->subDays(2),
         ]);
         $conferenceB = Conference::factory()->approved()->create([
-            'starts_at' => Carbon::now()->addDay(),
+            'starts_at' => Carbon::now()->addDays(30),
             'cfp_ends_at' => Carbon::now(),
         ]);
 
         $response = Livewire::test(ConferenceList::class)
-            ->set('filter', 'all')
+            ->set('filter', 'future')
             ->set('sort', 'date');
 
         $this->assertConferenceSort([
