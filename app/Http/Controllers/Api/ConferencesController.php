@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Response;
 use App\ApiResources\Conference;
 use App\Http\Controllers\Controller;
 use App\Models\Conference as EloquentConference;
@@ -80,7 +81,7 @@ class ConferencesController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id): Response
     {
         $conference = new Conference(EloquentConference::findOrFail($id));
 

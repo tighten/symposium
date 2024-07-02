@@ -13,7 +13,7 @@ use Tests\TestCase;
 class SubmissionTest extends TestCase
 {
     /** @test */
-    public function user_can_submit_talks_via_http()
+    public function user_can_submit_talks_via_http(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -32,7 +32,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function user_can_unsubmit_talks_via_http()
+    public function user_can_unsubmit_talks_via_http(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -54,7 +54,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_submit_other_users_talk()
+    public function user_cannot_submit_other_users_talk(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -76,7 +76,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_unsubmit_other_users_talk()
+    public function user_cannot_unsubmit_other_users_talk(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -103,7 +103,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function user_can_add_a_reason_for_acceptance()
+    public function user_can_add_a_reason_for_acceptance(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -129,7 +129,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function user_can_add_a_reason_for_rejection()
+    public function user_can_add_a_reason_for_rejection(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -155,7 +155,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_validate_the_response_type()
+    public function it_can_validate_the_response_type(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -175,7 +175,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_store_an_acceptance_without_a_reason()
+    public function it_can_store_an_acceptance_without_a_reason(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -198,7 +198,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function acceptance_reasons_can_be_updated()
+    function acceptance_reasons_can_be_updated(): void
     {
         $submission = Submission::factory()->accepted([
             'reason' => 'great talk',
@@ -218,7 +218,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function rejection_reasons_can_be_updated()
+    function rejection_reasons_can_be_updated(): void
     {
         $submission = Submission::factory()->rejected([
             'reason' => 'bad talk',
@@ -238,7 +238,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function toggling_submission_responses_from_accepted_to_rejected()
+    function toggling_submission_responses_from_accepted_to_rejected(): void
     {
         $submission = Submission::factory()->accepted()->create();
 
@@ -258,7 +258,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function toggling_submission_responses_from_rejected_to_accepted()
+    function toggling_submission_responses_from_rejected_to_accepted(): void
     {
         $submission = Submission::factory()->rejected()->create();
 
@@ -278,7 +278,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function submissions_with_an_acceptance_have_an_acceptance_response_and_reason()
+    function submissions_with_an_acceptance_have_an_acceptance_response_and_reason(): void
     {
         $submission = Submission::factory()->accepted([
             'reason' => 'it was a good talk',
@@ -289,7 +289,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function submissions_with_a_rejection_have_a_rejection_response()
+    function submissions_with_a_rejection_have_a_rejection_response(): void
     {
         $submission = Submission::factory()->rejected([
             'reason' => 'it was a bad talk',
@@ -300,7 +300,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function scoping_submissions_where_not_rejected()
+    function scoping_submissions_where_not_rejected(): void
     {
         $submissionA = Submission::factory()->pending()->create();
         $submissionB = Submission::factory()->accepted()->create();
@@ -314,7 +314,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function scoping_sumissions_where_future()
+    function scoping_sumissions_where_future(): void
     {
         $submissionA = Submission::factory()
             ->forConference(['starts_at' => now()->addDay()])

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Auth;
@@ -15,7 +16,7 @@ class SocialLoginController extends Controller
         return Socialite::driver($service)->redirect();
     }
 
-    public function callback($service, Request $request)
+    public function callback($service, Request $request): RedirectResponse
     {
         $serviceUser = Socialite::driver($service)->user();
 

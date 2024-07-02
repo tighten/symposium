@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Filament\Resources\ConferenceIssueResource;
 use App\Models\Conference;
 use App\Models\User;
@@ -32,13 +33,13 @@ class ConferenceIssue extends Model
         });
     }
 
-    public function conference()
+    public function conference(): BelongsTo
     {
         return $this->belongsTo(Conference::class)
             ->withoutGlobalScope(SoftDeletingScope::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

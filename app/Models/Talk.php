@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Collections\TalksCollection;
 use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,27 +48,27 @@ class Talk extends UuidBase
         return new TalksCollection($models);
     }
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function submissions()
+    public function submissions(): HasManyThrough
     {
         return $this->hasManyThrough(Submission::class, TalkRevision::class);
     }
 
-    public function acceptances()
+    public function acceptances(): HasManyThrough
     {
         return $this->hasManyThrough(Acceptance::class, TalkRevision::class);
     }
 
-    public function currentRevision()
+    public function currentRevision(): BelongsTo
     {
         return $this->belongsTo(TalkRevision::class);
     }
 
-    public function revisions()
+    public function revisions(): HasMany
     {
         return $this->hasMany(TalkRevision::class);
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class AcceptanceSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Submission::all()->each(function ($submission) {
             if (mt_rand(0, 1)) {

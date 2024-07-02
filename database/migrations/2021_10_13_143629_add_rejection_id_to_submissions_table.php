@@ -5,14 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
             $table->string('rejection_id', 36)->nullable()->index('submissions_rejection_id_foreign');
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
             $table->dropColumn('rejection_id');

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('conference_issues', function (Blueprint $table) {
             $table->text('admin_note')
@@ -21,7 +21,7 @@ return new class extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('conference_issues', function (Blueprint $table) {
             $table->dropColumn('admin_note');

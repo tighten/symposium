@@ -20,7 +20,7 @@ class ConferenceIssueReported extends Notification implements ShouldQueue
         $this->issue = $issue;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }

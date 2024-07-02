@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Closure;
 use Cknow\Money\Money;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\InvokableRule;
@@ -13,7 +14,7 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
 {
     protected $data = [];
 
-    public function __invoke($attribute, $value, $fail)
+    public function __invoke(string $attribute, mixed $value, Closure $fail)
     {
         if (! preg_match('/\d+([.,]?\d*)*/', $value)) {
             $fail($this->formatErrorMessage($attribute));
@@ -34,7 +35,7 @@ class ValidAmountForCurrentLocale implements DataAwareRule, InvokableRule
         }
     }
 
-    public function setData($data)
+    public function setData(array $data)
     {
         $this->data = $data;
 

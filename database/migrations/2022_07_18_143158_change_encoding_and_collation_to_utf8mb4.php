@@ -32,13 +32,13 @@ return new class extends Migration
         'talk_revisions.level' => ['beginner', 'intermediate', 'advanced'],
     ];
 
-    public function up()
+    public function up(): void
     {
         $this->ignoreEnums();
         $this->changeAll('utf8mb4', 'utf8mb4_unicode_ci');
     }
 
-    public function down()
+    public function down(): void
     {
         $this->ignoreEnums();
         $this->changeAll('utf8', 'utf8_unicode_ci');

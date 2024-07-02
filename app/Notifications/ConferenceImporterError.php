@@ -19,7 +19,7 @@ class ConferenceImporterError extends Notification
         $this->message = $exception->getMessage();
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Contracts\Filesystem\Factory as Filesystem;
 use Illuminate\Http\Request;
@@ -16,21 +19,21 @@ class AccountController extends Controller
 
     public const HIRES_SIZE = 1250;
 
-    public function show()
+    public function show(): View
     {
         return view('account.show', [
             'user' => auth()->user(),
         ]);
     }
 
-    public function edit()
+    public function edit(): View
     {
         return view('account.edit', [
             'user' => auth()->user(),
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         request()->validate([
             'name' => 'required',
@@ -104,12 +107,12 @@ class AccountController extends Controller
         $user->updateProfilePicture($picture->hashName());
     }
 
-    public function delete()
+    public function delete(): View
     {
         return view('account.confirm-delete');
     }
 
-    public function destroy()
+    public function destroy(): RedirectResponse
     {
         $user = auth()->user();
 
@@ -121,7 +124,7 @@ class AccountController extends Controller
         return redirect('/');
     }
 
-    public function export(Filesystem $storage)
+    public function export(Filesystem $storage): Response
     {
         $user = auth()->user();
         $user->load('talks.revisions');
@@ -144,7 +147,7 @@ class AccountController extends Controller
             ->deleteFileAfterSend(true);
     }
 
-    public function oAuthSettings()
+    public function oAuthSettings(): View
     {
         return view('account.oauth-settings');
     }

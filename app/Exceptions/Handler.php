@@ -11,15 +11,6 @@ use Throwable;
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of exception types with their corresponding custom log levels.
-     *
-     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
-     */
-    protected $levels = [
-        //
-    ];
-
-    /**
      * A list of the exception types that are not reported.
      *
      * @var array
@@ -45,10 +36,8 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->renderable(function (ModelNotFoundException $e, $request) {
             return $this->render($request, new NotFoundHttpException($e->getMessage(), $e));
@@ -59,7 +48,6 @@ class Handler extends ExceptionHandler
      * Convert an authentication exception into an unauthenticated response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $e
      * @return \Illuminate\Http\Response
      */
     protected function unauthenticated($request, AuthenticationException $e)

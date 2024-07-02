@@ -12,7 +12,7 @@ use Tests\TestCase;
 class NotificationTest extends TestCase
 {
     /** @test */
-    public function command_will_trigger_notification_for_approved_and_not_shared_conference()
+    public function command_will_trigger_notification_for_approved_and_not_shared_conference(): void
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
@@ -25,7 +25,7 @@ class NotificationTest extends TestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_unapproved_conference()
+    public function command_will_not_trigger_notification_for_unapproved_conference(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -37,7 +37,7 @@ class NotificationTest extends TestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_already_shared_conference()
+    public function command_will_not_trigger_notification_for_already_shared_conference(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -49,7 +49,7 @@ class NotificationTest extends TestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_closed_cfp()
+    public function command_will_not_trigger_notification_for_closed_cfp(): void
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
@@ -61,7 +61,7 @@ class NotificationTest extends TestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_if_no_cfp_dates_given()
+    public function command_will_not_trigger_notification_if_no_cfp_dates_given(): void
     {
         Notification::fake();
         $user = User::factory()->wantsNotifications()->create();
@@ -73,7 +73,7 @@ class NotificationTest extends TestCase
     }
 
     /** @test */
-    public function command_will_not_trigger_notification_for_opt_out_user()
+    public function command_will_not_trigger_notification_for_opt_out_user(): void
     {
         Notification::fake();
         $user = User::factory()->create();

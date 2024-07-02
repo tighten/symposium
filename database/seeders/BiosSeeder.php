@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class BiosSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Bio::truncate();
 

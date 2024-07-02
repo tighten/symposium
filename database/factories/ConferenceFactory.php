@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ConferenceFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'author_id' => User::factory(),
@@ -69,7 +69,7 @@ class ConferenceFactory extends Factory
     public function rejected()
     {
         return $this->state([
-            'rejected_at' => $this->faker->dateTime,
+            'rejected_at' => $this->faker->dateTime(),
         ]);
     }
 

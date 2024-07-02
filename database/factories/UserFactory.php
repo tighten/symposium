@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         static $password;
 

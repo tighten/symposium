@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CfpOpeningEventResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => "cfp-opening-{$this->id}",

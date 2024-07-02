@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Exceptions\ValidationException;
 use App\Models\Bio;
 use App\Services\CreateBioForm;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class BiosController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $bios = auth()->user()->bios;
 
@@ -19,14 +21,14 @@ class BiosController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('bios.create', [
             'bio' => new Bio(),
         ]);
     }
 
-    public function store()
+    public function store(): RedirectResponse
     {
         // @todo: Why is this here? Why aren't we validating like we do everywhere else?
         $form = CreateBioForm::fillOut(request()->input(), auth()->user());
@@ -44,7 +46,7 @@ class BiosController extends Controller
         return redirect('/bios/' . $bio->id);
     }
 
-    public function show($id)
+    public function show($id): View
     {
         $bio = auth()->user()->bios()->findOrFail($id);
 
@@ -53,7 +55,7 @@ class BiosController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $bio = auth()->user()->bios()->findOrFail($id);
 
@@ -62,7 +64,7 @@ class BiosController extends Controller
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update($id, Request $request): RedirectResponse
     {
         request()->validate([
             'nickname' => 'required',
@@ -82,7 +84,7 @@ class BiosController extends Controller
         return redirect('bios/' . $bio->id);
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $bio = auth()->user()->bios()->findOrFail($id);
 

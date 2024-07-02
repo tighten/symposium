@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AcceptanceFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'talk_revision_id' => TalkRevision::factory(),

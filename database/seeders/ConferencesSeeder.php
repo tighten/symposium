@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class ConferencesSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Conference::truncate();
 

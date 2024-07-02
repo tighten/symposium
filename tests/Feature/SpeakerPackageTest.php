@@ -11,7 +11,7 @@ use Tests\TestCase;
 class SpeakerPackageTest extends TestCase
 {
     /** @test */
-    public function speaker_package_can_be_saved_when_conference_is_created()
+    public function speaker_package_can_be_saved_when_conference_is_created(): void
     {
         $user = User::factory()->create();
         $speakerPackage = [
@@ -39,7 +39,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function speaker_package_can_be_saved_when_conference_is_edited()
+    public function speaker_package_can_be_saved_when_conference_is_edited(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()
@@ -70,7 +70,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function speaker_package_can_be_updated()
+    public function speaker_package_can_be_updated(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()
@@ -95,7 +95,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function speaker_package_can_be_removed()
+    public function speaker_package_can_be_removed(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()
@@ -115,7 +115,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function decimal_values_are_stored_as_whole_numbers()
+    public function decimal_values_are_stored_as_whole_numbers(): void
     {
         $user = User::factory()->create();
         $speakerPackage = [
@@ -141,7 +141,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function values_must_be_valid_currency()
+    public function values_must_be_valid_currency(): void
     {
         $user = User::factory()->create();
         $speakerPackage = [
@@ -165,7 +165,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function non_us_formats_are_stored_correctly_for_non_us_locale()
+    public function non_us_formats_are_stored_correctly_for_non_us_locale(): void
     {
         App::setLocale('de');
 
@@ -193,7 +193,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function non_us_formats_fail_validation_in_us_locale()
+    public function non_us_formats_fail_validation_in_us_locale(): void
     {
         App::setLocale('en');
 
@@ -223,7 +223,7 @@ class SpeakerPackageTest extends TestCase
     }
 
     /** @test */
-    public function only_number_values_are_permissible()
+    public function only_number_values_are_permissible(): void
     {
         $user = User::factory()->create();
         $speakerPackage = [

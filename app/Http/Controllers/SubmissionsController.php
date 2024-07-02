@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Conference;
 use App\Models\Submission;
 use App\Models\Talk;
@@ -29,7 +30,7 @@ class SubmissionsController extends Controller
         ]);
     }
 
-    public function edit(Submission $submission)
+    public function edit(Submission $submission): View
     {
         $submission->load([
             'acceptance',

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubmissionFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'talk_revision_id' => TalkRevision::factory(),
