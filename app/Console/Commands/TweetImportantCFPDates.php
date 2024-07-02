@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Conference;
 use Atymic\Twitter\Twitter;
 use Exception;
@@ -111,7 +112,7 @@ class TweetImportantCFPDates extends Command
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function tweetable($conferences)
+    private function tweetable(Collection $conferences): Collection
     {
         return $conferences->reject(function ($conference) {
             if (! $conference->starts_at || ! $conference->ends_at) {

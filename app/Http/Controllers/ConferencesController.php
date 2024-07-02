@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SaveConferenceRequest;
 use App\Models\Conference;
 use App\Services\Currency;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 
 class ConferencesController extends Controller
 {
-    public function create()
+    public function create(): View
     {
         return view('conferences.create', [
             'conference' => new Conference(),
@@ -20,7 +22,7 @@ class ConferencesController extends Controller
         ]);
     }
 
-    public function store(SaveConferenceRequest $request)
+    public function store(SaveConferenceRequest $request): RedirectResponse
     {
         $conference = Conference::create(array_merge($request->validated(), [
             'author_id' => auth()->user()->id,
@@ -76,7 +78,7 @@ class ConferencesController extends Controller
         ]);
     }
 
-    public function update($id, SaveConferenceRequest $request)
+    public function update($id, SaveConferenceRequest $request): RedirectResponse
     {
         // @todo Update this to use ACL... gosh this app is old...
         $conference = Conference::findOrFail($id);
@@ -101,7 +103,7 @@ class ConferencesController extends Controller
         return redirect('conferences/' . $conference->id);
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         try {
             $conference = auth()->user()->conferences()->findOrFail($id);

@@ -281,7 +281,7 @@ class Conference extends UuidBase
      * @deprecated
      * @return bool
      */
-    public function cfpIsOpen()
+    public function cfpIsOpen(): bool
     {
         return $this->isCurrentlyAcceptingProposals();
     }
@@ -291,7 +291,7 @@ class Conference extends UuidBase
      *
      * @return bool
      */
-    public function isCurrentlyAcceptingProposals()
+    public function isCurrentlyAcceptingProposals(): bool
     {
         if (! $this->hasAnnouncedCallForProposals()) {
             return false;
