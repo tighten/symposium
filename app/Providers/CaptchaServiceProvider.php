@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class CaptchaServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->bind(Captcha::class, function () {
             $captcha = new Captcha();

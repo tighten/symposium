@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ConferenceFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'author_id' => User::factory(),

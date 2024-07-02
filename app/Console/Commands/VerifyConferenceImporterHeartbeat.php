@@ -13,7 +13,7 @@ class VerifyConferenceImporterHeartbeat extends Command
 
     protected $description = 'Notify Slack if the conference importer appears inactive.';
 
-    public function handle()
+    public function handle(): int
     {
         if ($this->importerAppearsInactive()) {
             (new TightenSlack())->notify(new ConferenceImporterInactive());

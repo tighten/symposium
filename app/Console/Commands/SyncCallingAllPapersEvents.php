@@ -30,7 +30,7 @@ class SyncCallingAllPapersEvents extends Command
         $this->importer = new ConferenceImporter($adminUserId = 1);
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->info('Syncing events...');
 

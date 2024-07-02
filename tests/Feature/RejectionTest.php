@@ -13,7 +13,7 @@ use Tests\TestCase;
 class RejectionTest extends TestCase
 {
     /** @test */
-    public function can_create_from_submission()
+    public function can_create_from_submission(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -37,7 +37,7 @@ class RejectionTest extends TestCase
     }
 
     /** @test */
-    public function user_can_remove_rejection_via_http()
+    public function user_can_remove_rejection_via_http(): void
     {
         $user = User::factory()->create();
         $this->be($user);

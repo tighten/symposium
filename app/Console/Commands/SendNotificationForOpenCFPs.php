@@ -25,7 +25,7 @@ class SendNotificationForOpenCFPs extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $conferences = $this->conferencesToShare()->get();
 

@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->json('speaker_package')->nullable();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->dropColumn('speaker_package');

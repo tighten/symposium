@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Casts\Coordinates;
 use App\Casts\SpeakerPackage;
 use App\Casts\Url;
@@ -98,17 +100,17 @@ class Conference extends UuidBase
         });
     }
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function submissions()
+    public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class);
     }
 
-    public function acceptances()
+    public function acceptances(): HasMany
     {
         return $this->hasMany(Acceptance::class);
     }
@@ -123,7 +125,7 @@ class Conference extends UuidBase
         return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
     }
 
-    public function issues()
+    public function issues(): HasMany
     {
         return $this->hasMany(ConferenceIssue::class);
     }

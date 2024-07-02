@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\TalkRevision;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -42,17 +44,17 @@ class Acceptance extends UuidBase
         });
     }
 
-    public function submission()
+    public function submission(): HasOne
     {
         return $this->hasOne(Submission::class);
     }
 
-    public function conference()
+    public function conference(): BelongsTo
     {
         return $this->belongsTo(Conference::class);
     }
 
-    public function talkRevision()
+    public function talkRevision(): BelongsTo
     {
         return $this->belongsTo(TalkRevision::class);
     }

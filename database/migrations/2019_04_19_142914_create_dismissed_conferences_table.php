@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::create('dismissed_conferences', function (Blueprint $table) {
             $table->integer('user_id')->unsigned()->index('dismissed_conferences_user_id_foreign');
@@ -13,7 +13,7 @@ return new class extends Migration {
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::drop('dismissed_conferences');
     }

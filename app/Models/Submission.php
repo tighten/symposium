@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Acceptance;
 use App\Models\Rejection;
 use App\Models\TalkReaction;
@@ -29,27 +31,27 @@ class Submission extends UuidBase
         'conference_id',
     ];
 
-    public function talkRevision()
+    public function talkRevision(): BelongsTo
     {
         return $this->belongsTo(TalkRevision::class);
     }
 
-    public function conference()
+    public function conference(): BelongsTo
     {
         return $this->belongsTo(Conference::class);
     }
 
-    public function acceptance()
+    public function acceptance(): BelongsTo
     {
         return $this->belongsTo(Acceptance::class);
     }
 
-    public function rejection()
+    public function rejection(): BelongsTo
     {
         return $this->belongsTo(Rejection::class);
     }
 
-    public function reactions()
+    public function reactions(): HasMany
     {
         return $this->hasMany(TalkReaction::class);
     }
