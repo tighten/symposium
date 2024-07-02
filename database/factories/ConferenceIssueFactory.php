@@ -16,7 +16,7 @@ class ConferenceIssueFactory extends Factory
             'user_id' => User::factory(),
             'conference_id' => Conference::factory(),
             'reason' => Arr::random(ConferenceIssue::REASONS),
-            'note' => $this->faker->sentence,
+            'note' => $this->faker->sentence(),
         ];
     }
 
@@ -33,7 +33,7 @@ class ConferenceIssueFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'closed_at' => $this->faker->dateTime,
+                'closed_at' => $this->faker->dateTime(),
             ];
         });
     }
