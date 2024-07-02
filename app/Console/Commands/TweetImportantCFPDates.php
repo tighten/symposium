@@ -107,10 +107,6 @@ class TweetImportantCFPDates extends Command
 
     /**
      * Retrieve only those conferences which should be tweeted.
-     *
-     * @param \Illuminate\Database\Eloquent\Collection $conferences
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     private function tweetable(Collection $conferences): Collection
     {
