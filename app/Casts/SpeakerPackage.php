@@ -2,6 +2,7 @@
 
 namespace App\Casts;
 
+use Illuminate\Database\Eloquent\Model;
 use Cknow\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
@@ -32,14 +33,14 @@ class SpeakerPackage implements Arrayable, Castable
     {
         return new class implements CastsAttributes
         {
-            public function get($model, $key, $value, $attributes)
+            public function get(Model $model, string $key, mixed $value, array $attributes)
             {
                 return new SpeakerPackage(
                     json_decode($value, true) ?? [],
                 );
             }
 
-            public function set($model, $key, $value, $attributes)
+            public function set(Model $model, string $key, mixed $value, array $attributes)
             {
                 if (! $value) {
                     return null;
