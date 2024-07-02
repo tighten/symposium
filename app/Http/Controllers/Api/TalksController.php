@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Response;
 use App\ApiResources\Talk;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 
 class TalksController extends Controller
 {
-    public function show($id): Response
+    public function show($id): JsonResponse
     {
         try {
             $talk = auth()->guard('api')->user()->talks()->withCurrentRevision()->findOrFail($id);

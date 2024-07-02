@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Talk;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 
 class UserTalksController extends Controller
@@ -11,7 +12,7 @@ class UserTalksController extends Controller
     /**
      * Display all of the given user's talks
      */
-    public function index($userId): Response
+    public function index($userId): JsonResponse
     {
         if ($userId != auth()->guard('api')->user()->id) {
             App::abort(404);

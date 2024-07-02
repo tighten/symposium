@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Response;
 use App\ApiResources\Me;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class MeController extends Controller
 {
-    public function index(): Response
+    public function index(): JsonResponse
     {
         $me = new Me(auth()->guard('api')->user());
 
