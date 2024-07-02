@@ -31,9 +31,6 @@ jobs:
             - name: Build Assets
               run: npm ci && npm run prod
 
-            - name: Install Passport
-              run: php artisan passport:install
-
             - name: PHPUnit
               run: vendor/bin/phpunit
               env:
