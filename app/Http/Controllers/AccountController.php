@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Contracts\Filesystem\Factory as Filesystem;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Intervention\Image\Facades\Image;
 
 class AccountController extends Controller

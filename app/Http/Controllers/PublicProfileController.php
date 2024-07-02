@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SpeakerSearchRequest;
 use App\Mail\ContactRequest;
 use App\Models\User;
 use Captcha\Captcha;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class PublicProfileController extends Controller
 {

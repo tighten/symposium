@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Database\Eloquent\Collection;
 use App\Models\Conference;
 use Atymic\Twitter\Twitter;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 
 class TweetImportantCFPDates extends Command

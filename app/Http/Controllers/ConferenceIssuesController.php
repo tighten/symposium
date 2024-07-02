@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class ConferenceIssuesController extends Controller
 {

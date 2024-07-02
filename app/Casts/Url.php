@@ -2,8 +2,8 @@
 
 namespace App\Casts;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
 
 class Url implements CastsAttributes
 {

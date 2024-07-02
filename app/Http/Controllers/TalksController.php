@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SaveTalkRequest;
 use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class TalksController extends Controller
 {

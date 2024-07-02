@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Conference;
 use App\Models\Submission;
 use App\Models\Talk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class SubmissionsController extends Controller
 {
