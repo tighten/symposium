@@ -10,11 +10,12 @@ use App\Models\User;
 use App\Services\FakeCaptcha;
 use Captcha\Captcha;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PublicSpeakerProfileTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function non_public_speakers_are_not_listed_on_the_public_speaker_page(): void
     {
         $user = User::factory()->disableProfile()->create();
@@ -23,7 +24,7 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertDontSee($user->name);
     }
 
-    /** @test */
+    #[Test]
     public function public_speakers_are_listed_on_the_public_speaker_page(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -34,7 +35,7 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertSee($user->name);
     }
 
-    /** @test */
+    #[Test]
     public function speakers_can_be_found_by_searching_state_abbreviation(): void
     {
         User::factory()->enableProfile()->create([
@@ -54,7 +55,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
+    #[Test]
     public function searching_by_state_abbreviation_is_case_insensitive(): void
     {
         User::factory()->enableProfile()->create([
@@ -74,7 +75,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
+    #[Test]
     public function speakers_can_be_found_by_searching_state_name(): void
     {
         User::factory()->enableProfile()->create([
@@ -94,7 +95,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
+    #[Test]
     public function searching_by_state_name_is_case_insensitive(): void
     {
         User::factory()->enableProfile()->create([
@@ -114,7 +115,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
+    #[Test]
     public function non_public_speakers_do_not_have_public_speaker_profile_pages(): void
     {
         $user = User::factory()->disableProfile()->create([
@@ -126,7 +127,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
+    #[Test]
     public function public_speakers_have_public_speaker_profile_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -137,7 +138,7 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertSee($user->name);
     }
 
-    /** @test */
+    #[Test]
     public function talks_marked_not_public_are_not_listed_publicly(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -156,7 +157,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee($talkRevision->title);
     }
 
-    /** @test */
+    #[Test]
     public function talks_marked_not_public_do_not_have_public_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -177,7 +178,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
+    #[Test]
     public function talks_marked_public_are_listed_publicly(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -196,7 +197,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee($talkRevision->title);
     }
 
-    /** @test */
+    #[Test]
     public function bios_marked_public_are_listed_publicly(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -213,7 +214,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee($bio->title);
     }
 
-    /** @test */
+    #[Test]
     public function bios_marked_not_public_do_not_have_public_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -229,7 +230,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Private Bio');
     }
 
-    /** @test */
+    #[Test]
     public function bios_marked_public_have_public_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -245,7 +246,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee($bio->nickname);
     }
 
-    /** @test */
+    #[Test]
     public function public_profile_page_is_off_by_default(): void
     {
         $user = User::factory()->create([
@@ -257,7 +258,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
+    #[Test]
     public function non_contactable_users_profile_pages_do_not_show_contact(): void
     {
         $this->withoutMiddleware();
@@ -277,7 +278,7 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertNotFound();
     }
 
-    /** @test */
+    #[Test]
     public function contactable_users_profile_pages_show_contact(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -294,7 +295,7 @@ class PublicSpeakerProfileTest extends TestCase
         //sending email in next test
     }
 
-    /** @test */
+    #[Test]
     public function user_can_be_contacted_from_profile(): void
     {
         Mail::fake();
@@ -319,7 +320,7 @@ class PublicSpeakerProfileTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function disabled_profile_user_cannot_be_contacted(): void
     {
         $user = User::factory()->disableProfile()->create([
@@ -334,7 +335,7 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertNotFound();
     }
 
-    /** @test */
+    #[Test]
     public function public_profile_pages_do_not_show_talks_for_other_users(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -359,7 +360,7 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertDontSee($talk->currentRevision->title);
     }
 
-    /** @test */
+    #[Test]
     public function public_profile_pages_do_not_show_bios_for_other_users(): void
     {
         $user = User::factory()->enableProfile()->create([

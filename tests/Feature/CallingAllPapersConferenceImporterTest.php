@@ -7,6 +7,8 @@ use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
 use App\Services\Geocoder;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 
@@ -14,7 +16,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 {
     use MocksCallingAllPapers;
 
-    /** @before */
+    #[Before]
     public function prepareEventStub()
     {
         parent::setUp();
@@ -22,7 +24,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->stubEvent();
     }
 
-    /** @test */
+    #[Test]
     public function it_gets_the_id_from_the_rel_link(): void
     {
         $this->mockClient();
@@ -36,7 +38,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
     }
 
-    /** @test */
+    #[Test]
     public function epoch_start_dates_are_nullified_prior_to_validation(): void
     {
         $this->mockClient();
@@ -53,7 +55,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
     }
 
-    /** @test */
+    #[Test]
     public function it_imports_basic_text_fields(): void
     {
         $this->mockClient();
@@ -69,7 +71,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventStub->uri, $conference->cfp_url);
     }
 
-    /** @test */
+    #[Test]
     public function it_imports_dates_if_we_dont_care_about_time_zones(): void
     {
         $event = $this->eventStub;
@@ -119,7 +121,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function imported_dates_are_adjusted_for_daylight_saving_time_changes(): void
     {
         $this->mockClient();
@@ -143,7 +145,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals('2017-12-22T00:00:00-05:00', $conference->ends_at->toIso8601String());
     }
 
-    /** @test */
+    #[Test]
     public function it_imports_null_dates_as_null(): void
     {
         $event = $this->eventStub;
@@ -160,7 +162,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->cfp_ends_at);
     }
 
-    /** @test */
+    #[Test]
     public function it_imports_Jan_1_1970_dates_as_null(): void
     {
         $event = $this->eventStub;
@@ -180,7 +182,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->cfp_starts_at);
     }
 
-    /** @test */
+    #[Test]
     public function invalid_dates_are_ignored(): void
     {
         $event = $this->eventStub;
@@ -203,7 +205,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->cfp_ends_at);
     }
 
-    /** @test */
+    #[Test]
     public function it_imports_zero_in_latitude_or_longitude_as_null(): void
     {
         $event = $this->eventStub;
@@ -222,7 +224,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->longitude);
     }
 
-    /** @test */
+    #[Test]
     public function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null(): void
     {
         $event = $this->eventStub;
@@ -246,7 +248,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals('-77.0259036', $conference->longitude);
     }
 
-    /** @test */
+    #[Test]
     public function it_keeps_lat_long_values_null_if_no_results(): void
     {
         $event = $this->eventStub;
@@ -270,7 +272,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->longitude);
     }
 
-    /** @test */
+    #[Test]
     public function imported_conferences_are_approved(): void
     {
         $this->mockClient();
@@ -281,7 +283,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertTrue(Conference::first()->is_approved);
     }
 
-    /** @test */
+    #[Test]
     public function it_updates_data_for_existing_conferences(): void
     {
         $this->mockClient();
@@ -308,7 +310,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($updatedEvent->eventUri, $updatedConference->url);
     }
 
-    /** @test */
+    #[Test]
     public function updating_existing_unapproved_conferences_leaves_them_unapproved(): void
     {
         $this->mockClient();
@@ -325,7 +327,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertFalse(Conference::first()->is_approved);
     }
 
-    /** @test */
+    #[Test]
     public function conferences_with_cfp_end_after_conference_start_are_rejected(): void
     {
         $this->mockClient();
@@ -344,7 +346,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNotNull($conference->rejected_at);
     }
 
-    /** @test */
+    #[Test]
     public function conferences_with_over_2_year_duration_are_rejected(): void
     {
         $this->mockClient();
@@ -363,7 +365,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNotNull($conference->rejected_at);
     }
 
-    /** @test */
+    #[Test]
     public function conferences_with_cfp_duration_over_2_years_are_rejected(): void
     {
         $this->mockClient();
@@ -382,7 +384,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNotNull($conference->rejected_at);
     }
 
-    /** @test */
+    #[Test]
     public function rejected_conferences_cannot_be_reimported(): void
     {
         $this->mockClient();
@@ -405,7 +407,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals(1, $conferenceCount);
     }
 
-    /** @test */
+    #[Test]
     public function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future(): void
     {
         $this->mockClient();
@@ -421,7 +423,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals(1, Conference::count());
     }
 
-    /** @test */
+    #[Test]
     public function conferences_with_null_start_are_valid_with_end_less_than_2_years_in_future(): void
     {
         $this->mockClient();

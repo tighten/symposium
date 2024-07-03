@@ -2,9 +2,11 @@
 
 namespace Tests\Api;
 
+use PHPUnit\Framework\Attributes\Test;
+
 class MeApiTest extends ApiTestCase
 {
-    /** @test */
+    #[Test]
     public function can_fetch_my_info(): void
     {
         $response = $this->call('GET', 'api/me');

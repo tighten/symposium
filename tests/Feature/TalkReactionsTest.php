@@ -4,13 +4,14 @@ namespace Tests\Feature;
 
 use App\Models\Talk;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TalkReactionsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function creating_a_talk_reaction(): void
     {
         $talk = Talk::factory()->submitted()->create();
@@ -26,7 +27,7 @@ class TalkReactionsTest extends TestCase
         $this->assertEquals('https://example.com', $submission->reactions->first()->url);
     }
 
-    /** @test */
+    #[Test]
     public function a_url_is_required_when_creating_a_talk_reaction(): void
     {
         $talk = Talk::factory()->submitted()->create();
@@ -40,7 +41,7 @@ class TalkReactionsTest extends TestCase
         $this->assertEquals(0, $submission->reactions()->count());
     }
 
-    /** @test */
+    #[Test]
     public function a_valid_url_is_required_when_creating_a_talk_reaction(): void
     {
         $talk = Talk::factory()->submitted()->create();

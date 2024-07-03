@@ -5,11 +5,12 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\Talk;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_checks_if_user_is_admin(): void
     {
         $user = User::factory()->create();
@@ -21,7 +22,7 @@ class UserTest extends TestCase
         $this->assertTrue($admin->isAdmin());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_all_users_subscribed_to_notifications(): void
     {
         User::factory()->create();
@@ -30,7 +31,7 @@ class UserTest extends TestCase
         $this->assertEquals(1, User::wantsNotifications()->count());
     }
 
-    /** @test */
+    #[Test]
     public function archived_talks_are_not_included_in_the_talks_relationship(): void
     {
         $user = User::factory()->create();
@@ -52,7 +53,7 @@ class UserTest extends TestCase
         $this->assertTrue($admin->canAccessFilament());
     }
 
-    /** @test */
+    #[Test]
     public function getting_conference_submissions(): void
     {
         $user = User::factory()->create();

@@ -3,10 +3,11 @@
 namespace Tests\Api;
 
 use App\Models\Conference;
+use PHPUnit\Framework\Attributes\Test;
 
 class ConferenceApiTest extends ApiTestCase
 {
-    /** @test */
+    #[Test]
     public function can_fetch_all_conferences(): void
     {
         $response = $this->call('GET', 'api/conferences');
@@ -16,7 +17,7 @@ class ConferenceApiTest extends ApiTestCase
         $this->assertIsArray($data->data);
     }
 
-    /** @test */
+    #[Test]
     public function can_fetch_one_conference(): void
     {
         $conferenceId = Conference::first()->id;
@@ -27,7 +28,7 @@ class ConferenceApiTest extends ApiTestCase
         $this->assertIsObject($data->data);
     }
 
-    /** @test */
+    #[Test]
     public function cfp_url_returns_if_set(): void
     {
         $conference = Conference::create([
@@ -44,7 +45,7 @@ class ConferenceApiTest extends ApiTestCase
         $this->assertEquals('http://awesome.com/cfp', $data->data->attributes->cfp_url);
     }
 
-    /** @test */
+    #[Test]
     public function cfp_url_returns_null_on_api_if_not_set(): void
     {
         $conference = Conference::create([
@@ -60,7 +61,7 @@ class ConferenceApiTest extends ApiTestCase
         $this->assertNull($data->data->attributes->cfp_url);
     }
 
-    /** @test */
+    #[Test]
     public function unclosed_cfp_returns_open_and_future_cfp(): void
     {
         Conference::factory()

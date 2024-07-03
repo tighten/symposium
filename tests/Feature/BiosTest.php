@@ -4,11 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\Bio;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class BiosTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function user_can_create_a_private_bio(): void
     {
         $user = User::factory()->create();
@@ -29,7 +30,7 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_can_create_a_public_bio(): void
     {
         $user = User::factory()->create();
@@ -50,7 +51,7 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_can_edit_their_bio(): void
     {
         $user = User::factory()->create();
@@ -70,7 +71,7 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_edit_a_bio_that_they_do_not_own(): void
     {
         $userA = User::factory()->create();
@@ -82,7 +83,7 @@ class BiosTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
+    #[Test]
     public function user_can_delete_their_bio(): void
     {
         $user = User::factory()->create();
@@ -97,7 +98,7 @@ class BiosTest extends TestCase
         $this->assertModelMissing($bio);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_delete_a_bio_they_dont_own(): void
     {
         $userA = User::factory()->create();

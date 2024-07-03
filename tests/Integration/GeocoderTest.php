@@ -5,11 +5,12 @@ namespace Tests\Feature;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Services\Geocoder;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class GeocoderTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function geocoding_an_address(): void
     {
         $this->markTestSkipped('This test fails intermittently.');
@@ -22,7 +23,7 @@ class GeocoderTest extends TestCase
         $this->assertEquals('-77.0363304', $coordinates->getLongitude());
     }
 
-    /** @test */
+    #[Test]
     public function catching_invalid_addresses(): void
     {
         $this->expectNotToPerformAssertions();
@@ -37,7 +38,7 @@ class GeocoderTest extends TestCase
         $this->fail('An exception was expected but not thrown');
     }
 
-    /** @test */
+    #[Test]
     public function invalid_addresses_are_only_attempted_once(): void
     {
         $geocoder = app(Geocoder::class);

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 
@@ -17,7 +18,7 @@ class SyncCallingAllPapersEventsTest extends TestCase
 
     protected $eventStub;
 
-    /** @test */
+    #[Test]
     public function caching_timestamp_when_command_ends(): void
     {
         Notification::fake();
@@ -33,7 +34,7 @@ class SyncCallingAllPapersEventsTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function notifying_slack_when_command_errors(): void
     {
         Notification::fake();
