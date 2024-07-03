@@ -55,7 +55,7 @@ class SpeakerPackage implements Arrayable, Castable
     {
         if (! $this->currency) {
             return collect();
-        };
+        }
 
         return collect($this->categories)->map(function ($item) {
             $currency = $this->currency;
@@ -68,7 +68,7 @@ class SpeakerPackage implements Arrayable, Castable
     {
         if (! $this->currency || ! array_key_exists($category, $this->categories)) {
             return;
-        };
+        }
 
         return with($this->categories[$category], function ($amount) {
             if (! $amount > 0) {
@@ -85,7 +85,7 @@ class SpeakerPackage implements Arrayable, Castable
     {
         if (! $this->currency) {
             return [];
-        };
+        }
 
         return array_merge(['currency' => $this->currency], $this->categories);
     }

@@ -16,7 +16,7 @@ class VerifyConferenceImporterHeartbeat extends Command
     public function handle(): int
     {
         if ($this->importerAppearsInactive()) {
-            (new TightenSlack())->notify(new ConferenceImporterInactive());
+            (new TightenSlack)->notify(new ConferenceImporterInactive);
         }
 
         return Command::SUCCESS;

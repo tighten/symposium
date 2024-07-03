@@ -24,7 +24,7 @@ class BiosController extends Controller
     public function create(): View
     {
         return view('bios.create', [
-            'bio' => new Bio(),
+            'bio' => new Bio,
         ]);
     }
 

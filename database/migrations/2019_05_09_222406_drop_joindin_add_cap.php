@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Schema;
  * Drops the joindin_id column from the conferences table and replaces
  * it with a calling_all_papers_id column.  Data loss will ensue.
  */
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::table('conferences', function (Blueprint $table) {

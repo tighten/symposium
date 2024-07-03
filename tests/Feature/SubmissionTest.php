@@ -198,7 +198,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function acceptance_reasons_can_be_updated(): void
+    public function acceptance_reasons_can_be_updated(): void
     {
         $submission = Submission::factory()->accepted([
             'reason' => 'great talk',
@@ -218,7 +218,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function rejection_reasons_can_be_updated(): void
+    public function rejection_reasons_can_be_updated(): void
     {
         $submission = Submission::factory()->rejected([
             'reason' => 'bad talk',
@@ -238,7 +238,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function toggling_submission_responses_from_accepted_to_rejected(): void
+    public function toggling_submission_responses_from_accepted_to_rejected(): void
     {
         $submission = Submission::factory()->accepted()->create();
 
@@ -258,7 +258,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function toggling_submission_responses_from_rejected_to_accepted(): void
+    public function toggling_submission_responses_from_rejected_to_accepted(): void
     {
         $submission = Submission::factory()->rejected()->create();
 
@@ -278,7 +278,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function submissions_with_an_acceptance_have_an_acceptance_response_and_reason(): void
+    public function submissions_with_an_acceptance_have_an_acceptance_response_and_reason(): void
     {
         $submission = Submission::factory()->accepted([
             'reason' => 'it was a good talk',
@@ -289,7 +289,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function submissions_with_a_rejection_have_a_rejection_response(): void
+    public function submissions_with_a_rejection_have_a_rejection_response(): void
     {
         $submission = Submission::factory()->rejected([
             'reason' => 'it was a bad talk',
@@ -300,7 +300,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function scoping_submissions_where_not_rejected(): void
+    public function scoping_submissions_where_not_rejected(): void
     {
         $submissionA = Submission::factory()->pending()->create();
         $submissionB = Submission::factory()->accepted()->create();
@@ -314,7 +314,7 @@ class SubmissionTest extends TestCase
     }
 
     /** @test */
-    function scoping_sumissions_where_future(): void
+    public function scoping_sumissions_where_future(): void
     {
         $submissionA = Submission::factory()
             ->forConference(['starts_at' => now()->addDay()])

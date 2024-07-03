@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::withoutDoubleEncoding();
 
         Blade::directive('sorted', function ($expression) {
-            list($sorted_by, $query) = explode(',', $expression, 2);
+            [$sorted_by, $query] = explode(',', $expression, 2);
 
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
         });
@@ -90,7 +90,7 @@ class AppServiceProvider extends ServiceProvider
             ->needs(GuzzleClient::class)
             ->give(function () {
                 return new GuzzleClient([
-                    'headers'  => ['User-Agent' => 'Symposium CLI'],
+                    'headers' => ['User-Agent' => 'Symposium CLI'],
                     'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
                 ]);
             });

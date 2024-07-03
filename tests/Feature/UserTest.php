@@ -31,7 +31,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function archived_talks_are_not_included_in_the_talks_relationship(): void
+    public function archived_talks_are_not_included_in_the_talks_relationship(): void
     {
         $user = User::factory()->create();
         $activeTalk = Talk::factory()->author($user)->create();
@@ -43,7 +43,7 @@ class UserTest extends TestCase
         $this->assertNotContains($archivedTalk->id, $activeTalks->pluck('id'));
     }
 
-    function only_admins_can_access_filament()
+    public function only_admins_can_access_filament()
     {
         $user = User::factory()->create();
         $admin = User::factory()->admin()->create();
@@ -53,7 +53,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function getting_conference_submissions(): void
+    public function getting_conference_submissions(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();

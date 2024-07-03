@@ -1112,7 +1112,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scoping_conference_queries_by_event_year_and_month(): void
+    public function scoping_conference_queries_by_event_year_and_month(): void
     {
         $conferenceA = Conference::factory()->dates('2023-01-01')->create();
         $conferenceB = Conference::factory()->dates('2022-12-01')->create();
@@ -1128,7 +1128,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scoping_conference_queries_by_cfp_start_year_and_month(): void
+    public function scoping_conference_queries_by_cfp_start_year_and_month(): void
     {
         $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
         $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
@@ -1144,7 +1144,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function scoping_conference_queries_by_cfp_end_year_and_month(): void
+    public function scoping_conference_queries_by_cfp_end_year_and_month(): void
     {
         $conferenceA = Conference::factory()->cfpDates('2023-01-01')->create();
         $conferenceB = Conference::factory()->cfpDates('2022-12-01')->create();
@@ -1160,7 +1160,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conferences_with_reported_issues_are_flagged(): void
+    public function conferences_with_reported_issues_are_flagged(): void
     {
         Notification::fake();
 
@@ -1175,7 +1175,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function conferences_with_closed_issues_are_not_flagged(): void
+    public function conferences_with_closed_issues_are_not_flagged(): void
     {
         $conference = Conference::factory()->withClosedIssue()->create();
 
@@ -1184,7 +1184,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function rejected_conferences_are_not_found(): void
+    public function rejected_conferences_are_not_found(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->rejected()->create();
@@ -1195,7 +1195,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function admins_can_see_rejected_conferences(): void
+    public function admins_can_see_rejected_conferences(): void
     {
         $user = User::factory()->admin()->create();
         $conference = Conference::factory()->rejected()->create();
@@ -1206,7 +1206,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function rejecting_conferences(): void
+    public function rejecting_conferences(): void
     {
         $conference = Conference::factory()->create();
         $this->assertNull($conference->rejected_at);
@@ -1217,7 +1217,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function restoring_rejected_conferences(): void
+    public function restoring_rejected_conferences(): void
     {
         $conference = Conference::factory()->rejected()->create();
         $this->assertNotNull($conference->fresh()->rejected_at);
@@ -1228,7 +1228,7 @@ class ConferenceTest extends TestCase
     }
 
     /** @test */
-    function checking_whether_a_conferences_is_rejected(): void
+    public function checking_whether_a_conferences_is_rejected(): void
     {
         $conferenceA = Conference::factory()->create();
         $conferenceB = Conference::factory()->rejected()->create();

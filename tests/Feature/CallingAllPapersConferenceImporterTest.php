@@ -258,7 +258,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->mockClient($event);
         $this->mock(Geocoder::class, function ($mock) {
             $mock->shouldReceive('geocode')
-                ->andThrow(new InvalidAddressGeocodingException());
+                ->andThrow(new InvalidAddressGeocodingException);
         });
 
         $importer = new ConferenceImporter(1);

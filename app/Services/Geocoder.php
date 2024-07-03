@@ -11,14 +11,14 @@ class Geocoder
     public function geocode(string $address): Coordinates
     {
         if ($this->isInvalidAddress($address)) {
-            throw new InvalidAddressGeocodingException();
+            throw new InvalidAddressGeocodingException;
         }
 
         $response = $this->requestGeocoding($address);
 
         if (! count($response['results'])) {
             cache()->set('invalid-address::' . md5($address), true);
-            throw new InvalidAddressGeocodingException();
+            throw new InvalidAddressGeocodingException;
         }
 
         return new Coordinates(

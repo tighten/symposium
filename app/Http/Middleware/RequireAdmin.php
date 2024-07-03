@@ -12,7 +12,7 @@ class RequireAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->user()?->isAdmin()) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException;
         }
 
         return $next($request);

@@ -62,7 +62,7 @@ return new class extends Migration
                 }
 
                 $dataType = $this->columnDataType($table, $column, $columnType);
-                DB::statement("ALTER TABLE {$table} MODIFY {$column} {$dataType} CHARACTER SET {$encoding} COLLATE $collation;");
+                DB::statement("ALTER TABLE {$table} MODIFY {$column} {$dataType} CHARACTER SET {$encoding} COLLATE {$collation};");
             }
         }
 

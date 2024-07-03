@@ -32,7 +32,7 @@ if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php'
 */
 
 // Prevent pragmarx/support/src/helpers.php from overriding value() helper
-require_once(__DIR__ . '/../vendor/laravel/framework/src/Illuminate/Collections/helpers.php');
+require_once __DIR__ . '/../vendor/laravel/framework/src/Illuminate/Collections/helpers.php';
 
 require __DIR__ . '/../vendor/autoload.php';
 

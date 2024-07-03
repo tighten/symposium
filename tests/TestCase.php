@@ -19,11 +19,11 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         NotificationFake::macro('assertSentToTightenSlack', function ($notification) {
-            $this->assertSentTo(new TightenSlack(), $notification);
+            $this->assertSentTo(new TightenSlack, $notification);
         });
 
         NotificationFake::macro('assertNotSentToTightenSlack', function ($notification) {
-            $this->assertNotSentTo(new TightenSlack(), $notification);
+            $this->assertNotSentTo(new TightenSlack, $notification);
         });
     }
 }

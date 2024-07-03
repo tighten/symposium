@@ -9,7 +9,7 @@ use Tests\TestCase;
 class VerifyConferenceImporterHeartbeatTest extends TestCase
 {
     /** @test */
-    function slack_is_notified_when_the_importer_has_not_run_in_24_hours(): void
+    public function slack_is_notified_when_the_importer_has_not_run_in_24_hours(): void
     {
         Notification::fake();
         cache(['conference_importer_last_ran_at' => now()->subHours(25)->toDateTimeString()]);
@@ -20,7 +20,7 @@ class VerifyConferenceImporterHeartbeatTest extends TestCase
     }
 
     /** @test */
-    function slack_is_not_notified_when_the_importer_has_run_within_24_hours(): void
+    public function slack_is_not_notified_when_the_importer_has_run_within_24_hours(): void
     {
         Notification::fake();
         cache(['conference_importer_last_ran_at' => now()->subHours(23)->toDateTimeString()]);

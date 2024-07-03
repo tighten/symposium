@@ -15,7 +15,7 @@ class ConferenceIssuesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function saving_a_conference_issue(): void
+    public function saving_a_conference_issue(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -40,7 +40,7 @@ class ConferenceIssuesTest extends TestCase
     }
 
     /** @test */
-    function conference_issues_must_contain_a_reason_and_note(): void
+    public function conference_issues_must_contain_a_reason_and_note(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -57,7 +57,7 @@ class ConferenceIssuesTest extends TestCase
     }
 
     /** @test */
-    function conference_issue_reasons_must_be_an_expected_value(): void
+    public function conference_issue_reasons_must_be_an_expected_value(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -77,7 +77,7 @@ class ConferenceIssuesTest extends TestCase
     }
 
     /** @test */
-    function issues_that_have_not_been_closed_are_open(): void
+    public function issues_that_have_not_been_closed_are_open(): void
     {
         $openIssue = ConferenceIssue::factory()->create([
             'closed_at' => null,
@@ -91,7 +91,7 @@ class ConferenceIssuesTest extends TestCase
     }
 
     /** @test */
-    function closing_an_issue(): void
+    public function closing_an_issue(): void
     {
         $user = User::factory()->create();
         $issue = ConferenceIssue::factory()->create();

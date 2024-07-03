@@ -35,7 +35,7 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
-    function speakers_can_be_found_by_searching_state_abbreviation(): void
+    public function speakers_can_be_found_by_searching_state_abbreviation(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -55,7 +55,7 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
-    function searching_by_state_abbreviation_is_case_insensitive(): void
+    public function searching_by_state_abbreviation_is_case_insensitive(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -75,7 +75,7 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
-    function speakers_can_be_found_by_searching_state_name(): void
+    public function speakers_can_be_found_by_searching_state_name(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -95,7 +95,7 @@ class PublicSpeakerProfileTest extends TestCase
     }
 
     /** @test */
-    function searching_by_state_name_is_case_insensitive(): void
+    public function searching_by_state_name_is_case_insensitive(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -298,7 +298,7 @@ class PublicSpeakerProfileTest extends TestCase
     public function user_can_be_contacted_from_profile(): void
     {
         Mail::fake();
-        app()->instance(Captcha::class, new FakeCaptcha());
+        app()->instance(Captcha::class, new FakeCaptcha);
 
         $userA = User::factory()->enableProfile()->create([
             'profile_slug' => 'smithy',

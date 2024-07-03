@@ -35,7 +35,7 @@ class TalksController extends Controller
             'type' => 'seminar',
             'level' => 'beginner',
         ]);
-        $talk = new Talk();
+        $talk = new Talk;
 
         return view('talks.create', ['current' => $current, 'talk' => $talk]);
     }
@@ -61,6 +61,24 @@ class TalksController extends Controller
         Session::flash('success-message', 'Successfully created new talk.');
 
         return redirect("/talks/{$talk->id}");
+    }
+
+    public function show($id, Request $request): View
+    {
+        $talk = auth()->user()->talks()->findOrFail($id);
+
+        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->loadCurrentRevision()->currentRevision;
+
+        $submissions = Submission::where('talk_revision_id', $current->id)
+            ->with(['conference', 'acceptance', 'rejection'])
+            ->get();
+
+        return view('talks.show', [
+            'talk' => $talk,
+            'showingRevision' => $request->filled('revision'),
+            'current' => $current,
+            'submissions' => $submissions,
+        ]);
     }
 
     public function edit($id)
@@ -99,24 +117,6 @@ class TalksController extends Controller
         Session::flash('success-message', 'Successfully edited talk.');
 
         return redirect("/talks/{$talk->id}");
-    }
-
-    public function show($id, Request $request): View
-    {
-        $talk = auth()->user()->talks()->findOrFail($id);
-
-        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->loadCurrentRevision()->currentRevision;
-
-        $submissions = Submission::where('talk_revision_id', $current->id)
-            ->with(['conference', 'acceptance', 'rejection'])
-            ->get();
-
-        return view('talks.show', [
-            'talk' => $talk,
-            'showingRevision' => $request->filled('revision'),
-            'current' => $current,
-            'submissions' => $submissions,
-        ]);
     }
 
     public function destroy($id): RedirectResponse
@@ -183,7 +183,7 @@ class TalksController extends Controller
                 return $talks->sortByDesc('created_at');
                 break;
             case 'alpha':
-            // Pass through
+                // Pass through
             default:
                 $this->sorted_by = 'alpha';
 

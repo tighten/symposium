@@ -27,7 +27,7 @@ class ConferenceIssueReported extends Notification implements ShouldQueue
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function ($attachment) {
                 $attachment
                     ->title("Issue reported: {$this->issue->conference->title}")
