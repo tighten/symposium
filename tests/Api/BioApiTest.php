@@ -2,11 +2,12 @@
 
 namespace Tests\Api;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Bio;
 
 class BioApiTest extends ApiTestCase
 {
-    /** @test */
+    #[Test]
     public function can_fetch_all_user_bios(): void
     {
         $response = $this->call('GET', '/api/user/1/bios');
@@ -16,7 +17,7 @@ class BioApiTest extends ApiTestCase
         $this->assertIsArray($data->data);
     }
 
-    /** @test */
+    #[Test]
     public function can_fetch_one_user_bio(): void
     {
         $bioId = Bio::first()->id;
@@ -27,7 +28,7 @@ class BioApiTest extends ApiTestCase
         $this->assertIsObject($data->data);
     }
 
-    /** @test */
+    #[Test]
     public function cannot_fetch_all_bios_for_other_user(): void
     {
         $response = $this->call('GET', 'api/user/2/bios');
@@ -35,7 +36,7 @@ class BioApiTest extends ApiTestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    /** @test */
+    #[Test]
     public function cannot_fetch_one_bio_for_other_user(): void
     {
         $bioId = Bio::where('user_id', 2)->first()->id;

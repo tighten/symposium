@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Notifications\ConferenceImporterError;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
@@ -17,7 +18,7 @@ class SyncCallingAllPapersEventsTest extends TestCase
 
     protected $eventStub;
 
-    /** @test */
+    #[Test]
     public function caching_timestamp_when_command_ends(): void
     {
         Notification::fake();
@@ -33,7 +34,7 @@ class SyncCallingAllPapersEventsTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function notifying_slack_when_command_errors(): void
     {
         Notification::fake();

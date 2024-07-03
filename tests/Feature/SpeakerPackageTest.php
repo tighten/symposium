@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Casts\SpeakerPackage;
 use App\Models\Conference;
 use App\Models\User;
@@ -10,7 +11,7 @@ use Tests\TestCase;
 
 class SpeakerPackageTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function speaker_package_can_be_saved_when_conference_is_created(): void
     {
         $user = User::factory()->create();
@@ -38,7 +39,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function speaker_package_can_be_saved_when_conference_is_edited(): void
     {
         $user = User::factory()->create();
@@ -69,7 +70,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function speaker_package_can_be_updated(): void
     {
         $user = User::factory()->create();
@@ -94,7 +95,7 @@ class SpeakerPackageTest extends TestCase
         $this->assertDatabaseHasSpeakerPackage($updatedPackage);
     }
 
-    /** @test */
+    #[Test]
     public function speaker_package_can_be_removed(): void
     {
         $user = User::factory()->create();
@@ -114,7 +115,7 @@ class SpeakerPackageTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function decimal_values_are_stored_as_whole_numbers(): void
     {
         $user = User::factory()->create();
@@ -140,7 +141,7 @@ class SpeakerPackageTest extends TestCase
         $this->assertEquals(525, $conferencePackage->hotel);
     }
 
-    /** @test */
+    #[Test]
     public function values_must_be_valid_currency(): void
     {
         $user = User::factory()->create();
@@ -164,7 +165,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function non_us_formats_are_stored_correctly_for_non_us_locale(): void
     {
         App::setLocale('de');
@@ -192,7 +193,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function non_us_formats_fail_validation_in_us_locale(): void
     {
         App::setLocale('en');
@@ -222,7 +223,7 @@ class SpeakerPackageTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function only_number_values_are_permissible(): void
     {
         $user = User::factory()->create();

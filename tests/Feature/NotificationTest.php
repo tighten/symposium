@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Conference;
 use App\Models\User;
 use App\Notifications\CFPsAreOpen;
@@ -11,7 +12,7 @@ use Tests\TestCase;
 
 class NotificationTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function command_will_trigger_notification_for_approved_and_not_shared_conference(): void
     {
         Notification::fake();
@@ -24,7 +25,7 @@ class NotificationTest extends TestCase
         $this->assertTrue(Conference::first()->is_shared);
     }
 
-    /** @test */
+    #[Test]
     public function command_will_not_trigger_notification_for_unapproved_conference(): void
     {
         Notification::fake();
@@ -36,7 +37,7 @@ class NotificationTest extends TestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    /** @test */
+    #[Test]
     public function command_will_not_trigger_notification_for_already_shared_conference(): void
     {
         Notification::fake();
@@ -48,7 +49,7 @@ class NotificationTest extends TestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    /** @test */
+    #[Test]
     public function command_will_not_trigger_notification_for_closed_cfp(): void
     {
         Notification::fake();
@@ -60,7 +61,7 @@ class NotificationTest extends TestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    /** @test */
+    #[Test]
     public function command_will_not_trigger_notification_if_no_cfp_dates_given(): void
     {
         Notification::fake();
@@ -72,7 +73,7 @@ class NotificationTest extends TestCase
         Notification::assertNotSentTo([$user], CFPsAreOpen::class);
     }
 
-    /** @test */
+    #[Test]
     public function command_will_not_trigger_notification_for_opt_out_user(): void
     {
         Notification::fake();
