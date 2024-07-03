@@ -11,6 +11,6 @@
 /public/js/location.js.map
 /storage/debugbar
 /storage/framework/testing
-.phpunit.result.cache
+/.phpunit.cache
 .idea/*
 phpunit.xml
