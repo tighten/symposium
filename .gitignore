@@ -14,5 +14,5 @@
 /.phpunit.cache
 .idea/*
 phpunit.xml
-
 /public/build
+/public/hot
