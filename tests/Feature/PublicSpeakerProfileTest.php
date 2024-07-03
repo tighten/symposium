@@ -13,7 +13,7 @@ use Captcha\Captcha;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
-final class PublicSpeakerProfileTest extends TestCase
+class PublicSpeakerProfileTest extends TestCase
 {
     #[Test]
     public function non_public_speakers_are_not_listed_on_the_public_speaker_page(): void

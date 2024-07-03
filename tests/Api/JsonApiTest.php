@@ -4,7 +4,7 @@ namespace Tests\Api;
 
 use PHPUnit\Framework\Attributes\Test;
 
-final class JsonApiTest extends ApiTestCase
+class JsonApiTest extends ApiTestCase
 {
     #[Test]
     public function uses_correct_json_api_header(): void

@@ -4,7 +4,7 @@ namespace Tests\Api;
 
 use PHPUnit\Framework\Attributes\Test;
 
-final class MeApiTest extends ApiTestCase
+class MeApiTest extends ApiTestCase
 {
     #[Test]
     public function can_fetch_my_info(): void

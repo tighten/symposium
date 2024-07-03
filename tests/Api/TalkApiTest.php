@@ -6,7 +6,7 @@ use PHPUnit\Framework\Attributes\Test;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 
-final class TalkApiTest extends ApiTestCase
+class TalkApiTest extends ApiTestCase
 {
     #[Test]
     public function can_fetch_all_talks_for_user(): void

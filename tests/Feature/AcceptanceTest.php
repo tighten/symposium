@@ -10,7 +10,7 @@ use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
 
-final class AcceptanceTest extends TestCase
+class AcceptanceTest extends TestCase
 {
     #[Test]
     public function can_create_from_submission(): void

@@ -12,7 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Tests\TestCase;
 
-final class TalkTest extends TestCase
+class TalkTest extends TestCase
 {
     #[Test]
     public function archived_talks_are_not_included_on_the_index_page(): void

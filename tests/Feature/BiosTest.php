@@ -7,7 +7,7 @@ use App\Models\Bio;
 use App\Models\User;
 use Tests\TestCase;
 
-final class BiosTest extends TestCase
+class BiosTest extends TestCase
 {
     #[Test]
     public function user_can_create_a_private_bio(): void

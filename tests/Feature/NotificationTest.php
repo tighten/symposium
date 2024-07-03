@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-final class NotificationTest extends TestCase
+class NotificationTest extends TestCase
 {
     #[Test]
     public function command_will_trigger_notification_for_approved_and_not_shared_conference(): void

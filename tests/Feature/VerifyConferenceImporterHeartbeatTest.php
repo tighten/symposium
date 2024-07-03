@@ -7,7 +7,7 @@ use App\Notifications\ConferenceImporterInactive;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-final class VerifyConferenceImporterHeartbeatTest extends TestCase
+class VerifyConferenceImporterHeartbeatTest extends TestCase
 {
     #[Test]
     public function slack_is_notified_when_the_importer_has_not_run_in_24_hours(): void

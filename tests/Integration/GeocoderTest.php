@@ -8,7 +8,7 @@ use App\Services\Geocoder;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-final class GeocoderTest extends TestCase
+class GeocoderTest extends TestCase
 {
     #[Test]
     public function geocoding_an_address(): void

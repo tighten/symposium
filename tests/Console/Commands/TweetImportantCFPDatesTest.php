@@ -9,7 +9,7 @@ use Atymic\Twitter\ApiV1\Service\Twitter;
 use Carbon\Carbon;
 use Tests\TestCase;
 
-final class TweetImportantCFPDatesTest extends TestCase
+class TweetImportantCFPDatesTest extends TestCase
 {
     #[Test]
     public function cfps_opening_today_should_be_tweeted(): void

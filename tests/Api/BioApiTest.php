@@ -5,7 +5,7 @@ namespace Tests\Api;
 use PHPUnit\Framework\Attributes\Test;
 use App\Models\Bio;
 
-final class BioApiTest extends ApiTestCase
+class BioApiTest extends ApiTestCase
 {
     #[Test]
     public function can_fetch_all_user_bios(): void

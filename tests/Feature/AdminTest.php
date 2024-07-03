@@ -7,7 +7,7 @@ use App\Models\Conference;
 use App\Models\User;
 use Tests\TestCase;
 
-final class AdminTest extends TestCase
+class AdminTest extends TestCase
 {
     #[Test]
     public function admins_can_edit_other_peoples_conferences(): void

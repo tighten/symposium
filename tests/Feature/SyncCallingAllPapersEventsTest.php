@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 
-final class SyncCallingAllPapersEventsTest extends TestCase
+class SyncCallingAllPapersEventsTest extends TestCase
 {
     use MocksCallingAllPapers;
     use RefreshDatabase;
