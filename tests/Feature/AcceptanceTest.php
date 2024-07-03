@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\Submission;
@@ -12,7 +13,7 @@ use Tests\TestCase;
 
 class AcceptanceTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function can_create_from_submission(): void
     {
         $user = User::factory()->create();
@@ -36,7 +37,7 @@ class AcceptanceTest extends TestCase
         $this->assertEquals($submission->id, $acceptance->submission->id);
     }
 
-    /** @test */
+    #[Test]
     public function user_can_remove_acceptance_via_http(): void
     {
         $user = User::factory()->create();

@@ -2,13 +2,14 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Conference;
 use App\Models\User;
 use Tests\TestCase;
 
 class AdminTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function admins_can_edit_other_peoples_conferences(): void
     {
         $user = User::factory()->create();
@@ -29,7 +30,7 @@ class AdminTest extends TestCase
         $this->assertEquals('The New Name That Is Not The Old Name', $conference->fresh()->title);
     }
 
-    /** @test */
+    #[Test]
     public function admins_can_see_edit_button_for_other_peoples_conferences(): void
     {
         $admin = User::factory()->admin()->create();
@@ -40,7 +41,7 @@ class AdminTest extends TestCase
             ->assertSee('Edit');
     }
 
-    /** @test */
+    #[Test]
     public function only_admins_can_change_conference_status(): void
     {
         $user = User::factory()->create();

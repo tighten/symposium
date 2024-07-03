@@ -2,12 +2,13 @@
 
 namespace Tests\Api;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 
 class TalkApiTest extends ApiTestCase
 {
-    /** @test */
+    #[Test]
     public function can_fetch_all_talks_for_user(): void
     {
         $response = $this->call('GET', 'api/user/1/talks');
@@ -17,7 +18,7 @@ class TalkApiTest extends ApiTestCase
         $this->assertCount(2, $data->data);
     }
 
-    /** @test */
+    #[Test]
     public function all_talks_doesnt_return_archived_talks(): void
     {
         $toBeArchivedTalk = $this->user->talks()->create([]);
@@ -36,7 +37,7 @@ class TalkApiTest extends ApiTestCase
         $this->assertCount(2, $data->data);
     }
 
-    /** @test */
+    #[Test]
     public function including_archived_talks(): void
     {
         Talk::factory()
@@ -50,7 +51,7 @@ class TalkApiTest extends ApiTestCase
         $response->assertJsonFragment(['title' => 'My Archived Talk']);
     }
 
-    /** @test */
+    #[Test]
     public function excluding_archived_talks(): void
     {
         Talk::factory()
@@ -64,7 +65,7 @@ class TalkApiTest extends ApiTestCase
         $response->assertJsonMissing(['title' => 'My Archived Talk']);
     }
 
-    /** @test */
+    #[Test]
     public function all_talks_return_alpha_sorted(): void
     {
         $response = $this->call('GET', 'api/user/1/talks');
@@ -76,7 +77,7 @@ class TalkApiTest extends ApiTestCase
         $this->assertEquals('My great talk', $titles->last());
     }
 
-    /** @test */
+    #[Test]
     public function can_fetch_one_talk(): void
     {
         $talkId = Talk::first()->id;
@@ -87,7 +88,7 @@ class TalkApiTest extends ApiTestCase
         $this->assertIsObject($data->data);
     }
 
-    /** @test */
+    #[Test]
     public function cannot_fetch_all_talks_for_other_users(): void
     {
         $response = $this->call('GET', 'api/user/2/talks');
@@ -95,7 +96,7 @@ class TalkApiTest extends ApiTestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    /** @test */
+    #[Test]
     public function cannot_fetch_one_talk_for_other_users(): void
     {
         $talkId = Talk::where('author_id', 2)->first()->id;

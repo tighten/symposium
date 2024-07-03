@@ -2,9 +2,11 @@
 
 namespace Tests\Api;
 
+use PHPUnit\Framework\Attributes\Test;
+
 class JsonApiTest extends ApiTestCase
 {
-    /** @test */
+    #[Test]
     public function uses_correct_json_api_header(): void
     {
         $response = $this->call('GET', '/api/user/1/talks');
