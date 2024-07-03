@@ -20,14 +20,4 @@ class ResetPasswordController extends Controller
     use ResetsPasswords;
 
     public $redirectTo = '/dashboard';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 }
