@@ -8,6 +8,7 @@ use App\Models\Talk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class SubmissionsController extends Controller
 {
@@ -29,7 +30,7 @@ class SubmissionsController extends Controller
         ]);
     }
 
-    public function edit(Submission $submission)
+    public function edit(Submission $submission): View
     {
         $submission->load([
             'acceptance',

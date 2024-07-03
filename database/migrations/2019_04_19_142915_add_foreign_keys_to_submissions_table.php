@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
             $table->foreign('acceptance_id')->references('id')->on('acceptances')->onUpdate('RESTRICT')->onDelete('RESTRICT');
@@ -13,7 +13,7 @@ return new class extends Migration {
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
             $table->dropForeign('submissions_acceptance_id_foreign');

@@ -11,7 +11,7 @@ class ConferenceImporterInactive extends Notification
 {
     use Queueable;
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }

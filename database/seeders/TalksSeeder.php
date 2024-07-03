@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 
 class TalksSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         TalkRevision::truncate();
         Talk::truncate();

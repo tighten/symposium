@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::create('talks', function (Blueprint $table) {
             $table->string('id', 36)->default('0')->unique();
@@ -15,7 +15,7 @@ return new class extends Migration {
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::drop('talks');
     }

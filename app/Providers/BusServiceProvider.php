@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class BusServiceProvider extends ServiceProvider
 {
-    public function boot(Dispatcher $dispatcher)
+    public function boot(Dispatcher $dispatcher): void
     {
         $dispatcher->mapUsing(function ($command) {
             return Dispatcher::simpleMapping(
@@ -18,7 +18,7 @@ class BusServiceProvider extends ServiceProvider
         });
     }
 
-    public function register()
+    public function register(): void
     {
     }
 }

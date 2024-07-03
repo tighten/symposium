@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class ConferenceIssuesController extends Controller
 {
-    public function create(Conference $conference)
+    public function create(Conference $conference): View
     {
         return view('conferences.issues.create', [
             'conference' => $conference,
@@ -16,7 +18,7 @@ class ConferenceIssuesController extends Controller
         ]);
     }
 
-    public function store(Conference $conference)
+    public function store(Conference $conference): RedirectResponse
     {
         request()->validate([
             'reason' => [

@@ -20,6 +20,7 @@ class ApiTestCase extends TestCase
 
         Artisan::call('migrate');
         Artisan::call('db:seed');
+        Artisan::call('passport:install');
 
         $this->user = User::first();
         Passport::actingAs($this->user);

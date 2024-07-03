@@ -10,7 +10,7 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
     /** @test */
-    public function it_checks_if_user_is_admin()
+    public function it_checks_if_user_is_admin(): void
     {
         $user = User::factory()->create();
         $this->assertEquals(0, $user->role);
@@ -22,7 +22,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_all_users_subscribed_to_notifications()
+    public function it_returns_all_users_subscribed_to_notifications(): void
     {
         User::factory()->create();
         User::factory()->wantsNotifications()->create();
@@ -31,7 +31,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function archived_talks_are_not_included_in_the_talks_relationship()
+    function archived_talks_are_not_included_in_the_talks_relationship(): void
     {
         $user = User::factory()->create();
         $activeTalk = Talk::factory()->author($user)->create();
@@ -53,7 +53,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function getting_conference_submissions()
+    function getting_conference_submissions(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();

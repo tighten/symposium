@@ -6,6 +6,7 @@ use App\Models\Conference;
 use Atymic\Twitter\Twitter;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 
 class TweetImportantCFPDates extends Command
@@ -22,7 +23,7 @@ class TweetImportantCFPDates extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->tweetCfpsOpeningToday();
         $this->tweetCfpsClosingTomorrow();
@@ -106,12 +107,8 @@ class TweetImportantCFPDates extends Command
 
     /**
      * Retrieve only those conferences which should be tweeted.
-     *
-     * @param \Illuminate\Database\Eloquent\Collection $conferences
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function tweetable($conferences)
+    private function tweetable(Collection $conferences): Collection
     {
         return $conferences->reject(function ($conference) {
             if (! $conference->starts_at || ! $conference->ends_at) {
