@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Acceptance;
-use App\Models\Rejection;
-use App\Models\TalkReaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

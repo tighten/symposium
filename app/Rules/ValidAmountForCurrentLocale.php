@@ -18,6 +18,7 @@ class ValidAmountForCurrentLocale implements DataAwareRule, ValidationRule
     {
         if (! preg_match('/\d+([.,]?\d*)*/', $value)) {
             $fail($this->formatErrorMessage($attribute));
+
             return;
         }
 

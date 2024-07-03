@@ -17,7 +17,7 @@ class ConferencesController extends Controller
     public function create(): View
     {
         return view('conferences.create', [
-            'conference' => new Conference(),
+            'conference' => new Conference,
             'currencies' => Currency::all(),
         ]);
     }

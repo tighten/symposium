@@ -11,7 +11,7 @@ class TalkReactionsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function creating_a_talk_reaction(): void
+    public function creating_a_talk_reaction(): void
     {
         $talk = Talk::factory()->submitted()->create();
         $submission = $talk->submissions->first();
@@ -27,7 +27,7 @@ class TalkReactionsTest extends TestCase
     }
 
     /** @test */
-    function a_url_is_required_when_creating_a_talk_reaction(): void
+    public function a_url_is_required_when_creating_a_talk_reaction(): void
     {
         $talk = Talk::factory()->submitted()->create();
         $submission = $talk->submissions->first();
@@ -41,7 +41,7 @@ class TalkReactionsTest extends TestCase
     }
 
     /** @test */
-    function a_valid_url_is_required_when_creating_a_talk_reaction(): void
+    public function a_valid_url_is_required_when_creating_a_talk_reaction(): void
     {
         $talk = Talk::factory()->submitted()->create();
         $submission = $talk->submissions->first();

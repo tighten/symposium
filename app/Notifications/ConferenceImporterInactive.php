@@ -18,7 +18,7 @@ class ConferenceImporterInactive extends Notification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function ($attachment) {
                 $attachment
                     ->title('Conference importer may be inactive')

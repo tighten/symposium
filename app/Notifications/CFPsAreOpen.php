@@ -15,7 +15,7 @@ class CFPsAreOpen extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param $conferences an array or collection of conferences
+     * @param  $conferences  an array or collection of conferences
      */
     public function __construct($conferences)
     {
@@ -25,7 +25,7 @@ class CFPsAreOpen extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed $notifiable
+     * @param  mixed  $notifiable
      */
     public function via($notifiable): array
     {
@@ -35,11 +35,11 @@ class CFPsAreOpen extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed $notifiable
+     * @param  mixed  $notifiable
      */
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject('New Open CFPs')
             ->markdown('emails.open-cfps', [
                 'conferences' => $this->conferences,

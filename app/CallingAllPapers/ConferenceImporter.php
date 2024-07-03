@@ -16,7 +16,7 @@ class ConferenceImporter
 
     private $geocoder;
 
-    public function __construct(int $authorId = null)
+    public function __construct(?int $authorId = null)
     {
         $this->authorId = $authorId ?: auth()->user()->id;
         $this->geocoder = app(Geocoder::class);

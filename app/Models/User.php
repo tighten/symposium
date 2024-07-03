@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\TalkRevision;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,11 +17,11 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory;
     use HasApiTokens;
+    use HasFactory;
+    use HasRelationships;
     use Notifiable;
     use Searchable;
-    use HasRelationships;
 
     public const ADMIN_ROLE = 1;
 
@@ -108,7 +107,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasManyDeepFromRelations(
             $this->talkRevisions(),
-            (new TalkRevision())->submissions(),
+            (new TalkRevision)->submissions(),
         );
     }
 

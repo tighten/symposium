@@ -8,7 +8,6 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\TestCase;
 
 class AcceptanceTest extends TestCase
 {

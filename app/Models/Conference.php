@@ -5,12 +5,6 @@ namespace App\Models;
 use App\Casts\Coordinates;
 use App\Casts\SpeakerPackage;
 use App\Casts\Url;
-use App\Models\Acceptance;
-use App\Models\ConferenceIssue;
-use App\Models\Submission;
-use App\Models\TightenSlack;
-use App\Models\User;
-use App\Models\UuidBase;
 use App\Notifications\ConferenceIssueReported;
 use Carbon\Carbon;
 use Cknow\Money\Money;
@@ -25,8 +19,8 @@ use Laravel\Scout\Searchable;
 class Conference extends UuidBase
 {
     use HasFactory;
-    use SoftDeletes;
     use Searchable;
+    use SoftDeletes;
 
     protected $table = 'conferences';
 
@@ -100,6 +94,34 @@ class Conference extends UuidBase
         });
     }
 
+    // @todo: Deprecate?
+    public static function closingSoonest()
+    {
+        $hasOpenCfp = self::whereNotNull('cfp_ends_at')
+            ->where('cfp_ends_at', '>', Carbon::now())
+            ->orderBy('cfp_ends_at', 'ASC')
+            ->get();
+        $hasNoCfp = self::whereNull('cfp_ends_at')
+            ->whereNotNull('starts_at')
+            ->orderBy('starts_at', 'ASC')
+            ->get();
+        $hasNoCfpOrConf = self::whereNull('cfp_ends_at')
+            ->whereNull('starts_at')
+            ->orderBy('title')
+            ->get();
+        $hasExpiredCfp = self::whereNotNull('cfp_ends_at')
+            ->where('cfp_ends_at', '<=', Carbon::now())
+            ->orderBy('cfp_ends_at', 'ASC')
+            ->get();
+
+        $return = $hasOpenCfp
+            ->merge($hasNoCfp)
+            ->merge($hasNoCfpOrConf)
+            ->merge($hasExpiredCfp);
+
+        return $return;
+    }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
@@ -133,34 +155,6 @@ class Conference extends UuidBase
     public function openIssues()
     {
         return $this->issues()->whereOpen();
-    }
-
-    // @todo: Deprecate?
-    public static function closingSoonest()
-    {
-        $hasOpenCfp = self::whereNotNull('cfp_ends_at')
-            ->where('cfp_ends_at', '>', Carbon::now())
-            ->orderBy('cfp_ends_at', 'ASC')
-            ->get();
-        $hasNoCfp = self::whereNull('cfp_ends_at')
-            ->whereNotNull('starts_at')
-            ->orderBy('starts_at', 'ASC')
-            ->get();
-        $hasNoCfpOrConf = self::whereNull('cfp_ends_at')
-            ->whereNull('starts_at')
-            ->orderBy('title')
-            ->get();
-        $hasExpiredCfp = self::whereNotNull('cfp_ends_at')
-            ->where('cfp_ends_at', '<=', Carbon::now())
-            ->orderBy('cfp_ends_at', 'ASC')
-            ->get();
-
-        $return = $hasOpenCfp
-            ->merge($hasNoCfp)
-            ->merge($hasNoCfpOrConf)
-            ->merge($hasExpiredCfp);
-
-        return $return;
     }
 
     public function scopeCfpOpeningToday($query)
@@ -449,7 +443,7 @@ class Conference extends UuidBase
             'note' => $note,
         ]);
 
-        (new TightenSlack())->notify(new ConferenceIssueReported($issue));
+        (new TightenSlack)->notify(new ConferenceIssueReported($issue));
     }
 
     public function reject()

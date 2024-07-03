@@ -37,7 +37,7 @@ class ConferenceIssueResource extends Resource
                 Section::make('Conference')->columns(2)->schema([
                     Grid::make()->schema([
                         TextInput::make('name')
-                            ->formatStateUsing(fn($record) => $record->conference->title),
+                            ->formatStateUsing(fn ($record) => $record->conference->title),
                         TextInput::make('Event dates')
                             ->formatStateUsing(function ($record) {
                                 return $record->conference->startsAtDisplay() . ' - ' . $record->conference->endsAtDisplay();
@@ -45,7 +45,7 @@ class ConferenceIssueResource extends Resource
                         Grid::make(3)->columnSpan(1)->schema([
                             TextInput::make('url')
                                 ->columnSpan(2)
-                                ->formatStateUsing(fn($record) => $record->conference->url),
+                                ->formatStateUsing(fn ($record) => $record->conference->url),
                             DropInAction::make('Conference URL')
                                 ->columnSpan(1)
                                 ->disableLabel()
@@ -68,10 +68,10 @@ class ConferenceIssueResource extends Resource
                         TextInput::make('reason'),
                         TextInput::make('reported by')
                             ->columnSpan(1)
-                            ->formatStateUsing(fn($record) => $record->user->name),
+                            ->formatStateUsing(fn ($record) => $record->user->name),
                     ]),
                     Placeholder::make('note')
-                        ->content(fn($record) => $record->note),
+                        ->content(fn ($record) => $record->note),
                 ]),
             ]);
     }

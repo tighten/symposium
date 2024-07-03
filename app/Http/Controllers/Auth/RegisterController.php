@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
@@ -37,13 +36,13 @@ class RegisterController extends Controller
     protected $redirectTo = '/dashboard';
 
     /**
-     * Create a new controller instance.
+     * Handle a registration request for the application.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function register(RegisterFormRequest $request)
     {
-        $this->middleware('guest');
+        return $this->registerUser($request);
     }
 
     /**
@@ -56,16 +55,6 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users|emailblacklist',
             'password' => 'required|min:6',
         ]);
-    }
-
-    /**
-     * Handle a registration request for the application.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function register(RegisterFormRequest $request)
-    {
-        return $this->registerUser($request);
     }
 
     /**

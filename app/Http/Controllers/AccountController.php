@@ -79,39 +79,6 @@ class AccountController extends Controller
         return redirect('account');
     }
 
-    private function updateProfilePicture($user, $picture)
-    {
-        // Make regular image
-        $thumb = Image::make($picture->getRealPath())
-            ->fit(self::THUMB_SIZE, self::THUMB_SIZE);
-
-        // Make hires image
-        $hires = Image::make($picture->getRealPath())
-            ->fit(self::HIRES_SIZE, self::HIRES_SIZE, function ($constraint) {
-                $constraint->upsize();
-            });
-
-        // Delete the previous profile pictures
-        if ($user->profile_picture != null) {
-            Storage::delete([
-                User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture,
-                User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture,
-            ]);
-        }
-
-        // Store the new profile pictures
-        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . $picture->hashName(), $thumb->stream());
-        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . $picture->hashName(), $hires->stream());
-
-        // Save the updated filename to the user
-        $user->updateProfilePicture($picture->hashName());
-    }
-
-    public function delete(): View
-    {
-        return view('account.confirm-delete');
-    }
-
     public function destroy(): RedirectResponse
     {
         $user = auth()->user();
@@ -122,6 +89,11 @@ class AccountController extends Controller
         Session::flash('success-message', 'Successfully deleted account.');
 
         return redirect('/');
+    }
+
+    public function delete(): View
+    {
+        return view('account.confirm-delete');
     }
 
     public function export(Filesystem $storage): Response
@@ -150,5 +122,33 @@ class AccountController extends Controller
     public function oAuthSettings(): View
     {
         return view('account.oauth-settings');
+    }
+
+    private function updateProfilePicture($user, $picture)
+    {
+        // Make regular image
+        $thumb = Image::make($picture->getRealPath())
+            ->fit(self::THUMB_SIZE, self::THUMB_SIZE);
+
+        // Make hires image
+        $hires = Image::make($picture->getRealPath())
+            ->fit(self::HIRES_SIZE, self::HIRES_SIZE, function ($constraint) {
+                $constraint->upsize();
+            });
+
+        // Delete the previous profile pictures
+        if ($user->profile_picture != null) {
+            Storage::delete([
+                User::PROFILE_PICTURE_THUMB_PATH . $user->profile_picture,
+                User::PROFILE_PICTURE_HIRES_PATH . $user->profile_picture,
+            ]);
+        }
+
+        // Store the new profile pictures
+        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . $picture->hashName(), $thumb->stream());
+        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . $picture->hashName(), $hires->stream());
+
+        // Save the updated filename to the user
+        $user->updateProfilePicture($picture->hashName());
     }
 }

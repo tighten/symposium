@@ -17,11 +17,6 @@ class ContactRequest extends Mailable
 
     public $userMessage;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($email, $name, $userMessage)
     {
         $this->email = $email;
@@ -35,6 +30,6 @@ class ContactRequest extends Mailable
     public function build(): static
     {
         return $this->subject('Contact from your Symposium public profile page')
-                    ->view('emails.public-profile-contact');
+            ->view('emails.public-profile-contact');
     }
 }

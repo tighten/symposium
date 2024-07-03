@@ -40,7 +40,6 @@ return [
             'prefix' => '',
         ],
 
-
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),

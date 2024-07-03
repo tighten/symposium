@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Foundation\Application;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -11,8 +13,8 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+$app = new Application(
+    realpath(__DIR__ . '/../')
 );
 
 /*

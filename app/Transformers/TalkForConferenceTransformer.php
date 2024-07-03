@@ -22,9 +22,9 @@ class TalkForConferenceTransformer
             'url' => $currentRevision->getUrl(),
             'submitted' => (bool) $submission,
             'submissionId' => $submission ? $submission->id : null,
-            'accepted' =>  (bool) $acceptance,
+            'accepted' => (bool) $acceptance,
             'acceptanceId' => $acceptance ? $acceptance->id : null,
-            'rejected' =>  (bool) $rejection,
+            'rejected' => (bool) $rejection,
             'rejectionId' => $rejection ? $rejection->id : null,
         ];
     }

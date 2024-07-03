@@ -132,7 +132,6 @@ class ConferenceFactory extends Factory
             'hotel' => 1000,
         ];
 
-
         return $this->state([
             'speaker_package' => new SpeakerPackage($speakerPackage),
         ]);

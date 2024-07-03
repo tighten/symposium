@@ -26,7 +26,7 @@ class ConferenceImporterError extends Notification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function ($attachment) {
                 $attachment
                     ->title('Conference importer encountered an error')

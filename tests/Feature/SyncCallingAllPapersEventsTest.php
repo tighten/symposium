@@ -12,13 +12,13 @@ use Tests\TestCase;
 
 class SyncCallingAllPapersEventsTest extends TestCase
 {
-    use RefreshDatabase;
     use MocksCallingAllPapers;
+    use RefreshDatabase;
 
     protected $eventStub;
 
     /** @test */
-    function caching_timestamp_when_command_ends(): void
+    public function caching_timestamp_when_command_ends(): void
     {
         Notification::fake();
         Carbon::setTestNow('2022-05-04 11:11:11');
@@ -34,7 +34,7 @@ class SyncCallingAllPapersEventsTest extends TestCase
     }
 
     /** @test */
-    function notifying_slack_when_command_errors(): void
+    public function notifying_slack_when_command_errors(): void
     {
         Notification::fake();
         $this->stubEvent();
