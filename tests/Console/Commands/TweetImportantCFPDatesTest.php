@@ -2,11 +2,11 @@
 
 namespace Tests\Console\Commands;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Console\Commands\TweetImportantCFPDates;
 use App\Models\Conference;
 use Atymic\Twitter\ApiV1\Service\Twitter;
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TweetImportantCFPDatesTest extends TestCase

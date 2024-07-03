@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Mail\ContactRequest;
 use App\Models\Bio;
 use App\Models\Talk;
@@ -11,6 +10,7 @@ use App\Models\User;
 use App\Services\FakeCaptcha;
 use Captcha\Captcha;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PublicSpeakerProfileTest extends TestCase

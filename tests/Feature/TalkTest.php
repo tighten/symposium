@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\Submission;
@@ -10,6 +9,7 @@ use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TalkTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Conference;
+use PHPUnit\Framework\Attributes\Test;
 
 class ConferenceApiTest extends ApiTestCase
 {

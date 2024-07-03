@@ -2,9 +2,9 @@
 
 namespace Tests\Api;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Talk;
 use App\Models\TalkRevision;
+use PHPUnit\Framework\Attributes\Test;
 
 class TalkApiTest extends ApiTestCase
 {

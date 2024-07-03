@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
 use App\Models\User;
 use App\Notifications\ConferenceIssueReported;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ConferenceIssuesTest extends TestCase

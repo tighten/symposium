@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Bio;
+use PHPUnit\Framework\Attributes\Test;
 
 class BioApiTest extends ApiTestCase
 {
