@@ -9,6 +9,7 @@ import Vue from 'vue';
 import VCalendar from 'v-calendar';
 import Dismiss from './directives/Dismiss';
 import 'livewire-vue'
+import '../css/app.css'
 
 window.Vue = Vue;
 
