@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ConferenceTest extends TestCase
+final class ConferenceTest extends TestCase
 {
     #[Test]
     public function user_can_create_conference(): void

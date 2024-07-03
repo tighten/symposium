@@ -12,7 +12,7 @@ use App\Services\Geocoder;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 
-class CallingAllPapersConferenceImporterTest extends TestCase
+final class CallingAllPapersConferenceImporterTest extends TestCase
 {
     use MocksCallingAllPapers;
 

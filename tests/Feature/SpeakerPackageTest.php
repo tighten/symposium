@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Tests\TestCase;
 
-class SpeakerPackageTest extends TestCase
+final class SpeakerPackageTest extends TestCase
 {
     #[Test]
     public function speaker_package_can_be_saved_when_conference_is_created(): void

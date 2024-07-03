@@ -11,7 +11,7 @@ use App\Models\TalkRevision;
 use App\Models\User;
 use Tests\TestCase;
 
-class SubmissionTest extends TestCase
+final class SubmissionTest extends TestCase
 {
     #[Test]
     public function user_can_submit_talks_via_http(): void
