@@ -5,7 +5,7 @@ namespace Tests\Api;
 use PHPUnit\Framework\Attributes\Test;
 use App\Models\Conference;
 
-class ConferenceApiTest extends ApiTestCase
+final class ConferenceApiTest extends ApiTestCase
 {
     #[Test]
     public function can_fetch_all_conferences(): void

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
-class ApiTestCase extends TestCase
+final class ApiTestCase extends TestCase
 {
     use DatabaseTransactions;
 

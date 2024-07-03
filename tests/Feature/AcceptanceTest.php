@@ -11,7 +11,7 @@ use App\Models\TalkRevision;
 use App\Models\User;
 use Tests\TestCase;
 
-class AcceptanceTest extends TestCase
+final class AcceptanceTest extends TestCase
 {
     #[Test]
     public function can_create_from_submission(): void

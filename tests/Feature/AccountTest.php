@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class AccountTest extends TestCase
+final class AccountTest extends TestCase
 {
     #[Test]
     public function users_can_log_in(): void

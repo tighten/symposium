@@ -7,7 +7,7 @@ use App\Models\Talk;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class TalkReactionsTest extends TestCase
+final class TalkReactionsTest extends TestCase
 {
     use RefreshDatabase;
 

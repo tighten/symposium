@@ -8,7 +8,7 @@ use App\Models\Talk;
 use App\Models\User;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+final class UserTest extends TestCase
 {
     #[Test]
     public function it_checks_if_user_is_admin(): void
