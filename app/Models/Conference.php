@@ -48,26 +48,31 @@ class Conference extends UuidBase
         'speaker_package',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     */
-    protected $casts = [
-        'starts_at' => 'datetime',
-        'ends_at' => 'datetime',
-        'cfp_starts_at' => 'datetime',
-        'cfp_ends_at' => 'datetime',
-        'is_approved' => 'boolean',
-        'is_shared' => 'boolean',
-        'author_id' => 'integer',
-        'url' => Url::class,
-        'cfp_url' => Url::class,
-        'has_cfp' => 'boolean',
-        'speaker_package' => SpeakerPackage::class,
-    ];
-
     protected $attributes = [
         'has_cfp' => true,
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+            'cfp_starts_at' => 'datetime',
+            'cfp_ends_at' => 'datetime',
+            'is_approved' => 'boolean',
+            'is_shared' => 'boolean',
+            'author_id' => 'integer',
+            'url' => Url::class,
+            'cfp_url' => Url::class,
+            'has_cfp' => 'boolean',
+            'speaker_package' => SpeakerPackage::class,
+        ];
+    }
 
     public static function searchQuery($search, $query)
     {
