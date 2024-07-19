@@ -7,30 +7,6 @@ return [
 
     'slack_endpoint' => env('SLACK_ENDPOINT'),
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        Laravel\Scout\ScoutServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-
-        /*
-         * Third Party Service Providers...
-         */
-        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        Creativeorange\Gravatar\GravatarServiceProvider::class,
-        Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
-        PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
-        App\Providers\CaptchaServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-    ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,

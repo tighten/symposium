@@ -6,7 +6,17 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
-    ->withProviders()
+    ->withProviders([
+        \Laravel\Scout\ScoutServiceProvider::class,
+        \Laravel\Passport\PassportServiceProvider::class,
+        \Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        \Collective\Html\HtmlServiceProvider::class,
+        \Creativeorange\Gravatar\GravatarServiceProvider::class,
+        \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
+        \PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
+        \Intervention\Image\ImageServiceProvider::class,
+        \Laravel\Socialite\SocialiteServiceProvider::class,
+    ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         // api: __DIR__.'/../routes/api.php',
