@@ -9,7 +9,6 @@ use Illuminate\Support\Testing\Fakes\NotificationFake;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
     use LazilyRefreshDatabase;
 
     public $baseUrl = 'http://symposium.test';
