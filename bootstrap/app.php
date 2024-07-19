@@ -14,7 +14,22 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectUsersTo(RouteServiceProvider::HOME);
+
+        $middleware->web(\PragmaRX\Firewall\Middleware\FirewallBlacklist::class);
+
+        $middleware->throttleApi();
+        $middleware->api('web');
+
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\RequireAdmin::class,
+            'auth' => \App\Http\Middleware\Authenticate::class,
+            'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
+            'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+            'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
+            'oauth-user' => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
+            'social' => \App\Http\Middleware\Social::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
