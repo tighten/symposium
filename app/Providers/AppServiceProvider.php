@@ -10,6 +10,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -19,6 +20,15 @@ use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The path to your application's "home" route.
+     *
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
+
     /**
      * Bootstrap any application services.
      */
@@ -62,6 +72,8 @@ class AppServiceProvider extends ServiceProvider
                 str(route($routeName, [], false))->ltrim('/'),
             );
         });
+
+        $this->bootBroadcast();
     }
 
     /**
@@ -94,5 +106,16 @@ class AppServiceProvider extends ServiceProvider
                     'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
                 ]);
             });
+    }
+
+    public function bootBroadcast(): void
+    {
+
+        /*
+         * Authenticate the user's personal channel...
+         */
+        Broadcast::channel('App.User.{userId}', function ($user, $userId) {
+            return (int) $user->id === (int) $userId;
+        });
     }
 }

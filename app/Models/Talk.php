@@ -21,11 +21,6 @@ class Talk extends UuidBase
         'id',
     ];
 
-    protected $casts = [
-        'public' => 'boolean',
-        'is_archived' => 'boolean',
-    ];
-
     protected static function boot()
     {
         parent::boot();
@@ -33,6 +28,14 @@ class Talk extends UuidBase
         static::deleting(function (self $talk) {
             $talk->revisions()->delete();
         });
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'public' => 'boolean',
+            'is_archived' => 'boolean',
+        ];
     }
 
     protected static function booted()
