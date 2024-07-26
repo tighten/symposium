@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\CallingAllPapers\Client;
 use App\Handlers\Events\SlackSubscriber;
-use Collective\Html\FormBuilder;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Http\Request;
@@ -82,16 +81,15 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         Passport::withoutCookieSerialization();
-        Passport::ignoreMigrations();
 
-        $this->app->bind('form', function () {
-            return new FormBuilder(
-                $this->app->make('Collective\Html\HtmlBuilder'),
-                $this->app->make('Illuminate\Routing\UrlGenerator'),
-                null,
-                csrf_token()
-            );
-        });
+        // $this->app->bind('form', function () {
+        //     return new FormBuilder(
+        //         $this->app->make('Collective\Html\HtmlBuilder'),
+        //         $this->app->make('Illuminate\Routing\UrlGenerator'),
+        //         null,
+        //         csrf_token()
+        //     );
+        // });
 
         $this->registerCallingAllPapersClient();
     }

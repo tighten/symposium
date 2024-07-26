@@ -10,10 +10,8 @@ return Application::configure(basePath: dirname(__DIR__))
         \Laravel\Scout\ScoutServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
         \Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
-        \Collective\Html\HtmlServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
         \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
-        \PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
         \Laravel\Socialite\SocialiteServiceProvider::class,
     ])
@@ -27,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectUsersTo(AppServiceProvider::HOME);
 
-        $middleware->web(\PragmaRX\Firewall\Middleware\FirewallBlacklist::class);
+        // $middleware->web(\PragmaRX\Firewall\Middleware\FirewallBlacklist::class);
 
         $middleware->throttleApi();
         $middleware->api('web');

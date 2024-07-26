@@ -17,13 +17,13 @@
 
         @foreach ($links as $key => $link)
             @if (isset($link['query']))
-                {!! HTML::activeLinkRoute(
+                {{-- {!! HTML::activeLinkRoute(
                     $defaults,
                     $link['route'],
                     $link['label'],
                     $link['query'],
                     ['class' => $baseStyles]
-                ) !!}
+                ) !!} --}}
             @else
                 <a
                     href="{{ route($link['route']) }}"

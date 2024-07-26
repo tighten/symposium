@@ -94,7 +94,7 @@ return [
      * When using the "eloquent" driver, we need to know which Eloquent models
      * should be used.
      */
-    'firewall_model' => 'PragmaRX\Firewall\Vendor\Laravel\Models\Firewall',
+    // 'firewall_model' => 'PragmaRX\Firewall\Vendor\Laravel\Models\Firewall',
 
     /*
      * Session object binding in the IoC Container
