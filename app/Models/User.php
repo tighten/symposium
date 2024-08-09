@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -84,7 +85,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->role == self::ADMIN_ROLE;
     }
 
-    public function canAccessFilament(): bool
+    public function canAccessPanel(Panel $panel): bool
     {
         return $this->isAdmin();
     }
