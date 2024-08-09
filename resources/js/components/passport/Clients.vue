@@ -164,6 +164,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { Form, HasError } from "vform";
 
 Vue.component(HasError.name, HasError);
