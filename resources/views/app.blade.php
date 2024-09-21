@@ -58,7 +58,7 @@
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.frontend_key') }}&libraries=places"></script>
-    @vite('resources/js/app.js')
+    <script src="{{ ('/js/app.js') }}"></script>
     @stack('scripts')
 
     @if (! App::isLocal())
