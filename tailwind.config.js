@@ -5,6 +5,7 @@ module.exports = {
         './resources/**/*.blade.php',
         './resources/**/*.js',
         './resources/**/*.vue',
+        './app/helpers.php',
     ],
     theme: {
         colors: {
