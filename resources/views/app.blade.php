@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300,700">
-    <link href="{{ url('/css/app.css') }}" rel="stylesheet">
+    @vite('resources/css/app.css')
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -58,7 +58,7 @@
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps.frontend_key') }}&libraries=places"></script>
-    <script src="{{ ('/js/app.js') }}"></script>
+    @vite('resources/js/app.js')
     @stack('scripts')
 
     @if (! App::isLocal())
