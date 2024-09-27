@@ -19,15 +19,15 @@ class ViewConferenceIssue extends ViewRecord
         return $this->redirect($this->getResource()::getUrl('index'));
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Action::make('View conference')
-                ->color('secondary')
-                ->icon('heroicon-o-arrow-circle-right')
+                ->color('gray')
+                ->icon('heroicon-o-arrow-right-circle')
                 ->url(ConferenceResource::getUrl('edit', [$this->record->conference])),
             Action::make('Close issue')
-                ->icon('heroicon-o-adjustments')
+                ->icon('heroicon-o-adjustments-vertical')
                 ->action('close')
                 ->form([
                     Textarea::make('notes')->required(),

@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
         \Laravel\Socialite\SocialiteServiceProvider::class,
+        \App\Providers\Filament\AdminPanelProvider::class,
     ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',

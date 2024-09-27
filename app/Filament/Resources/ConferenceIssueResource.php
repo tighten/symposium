@@ -11,9 +11,9 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,7 +51,7 @@ class ConferenceIssueResource extends Resource
                                 ->disableLabel()
                                 ->execute(function ($record) {
                                     return Action::make('Open')
-                                        ->icon('heroicon-o-external-link')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
                                         ->url($record->conference->url)
                                         ->openUrlInNewTab();
                                 }),
@@ -114,7 +114,7 @@ class ConferenceIssueResource extends Resource
             ]);
     }
 
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return static::getEloquentQuery()->count();
     }
