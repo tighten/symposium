@@ -7,11 +7,14 @@
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.0",
+        "@tailwindcss/typography": "^0.5.15",
+        "@vitejs/plugin-vue2": "^1.1.2",
         "autoprefixer": "^10.4.4",
         "axios": "^1.6.4",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
         "husky": "^8.0.1",
+        "laravel-vite-plugin": "^0.6.0",
         "lint-staged": "^13.0.3",
         "livewire-vue": "^0.3.1",
         "lodash": "^4.17.15",
@@ -21,12 +24,10 @@
         "stylelint": "^14.10.0",
         "stylelint-config-standard": "^27.0.0",
         "tailwindcss": "^3.3.1",
+        "vite": "^3.0.2",
         "vue": "^2.7.0",
         "vue-loader": "^15.9.7",
-        "vue-template-compiler": "^2.6.10",
-        "vite": "^3.0.2",
-        "laravel-vite-plugin": "^0.6.0",
-        "@vitejs/plugin-vue2": "^1.1.2"
+        "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
         "cross-env": "^7.0.3",
