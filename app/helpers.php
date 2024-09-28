@@ -6,3 +6,10 @@ if (! function_exists('markdown')) {
         return '<div class="markdown">' . (new Parsedown)->text($text) . '</div>';
     }
 }
+
+if (! function_exists('menuRoute')) {
+    function menuRoute($name, $parameters = [], $absolute = true)
+    {
+        return app('url')->menuRoute($name, $parameters, $absolute);
+    }
+}

@@ -21,20 +21,13 @@
                     $key = key($link['query']);
                     $isActive = request($key) === $link['query'][$key] ||
                     ! request()->has($key) && $link['query'][$key] === $defaults[$key];
-
-                    $outputParameters = [];
-                    foreach ($defaults as $key => $default) {
-                        if (array_key_exists($key, $link['query'])) {
-                            $outputParameters[$key] = $link['query'][$key];
-                        } elseif (request()->has($key)) {
-                            $outputParameters[$key] = request($key);
-                        } else {
-                            $outputParameters[$key] = $defaults[$key];
-                        }
-                    }
                 @endphp
                 <a
-                    href="{{ route($link['route'], $outputParameters) }}"
+                    href="{{ menuRoute($link['route'], [
+                        'link' => $link['query'],
+                        'query' => request()->query(),
+                        'defaults' => $defaults,
+                    ]) }}"
                     @class([
                         'py-1 px-5 hover:bg-indigo-100' => true,
                         'text-gray-700' => ! $isActive,
