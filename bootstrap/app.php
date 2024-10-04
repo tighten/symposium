@@ -26,8 +26,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectUsersTo(AppServiceProvider::HOME);
 
-        // $middleware->web(\PragmaRX\Firewall\Middleware\FirewallBlacklist::class);
-
         $middleware->throttleApi();
         $middleware->api('web');
 

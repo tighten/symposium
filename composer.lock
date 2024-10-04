@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f261de569dc35e0a8881be9d09c89ab8",
+    "content-hash": "b944bfefcc415d22b23b5da48a74d2af",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2568,60 +2568,6 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
-        },
-        {
-            "name": "geoip/geoip",
-            "version": "v1.17",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/maxmind/geoip-api-php.git",
-                "reference": "2053a85c2ed3e7adcbaf0117e26832f57366e370"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/geoip-api-php/zipball/2053a85c2ed3e7adcbaf0117e26832f57366e370",
-                "reference": "2053a85c2ed3e7adcbaf0117e26832f57366e370",
-                "shasum": ""
-            },
-            "conflict": {
-                "ext-geoip": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "satooshi/php-coveralls": "1.0.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/geoip.inc",
-                    "src/geoipcity.inc",
-                    "src/timezone.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL 2.1+"
-            ],
-            "authors": [
-                {
-                    "name": "MaxMind, Inc.",
-                    "email": "support@maxmind.com",
-                    "homepage": "http://www.maxmind.com/"
-                }
-            ],
-            "description": "MaxMind GeoIP PHP API",
-            "homepage": "http://dev.maxmind.com/geoip/legacy/downloadable",
-            "keywords": [
-                "geoip",
-                "geolocation",
-                "maxmind"
-            ],
-            "support": {
-                "issues": "https://github.com/maxmind/geoip-api-php/issues",
-                "source": "https://github.com/maxmind/geoip-api-php/tree/master"
-            },
-            "abandoned": "geoip2/geoip2",
-            "time": "2016-05-16T19:06:50+00:00"
         },
         {
             "name": "graham-campbell/result-type",

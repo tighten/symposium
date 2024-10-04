@@ -30,7 +30,6 @@
         "doctrine/dbal": "^3.6",
         "erusev/parsedown": "^1.7",
         "filament/filament": "^3.2",
-        "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^11.16",
