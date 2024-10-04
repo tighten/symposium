@@ -12,32 +12,27 @@
         @endisset
 
         @foreach ($links as $key => $link)
-            @if (isset($link['query']))
-                @php
+            @php
+                if (isset($link['query'])) {
                     $key = key($link['query']);
                     $isActive = request($key) === $link['query'][$key] ||
                     ! request()->has($key) && $link['query'][$key] === $defaults[$key];
-                @endphp
-                <a
-                    href="{{ menuRoute($link['route'], [
-                        'link' => $link['query'],
-                        'query' => request()->query(),
-                        'defaults' => $defaults,
-                    ]) }}"
-                    @class([
-                        'py-1 px-5 hover:bg-indigo-100' => true,
-                        'text-gray-700' => ! $isActive,
-                        'font-extrabold text-indigo-800' => $isActive,
-                    ])
-                >{{ $link['label'] }}</a>
-            @else
-                <a
-                    href="{{ route($link['route']) }}"
-                    class="py-1 px-5 hover:bg-indigo-100"
-                >
-                    {{ $link['label'] }}
-                </a>
-            @endif
+                } else {
+                    $isActive = false;
+                }
+            @endphp
+            <a
+                href="{{ menuRoute($link['route'], [
+                    'link' => $link['query'] ?? [],
+                    'query' => request()->query(),
+                    'defaults' => $defaults,
+                ]) }}"
+                @class([
+                    'py-1 px-5 hover:bg-indigo-100' => true,
+                    'text-gray-700' => ! $isActive,
+                    'font-extrabold text-indigo-800' => $isActive,
+                ])
+            >{{ $link['label'] }}</a>
         @endforeach
     </div>
 </x-panel>
