@@ -17,6 +17,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->withoutVite();
+
         NotificationFake::macro('assertSentToTightenSlack', function ($notification) {
             $this->assertSentTo(new TightenSlack, $notification);
         });
