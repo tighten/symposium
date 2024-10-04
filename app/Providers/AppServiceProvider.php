@@ -82,15 +82,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Passport::withoutCookieSerialization();
 
-        // $this->app->bind('form', function () {
-        //     return new FormBuilder(
-        //         $this->app->make('Collective\Html\HtmlBuilder'),
-        //         $this->app->make('Illuminate\Routing\UrlGenerator'),
-        //         null,
-        //         csrf_token()
-        //     );
-        // });
-
         $this->registerCallingAllPapersClient();
     }
 
