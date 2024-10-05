@@ -29,8 +29,7 @@
                 ]) }}"
                 @class([
                     'py-1 px-5 hover:bg-indigo-100',
-                    'text-gray-700' => ! $isActive,
-                    'font-extrabold text-indigo-800' => $isActive,
+                    $isActive ? 'font-extrabold text-indigo-800' : 'text-gray-700',
                 ])
             >{{ $link['label'] }}</a>
         @endforeach
