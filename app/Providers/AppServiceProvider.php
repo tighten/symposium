@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\CallingAllPapers\Client;
+use App\Exceptions\ExceptionHandler;
+use App\Exceptions\Handler;
 use App\Handlers\Events\SlackSubscriber;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
@@ -83,6 +85,8 @@ class AppServiceProvider extends ServiceProvider
         Passport::withoutCookieSerialization();
 
         $this->registerCallingAllPapersClient();
+
+        $this->app->bind(ExceptionHandler::class, Handler::class);
     }
 
     public function registerCallingAllPapersClient()
