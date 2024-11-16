@@ -31,7 +31,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin' => \App\Http\Middleware\RequireAdmin::class,
-            'auth' => \App\Http\Middleware\Authenticate::class,
             'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
             'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
             'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
