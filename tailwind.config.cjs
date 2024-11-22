@@ -5,6 +5,7 @@ module.exports = {
         './resources/**/*.blade.php',
         './resources/**/*.js',
         './resources/**/*.vue',
+        './app/helpers.php',
     ],
     theme: {
         colors: {
@@ -74,6 +75,7 @@ module.exports = {
         },
     },
     plugins: [
+        require('@tailwindcss/typography'),
         require('@tailwindcss/forms')({
            strategy: 'class',
         }),
