@@ -21,14 +21,14 @@ jobs:
                   coverage: none
 
             - name: Install dependencies
-              run: composer install --no-interaction --prefer-dist --optimize-autoloader
+              run: |
+                cp .env.example .env
+                composer install --no-interaction --prefer-dist --optimize-autoloader
               env:
                 DB_CONNECTION: testing
 
             - name: Generate key
-              run: |
-                cp .env.example .env
-                php artisan key:generate
+              run: php artisan key:generate
 
             - name: Build Assets
               run: npm ci && npm run build
