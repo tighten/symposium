@@ -10,7 +10,6 @@ window.axios.defaults.headers.common = {
 import Vue from 'vue';
 import VCalendar from 'v-calendar';
 import Dismiss from './directives/Dismiss';
-import '../css/app.css'
 
 Vue.use(VCalendar);
 
