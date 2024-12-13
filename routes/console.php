@@ -2,18 +2,23 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-
-/*
-|--------------------------------------------------------------------------
-| Console Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of your Closure based console
-| commands. Each Closure is bound to a command instance allowing a
-| simple approach to interacting with each command's IO methods.
-|
-*/
+use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+})->purpose('Display an inspiring quote')->hourly();
+
+Schedule::command('callingallpapers:sync')
+    ->hourly();
+
+// Schedule::command('tweet:cfpDates')
+//      ->dailyAt('08:00')
+//      ->environments('production');
+
+Schedule::command('symposium:notifyCfps')
+    ->dailyAt('08:00')
+    ->environments('production');
+
+Schedule::command('verify-conference-importer-heartbeat')
+    ->dailyAt('10:00')
+    ->environments('production');

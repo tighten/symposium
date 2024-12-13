@@ -9,7 +9,6 @@ use Illuminate\Support\Testing\Fakes\NotificationFake;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
     use LazilyRefreshDatabase;
 
     public $baseUrl = 'http://symposium.test';
@@ -17,6 +16,8 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->withoutVite();
 
         NotificationFake::macro('assertSentToTightenSlack', function ($notification) {
             $this->assertSentTo(new TightenSlack, $notification);

@@ -1,33 +1,19 @@
 <?php
 
-HTML::macro('activeLinkRoute', function ($keysWithDefaults, $route, $title = null, $parameters = [], $attributes = [], $activeClass = 'font-extrabold text-indigo-800') {
+use Illuminate\Routing\UrlGenerator;
 
-    // This only works if we pass a single param.
-    $key = key($parameters);
-    if (
-        request($key) === $parameters[$key] ||
-        ! request()->has($key) && $parameters[$key] === $keysWithDefaults[$key]
-    ) {
-        $cssClass = isset($attributes['class']) ? $attributes['class'] : '';
-        $cssClass .= " {$activeClass}";
-        $attributes['class'] = $cssClass;
-    } else {
-        $attributes['class'] .= ' text-gray-700';
-    }
+UrlGenerator::macro('menuRoute', function ($name, $parameters, $absolute = true) {
+    $linkParams = $parameters['link'];
+    $queryParams = $parameters['query'];
+    $defaults = $parameters['defaults'];
 
-    // There has to be a better way...
-    $outputParameters = [];
-    foreach ($keysWithDefaults as $key => $default) {
-        if (array_key_exists($key, $parameters)) {
-            $outputParameters[$key] = $parameters[$key];
-        } elseif (request()->has($key)) {
-            $outputParameters[$key] = request($key);
-        } else {
-            $outputParameters[$key] = $keysWithDefaults[$key];
-        }
-    }
+    $outputParameters = collect($defaults)->map(fn ($default, $key) => array_merge(
+        $defaults,
+        $queryParams,
+        $linkParams,
+    )[$key])->toArray();
 
-    return HTML::linkRoute($route, $title, $outputParameters, $attributes);
+    return $this->route($name, $outputParameters, $absolute);
 });
 
 Response::macro('jsonApi', function ($value) {

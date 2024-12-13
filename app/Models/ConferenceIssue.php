@@ -54,7 +54,7 @@ class ConferenceIssue extends Model
 
     public function getLinkAttribute()
     {
-        return ConferenceIssueResource::getUrl('view', $this);
+        return ConferenceIssueResource::getUrl('view', ['record' => $this]);
     }
 
     public function isOpen()

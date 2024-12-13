@@ -21,11 +21,6 @@ class Talk extends UuidBase
         'id',
     ];
 
-    protected $casts = [
-        'public' => 'boolean',
-        'is_archived' => 'boolean',
-    ];
-
     protected static function boot()
     {
         parent::boot();
@@ -144,5 +139,13 @@ class Talk extends UuidBase
         return $conference->myAcceptedTalks()->filter(function ($item) {
             return $item->talkRevision->talk->id === $this->id;
         })->first();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'public' => 'boolean',
+            'is_archived' => 'boolean',
+        ];
     }
 }

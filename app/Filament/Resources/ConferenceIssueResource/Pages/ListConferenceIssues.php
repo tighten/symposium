@@ -9,7 +9,7 @@ class ListConferenceIssues extends ManageRecords
 {
     protected static string $resource = ConferenceIssueResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             //

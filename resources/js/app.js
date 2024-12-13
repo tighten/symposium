@@ -1,4 +1,6 @@
-window.axios = require('axios').default;
+import axios from 'axios';
+
+window.axios = axios;
 
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Symposium.token,
@@ -8,64 +10,35 @@ window.axios.defaults.headers.common = {
 import Vue from 'vue';
 import VCalendar from 'v-calendar';
 import Dismiss from './directives/Dismiss';
-import 'livewire-vue'
-
-window.Vue = Vue;
+import '../css/app.css'
 
 Vue.use(VCalendar);
 
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue').default
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
-
-Vue.component(
-    'talks-on-conference-page',
-    require('./components/TalksOnConferencePage.vue').default
-);
-
-Vue.component(
-    'location-lookup',
-    require('./components/LocationLookup.vue').default
-);
-
-Vue.component(
-    'cfp-fields',
-    require('./components/CfpFields.vue').default
-);
-
-Vue.component(
-    'MenuToggle',
-    require('./components/MenuToggle.vue').default
-);
-
-Vue.component(
-    'ModalToggle',
-    require('./components/ModalToggle.vue').default
-);
-
-Vue.component(
-    'CurrencySelection',
-    require('./components/CurrencySelection.vue').default
-);
-
-Vue.component(
-    'UpdateQueryString',
-    require('./components/UpdateQueryString.vue').default
-);
+import Clients from './components/passport/Clients.vue';
+import AuthorizedClients from './components/passport/AuthorizedClients.vue';
+import PersonalAccessTokens from './components/passport/PersonalAccessTokens.vue';
+import TalksOnConferencePage from './components/TalksOnConferencePage.vue';
+import LocationLookup from './components/LocationLookup.vue';
+import CfpFields from './components/CfpFields.vue';
+import MenuToggle from './components/MenuToggle.vue';
+import ModalToggle from './components/ModalToggle.vue';
+import CurrencySelection from './components/CurrencySelection.vue';
+import UpdateQueryString from './components/UpdateQueryString.vue';
 
 Vue.directive('dismiss', Dismiss);
 
 new Vue({
     el: "#app",
+    components: {
+        'passport-clients':  Clients,
+        'passport-authorized-clients':  AuthorizedClients,
+        'passport-personal-access-tokens':  PersonalAccessTokens,
+        'talks-on-conference-page':  TalksOnConferencePage,
+        'location-lookup':  LocationLookup,
+        CfpFields,
+        MenuToggle,
+        ModalToggle,
+        CurrencySelection,
+        UpdateQueryString,
+    }
 });

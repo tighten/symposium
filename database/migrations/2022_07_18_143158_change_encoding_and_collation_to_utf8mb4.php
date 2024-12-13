@@ -34,13 +34,11 @@ return new class extends Migration
 
     public function up(): void
     {
-        $this->ignoreEnums();
         $this->changeAll('utf8mb4', 'utf8mb4_unicode_ci');
     }
 
     public function down(): void
     {
-        $this->ignoreEnums();
         $this->changeAll('utf8', 'utf8_unicode_ci');
     }
 
@@ -67,17 +65,6 @@ return new class extends Migration
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-    }
-
-    /**
-     * Avoid errors due to DBAL not supporting a custom enum type
-     */
-    private function ignoreEnums()
-    {
-        DB::connection()
-            ->getDoctrineSchemaManager()
-            ->getDatabasePlatform()
-            ->registerDoctrineTypeMapping('enum', 'string');
     }
 
     private function columnType($table, $column)
