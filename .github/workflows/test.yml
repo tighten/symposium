@@ -31,6 +31,9 @@ jobs:
             - name: Generate key
               run: php artisan key:generate
 
+            - name: Build Assets
+              run: npm ci && npm run build
+
             - name: PHPUnit
               run: vendor/bin/phpunit
               env:

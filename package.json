@@ -33,6 +33,9 @@
         "v-calendar": "^2.4.1",
         "vform": "^1.0.0"
     },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "*"
+    },
     "lint-staged": {
         "*.php": [
             "vendor/bin/php-cs-fixer fix --config=.php_cs.dist"
