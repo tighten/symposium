@@ -22,6 +22,8 @@ jobs:
 
             - name: Install dependencies
               run: composer install --no-interaction --prefer-dist --optimize-autoloader
+              env:
+                DB_CONNECTION: testing
 
             - name: Generate key
               run: |
