@@ -1,12 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\ServiceProvider;
 
 return [
 
     'slack_endpoint' => env('SLACK_ENDPOINT'),
-
 
     'aliases' => Facade::defaultAliases()->merge([
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,

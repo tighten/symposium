@@ -30,14 +30,6 @@ class Talk extends UuidBase
         });
     }
 
-    protected function casts(): array
-    {
-        return [
-            'public' => 'boolean',
-            'is_archived' => 'boolean',
-        ];
-    }
-
     protected static function booted()
     {
         static::addGlobalScope('active', function (Builder $builder) {
@@ -147,5 +139,13 @@ class Talk extends UuidBase
         return $conference->myAcceptedTalks()->filter(function ($item) {
             return $item->talkRevision->talk->id === $this->id;
         })->first();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'public' => 'boolean',
+            'is_archived' => 'boolean',
+        ];
     }
 }
