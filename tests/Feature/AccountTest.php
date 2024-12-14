@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Livewire\ConferenceList;
+use App\Livewire\ConferenceList;
 use App\Models\Bio;
 use App\Models\Conference;
 use App\Models\Talk;

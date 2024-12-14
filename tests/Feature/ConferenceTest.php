@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Livewire\ConferenceList;
+use App\Livewire\ConferenceList;
 use App\Models\Conference;
 use App\Models\User;
 use Illuminate\Support\Carbon;
