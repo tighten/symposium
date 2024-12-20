@@ -34,6 +34,18 @@ class Geocoder
         );
     }
 
+    public function getLocationName(): string
+    {
+        $country = $this->getCountry();
+        $city = $this->getCity();
+
+        if ($country === 'United States') {
+            $state = $this->getState();
+            return "{$city}, {$state}, {$country}";
+        }
+
+        return "{$city}, {$country}";
+    }
 
     private function requestGeocoding($address)
     {
@@ -51,6 +63,27 @@ class Geocoder
     private function getCoordinate($type, $response)
     {
         return data_get($response, "results.0.geometry.location.{$type}");
+    }
+
+    private function getCity()
+    {
+        return $this->getAddressComponent(['locality', 'postal_town'])['long_name'] ?? '';
+    }
+
+    private function getState()
+    {
+        return $this->getAddressComponent(['administrative_area_level_1'])['short_name'] ?? '';
+    }
+
+    private function getCountry()
+    {
+        return $this->getAddressComponent(['country'])['long_name'] ?? '';
+    }
+
+    private function getAddressComponent(array $types)
+    {
+        return collect(data_get($this->response, 'results.0.address_components', []))
+            ->firstWhere(fn ($component) => collect($component['types'])->intersect($types)->isNotEmpty());
     }
 
     private function isInvalidAddress($address)

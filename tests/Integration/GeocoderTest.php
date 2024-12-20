@@ -63,4 +63,30 @@ class GeocoderTest extends TestCase
 
         $this->fail('An exception was expected but not thrown');
     }
+
+    #[Test]
+    public function formatting_a_us_location_name(): void
+    {
+        $geocoder = app(Geocoder::class);
+
+        $result = $geocoder->geocode('1600 Pennsylvania Ave Washington, DC');
+
+        $this->assertEquals(
+            'Washington, DC, United States',
+            $result->getLocationName(),
+        );
+    }
+
+    #[Test]
+    public function formatting_a_non_us_location_name(): void
+    {
+        $geocoder = app(Geocoder::class);
+
+        $result = $geocoder->geocode('Kungsgatan 5, 411 19, Göteborg');
+
+        $this->assertEquals(
+            'Göteborg, Sweden',
+            $result->getLocationName(),
+        );
+    }
 }

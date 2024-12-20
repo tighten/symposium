@@ -73,8 +73,8 @@ class ConferenceImporter
             ->firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
-        if (! $conference->latitude && ! $conference->longitude && $conference->location) {
-            $this->geocodeLatLongFromLocation($conference);
+        if ($conference->location) {
+            $this->geocodeLocation($conference);
         }
 
         if ($validator->fails()) {
@@ -112,14 +112,18 @@ class ConferenceImporter
         return (float) $primary && (float) $secondary ? $primary : null;
     }
 
-    private function geocodeLatLongFromLocation(Conference $conference): Conference
+    private function geocodeLocation(Conference $conference): void
     {
         try {
             $result = $this->geocoder->geocode($conference->location);
-            $conference->coordinates = $result->getCoordinates();
         } catch (InvalidAddressGeocodingException $e) {
+            return;
         }
 
-        return $conference;
+        if (! $conference->latitude && ! $conference->longitude) {
+            $conference->coordinates = $result->getCoordinates();
+        }
+
+        $conference->location_name = $result->getLocationName();
     }
 }

@@ -238,7 +238,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
             $mock->shouldReceive('geocode')
                 ->andReturn($mock)
                 ->shouldReceive('getCoordinates')
-                ->andReturn(new Coordinates('38.8921062', '-77.0259036'));
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
+                ->shouldReceive('getLocationName');
         });
 
         $importer = new ConferenceImporter(1);
@@ -248,6 +249,33 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $this->assertEquals('38.8921062', $conference->latitude);
         $this->assertEquals('-77.0259036', $conference->longitude);
+    }
+
+    #[Test]
+    public function it_fills_location_name(): void
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
+
+        $this->mockClient($event);
+        $this->mock(Geocoder::class, function ($mock) {
+            $mock->shouldReceive('geocode')
+                ->andReturn($mock)
+                ->shouldReceive('getCoordinates')
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
+                ->shouldReceive('getLocationName')
+                ->andReturn('Göteborg, Sweden');
+        });
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertEquals('Göteborg, Sweden', $conference->location_name);
     }
 
     #[Test]
