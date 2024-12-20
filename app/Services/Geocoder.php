@@ -39,12 +39,11 @@ class Geocoder
         $country = $this->getCountry();
         $city = $this->getCity();
 
-        if ($country === 'United States') {
-            $state = $this->getState();
-            return "{$city}, {$state}, {$country}";
-        }
+        $values = $country === 'United States'
+            ? [$city, $this->getState(), $country]
+            : [$city, $country];
 
-        return "{$city}, {$country}";
+        return collect($values)->filter()->implode(', ');
     }
 
     private function requestGeocoding($address)
@@ -67,17 +66,17 @@ class Geocoder
 
     private function getCity()
     {
-        return $this->getAddressComponent(['locality', 'postal_town'])['long_name'] ?? '';
+        return $this->getAddressComponent(['locality', 'postal_town'])['long_name'] ?? null;
     }
 
     private function getState()
     {
-        return $this->getAddressComponent(['administrative_area_level_1'])['short_name'] ?? '';
+        return $this->getAddressComponent(['administrative_area_level_1'])['short_name'] ?? null;
     }
 
     private function getCountry()
     {
-        return $this->getAddressComponent(['country'])['long_name'] ?? '';
+        return $this->getAddressComponent(['country'])['long_name'] ?? null;
     }
 
     private function getAddressComponent(array $types)
