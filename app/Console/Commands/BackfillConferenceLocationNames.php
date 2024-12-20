@@ -31,7 +31,5 @@ class BackfillConferenceLocationNames extends Command
             $conference->location_name = $result->getLocationName();
             $conference->save();
         });
-
-        dd($conferences->count());
     }
 }
