@@ -29,8 +29,8 @@ class Geocoder
     public function getCoordinates(): Coordinates
     {
         return new Coordinates(
-            $this->getCoordinate('lat', $this->response),
-            $this->getCoordinate('lng', $this->response),
+            $this->getCoordinate('lat'),
+            $this->getCoordinate('lng'),
         );
     }
 
@@ -60,9 +60,9 @@ class Geocoder
             ->json();
     }
 
-    private function getCoordinate($type, $response)
+    private function getCoordinate($type)
     {
-        return data_get($response, "results.0.geometry.location.{$type}");
+        return data_get($this->response, "results.0.geometry.location.{$type}");
     }
 
     private function getCity()
