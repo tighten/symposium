@@ -8,24 +8,32 @@ use Illuminate\Support\Facades\Http;
 
 class Geocoder
 {
-    public function geocode(string $address): Coordinates
+    private $response;
+
+    public function geocode(string $address): self
     {
         if ($this->isInvalidAddress($address)) {
             throw new InvalidAddressGeocodingException;
         }
 
-        $response = $this->requestGeocoding($address);
+        $this->response = $this->requestGeocoding($address);
 
-        if (! count($response['results'])) {
+        if (! count($this->response['results'])) {
             cache()->set('invalid-address::' . md5($address), true);
             throw new InvalidAddressGeocodingException;
         }
 
+        return $this;
+    }
+
+    public function getCoordinates(): Coordinates
+    {
         return new Coordinates(
-            $this->getCoordinate('lat', $response),
-            $this->getCoordinate('lng', $response),
+            $this->getCoordinate('lat', $this->response),
+            $this->getCoordinate('lng', $this->response),
         );
     }
+
 
     private function requestGeocoding($address)
     {

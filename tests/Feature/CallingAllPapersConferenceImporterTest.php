@@ -236,6 +236,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->mockClient($event);
         $this->mock(Geocoder::class, function ($mock) {
             $mock->shouldReceive('geocode')
+                ->andReturn($mock)
+                ->shouldReceive('getCoordinates')
                 ->andReturn(new Coordinates('38.8921062', '-77.0259036'));
         });
 
