@@ -6,7 +6,8 @@ use App\CallingAllPapers\ConferenceImporter;
 use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
+use App\Services\Geocoder\GeocoderResponse;
 use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\MocksCallingAllPapers;
@@ -234,12 +235,14 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
 
         $this->mockClient($event);
-        $this->mock(Geocoder::class, function ($mock) {
-            $mock->shouldReceive('geocode')
-                ->andReturn($mock)
-                ->shouldReceive('getCoordinates')
+        $response = $this->mock(GeocoderResponse::class, function ($mock) {
+            $mock->shouldReceive('getCoordinates')
                 ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
                 ->shouldReceive('getLocationName');
+        });
+        $this->mock(Geocoder::class, function ($mock) use ($response) {
+            $mock->shouldReceive('geocode')
+                ->andReturn($response);
         });
 
         $importer = new ConferenceImporter(1);
@@ -261,13 +264,15 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
 
         $this->mockClient($event);
-        $this->mock(Geocoder::class, function ($mock) {
-            $mock->shouldReceive('geocode')
-                ->andReturn($mock)
-                ->shouldReceive('getCoordinates')
+        $response = $this->mock(GeocoderResponse::class, function ($mock) {
+            $mock->shouldReceive('getCoordinates')
                 ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
                 ->shouldReceive('getLocationName')
                 ->andReturn('Göteborg, Sweden');
+        });
+        $this->mock(Geocoder::class, function ($mock) use ($response) {
+            $mock->shouldReceive('geocode')
+                ->andReturn($response);
         });
 
         $importer = new ConferenceImporter(1);

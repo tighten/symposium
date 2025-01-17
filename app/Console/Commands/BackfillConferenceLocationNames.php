@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
 use Illuminate\Console\Command;
 
 class BackfillConferenceLocationNames extends Command

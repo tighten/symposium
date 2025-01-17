@@ -4,7 +4,7 @@ namespace App\CallingAllPapers;
 
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTime;

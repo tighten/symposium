@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Exceptions\InvalidAddressGeocodingException;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
