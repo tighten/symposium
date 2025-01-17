@@ -468,4 +468,22 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $this->assertEquals(1, Conference::count());
     }
+
+    #[Test]
+    public function the_geocoder_is_not_called_for_conferences_already_having_coordinates(): void
+    {
+        $this->mockClient();
+        $spy = $this->spy(Geocoder::class);
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->location = 'Somewhere';
+        $event->latitude = 123;
+        $event->longitude = 321;
+
+        $importer->import($event);
+
+        $spy->shouldNotHaveReceived('geocode');
+        $this->assertEquals(1, Conference::count());
+    }
 }

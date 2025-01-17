@@ -73,7 +73,7 @@ class ConferenceImporter
             ->firstOrNew(['calling_all_papers_id' => $event->id]);
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
-        if ($conference->location) {
+        if (! $conference->latitude && ! $conference->longitude && $conference->location) {
             $this->geocodeLocation($conference);
         }
 
@@ -120,10 +120,7 @@ class ConferenceImporter
             return;
         }
 
-        if (! $conference->latitude && ! $conference->longitude) {
-            $conference->coordinates = $result->getCoordinates();
-        }
-
+        $conference->coordinates = $result->getCoordinates();
         $conference->location_name = $result->getLocationName();
     }
 }
