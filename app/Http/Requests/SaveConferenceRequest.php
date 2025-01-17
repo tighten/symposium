@@ -38,6 +38,7 @@ class SaveConferenceRequest extends FormRequest
                 'before:starts_at',
             ],
             'location' => ['nullable'],
+            'location_name' => ['nullable'],
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
             'speaker_package' => ['nullable'],
