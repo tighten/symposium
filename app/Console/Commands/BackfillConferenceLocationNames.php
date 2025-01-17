@@ -11,7 +11,7 @@ class BackfillConferenceLocationNames extends Command
 {
     protected $signature = 'app:backfill-conference-location-names';
 
-    protected $description = 'Command description';
+    protected $description = 'Backfill location names for future conferences';
 
     public function handle()
     {
