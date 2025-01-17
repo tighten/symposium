@@ -3,7 +3,6 @@
 namespace App\Services\Geocoder;
 
 use App\Exceptions\InvalidAddressGeocodingException;
-use App\Services\Geocoder\GeocoderResponse;
 use Illuminate\Support\Facades\Http;
 
 class Geocoder

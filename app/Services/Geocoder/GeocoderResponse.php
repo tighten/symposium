@@ -6,9 +6,7 @@ use App\Casts\Coordinates;
 
 class GeocoderResponse
 {
-    public function __construct(protected $response)
-    {
-    }
+    public function __construct(protected $response) {}
 
     public function getCoordinates(): Coordinates
     {
