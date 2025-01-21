@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Exceptions\InvalidAddressGeocodingException;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -17,7 +17,8 @@ class GeocoderTest extends TestCase
 
         $geocoder = app(Geocoder::class);
 
-        $coordinates = $geocoder->geocode('1600 Pennsylvania Ave Washington, DC');
+        $result = $geocoder->geocode('1600 Pennsylvania Ave Washington, DC');
+        $coordinates = $result->getCoordinates();
 
         $this->assertEquals('38.8976801', $coordinates->getLatitude());
         $this->assertEquals('-77.0363304', $coordinates->getLongitude());
@@ -61,5 +62,31 @@ class GeocoderTest extends TestCase
         }
 
         $this->fail('An exception was expected but not thrown');
+    }
+
+    #[Test]
+    public function formatting_a_us_location_name(): void
+    {
+        $geocoder = app(Geocoder::class);
+
+        $result = $geocoder->geocode('1600 Pennsylvania Ave Washington, DC');
+
+        $this->assertEquals(
+            'Washington, DC, United States',
+            $result->getLocationName(),
+        );
+    }
+
+    #[Test]
+    public function formatting_a_non_us_location_name(): void
+    {
+        $geocoder = app(Geocoder::class);
+
+        $result = $geocoder->geocode('Kungsgatan 5, 411 19, Göteborg');
+
+        $this->assertEquals(
+            'Göteborg, Sweden',
+            $result->getLocationName(),
+        );
     }
 }

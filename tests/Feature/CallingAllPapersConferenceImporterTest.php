@@ -6,7 +6,8 @@ use App\CallingAllPapers\ConferenceImporter;
 use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
+use App\Services\Geocoder\GeocoderResponse;
 use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\MocksCallingAllPapers;
@@ -234,9 +235,14 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
 
         $this->mockClient($event);
-        $this->mock(Geocoder::class, function ($mock) {
+        $response = $this->mock(GeocoderResponse::class, function ($mock) {
+            $mock->shouldReceive('getCoordinates')
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
+                ->shouldReceive('getLocationName');
+        });
+        $this->mock(Geocoder::class, function ($mock) use ($response) {
             $mock->shouldReceive('geocode')
-                ->andReturn(new Coordinates('38.8921062', '-77.0259036'));
+                ->andReturn($response);
         });
 
         $importer = new ConferenceImporter(1);
@@ -246,6 +252,35 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $this->assertEquals('38.8921062', $conference->latitude);
         $this->assertEquals('-77.0259036', $conference->longitude);
+    }
+
+    #[Test]
+    public function it_fills_location_name(): void
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
+
+        $this->mockClient($event);
+        $response = $this->mock(GeocoderResponse::class, function ($mock) {
+            $mock->shouldReceive('getCoordinates')
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
+                ->shouldReceive('getLocationName')
+                ->andReturn('Göteborg, Sweden');
+        });
+        $this->mock(Geocoder::class, function ($mock) use ($response) {
+            $mock->shouldReceive('geocode')
+                ->andReturn($response);
+        });
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertEquals('Göteborg, Sweden', $conference->location_name);
     }
 
     #[Test]
@@ -436,6 +471,24 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->dateEventEnd = now()->addMonths(23)->toIso8601String();
         $importer->import($event);
 
+        $this->assertEquals(1, Conference::count());
+    }
+
+    #[Test]
+    public function the_geocoder_is_not_called_for_conferences_already_having_coordinates(): void
+    {
+        $this->mockClient();
+        $spy = $this->spy(Geocoder::class);
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->location = 'Somewhere';
+        $event->latitude = 123;
+        $event->longitude = 321;
+
+        $importer->import($event);
+
+        $spy->shouldNotHaveReceived('geocode');
         $this->assertEquals(1, Conference::count());
     }
 }

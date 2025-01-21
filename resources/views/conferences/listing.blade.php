@@ -64,6 +64,11 @@
             @endif
         </div>
     </div>
+    @if ($conference->location_name || $conference->location)
+        <div class="pl-8 text-gray-500">
+            {{ $conference->location_name ?? $conference->location }}
+        </div>
+    @endif
     <div class="mt-4 pl-8 space-y-3">
         <x-info icon="calendar" icon-color="text-gray-400">
             <span class="text-gray-400">Dates:</span>

@@ -32,6 +32,7 @@ class Conference extends UuidBase
         'author_id',
         'title',
         'location',
+        'location_name',
         'latitude',
         'longitude',
         'description',

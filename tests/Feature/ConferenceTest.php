@@ -32,7 +32,7 @@ class ConferenceTest extends TestCase
     }
 
     #[Test]
-    public function a_conference_can_include_location_coordinates(): void
+    public function a_conference_can_include_location_coordinates_and_name(): void
     {
         $user = User::factory()->create();
 
@@ -43,6 +43,7 @@ class ConferenceTest extends TestCase
                 'url' => 'https://jedicon.com',
                 'latitude' => '37.7991531',
                 'longitude' => '-122.45050129999998',
+                'location_name' => 'San Francisco, CA, United States',
             ]);
 
         $this->assertDatabaseHas(Conference::class, [
@@ -51,6 +52,7 @@ class ConferenceTest extends TestCase
             'url' => 'https://jedicon.com',
             'latitude' => '37.7991531',
             'longitude' => '-122.45050129999998',
+            'location_name' => 'San Francisco, CA, United States',
         ]);
     }
 
