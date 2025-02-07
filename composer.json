@@ -43,6 +43,7 @@
         "livewire/livewire": "^3.5",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
+        "spatie/laravel-flare": "^1.1",
         "staudenmeir/eloquent-has-many-deep": "^1.20",
         "symfony/http-client": "^7.0",
         "symfony/intl": "^7.0",
