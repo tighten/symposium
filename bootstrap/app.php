@@ -9,7 +9,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
         \Laravel\Scout\ScoutServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
-        \Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
         \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
