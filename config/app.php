@@ -7,7 +7,6 @@ return [
     'slack_endpoint' => env('SLACK_ENDPOINT'),
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Input' => Illuminate\Support\Facades\Input::class,

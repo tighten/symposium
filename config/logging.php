@@ -3,9 +3,7 @@
 return [
 
     'channels' => [
-        'bugsnag' => [
-            'driver' => 'bugsnag',
-        ],
+        //
     ],
 
 ];

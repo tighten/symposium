@@ -4,12 +4,12 @@ use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Spatie\LaravelFlare\Facades\Flare;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
         \Laravel\Scout\ScoutServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
-        \Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
         \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
@@ -39,5 +39,5 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        Flare::handles($exceptions);
     })->create();
