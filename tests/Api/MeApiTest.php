@@ -8,8 +8,6 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class MeApiTest extends TestCase
-
-class MeApiTest extends ApiTestCase
 {
     #[Test]
     public function can_fetch_my_info(): void
