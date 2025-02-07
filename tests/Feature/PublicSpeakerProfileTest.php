@@ -10,12 +10,13 @@ use App\Models\User;
 use App\Services\FakeCaptcha;
 use Captcha\Captcha;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PublicSpeakerProfileTest extends TestCase
 {
-    /** @test */
-    public function non_public_speakers_are_not_listed_on_the_public_speaker_page()
+    #[Test]
+    public function non_public_speakers_are_not_listed_on_the_public_speaker_page(): void
     {
         $user = User::factory()->disableProfile()->create();
 
@@ -23,8 +24,8 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertDontSee($user->name);
     }
 
-    /** @test */
-    public function public_speakers_are_listed_on_the_public_speaker_page()
+    #[Test]
+    public function public_speakers_are_listed_on_the_public_speaker_page(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'mattstauffer',
@@ -34,8 +35,8 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertSee($user->name);
     }
 
-    /** @test */
-    function speakers_can_be_found_by_searching_state_abbreviation()
+    #[Test]
+    public function speakers_can_be_found_by_searching_state_abbreviation(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -54,8 +55,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
-    function searching_by_state_abbreviation_is_case_insensitive()
+    #[Test]
+    public function searching_by_state_abbreviation_is_case_insensitive(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -74,8 +75,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
-    function speakers_can_be_found_by_searching_state_name()
+    #[Test]
+    public function speakers_can_be_found_by_searching_state_name(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -94,8 +95,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
-    function searching_by_state_name_is_case_insensitive()
+    #[Test]
+    public function searching_by_state_name_is_case_insensitive(): void
     {
         User::factory()->enableProfile()->create([
             'name' => 'Caleb Dume',
@@ -114,8 +115,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Ezra Bridger');
     }
 
-    /** @test */
-    public function non_public_speakers_do_not_have_public_speaker_profile_pages()
+    #[Test]
+    public function non_public_speakers_do_not_have_public_speaker_profile_pages(): void
     {
         $user = User::factory()->disableProfile()->create([
             'profile_slug' => 'mattstauffer',
@@ -126,8 +127,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
-    public function public_speakers_have_public_speaker_profile_pages()
+    #[Test]
+    public function public_speakers_have_public_speaker_profile_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'abrahamlincoln',
@@ -137,8 +138,8 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertSee($user->name);
     }
 
-    /** @test */
-    public function talks_marked_not_public_are_not_listed_publicly()
+    #[Test]
+    public function talks_marked_not_public_are_not_listed_publicly(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'tonimorrison',
@@ -156,7 +157,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee($talkRevision->title);
     }
 
-    /** @test */
+    #[Test]
     public function viewing_a_public_talk(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -177,8 +178,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee('One with the Force');
     }
 
-    /** @test */
-    public function talks_marked_not_public_do_not_have_public_pages()
+    #[Test]
+    public function talks_marked_not_public_do_not_have_public_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'jamesandthegiantpeach',
@@ -198,8 +199,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
-    public function talks_marked_public_are_listed_publicly()
+    #[Test]
+    public function talks_marked_public_are_listed_publicly(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'zipporah',
@@ -217,8 +218,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee($talkRevision->title);
     }
 
-    /** @test */
-    public function bios_marked_public_are_listed_publicly()
+    #[Test]
+    public function bios_marked_public_are_listed_publicly(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'esther',
@@ -234,8 +235,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee($bio->title);
     }
 
-    /** @test */
-    public function bios_marked_not_public_do_not_have_public_pages()
+    #[Test]
+    public function bios_marked_not_public_do_not_have_public_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'kuntakinte',
@@ -250,8 +251,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertDontSee('Private Bio');
     }
 
-    /** @test */
-    public function bios_marked_public_have_public_pages()
+    #[Test]
+    public function bios_marked_public_have_public_pages(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'mydearauntsally',
@@ -266,7 +267,7 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee($bio->nickname);
     }
 
-    /** @test */
+    #[Test]
     public function viewing_a_public_bio(): void
     {
         $user = User::factory()->enableProfile()->create([
@@ -283,8 +284,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertSee('My Origin Story');
     }
 
-    /** @test */
-    public function public_profile_page_is_off_by_default()
+    #[Test]
+    public function public_profile_page_is_off_by_default(): void
     {
         $user = User::factory()->create([
             'profile_slug' => 'jimmybob',
@@ -295,8 +296,8 @@ class PublicSpeakerProfileTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
-    public function non_contactable_users_profile_pages_do_not_show_contact()
+    #[Test]
+    public function non_contactable_users_profile_pages_do_not_show_contact(): void
     {
         $this->withoutMiddleware();
 
@@ -315,8 +316,8 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertNotFound();
     }
 
-    /** @test */
-    public function contactable_users_profile_pages_show_contact()
+    #[Test]
+    public function contactable_users_profile_pages_show_contact(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'jimmybob',
@@ -332,11 +333,11 @@ class PublicSpeakerProfileTest extends TestCase
         //sending email in next test
     }
 
-    /** @test */
-    public function user_can_be_contacted_from_profile()
+    #[Test]
+    public function user_can_be_contacted_from_profile(): void
     {
         Mail::fake();
-        app()->instance(Captcha::class, new FakeCaptcha());
+        app()->instance(Captcha::class, new FakeCaptcha);
 
         $userA = User::factory()->enableProfile()->create([
             'profile_slug' => 'smithy',
@@ -357,7 +358,7 @@ class PublicSpeakerProfileTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function contacting_users_requires_passing_the_captcha()
     {
         Mail::fake();
@@ -379,8 +380,8 @@ class PublicSpeakerProfileTest extends TestCase
         Mail::assertNotSent(ContactRequest::class);
     }
 
-    /** @test */
-    public function disabled_profile_user_cannot_be_contacted()
+    #[Test]
+    public function disabled_profile_user_cannot_be_contacted(): void
     {
         $user = User::factory()->disableProfile()->create([
             'profile_slug' => 'alphabetsoup',
@@ -394,8 +395,8 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertNotFound();
     }
 
-    /** @test */
-    public function public_profile_pages_do_not_show_talks_for_other_users()
+    #[Test]
+    public function public_profile_pages_do_not_show_talks_for_other_users(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'jinkerjanker',
@@ -419,8 +420,8 @@ class PublicSpeakerProfileTest extends TestCase
             ->assertDontSee($talk->currentRevision->title);
     }
 
-    /** @test */
-    public function public_profile_pages_do_not_show_bios_for_other_users()
+    #[Test]
+    public function public_profile_pages_do_not_show_bios_for_other_users(): void
     {
         $user = User::factory()->enableProfile()->create([
             'profile_slug' => 'stampede',

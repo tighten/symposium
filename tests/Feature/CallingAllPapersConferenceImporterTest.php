@@ -6,7 +6,10 @@ use App\CallingAllPapers\ConferenceImporter;
 use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
+use App\Services\Geocoder\GeocoderResponse;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 
@@ -14,7 +17,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 {
     use MocksCallingAllPapers;
 
-    /** @before */
+    #[Before]
     public function prepareEventStub()
     {
         parent::setUp();
@@ -22,8 +25,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->stubEvent();
     }
 
-    /** @test */
-    public function it_gets_the_id_from_the_rel_link()
+    #[Test]
+    public function it_gets_the_id_from_the_rel_link(): void
     {
         $this->mockClient();
 
@@ -36,8 +39,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
     }
 
-    /** @test */
-    public function epoch_start_dates_are_nullified_prior_to_validation()
+    #[Test]
+    public function epoch_start_dates_are_nullified_prior_to_validation(): void
     {
         $this->mockClient();
 
@@ -53,8 +56,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventId, $conference->calling_all_papers_id);
     }
 
-    /** @test */
-    public function it_imports_basic_text_fields()
+    #[Test]
+    public function it_imports_basic_text_fields(): void
     {
         $this->mockClient();
 
@@ -69,8 +72,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventStub->uri, $conference->cfp_url);
     }
 
-    /** @test */
-    public function it_imports_dates_if_we_dont_care_about_time_zones()
+    #[Test]
+    public function it_imports_dates_if_we_dont_care_about_time_zones(): void
     {
         $event = $this->eventStub;
 
@@ -119,8 +122,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         );
     }
 
-    /** @test */
-    public function imported_dates_are_adjusted_for_daylight_saving_time_changes()
+    #[Test]
+    public function imported_dates_are_adjusted_for_daylight_saving_time_changes(): void
     {
         $this->mockClient();
 
@@ -143,8 +146,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals('2017-12-22T00:00:00-05:00', $conference->ends_at->toIso8601String());
     }
 
-    /** @test */
-    public function it_imports_null_dates_as_null()
+    #[Test]
+    public function it_imports_null_dates_as_null(): void
     {
         $event = $this->eventStub;
 
@@ -160,8 +163,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->cfp_ends_at);
     }
 
-    /** @test */
-    public function it_imports_Jan_1_1970_dates_as_null()
+    #[Test]
+    public function it_imports_Jan_1_1970_dates_as_null(): void
     {
         $event = $this->eventStub;
 
@@ -180,8 +183,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->cfp_starts_at);
     }
 
-    /** @test */
-    public function invalid_dates_are_ignored()
+    #[Test]
+    public function invalid_dates_are_ignored(): void
     {
         $event = $this->eventStub;
 
@@ -203,8 +206,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->cfp_ends_at);
     }
 
-    /** @test */
-    public function it_imports_zero_in_latitude_or_longitude_as_null()
+    #[Test]
+    public function it_imports_zero_in_latitude_or_longitude_as_null(): void
     {
         $event = $this->eventStub;
 
@@ -222,8 +225,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->longitude);
     }
 
-    /** @test */
-    public function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null()
+    #[Test]
+    public function it_fills_latitude_and_longitude_from_location_if_lat_long_are_null(): void
     {
         $event = $this->eventStub;
 
@@ -232,9 +235,14 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
 
         $this->mockClient($event);
-        $this->mock(Geocoder::class, function ($mock) {
+        $response = $this->mock(GeocoderResponse::class, function ($mock) {
+            $mock->shouldReceive('getCoordinates')
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
+                ->shouldReceive('getLocationName');
+        });
+        $this->mock(Geocoder::class, function ($mock) use ($response) {
             $mock->shouldReceive('geocode')
-                ->andReturn(new Coordinates('38.8921062', '-77.0259036'));
+                ->andReturn($response);
         });
 
         $importer = new ConferenceImporter(1);
@@ -246,8 +254,37 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals('-77.0259036', $conference->longitude);
     }
 
-    /** @test */
-    public function it_keeps_lat_long_values_null_if_no_results()
+    #[Test]
+    public function it_fills_location_name(): void
+    {
+        $event = $this->eventStub;
+
+        $event->latitude = '0';
+        $event->longitude = '-82.682221';
+        $event->location = '10th St. & Constitution Ave. NW, Washington, DC';
+
+        $this->mockClient($event);
+        $response = $this->mock(GeocoderResponse::class, function ($mock) {
+            $mock->shouldReceive('getCoordinates')
+                ->andReturn(new Coordinates('38.8921062', '-77.0259036'))
+                ->shouldReceive('getLocationName')
+                ->andReturn('Göteborg, Sweden');
+        });
+        $this->mock(Geocoder::class, function ($mock) use ($response) {
+            $mock->shouldReceive('geocode')
+                ->andReturn($response);
+        });
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($event);
+
+        $conference = Conference::first();
+
+        $this->assertEquals('Göteborg, Sweden', $conference->location_name);
+    }
+
+    #[Test]
+    public function it_keeps_lat_long_values_null_if_no_results(): void
     {
         $event = $this->eventStub;
 
@@ -258,7 +295,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->mockClient($event);
         $this->mock(Geocoder::class, function ($mock) {
             $mock->shouldReceive('geocode')
-                ->andThrow(new InvalidAddressGeocodingException());
+                ->andThrow(new InvalidAddressGeocodingException);
         });
 
         $importer = new ConferenceImporter(1);
@@ -270,8 +307,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNull($conference->longitude);
     }
 
-    /** @test */
-    public function imported_conferences_are_approved()
+    #[Test]
+    public function imported_conferences_are_approved(): void
     {
         $this->mockClient();
 
@@ -281,8 +318,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertTrue(Conference::first()->is_approved);
     }
 
-    /** @test */
-    public function it_updates_data_for_existing_conferences()
+    #[Test]
+    public function it_updates_data_for_existing_conferences(): void
     {
         $this->mockClient();
 
@@ -308,8 +345,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($updatedEvent->eventUri, $updatedConference->url);
     }
 
-    /** @test */
-    public function updating_existing_unapproved_conferences_leaves_them_unapproved()
+    #[Test]
+    public function updating_existing_unapproved_conferences_leaves_them_unapproved(): void
     {
         $this->mockClient();
 
@@ -325,8 +362,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertFalse(Conference::first()->is_approved);
     }
 
-    /** @test */
-    public function conferences_with_cfp_end_after_conference_start_are_rejected()
+    #[Test]
+    public function conferences_with_cfp_end_after_conference_start_are_rejected(): void
     {
         $this->mockClient();
 
@@ -344,8 +381,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNotNull($conference->rejected_at);
     }
 
-    /** @test */
-    public function conferences_with_over_2_year_duration_are_rejected()
+    #[Test]
+    public function conferences_with_over_2_year_duration_are_rejected(): void
     {
         $this->mockClient();
 
@@ -363,8 +400,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNotNull($conference->rejected_at);
     }
 
-    /** @test */
-    public function conferences_with_cfp_duration_over_2_years_are_rejected()
+    #[Test]
+    public function conferences_with_cfp_duration_over_2_years_are_rejected(): void
     {
         $this->mockClient();
 
@@ -382,8 +419,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertNotNull($conference->rejected_at);
     }
 
-    /** @test */
-    public function rejected_conferences_cannot_be_reimported()
+    #[Test]
+    public function rejected_conferences_cannot_be_reimported(): void
     {
         $this->mockClient();
 
@@ -405,8 +442,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals(1, $conferenceCount);
     }
 
-    /** @test */
-    public function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future()
+    #[Test]
+    public function conferences_with_null_cfp_start_are_valid_with_cfp_end_less_than_2_years_in_future(): void
     {
         $this->mockClient();
 
@@ -421,8 +458,8 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals(1, Conference::count());
     }
 
-    /** @test */
-    public function conferences_with_null_start_are_valid_with_end_less_than_2_years_in_future()
+    #[Test]
+    public function conferences_with_null_start_are_valid_with_end_less_than_2_years_in_future(): void
     {
         $this->mockClient();
 
@@ -434,6 +471,24 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $event->dateEventEnd = now()->addMonths(23)->toIso8601String();
         $importer->import($event);
 
+        $this->assertEquals(1, Conference::count());
+    }
+
+    #[Test]
+    public function the_geocoder_is_not_called_for_conferences_already_having_coordinates(): void
+    {
+        $this->mockClient();
+        $spy = $this->spy(Geocoder::class);
+
+        $importer = new ConferenceImporter(1);
+        $event = $this->eventStub;
+        $event->location = 'Somewhere';
+        $event->latitude = 123;
+        $event->longitude = 321;
+
+        $importer->import($event);
+
+        $spy->shouldNotHaveReceived('geocode');
         $this->assertEquals(1, Conference::count());
     }
 }

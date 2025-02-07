@@ -5,12 +5,13 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\Talk;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    /** @test */
-    public function it_checks_if_user_is_admin()
+    #[Test]
+    public function it_checks_if_user_is_admin(): void
     {
         $user = User::factory()->create();
         $this->assertEquals(0, $user->role);
@@ -21,8 +22,8 @@ class UserTest extends TestCase
         $this->assertTrue($admin->isAdmin());
     }
 
-    /** @test */
-    public function it_returns_all_users_subscribed_to_notifications()
+    #[Test]
+    public function it_returns_all_users_subscribed_to_notifications(): void
     {
         User::factory()->create();
         User::factory()->wantsNotifications()->create();
@@ -30,8 +31,8 @@ class UserTest extends TestCase
         $this->assertEquals(1, User::wantsNotifications()->count());
     }
 
-    /** @test */
-    function archived_talks_are_not_included_in_the_talks_relationship()
+    #[Test]
+    public function archived_talks_are_not_included_in_the_talks_relationship(): void
     {
         $user = User::factory()->create();
         $activeTalk = Talk::factory()->author($user)->create();
@@ -43,7 +44,7 @@ class UserTest extends TestCase
         $this->assertNotContains($archivedTalk->id, $activeTalks->pluck('id'));
     }
 
-    function only_admins_can_access_filament()
+    public function only_admins_can_access_filament()
     {
         $user = User::factory()->create();
         $admin = User::factory()->admin()->create();
@@ -52,8 +53,8 @@ class UserTest extends TestCase
         $this->assertTrue($admin->canAccessFilament());
     }
 
-    /** @test */
-    function getting_conference_submissions()
+    #[Test]
+    public function getting_conference_submissions(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();

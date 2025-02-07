@@ -6,14 +6,16 @@ use App\Http\Requests\SpeakerSearchRequest;
 use App\Mail\ContactRequest;
 use App\Models\User;
 use Captcha\Captcha;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class PublicProfileController extends Controller
 {
-    public function index(SpeakerSearchRequest $request)
+    public function index(SpeakerSearchRequest $request): View
     {
         $users = User::searchPublicSpeakers($request->query('query'))
             ->orderBy('name', 'asc')
@@ -25,7 +27,7 @@ class PublicProfileController extends Controller
         ]);
     }
 
-    public function show($profile_slug)
+    public function show($profile_slug): View
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
         $talks = $user->talks()->withCurrentRevision()->public()->get()->sortByTitle();
@@ -38,7 +40,7 @@ class PublicProfileController extends Controller
         ]);
     }
 
-    public function showTalk($profile_slug, $talk_id)
+    public function showTalk($profile_slug, $talk_id): View
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
@@ -50,7 +52,7 @@ class PublicProfileController extends Controller
         ]);
     }
 
-    public function showBio($profile_slug, $bio_id)
+    public function showBio($profile_slug, $bio_id): View
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
@@ -62,7 +64,7 @@ class PublicProfileController extends Controller
         ]);
     }
 
-    public function getEmail($profile_slug)
+    public function getEmail($profile_slug): View
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 
@@ -75,7 +77,7 @@ class PublicProfileController extends Controller
         ]);
     }
 
-    public function postEmail($profile_slug, Captcha $captcha, Request $request)
+    public function postEmail($profile_slug, Captcha $captcha, Request $request): RedirectResponse
     {
         $user = $this->getPublicUserByProfileSlug($profile_slug);
 

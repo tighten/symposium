@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 
 class SubmissionsSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Conference::all()->each(function ($conference) {
             $talkRevisions = TalkRevision::inRandomOrder()->limit(mt_rand(1, 5))->get();

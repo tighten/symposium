@@ -1,25 +1,21 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "dev": "vite",
+        "build": "vite build",
+        "prod": "vite build"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.0",
+        "@tailwindcss/typography": "^0.5.15",
+        "@vitejs/plugin-vue2": "^2.3.1",
         "autoprefixer": "^10.4.4",
-        "axios": "^0.27",
+        "axios": "^1.6.4",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
         "husky": "^8.0.1",
-        "laravel-mix": "^6.0.25",
-        "laravel-mix-purgecss": "^6.0.0",
+        "laravel-vite-plugin": "^1.0.5",
         "lint-staged": "^13.0.3",
-        "livewire-vue": "^0.3.1",
         "lodash": "^4.17.15",
         "postcss": "^8.4.12",
         "prettier": "^2.7.1",
@@ -27,7 +23,8 @@
         "stylelint": "^14.10.0",
         "stylelint-config-standard": "^27.0.0",
         "tailwindcss": "^3.3.1",
-        "vue": "^2.6.7",
+        "vite": "^6.0.0",
+        "vue": "^2.7.0",
         "vue-loader": "^15.9.7",
         "vue-template-compiler": "^2.6.10"
     },
@@ -51,5 +48,6 @@
         "hooks": {
             "pre-commit": "lint-staged && vendor/bin/tlint lint --diff"
         }
-    }
+    },
+    "type": "module"
 }

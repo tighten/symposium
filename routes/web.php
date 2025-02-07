@@ -14,7 +14,7 @@ use App\Http\Controllers\RejectionController;
 use App\Http\Controllers\SubmissionReactionsController;
 use App\Http\Controllers\SubmissionsController;
 use App\Http\Controllers\TalksController;
-use App\Http\Livewire\ConferenceList;
+use App\Livewire\ConferenceList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

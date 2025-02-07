@@ -11,14 +11,14 @@ class ConferenceImporterInactive extends Notification
 {
     use Queueable;
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function ($attachment) {
                 $attachment
                     ->title('Conference importer may be inactive')

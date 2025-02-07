@@ -6,6 +6,7 @@ use App\Models\Conference;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ConferenceApiTest extends TestCase
@@ -22,7 +23,14 @@ class ConferenceApiTest extends TestCase
         Passport::actingAs($this->user);
     }
 
-    /** @test */
+    #[Test]
+    public function can_fetch_all_conferences(): void
+    {
+        $response = $this->call('GET', 'api/conferences');
+        $data = json_decode($response->getContent());
+    }
+
+    #[Test]
     public function conference_index_defaults_to_cfp_unclosed_conferences()
     {
         $closedCfpConference = Conference::factory()
@@ -39,7 +47,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.0.id', $unClosedCfpConference->id);
     }
 
-    /** @test */
+    #[Test]
     public function fetching_all_conferences()
     {
         $conference = Conference::factory()->create();
@@ -51,7 +59,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.0.id', $conference->id);
     }
 
-    /** @test */
+    #[Test]
     public function fetching_future_conferences()
     {
         $pastConference = Conference::factory()
@@ -68,7 +76,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.0.id', $futureConference->id);
     }
 
-    /** @test */
+    #[Test]
     public function fetching_open_cfp_conferences()
     {
         $closedCfpConference = Conference::factory()
@@ -85,7 +93,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.0.id', $openCfpConference->id);
     }
 
-    /** @test */
+    #[Test]
     public function sorting_conferences_alphabetically(): void
     {
         $conferenceA = Conference::factory()->create(['title' => 'Your Conference']);
@@ -99,7 +107,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.1.id', $conferenceA->id);
     }
 
-    /** @test */
+    #[Test]
     public function sorting_conferences_alphabetically_descending(): void
     {
         $conferenceA = Conference::factory()->create(['title' => 'Your Conference']);
@@ -113,7 +121,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.1.id', $conferenceB->id);
     }
 
-    /** @test */
+    #[Test]
     public function sorting_conferences_by_date(): void
     {
         $conferenceA = Conference::factory()->dates(now()->addDay())->create();
@@ -127,7 +135,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.1.id', $conferenceA->id);
     }
 
-    /** @test */
+    #[Test]
     public function sorting_conferences_by_date_descending(): void
     {
         $conferenceA = Conference::factory()->dates(now()->addDay())->create();
@@ -141,7 +149,7 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.1.id', $conferenceB->id);
     }
 
-    /** @test */
+    #[Test]
     public function conferences_are_sorted_by_cfp_closing_next_by_default(): void
     {
         $conferenceA = Conference::factory()->create([
@@ -164,8 +172,8 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.2.id', $conferenceB->id);
     }
 
-    /** @test */
-    public function can_fetch_one_conference()
+    #[Test]
+    public function can_fetch_one_conference(): void
     {
         $conference = Conference::factory()->create(['title' => 'My Conference']);
 
@@ -176,8 +184,8 @@ class ConferenceApiTest extends TestCase
         $response->assertJsonPath('data.attributes.title', 'My Conference');
     }
 
-    /** @test */
-    public function cfp_url_returns_if_set()
+    #[Test]
+    public function cfp_url_returns_if_set(): void
     {
         $conference = Conference::create([
             'author_id' => 1,
@@ -193,8 +201,8 @@ class ConferenceApiTest extends TestCase
         $this->assertEquals('http://awesome.com/cfp', $data->data->attributes->cfp_url);
     }
 
-    /** @test */
-    public function cfp_url_returns_null_on_api_if_not_set()
+    #[Test]
+    public function cfp_url_returns_null_on_api_if_not_set(): void
     {
         $conference = Conference::create([
             'author_id' => 1,
@@ -209,8 +217,8 @@ class ConferenceApiTest extends TestCase
         $this->assertNull($data->data->attributes->cfp_url);
     }
 
-    /** @test */
-    public function unclosed_cfp_returns_open_and_future_cfp()
+    #[Test]
+    public function unclosed_cfp_returns_open_and_future_cfp(): void
     {
         Conference::factory()
             ->cfpDates(now()->subDay(), now()->addDay())

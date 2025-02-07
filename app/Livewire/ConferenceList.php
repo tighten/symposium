@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Conference;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -57,7 +58,8 @@ class ConferenceList extends Component
         ])->extends('app');
     }
 
-    public function getConferenceQueryProperty()
+    #[Computed]
+    public function conferenceQuery()
     {
         return Conference::searchQuery($this->search, function ($query) {
             $query
@@ -78,7 +80,8 @@ class ConferenceList extends Component
         })->paginate();
     }
 
-    public function getConferencesProperty()
+    #[Computed]
+    public function conferences()
     {
         return $this->conferenceQuery
             ->groupByMonth($this->dateColumn())
@@ -94,7 +97,8 @@ class ConferenceList extends Component
             });
     }
 
-    public function getFilterOptionsProperty()
+    #[Computed]
+    public function filterOptions()
     {
         $filterOptions = [
             ['label' => 'All', 'value' => 'all'],
@@ -112,7 +116,8 @@ class ConferenceList extends Component
         return $filterOptions;
     }
 
-    public function getSortOptionsProperty()
+    #[Computed]
+    public function sortOptions()
     {
         return [
             ['label' => 'Title', 'value' => 'title'],

@@ -2,13 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\AcceptanceSeeder;
-use Database\Seeders\BiosSeeder;
-use Database\Seeders\ConferencesSeeder;
-use Database\Seeders\RejectionSeeder;
-use Database\Seeders\SubmissionsSeeder;
-use Database\Seeders\TalksSeeder;
-use Database\Seeders\UsersSeeder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +10,8 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         Eloquent::unguard();
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Livewire\ConferenceList;
+use App\Livewire\ConferenceList;
 use App\Models\Bio;
 use App\Models\Conference;
 use App\Models\Talk;
@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class AccountTest extends TestCase
 {
-    /** @test */
-    public function users_can_log_in()
+    #[Test]
+    public function users_can_log_in(): void
     {
         $user = User::factory()->create(['password' => Hash::make('super-secret')]);
 
@@ -33,8 +34,8 @@ class AccountTest extends TestCase
         $response->assertSessionDoesntHaveErrors('email');
     }
 
-    /** @test */
-    public function logging_in_with_invalid_credentials()
+    #[Test]
+    public function logging_in_with_invalid_credentials(): void
     {
         $user = User::factory()->create();
 
@@ -47,7 +48,7 @@ class AccountTest extends TestCase
         $response->assertSessionHasErrors('email');
     }
 
-    /** @test */
+    #[Test]
     public function users_can_view_their_profile(): void
     {
         $user = User::factory()->create(['name' => 'Luke Skywalker']);
@@ -57,7 +58,7 @@ class AccountTest extends TestCase
         $response->assertSee('Luke Skywalker');
     }
 
-    /** @test */
+    #[Test]
     public function users_can_edit_their_profile(): void
     {
         $user = User::factory()->create(['name' => 'Luke Skywalker']);
@@ -67,8 +68,8 @@ class AccountTest extends TestCase
         $response->assertSee('Luke Skywalker');
     }
 
-    /** @test */
-    public function user_can_update_their_profile()
+    #[Test]
+    public function user_can_update_their_profile(): void
     {
         $user = User::factory()->create();
 
@@ -96,8 +97,8 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function user_can_update_their_profile_picture()
+    #[Test]
+    public function user_can_update_their_profile_picture(): void
     {
         Storage::fake();
 
@@ -124,8 +125,8 @@ class AccountTest extends TestCase
         });
     }
 
-    /** @test */
-    public function password_reset_emails_are_sent_for_valid_users()
+    #[Test]
+    public function password_reset_emails_are_sent_for_valid_users(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -137,8 +138,8 @@ class AccountTest extends TestCase
         Notification::assertSentTo($user, ResetPassword::class);
     }
 
-    /** @test */
-    public function user_can_reset_their_password_from_email_link()
+    #[Test]
+    public function user_can_reset_their_password_from_email_link(): void
     {
         Notification::fake();
 
@@ -177,7 +178,7 @@ class AccountTest extends TestCase
         ])->assertLocation('dashboard');
     }
 
-    /** @test */
+    #[Test]
     public function confirming_account_deletion(): void
     {
         $user = User::factory()->create();
@@ -187,7 +188,7 @@ class AccountTest extends TestCase
         $response->assertSee('Are you sure you want to delete your account?');
     }
 
-    /** @test */
+    #[Test]
     public function viewing_oauth_settings(): void
     {
         $user = User::factory()->create();
@@ -197,8 +198,8 @@ class AccountTest extends TestCase
         $response->assertSuccessful();
     }
 
-    /** @test */
-    public function users_can_delete_their_accounts()
+    #[Test]
+    public function users_can_delete_their_accounts(): void
     {
         $user = User::factory()->create();
 
@@ -210,8 +211,8 @@ class AccountTest extends TestCase
         $this->assertModelMissing($user);
     }
 
-    /** @test */
-    public function deleting_a_user_deletes_its_associated_entities()
+    #[Test]
+    public function deleting_a_user_deletes_its_associated_entities(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -252,7 +253,7 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function users_can_export_their_account()
     {
         Storage::fake();
@@ -265,8 +266,8 @@ class AccountTest extends TestCase
         $response->assertDownload('export_2024_05_04.json');
     }
 
-    /** @test */
-    public function users_can_dismiss_a_conference()
+    #[Test]
+    public function users_can_dismiss_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -281,8 +282,8 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function users_can_undismiss_a_conference()
+    #[Test]
+    public function users_can_undismiss_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->dismissedBy($user)->create();
@@ -297,8 +298,8 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function users_can_favorite_a_conference()
+    #[Test]
+    public function users_can_favorite_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->create();
@@ -313,8 +314,8 @@ class AccountTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function users_can_unfavorite_a_conference()
+    #[Test]
+    public function users_can_unfavorite_a_conference(): void
     {
         $user = User::factory()->create();
         $conference = Conference::factory()->favoritedBy($user)->create();

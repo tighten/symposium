@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 
 class TalkRevisionFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => 'My Awesome Title',

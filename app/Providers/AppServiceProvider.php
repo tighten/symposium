@@ -3,13 +3,15 @@
 namespace App\Providers;
 
 use App\CallingAllPapers\Client;
+use App\Exceptions\ExceptionHandler;
+use App\Exceptions\Handler;
 use App\Handlers\Events\SlackSubscriber;
-use Collective\Html\FormBuilder;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -20,16 +22,23 @@ use Laravel\Passport\Passport;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * The path to your application's "home" route.
      *
-     * @return void
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
      */
-    public function boot()
+    public const HOME = '/home';
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
     {
         Blade::withoutDoubleEncoding();
 
         Blade::directive('sorted', function ($expression) {
-            list($sorted_by, $query) = explode(',', $expression, 2);
+            [$sorted_by, $query] = explode(',', $expression, 2);
 
             return "<?php echo e({$sorted_by} == {$query} ? 'u-bold' : ''); ?>";
         });
@@ -64,28 +73,20 @@ class AppServiceProvider extends ServiceProvider
                 str(route($routeName, [], false))->ltrim('/'),
             );
         });
+
+        $this->bootBroadcast();
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         Passport::withoutCookieSerialization();
-        Passport::ignoreMigrations();
-
-        $this->app->bind('form', function () {
-            return new FormBuilder(
-                $this->app->make('Collective\Html\HtmlBuilder'),
-                $this->app->make('Illuminate\Routing\UrlGenerator'),
-                null,
-                csrf_token()
-            );
-        });
 
         $this->registerCallingAllPapersClient();
+
+        $this->app->bind(ExceptionHandler::class, Handler::class);
     }
 
     public function registerCallingAllPapersClient()
@@ -94,9 +95,20 @@ class AppServiceProvider extends ServiceProvider
             ->needs(GuzzleClient::class)
             ->give(function () {
                 return new GuzzleClient([
-                    'headers'  => ['User-Agent' => 'Symposium CLI'],
+                    'headers' => ['User-Agent' => 'Symposium CLI'],
                     'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
                 ]);
             });
+    }
+
+    public function bootBroadcast(): void
+    {
+
+        /*
+         * Authenticate the user's personal channel...
+         */
+        Broadcast::channel('App.User.{userId}', function ($user, $userId) {
+            return (int) $user->id === (int) $userId;
+        });
     }
 }

@@ -4,12 +4,15 @@ namespace Tests\Api;
 
 use App\Models\User;
 use Laravel\Passport\Passport;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class MeApiTest extends TestCase
+
+class MeApiTest extends ApiTestCase
 {
-    /** @test */
-    public function can_fetch_my_info()
+    #[Test]
+    public function can_fetch_my_info(): void
     {
         Passport::actingAs(User::factory()->create());
 
@@ -20,7 +23,7 @@ class MeApiTest extends TestCase
         $this->assertIsObject($data->data);
     }
 
-    /** @test */
+    #[Test]
     public function only_authenticated_users_can_fetch_user_data(): void
     {
         $response = $this->getJson('api/me');

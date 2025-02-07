@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\TalkRevision;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +18,11 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory;
     use HasApiTokens;
+    use HasFactory;
+    use HasRelationships;
     use Notifiable;
     use Searchable;
-    use HasRelationships;
 
     public const ADMIN_ROLE = 1;
 
@@ -83,17 +85,17 @@ class User extends Authenticatable implements FilamentUser
         return $this->role == self::ADMIN_ROLE;
     }
 
-    public function canAccessFilament(): bool
+    public function canAccessPanel(Panel $panel): bool
     {
         return $this->isAdmin();
     }
 
-    public function talks()
+    public function talks(): HasMany
     {
         return $this->hasMany(Talk::class, 'author_id');
     }
 
-    public function talkRevisions()
+    public function talkRevisions(): HasManyThrough
     {
         return $this->hasManyThrough(
             TalkRevision::class,
@@ -106,23 +108,23 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasManyDeepFromRelations(
             $this->talkRevisions(),
-            (new TalkRevision())->submissions(),
+            (new TalkRevision)->submissions(),
         );
     }
 
-    public function archivedTalks()
+    public function archivedTalks(): HasMany
     {
         return $this->hasMany(Talk::class, 'author_id')
             ->withoutGlobalScope('active')
             ->archived();
     }
 
-    public function bios()
+    public function bios(): HasMany
     {
         return $this->hasMany(Bio::class)->orderBy('nickname');
     }
 
-    public function conferences()
+    public function conferences(): HasMany
     {
         return $this->hasMany(Conference::class, 'author_id');
     }
@@ -175,7 +177,7 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function social()
+    public function social(): HasMany
     {
         return $this->hasMany(UserSocial::class);
     }

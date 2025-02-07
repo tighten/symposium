@@ -4,16 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\ApiResources\Bio;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 
 class UserBiosController extends Controller
 {
     /**
      * Display all of the given user's bios
-     *
-     * @return Response
      */
-    public function index($userId)
+    public function index($userId): JsonResponse
     {
         if ($userId != auth()->guard('api')->user()->id) {
             App::abort(404);

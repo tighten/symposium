@@ -9,7 +9,7 @@ class ListConferences extends ListRecords
 {
     protected static string $resource = ConferenceResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             //

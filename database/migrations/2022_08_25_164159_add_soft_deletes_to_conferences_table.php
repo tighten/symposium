@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->softDeletes()->after('updated_at');
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('conferences', function (Blueprint $table) {
             $table->dropSoftDeletes();

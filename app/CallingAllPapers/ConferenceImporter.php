@@ -4,7 +4,7 @@ namespace App\CallingAllPapers;
 
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
-use App\Services\Geocoder;
+use App\Services\Geocoder\Geocoder;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTime;
@@ -16,7 +16,7 @@ class ConferenceImporter
 
     private $geocoder;
 
-    public function __construct(int $authorId = null)
+    public function __construct(?int $authorId = null)
     {
         $this->authorId = $authorId ?: auth()->user()->id;
         $this->geocoder = app(Geocoder::class);
@@ -74,7 +74,7 @@ class ConferenceImporter
         $this->updateConferenceFromCallingAllPapersEvent($conference, $event);
 
         if (! $conference->latitude && ! $conference->longitude && $conference->location) {
-            $this->geocodeLatLongFromLocation($conference);
+            $this->geocodeLocation($conference);
         }
 
         if ($validator->fails()) {
@@ -112,13 +112,15 @@ class ConferenceImporter
         return (float) $primary && (float) $secondary ? $primary : null;
     }
 
-    private function geocodeLatLongFromLocation(Conference $conference): Conference
+    private function geocodeLocation(Conference $conference): void
     {
         try {
-            $conference->coordinates = $this->geocoder->geocode($conference->location);
+            $result = $this->geocoder->geocode($conference->location);
         } catch (InvalidAddressGeocodingException $e) {
+            return;
         }
 
-        return $conference;
+        $conference->coordinates = $result->getCoordinates();
+        $conference->location_name = $result->getLocationName();
     }
 }

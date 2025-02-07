@@ -8,13 +8,14 @@ use App\Models\User;
 use App\Notifications\ConferenceIssueReported;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ConferenceIssuesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function creating_a_conference_issue()
     {
         $user = User::factory()->create();
@@ -26,8 +27,8 @@ class ConferenceIssuesTest extends TestCase
         $response->assertSuccessful();
     }
 
-    /** @test */
-    function saving_a_conference_issue()
+    #[Test]
+    public function saving_a_conference_issue(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -51,8 +52,8 @@ class ConferenceIssuesTest extends TestCase
         Notification::assertSentToTightenSlack(ConferenceIssueReported::class);
     }
 
-    /** @test */
-    function conference_issues_must_contain_a_reason_and_note()
+    #[Test]
+    public function conference_issues_must_contain_a_reason_and_note(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -68,8 +69,8 @@ class ConferenceIssuesTest extends TestCase
         Notification::assertNothingSent();
     }
 
-    /** @test */
-    function conference_issue_reasons_must_be_an_expected_value()
+    #[Test]
+    public function conference_issue_reasons_must_be_an_expected_value(): void
     {
         Notification::fake();
         $user = User::factory()->create();
@@ -88,8 +89,8 @@ class ConferenceIssuesTest extends TestCase
         Notification::assertNothingSent();
     }
 
-    /** @test */
-    function issues_that_have_not_been_closed_are_open()
+    #[Test]
+    public function issues_that_have_not_been_closed_are_open(): void
     {
         $openIssue = ConferenceIssue::factory()->create([
             'closed_at' => null,
@@ -102,8 +103,8 @@ class ConferenceIssuesTest extends TestCase
         $this->assertFalse($closedIssue->isOpen());
     }
 
-    /** @test */
-    function closing_an_issue()
+    #[Test]
+    public function closing_an_issue(): void
     {
         $user = User::factory()->create();
         $issue = ConferenceIssue::factory()->create();

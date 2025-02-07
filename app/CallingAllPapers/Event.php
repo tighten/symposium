@@ -43,13 +43,11 @@ class Event
     /** The URI to the event's CFP */
     public $uri;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function createFromApiObject(stdClass $object)
     {
-        $event = new self();
+        $event = new self;
         $event->id = self::generateIdWithYear($object);
 
         foreach (get_object_vars($event) as $property => $unused) {

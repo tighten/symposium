@@ -3,7 +3,7 @@
         <x-input.text
             name="search"
             placeholder="Search conferences"
-            wire:model="search"
+            wire:model.live="search"
             class="flex-1"
         />
         <x-input.select
@@ -13,7 +13,7 @@
             option-text="label"
             option-value="value"
             :options="$this->filter_options"
-            wire:model="filter"
+            wire:model.live="filter"
             class="w-1/4"
             label-class="font-semibold text-gray-500"
             input-class="font-semibold text-indigo-600"
@@ -25,7 +25,7 @@
             option-text="label"
             option-value="value"
             :options="$this->sort_options"
-            wire:model="sort"
+            wire:model.live="sort"
             class="w-1/4"
             label-class="font-semibold text-gray-500"
             input-class="font-semibold text-indigo-600"

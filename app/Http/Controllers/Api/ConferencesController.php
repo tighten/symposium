@@ -6,11 +6,12 @@ use App\ApiResources\Conference;
 use App\Http\Controllers\Controller;
 use App\Models\Conference as EloquentConference;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ConferencesController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         switch ($request->input('filter')) {
             case 'all':
@@ -80,7 +81,7 @@ class ConferencesController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $conference = new Conference(EloquentConference::findOrFail($id));
 

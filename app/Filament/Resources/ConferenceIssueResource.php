@@ -5,17 +5,18 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ConferenceIssueResource\Pages\ListConferenceIssues;
 use App\Filament\Resources\ConferenceIssueResource\Pages\ViewConferenceIssue;
 use App\Models\ConferenceIssue;
-use Awcodes\DropInAction\Forms\Components\DropInAction;
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Support\Enums\VerticalAlignment;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class ConferenceIssueResource extends Resource
@@ -37,7 +38,7 @@ class ConferenceIssueResource extends Resource
                 Section::make('Conference')->columns(2)->schema([
                     Grid::make()->schema([
                         TextInput::make('name')
-                            ->formatStateUsing(fn($record) => $record->conference->title),
+                            ->formatStateUsing(fn ($record) => $record->conference->title),
                         TextInput::make('Event dates')
                             ->formatStateUsing(function ($record) {
                                 return $record->conference->startsAtDisplay() . ' - ' . $record->conference->endsAtDisplay();
@@ -45,16 +46,13 @@ class ConferenceIssueResource extends Resource
                         Grid::make(3)->columnSpan(1)->schema([
                             TextInput::make('url')
                                 ->columnSpan(2)
-                                ->formatStateUsing(fn($record) => $record->conference->url),
-                            DropInAction::make('Conference URL')
-                                ->columnSpan(1)
-                                ->disableLabel()
-                                ->execute(function ($record) {
-                                    return Action::make('Open')
-                                        ->icon('heroicon-o-external-link')
-                                        ->url($record->conference->url)
-                                        ->openUrlInNewTab();
-                                }),
+                                ->formatStateUsing(fn ($record) => $record->conference->url),
+                            Actions::make([
+                                Action::make('Open')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->url(fn ($record) => $record->conference->url)
+                                    ->openUrlInNewTab(),
+                            ])->verticalAlignment(VerticalAlignment::End),
                         ]),
                         TextInput::make('cfp_dates')
                             ->label('CFP dates')
@@ -68,10 +66,10 @@ class ConferenceIssueResource extends Resource
                         TextInput::make('reason'),
                         TextInput::make('reported by')
                             ->columnSpan(1)
-                            ->formatStateUsing(fn($record) => $record->user->name),
+                            ->formatStateUsing(fn ($record) => $record->user->name),
                     ]),
                     Placeholder::make('note')
-                        ->content(fn($record) => $record->note),
+                        ->content(fn ($record) => $record->note),
                 ]),
             ]);
     }
@@ -114,7 +112,7 @@ class ConferenceIssueResource extends Resource
             ]);
     }
 
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return static::getEloquentQuery()->count();
     }

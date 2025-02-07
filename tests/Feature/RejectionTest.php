@@ -8,12 +8,13 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class RejectionTest extends TestCase
 {
-    /** @test */
-    public function can_create_from_submission()
+    #[Test]
+    public function can_create_from_submission(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -36,8 +37,8 @@ class RejectionTest extends TestCase
         $this->assertEquals($submission->id, $rejection->submission->id);
     }
 
-    /** @test */
-    public function user_can_remove_rejection_via_http()
+    #[Test]
+    public function user_can_remove_rejection_via_http(): void
     {
         $user = User::factory()->create();
         $this->be($user);

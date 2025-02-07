@@ -9,12 +9,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SaveConferenceRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => ['required'],
@@ -38,20 +38,21 @@ class SaveConferenceRequest extends FormRequest
                 'before:starts_at',
             ],
             'location' => ['nullable'],
+            'location_name' => ['nullable'],
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
             'speaker_package' => ['nullable'],
             'speaker_package.currency' => function ($attribute, $value, $fail) {
                 if (! Money::isValidCurrency($value)) {
                     $fail($attribute . ' must be a valid currency type.');
-                };
+                }
             },
             ...collect(SpeakerPackage::CATEGORIES)
                 ->mapWithKeys(function ($category) {
                     return [
                         "speaker_package.{$category}" => [
                             'nullable',
-                            new ValidAmountForCurrentLocale(),
+                            new ValidAmountForCurrentLocale,
                         ],
                     ];
                 }),

@@ -4,11 +4,12 @@ namespace Tests\Api;
 
 use App\Models\Talk;
 use App\Models\TalkRevision;
+use PHPUnit\Framework\Attributes\Test;
 
 class TalkApiTest extends ApiTestCase
 {
-    /** @test */
-    public function can_fetch_all_talks_for_user()
+    #[Test]
+    public function can_fetch_all_talks_for_user(): void
     {
         $response = $this->call('GET', 'api/user/1/talks');
         $data = json_decode($response->getContent());
@@ -17,8 +18,8 @@ class TalkApiTest extends ApiTestCase
         $this->assertCount(2, $data->data);
     }
 
-    /** @test */
-    public function all_talks_doesnt_return_archived_talks()
+    #[Test]
+    public function all_talks_doesnt_return_archived_talks(): void
     {
         $toBeArchivedTalk = $this->user->talks()->create([]);
         $toBeArchivedTalk->revisions()->save(TalkRevision::factory()->create());
@@ -36,8 +37,8 @@ class TalkApiTest extends ApiTestCase
         $this->assertCount(2, $data->data);
     }
 
-    /** @test */
-    public function including_archived_talks()
+    #[Test]
+    public function including_archived_talks(): void
     {
         Talk::factory()
             ->author($this->user)
@@ -50,8 +51,8 @@ class TalkApiTest extends ApiTestCase
         $response->assertJsonFragment(['title' => 'My Archived Talk']);
     }
 
-    /** @test */
-    public function excluding_archived_talks()
+    #[Test]
+    public function excluding_archived_talks(): void
     {
         Talk::factory()
             ->author($this->user)
@@ -64,8 +65,8 @@ class TalkApiTest extends ApiTestCase
         $response->assertJsonMissing(['title' => 'My Archived Talk']);
     }
 
-    /** @test */
-    public function all_talks_return_alpha_sorted()
+    #[Test]
+    public function all_talks_return_alpha_sorted(): void
     {
         $response = $this->call('GET', 'api/user/1/talks');
         $data = collect(json_decode($response->getContent())->data);
@@ -76,8 +77,8 @@ class TalkApiTest extends ApiTestCase
         $this->assertEquals('My great talk', $titles->last());
     }
 
-    /** @test */
-    public function can_fetch_one_talk()
+    #[Test]
+    public function can_fetch_one_talk(): void
     {
         $talkId = Talk::first()->id;
         $response = $this->call('GET', "api/talks/{$talkId}");
@@ -87,16 +88,16 @@ class TalkApiTest extends ApiTestCase
         $this->assertIsObject($data->data);
     }
 
-    /** @test */
-    public function cannot_fetch_all_talks_for_other_users()
+    #[Test]
+    public function cannot_fetch_all_talks_for_other_users(): void
     {
         $response = $this->call('GET', 'api/user/2/talks');
 
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    /** @test */
-    public function cannot_fetch_one_talk_for_other_users()
+    #[Test]
+    public function cannot_fetch_one_talk_for_other_users(): void
     {
         $talkId = Talk::where('author_id', 2)->first()->id;
         $response = $this->call('GET', "api/talks/{$talkId}");

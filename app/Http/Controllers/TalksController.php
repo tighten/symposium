@@ -6,15 +6,17 @@ use App\Http\Requests\SaveTalkRequest;
 use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class TalksController extends Controller
 {
     protected $sorted_by = 'alpha';
 
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $talks = $this->sortTalks(
             $this->filterTalks($request->input('filter')),
@@ -27,18 +29,18 @@ class TalksController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         $current = new TalkRevision([
             'type' => 'seminar',
             'level' => 'beginner',
         ]);
-        $talk = new Talk();
+        $talk = new Talk;
 
         return view('talks.create', ['current' => $current, 'talk' => $talk]);
     }
 
-    public function store(SaveTalkRequest $request)
+    public function store(SaveTalkRequest $request): RedirectResponse
     {
         $talk = Talk::create([
             'author_id' => auth()->user()->id,
@@ -61,6 +63,24 @@ class TalksController extends Controller
         return redirect("/talks/{$talk->id}");
     }
 
+    public function show($id, Request $request): View
+    {
+        $talk = auth()->user()->talks()->findOrFail($id);
+
+        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->loadCurrentRevision()->currentRevision;
+
+        $submissions = Submission::where('talk_revision_id', $current->id)
+            ->with(['conference', 'acceptance', 'rejection'])
+            ->get();
+
+        return view('talks.show', [
+            'talk' => $talk,
+            'showingRevision' => $request->filled('revision'),
+            'current' => $current,
+            'submissions' => $submissions,
+        ]);
+    }
+
     public function edit($id)
     {
         $talk = auth()->user()->talks()->withCurrentRevision()->findOrFail($id);
@@ -71,7 +91,7 @@ class TalksController extends Controller
         ]);
     }
 
-    public function update($id, SaveTalkRequest $request)
+    public function update($id, SaveTalkRequest $request): RedirectResponse
     {
         $talk = auth()->user()->talks()->findOrFail($id);
         $talk->update(['public' => $request->input('public') == 1]);
@@ -92,25 +112,7 @@ class TalksController extends Controller
         return redirect("/talks/{$talk->id}");
     }
 
-    public function show($id, Request $request)
-    {
-        $talk = auth()->user()->talks()->findOrFail($id);
-
-        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->loadCurrentRevision()->currentRevision;
-
-        $submissions = Submission::where('talk_revision_id', $current->id)
-            ->with(['conference', 'acceptance', 'rejection'])
-            ->get();
-
-        return view('talks.show', [
-            'talk' => $talk,
-            'showingRevision' => $request->filled('revision'),
-            'current' => $current,
-            'submissions' => $submissions,
-        ]);
-    }
-
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         auth()->user()->talks()->withoutGlobalScope('active')->findOrFail($id)->delete();
 
@@ -119,7 +121,7 @@ class TalksController extends Controller
         return redirect('talks');
     }
 
-    public function archiveIndex(Request $request)
+    public function archiveIndex(Request $request): View
     {
         $talks = $this->sortTalks(
             auth()->user()->archivedTalks()->withCurrentRevision()->get(),
@@ -132,7 +134,7 @@ class TalksController extends Controller
         ]);
     }
 
-    public function archive($id)
+    public function archive($id): RedirectResponse
     {
         auth()->user()->talks()->findOrFail($id)->archive();
 
@@ -141,7 +143,7 @@ class TalksController extends Controller
         return redirect('talks');
     }
 
-    public function restore($id)
+    public function restore($id): RedirectResponse
     {
         auth()->user()->talks()->withoutGlobalScope('active')->findOrFail($id)->restore();
 
@@ -174,7 +176,7 @@ class TalksController extends Controller
                 return $talks->sortByDesc('created_at');
                 break;
             case 'alpha':
-            // Pass through
+                // Pass through
             default:
                 $this->sorted_by = 'alpha';
 

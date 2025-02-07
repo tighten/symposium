@@ -17,19 +17,19 @@
     {{ $attributes }}
 >
     <div class="{{ $styles[$size] }}">
-        @isset ($title)
+        @isset($title)
             <div class="flex content-center justify-between pb-4">
                 <div>
                     <h2 class="font-sans text-xl text-gray-900">
                         {{ $title }}
                     </h2>
 
-                    @isset ($subtitle)
+                    @isset($subtitle)
                         {{ $subtitle }}
                     @endisset
                 </div>
 
-                @isset ($actions)
+                @isset($actions)
                     {{ $actions }}
                 @endisset
             </div>
@@ -40,11 +40,11 @@
         {{ $slot }}
     </div>
 
-    @isset ($body)
+    @isset($body)
         {{ $body }}
     @endisset
 
-    @isset ($footer)
+    @isset($footer)
         <div class="bg-indigo-150 py-3 px-4 font-sans flex justify-between {{ $styles[$size] }}">
             {{ $footer }}
         </div>

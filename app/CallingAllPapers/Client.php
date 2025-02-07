@@ -2,9 +2,7 @@
 
 namespace App\CallingAllPapers;
 
-use App\CallingAllPapers\Event;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\json_decode;
 
 class Client
 {

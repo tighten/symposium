@@ -11,25 +11,28 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v1
+              uses: actions/checkout@v2
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.1
+                  php-version: 8.3
                   extensions: posix, dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
                   coverage: none
 
             - name: Install dependencies
-              run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-            - name: Generate key
               run: |
                 cp .env.example .env
-                php artisan key:generate
+                composer install --no-interaction --prefer-dist --optimize-autoloader
+                php artisan passport:keys
+              env:
+                DB_CONNECTION: testing
+
+            - name: Generate key
+              run: php artisan key:generate
 
             - name: Build Assets
-              run: npm ci && npm run prod
+              run: npm ci && npm run build
 
             - name: PHPUnit
               run: vendor/bin/phpunit

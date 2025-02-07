@@ -5,12 +5,16 @@
 /storage/*.key
 /public/css/app.css
 /public/css/app.css.map
+/public/css/filament
 /public/js/app.js
 /public/js/app.js.map
+/public/js/filament
 /public/js/location.js
 /public/js/location.js.map
 /storage/debugbar
 /storage/framework/testing
-.phpunit.result.cache
+/.phpunit.cache
 .idea/*
 phpunit.xml
+/public/build
+/public/hot

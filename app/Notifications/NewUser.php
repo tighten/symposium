@@ -19,14 +19,14 @@ class NewUser extends Notification
         $this->ip = $ip;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title('New user signup')

@@ -19,7 +19,7 @@ class EditConference extends EditRecord
         return parent::getHeading() . ' (rejected)';
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Action::make('Reject')

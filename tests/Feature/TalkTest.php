@@ -9,11 +9,12 @@ use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
 use Carbon\Carbon;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TalkTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function archiving_a_talk(): void
     {
         $user = User::factory()->create();
@@ -26,8 +27,8 @@ class TalkTest extends TestCase
         $this->assertTrue($talk->fresh()->isArchived());
     }
 
-    /** @test */
-    function archived_talks_are_not_included_on_the_index_page()
+    #[Test]
+    public function archived_talks_are_not_included_on_the_index_page(): void
     {
         $user = User::factory()->create();
         Talk::factory()
@@ -48,8 +49,8 @@ class TalkTest extends TestCase
         $response->assertDontSee('my archived talk');
     }
 
-    /** @test */
-    function active_talks_are_not_included_on_the_archived_index_page()
+    #[Test]
+    public function active_talks_are_not_included_on_the_archived_index_page(): void
     {
         $user = User::factory()->create();
         Talk::factory()
@@ -70,7 +71,7 @@ class TalkTest extends TestCase
         $response->assertDontSee('my active talk');
     }
 
-    /** @test */
+    #[Test]
     public function filtering_talks_by_those_submitted_to_conferences(): void
     {
         $user = User::factory()->create();
@@ -91,7 +92,7 @@ class TalkTest extends TestCase
         $response->assertDontSee('My Backup Talk');
     }
 
-    /** @test */
+    #[Test]
     public function filtering_talks_by_those_accepted_by_conferences(): void
     {
         $user = User::factory()->create();
@@ -112,8 +113,8 @@ class TalkTest extends TestCase
         $response->assertDontSee('My Backup Talk');
     }
 
-    /** @test */
-    public function it_shows_the_talk_title_on_its_page()
+    #[Test]
+    public function it_shows_the_talk_title_on_its_page(): void
     {
         $user = User::factory()->create();
         Conference::factory()->create();
@@ -127,8 +128,8 @@ class TalkTest extends TestCase
         $response->assertSee($revision->title);
     }
 
-    /** @test */
-    public function user_talks_are_sorted_alphabetically()
+    #[Test]
+    public function user_talks_are_sorted_alphabetically(): void
     {
         $user = User::factory()->create();
         $talk1 = Talk::factory()->author($user)->revised(['title' => 'zyxwv'])->create();
@@ -140,7 +141,7 @@ class TalkTest extends TestCase
         $this->assertEquals('zyxwv', $talks->sortByTitle()->last()->currentRevision->title);
     }
 
-    /** @test */
+    #[Test]
     public function user_talks_can_be_sorted_by_date()
     {
         $user = User::factory()->create();
@@ -162,8 +163,8 @@ class TalkTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function user_talks_json_encode_without_keys()
+    #[Test]
+    public function user_talks_json_encode_without_keys(): void
     {
         $user = User::factory()->create();
 
@@ -180,7 +181,7 @@ class TalkTest extends TestCase
         $this->assertTrue(is_array(json_decode($json)));
     }
 
-    /** @test */
+    #[Test]
     public function viewing_the_create_talk_form(): void
     {
         $user = User::factory()->create();
@@ -190,8 +191,8 @@ class TalkTest extends TestCase
         $response->assertSuccessful();
     }
 
-    /** @test */
-    public function user_can_create_a_talk()
+    #[Test]
+    public function user_can_create_a_talk(): void
     {
         $user = User::factory()->create();
 
@@ -226,8 +227,8 @@ class TalkTest extends TestCase
             ->assertSee('No, really.');
     }
 
-    /** @test */
-    function new_talks_must_include_required_fields()
+    #[Test]
+    public function new_talks_must_include_required_fields(): void
     {
         $user = User::factory()->create();
 
@@ -244,8 +245,8 @@ class TalkTest extends TestCase
         ]);
     }
 
-    /** @test */
-    function new_talks_must_include_a_valid_length()
+    #[Test]
+    public function new_talks_must_include_a_valid_length(): void
     {
         $user = User::factory()->create();
 
@@ -262,8 +263,8 @@ class TalkTest extends TestCase
         $response->assertInvalid(['length']);
     }
 
-    /** @test */
-    function new_talks_with_slides_must_include_a_valid_slides_url()
+    #[Test]
+    public function new_talks_with_slides_must_include_a_valid_slides_url(): void
     {
         $user = User::factory()->create();
 
@@ -281,8 +282,8 @@ class TalkTest extends TestCase
         $response->assertInvalid(['slides']);
     }
 
-    /** @test */
-    public function user_can_delete_a_talk()
+    #[Test]
+    public function user_can_delete_a_talk(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -299,8 +300,8 @@ class TalkTest extends TestCase
         $this->assertModelMissing($talkRevision);
     }
 
-    /** @test */
-    public function user_can_save_a_new_revision_of_a_talk()
+    #[Test]
+    public function user_can_save_a_new_revision_of_a_talk(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)
@@ -325,8 +326,8 @@ class TalkTest extends TestCase
         $this->assertEquals('old title', $talk->revisions->last()->title);
     }
 
-    /** @test */
-    function revised_talks_must_include_required_fields()
+    #[Test]
+    public function revised_talks_must_include_required_fields(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -344,8 +345,8 @@ class TalkTest extends TestCase
         ]);
     }
 
-    /** @test */
-    function revised_talks_must_include_a_valid_length()
+    #[Test]
+    public function revised_talks_must_include_a_valid_length(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -358,8 +359,8 @@ class TalkTest extends TestCase
         $response->assertInvalid(['length']);
     }
 
-    /** @test */
-    function revised_talks_with_slides_must_include_a_valid_slides_url()
+    #[Test]
+    public function revised_talks_with_slides_must_include_a_valid_slides_url(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->create();
@@ -372,8 +373,8 @@ class TalkTest extends TestCase
         $response->assertInvalid(['slides']);
     }
 
-    /** @test */
-    public function scoping_talks_where_submitted()
+    #[Test]
+    public function scoping_talks_where_submitted(): void
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();
@@ -388,8 +389,8 @@ class TalkTest extends TestCase
         $this->assertNotContains($talkRevisionB->talk_id, $submittedTalkIds);
     }
 
-    /** @test */
-    public function scoping_talks_where_accepted()
+    #[Test]
+    public function scoping_talks_where_accepted(): void
     {
         [$talkRevisionA, $talkRevisionB] = TalkRevision::factory()->count(2)->create();
         $conference = Conference::factory()->create();
@@ -411,8 +412,8 @@ class TalkTest extends TestCase
         $this->assertNotContains($talkRevisionB->talk_id, $acceptedTalkIds);
     }
 
-    /** @test */
-    function archived_talks_are_not_included_in_queries_by_default()
+    #[Test]
+    public function archived_talks_are_not_included_in_queries_by_default(): void
     {
         $talk = Talk::factory()->archived()->create();
 
@@ -424,8 +425,8 @@ class TalkTest extends TestCase
         $this->assertContains($talk->id, $allTalks->pluck('id'));
     }
 
-    /** @test */
-    function archived_talks_can_be_restored()
+    #[Test]
+    public function archived_talks_can_be_restored(): void
     {
         $talk = Talk::factory()->archived()->create();
 
@@ -436,8 +437,8 @@ class TalkTest extends TestCase
         $this->assertFalse($talk->fresh()->isArchived());
     }
 
-    /** @test */
-    function archived_talks_can_be_deleted()
+    #[Test]
+    public function archived_talks_can_be_deleted(): void
     {
         $talk = Talk::factory()->archived()->create();
 
@@ -448,7 +449,7 @@ class TalkTest extends TestCase
         $this->assertDatabaseMissing('talks', ['id' => $talk->id]);
     }
 
-    /** @test */
+    #[Test]
     public function editing_a_talk(): void
     {
         $talk = Talk::factory()->create();

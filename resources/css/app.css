@@ -1,9 +1,9 @@
+@import "./calendar";
+@import "./mobile-menu-button";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "./calendar";
-@import "./mobile-menu-button";
 
 [v-cloak] {
     display: none;

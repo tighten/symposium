@@ -4,11 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\Bio;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class BiosTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function viewing_bio_list(): void
     {
         $user = User::factory()->create();
@@ -21,7 +22,7 @@ class BiosTest extends TestCase
         $response->assertSee('The Life of a Jedi');
     }
 
-    /** @test */
+    #[Test]
     public function creating_a_bio(): void
     {
         $user = User::factory()->create();
@@ -32,8 +33,8 @@ class BiosTest extends TestCase
         $response->assertSuccessful();
     }
 
-    /** @test */
-    public function user_can_create_a_private_bio()
+    #[Test]
+    public function user_can_create_a_private_bio(): void
     {
         $user = User::factory()->create();
 
@@ -53,8 +54,8 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function user_can_create_a_public_bio()
+    #[Test]
+    public function user_can_create_a_public_bio(): void
     {
         $user = User::factory()->create();
 
@@ -74,7 +75,7 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function validating_required_fields_when_creating()
     {
         $user = User::factory()->create();
@@ -91,7 +92,7 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function viewing_a_bio()
     {
         $user = User::factory()->create();
@@ -106,7 +107,7 @@ class BiosTest extends TestCase
         $response->assertSee('The Life of a Jedi');
     }
 
-    /** @test */
+    #[Test]
     public function editing_a_bio(): void
     {
         $user = User::factory()->create();
@@ -120,8 +121,8 @@ class BiosTest extends TestCase
         $response->assertSee('The Life of a Jedi');
     }
 
-    /** @test */
-    public function user_can_edit_their_bio()
+    #[Test]
+    public function user_can_edit_their_bio(): void
     {
         $user = User::factory()->create();
         $bio = Bio::factory()->for($user)->create();
@@ -140,8 +141,8 @@ class BiosTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function user_cannot_edit_a_bio_that_they_do_not_own()
+    #[Test]
+    public function user_cannot_edit_a_bio_that_they_do_not_own(): void
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
@@ -152,8 +153,8 @@ class BiosTest extends TestCase
         $response->assertNotFound();
     }
 
-    /** @test */
-    public function user_can_delete_their_bio()
+    #[Test]
+    public function user_can_delete_their_bio(): void
     {
         $user = User::factory()->create();
         $bio = Bio::factory()->for($user)->create([
@@ -167,8 +168,8 @@ class BiosTest extends TestCase
         $this->assertModelMissing($bio);
     }
 
-    /** @test */
-    public function user_cannot_delete_a_bio_they_dont_own()
+    #[Test]
+    public function user_cannot_delete_a_bio_they_dont_own(): void
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();

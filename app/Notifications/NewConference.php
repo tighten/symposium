@@ -16,14 +16,14 @@ class NewConference extends Notification
         $this->conference = $conference;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title('New conference created')

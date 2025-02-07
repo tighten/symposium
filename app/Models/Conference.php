@@ -5,17 +5,13 @@ namespace App\Models;
 use App\Casts\Coordinates;
 use App\Casts\SpeakerPackage;
 use App\Casts\Url;
-use App\Models\Acceptance;
-use App\Models\ConferenceIssue;
-use App\Models\Submission;
-use App\Models\TightenSlack;
-use App\Models\User;
-use App\Models\UuidBase;
 use App\Notifications\ConferenceIssueReported;
 use Carbon\Carbon;
 use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
@@ -23,8 +19,8 @@ use Laravel\Scout\Searchable;
 class Conference extends UuidBase
 {
     use HasFactory;
-    use SoftDeletes;
     use Searchable;
+    use SoftDeletes;
 
     protected $table = 'conferences';
 
@@ -36,6 +32,7 @@ class Conference extends UuidBase
         'author_id',
         'title',
         'location',
+        'location_name',
         'latitude',
         'longitude',
         'description',
@@ -50,23 +47,6 @@ class Conference extends UuidBase
         'calling_all_papers_id',
         'has_cfp',
         'speaker_package',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     */
-    protected $casts = [
-        'starts_at' => 'datetime',
-        'ends_at' => 'datetime',
-        'cfp_starts_at' => 'datetime',
-        'cfp_ends_at' => 'datetime',
-        'is_approved' => 'boolean',
-        'is_shared' => 'boolean',
-        'author_id' => 'integer',
-        'url' => Url::class,
-        'cfp_url' => Url::class,
-        'has_cfp' => 'boolean',
-        'speaker_package' => SpeakerPackage::class,
     ];
 
     protected $attributes = [
@@ -98,41 +78,6 @@ class Conference extends UuidBase
         });
     }
 
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'author_id');
-    }
-
-    public function submissions()
-    {
-        return $this->hasMany(Submission::class);
-    }
-
-    public function acceptances()
-    {
-        return $this->hasMany(Acceptance::class);
-    }
-
-    public function usersDismissed()
-    {
-        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
-    }
-
-    public function usersFavorited()
-    {
-        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
-    }
-
-    public function issues()
-    {
-        return $this->hasMany(ConferenceIssue::class);
-    }
-
-    public function openIssues()
-    {
-        return $this->issues()->whereOpen();
-    }
-
     // @todo: Deprecate?
     public static function closingSoonest()
     {
@@ -159,6 +104,41 @@ class Conference extends UuidBase
             ->merge($hasExpiredCfp);
 
         return $return;
+    }
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+    public function acceptances(): HasMany
+    {
+        return $this->hasMany(Acceptance::class);
+    }
+
+    public function usersDismissed()
+    {
+        return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
+    }
+
+    public function usersFavorited()
+    {
+        return $this->belongstoMany(User::class, 'favorites')->withTimestamps();
+    }
+
+    public function issues(): HasMany
+    {
+        return $this->hasMany(ConferenceIssue::class);
+    }
+
+    public function openIssues()
+    {
+        return $this->issues()->whereOpen();
     }
 
     public function scopeCfpOpeningToday($query)
@@ -277,19 +257,16 @@ class Conference extends UuidBase
      * Whether CFP is currently open
      *
      * @deprecated
-     * @return bool
      */
-    public function cfpIsOpen()
+    public function cfpIsOpen(): bool
     {
         return $this->isCurrentlyAcceptingProposals();
     }
 
     /**
      * Whether conference is currently accepted talk proposals
-     *
-     * @return bool
      */
-    public function isCurrentlyAcceptingProposals()
+    public function isCurrentlyAcceptingProposals(): bool
     {
         if (! $this->hasAnnouncedCallForProposals()) {
             return false;
@@ -450,7 +427,7 @@ class Conference extends UuidBase
             'note' => $note,
         ]);
 
-        (new TightenSlack())->notify(new ConferenceIssueReported($issue));
+        (new TightenSlack)->notify(new ConferenceIssueReported($issue));
     }
 
     public function reject()
@@ -463,6 +440,28 @@ class Conference extends UuidBase
     {
         $this->rejected_at = null;
         $this->save();
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+            'cfp_starts_at' => 'datetime',
+            'cfp_ends_at' => 'datetime',
+            'is_approved' => 'boolean',
+            'is_shared' => 'boolean',
+            'author_id' => 'integer',
+            'url' => Url::class,
+            'cfp_url' => Url::class,
+            'has_cfp' => 'boolean',
+            'speaker_package' => SpeakerPackage::class,
+        ];
     }
 
     protected function coordinates(): Attribute

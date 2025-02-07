@@ -6,6 +6,7 @@ use Cknow\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -32,14 +33,14 @@ class SpeakerPackage implements Arrayable, Castable
     {
         return new class implements CastsAttributes
         {
-            public function get($model, $key, $value, $attributes)
+            public function get(Model $model, string $key, mixed $value, array $attributes)
             {
                 return new SpeakerPackage(
                     json_decode($value, true) ?? [],
                 );
             }
 
-            public function set($model, $key, $value, $attributes)
+            public function set(Model $model, string $key, mixed $value, array $attributes)
             {
                 if (! $value) {
                     return null;
@@ -54,7 +55,7 @@ class SpeakerPackage implements Arrayable, Castable
     {
         if (! $this->currency) {
             return collect();
-        };
+        }
 
         return collect($this->categories)->map(function ($item) {
             $currency = $this->currency;
@@ -67,7 +68,7 @@ class SpeakerPackage implements Arrayable, Castable
     {
         if (! $this->currency || ! array_key_exists($category, $this->categories)) {
             return;
-        };
+        }
 
         return with($this->categories[$category], function ($amount) {
             if (! $amount > 0) {
@@ -84,7 +85,7 @@ class SpeakerPackage implements Arrayable, Castable
     {
         if (! $this->currency) {
             return [];
-        };
+        }
 
         return array_merge(['currency' => $this->currency], $this->categories);
     }

@@ -19,14 +19,14 @@ class ConferenceImporterError extends Notification
         $this->message = $exception->getMessage();
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['slack'];
     }
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return (new SlackMessage)
             ->attachment(function ($attachment) {
                 $attachment
                     ->title('Conference importer encountered an error')

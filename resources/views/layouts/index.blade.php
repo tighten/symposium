@@ -2,7 +2,7 @@
 
 @section('content')
 
-@isset ($title)
+@isset($title)
     <h2 class="font-sans text-2xl text-gray-900">{{ $title }}</h2>
 @endisset
 

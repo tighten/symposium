@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\Filesystem\Factory as Filesystem;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Intervention\Image\Facades\Image;
 
 class AccountController extends Controller
@@ -16,21 +19,21 @@ class AccountController extends Controller
 
     public const HIRES_SIZE = 1250;
 
-    public function show()
+    public function show(): View
     {
         return view('account.show', [
             'user' => auth()->user(),
         ]);
     }
 
-    public function edit()
+    public function edit(): View
     {
         return view('account.edit', [
             'user' => auth()->user(),
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         request()->validate([
             'name' => 'required',
@@ -76,6 +79,51 @@ class AccountController extends Controller
         return redirect('account');
     }
 
+    public function destroy(): RedirectResponse
+    {
+        $user = auth()->user();
+
+        auth()->logout();
+        $user->delete();
+
+        Session::flash('success-message', 'Successfully deleted account.');
+
+        return redirect('/');
+    }
+
+    public function delete(): View
+    {
+        return view('account.confirm-delete');
+    }
+
+    public function export(Filesystem $storage): Response
+    {
+        $user = auth()->user();
+        $user->load('talks.revisions');
+
+        $headers = ['Content-type' => 'application/json'];
+
+        $tempName = sprintf('%d_export.json', $user->id);
+        $exportName = sprintf('export_%s.json', date('Y_m_d'));
+
+        $export = ['talks' => $user->talks->sortByTitle()->toArray()];
+
+        $storage
+            ->disk('local')
+            ->put($tempName, json_encode($export));
+
+        $path = storage_path() . '/app/';
+
+        return response()
+            ->download($path . $tempName, $exportName, $headers)
+            ->deleteFileAfterSend(true);
+    }
+
+    public function oAuthSettings(): View
+    {
+        return view('account.oauth-settings');
+    }
+
     private function updateProfilePicture($user, $picture)
     {
         // Make regular image
@@ -102,50 +150,5 @@ class AccountController extends Controller
 
         // Save the updated filename to the user
         $user->updateProfilePicture($picture->hashName());
-    }
-
-    public function delete()
-    {
-        return view('account.confirm-delete');
-    }
-
-    public function destroy()
-    {
-        $user = auth()->user();
-
-        auth()->logout();
-        $user->delete();
-
-        Session::flash('success-message', 'Successfully deleted account.');
-
-        return redirect('/');
-    }
-
-    public function export(Filesystem $storage)
-    {
-        $user = auth()->user();
-        $user->load('talks.revisions');
-
-        $headers = ['Content-type' => 'application/json'];
-
-        $tempName = sprintf('%d_export.json', $user->id);
-        $exportName = sprintf('export_%s.json', now()->format('Y_m_d'));
-
-        $export = ['talks' => $user->talks->sortByTitle()->toArray()];
-
-        $storage
-            ->disk('local')
-            ->put($tempName, json_encode($export));
-
-        $path = storage_path() . '/app/';
-
-        return response()
-            ->download($path . $tempName, $exportName, $headers)
-            ->deleteFileAfterSend(true);
-    }
-
-    public function oAuthSettings()
-    {
-        return view('account.oauth-settings');
     }
 }

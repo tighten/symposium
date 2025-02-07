@@ -8,12 +8,12 @@ use App\Models\Submission;
 use App\Models\Talk;
 use App\Models\TalkRevision;
 use App\Models\User;
-use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AcceptanceTest extends TestCase
 {
-    /** @test */
-    public function can_create_from_submission()
+    #[Test]
+    public function can_create_from_submission(): void
     {
         $user = User::factory()->create();
         $this->be($user);
@@ -36,8 +36,8 @@ class AcceptanceTest extends TestCase
         $this->assertEquals($submission->id, $acceptance->submission->id);
     }
 
-    /** @test */
-    public function user_can_remove_acceptance_via_http()
+    #[Test]
+    public function user_can_remove_acceptance_via_http(): void
     {
         $user = User::factory()->create();
         $talk = Talk::factory()->author($user)->accepted()->create();

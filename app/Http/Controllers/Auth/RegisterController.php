@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
@@ -40,22 +39,19 @@ class RegisterController extends Controller
     protected $redirectTo = '/dashboard';
 
     /**
-     * Create a new controller instance.
+     * Handle a registration request for the application.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function register(RegisterFormRequest $request)
     {
-        $this->middleware('guest');
+        return $this->registerUser($request);
     }
 
     /**
      * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
@@ -65,23 +61,9 @@ class RegisterController extends Controller
     }
 
     /**
-     * Handle a registration request for the application.
-     *
-     * @param  \App\Http\Requests\Auth\RegisterFormRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(RegisterFormRequest $request)
-    {
-        return $this->registerUser($request);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         $user = User::create([
             'name' => $data['name'],

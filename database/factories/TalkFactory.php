@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 
 class TalkFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'author_id' => User::factory(),

@@ -21,48 +21,42 @@
     "homepage": "https://symposiumapp.com/",
     "type": "project",
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "algolia/algoliasearch-client-php": "^3.3",
-        "awcodes/drop-in-action": "^0.2.0",
-        "blade-ui-kit/blade-icons": "^1.5",
-        "bugsnag/bugsnag-laravel": "^2.26",
-        "cknow/laravel-money": "^7.1",
+        "blade-ui-kit/blade-icons": "^1.7",
+        "cknow/laravel-money": "^8.3",
         "creativeorange/gravatar": "^1.0",
-        "doctrine/dbal": "^3.6",
+        "doctrine/dbal": "^3.9",
         "erusev/parsedown": "^1.7",
-        "filament/filament": "^2.0",
-        "geoip/geoip": "^1.17",
-        "guzzlehttp/guzzle": "^7.2",
+        "filament/filament": "^3.2",
+        "guzzlehttp/guzzle": "^7.9",
         "intervention/image": "^2.7",
-        "laravel/framework": "^9.52",
-        "laravel/passport": "^10.4",
-        "laravel/scout": "^9.8",
-        "laravel/slack-notification-channel": "^2.5",
-        "laravel/socialite": "^5.6",
-        "laravel/tinker": "^2.7",
-        "laravel/ui": "^3.4",
-        "laravelcollective/html": "^6.4",
+        "laravel/framework": "^11.41",
+        "laravel/passport": "^12.4",
+        "laravel/scout": "^10.12",
+        "laravel/slack-notification-channel": "^3.4",
+        "laravel/socialite": "^5.17",
+        "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.6",
         "lcobucci/jwt": "^4.3",
-        "league/flysystem-aws-s3-v3": "^3.12",
-        "livewire/livewire": "^2.12",
-        "pragmarx/firewall": "^2.3",
+        "league/flysystem-aws-s3-v3": "^3.29",
+        "livewire/livewire": "^3.5",
         "predis/predis": "^1.1",
         "recaptcha/php5": "^2.0",
-        "staudenmeir/eloquent-has-many-deep": "^1.7",
-        "symfony/http-client": "^6.0",
-        "symfony/intl": "^6.0",
-        "symfony/mailgun-mailer": "^6.0",
-        "thujohn/twitter": "^3.1"
+        "spatie/laravel-flare": "^1.1",
+        "staudenmeir/eloquent-has-many-deep": "^1.20",
+        "symfony/http-client": "^7.0",
+        "symfony/intl": "^7.0",
+        "symfony/mailgun-mailer": "^7.0",
+        "thujohn/twitter": "^3.3"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.8",
-        "beyondcode/laravel-dump-server": "^1.9",
-        "fakerphp/faker": "^1.9.1",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.3",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.5",
-        "tightenco/duster": "^0.3.2"
+        "barryvdh/laravel-debugbar": "^3.14",
+        "fakerphp/faker": "^1.23",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.0",
+        "phpunit/phpunit": "^11.0.1",
+        "tightenco/duster": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -95,7 +89,8 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "test": "phpunit"
     },
@@ -112,6 +107,6 @@
             "dont-discover": []
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
