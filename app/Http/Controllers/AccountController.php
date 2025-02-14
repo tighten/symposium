@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\Filesystem\Factory as Filesystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -96,23 +95,24 @@ class AccountController extends Controller
         return view('account.confirm-delete');
     }
 
-    public function export(Filesystem $storage): Response
+    public function export()
     {
         $user = auth()->user();
-        $user->load('talks.revisions');
+        $user->load([
+            'talks' => fn ($query) => $query->withCurrentRevision(),
+            'talks.revisions',
+        ]);
 
         $headers = ['Content-type' => 'application/json'];
 
         $tempName = sprintf('%d_export.json', $user->id);
-        $exportName = sprintf('export_%s.json', date('Y_m_d'));
+        $exportName = sprintf('export_%s.json', now()->format('Y_m_d'));
 
         $export = ['talks' => $user->talks->sortByTitle()->toArray()];
 
-        $storage
-            ->disk('local')
-            ->put($tempName, json_encode($export));
+        Storage::disk('local')->put($tempName, json_encode($export));
 
-        $path = storage_path() . '/app/';
+        $path = Storage::disk('local')->path('/');
 
         return response()
             ->download($path . $tempName, $exportName, $headers)
