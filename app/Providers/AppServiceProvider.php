@@ -2,12 +2,10 @@
 
 namespace App\Providers;
 
-use App\CallingAllPapers\Client;
 use App\Exceptions\ExceptionHandler;
 use App\Exceptions\Handler;
 use App\Handlers\Events\SlackSubscriber;
 use Exception;
-use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -84,21 +82,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Passport::withoutCookieSerialization();
 
-        $this->registerCallingAllPapersClient();
-
         $this->app->bind(ExceptionHandler::class, Handler::class);
-    }
-
-    public function registerCallingAllPapersClient()
-    {
-        $this->app->when(Client::class)
-            ->needs(GuzzleClient::class)
-            ->give(function () {
-                return new GuzzleClient([
-                    'headers' => ['User-Agent' => 'Symposium CLI'],
-                    'base_uri' => 'https://api.callingallpapers.com/v1/cfp',
-                ]);
-            });
     }
 
     public function bootBroadcast(): void

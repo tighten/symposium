@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\CallingAllPapers\Client;
 use App\CallingAllPapers\ConferenceImporter;
 use App\CallingAllPapers\Event;
 use App\Casts\Coordinates;
@@ -9,6 +10,7 @@ use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
 use App\Services\Geocoder\Geocoder;
 use App\Services\Geocoder\GeocoderResponse;
+use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Test;
@@ -552,5 +554,27 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         }
 
         $this->fail('An ' . UnexpectedValueException::class . ' was expected but not thrown');
+    }
+
+    #[Test]
+    public function returning_events_from_the_client(): void
+    {
+        Http::fake([
+            '*' => Http::response(['cfps' => [
+                array_merge($this->rawEvent(), [
+                    'name' => 'Metal conference',
+                    '_rel' => ['cfp_uri' => 'v1/cfp/abcdef1234567890abcdef1234567890abcdef122017'],
+                ]),
+            ]]),
+        ]);
+
+        $events = app(Client::class)->getEvents();
+
+        $this->assertCount(1, $events);
+        $this->assertEquals('Metal conference', $events->first()->name);
+
+        Http::assertSent(function ($request) {
+            return $request->url() === 'https://api.callingallpapers.com/v1/cfp';
+        });
     }
 }
