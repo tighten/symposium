@@ -39,23 +39,39 @@ trait MocksCallingAllPapers
         return $mockClient;
     }
 
-    public function stubEvent()
+    public function stubEvent(array $overrides = [])
     {
         $_rel = new stdClass;
         $_rel->cfp_uri = "v1/cfp/{$this->eventId}";
 
         $event = new stdClass;
 
+        $raw = array_merge($this->rawEvent(), $overrides);
+
         $event->_rel = $_rel;
-        $event->name = 'ABC conference';
-        $event->description = 'The greatest conference ever.';
-        $event->eventUri = 'https://www.example.com/';
-        $event->uri = 'https://cfp.example.com/';
-        $event->dateCfpStart = '2017-08-20T00:00:00-04:00';
-        $event->dateCfpEnd = '2017-09-22T00:00:00-04:00';
-        $event->dateEventStart = '2017-10-20T00:00:00-04:00';
-        $event->dateEventEnd = '2017-12-22T00:00:00-04:00';
+        $event->name = $raw['name'];
+        $event->description = $raw['description'];
+        $event->eventUri = $raw['eventUri'];
+        $event->uri = $raw['uri'];
+        $event->dateCfpStart = $raw['dateCfpStart'];
+        $event->dateCfpEnd = $raw['dateCfpEnd'];
+        $event->dateEventStart = $raw['dateEventStart'];
+        $event->dateEventEnd = $raw['dateEventEnd'];
 
         $this->eventStub = Event::createFromApiObject($event);
+    }
+
+    public function rawEvent()
+    {
+        return [
+            'name' => 'ABC conference',
+            'description' => 'The greatest conference ever.',
+            'eventUri' => 'https://www.example.com/',
+            'uri' => 'https://cfp.example.com/',
+            'dateCfpStart' => '2017-08-20T00:00:00-04:00',
+            'dateCfpEnd' => '2017-09-22T00:00:00-04:00',
+            'dateEventStart' => '2017-10-20T00:00:00-04:00',
+            'dateEventEnd' => '2017-12-22T00:00:00-04:00',
+        ];
     }
 }

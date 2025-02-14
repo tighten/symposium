@@ -3,15 +3,19 @@
 namespace Tests\Feature;
 
 use App\CallingAllPapers\ConferenceImporter;
+use App\CallingAllPapers\Event;
 use App\Casts\Coordinates;
 use App\Exceptions\InvalidAddressGeocodingException;
 use App\Models\Conference;
 use App\Services\Geocoder\Geocoder;
 use App\Services\Geocoder\GeocoderResponse;
 use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
+use UnexpectedValueException;
+use stdClass;
 
 class CallingAllPapersConferenceImporterTest extends TestCase
 {
@@ -70,6 +74,43 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->assertEquals($this->eventStub->name, $conference->title);
         $this->assertEquals($this->eventStub->description, $conference->description);
         $this->assertEquals($this->eventStub->uri, $conference->cfp_url);
+    }
+
+    #[Test]
+    public function events_without_a_start_date_can_be_imported_with_cfp_end_date(): void
+    {
+        $this->stubEvent([
+            'dateEventStart' => '',
+            'dateCfpEnd' => '2017-12-22T00:00:00-04:00',
+        ]);
+        $this->mockClient($this->eventStub);
+
+        $importer = new ConferenceImporter(1);
+        $importer->import($this->eventStub);
+
+        $conference = Conference::first();
+        $this->assertNotNull($conference);
+    }
+
+    #[Test]
+    public function events_without_a_start_date_or_cfp_end_date_cannot_be_imported(): void
+    {
+        try {
+            $this->stubEvent([
+                'dateEventStart' => '',
+                'dateCfpEnd' => '',
+            ]);
+
+            $this->mockClient($this->eventStub);
+            $importer = new ConferenceImporter(1);
+            $importer->import($this->eventStub);
+        } catch (UnexpectedValueException $e) {
+            $conference = Conference::first();
+            $this->assertNull($conference);
+            return;
+        }
+
+        $this->fail('An ' . UnexpectedValueException::class . ' was expected but not thrown');
     }
 
     #[Test]
@@ -490,5 +531,26 @@ class CallingAllPapersConferenceImporterTest extends TestCase
 
         $spy->shouldNotHaveReceived('geocode');
         $this->assertEquals(1, Conference::count());
+    }
+
+    #[Test]
+    #[DoesNotPerformAssertions]
+    public function an_exception_is_thrown_for_an_invalid_cfp_uri(): void
+    {
+        $this->mockClient();
+
+        $_rel = new stdClass;
+        $_rel->cfp_uri = "v0/cfp/invalid-uri";
+
+        $event = new stdClass;
+        $event->_rel = $_rel;
+
+        try {
+            $this->eventStub = Event::createFromApiObject($event);
+        } catch (UnexpectedValueException $e) {
+            return;
+        }
+
+        $this->fail('An ' . UnexpectedValueException::class . ' was expected but not thrown');
     }
 }

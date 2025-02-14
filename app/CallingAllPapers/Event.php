@@ -88,6 +88,6 @@ class Event
 
     private static function isValidDateString(string $date)
     {
-        return $date !== '1970-01-01T00:00:00+00:00';
+        return $date && $date !== '1970-01-01T00:00:00+00:00';
     }
 }

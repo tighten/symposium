@@ -28,6 +28,8 @@ class ConferenceApiTest extends TestCase
     {
         $response = $this->call('GET', 'api/conferences');
         $data = json_decode($response->getContent());
+
+        $response->assertSuccessful();
     }
 
     #[Test]
