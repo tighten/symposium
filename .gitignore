@@ -14,6 +14,7 @@
 /storage/debugbar
 /storage/framework/testing
 /.phpunit.cache
+/.phpunit.result.cache
 .idea/*
 phpunit.xml
 /public/build
