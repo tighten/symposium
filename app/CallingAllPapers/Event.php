@@ -56,10 +56,6 @@ class Event
             }
 
             $event->$property = $object->$property ?? null;
-
-            if (substr($property, 0, 4) == 'date' && ! self::isValidDateString($event->$property)) {
-                $event->$property = null;
-            }
         }
 
         return $event;
