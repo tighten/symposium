@@ -10,6 +10,7 @@ use App\Models\TalkRevision;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -267,5 +268,18 @@ class AccountTest extends TestCase
             'user_id' => $user->id,
             'conference_id' => $conference->id,
         ]);
+    }
+
+    #[Test]
+    public function users_can_export_their_account()
+    {
+        Storage::fake();
+        Carbon::setTestNow('2024-05-04');
+
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('account.export'));
+
+        $response->assertDownload('export_2024_05_04.json');
     }
 }
