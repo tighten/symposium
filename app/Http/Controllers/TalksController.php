@@ -65,9 +65,11 @@ class TalksController extends Controller
 
     public function show($id, Request $request): View
     {
-        $talk = auth()->user()->talks()->findOrFail($id);
+        $talk = auth()->user()->talks()->findOrFail($id)->loadCurrentRevision();
 
-        $current = $request->filled('revision') ? $talk->revisions()->findOrFail($request->input('revision')) : $talk->loadCurrentRevision()->currentRevision;
+        $current = $request->filled('revision')
+            ? $talk->revisions()->findOrFail($request->input('revision'))
+            : $talk->currentRevision;
 
         $submissions = Submission::where('talk_revision_id', $current->id)
             ->with(['conference', 'acceptance', 'rejection'])
