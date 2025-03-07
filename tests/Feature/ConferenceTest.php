@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Casts\SpeakerPackage;
 use App\Livewire\ConferenceList;
 use App\Models\Conference;
 use App\Models\Talk;
@@ -667,6 +668,42 @@ class ConferenceTest extends TestCase
 
         $response->assertSuccessful();
         $response->assertSee('My Best Talk');
+    }
+
+    #[Test]
+    public function viewing_conference_with_a_speaker_package(): void
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()
+            ->withSpeakerPackage([
+                'currency' => 'usd',
+                'food' => 100,
+            ])
+            ->create([
+        ]);
+
+        $response = $this->actingAs($user)->get(route('conferences.show', $conference));
+
+        $response->assertSuccessful();
+        $response->assertSee(100.00);
+    }
+
+    #[Test]
+    public function speaker_package_isnt_visible_when_currency_missing(): void
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()
+            ->withSpeakerPackage([
+                'currency' => null,
+                'food' => 100,
+            ])
+            ->create([
+        ]);
+
+        $response = $this->actingAs($user)->get(route('conferences.show', $conference));
+
+        $response->assertSuccessful();
+        $response->assertDontSee('food');
     }
 
     #[Test]

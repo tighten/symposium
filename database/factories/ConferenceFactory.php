@@ -173,17 +173,15 @@ class ConferenceFactory extends Factory
         });
     }
 
-    public function withSpeakerPackage()
+    public function withSpeakerPackage(array $speakerPackage = [])
     {
-        $speakerPackage = [
-            'currency' => 'usd',
-            'travel' => 1000,
-            'food' => 1000,
-            'hotel' => 1000,
-        ];
-
         return $this->state([
-            'speaker_package' => new SpeakerPackage($speakerPackage),
+            'speaker_package' => new SpeakerPackage(array_merge([
+                'currency' => 'usd',
+                'travel' => 1000,
+                'food' => 1000,
+                'hotel' => 1000,
+            ], $speakerPackage)),
         ]);
     }
 
