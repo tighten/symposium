@@ -11,10 +11,6 @@ Artisan::command('inspire', function () {
 Schedule::command('callingallpapers:sync')
     ->hourly();
 
-// Schedule::command('tweet:cfpDates')
-//      ->dailyAt('08:00')
-//      ->environments('production');
-
 Schedule::command('symposium:notifyCfps')
     ->dailyAt('08:00')
     ->environments('production');

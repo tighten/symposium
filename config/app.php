@@ -14,7 +14,6 @@ return [
         'Paginator' => Illuminate\Support\Facades\Paginator::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Twitter' => Atymic\Twitter\Facade\Twitter::class,
     ])->toArray(),
 
 ];

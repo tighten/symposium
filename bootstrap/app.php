@@ -11,7 +11,6 @@ return Application::configure(basePath: dirname(__DIR__))
         \Laravel\Scout\ScoutServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
-        \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
         \Laravel\Socialite\SocialiteServiceProvider::class,
         \App\Providers\Filament\AdminPanelProvider::class,
