@@ -108,13 +108,6 @@ class Conference extends UuidBase
         return $this->issues()->whereOpen();
     }
 
-    public function scopeCfpClosingTomorrow($query)
-    {
-        return $query
-            ->where('cfp_ends_at', '>=', Carbon::now()->addDay()->startOfDay())
-            ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
-    }
-
     public function scopeWhereCfpIsFuture($query)
     {
         return $query
@@ -127,11 +120,6 @@ class Conference extends UuidBase
     {
         return $query
             ->where('starts_at', '>', Carbon::now());
-    }
-
-    public function scopeWhereAfter($query, Carbon $date)
-    {
-        $query->where('starts_at', '>', $date);
     }
 
     public function scopeWhereCfpIsOpen($query)
