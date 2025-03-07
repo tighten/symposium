@@ -40,15 +40,15 @@ class ConferenceIssuesTest extends TestCase
                 'note' => 'this conference is spam',
             ]);
 
-        $response->assertRedirect(
-            route('conferences.show', $conference),
-        );
-        $this->assertDatabaseHas('conference_issues', [
-            'conference_id' => $conference->id,
-            'user_id' => $user->id,
-            'reason' => 'spam',
-            'note' => 'this conference is spam',
-        ]);
+        $response->assertRedirect(route('conferences.show', $conference));
+
+        tap($conference->issues->first(), function ($issue) use ($user) {
+            $this->assertNotNull($issue);
+            $this->assertTrue($issue->user->is($user));
+            $this->assertEquals('spam', $issue->reason);
+            $this->assertEquals('this conference is spam', $issue->note);
+        });
+
         Notification::assertSentToTightenSlack(ConferenceIssueReported::class);
     }
 
