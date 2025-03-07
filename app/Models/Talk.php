@@ -134,13 +134,6 @@ class Talk extends UuidBase
         })->first();
     }
 
-    public function getMyAcceptanceForConference(Conference $conference)
-    {
-        return $conference->myAcceptedTalks()->filter(function ($item) {
-            return $item->talkRevision->talk->id === $this->id;
-        })->first();
-    }
-
     protected function casts(): array
     {
         return [

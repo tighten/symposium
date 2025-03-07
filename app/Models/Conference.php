@@ -88,11 +88,6 @@ class Conference extends UuidBase
         return $this->hasMany(Submission::class);
     }
 
-    public function acceptances(): HasMany
-    {
-        return $this->hasMany(Acceptance::class);
-    }
-
     public function usersDismissed()
     {
         return $this->belongstoMany(User::class, 'dismissed_conferences')->withTimestamps();
@@ -111,13 +106,6 @@ class Conference extends UuidBase
     public function openIssues()
     {
         return $this->issues()->whereOpen();
-    }
-
-    public function scopeCfpOpeningToday($query)
-    {
-        return $query
-            ->where('cfp_starts_at', '>=', Carbon::now()->startOfDay())
-            ->where('cfp_starts_at', '<=', Carbon::now()->endOfDay());
     }
 
     public function scopeCfpClosingTomorrow($query)
@@ -303,18 +291,6 @@ class Conference extends UuidBase
 
         return $this->submissions->filter(function ($submission) use ($talks) {
             return $talks->contains($submission->talkRevision->talk);
-        });
-    }
-
-    /**
-     * Return all talks from this user that were accepted to this conference
-     */
-    public function myAcceptedTalks()
-    {
-        $talks = auth()->user()->talks;
-
-        return $this->acceptances->filter(function ($acceptance) use ($talks) {
-            return $talks->contains($acceptance->talk);
         });
     }
 
