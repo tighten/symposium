@@ -327,34 +327,6 @@ class Conference extends UuidBase
         return $this->cfp_ends_at;
     }
 
-    public function getFormattedSpeakerPackageAttribute()
-    {
-        if (! $this->speaker_package) {
-            return;
-        }
-
-        $package = Arr::except($this->speaker_package, ['currency']);
-        $currency = $this->speaker_package['currency'];
-
-        return collect($package)->map(function ($item) use ($currency) {
-            return $item > 0 ? Money::$currency($item)->formatByIntl() : null;
-        });
-    }
-
-    public function getDecimalFormatSpeakerPackageAttribute()
-    {
-        if (! $this->speaker_package) {
-            return;
-        }
-
-        $package = Arr::except($this->speaker_package, ['currency']);
-        $currency = $this->speaker_package['currency'];
-
-        return collect($package)->map(function ($item) use ($currency) {
-            return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
-        });
-    }
-
     public function reportIssue($reason, $note, User $user)
     {
         $issue = $this->issues()->create([
