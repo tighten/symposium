@@ -78,34 +78,6 @@ class Conference extends UuidBase
         });
     }
 
-    // @todo: Deprecate?
-    public static function closingSoonest()
-    {
-        $hasOpenCfp = self::whereNotNull('cfp_ends_at')
-            ->where('cfp_ends_at', '>', Carbon::now())
-            ->orderBy('cfp_ends_at', 'ASC')
-            ->get();
-        $hasNoCfp = self::whereNull('cfp_ends_at')
-            ->whereNotNull('starts_at')
-            ->orderBy('starts_at', 'ASC')
-            ->get();
-        $hasNoCfpOrConf = self::whereNull('cfp_ends_at')
-            ->whereNull('starts_at')
-            ->orderBy('title')
-            ->get();
-        $hasExpiredCfp = self::whereNotNull('cfp_ends_at')
-            ->where('cfp_ends_at', '<=', Carbon::now())
-            ->orderBy('cfp_ends_at', 'ASC')
-            ->get();
-
-        $return = $hasOpenCfp
-            ->merge($hasNoCfp)
-            ->merge($hasNoCfpOrConf)
-            ->merge($hasExpiredCfp);
-
-        return $return;
-    }
-
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
