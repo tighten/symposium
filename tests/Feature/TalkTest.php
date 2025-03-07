@@ -129,6 +129,26 @@ class TalkTest extends TestCase
     }
 
     #[Test]
+    public function viewing_a_talk_revision(): void
+    {
+        $user = User::factory()->create();
+        Conference::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+
+        $firstDraft = TalkRevision::factory()->create(['title' => 'First Draft']);
+        $talk->revisions()->save($firstDraft);
+
+        $current = TalkRevision::factory()->create(['title' => 'Final Talk']);
+        $talk->revisions()->save($current);
+
+        $response = $this->actingAs($user)
+            ->get("talks/{$talk->id}?revision=" . $firstDraft->id);
+
+        $response->assertSuccessful();
+        $response->assertSee('First Draft');
+    }
+
+    #[Test]
     public function user_talks_are_sorted_alphabetically(): void
     {
         $user = User::factory()->create();
