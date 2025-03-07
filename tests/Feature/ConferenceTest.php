@@ -657,17 +657,26 @@ class ConferenceTest extends TestCase
     }
 
     #[Test]
-    public function viewing_a_conference_includes_user_talks(): void
+    public function viewing_a_conference_includes_user_talks_with_submissions(): void
     {
-        $conference = Conference::factory()->create();
         $user = User::factory()
             ->has(Talk::factory()->revised(['title' => 'My Best Talk']))
+            ->has(Talk::factory()->revised(['title' => 'My Worst Talk']))
+            ->create();
+        [$accepted, $rejected] = $user->talks;
+        $conference = Conference::factory()
+            ->accepted($accepted->revisions->last())
+            ->rejectedTalk($rejected->revisions->last())
             ->create();
 
         $response = $this->actingAs($user)->get(route('conferences.show', $conference));
 
         $response->assertSuccessful();
         $response->assertSee('My Best Talk');
+        $response->assertViewHas('talks', function ($talks) {
+            return $talks->contains(fn ($talk) => $talk['title'] === 'My Best Talk' && $talk['accepted'])
+                && $talks->contains(fn ($talk) => $talk['title'] === 'My Worst Talk' && $talk['rejected']);
+        });
     }
 
     #[Test]
