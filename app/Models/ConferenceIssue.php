@@ -47,11 +47,6 @@ class ConferenceIssue extends Model
         $query->whereNull('closed_at');
     }
 
-    public function getDescriptionAttribute()
-    {
-        return __("conference.issues.{$this->reason}");
-    }
-
     public function getLinkAttribute()
     {
         return ConferenceIssueResource::getUrl('view', ['record' => $this]);
