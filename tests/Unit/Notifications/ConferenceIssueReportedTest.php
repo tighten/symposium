@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Notifications;
 
 use App\Models\Conference;
 use App\Models\ConferenceIssue;

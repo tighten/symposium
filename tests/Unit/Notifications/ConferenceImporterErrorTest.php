@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Notifications;
 
 use Exception;
 use App\Models\TightenSlack;
