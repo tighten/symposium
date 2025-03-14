@@ -35,6 +35,8 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
+     *
+     * @codeCoverageIgnore
      */
     public function register(): void
     {
@@ -45,6 +47,8 @@ class Handler extends ExceptionHandler
 
     /**
      * Convert an authentication exception into an unauthenticated response.
+     *
+     * @codeCoverageIgnore
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
