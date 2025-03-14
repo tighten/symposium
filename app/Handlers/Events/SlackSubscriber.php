@@ -22,10 +22,13 @@ class SlackSubscriber
             return;
         }
 
-        $events->listen('new-signup', [$this, 'onNewSignup']);
+        $events->listen('new-signup', [$this, 'onNewSignup']); // @codeCoverageIgnore
         $events->listen('new-conference', [$this, 'onNewConference']);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function onNewSignup($user, $request)
     {
         $this->slack->notify(new NewUser($user, $request->getClientIp()));
