@@ -6,11 +6,14 @@ use App\Models\Conference;
 use App\Models\ConferenceIssue;
 use App\Models\TightenSlack;
 use App\Notifications\ConferenceIssueReported;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ConferenceIssueReportedTest extends TestCase
 {
+    use RefreshDatabase;
+
     #[Test]
     public function rendering_the_notification(): void
     {
