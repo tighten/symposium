@@ -5,7 +5,6 @@ namespace App\Handlers\Events;
 use App\Models\TightenSlack;
 use App\Notifications\NewConference;
 use App\Notifications\NewUser;
-use Illuminate\Support\Facades\App;
 
 class SlackSubscriber
 {
@@ -18,10 +17,6 @@ class SlackSubscriber
 
     public function subscribe($events)
     {
-        if (empty(config('app.slack_endpoint')) || App::environment('testing')) {
-            return;
-        }
-
         $events->listen('new-signup', [$this, 'onNewSignup']); // @codeCoverageIgnore
         $events->listen('new-conference', [$this, 'onNewConference']);
     }

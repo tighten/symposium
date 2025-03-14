@@ -7,6 +7,7 @@ use App\Livewire\ConferenceList;
 use App\Models\Conference;
 use App\Models\Talk;
 use App\Models\User;
+use App\Notifications\NewConference;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -28,6 +29,8 @@ class ConferenceTest extends TestCase
     #[Test]
     public function user_can_create_conference(): void
     {
+        Notification::fake();
+
         $user = User::factory()->create();
 
         $this->actingAs($user)
@@ -41,6 +44,8 @@ class ConferenceTest extends TestCase
             'title' => 'Das Conf',
             'description' => 'A very good conference about things',
         ]);
+
+        Notification::assertSentToTightenSlack(NewConference::class);
     }
 
     #[Test]
