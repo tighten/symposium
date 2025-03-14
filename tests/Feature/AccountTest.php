@@ -61,7 +61,14 @@ class AccountTest extends TestCase
     #[Test]
     public function users_can_edit_their_profile(): void
     {
-        $user = User::factory()->create(['name' => 'Luke Skywalker']);
+        Storage::fake();
+
+        $user = User::factory()->create([
+            'name' => 'Luke Skywalker',
+            'profile_picture' => 'luke.jpg'
+        ]);
+        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . 'luke.jpg', 'content');
+        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . 'luke.jpg', 'content');
 
         $response = $this->actingAs($user)->get(route('account.edit'));
 
@@ -209,6 +216,24 @@ class AccountTest extends TestCase
         $response->assertRedirect('/');
 
         $this->assertModelMissing($user);
+    }
+
+    #[Test]
+    public function deleting_a_user_deletes_profile_pictures(): void
+    {
+        Storage::fake();
+
+        $user = User::factory()->create(['profile_picture' => 'luke.jpg']);
+        Storage::put(User::PROFILE_PICTURE_THUMB_PATH . 'luke.jpg', 'content');
+        Storage::put(User::PROFILE_PICTURE_HIRES_PATH . 'luke.jpg', 'content');
+
+        $response = $this->actingAs($user)
+            ->post('account/delete');
+
+        $response->assertRedirect('/');
+
+        Storage::disk()->assertMissing(User::PROFILE_PICTURE_THUMB_PATH . 'luke.jpg');
+        Storage::disk()->assertMissing(User::PROFILE_PICTURE_HIRES_PATH . 'luke.jpg');
     }
 
     #[Test]

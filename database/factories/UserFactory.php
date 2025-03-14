@@ -29,6 +29,13 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function nonAdmin()
+    {
+        return $this->state([
+            'role' => 0,
+        ]);
+    }
+
     public function wantsNotifications()
     {
         return $this->state([
