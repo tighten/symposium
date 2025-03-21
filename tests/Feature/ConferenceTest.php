@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Casts\SpeakerPackage;
 use App\Livewire\ConferenceList;
 use App\Models\Conference;
 use App\Models\Talk;
