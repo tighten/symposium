@@ -95,6 +95,7 @@ class PublicProfileController extends Controller
         if (! $captchaResponse->isValid()) {
             Log::info('Captcha error on public speaker profile page ' . $request->url() . '; reason: ' . $captchaResponse->getError());
             Session::flash('error-message', 'You have not passed the captcha. Please try again.');
+
             return redirect()->back();
         }
 

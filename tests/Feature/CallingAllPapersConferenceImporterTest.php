@@ -109,6 +109,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         } catch (UnexpectedValueException $e) {
             $conference = Conference::first();
             $this->assertNull($conference);
+
             return;
         }
 
@@ -542,7 +543,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
         $this->mockClient();
 
         $_rel = new stdClass;
-        $_rel->cfp_uri = "v0/cfp/invalid-uri";
+        $_rel->cfp_uri = 'v0/cfp/invalid-uri';
 
         $event = new stdClass;
         $event->_rel = $_rel;

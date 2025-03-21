@@ -6,9 +6,7 @@ use Captcha\Captcha;
 
 class FakeCaptcha extends Captcha
 {
-    public function __construct(protected $valid = true)
-    {
-    }
+    public function __construct(protected $valid = true) {}
 
     public static function invalid()
     {

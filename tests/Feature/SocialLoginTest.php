@@ -26,8 +26,8 @@ class SocialLoginTest extends TestCase
     {
         $socialiteUser = $this->mock(SocialiteUser::class, function ($user) {
             $user->shouldReceive('getId')->andReturn(1234)
-               ->shouldReceive('getEmail')->andReturn('luke@rebels.net')
-               ->shouldReceive('getName')->andReturn('Luke Skywalker');
+                ->shouldReceive('getEmail')->andReturn('luke@rebels.net')
+                ->shouldReceive('getName')->andReturn('Luke Skywalker');
         });
         Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -51,8 +51,8 @@ class SocialLoginTest extends TestCase
     {
         $socialiteUser = $this->mock(SocialiteUser::class, function ($user) {
             $user->shouldReceive('getId')->andReturn(1234)
-               ->shouldReceive('getEmail')->andReturn('luke@rebels.net')
-               ->shouldReceive('getName')->andReturn('Luke Skywalker');
+                ->shouldReceive('getEmail')->andReturn('luke@rebels.net')
+                ->shouldReceive('getName')->andReturn('Luke Skywalker');
         });
         Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 
@@ -77,8 +77,8 @@ class SocialLoginTest extends TestCase
     {
         $socialiteUser = $this->mock(SocialiteUser::class, function ($user) {
             $user->shouldReceive('getId')->andReturn(1234)
-               ->shouldReceive('getEmail')->andReturn('luke@rebels.net')
-               ->shouldReceive('getName')->andReturn('Luke Skywalker');
+                ->shouldReceive('getEmail')->andReturn('luke@rebels.net')
+                ->shouldReceive('getName')->andReturn('Luke Skywalker');
         });
         Socialite::shouldReceive('driver->user')->andReturn($socialiteUser);
 

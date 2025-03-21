@@ -693,7 +693,7 @@ class ConferenceTest extends TestCase
                 'food' => 100,
             ])
             ->create([
-        ]);
+            ]);
 
         $response = $this->actingAs($user)->get(route('conferences.show', $conference));
 
@@ -711,7 +711,7 @@ class ConferenceTest extends TestCase
                 'food' => 100,
             ])
             ->create([
-        ]);
+            ]);
 
         $response = $this->actingAs($user)->get(route('conferences.show', $conference));
 

@@ -52,6 +52,7 @@ class GeocoderTest extends TestCase
             app(Geocoder::class)->geocode('fake-address');
         } catch (InvalidAddressGeocodingException $e) {
             $this->assertTrue(cache()->has('invalid-address::' . md5('fake-address')));
+
             return;
         }
 
@@ -69,6 +70,7 @@ class GeocoderTest extends TestCase
         } catch (InvalidAddressGeocodingException $e) {
             Http::assertNothingSent();
             $this->assertTrue(cache()->has('invalid-address::' . md5('fake-address')));
+
             return;
         }
 

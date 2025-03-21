@@ -65,7 +65,7 @@ class AccountTest extends TestCase
 
         $user = User::factory()->create([
             'name' => 'Luke Skywalker',
-            'profile_picture' => 'luke.jpg'
+            'profile_picture' => 'luke.jpg',
         ]);
         Storage::put(User::PROFILE_PICTURE_THUMB_PATH . 'luke.jpg', 'content');
         Storage::put(User::PROFILE_PICTURE_HIRES_PATH . 'luke.jpg', 'content');
