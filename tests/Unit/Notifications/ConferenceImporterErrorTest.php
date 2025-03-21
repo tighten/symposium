@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Notifications;
 
-use Exception;
 use App\Models\TightenSlack;
 use App\Notifications\ConferenceImporterError;
+use Exception;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 

@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 use Tests\MocksCallingAllPapers;
 use Tests\TestCase;
 use UnexpectedValueException;
-use stdClass;
 
 class CallingAllPapersConferenceImporterTest extends TestCase
 {
