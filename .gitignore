@@ -3,6 +3,7 @@
 .env
 .sass-cache/
 /storage/*.key
+/storage/pail
 /public/css/app.css
 /public/css/app.css.map
 /public/css/filament
@@ -18,3 +19,4 @@
 phpunit.xml
 /public/build
 /public/hot
+/.nova
