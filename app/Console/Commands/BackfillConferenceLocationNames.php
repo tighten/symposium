@@ -13,7 +13,7 @@ class BackfillConferenceLocationNames extends Command
 
     protected $description = 'Backfill location names for future conferences';
 
-    public function handle()
+    public function handle(): void
     {
         $conferences = Conference::query()
             ->whereAfter(now())
