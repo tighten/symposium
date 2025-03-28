@@ -11,7 +11,7 @@ use Tests\TestCase;
 class GeocoderTest extends TestCase
 {
     #[Test]
-    public function geocoding_a_US_address(): void
+    public function geocoding_a_us_address(): void
     {
         $this->fakeAddressResponse('United States', 'Fakeville', 'NY');
 
@@ -26,7 +26,7 @@ class GeocoderTest extends TestCase
     }
 
     #[Test]
-    public function geocoding_a_non_US_address(): void
+    public function geocoding_a_non_us_address(): void
     {
         $this->fakeAddressResponse('Japan', 'Tokyo');
 

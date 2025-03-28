@@ -208,7 +208,7 @@ class CallingAllPapersConferenceImporterTest extends TestCase
     }
 
     #[Test]
-    public function it_imports_Jan_1_1970_dates_as_null(): void
+    public function it_imports_jan_1_1970_dates_as_null(): void
     {
         $event = $this->eventStub;
 
