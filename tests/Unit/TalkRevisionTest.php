@@ -12,7 +12,7 @@ class TalkRevisionTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function missing_descriptions_an_organizer_notes_are_displayed_as_empty(): void
+    public function missing_descriptions_and_organizer_notes_are_displayed_as_empty(): void
     {
         $revision = TalkRevision::factory()->create([
             'description' => '',
