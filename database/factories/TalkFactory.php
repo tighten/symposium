@@ -57,7 +57,7 @@ class TalkFactory extends Factory
     {
         return $this->afterCreating(function (Talk $talk) {
             Conference::factory()
-                ->accepted($talk->loadCurrentRevision()->currentRevision)
+                ->acceptedTalk($talk->loadCurrentRevision()->currentRevision)
                 ->create();
         });
     }

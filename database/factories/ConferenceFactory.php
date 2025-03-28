@@ -127,7 +127,7 @@ class ConferenceFactory extends Factory
         });
     }
 
-    public function accepted(TalkRevision $revision)
+    public function acceptedTalk(TalkRevision $revision)
     {
         return $this->afterCreating(function (Conference $conference) use ($revision) {
             $acceptance = Acceptance::factory()

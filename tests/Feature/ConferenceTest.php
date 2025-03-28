@@ -669,7 +669,7 @@ class ConferenceTest extends TestCase
             ->create();
         [$accepted, $rejected] = $user->talks;
         $conference = Conference::factory()
-            ->accepted($accepted->revisions->last())
+            ->acceptedTalk($accepted->revisions->last())
             ->rejectedTalk($rejected->revisions->last())
             ->create();
 
