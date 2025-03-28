@@ -330,7 +330,7 @@ class PublicSpeakerProfileTest extends TestCase
         $this->get(route('speakers-public.email', [$user->profile_slug]))
             ->assertSuccessful();
 
-        //sending email in next test
+        // sending email in next test
     }
 
     #[Test]
