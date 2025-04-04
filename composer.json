@@ -47,7 +47,7 @@
         "staudenmeir/eloquent-has-many-deep": "^1.21",
         "symfony/http-client": "^7.2",
         "symfony/intl": "^7.2",
-        "symfony/mailgun-mailer": "^7.2",
+        "symfony/mailgun-mailer": "^7.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
