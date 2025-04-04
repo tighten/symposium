@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Livewire\ConferenceList;
 use App\Models\Conference;
+use App\Models\Talk;
 use App\Models\User;
+use App\Notifications\NewConference;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -14,8 +16,20 @@ use Tests\TestCase;
 class ConferenceTest extends TestCase
 {
     #[Test]
+    public function viewing_the_create_conference_form(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('conferences.create'));
+
+        $response->assertSuccessful();
+    }
+
+    #[Test]
     public function user_can_create_conference(): void
     {
+        Notification::fake();
+
         $user = User::factory()->create();
 
         $this->actingAs($user)
@@ -29,6 +43,8 @@ class ConferenceTest extends TestCase
             'title' => 'Das Conf',
             'description' => 'A very good conference about things',
         ]);
+
+        Notification::assertSentToTightenSlack(NewConference::class);
     }
 
     #[Test]
@@ -452,6 +468,48 @@ class ConferenceTest extends TestCase
     }
 
     #[Test]
+    public function viewing_the_edit_conference_form(): void
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)->get(route('conferences.edit', $conference));
+
+        $response->assertSuccessful();
+    }
+
+    #[Test]
+    public function users_who_didnt_author_the_conference_cannot_view_the_edit_form(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $conference = Conference::factory()->author($userA)->create();
+
+        $response = $this->actingAs($userB)->get(route('conferences.edit', $conference));
+
+        $response->assertRedirect('/');
+    }
+
+    #[Test]
+    public function users_who_didnt_author_the_conference_cannot_update_it(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $conference = Conference::factory()->author($userA)->create([
+            'title' => 'My Conference',
+        ]);
+
+        $response = $this->actingAs($userB)
+            ->put(
+                route('conferences.update', $conference),
+                array_merge($conference->toArray(), ['title' => 'No, My Conference']),
+            );
+
+        $response->assertRedirect('/');
+        $this->assertEquals('My Conference', $conference->fresh()->title);
+    }
+
+    #[Test]
     public function user_can_edit_conference(): void
     {
         $user = User::factory()->create();
@@ -603,6 +661,65 @@ class ConferenceTest extends TestCase
     }
 
     #[Test]
+    public function viewing_a_conference_includes_user_talks_with_submissions(): void
+    {
+        $user = User::factory()
+            ->has(Talk::factory()->revised(['title' => 'My Best Talk']))
+            ->has(Talk::factory()->revised(['title' => 'My Worst Talk']))
+            ->create();
+        [$accepted, $rejected] = $user->talks;
+        $conference = Conference::factory()
+            ->acceptedTalk($accepted->revisions->last())
+            ->rejectedTalk($rejected->revisions->last())
+            ->create();
+
+        $response = $this->actingAs($user)->get(route('conferences.show', $conference));
+
+        $response->assertSuccessful();
+        $response->assertSee('My Best Talk');
+        $response->assertViewHas('talks', function ($talks) {
+            return $talks->contains(fn ($talk) => $talk['title'] === 'My Best Talk' && $talk['accepted'])
+                && $talks->contains(fn ($talk) => $talk['title'] === 'My Worst Talk' && $talk['rejected']);
+        });
+    }
+
+    #[Test]
+    public function viewing_conference_with_a_speaker_package(): void
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()
+            ->withSpeakerPackage([
+                'currency' => 'usd',
+                'food' => 100,
+            ])
+            ->create([
+            ]);
+
+        $response = $this->actingAs($user)->get(route('conferences.show', $conference));
+
+        $response->assertSuccessful();
+        $response->assertSee(100.00);
+    }
+
+    #[Test]
+    public function speaker_package_isnt_visible_when_currency_missing(): void
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()
+            ->withSpeakerPackage([
+                'currency' => null,
+                'food' => 100,
+            ])
+            ->create([
+            ]);
+
+        $response = $this->actingAs($user)->get(route('conferences.show', $conference));
+
+        $response->assertSuccessful();
+        $response->assertDontSee('food');
+    }
+
+    #[Test]
     public function guests_cannot_create_conference(): void
     {
         $this->get('conferences/create')
@@ -625,6 +742,62 @@ class ConferenceTest extends TestCase
         Conference::factory()->shared()->create();
 
         $this->assertEquals(1, Conference::notShared()->count());
+    }
+
+    #[Test]
+    public function navigating_to_next_month()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->addDay(),
+            'cfp_ends_at' => Carbon::now()->subDays(2),
+        ]);
+        $conferenceB = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->addDays(30),
+            'cfp_ends_at' => Carbon::now(),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'date')
+            ->call('next');
+
+        tap(
+            $response->conferences->flatten()->values()->pluck('id'),
+            function ($conferenceIds) use ($conferenceA, $conferenceB) {
+                $this->assertNotContains($conferenceA->id, $conferenceIds);
+                $this->assertContains($conferenceB->id, $conferenceIds);
+            }
+        );
+    }
+
+    #[Test]
+    public function navigating_to_previous_month()
+    {
+        Carbon::setTestNow('2023-05-04');
+
+        $conferenceA = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->addDay(),
+            'cfp_ends_at' => Carbon::now()->subDays(2),
+        ]);
+        $conferenceB = Conference::factory()->approved()->create([
+            'starts_at' => Carbon::now()->subDays(30),
+            'cfp_ends_at' => Carbon::now(),
+        ]);
+
+        $response = Livewire::test(ConferenceList::class)
+            ->set('filter', 'all')
+            ->set('sort', 'date')
+            ->call('previous');
+
+        tap(
+            $response->conferences->flatten()->values()->pluck('id'),
+            function ($conferenceIds) use ($conferenceA, $conferenceB) {
+                $this->assertNotContains($conferenceA->id, $conferenceIds);
+                $this->assertContains($conferenceB->id, $conferenceIds);
+            }
+        );
     }
 
     #[Test]
@@ -663,16 +836,16 @@ class ConferenceTest extends TestCase
         Carbon::setTestNow('2023-05-04');
 
         $conferenceA = Conference::factory()->approved()->create([
-            'starts_at' => Carbon::now()->subDay(),
+            'starts_at' => Carbon::now()->addDay(),
             'cfp_ends_at' => Carbon::now()->subDays(2),
         ]);
         $conferenceB = Conference::factory()->approved()->create([
-            'starts_at' => Carbon::now()->addDay(),
+            'starts_at' => Carbon::now()->addDays(30),
             'cfp_ends_at' => Carbon::now(),
         ]);
 
         $response = Livewire::test(ConferenceList::class)
-            ->set('filter', 'all')
+            ->set('filter', 'future')
             ->set('sort', 'date');
 
         $this->assertConferenceSort([
@@ -1304,5 +1477,16 @@ class ConferenceTest extends TestCase
         $response = $this->get(route('conferences.show', $conference));
 
         $response->assertSee('An issue has been reported for this conference.');
+    }
+
+    /** @test */
+    public function deleting_a_conference()
+    {
+        $user = User::factory()->create();
+        $conference = Conference::factory()->author($user)->create();
+
+        $response = $this->actingAs($user)->delete(route('conferences.destroy', $conference));
+
+        $response->assertRedirect(route('conferences.index'));
     }
 }

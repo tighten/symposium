@@ -40,23 +40,28 @@ class AcceptanceTest extends TestCase
     public function user_can_remove_acceptance_via_http(): void
     {
         $user = User::factory()->create();
-        $this->be($user);
+        $talk = Talk::factory()->author($user)->accepted()->create();
 
-        $conference = Conference::factory()->create();
-        $talk = Talk::factory()->author($user)->create();
-        $revision = TalkRevision::factory()->create();
-        $talk->revisions()->save($revision);
+        $this->actingAs($user)
+            ->delete("acceptances/{$talk->acceptances->first()->id}");
 
-        $acceptance = Acceptance::factory()->create();
+        $this->assertFalse($talk->submissions()->first()->isAccepted());
+        $this->assertEquals(0, $talk->acceptances()->count());
+    }
 
-        $submission = Submission::factory()->create([
-            'talk_revision_id' => $revision->id,
-            'conference_id' => $conference->id,
-            'acceptance_id' => $acceptance->id,
-        ]);
+    /** @test */
+    public function users_cannot_delete_acceptances_of_other_users(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
 
-        $this->delete("acceptances/{$acceptance->id}");
+        $talk = Talk::factory()->author($userB)->accepted()->create();
 
-        $this->assertFalse($submission->refresh()->isAccepted());
+        $response = $this->actingAs($userA)
+            ->delete("acceptances/{$talk->acceptances->first()->id}");
+
+        $response->assertUnauthorized();
+        $this->assertTrue($talk->submissions()->first()->isAccepted());
+        $this->assertEquals(1, $talk->acceptances()->count());
     }
 }

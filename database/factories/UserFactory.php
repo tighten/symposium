@@ -29,6 +29,13 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function nonAdmin()
+    {
+        return $this->state([
+            'role' => 0,
+        ]);
+    }
+
     public function wantsNotifications()
     {
         return $this->state([
@@ -47,6 +54,20 @@ class UserFactory extends Factory
     {
         return $this->state([
             'enable_profile' => false,
+        ]);
+    }
+
+    public function featured()
+    {
+        return $this->state([
+            'is_featured' => true,
+        ]);
+    }
+
+    public function notFeatured()
+    {
+        return $this->state([
+            'is_featured' => false,
         ]);
     }
 }

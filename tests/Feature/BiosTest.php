@@ -10,6 +10,30 @@ use Tests\TestCase;
 class BiosTest extends TestCase
 {
     #[Test]
+    public function viewing_bio_list(): void
+    {
+        $user = User::factory()->create();
+        Bio::factory()->for($user)->create([
+            'nickname' => 'The Life of a Jedi',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('bios.index'));
+
+        $response->assertSee('The Life of a Jedi');
+    }
+
+    #[Test]
+    public function creating_a_bio(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->get(route('bios.create'));
+
+        $response->assertSuccessful();
+    }
+
+    #[Test]
     public function user_can_create_a_private_bio(): void
     {
         $user = User::factory()->create();
@@ -49,6 +73,52 @@ class BiosTest extends TestCase
             'body' => 'A big chunk of bio-friendly text',
             'public' => '1',
         ]);
+    }
+
+    #[Test]
+    public function validating_required_fields_when_creating()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('bios.store'), []);
+
+        $response->assertSessionHasErrors([
+            'nickname',
+            'body',
+        ]);
+
+        $this->assertDatabaseMissing(Bio::class, [
+            'user_id' => $user->id,
+        ]);
+    }
+
+    #[Test]
+    public function viewing_a_bio()
+    {
+        $user = User::factory()->create();
+        $bio = Bio::factory()->for($user)->create([
+            'nickname' => 'The Life of a Jedi',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(route('bios.show', $bio));
+
+        $response->assertSuccessful();
+        $response->assertSee('The Life of a Jedi');
+    }
+
+    #[Test]
+    public function editing_a_bio(): void
+    {
+        $user = User::factory()->create();
+        $bio = Bio::factory()->for($user)->create([
+            'nickname' => 'The Life of a Jedi',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('bios.edit', $bio));
+
+        $response->assertSuccessful();
+        $response->assertSee('The Life of a Jedi');
     }
 
     #[Test]

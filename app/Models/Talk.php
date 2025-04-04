@@ -74,7 +74,7 @@ class Talk extends UuidBase
 
     public function isArchived()
     {
-        return $this->is_archived;
+        return (bool) $this->is_archived;
     }
 
     public function archive()
@@ -130,13 +130,6 @@ class Talk extends UuidBase
     public function getMySubmissionForConference(Conference $conference)
     {
         return $conference->mySubmissions()->filter(function ($item) {
-            return $item->talkRevision->talk->id === $this->id;
-        })->first();
-    }
-
-    public function getMyAcceptanceForConference(Conference $conference)
-    {
-        return $conference->myAcceptedTalks()->filter(function ($item) {
             return $item->talkRevision->talk->id === $this->id;
         })->first();
     }

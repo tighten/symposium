@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AccountController extends Controller
 {
@@ -94,7 +95,7 @@ class AccountController extends Controller
         return view('account.confirm-delete');
     }
 
-    public function export()
+    public function export(): BinaryFileResponse
     {
         $user = auth()->user();
         $user->load([

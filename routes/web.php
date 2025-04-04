@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('acceptances/{acceptance}', [AcceptancesController::class, 'destroy']);
 
-    Route::delete('rejections/{rejection}', [RejectionController::class, 'destroy']);
+    Route::delete('rejections/{rejection}', [RejectionController::class, 'destroy'])->name('rejections.delete');
 
     Route::post('submissions', [SubmissionsController::class, 'store']);
     Route::delete('submissions/{submission}', [SubmissionsController::class, 'destroy']);

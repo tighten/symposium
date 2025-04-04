@@ -42,6 +42,11 @@ class TalkRevision extends UuidBase
         return $this->hasMany(Submission::class);
     }
 
+    public function rejections()
+    {
+        return $this->hasMany(Rejection::class);
+    }
+
     public function getUrl()
     {
         return '/talks/' . $this->talk->id . '/?revision=' . $this->id;

@@ -7,6 +7,9 @@ use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 
+/**
+ * @codeCoverageIgnore
+ */
 class NewUser extends Notification
 {
     protected $user;
