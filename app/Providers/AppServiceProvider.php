@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -83,6 +85,10 @@ class AppServiceProvider extends ServiceProvider
         Passport::withoutCookieSerialization();
 
         $this->app->bind(ExceptionHandler::class, Handler::class);
+
+        if (! config('app.slack_endpoint')) {
+            $this->suppressAndLogSlackNotifications();
+        }
     }
 
     public function bootBroadcast(): void
@@ -93,6 +99,24 @@ class AppServiceProvider extends ServiceProvider
          */
         Broadcast::channel('App.User.{userId}', function ($user, $userId) {
             return (int) $user->id === (int) $userId;
+        });
+    }
+
+    private function suppressAndLogSlackNotifications()
+    {
+        Notification::extend('slack', function () {
+            return new class
+            {
+                public function send($notifiable, $notification)
+                {
+                    foreach ($notification->toSlack($notifiable)->attachments as $attachment) {
+                        Log::info('Slack notification:', [
+                            'title' => $attachment->title,
+                            'content' => $attachment->content,
+                        ]);
+                    }
+                }
+            };
         });
     }
 }
