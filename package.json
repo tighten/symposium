@@ -26,7 +26,8 @@
         "vite": "^6.0.0",
         "vue": "^2.7.0",
         "vue-loader": "^15.9.7",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "concurrently": "^9.0.1"
     },
     "dependencies": {
         "cross-env": "^7.0.3",

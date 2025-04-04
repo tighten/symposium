@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'timezone' => 'America/Detroit',
+
     'slack_endpoint' => env('SLACK_ENDPOINT'),
 
     'aliases' => Facade::defaultAliases()->merge([
