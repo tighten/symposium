@@ -15,6 +15,19 @@ use Tests\TestCase;
 class TalkTest extends TestCase
 {
     #[Test]
+    public function archiving_a_talk(): void
+    {
+        $user = User::factory()->create();
+        $talk = Talk::factory()->author($user)->create();
+        $this->assertFalse($talk->isArchived());
+
+        $response = $this->actingAs($user)->get(route('talks.archive', $talk));
+
+        $response->assertRedirect();
+        $this->assertTrue($talk->fresh()->isArchived());
+    }
+
+    #[Test]
     public function archived_talks_are_not_included_on_the_index_page(): void
     {
         $user = User::factory()->create();
@@ -56,6 +69,48 @@ class TalkTest extends TestCase
 
         $response->assertSee('my archived talk');
         $response->assertDontSee('my active talk');
+    }
+
+    #[Test]
+    public function filtering_talks_by_those_submitted_to_conferences(): void
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'My Submitted Talk'])
+            ->submitted()
+            ->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'My Backup Talk'])
+            ->create();
+
+        $response = $this->actingAs($user)->get(route('talks.index', ['filter' => 'submitted']));
+
+        $response->assertSuccessful();
+        $response->assertSee('My Submitted Talk');
+        $response->assertDontSee('My Backup Talk');
+    }
+
+    #[Test]
+    public function filtering_talks_by_those_accepted_by_conferences(): void
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'My Accepted Talk'])
+            ->accepted()
+            ->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'My Backup Talk'])
+            ->create();
+
+        $response = $this->actingAs($user)->get(route('talks.index', ['filter' => 'accepted']));
+
+        $response->assertSuccessful();
+        $response->assertSee('My Accepted Talk');
+        $response->assertDontSee('My Backup Talk');
     }
 
     #[Test]
@@ -107,6 +162,28 @@ class TalkTest extends TestCase
     }
 
     #[Test]
+    public function user_talks_can_be_sorted_by_date()
+    {
+        $user = User::factory()->create();
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'My Other Talk'])
+            ->create(['created_at' => now()->subDays(2)]);
+        Talk::factory()
+            ->author($user)
+            ->revised(['title' => 'My Awesome Talk'])
+            ->create(['created_at' => now()->subDays(1)]);
+
+        $response = $this->actingAs($user)->get(route('talks.index', ['sort' => 'date']));
+
+        $response->assertSuccessful();
+        $response->assertSeeTextInOrder([
+            'My Awesome Talk',
+            'My Other Talk',
+        ]);
+    }
+
+    #[Test]
     public function user_talks_json_encode_without_keys(): void
     {
         $user = User::factory()->create();
@@ -122,6 +199,16 @@ class TalkTest extends TestCase
         $json = json_encode($user->talks);
 
         $this->assertTrue(is_array(json_decode($json)));
+    }
+
+    #[Test]
+    public function viewing_the_create_talk_form(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('talks.create'));
+
+        $response->assertSuccessful();
     }
 
     #[Test]
@@ -391,5 +478,18 @@ class TalkTest extends TestCase
             ->get(route('talks.edit', $talk));
 
         $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function users_cannot_see_the_edit_form_for_talks_they_dont_own(): void
+    {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        $talk = Talk::factory()->author($userA)->create();
+
+        $response = $this->actingAs($userB)
+            ->get(route('talks.edit', $talk));
+
+        $response->assertNotFound();
     }
 }

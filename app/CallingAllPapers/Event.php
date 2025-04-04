@@ -56,10 +56,6 @@ class Event
             }
 
             $event->$property = $object->$property ?? null;
-
-            if (substr($property, 0, 4) == 'date' && ! self::isValidDateString($event->$property)) {
-                $event->$property = null;
-            }
         }
 
         return $event;
@@ -92,6 +88,6 @@ class Event
 
     private static function isValidDateString(string $date)
     {
-        return $date !== '1970-01-01T00:00:00+00:00';
+        return $date && $date !== '1970-01-01T00:00:00+00:00';
     }
 }

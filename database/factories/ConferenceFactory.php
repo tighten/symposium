@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Casts\SpeakerPackage;
+use App\Models\Acceptance;
 use App\Models\Conference;
 use App\Models\ConferenceIssue;
+use App\Models\Rejection;
 use App\Models\Submission;
 use App\Models\TalkRevision;
 use App\Models\User;
@@ -46,6 +48,7 @@ class ConferenceFactory extends Factory
     public function cfpDates($start, $end = null)
     {
         return $this->state([
+            'has_cfp' => true,
             'cfp_starts_at' => $start,
             'cfp_ends_at' => $end ?? $start,
         ]);
@@ -54,6 +57,7 @@ class ConferenceFactory extends Factory
     public function noCfpDates()
     {
         return $this->state([
+            'has_cfp' => false,
             'cfp_starts_at' => null,
             'cfp_ends_at' => null,
         ]);
@@ -94,6 +98,20 @@ class ConferenceFactory extends Factory
         ]);
     }
 
+    public function featured()
+    {
+        return $this->state([
+            'is_featured' => true,
+        ]);
+    }
+
+    public function notFeatured()
+    {
+        return $this->state([
+            'is_featured' => false,
+        ]);
+    }
+
     public function author($author)
     {
         return $this->for($author, 'author');
@@ -105,6 +123,38 @@ class ConferenceFactory extends Factory
             Submission::factory()
                 ->for($conference)
                 ->for($revision)
+                ->create();
+        });
+    }
+
+    public function acceptedTalk(TalkRevision $revision)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($revision) {
+            $acceptance = Acceptance::factory()
+                ->for($conference)
+                ->for($revision)
+                ->create();
+
+            Submission::factory()
+                ->for($conference)
+                ->for($revision)
+                ->for($acceptance)
+                ->create();
+        });
+    }
+
+    public function rejectedTalk(TalkRevision $revision)
+    {
+        return $this->afterCreating(function (Conference $conference) use ($revision) {
+            $acceptance = Rejection::factory()
+                ->for($conference)
+                ->for($revision)
+                ->create();
+
+            Submission::factory()
+                ->for($conference)
+                ->for($revision)
+                ->for($acceptance)
                 ->create();
         });
     }
@@ -123,17 +173,15 @@ class ConferenceFactory extends Factory
         });
     }
 
-    public function withSpeakerPackage()
+    public function withSpeakerPackage(array $speakerPackage = [])
     {
-        $speakerPackage = [
-            'currency' => 'usd',
-            'travel' => 1000,
-            'food' => 1000,
-            'hotel' => 1000,
-        ];
-
         return $this->state([
-            'speaker_package' => new SpeakerPackage($speakerPackage),
+            'speaker_package' => new SpeakerPackage(array_merge([
+                'currency' => 'usd',
+                'travel' => 1000,
+                'food' => 1000,
+                'hotel' => 1000,
+            ], $speakerPackage)),
         ]);
     }
 

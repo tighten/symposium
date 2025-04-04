@@ -6,6 +6,13 @@ use Captcha\Captcha;
 
 class FakeCaptcha extends Captcha
 {
+    public function __construct(protected $valid = true) {}
+
+    public static function invalid()
+    {
+        return new static(false);
+    }
+
     public function check($captchaResponse = false)
     {
         return $this;
@@ -13,6 +20,6 @@ class FakeCaptcha extends Captcha
 
     public function isValid()
     {
-        return true;
+        return $this->valid;
     }
 }

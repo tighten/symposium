@@ -40,14 +40,10 @@ class ConferencesController extends Controller
             return $this->showPublic($id);
         }
 
-        try {
-            if (auth()->user()->isAdmin()) {
-                $conference = Conference::withoutGlobalScope('notRejected')->findOrFail($id);
-            } else {
-                $conference = Conference::findOrFail($id);
-            }
-        } catch (Exception $e) {
-            return redirect('/');
+        if (auth()->user()->isAdmin()) {
+            $conference = Conference::withoutGlobalScope('notRejected')->findOrFail($id);
+        } else {
+            $conference = Conference::findOrFail($id);
         }
 
         $talks = auth()->user()->talks()->withCurrentRevision()->get()->sortByTitle()->map(function ($talk) use ($conference) {
@@ -105,14 +101,7 @@ class ConferencesController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        try {
-            $conference = auth()->user()->conferences()->findOrFail($id);
-        } catch (Exception $e) {
-            Log::error('User ' . auth()->user()->id . " tried to delete a conference that doesn't exist or they don't own.");
-
-            return redirect('/');
-        }
-
+        $conference = auth()->user()->conferences()->findOrFail($id);
         $conference->delete();
 
         Session::flash('success-message', 'Conference successfully deleted.');

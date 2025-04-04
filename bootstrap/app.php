@@ -11,7 +11,6 @@ return Application::configure(basePath: dirname(__DIR__))
         \Laravel\Scout\ScoutServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
-        \Atymic\Twitter\ServiceProvider\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
         \Laravel\Socialite\SocialiteServiceProvider::class,
         \App\Providers\Filament\AdminPanelProvider::class,
@@ -30,7 +29,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api('web');
 
         $middleware->alias([
-            'admin' => \App\Http\Middleware\RequireAdmin::class,
             'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
             'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
             'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,

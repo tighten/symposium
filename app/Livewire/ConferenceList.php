@@ -86,10 +86,6 @@ class ConferenceList extends Component
         return $this->conferenceQuery
             ->groupByMonth($this->dateColumn())
             ->sortKeysUsing(function ($keyA, $keyB) {
-                if (! $keyB) {
-                    return -1;
-                }
-
                 return $keyA > $keyB;
             })
             ->whenEmpty(function () {
@@ -131,6 +127,9 @@ class ConferenceList extends Component
         ];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function updatingSearch()
     {
         $this->resetPage();

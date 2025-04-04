@@ -23,11 +23,6 @@ class Bio extends UuidBase
         return $this->belongsTo(User::class);
     }
 
-    public function getPreviewAttribute()
-    {
-        return substr($this->getAttribute('body'), 0, 100) . '...';
-    }
-
     public function scopePublic($query)
     {
         return $query->where('public', true);

@@ -25,6 +25,13 @@ class TalkFactory extends Factory
         });
     }
 
+    public function public()
+    {
+        return $this->state([
+            'public' => true,
+        ]);
+    }
+
     public function archived()
     {
         return $this->state([
@@ -42,6 +49,15 @@ class TalkFactory extends Factory
         return $this->afterCreating(function (Talk $talk) {
             Conference::factory()
                 ->received($talk->loadCurrentRevision()->currentRevision)
+                ->create();
+        });
+    }
+
+    public function accepted()
+    {
+        return $this->afterCreating(function (Talk $talk) {
+            Conference::factory()
+                ->acceptedTalk($talk->loadCurrentRevision()->currentRevision)
                 ->create();
         });
     }

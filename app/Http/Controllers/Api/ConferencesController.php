@@ -44,12 +44,12 @@ class ConferencesController extends Controller
 
         switch ($sort) {
             case 'alpha':
-                $conferences->sortBy(function (EloquentConference $model) {
+                $conferences = $conferences->sortBy(function (EloquentConference $model) {
                     return strtolower($model->title);
                 });
                 break;
             case 'date':
-                $conferences->sortBy(function (EloquentConference $model) {
+                $conferences = $conferences->sortBy(function (EloquentConference $model) {
                     return $model->starts_at;
                 });
                 break;
@@ -57,7 +57,7 @@ class ConferencesController extends Controller
                 // Pass through
             default:
                 // Forces closed CFPs to the end. I feel dirty. Even dirtier with the 500 thing.
-                $conferences
+                $conferences = $conferences
                     ->sortBy(function (EloquentConference $model) {
                         if ($model->cfp_ends_at > Carbon::now()) {
                             return $model->cfp_ends_at;
@@ -71,7 +71,7 @@ class ConferencesController extends Controller
         }
 
         if ($sortDir == 'desc') {
-            $conferences->reverse();
+            $conferences = $conferences->reverse();
         }
 
         return response()->jsonApi([

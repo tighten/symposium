@@ -7,13 +7,11 @@ use App\Casts\SpeakerPackage;
 use App\Casts\Url;
 use App\Notifications\ConferenceIssueReported;
 use Carbon\Carbon;
-use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 
 class Conference extends UuidBase
@@ -78,34 +76,6 @@ class Conference extends UuidBase
         });
     }
 
-    // @todo: Deprecate?
-    public static function closingSoonest()
-    {
-        $hasOpenCfp = self::whereNotNull('cfp_ends_at')
-            ->where('cfp_ends_at', '>', Carbon::now())
-            ->orderBy('cfp_ends_at', 'ASC')
-            ->get();
-        $hasNoCfp = self::whereNull('cfp_ends_at')
-            ->whereNotNull('starts_at')
-            ->orderBy('starts_at', 'ASC')
-            ->get();
-        $hasNoCfpOrConf = self::whereNull('cfp_ends_at')
-            ->whereNull('starts_at')
-            ->orderBy('title')
-            ->get();
-        $hasExpiredCfp = self::whereNotNull('cfp_ends_at')
-            ->where('cfp_ends_at', '<=', Carbon::now())
-            ->orderBy('cfp_ends_at', 'ASC')
-            ->get();
-
-        $return = $hasOpenCfp
-            ->merge($hasNoCfp)
-            ->merge($hasNoCfpOrConf)
-            ->merge($hasExpiredCfp);
-
-        return $return;
-    }
-
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
@@ -114,11 +84,6 @@ class Conference extends UuidBase
     public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class);
-    }
-
-    public function acceptances(): HasMany
-    {
-        return $this->hasMany(Acceptance::class);
     }
 
     public function usersDismissed()
@@ -141,20 +106,6 @@ class Conference extends UuidBase
         return $this->issues()->whereOpen();
     }
 
-    public function scopeCfpOpeningToday($query)
-    {
-        return $query
-            ->where('cfp_starts_at', '>=', Carbon::now()->startOfDay())
-            ->where('cfp_starts_at', '<=', Carbon::now()->endOfDay());
-    }
-
-    public function scopeCfpClosingTomorrow($query)
-    {
-        return $query
-            ->where('cfp_ends_at', '>=', Carbon::now()->addDay()->startOfDay())
-            ->where('cfp_ends_at', '<=', Carbon::now()->addDay()->endOfDay());
-    }
-
     public function scopeWhereCfpIsFuture($query)
     {
         return $query
@@ -167,11 +118,6 @@ class Conference extends UuidBase
     {
         return $query
             ->where('starts_at', '>', Carbon::now());
-    }
-
-    public function scopeWhereAfter($query, Carbon $date)
-    {
-        $query->where('starts_at', '>', $date);
     }
 
     public function scopeWhereCfpIsOpen($query)
@@ -334,18 +280,6 @@ class Conference extends UuidBase
         });
     }
 
-    /**
-     * Return all talks from this user that were accepted to this conference
-     */
-    public function myAcceptedTalks()
-    {
-        $talks = auth()->user()->talks;
-
-        return $this->acceptances->filter(function ($acceptance) use ($talks) {
-            return $talks->contains($acceptance->talk);
-        });
-    }
-
     public function appliedTo()
     {
         return $this->mySubmissions()->count() > 0;
@@ -389,34 +323,6 @@ class Conference extends UuidBase
     public function cfpEndsAtSet()
     {
         return $this->cfp_ends_at;
-    }
-
-    public function getFormattedSpeakerPackageAttribute()
-    {
-        if (! $this->speaker_package) {
-            return;
-        }
-
-        $package = Arr::except($this->speaker_package, ['currency']);
-        $currency = $this->speaker_package['currency'];
-
-        return collect($package)->map(function ($item) use ($currency) {
-            return $item > 0 ? Money::$currency($item)->formatByIntl() : null;
-        });
-    }
-
-    public function getDecimalFormatSpeakerPackageAttribute()
-    {
-        if (! $this->speaker_package) {
-            return;
-        }
-
-        $package = Arr::except($this->speaker_package, ['currency']);
-        $currency = $this->speaker_package['currency'];
-
-        return collect($package)->map(function ($item) use ($currency) {
-            return $item > 0 ? Money::$currency($item)->formatByDecimal() : null;
-        });
     }
 
     public function reportIssue($reason, $note, User $user)
